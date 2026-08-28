@@ -5,9 +5,9 @@
 
 ## 背景
 
-当前阶段首先搭建模块接口和确定性实现，尚未完成小镇场景、UI、输入绑定、文件存档适配器或线上 AI 适配器。业务规则需要在这些集成完成前获得快速、可重复的验证。
+当前阶段首先搭建模块接口、确定性实现和 Unity 适配骨架，尚未完成可玩小镇场景、业务 UI、文件存档适配器或线上 AI 适配器。业务规则需要在这些集成完成前获得快速、可重复的验证。
 
-Unity 项目使用 Unity Test Framework `1.4.5`。Unity `6000.5.5f1` 已完成包解析和脚本编译；Unity Test Runner 执行 15 个 NUnit 用例，XML 结果为 15 passed、0 failed、0 skipped。
+`Packages/manifest.json` 请求 Unity Test Framework `1.4.5`，Unity `6000.5.5f1` 实际解析内置 `1.7.0`。2026-08-28 的隔离批处理完成包解析和脚本编译；Unity Test Runner 执行 56 个 NUnit 用例，XML 结果为 56 passed、0 failed、0 skipped。
 
 ## 评估选项
 
@@ -58,6 +58,9 @@ Unity 项目使用 Unity Test Framework `1.4.5`。Unity `6000.5.5f1` 已完成�
 | Npc | 返回固定对话 | 超时、异常或无效响应回退 |
 | Save | 写入并读取同一快照 | 空槽、损坏数据、未来版本 |
 | Core | 默认服务完整且依赖一致 | 缺失注册在测试中失败 |
+| Application | 跨日统一推进 | 日期错位、模块失败与三快照回滚 |
+| Content | 默认定义引用完整 | 重复 ID、缺失引用和不可达投入 |
+| Unity | 移动与 HUD 纯适配 | 服务袋泄漏和无效数值 |
 
 当前骨架可以先覆盖接口已表达的路径。依赖场景、文件格式或线上服务的测试在相应适配器落地时增加，不能用空断言占位。
 
@@ -65,7 +68,7 @@ Unity 项目使用 Unity Test Framework `1.4.5`。Unity `6000.5.5f1` 已完成�
 
 ### 架构骨架阶段
 
-- Unity Test Runner 能发现 `CozyTown.Tests.EditMode`。
+- Unity Test Runner 能发现 `CozyTown.Tests.EditMode` 与 `CozyTown.Tests.UnityEditMode`。
 - 每个已实现模块至少有一个可观察行为测试。
 - 余额不足、库存不足或食材不足时，无跨模块部分提交。
 - 默认组合根可以在测试中创建全部类型化服务。

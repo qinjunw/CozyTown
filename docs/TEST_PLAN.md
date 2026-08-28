@@ -4,9 +4,9 @@
 
 - 适用版本：MVP 系统框架阶段。
 - Unity 版本：`6000.5.5f1`。
-- 测试框架：Unity Test Framework `1.4.5`。
-- 当前状态：已创建 15 个 EditMode 测试用例；Unity `6000.5.5f1` 完成包解析和脚本编译，Unity Test Runner XML 结果为 15 passed、0 failed、0 skipped。
-- 当前边界：小镇场景、UI、文件存档适配器和线上 AI 适配器尚未实现，因此对应的 PlayMode、磁盘故障和联网验证仍属于后续阶段。
+- 测试框架：`manifest.json` 请求 Unity Test Framework `1.4.5`，Unity `6000.5.5f1` 实际解析内置 `1.7.0`。
+- 当前状态：两个 EditMode 测试程序集共包含 56 个用例；2026-08-28 的隔离批处理 XML 结果为 56 passed、0 failed、0 skipped。
+- 当前边界：Unity Bootstrap、移动、交互契约和调试 HUD 已有适配层测试；可玩小镇场景、业务 UI、文件存档适配器和线上 AI 适配器尚未实现，因此 PlayMode、磁盘故障和联网验证仍属于后续阶段。
 
 本计划覆盖时间、背包、经济、商店、种植、畜牧、钓鱼、烹饪、NPC 对话、AI 对话边界和存档系统。框架阶段验证模块职责、公开契约、状态转换与跨模块闭环，不验证美术质量、数值平衡、复杂 NPC 日程、季节、天气、战斗或野外地图。
 
@@ -25,21 +25,28 @@
 
 ```text
 Assets/CozyTown/Tests/
-└── EditMode/
-    ├── CozyTown.Tests.EditMode.asmdef
-    ├── Core/
-    ├── Time/
-    ├── Inventory/
-    ├── Economy/
-    ├── Farming/
-    ├── Livestock/
-    ├── Fishing/
-    ├── Cooking/
-    ├── Npc/
-    └── Save/
+├── EditMode/
+│   ├── CozyTown.Tests.EditMode.asmdef
+│   ├── Application/
+│   ├── Content/
+│   ├── Core/
+│   ├── Time/
+│   ├── Inventory/
+│   ├── Economy/
+│   ├── Farming/
+│   ├── Livestock/
+│   ├── Fishing/
+│   ├── Cooking/
+│   ├── Npc/
+│   └── Save/
+└── UnityEditMode/
+    ├── CozyTown.Tests.UnityEditMode.asmdef
+    ├── CozyTownHudStateTests.cs
+    ├── InteractionContextTests.cs
+    └── PlayerMovement2DTests.cs
 ```
 
-框架阶段不创建 PlayMode 测试程序集。出现下列场景依赖后再增加 `Assets/CozyTown/Tests/PlayMode/`：玩家输入、碰撞触发、Tilemap 表现、UI 绑定、场景切换和 MonoBehaviour 生命周期。
+M1 不创建 PlayMode 测试程序集。M2 接入可见玩家、碰撞交互点和业务 UI 时增加 `Assets/CozyTown/Tests/PlayMode/`，覆盖玩家输入启停、碰撞目标选择、UI 绑定、场景切换和 MonoBehaviour 生命周期。
 
 ### 3.1 测试夹具
 
@@ -188,9 +195,9 @@ EditMode 测试不得调用真实大模型、真实网络接口或真实文件�
 | LOOP-01 | 集成 | 购买至出售的经济闭环守恒 | P0 |
 | LOOP-02 | 集成 | 闭环状态保存并恢复 | P0 |
 
-实现框架后，P0 用例全部具备自动化测试才满足本阶段测试入口条件。P1 可以随对应交互实现补齐，但公开失败语义必须先确定。
+覆盖矩阵描述完整 MVP 的最低回归范围。每个里程碑必须自动化其已实现范围内的 P0；尚无对应适配器的 P0 保留为后续里程碑入口条件。P1 可以随对应交互实现补齐，但公开失败语义必须先确定。
 
-当前 15 个用例是测试工程和模块契约的首批回归样例，覆盖组合根、时间溢出、背包容量、交易回滚、作物成长与快照校验、畜牧产出、钓鱼命中、烹饪回滚、固定 NPC 回退和内存存档隔离。上表是后续完整 MVP 的最低覆盖目标，不表示每个条目当前均已自动化；经济闭环、AI 提供者故障注入、磁盘损坏和版本迁移要在对应协调器或适配器实现后补齐。
+当前 56 个用例覆盖组合根、时间溢出、背包容量、交易回滚、作物成长与快照校验、畜牧产出、钓鱼命中、烹饪回滚、固定 NPC 回退、内存存档隔离、跨日三模块回滚、默认内容可达性、配置数组隔离以及 Unity 移动/HUD/交互上下文表面。上表是完整 MVP 的最低覆盖目标，不表示每个条目当前均已自动化；完整经济闭环、AI 提供者故障注入、磁盘损坏、版本迁移和场景生命周期要在对应协调器或适配器实现后补齐。
 
 ## 7. 跨模块经济闭环场景
 
@@ -281,7 +288,7 @@ Windows 上 Unity 启动器可能先返回退出码 `0`，而编辑器进程随�
 
 ### 10.2 当前验证结果
 
-Unity `6000.5.5f1` 已完成包解析、资源导入和脚本编译，进程以代码 `0` 退出。随后使用 10.1 的命令运行 EditMode 测试，`EditModeTests.xml` 记录 15 passed、0 failed、0 skipped，Editor 日志未记录脚本编译错误、许可证错误或测试运行器异常。
+2026-08-28 使用 10.1 的命令在提交 `55cd247` 的隔离 Git worktree 中运行 Unity `6000.5.5f1`。批处理重新解析 43 个包并生成 `CozyTown.Runtime`、`CozyTown.Unity`、`CozyTown.Unity.Editor` 和两个测试程序集；`EditModeTests.xml` 记录 56 passed、0 failed、0 skipped。日志中 `error CS`、`Scripts have compiler errors`、`Compilation failed`、`Test run failed`、无效许可证和未处理异常的匹配数均为 0，测试运行器以代码 `0` 结束。
 
 ## 11. 人工验证步骤
 
@@ -301,7 +308,16 @@ Unity `6000.5.5f1` 已完成包解析、资源导入和脚本编译，进程以�
 
 ## 12. 阶段退出条件
 
-系统框架阶段满足以下条件后可进入细节实现：
+### 12.1 M1 核心循环基础
+
+- Runtime、Unity 适配层和两个 EditMode 测试程序集编译通过。
+- 默认内容的稳定 ID、引用与投入可达性校验通过。
+- 跨日协调失败不会留下时间、农田或畜牧的部分提交。
+- Unity 组件不公开完整服务集合，交互上下文没有领域写入口。
+- Unity Test Runner 的 56 个现有用例全部通过，日志无编译、测试或许可证错误。
+- 未实现的可玩场景、PlayMode、磁盘存档和线上 AI 明确保留为后续范围。
+
+### 12.2 完整 MVP 进入作品集交付
 
 - Runtime 与 EditMode 测试程序集编译通过。
 - 覆盖矩阵中的 P0 测试已实现且全部通过。

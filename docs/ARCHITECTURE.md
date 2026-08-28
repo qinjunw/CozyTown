@@ -2,7 +2,7 @@
 
 ## 1. 范围与当前阶段
 
-本架构采用 Unity 项目内的模块化单体。目标骨架由模块契约、确定性内存实现、显式组合根和 EditMode 组件测试组成；Unity 场景、表现层、持久化文件适配器和线上 AI 适配器在后续阶段接入。仓库当前状态和验证阻塞见 [`README.md`](../README.md)。
+本架构采用 Unity 项目内的模块化单体。当前 M1 基线由模块契约、确定性内存实现、应用协调器、默认内容、显式组合根、Unity 表现适配骨架和 EditMode 测试组成。可玩场景、业务 UI、持久化文件适配器和线上 AI 适配器在后续里程碑接入。仓库当前状态和验证结果见 [`README.md`](../README.md)。
 
 产品边界见 [`PRD.md`](PRD.md)。关键决策见：
 
@@ -10,6 +10,7 @@
 - [`ADR-0002：确定性领域与 AI 边界`](adr/0002-deterministic-domain-and-ai-boundary.md)
 - [`ADR-0003：存档版本化`](adr/0003-save-versioning.md)
 - [`ADR-0004：测试策略`](adr/0004-testing-strategy.md)
+- [`ADR-0005：Unity 适配层与窄接口注入`](adr/0005-unity-adapter-boundary.md)
 
 ## 2. 架构目标与约束
 
@@ -25,6 +26,8 @@
 ```text
 Assets/CozyTown/
 ├─ Runtime/
+│  ├─ Application/
+│  ├─ Content/
 │  ├─ Core/
 │  ├─ Time/
 │  ├─ Inventory/
@@ -35,16 +38,26 @@ Assets/CozyTown/
 │  ├─ Cooking/
 │  ├─ Npc/
 │  └─ Save/
+├─ Unity/
+│  ├─ Core/
+│  ├─ Input/
+│  ├─ Player/
+│  ├─ Interaction/
+│  ├─ Hud/
+│  └─ Editor/
 └─ Tests/
-   └─ EditMode/
+   ├─ EditMode/
+   └─ UnityEditMode/
 ```
 
-`CozyTown.Runtime` 是当前运行时程序集，并设置 `noEngineReferences: true`。目录和命名空间提供模块边界；当出现可证明的编译隔离、平台适配或依赖环问题时，再评估拆分运行时程序集。测试程序集为 `CozyTown.Tests.EditMode`，仅引用运行时程序集和 Unity Test Framework。
+`CozyTown.Runtime` 是确定性领域与应用程序集，并设置 `noEngineReferences: true`。`CozyTown.Unity` 单向引用 Runtime 和 Input System；`CozyTown.Unity.Editor` 只在 Editor 平台编译。`CozyTown.Tests.EditMode` 验证普通 C# 行为，`CozyTown.Tests.UnityEditMode` 验证不需要场景运行的 Unity 适配行为。
 
 ## 4. 模块职责与接口
 
 | 模块 | 公共入口 | 职责 | 不负责 |
 | --- | --- | --- | --- |
+| `Application` | `IDayTransitionCoordinator` | 协调时间、农田和畜牧的单次跨日事务与失败回滚 | 表现、输入、数值平衡 |
+| `Content` | `DefaultMvpContent`、`MvpContentValidator` | 提供默认稳定 ID、定义表和启动前引用/可达性校验 | 运行时状态、UI 编辑器 |
 | `Core` | `CozyTownCompositionRoot`、`CozyTownServices` | 创建默认实现并公开类型化服务引用 | 业务规则、存档格式、场景查找 |
 | `Time` | `ITimeService` | 当前天数和跨日推进 | 决定作物、动物的具体结算规则 |
 | `Inventory` | `IInventory` | 物品数量查询、增加、移除和前置校验 | 价格、配方、掉落概率 |
@@ -55,13 +68,14 @@ Assets/CozyTown/
 | `Cooking` | `ICookingService` | 配方查询、食材校验和烹饪事务 | 食材生产、料理表现 |
 | `Npc` | `INpcDialogueGenerator` | 根据只读上下文返回对话候选或固定回退 | 写入金币、物品、时间、生产或存档状态 |
 | `Save` | `ISaveStorage` | 版本化存档快照的读写边界；MVP 调用方使用一个固定槽位 ID | 收集各模块状态、业务迁移决策 |
+| `Unity` | `CozyTownBootstrap`、输入/移动/交互/HUD 适配器 | 连接 Unity 生命周期、Input System、Physics2D 与窄接口 presenter | 领域规则、全局服务解析、跨模块事务 |
 
 接口输入和输出使用模块自己的 DTO 或值对象。公开集合应以只读视图或副本返回，调用方不能通过集合引用绕过模块规则。
 
 ## 5. 依赖方向
 
 ```text
-Unity 场景与 UI（后续）
+Unity 场景、输入与 UI 适配
           │
           ▼
 用例协调器 / 公开模块接口
@@ -88,12 +102,12 @@ CozyTownCompositionRoot 只负责创建并连接上述对象。
 
 ## 6. 组合根
 
-`Runtime/Core/CozyTownCompositionRoot.cs` 是默认对象图的唯一构造入口。`Create(configuration)` 根据 `CozyTownConfiguration` 创建对象图，`CreateEmpty()` 创建空配置骨架；两者都返回通过显式类型化属性公开服务的 `CozyTownServices`。调用代码不得通过 `Get<T>()` 或全局容器解析服务。
+`Runtime/Core/CozyTownCompositionRoot.cs` 是默认对象图的唯一构造入口。`CreateDefault()` 创建经过校验的 MVP 对象图，`Create(configuration)` 接收显式配置，`CreateEmpty()` 保留空配置测试入口。三者都返回类型化的 `CozyTownServices`；该服务集合只在组合边界使用，不向通用 `MonoBehaviour` 或交互上下文公开。
 
-后续场景入口的职责限定为：
+当前 `CozyTownBootstrap` 的职责限定为：
 
 1. 调用组合根创建一次对象图；
-2. 将所需接口注入控制器或 presenter；
+2. 私有持有对象图，并将 `ITimeService`、`IWallet` 等所需窄接口推送给控制器或 presenter；
 3. 订阅状态变化并更新 Unity 视图；
 4. 在退出或保存点调用存档用例。
 
@@ -131,11 +145,12 @@ Cooking UI
 
 ```text
 Sleep interaction
-  → ITimeService.SleepToNextDay()
-  → 产生新的 Day 值
-  → 用例协调器依次通知 Farming 与 Livestock
+  → IDayTransitionCoordinator.SleepToNextDay()
+  → 捕获 Time / Farming / Livestock 快照
+  → 时间推进并产生唯一目标 Day
+  → 协调器依次通知 Farming 与 Livestock
   → 各模块按同一个 Day 值结算一次
-  → 保存点按需要创建快照
+  → 任一步失败时恢复三份快照
 ```
 
 同一天的重复通知必须可检测或无副作用，防止重复成长和重复产出。
@@ -195,9 +210,14 @@ Load use case
 - `Cooking`：配方成功、食材不足和失败不部分扣除；
 - `Npc`：固定文本、允许标签和故障回退；
 - `Save`：单槽位读写、空槽、往返一致和版本拒绝；
-- `Core`：默认组合根返回完整且一致的对象图。
+- `Application`：跨日成功、日期错位、模块失败和三快照回滚；
+- `Content`：默认数量、稳定 ID、引用可达性和配置数组隔离；
+- `Core`：默认组合根返回完整且一致的对象图；
+- `Unity`：移动向量限幅、HUD 状态映射和无服务袋的交互上下文。
 
 钓鱼测试直接传入固定 `roll`；文件系统和 AI 服务通过接口或固定替身隔离。默认测试不访问网络，也不依赖调用计费模型。
+
+2026-08-28 的 Unity `6000.5.5f1` 批处理运行发现并执行 56 个 EditMode 用例，结果为 56 passed、0 failed、0 skipped。当前 4 个 Unity 适配用例不替代 PlayMode 的碰撞、输入生命周期和场景装配验证。
 
 ### 9.2 后续测试层
 
@@ -221,12 +241,12 @@ Load use case
 
 ## 11. 后续实现顺序
 
-1. 固定模块接口、内存实现和 EditMode 测试。
-2. 增加跨模块用例协调器，验证交易、烹饪和跨日结算原子性。
-3. 定义 ScriptableObject 或等价静态数据资产，并锁定稳定 ID。
-4. 接入单一小镇场景、角色移动、交互检测和 UI presenter。
-5. 实现版本化本地文件存档适配器和迁移测试。
-6. 接入 AI 代理适配器、结构校验、超时与固定回退。
-7. 运行可玩验收、AI 离线评测和演示录制。
+1. 已完成：固定模块接口、内存实现和 EditMode 测试。
+2. 已完成：增加跨日用例协调器、默认稳定 ID 内容和启动前校验。
+3. 已完成：接入 Unity Bootstrap、输入/刚体移动、交互探测契约和调试 HUD 骨架。
+4. 下一步：生成单一小镇场景，加入可见玩家和商店、NPC、床、农田等交互点，并增加 PlayMode 冒烟测试。
+5. 后续：实现版本化本地文件存档适配器和迁移测试。
+6. 后续：接入 AI 代理适配器、结构校验、超时与固定回退。
+7. 后续：运行完整经济闭环、AI 离线评测、构建和演示录制。
 
 每一步只扩展已定义接口所需的行为；如果接口不能表达已确认用例，先补充失败用例测试和 ADR，再调整公共契约。

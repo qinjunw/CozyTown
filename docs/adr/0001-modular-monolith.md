@@ -33,11 +33,12 @@ MVP 在一个 Unity 客户端内运行，包含时间、背包、经济、种植
 采用选项 C。
 
 - 运行时代码位于 `CozyTown.Runtime` 程序集。
-- `Core`、`Time`、`Inventory`、`Economy`、`Farming`、`Livestock`、`Fishing`、`Cooking`、`Npc` 和 `Save` 使用目录与命名空间分区。
+- `Application`、`Content`、`Core`、`Time`、`Inventory`、`Economy`、`Farming`、`Livestock`、`Fishing`、`Cooking`、`Npc` 和 `Save` 使用目录与命名空间分区。
 - 跨模块调用通过接口和 DTO；调用方不能修改其他模块的内部集合。
-- `CozyTownCompositionRoot.Create(configuration)` 和 `CreateEmpty()` 显式创建对象图，并以 `CozyTownServices` 的类型化属性公开服务。
+- `CozyTownCompositionRoot.CreateDefault()`、`Create(configuration)` 和 `CreateEmpty()` 显式创建对象图，并以 `CozyTownServices` 的类型化属性公开服务。
+- Unity 生命周期适配位于单独的 `CozyTown.Unity` 程序集；它可以依赖 Runtime，Runtime 不依赖 UnityEngine。完整服务集合只在组合边界使用，不能作为场景服务定位器公开。
 - 禁止全局静态服务定位器、运行时 `Get<T>()` 容器和通过场景查找取得领域服务。
-- 测试程序集 `CozyTown.Tests.EditMode` 引用运行时程序集。
+- `CozyTown.Tests.EditMode` 引用运行时程序集；`CozyTown.Tests.UnityEditMode` 引用 Unity 适配程序集。
 
 ## 后果
 
