@@ -5,8 +5,8 @@
 - 适用版本：MVP 系统框架阶段。
 - Unity 版本：`6000.5.5f1`。
 - 测试框架：Unity Test Framework `1.4.5`。
-- 当前状态：已创建 15 个 EditMode 测试用例；运行时与测试源码通过独立 Roslyn 编译，方法级离线执行结果为 15 passed、0 failed。Unity Test Runner 尚未执行。
-- 当前阻塞：本机 Unity 批处理启动报告未找到有效 Editor 许可证，无法完成 Unity 脚本编译与 Unity Test Runner 执行。
+- 当前状态：已创建 15 个 EditMode 测试用例；Unity `6000.5.5f1` 完成包解析和脚本编译，Unity Test Runner XML 结果为 15 passed、0 failed、0 skipped。
+- 当前边界：小镇场景、UI、文件存档适配器和线上 AI 适配器尚未实现，因此对应的 PlayMode、磁盘故障和联网验证仍属于后续阶段。
 
 本计划覆盖时间、背包、经济、商店、种植、畜牧、钓鱼、烹饪、NPC 对话、AI 对话边界和存档系统。框架阶段验证模块职责、公开契约、状态转换与跨模块闭环，不验证美术质量、数值平衡、复杂 NPC 日程、季节、天气、战斗或野外地图。
 
@@ -68,7 +68,7 @@ Assets/CozyTown/Tests/
 | 模块契约测试 | EditMode | 调用方与模块公开接口之间的输入、输出和失败语义 | 必须 |
 | 跨模块集成测试 | EditMode | 背包、经济、生产、烹饪、存档组合 | 必须 |
 | 场景与交互测试 | PlayMode | 输入、碰撞、UI、场景对象连接 | 后续阶段 |
-| 人工可玩验证 | Unity Editor | 一座小镇内的完整用户路径 | 许可证恢复且场景可运行后执行 |
+| 人工可玩验证 | Unity Editor | 一座小镇内的完整用户路径 | 场景可运行后执行 |
 
 EditMode 测试不得调用真实大模型、真实网络接口或真实文件系统。真实 AI 服务只在受控的人工验证或独立后端集成环境中检查。
 
@@ -252,9 +252,9 @@ MVP 首个模式版本记为 `v1`；实际常量名称以 Runtime API 为准。
 
 引入第二个模式版本时，必须新增版本夹具和迁移测试，再允许修改读取路径。测试夹具不得直接覆盖上一版本样本。
 
-## 10. 自动化执行与当前阻塞
+## 10. 自动化执行与当前结果
 
-### 10.1 许可证恢复后的命令
+### 10.1 执行命令
 
 在 PowerShell 中从项目根目录执行：
 
@@ -266,9 +266,10 @@ MVP 首个模式版本记为 `v1`；实际常量名称以 Runtime API 为准。
   -runTests `
   -testPlatform EditMode `
   -testResults '<project-root>/Logs/EditModeTests.xml' `
-  -logFile '<project-root>/Logs/EditModeTests.log' `
-  -quit
+  -logFile '<project-root>/Logs/EditModeTests.log'
 ```
+
+命令不附加 `-quit`，由 Unity Test Framework 在测试结束后关闭批处理进程。附加 `-quit` 可能在测试运行器写出 XML 前结束 Editor。
 
 验证结果必须同时满足：
 
@@ -278,20 +279,13 @@ MVP 首个模式版本记为 `v1`；实际常量名称以 Runtime API 为准。
 
 Windows 上 Unity 启动器可能先返回退出码 `0`，而编辑器进程随后在日志中报告失败。因此不得只使用 PowerShell 的 `$LASTEXITCODE` 作为通过依据。
 
-### 10.2 当前许可证检查证据
+### 10.2 当前验证结果
 
-使用 Unity `6000.5.5f1` 执行批处理启动后，`Logs/LicenseCheck.log` 报告：
-
-```text
-No valid Unity Editor license found. Please activate your license.
-Application will terminate with return code 198
-```
-
-当前自动化状态为“未执行”，不是“测试失败”。恢复步骤：在 Unity Hub 登录并激活可用许可证，关闭占用该项目的 Editor，再运行 10.1 的命令并保存 XML 与日志结果。
+Unity `6000.5.5f1` 已完成包解析、资源导入和脚本编译，进程以代码 `0` 退出。随后使用 10.1 的命令运行 EditMode 测试，`EditModeTests.xml` 记录 15 passed、0 failed、0 skipped，Editor 日志未记录脚本编译错误、许可证错误或测试运行器异常。
 
 ## 11. 人工验证步骤
 
-许可证恢复且可玩场景完成后，按以下顺序执行并记录结果、Unity 版本、提交号和异常截图：
+可玩场景完成后，按以下顺序执行并记录结果、Unity 版本、提交号和异常截图：
 
 1. 从空存档启动，确认初始日期、金币和背包与配置一致。
 2. 在商店购买种子、盐和饲料；分别验证余额充足与不足路径。

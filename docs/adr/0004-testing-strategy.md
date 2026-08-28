@@ -7,7 +7,7 @@
 
 当前阶段首先搭建模块接口和确定性实现，尚未完成小镇场景、UI、输入绑定、文件存档适配器或线上 AI 适配器。业务规则需要在这些集成完成前获得快速、可重复的验证。
 
-Unity 项目使用 Unity Test Framework `1.4.5`。运行时与测试源码已经通过独立 Roslyn 编译，15 个 NUnit 用例的方法级离线执行结果为 15 passed、0 failed。批处理启动日志确认当前环境没有有效 Unity Editor 许可证，Editor 以代码 `198` 终止，因此 Unity Test Runner 尚未执行。
+Unity 项目使用 Unity Test Framework `1.4.5`。Unity `6000.5.5f1` 已完成包解析和脚本编译；Unity Test Runner 执行 15 个 NUnit 用例，XML 结果为 15 passed、0 failed、0 skipped。
 
 ## 评估选项
 
@@ -93,11 +93,10 @@ Unity.exe `
   -runTests `
   -testPlatform EditMode `
   -testResults <project-root>/Logs/EditModeTests.xml `
-  -logFile <project-root>/Logs/EditModeTests.log `
-  -quit
+  -logFile <project-root>/Logs/EditModeTests.log
 ```
 
-批处理结果必须同时检查 `EditModeTests.xml` 和日志中的编译、测试或许可证错误。Windows 上的 Unity 启动器可能先返回 `0`，而 Editor 进程随后在日志中以代码 `198` 终止，因此不能只使用 PowerShell 的 `$LASTEXITCODE` 判断。当前报告状态应写“未执行：Unity Editor 许可证未激活”。在 Unity Hub 激活许可证后重新运行该命令并检查本次生成的 XML 与日志。
+命令不附加 `-quit`，由 Unity Test Framework 在测试结束后关闭进程。批处理结果必须同时检查 `EditModeTests.xml` 和日志中的编译、测试或许可证错误，不能只使用 PowerShell 的 `$LASTEXITCODE` 判断。
 
 ## 后果
 

@@ -6,7 +6,7 @@ CozyTown 是一个 Unity 2D 小镇生活模拟项目。MVP 由种植、养鸡、
 
 项目处于架构骨架阶段，尚未提供可完成核心循环的场景、UI、美术资源或线上 AI 服务。`Assets/CozyTown/Runtime` 当前包含 38 个 C# 文件，提供 10 个公共服务接口、对应的内存或固定实现、配置对象、显式组合根和 schema v1 存档快照。运行时程序集设置 `noEngineReferences: true`，领域骨架不引用 UnityEngine。
 
-运行时与 EditMode 测试源码均已通过独立 Roslyn 编译。当前 15 个 NUnit 用例还通过了方法级离线执行，结果为 15 passed、0 failed；这些检查不等同于 Unity 导入、Unity 脚本编译或 Unity Test Runner 结果。Unity 批处理当前受到 Editor 许可证阻塞。
+Unity Editor `6000.5.5f1` 已完成包解析、资源导入和脚本编译，日志未出现编译错误。Unity Test Runner 已执行 `CozyTown.Tests.EditMode` 的 15 个用例，XML 结果为 15 passed、0 failed、0 skipped。
 
 产品范围和验收条件见 [PRD](docs/PRD.md)，模块边界和依赖规则见 [架构说明](docs/ARCHITECTURE.md)，组件与集成用例见 [测试计划](docs/TEST_PLAN.md)。架构决策记录位于 [`docs/adr`](docs/adr)。
 
@@ -14,6 +14,7 @@ CozyTown 是一个 Unity 2D 小镇生活模拟项目。MVP 由种植、养鸡、
 
 - Unity Editor `6000.5.5f1`
 - Universal Render Pipeline 2D
+- Unity 6000.5 兼容 2D 包：Animation `15.1.0`、PSD Importer `14.0.3`、SpriteShape `15.0.3`、Tilemap Extras `8.0.3`、Aseprite `5.0.3`、2D Tooling `3.0.1`
 - Input System `1.19.0`
 - Unity Test Framework `1.4.5`
 - C# Runtime 程序集：`CozyTown.Runtime`
@@ -56,11 +57,10 @@ Runtime 按 `Core`、`Time`、`Inventory`、`Economy`、`Farming`、`Livestock`�
   -runTests `
   -testPlatform EditMode `
   -testResults <project-root>/Logs/EditModeTests.xml `
-  -logFile <project-root>/Logs/EditModeTests.log `
-  -quit
+  -logFile <project-root>/Logs/EditModeTests.log
 ```
 
-当前批处理启动被 Unity Editor 许可证阻塞。日志报告 `No valid Unity Editor license found`，Editor 随后以代码 `198` 终止；Windows 上的 Unity 启动器仍可能先返回 `0`。在 Unity Hub 激活许可证后需要重新执行命令，并同时检查本次生成的 XML 和日志，不能只用 PowerShell 的 `$LASTEXITCODE` 判断测试通过。
+命令不附加 `-quit`，由 Unity Test Framework 在测试完成后结束进程；提前传入 `-quit` 可能在测试运行器生成 XML 前关闭 Editor。验证必须同时检查本次生成的 XML 和日志，不能只用 PowerShell 的 `$LASTEXITCODE` 判断测试通过。
 
 ## 开发约束
 
