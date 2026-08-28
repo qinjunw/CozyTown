@@ -45,6 +45,135 @@ namespace CozyTown.Tests.EditMode.Content
                     DefaultMvpIds.Fish.Trout,
                     DefaultMvpIds.Fish.Bass
                 }));
+            Assert.That(
+                configuration.Recipes.All(recipe =>
+                    configuration.ShopOffers.Any(offer =>
+                        offer.ItemId == recipe.OutputItemId && offer.SellPrice > 0)),
+                Is.True,
+                "Every default dish must have a positive shop sell price.");
+        }
+
+        [TestCase("crop", true, "content.crop_seed_not_for_sale")]
+        [TestCase("crop", false, "content.crop_seed_not_for_sale")]
+        [TestCase("feed", true, "content.animal_feed_not_for_sale")]
+        [TestCase("feed", false, "content.animal_feed_not_for_sale")]
+        [TestCase("dish", true, "content.recipe_output_not_accepted")]
+        [TestCase("dish", false, "content.recipe_output_not_accepted")]
+        public void Validate_WhenRequiredShopSupplyIsRemovedOrZeroed_RejectsConfiguration(
+            string supply,
+            bool removeOffer,
+            string expectedError)
+        {
+            CozyTownConfiguration source = DefaultMvpContent.CreateConfiguration();
+            string itemId;
+            switch (supply)
+            {
+                case "crop":
+                    itemId = source.Crops[0].SeedItemId;
+                    break;
+                case "feed":
+                    itemId = source.AnimalDefinitions[0].FeedItemId;
+                    break;
+                case "dish":
+                    itemId = source.Recipes[0].OutputItemId;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(supply));
+            }
+
+            ShopOffer[] offers = removeOffer
+                ? source.ShopOffers.Where(offer => offer.ItemId != itemId).ToArray()
+                : source.ShopOffers
+                    .Select(offer => offer.ItemId == itemId
+                        ? new ShopOffer(offer.ItemId, 0, 0)
+                        : offer)
+                    .ToArray();
+            CozyTownConfiguration invalid = Copy(source, shopOffers: offers);
+
+            OperationResult result = MvpContentValidator.Validate(invalid);
+
+            Assert.That(result.IsSuccess, Is.False);
+            Assert.That(result.ErrorCode, Is.EqualTo(expectedError));
+        }
+
+        [Test]
+        public void Constructor_WhenCallerMutatesTopLevelArrays_PreservesConfigurationValues()
+        {
+            CozyTownConfiguration source = DefaultMvpContent.CreateConfiguration();
+            ItemDefinition[] items = source.Items.ToArray();
+            ShopOffer[] shopOffers = source.ShopOffers.ToArray();
+            CropDefinition[] crops = source.Crops.ToArray();
+            string[] farmPlotIds = source.FarmPlotIds.ToArray();
+            AnimalDefinition[] animalDefinitions = source.AnimalDefinitions.ToArray();
+            AnimalSnapshot[] animals = source.Animals.ToArray();
+            FishingEntry[] fishingEntries = source.FishingEntries.ToArray();
+            RecipeDefinition[] recipes = source.Recipes.ToArray();
+            NpcDefinition[] npcs = source.Npcs.ToArray();
+            var configuration = new CozyTownConfiguration(
+                items,
+                shopOffers,
+                crops,
+                farmPlotIds,
+                animalDefinitions,
+                animals,
+                fishingEntries,
+                recipes,
+                npcs: npcs);
+
+            items[0] = null;
+            shopOffers[0] = null;
+            crops[0] = null;
+            farmPlotIds[0] = "plot.mutated";
+            animalDefinitions[0] = null;
+            animals[0] = default;
+            fishingEntries[0] = null;
+            recipes[0] = null;
+            npcs[0] = null;
+
+            Assert.That(configuration.Items[0], Is.Not.Null);
+            Assert.That(configuration.ShopOffers[0], Is.Not.Null);
+            Assert.That(configuration.Crops[0], Is.Not.Null);
+            Assert.That(configuration.FarmPlotIds[0], Is.Not.EqualTo("plot.mutated"));
+            Assert.That(configuration.AnimalDefinitions[0], Is.Not.Null);
+            Assert.That(configuration.Animals[0].AnimalId, Is.Not.Null);
+            Assert.That(configuration.FishingEntries[0], Is.Not.Null);
+            Assert.That(configuration.Recipes[0], Is.Not.Null);
+            Assert.That(configuration.Npcs[0], Is.Not.Null);
+        }
+
+        [Test]
+        public void RecipeConstructor_WhenCallerMutatesIngredientArray_PreservesIngredients()
+        {
+            var ingredients = new[] { new RecipeIngredient("item.original", 2) };
+            var recipe = new RecipeDefinition(
+                "recipe.test",
+                ingredients,
+                "food.test",
+                1);
+
+            ingredients[0] = new RecipeIngredient("item.mutated", 99);
+
+            Assert.That(recipe.Ingredients[0].ItemId, Is.EqualTo("item.original"));
+            Assert.That(recipe.Ingredients[0].Quantity, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void CreateConfiguration_CalledTwice_ReturnsIndependentMutableArrays()
+        {
+            CozyTownConfiguration first = DefaultMvpContent.CreateConfiguration();
+            CozyTownConfiguration second = DefaultMvpContent.CreateConfiguration();
+            string secondItemId = second.Items[0].Id;
+            RecipeIngredient secondIngredient = second.Recipes[0].Ingredients[0];
+            string secondNpcId = second.Npcs[0].Id;
+
+            first.Items[0] = null;
+            first.Recipes[0].Ingredients[0] = new RecipeIngredient("item.mutated", 99);
+            first.Npcs[0] = null;
+
+            Assert.That(second.Items[0].Id, Is.EqualTo(secondItemId));
+            Assert.That(second.Recipes[0].Ingredients[0].ItemId, Is.EqualTo(secondIngredient.ItemId));
+            Assert.That(second.Recipes[0].Ingredients[0].Quantity, Is.EqualTo(secondIngredient.Quantity));
+            Assert.That(second.Npcs[0].Id, Is.EqualTo(secondNpcId));
         }
 
         [TestCase("shop", "content.shop_offer_id_duplicate")]

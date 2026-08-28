@@ -27,20 +27,20 @@ namespace CozyTown.Runtime.Core
             string fallbackDialogue = "It's a quiet day in town.",
             NpcDefinition[] npcs = null)
         {
-            Items = items ?? Array.Empty<ItemDefinition>();
-            ShopOffers = shopOffers ?? Array.Empty<ShopOffer>();
-            Crops = crops ?? Array.Empty<CropDefinition>();
-            FarmPlotIds = farmPlotIds ?? Array.Empty<string>();
-            AnimalDefinitions = animalDefinitions ?? Array.Empty<AnimalDefinition>();
-            Animals = animals ?? Array.Empty<AnimalSnapshot>();
-            FishingEntries = fishingEntries ?? Array.Empty<FishingEntry>();
-            Recipes = recipes ?? Array.Empty<RecipeDefinition>();
+            Items = Copy(items);
+            ShopOffers = Copy(shopOffers);
+            Crops = Copy(crops);
+            FarmPlotIds = Copy(farmPlotIds);
+            AnimalDefinitions = Copy(animalDefinitions);
+            Animals = Copy(animals);
+            FishingEntries = Copy(fishingEntries);
+            Recipes = Copy(recipes);
             InventoryCapacitySlots = inventoryCapacitySlots;
             StartingBalance = startingBalance;
             StartingDay = startingDay;
             StartingMinuteOfDay = startingMinuteOfDay;
             FallbackDialogue = fallbackDialogue;
-            Npcs = npcs ?? Array.Empty<NpcDefinition>();
+            Npcs = Copy(npcs);
         }
 
         public ItemDefinition[] Items { get; }
@@ -82,6 +82,13 @@ namespace CozyTown.Runtime.Core
                 Array.Empty<AnimalSnapshot>(),
                 Array.Empty<FishingEntry>(),
                 Array.Empty<RecipeDefinition>());
+        }
+
+        private static T[] Copy<T>(T[] source)
+        {
+            return source == null || source.Length == 0
+                ? Array.Empty<T>()
+                : (T[])source.Clone();
         }
     }
 }

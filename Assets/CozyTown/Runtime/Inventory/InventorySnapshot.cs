@@ -21,7 +21,9 @@ namespace CozyTown.Runtime.Inventory
     {
         public InventorySnapshot(ItemStack[] items)
         {
-            Items = items ?? Array.Empty<ItemStack>();
+            Items = items == null || items.Length == 0
+                ? Array.Empty<ItemStack>()
+                : (ItemStack[])items.Clone();
         }
 
         public ItemStack[] Items { get; }

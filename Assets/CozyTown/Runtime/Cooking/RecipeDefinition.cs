@@ -26,7 +26,9 @@ namespace CozyTown.Runtime.Cooking
             int outputQuantity)
         {
             Id = id;
-            Ingredients = ingredients ?? Array.Empty<RecipeIngredient>();
+            Ingredients = ingredients == null || ingredients.Length == 0
+                ? Array.Empty<RecipeIngredient>()
+                : (RecipeIngredient[])ingredients.Clone();
             OutputItemId = outputItemId;
             OutputQuantity = outputQuantity;
         }

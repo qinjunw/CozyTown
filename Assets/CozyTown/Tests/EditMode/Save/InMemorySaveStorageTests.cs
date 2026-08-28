@@ -75,6 +75,43 @@ namespace CozyTown.Tests.EditMode.Save
             Assert.That(secondLoad.Value.Inventory.Items, Is.Not.SameAs(firstLoad.Value.Inventory.Items));
         }
 
+        [Test]
+        public void SnapshotConstructors_WhenCallerMutatesArrays_PreserveCapturedValues()
+        {
+            var items = new[] { new ItemStack("potato", 2) };
+            var plots = new[]
+            {
+                new FarmPlotSnapshot(
+                    "plot-1",
+                    "potato-crop",
+                    1,
+                    true,
+                    FarmPlotStatus.Growing)
+            };
+            var animals = new[]
+            {
+                new AnimalSnapshot("hen-1", "chicken", true, false)
+            };
+            var inventory = new InventorySnapshot(items);
+            var farm = new FarmSnapshot(3, plots);
+            var livestock = new LivestockSnapshot(3, animals);
+
+            items[0] = new ItemStack("potato", 99);
+            plots[0] = new FarmPlotSnapshot(
+                "plot-1",
+                string.Empty,
+                0,
+                false,
+                FarmPlotStatus.Empty);
+            animals[0] = new AnimalSnapshot("hen-1", "chicken", false, true);
+
+            Assert.That(inventory.Items[0].Quantity, Is.EqualTo(2));
+            Assert.That(farm.Plots[0].Status, Is.EqualTo(FarmPlotStatus.Growing));
+            Assert.That(farm.Plots[0].WateredToday, Is.True);
+            Assert.That(livestock.Animals[0].FedToday, Is.True);
+            Assert.That(livestock.Animals[0].ProductReady, Is.False);
+        }
+
         private static GameSaveSnapshot CreateSnapshot()
         {
             return new GameSaveSnapshot(

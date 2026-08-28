@@ -28,7 +28,9 @@ namespace CozyTown.Runtime.Livestock
         public LivestockSnapshot(int lastProcessedDay, AnimalSnapshot[] animals)
         {
             LastProcessedDay = lastProcessedDay;
-            Animals = animals ?? Array.Empty<AnimalSnapshot>();
+            Animals = animals == null || animals.Length == 0
+                ? Array.Empty<AnimalSnapshot>()
+                : (AnimalSnapshot[])animals.Clone();
         }
 
         public int LastProcessedDay { get; }

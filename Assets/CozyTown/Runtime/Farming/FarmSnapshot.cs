@@ -43,7 +43,9 @@ namespace CozyTown.Runtime.Farming
         public FarmSnapshot(int lastProcessedDay, FarmPlotSnapshot[] plots)
         {
             LastProcessedDay = lastProcessedDay;
-            Plots = plots ?? Array.Empty<FarmPlotSnapshot>();
+            Plots = plots == null || plots.Length == 0
+                ? Array.Empty<FarmPlotSnapshot>()
+                : (FarmPlotSnapshot[])plots.Clone();
         }
 
         public int LastProcessedDay { get; }

@@ -48,8 +48,7 @@ namespace CozyTown.Runtime.Content
                     offer == null
                     || string.IsNullOrWhiteSpace(offer.ItemId)
                     || offer.BuyPrice < 0
-                    || offer.SellPrice < 0
-                    || offer.BuyPrice == 0 && offer.SellPrice == 0))
+                    || offer.SellPrice < 0))
             {
                 return OperationResult.Failure("content.shop_offer_invalid");
             }
@@ -63,6 +62,17 @@ namespace CozyTown.Runtime.Content
             {
                 return OperationResult.Failure("content.shop_offer_item_missing");
             }
+
+            var purchasableItemIds = new HashSet<string>(
+                configuration.ShopOffers
+                    .Where(offer => offer.BuyPrice > 0)
+                    .Select(offer => offer.ItemId),
+                StringComparer.Ordinal);
+            var sellableItemIds = new HashSet<string>(
+                configuration.ShopOffers
+                    .Where(offer => offer.SellPrice > 0)
+                    .Select(offer => offer.ItemId),
+                StringComparer.Ordinal);
 
             if (configuration.Crops.Any(crop =>
                     crop == null
@@ -90,6 +100,11 @@ namespace CozyTown.Runtime.Content
                     || !itemIds.Contains(crop.HarvestItemId)))
             {
                 return OperationResult.Failure("content.crop_item_missing");
+            }
+
+            if (configuration.Crops.Any(crop => !purchasableItemIds.Contains(crop.SeedItemId)))
+            {
+                return OperationResult.Failure("content.crop_seed_not_for_sale");
             }
 
             if (configuration.FarmPlotIds.Any(string.IsNullOrWhiteSpace))
@@ -122,6 +137,12 @@ namespace CozyTown.Runtime.Content
                     || !itemIds.Contains(definition.ProductItemId)))
             {
                 return OperationResult.Failure("content.animal_item_missing");
+            }
+
+            if (configuration.AnimalDefinitions.Any(definition =>
+                    !purchasableItemIds.Contains(definition.FeedItemId)))
+            {
+                return OperationResult.Failure("content.animal_feed_not_for_sale");
             }
 
             var speciesIds = new HashSet<string>(
@@ -201,6 +222,12 @@ namespace CozyTown.Runtime.Content
                 return OperationResult.Failure("content.recipe_item_missing");
             }
 
+            if (configuration.Recipes.Any(recipe =>
+                    !sellableItemIds.Contains(recipe.OutputItemId)))
+            {
+                return OperationResult.Failure("content.recipe_output_not_accepted");
+            }
+
             var obtainableIngredientIds = new HashSet<string>(
                 configuration.ShopOffers
                     .Where(offer => offer.BuyPrice > 0)
@@ -232,6 +259,12 @@ namespace CozyTown.Runtime.Content
             if (HasDuplicate(configuration.Npcs.Select(npc => npc.Id)))
             {
                 return OperationResult.Failure("content.npc_id_duplicate");
+            }
+
+            if (configuration.ShopOffers.Any(offer =>
+                    offer.BuyPrice == 0 && offer.SellPrice == 0))
+            {
+                return OperationResult.Failure("content.shop_offer_invalid");
             }
 
             return OperationResult.Success();
