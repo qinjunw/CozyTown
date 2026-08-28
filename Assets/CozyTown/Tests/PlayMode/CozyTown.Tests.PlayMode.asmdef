@@ -1,0 +1,19 @@
+{
+  "name": "CozyTown.Tests.PlayMode",
+  "rootNamespace": "CozyTown.Tests.PlayMode",
+  "references": [
+    "CozyTown.Unity"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false,
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}
