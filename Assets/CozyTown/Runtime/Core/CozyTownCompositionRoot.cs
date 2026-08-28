@@ -55,6 +55,24 @@ namespace CozyTown.Runtime.Core
                 configuration.StartingDay);
             var fishing = new InMemoryFishingService(configuration.FishingEntries, inventory);
             var cooking = new InMemoryCookingService(configuration.Recipes, inventory);
+            var farmGameplay = new FarmGameplayCoordinator(
+                configuration.Items,
+                configuration.Crops,
+                farm,
+                inventory);
+            var livestockGameplay = new LivestockGameplayCoordinator(
+                configuration.Items,
+                configuration.AnimalDefinitions,
+                livestock,
+                inventory);
+            var fishingGameplay = new FishingGameplayCoordinator(
+                configuration.Items,
+                fishing,
+                inventory);
+            var cookingGameplay = new CookingGameplayCoordinator(
+                configuration.Items,
+                cooking,
+                inventory);
             INpcDialogueGenerator npcDialogue = configuration.Npcs.Length == 0
                 ? new FixedFallbackDialogueGenerator(configuration.FallbackDialogue)
                 : new ConfiguredFallbackDialogueGenerator(
@@ -71,9 +89,13 @@ namespace CozyTown.Runtime.Core
                 shop,
                 shopTrading,
                 farm,
+                farmGameplay,
                 livestock,
+                livestockGameplay,
                 fishing,
+                fishingGameplay,
                 cooking,
+                cookingGameplay,
                 npcDialogue,
                 saveStorage);
         }

@@ -240,6 +240,27 @@ namespace CozyTown.Tests.EditMode.Content
             Assert.That(result.ErrorCode, Is.EqualTo(expectedError));
         }
 
+        [Test]
+        public void Validate_WhenAnimalIsFedAndProductReady_RejectsUnreachableState()
+        {
+            CozyTownConfiguration source = DefaultMvpContent.CreateConfiguration();
+            AnimalSnapshot original = source.Animals[0];
+            var animals = new[]
+            {
+                new AnimalSnapshot(
+                    original.AnimalId,
+                    original.SpeciesId,
+                    fedToday: true,
+                    productReady: true)
+            };
+            CozyTownConfiguration invalid = Copy(source, animals: animals);
+
+            OperationResult result = MvpContentValidator.Validate(invalid);
+
+            Assert.That(result.IsSuccess, Is.False);
+            Assert.That(result.ErrorCode, Is.EqualTo("content.animal_invalid"));
+        }
+
         [TestCase("shop", "content.shop_offer_item_missing")]
         [TestCase("crop", "content.crop_item_missing")]
         [TestCase("fish", "content.fish_item_missing")]

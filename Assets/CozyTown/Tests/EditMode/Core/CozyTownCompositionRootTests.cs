@@ -1,8 +1,10 @@
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CozyTown.Runtime.Content;
 using CozyTown.Runtime.Core;
+using CozyTown.Runtime.Livestock;
 using CozyTown.Runtime.Npc;
 using NUnit.Framework;
 
@@ -22,9 +24,13 @@ namespace CozyTown.Tests.EditMode.Core
             Assert.That(services.Shop, Is.Not.Null);
             Assert.That(services.ShopTrading, Is.Not.Null);
             Assert.That(services.Farm, Is.Not.Null);
+            Assert.That(services.FarmGameplay, Is.Not.Null);
             Assert.That(services.Livestock, Is.Not.Null);
+            Assert.That(services.LivestockGameplay, Is.Not.Null);
             Assert.That(services.Fishing, Is.Not.Null);
+            Assert.That(services.FishingGameplay, Is.Not.Null);
             Assert.That(services.Cooking, Is.Not.Null);
+            Assert.That(services.CookingGameplay, Is.Not.Null);
             Assert.That(services.NpcDialogue, Is.Not.Null);
             Assert.That(services.SaveStorage, Is.Not.Null);
             Assert.That(services.Time.Current.Day, Is.EqualTo(1));
@@ -88,6 +94,41 @@ namespace CozyTown.Tests.EditMode.Core
 
             Assert.That(reply.IsFallback, Is.True);
             Assert.That(reply.Text, Is.EqualTo(npc.FallbackDialogue));
+        }
+
+        [Test]
+        public void Create_WhenAnimalIsFedAndProductReady_RejectsBeforeServiceConstruction()
+        {
+            CozyTownConfiguration source = DefaultMvpContent.CreateConfiguration();
+            AnimalSnapshot original = source.Animals[0];
+            var animals = new[]
+            {
+                new AnimalSnapshot(
+                    original.AnimalId,
+                    original.SpeciesId,
+                    fedToday: true,
+                    productReady: true)
+            };
+            var invalid = new CozyTownConfiguration(
+                source.Items,
+                source.ShopOffers,
+                source.Crops,
+                source.FarmPlotIds,
+                source.AnimalDefinitions,
+                animals,
+                source.FishingEntries,
+                source.Recipes,
+                source.InventoryCapacitySlots,
+                source.StartingBalance,
+                source.StartingDay,
+                source.StartingMinuteOfDay,
+                source.FallbackDialogue,
+                source.Npcs);
+
+            ArgumentException exception = Assert.Throws<ArgumentException>(
+                () => CozyTownCompositionRoot.Create(invalid));
+
+            Assert.That(exception.Message, Does.Contain("content.animal_invalid"));
         }
     }
 }

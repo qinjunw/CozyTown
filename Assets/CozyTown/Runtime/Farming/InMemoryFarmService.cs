@@ -57,10 +57,16 @@ namespace CozyTown.Runtime.Farming
                 return OperationResult.Failure("farm.seed_unknown");
             }
 
+            InventorySnapshot inventoryBefore = _inventory.CaptureSnapshot();
+            if (inventoryBefore == null)
+            {
+                return OperationResult.Failure("farm.inventory_snapshot_invalid");
+            }
+
             OperationResult consumeSeed = _inventory.Remove(seedItemId, 1);
             if (!consumeSeed.IsSuccess)
             {
-                return consumeSeed;
+                return RollBackInventory(inventoryBefore, consumeSeed.ErrorCode);
             }
 
             plot.CropId = crop.Id;
@@ -91,6 +97,11 @@ namespace CozyTown.Runtime.Farming
             if (newDay <= _lastProcessedDay)
             {
                 return OperationResult.Failure("farm.day_not_advanced");
+            }
+
+            if (_lastProcessedDay == int.MaxValue || newDay != _lastProcessedDay + 1)
+            {
+                return OperationResult.Failure("farm.day_not_consecutive");
             }
 
             foreach (PlotState plot in _plots.Values)
@@ -125,14 +136,30 @@ namespace CozyTown.Runtime.Farming
             }
 
             CropDefinition crop = _cropsById[plot.CropId];
+            InventorySnapshot inventoryBefore = _inventory.CaptureSnapshot();
+            if (inventoryBefore == null)
+            {
+                return OperationResult.Failure("farm.inventory_snapshot_invalid");
+            }
+
             OperationResult addHarvest = _inventory.Add(crop.HarvestItemId, crop.HarvestQuantity);
             if (!addHarvest.IsSuccess)
             {
-                return addHarvest;
+                return RollBackInventory(inventoryBefore, addHarvest.ErrorCode);
             }
 
             plot.Clear();
             return OperationResult.Success();
+        }
+
+        private OperationResult RollBackInventory(
+            InventorySnapshot snapshot,
+            string originalError)
+        {
+            OperationResult restore = _inventory.Restore(snapshot);
+            return restore.IsSuccess
+                ? OperationResult.Failure(originalError)
+                : OperationResult.Failure("farm.rollback_inventory_failed");
         }
 
         public FarmSnapshot CaptureSnapshot()

@@ -19,6 +19,8 @@ namespace CozyTown.Runtime.Cooking
     [Serializable]
     public sealed class RecipeDefinition
     {
+        private readonly RecipeIngredient[] _ingredients;
+
         public RecipeDefinition(
             string id,
             RecipeIngredient[] ingredients,
@@ -26,7 +28,7 @@ namespace CozyTown.Runtime.Cooking
             int outputQuantity)
         {
             Id = id;
-            Ingredients = ingredients == null || ingredients.Length == 0
+            _ingredients = ingredients == null || ingredients.Length == 0
                 ? Array.Empty<RecipeIngredient>()
                 : (RecipeIngredient[])ingredients.Clone();
             OutputItemId = outputItemId;
@@ -35,7 +37,9 @@ namespace CozyTown.Runtime.Cooking
 
         public string Id { get; }
 
-        public RecipeIngredient[] Ingredients { get; }
+        public RecipeIngredient[] Ingredients => _ingredients.Length == 0
+            ? Array.Empty<RecipeIngredient>()
+            : (RecipeIngredient[])_ingredients.Clone();
 
         public string OutputItemId { get; }
 

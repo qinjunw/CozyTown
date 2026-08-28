@@ -18,7 +18,7 @@ namespace CozyTown.Runtime.Fishing
                 .Where(IsValidEntry)
                 .OrderBy(entry => entry.MinRollInclusive)
                 .ToArray();
-            Entries = _entries;
+            Entries = Array.AsReadOnly(_entries);
         }
 
         public IReadOnlyCollection<FishingEntry> Entries { get; }
@@ -32,10 +32,21 @@ namespace CozyTown.Runtime.Fishing
                 return OperationResult<FishingCatch>.Failure("fishing.roll_has_no_catch");
             }
 
+            InventorySnapshot inventoryBefore = _inventory.CaptureSnapshot();
+            if (inventoryBefore == null)
+            {
+                return OperationResult<FishingCatch>.Failure(
+                    "fishing.inventory_snapshot_invalid");
+            }
+
             OperationResult add = _inventory.Add(entry.ItemId, 1);
             if (!add.IsSuccess)
             {
-                return OperationResult<FishingCatch>.Failure(add.ErrorCode);
+                OperationResult restore = _inventory.Restore(inventoryBefore);
+                return OperationResult<FishingCatch>.Failure(
+                    restore.IsSuccess
+                        ? add.ErrorCode
+                        : "fishing.rollback_inventory_failed");
             }
 
             return OperationResult<FishingCatch>.Success(

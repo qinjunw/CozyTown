@@ -18,7 +18,8 @@ namespace CozyTown.Runtime.Cooking
                 .Where(IsValidRecipe)
                 .GroupBy(recipe => recipe.Id, StringComparer.Ordinal)
                 .ToDictionary(group => group.Key, group => group.First(), StringComparer.Ordinal);
-            Recipes = _recipes.Values.OrderBy(recipe => recipe.Id, StringComparer.Ordinal).ToArray();
+            Recipes = Array.AsReadOnly(
+                _recipes.Values.OrderBy(recipe => recipe.Id, StringComparer.Ordinal).ToArray());
         }
 
         public IReadOnlyCollection<RecipeDefinition> Recipes { get; }
@@ -42,38 +43,41 @@ namespace CozyTown.Runtime.Cooking
                 return OperationResult<CookingResult>.Failure("cooking.ingredients_missing");
             }
 
+            InventorySnapshot inventoryBefore = _inventory.CaptureSnapshot();
+            if (inventoryBefore == null)
+            {
+                return OperationResult<CookingResult>.Failure(
+                    "cooking.inventory_snapshot_invalid");
+            }
+
             foreach (RecipeIngredient ingredient in recipe.Ingredients)
             {
                 OperationResult remove = _inventory.Remove(ingredient.ItemId, ingredient.Quantity);
                 if (!remove.IsSuccess)
                 {
-                    RestoreIngredients(recipe, ingredient.ItemId);
-                    return OperationResult<CookingResult>.Failure(remove.ErrorCode);
+                    return RollBackInventory(inventoryBefore, remove.ErrorCode);
                 }
             }
 
             OperationResult add = _inventory.Add(recipe.OutputItemId, recipe.OutputQuantity);
             if (!add.IsSuccess)
             {
-                RestoreIngredients(recipe, null);
-                return OperationResult<CookingResult>.Failure(add.ErrorCode);
+                return RollBackInventory(inventoryBefore, add.ErrorCode);
             }
 
             return OperationResult<CookingResult>.Success(
                 new CookingResult(recipe.Id, recipe.OutputItemId, recipe.OutputQuantity));
         }
 
-        private void RestoreIngredients(RecipeDefinition recipe, string failedItemId)
+        private OperationResult<CookingResult> RollBackInventory(
+            InventorySnapshot snapshot,
+            string originalError)
         {
-            foreach (RecipeIngredient ingredient in recipe.Ingredients)
-            {
-                if (ingredient.ItemId == failedItemId)
-                {
-                    break;
-                }
-
-                _inventory.Add(ingredient.ItemId, ingredient.Quantity);
-            }
+            OperationResult restore = _inventory.Restore(snapshot);
+            return OperationResult<CookingResult>.Failure(
+                restore.IsSuccess
+                    ? originalError
+                    : "cooking.rollback_inventory_failed");
         }
 
         private static bool IsValidRecipe(RecipeDefinition recipe)

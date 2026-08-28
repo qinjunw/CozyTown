@@ -150,7 +150,8 @@ namespace CozyTown.Runtime.Content
                 StringComparer.Ordinal);
             if (configuration.Animals.Any(animal =>
                     string.IsNullOrWhiteSpace(animal.AnimalId)
-                    || string.IsNullOrWhiteSpace(animal.SpeciesId)))
+                    || string.IsNullOrWhiteSpace(animal.SpeciesId)
+                    || (animal.FedToday && animal.ProductReady)))
             {
                 return OperationResult.Failure("content.animal_invalid");
             }

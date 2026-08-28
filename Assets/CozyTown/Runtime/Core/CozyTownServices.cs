@@ -22,9 +22,13 @@ namespace CozyTown.Runtime.Core
             IShopService shop,
             IShopTradingCoordinator shopTrading,
             IFarmService farm,
+            IFarmGameplayCoordinator farmGameplay,
             ILivestockService livestock,
+            ILivestockGameplayCoordinator livestockGameplay,
             IFishingService fishing,
+            IFishingGameplayCoordinator fishingGameplay,
             ICookingService cooking,
+            ICookingGameplayCoordinator cookingGameplay,
             INpcDialogueGenerator npcDialogue,
             ISaveStorage saveStorage)
         {
@@ -35,9 +39,16 @@ namespace CozyTown.Runtime.Core
             Shop = shop ?? throw new ArgumentNullException(nameof(shop));
             ShopTrading = shopTrading ?? throw new ArgumentNullException(nameof(shopTrading));
             Farm = farm ?? throw new ArgumentNullException(nameof(farm));
+            FarmGameplay = farmGameplay ?? throw new ArgumentNullException(nameof(farmGameplay));
             Livestock = livestock ?? throw new ArgumentNullException(nameof(livestock));
+            LivestockGameplay = livestockGameplay
+                ?? throw new ArgumentNullException(nameof(livestockGameplay));
             Fishing = fishing ?? throw new ArgumentNullException(nameof(fishing));
+            FishingGameplay = fishingGameplay
+                ?? throw new ArgumentNullException(nameof(fishingGameplay));
             Cooking = cooking ?? throw new ArgumentNullException(nameof(cooking));
+            CookingGameplay = cookingGameplay
+                ?? throw new ArgumentNullException(nameof(cookingGameplay));
             NpcDialogue = npcDialogue ?? throw new ArgumentNullException(nameof(npcDialogue));
             SaveStorage = saveStorage ?? throw new ArgumentNullException(nameof(saveStorage));
         }
@@ -56,11 +67,19 @@ namespace CozyTown.Runtime.Core
 
         public IFarmService Farm { get; }
 
+        public IFarmGameplayCoordinator FarmGameplay { get; }
+
         public ILivestockService Livestock { get; }
+
+        public ILivestockGameplayCoordinator LivestockGameplay { get; }
 
         public IFishingService Fishing { get; }
 
+        public IFishingGameplayCoordinator FishingGameplay { get; }
+
         public ICookingService Cooking { get; }
+
+        public ICookingGameplayCoordinator CookingGameplay { get; }
 
         public INpcDialogueGenerator NpcDialogue { get; }
 

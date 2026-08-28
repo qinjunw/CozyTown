@@ -31,6 +31,7 @@ namespace CozyTown.Runtime.Livestock
             {
                 if (!string.IsNullOrWhiteSpace(animal.AnimalId)
                     && _species.ContainsKey(animal.SpeciesId ?? string.Empty)
+                    && !(animal.FedToday && animal.ProductReady)
                     && !_animals.ContainsKey(animal.AnimalId))
                 {
                     _animals.Add(animal.AnimalId, new AnimalState(animal));
@@ -50,16 +51,27 @@ namespace CozyTown.Runtime.Livestock
                 return OperationResult.Failure("livestock.animal_missing");
             }
 
+            if (animal.ProductReady)
+            {
+                return OperationResult.Failure("livestock.product_pending");
+            }
+
             if (animal.FedToday)
             {
                 return OperationResult.Failure("livestock.already_fed");
             }
 
             AnimalDefinition definition = _species[animal.SpeciesId];
+            InventorySnapshot inventoryBefore = _inventory.CaptureSnapshot();
+            if (inventoryBefore == null)
+            {
+                return OperationResult.Failure("livestock.inventory_snapshot_invalid");
+            }
+
             OperationResult consumeFeed = _inventory.Remove(definition.FeedItemId, 1);
             if (!consumeFeed.IsSuccess)
             {
-                return consumeFeed;
+                return RollBackInventory(inventoryBefore, consumeFeed.ErrorCode);
             }
 
             animal.FedToday = true;
@@ -71,6 +83,11 @@ namespace CozyTown.Runtime.Livestock
             if (newDay <= _lastProcessedDay)
             {
                 return OperationResult.Failure("livestock.day_not_advanced");
+            }
+
+            if (_lastProcessedDay == int.MaxValue || newDay != _lastProcessedDay + 1)
+            {
+                return OperationResult.Failure("livestock.day_not_consecutive");
             }
 
             foreach (AnimalState animal in _animals.Values)
@@ -100,16 +117,32 @@ namespace CozyTown.Runtime.Livestock
             }
 
             AnimalDefinition definition = _species[animal.SpeciesId];
+            InventorySnapshot inventoryBefore = _inventory.CaptureSnapshot();
+            if (inventoryBefore == null)
+            {
+                return OperationResult.Failure("livestock.inventory_snapshot_invalid");
+            }
+
             OperationResult addProduct = _inventory.Add(
                 definition.ProductItemId,
                 definition.ProductQuantity);
             if (!addProduct.IsSuccess)
             {
-                return addProduct;
+                return RollBackInventory(inventoryBefore, addProduct.ErrorCode);
             }
 
             animal.ProductReady = false;
             return OperationResult.Success();
+        }
+
+        private OperationResult RollBackInventory(
+            InventorySnapshot snapshot,
+            string originalError)
+        {
+            OperationResult restore = _inventory.Restore(snapshot);
+            return restore.IsSuccess
+                ? OperationResult.Failure(originalError)
+                : OperationResult.Failure("livestock.rollback_inventory_failed");
         }
 
         public LivestockSnapshot CaptureSnapshot()
@@ -130,7 +163,8 @@ namespace CozyTown.Runtime.Livestock
                 if (!_animals.ContainsKey(animal.AnimalId ?? string.Empty)
                     || !_species.ContainsKey(animal.SpeciesId ?? string.Empty)
                     || proposed.ContainsKey(animal.AnimalId)
-                    || _animals[animal.AnimalId].SpeciesId != animal.SpeciesId)
+                    || _animals[animal.AnimalId].SpeciesId != animal.SpeciesId
+                    || (animal.FedToday && animal.ProductReady))
                 {
                     return OperationResult.Failure("livestock.snapshot_invalid");
                 }
