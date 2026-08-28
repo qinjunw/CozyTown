@@ -8,6 +8,8 @@ namespace CozyTown.Unity.Farm
 {
     public sealed class CozyTownFarmDebugView : CozyTownModalDebugViewBase
     {
+        private Vector2 _scrollPosition;
+
         public event Action<string, string> PlantRequested;
         public event Action<string> WaterRequested;
         public event Action<string> HarvestRequested;
@@ -26,6 +28,7 @@ namespace CozyTown.Unity.Farm
                 PlantRequested?.Invoke(plotId, seedId);
             }
         }
+
         public void RequestWater(string plotId)
         {
             if (IsVisible)
@@ -33,6 +36,7 @@ namespace CozyTown.Unity.Farm
                 WaterRequested?.Invoke(plotId);
             }
         }
+
         public void RequestHarvest(string plotId)
         {
             if (IsVisible)
@@ -47,15 +51,22 @@ namespace CozyTown.Unity.Farm
             {
                 return;
             }
+
+            _scrollPosition = GUILayout.BeginScrollView(
+                _scrollPosition,
+                GUILayout.ExpandHeight(true));
             foreach (var plot in State.Plots)
             {
-                GUILayout.BeginHorizontal();
+                GUILayout.BeginVertical(GUI.skin.box);
                 GUILayout.Label(
-                    $"{plot.PlotId}: {plot.Status} {plot.CropDisplayName} {plot.GrowthProgressDays}/{plot.GrowthDays}",
-                    LabelStyle);
+                    BuildPlotStatus(plot),
+                    LabelStyle,
+                    GUILayout.ExpandWidth(true));
                 DrawActions(plot);
-                GUILayout.EndHorizontal();
+                GUILayout.EndVertical();
             }
+
+            GUILayout.EndScrollView();
             EndPanel();
         }
 
@@ -65,20 +76,39 @@ namespace CozyTown.Unity.Farm
             {
                 foreach (var seed in State.SeedOptions)
                 {
-                    if (GUILayout.Button($"Plant {seed.DisplayName} ({seed.OwnedQuantity})", ButtonStyle))
+                    if (GUILayout.Button(
+                            $"Plant {seed.DisplayName} ({seed.OwnedQuantity})",
+                            ButtonStyle,
+                            GUILayout.ExpandWidth(true)))
                     {
                         RequestPlant(plot.PlotId, seed.SeedItemId);
                     }
                 }
             }
-            if (plot.Status == FarmPlotStatus.Growing && GUILayout.Button("Water", ButtonStyle))
+
+            if (plot.Status == FarmPlotStatus.Growing
+                && GUILayout.Button("Water", ButtonStyle, GUILayout.ExpandWidth(true)))
             {
                 RequestWater(plot.PlotId);
             }
-            if (plot.Status == FarmPlotStatus.Ready && GUILayout.Button("Harvest", ButtonStyle))
+
+            if (plot.Status == FarmPlotStatus.Ready
+                && GUILayout.Button("Harvest", ButtonStyle, GUILayout.ExpandWidth(true)))
             {
                 RequestHarvest(plot.PlotId);
             }
+        }
+
+        private static string BuildPlotStatus(FarmPlotView plot)
+        {
+            if (plot.Status == FarmPlotStatus.Empty)
+            {
+                return $"{plot.PlotId} — Empty";
+            }
+
+            var watered = plot.WateredToday ? "Watered" : "Needs water";
+            return $"{plot.PlotId} — {plot.CropDisplayName} — "
+                + $"{plot.Status} — {plot.GrowthProgressDays}/{plot.GrowthDays} days — {watered}";
         }
     }
 }
