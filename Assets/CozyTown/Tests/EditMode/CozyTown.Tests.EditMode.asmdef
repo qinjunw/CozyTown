@@ -1,0 +1,21 @@
+{
+  "name": "CozyTown.Tests.EditMode",
+  "rootNamespace": "CozyTown.Tests.EditMode",
+  "references": [
+    "CozyTown.Runtime"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": true,
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}
