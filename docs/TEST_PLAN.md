@@ -5,8 +5,8 @@
 - 适用版本：MVP 系统框架阶段。
 - Unity 版本：`6000.5.5f1`。
 - 测试框架：`manifest.json` 请求 Unity Test Framework `1.4.5`，Unity `6000.5.5f1` 实际解析内置 `1.7.0`。
-- 当前状态：两个 EditMode 测试程序集包含 70 个用例，PlayMode 测试程序集包含 14 个用例；2026-08-28 的 M3-1 隔离批处理结果分别为 70 passed 与 14 passed，均为 0 failed、0 skipped。
-- 当前边界：M2 移动、碰撞、交互提示和四类交互点已经自动化；M3-1 进一步覆盖商店买卖原子性、只读交易状态、输入门控、Presenter 生命周期和正式场景购买。种植、畜牧、钓鱼、烹饪的场景 UI、文件存档适配器和线上 AI 适配器仍属于后续阶段。
+- 当前状态：两个 EditMode 测试程序集包含 108 个用例，PlayMode 测试程序集包含 22 个用例；2026-08-29 的 M3 隔离批处理结果分别为 108 passed 与 22 passed，均为 0 failed、0 skipped。
+- 当前边界：M3 已自动化交易与四个生产模块的失败原子性、只读玩法状态、连续跨日、统一输入门控、七点场景装配和完整生产经济闭环。文件存档适配器、线上 AI 适配器及对应故障测试仍属于 M4。
 
 本计划覆盖时间、背包、经济、商店、种植、畜牧、钓鱼、烹饪、NPC 对话、AI 对话边界和存档系统。框架阶段验证模块职责、公开契约、状态转换与跨模块闭环，不验证美术质量、数值平衡、复杂 NPC 日程、季节、天气、战斗或野外地图。
 
@@ -21,7 +21,7 @@
 
 ## 3. 测试项目结构
 
-测试程序集按被测层分别引用 Runtime 或 Unity 适配程序集，并统一使用 Unity Test Framework：
+测试程序集按被测层分别引用 Runtime 或 Unity 适配程序集，并统一使用 Unity Test Framework。下列树列出目录和代表文件，不是完整文件清单：
 
 ```text
 Assets/CozyTown/Tests/
@@ -43,21 +43,29 @@ Assets/CozyTown/Tests/
 │   ├── CozyTown.Tests.UnityEditMode.asmdef
 │   ├── CozyTownHudStateTests.cs
 │   ├── DevelopmentSceneEditModeTests.cs
+│   ├── GameplayDebugViewsEditModeTests.cs
 │   ├── InteractionContextTests.cs
-│   └── PlayerMovement2DTests.cs
+│   ├── PlayerModalInputGate2DTests.cs
+│   ├── PlayerMovement2DTests.cs
+│   ├── ShopDebugViewEditModeTests.cs
+│   └── TownInteractionPointEventEditModeTests.cs
 └── PlayMode/
     ├── CozyTown.Tests.PlayMode.asmdef
     ├── DevelopmentScenePlayModeTests.cs
+    ├── FarmPresenterLateBindingPlayModeTests.cs
     ├── InteractionPlayModeTests.cs
+    ├── PlayerModalInputGate2DPlayModeTests.cs
     ├── PlayerMovementPlayModeTests.cs
+    ├── PlayModeTestComponents.cs
+    ├── ShopDebugPresenterPlayModeTests.cs
     └── TownInteractionPointPlayModeTests.cs
 ```
 
-M2 已增加 `Assets/CozyTown/Tests/PlayMode/`，覆盖玩家位移、边界阻挡、输入边沿、组件禁用、碰撞目标选择、提示与反馈、正式场景装配和 MonoBehaviour 生命周期。M3-1 在同一程序集增加商店打开、固定数量交易、失败反馈、输入状态恢复、重复订阅和晚注册用例。
+`Assets/CozyTown/Tests/PlayMode/` 覆盖玩家位移、边界阻挡、输入边沿、组件禁用、碰撞目标选择、提示与反馈、模态输入互斥、Presenter 启停与晚注册，以及正式场景的完整生产经济闭环。
 
 ### 3.1 测试夹具
 
-纯逻辑和组件测试使用测试内构造的最小定义。正式场景另保留一条 EditMode 和一条 PlayMode 冒烟测试，显式读取 `CozyTown_Dev.unity` 验证移动、交互与商店装配：
+纯逻辑和组件测试使用测试内构造的最小定义，例如：
 
 - 物品：土豆种子、土豆、鱼、鸡蛋、盐、烤土豆。
 - 配方：一个有效配方和一个材料不足配方。
@@ -65,6 +73,8 @@ M2 已增加 `Assets/CozyTown/Tests/PlayMode/`，覆盖玩家位移、边界阻�
 - 农田：一块可种植地块，作物成熟天数固定。
 - 动物：一只鸡，喂食后次日产生一个鸡蛋。
 - NPC：一个固定身份、固定回退文本的测试 NPC。
+
+正式场景另保留一条 EditMode 资产测试和一条 PlayMode 闭环测试，显式读取 `CozyTown_Dev.unity`。资产测试验证七个交互点、Visual 层级、组件引用和窄接口装配；PlayMode 测试使用默认内容对象图，验证移动、输入恢复以及购买、种植、畜牧、钓鱼、跨日、烹饪、出售和再次投入。
 
 ### 3.2 测试替身
 
@@ -81,8 +91,8 @@ M2 已增加 `Assets/CozyTown/Tests/PlayMode/`，覆盖玩家位移、边界阻�
 | 纯逻辑组件测试 | EditMode | 值对象、服务、状态转换、校验器 | 必须 |
 | 模块契约测试 | EditMode | 调用方与模块公开接口之间的输入、输出和失败语义 | 必须 |
 | 跨模块集成测试 | EditMode | 背包、经济、生产、烹饪、存档组合 | 必须 |
-| 场景与交互测试 | PlayMode | 输入、碰撞、HUD、商店和场景对象连接 | M2 已实现；M3-1 商店入口已实现 |
-| 人工可玩验证 | Unity Editor | 一座小镇内的完整用户路径 | M3 经济闭环完成后执行 |
+| 场景与交互测试 | PlayMode | 输入、碰撞、HUD、六组功能面板和场景对象连接 | M3 已实现 |
+| 人工可玩验证 | Unity Editor | 一座小镇内的完整用户路径 | 自动化闭环已完成；作品集发布前仍需人工验收 |
 
 EditMode 测试不得调用真实大模型、真实网络接口或真实文件系统。真实 AI 服务只在受控的人工验证或独立后端集成环境中检查。
 
@@ -204,7 +214,7 @@ EditMode 测试不得调用真实大模型、真实网络接口或真实文件�
 
 覆盖矩阵描述完整 MVP 的最低回归范围。每个里程碑必须自动化其已实现范围内的 P0；尚无对应适配器的 P0 保留为后续里程碑入口条件。P1 可以随对应交互实现补齐，但公开失败语义必须先确定。
 
-当前 84 个用例覆盖组合根、时间溢出、背包容量、买卖成功与失败回滚、只读商店状态、作物成长与快照校验、畜牧产出、钓鱼命中、烹饪回滚、固定 NPC 回退、内存存档隔离、跨日三模块回滚、默认内容可达性、配置数组隔离，以及 Unity 移动、碰撞、HUD、交互边沿、商店输入生命周期和正式场景购买。上表是完整 MVP 的最低覆盖目标，不表示每个条目当前均已自动化；完整生产经济 UI 闭环、AI 提供者故障注入、磁盘损坏和版本迁移要在对应适配器实现后补齐。
+当前 130 个用例覆盖组合根、时间溢出、背包容量、交易与生产模块回滚、只读玩法投影、连续跨日、默认内容可达性、配置集合隔离，以及 Unity 移动、碰撞、HUD、七点交互、模态输入生命周期、晚注册和正式场景完整闭环。上表是完整 MVP 的最低覆盖目标，不表示每个条目当前均已自动化；AI 提供者故障注入、磁盘损坏、版本迁移和完整存档往返仍要在 M4 对应适配器实现后补齐。
 
 ## 7. 跨模块经济闭环场景
 
@@ -220,7 +230,8 @@ EditMode 测试不得调用真实大模型、真实网络接口或真实文件�
 6. 收获土豆，断言地块重置且背包获得定义产量。
 7. 制作烤土豆，断言土豆和盐按配方扣除，料理增加一份。
 8. 向商店出售料理，断言料理减少一份，金币增加定义售价。
-9. 断言最终金币等于“初始金币 - 买入成本 + 料理售价”，且任何失败步骤均未留下部分资产变更。
+9. 使用出售所得再次购买一份生产资料，断言背包取得下一轮投入。
+10. 断言最终金币等于“初始金币 - 首轮买入成本 + 出售收入 - 再投入成本”，且任何失败步骤均未留下部分资产变更。
 
 ### LOOP-02：日结、畜牧和存档恢复
 
@@ -297,7 +308,7 @@ Windows 上 Unity 启动器可能先返回退出码 `0`，而编辑器进程随�
 
 ### 10.2 当前验证结果
 
-2026-08-28 在包含 M3-1 商店切片的隔离 Git worktree 中运行 Unity `6000.5.5f1`。`M3ShopEditModeTests.xml` 记录 70 passed、0 failed、0 skipped；`M3ShopPlayModeTests.xml` 记录 14 passed、0 failed、0 skipped。PlayMode 的正式场景用例验证玩家移动与东侧边界、Bootstrap/HUD/商店运行态装配、从 300 金币购买一份 20 金币的土豆种子、空库存出售失败、关闭面板后恢复输入，以及四类交互点仍可继续触发。两份日志中 `error CS`、`Scripts have compiler errors`、`Compilation failed`、`Test run failed`、无效许可证、未处理异常和运行态装配错误的匹配数均为 0。
+2026-08-29 在包含完整 M3 改动的隔离 Git worktree 中运行 Unity `6000.5.5f1`。`M3UnityEditModeTests.xml` 记录 108 passed、0 failed、0 skipped；`M3UnityPlayModeTests.xml` 记录 22 passed、0 failed、0 skipped。PlayMode 的正式场景用例通过真实 `PlayerInteractor2D` 完成购买、种植、喂鸡、固定鲤鱼、两次跨日、收蛋、收获、两道料理、四次成功出售和再次购买；金币从 300 变为 260、405，最终为 385。两份日志中 `error CS`、`Scripts have compiler errors`、`Compilation failed`、`Test run failed`、未处理异常和运行态装配错误的匹配数均为 0。
 
 ## 11. 人工验证步骤
 
@@ -335,14 +346,14 @@ Windows 上 Unity 启动器可能先返回退出码 `0`，而编辑器进程随�
 - Unity Test Runner 的 57 个 EditMode 与 8 个 PlayMode 用例全部通过，相关日志无编译、测试、装配或许可证错误。
 - 生产经济 UI、磁盘存档和线上 AI 明确保留为 M3/M4 范围。
 
-### 12.3 M3-1 商店交易切片
+### 12.3 M3 生产经济闭环
 
-- 商店交易通过单一应用入口执行，Unity 商店组件不取得钱包、背包或完整服务集合。
-- 购买和出售成功路径、前置拒绝、依赖变更后失败和回滚失败均有 EditMode 结果。
-- 正式场景可打开商店、购买一份土豆种子、显示出售库存不足，并在关闭后恢复移动和交互。
-- Presenter 原状态恢复、重复启停、晚注册和同一交互边沿不触发交易均有 PlayMode 结果。
-- Unity Test Runner 的 70 个 EditMode 与 14 个 PlayMode 用例全部通过。
-- 种植、畜牧、钓鱼、烹饪和自然成功出售仍是 M3 后续工作包。
+- 商店与四个生产模块通过各自的窄应用入口执行，Unity Presenter 不取得钱包、背包、原始生产服务或完整服务集合。
+- 交易、播种、收获、喂食、领取、钓鱼和烹饪覆盖前置拒绝及依赖变更后回滚；每个相关服务至少保留一条代表性回滚失败诊断用例。
+- 连续两次跨日让作物按浇水日成长并让已喂食动物只产生一次待领取产物；重复、跳日和回滚路径有自动化结果。
+- 正式场景包含 7 个交互点，可通过真实交互边沿完成购买、生产、烹饪、原料与料理成功出售和再次投入。
+- 六个功能面板共用互斥输入门控；关闭、禁用、撤销、重复启停和跨帧晚注册均有 PlayMode 结果。
+- Unity Test Runner 的 108 个 EditMode 与 22 个 PlayMode 用例全部通过，相关日志无编译、测试、未处理异常或装配错误。
 
 ### 12.4 完整 MVP 进入作品集交付
 

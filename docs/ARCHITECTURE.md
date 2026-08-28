@@ -2,7 +2,7 @@
 
 ## 1. 范围与当前阶段
 
-本架构采用 Unity 项目内的模块化单体。M2 可行走小镇切片已经完成，M3 生产经济闭环正在进行。M3-1 已增加商店交易应用门面、失败事务回滚和 Unity 调试交易面板；种植、畜牧、钓鱼、烹饪、持久化文件适配器和线上 AI 适配器仍在后续工作包接入。仓库当前状态和验证结果见 [`README.md`](../README.md)。
+本架构采用 Unity 项目内的模块化单体。M3 生产经济闭环已经完成：交易与四个生产模块具有失败原子性，Unity 场景通过窄应用接口接入购买、种植、畜牧、钓鱼、跨日、烹饪、出售和再次投入。持久化文件适配器和线上 AI 适配器保留在 M4。仓库当前状态和验证结果见 [`README.md`](../README.md)。
 
 产品边界见 [`PRD.md`](PRD.md)。关键决策见：
 
@@ -45,6 +45,11 @@ Assets/CozyTown/
 │  ├─ Interaction/
 │  ├─ Hud/
 │  ├─ Shop/
+│  ├─ Farm/
+│  ├─ Bed/
+│  ├─ Coop/
+│  ├─ Pond/
+│  ├─ Kitchen/
 │  └─ Editor/
 ├─ Scenes/
 │  └─ CozyTown_Dev.unity
@@ -60,7 +65,7 @@ Assets/CozyTown/
 
 | 模块 | 公共入口 | 职责 | 不负责 |
 | --- | --- | --- | --- |
-| `Application` | `IDayTransitionCoordinator`、`IShopTradingCoordinator` | 协调跨日事务，并向商店表现层提供只读交易状态与单一买卖入口 | 表现、输入、数值平衡 |
+| `Application` | `IDayTransitionCoordinator`、`IShopTradingCoordinator`、四个 `*GameplayCoordinator` | 协调跨日事务，并向交易与生产表现层提供只读状态和单次命令入口 | 表现、输入、数值平衡 |
 | `Content` | `DefaultMvpContent`、`MvpContentValidator` | 提供默认稳定 ID、定义表和启动前引用/可达性校验 | 运行时状态、UI 编辑器 |
 | `Core` | `CozyTownCompositionRoot`、`CozyTownServices` | 创建默认实现并公开类型化服务引用 | 业务规则、存档格式、场景查找 |
 | `Time` | `ITimeService` | 当前天数和跨日推进 | 决定作物、动物的具体结算规则 |
@@ -72,7 +77,7 @@ Assets/CozyTown/
 | `Cooking` | `ICookingService` | 配方查询、食材校验和烹饪事务 | 食材生产、料理表现 |
 | `Npc` | `INpcDialogueGenerator` | 根据只读上下文返回对话候选或固定回退 | 写入金币、物品、时间、生产或存档状态 |
 | `Save` | `ISaveStorage` | 版本化存档快照的读写边界；MVP 调用方使用一个固定槽位 ID | 收集各模块状态、业务迁移决策 |
-| `Unity` | `CozyTownBootstrap`、输入/移动/交互/HUD/商店适配器 | 连接 Unity 生命周期、Input System、Physics2D 与窄接口 presenter | 领域规则、全局服务解析、跨模块事务 |
+| `Unity` | `CozyTownBootstrap`、输入门控、交互点及六组调试 Presenter/View | 连接 Unity 生命周期、Input System、Physics2D 与窄接口 Presenter | 领域规则、全局服务解析、跨模块事务 |
 
 接口输入和输出使用模块自己的 DTO 或值对象。公开集合应以只读视图或副本返回，调用方不能通过集合引用绕过模块规则。
 
@@ -111,11 +116,11 @@ CozyTownCompositionRoot 只负责创建并连接上述对象。
 当前 `CozyTownBootstrap` 的职责限定为：
 
 1. 调用组合根创建一次对象图；
-2. 私有持有对象图，并将 HUD 所需接口或 `IShopTradingCoordinator` 等窄入口推送给对应 presenter；
-3. 订阅状态变化并更新 Unity 视图；
-4. 在退出或保存点调用存档用例。
+2. 私有持有对象图，并将 HUD、商店、农田、床、鸡舍、池塘和厨房所需的窄入口推送给对应 Presenter；
+3. 支持场景序列化注册和初始化后的显式晚注册；
+4. 不把 `CozyTownServices`、背包或原始生产服务交给场景 Presenter。
 
-测试可以直接构造单个模块，也可以调用组合根验证默认对象图。外部 AI 和文件系统使用不同的适配器构造方法，不改变领域接口。
+测试可以直接构造单个模块，也可以调用组合根验证默认对象图。M4 接入外部 AI 和文件系统时，由独立适配器或组合工厂注入，不改变领域接口。
 
 ## 7. 关键数据流
 
@@ -137,11 +142,13 @@ Shop UI
 
 ```text
 Cooking UI
+  → ICookingGameplayCoordinator.Cook(配方)
   → ICookingService.Cook(配方)
   → 读取单一配方定义
-  → 校验全部食材和成品接收条件
-  → 一次性消耗食材并添加料理
-  → 返回结果
+  → 校验全部食材并捕获背包快照
+  → 消耗食材并尝试添加料理
+  → 任一背包写入失败时恢复快照
+  → 返回成功或稳定失败原因
 ```
 
 烹饪失败不得部分消耗食材。
@@ -215,14 +222,14 @@ Load use case
 - `Cooking`：配方成功、食材不足和失败不部分扣除；
 - `Npc`：固定文本、允许标签和故障回退；
 - `Save`：单槽位读写、空槽、往返一致和版本拒绝；
-- `Application`：跨日成功、日期错位、模块失败和三快照回滚；
+- `Application`：跨日回滚、四组只读玩法投影和默认生产经济闭环；
 - `Content`：默认数量、稳定 ID、引用可达性和配置数组隔离；
 - `Core`：默认组合根返回完整且一致的对象图；
-- `Unity`：移动向量限幅、HUD 状态映射和无服务袋的交互上下文。
+- `Unity`：移动、HUD、模态输入互斥、七点场景装配、Presenter 生命周期和正式经济闭环。
 
 钓鱼测试直接传入固定 `roll`；文件系统和 AI 服务通过接口或固定替身隔离。默认测试不访问网络，也不依赖调用计费模型。
 
-2026-08-28 的 Unity `6000.5.5f1` M3-1 隔离批处理运行发现并执行 70 个 EditMode 用例和 14 个 PlayMode 用例，结果分别为 70 passed 与 14 passed，均为 0 failed、0 skipped。PlayMode 覆盖玩家实际位移、边界阻挡、最近目标选择、连续输入边沿、商店输入门控、买卖反馈、Presenter 生命周期和正式场景装配。
+2026-08-29 的 Unity `6000.5.5f1` M3 隔离批处理运行发现并执行 108 个 EditMode 用例和 22 个 PlayMode 用例，结果分别为 108 passed 与 22 passed，均为 0 failed、0 skipped。PlayMode 覆盖玩家移动与边界、输入门控、Presenter 启停和晚注册，以及正式场景中的购买、生产、两次跨日、两道料理、成功出售和再次投入。
 
 ### 9.2 测试层
 
@@ -250,11 +257,10 @@ Load use case
 2. 已完成：增加跨日用例协调器、默认稳定 ID 内容和启动前校验。
 3. 已完成：接入 Unity Bootstrap、输入/刚体移动、交互探测契约和调试 HUD 骨架。
 4. 已完成：生成单一小镇场景，加入可见玩家、碰撞边界、交互提示、商店/NPC/床/农田浅交互点和 PlayMode 冒烟测试。
-5. 进行中：商店交易门面、购买/出售调试 UI、输入门控和正式场景接线已经完成。
-6. 下一步：把播种、浇水、跨日成长和收获接入现有农田点，使已购买种子进入第一条生产路径。
-7. 后续：接入畜牧、钓鱼、烹饪和成功出售，完成生产经济闭环。
-8. 后续：实现版本化本地文件存档适配器和迁移测试。
-9. 后续：接入 AI 代理适配器、结构校验、超时与固定回退。
-10. 后续：运行完整经济闭环、AI 离线评测、构建和演示录制。
+5. 已完成：商店交易门面、购买/出售调试 UI 和统一输入门控。
+6. 已完成：接入种植、畜牧、钓鱼、跨日和烹饪，并在正式场景完成成功出售与再次投入。
+7. 下一步：实现版本化本地文件存档适配器和迁移测试。
+8. 后续：接入 AI 代理适配器、结构校验、超时与固定回退。
+9. 后续：运行 AI 离线评测、Windows 构建和演示录制。
 
 每一步只扩展已定义接口所需的行为；如果接口不能表达已确认用例，先补充失败用例测试和 ADR，再调整公共契约。
