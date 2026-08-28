@@ -1,4 +1,6 @@
 using System;
+using CozyTown.Runtime.Application;
+using CozyTown.Runtime.Content;
 using CozyTown.Runtime.Cooking;
 using CozyTown.Runtime.Economy;
 using CozyTown.Runtime.Farming;
@@ -18,6 +20,14 @@ namespace CozyTown.Runtime.Core
             if (configuration == null)
             {
                 throw new ArgumentNullException(nameof(configuration));
+            }
+
+            OperationResult validation = MvpContentValidator.Validate(configuration);
+            if (!validation.IsSuccess)
+            {
+                throw new ArgumentException(
+                    $"CozyTown configuration is invalid: {validation.ErrorCode}",
+                    nameof(configuration));
             }
 
             var time = new InMemoryTimeService(
@@ -40,10 +50,16 @@ namespace CozyTown.Runtime.Core
                 configuration.StartingDay);
             var fishing = new InMemoryFishingService(configuration.FishingEntries, inventory);
             var cooking = new InMemoryCookingService(configuration.Recipes, inventory);
-            var npcDialogue = new FixedFallbackDialogueGenerator(configuration.FallbackDialogue);
+            INpcDialogueGenerator npcDialogue = configuration.Npcs.Length == 0
+                ? new FixedFallbackDialogueGenerator(configuration.FallbackDialogue)
+                : new ConfiguredFallbackDialogueGenerator(
+                    configuration.Npcs,
+                    configuration.FallbackDialogue);
             var saveStorage = new InMemorySaveStorage();
+            var dayTransition = new DayTransitionCoordinator(time, farm, livestock);
 
             return new CozyTownServices(
+                dayTransition,
                 time,
                 inventory,
                 wallet,
@@ -54,6 +70,12 @@ namespace CozyTown.Runtime.Core
                 cooking,
                 npcDialogue,
                 saveStorage);
+        }
+
+        public static CozyTownServices CreateDefault()
+        {
+            CozyTownConfiguration configuration = DefaultMvpContent.CreateConfiguration();
+            return Create(configuration);
         }
 
         public static CozyTownServices CreateEmpty()

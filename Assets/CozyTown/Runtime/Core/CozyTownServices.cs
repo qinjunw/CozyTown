@@ -1,4 +1,5 @@
 using System;
+using CozyTown.Runtime.Application;
 using CozyTown.Runtime.Cooking;
 using CozyTown.Runtime.Economy;
 using CozyTown.Runtime.Farming;
@@ -14,6 +15,7 @@ namespace CozyTown.Runtime.Core
     public sealed class CozyTownServices
     {
         public CozyTownServices(
+            IDayTransitionCoordinator dayTransition,
             ITimeService time,
             IInventory inventory,
             IWallet wallet,
@@ -25,6 +27,7 @@ namespace CozyTown.Runtime.Core
             INpcDialogueGenerator npcDialogue,
             ISaveStorage saveStorage)
         {
+            DayTransition = dayTransition ?? throw new ArgumentNullException(nameof(dayTransition));
             Time = time ?? throw new ArgumentNullException(nameof(time));
             Inventory = inventory ?? throw new ArgumentNullException(nameof(inventory));
             Wallet = wallet ?? throw new ArgumentNullException(nameof(wallet));
@@ -36,6 +39,8 @@ namespace CozyTown.Runtime.Core
             NpcDialogue = npcDialogue ?? throw new ArgumentNullException(nameof(npcDialogue));
             SaveStorage = saveStorage ?? throw new ArgumentNullException(nameof(saveStorage));
         }
+
+        public IDayTransitionCoordinator DayTransition { get; }
 
         public ITimeService Time { get; }
 

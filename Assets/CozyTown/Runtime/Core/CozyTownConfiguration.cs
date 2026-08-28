@@ -5,6 +5,7 @@ using CozyTown.Runtime.Farming;
 using CozyTown.Runtime.Fishing;
 using CozyTown.Runtime.Inventory;
 using CozyTown.Runtime.Livestock;
+using CozyTown.Runtime.Npc;
 
 namespace CozyTown.Runtime.Core
 {
@@ -23,7 +24,8 @@ namespace CozyTown.Runtime.Core
             int startingBalance = 0,
             int startingDay = 1,
             int startingMinuteOfDay = 360,
-            string fallbackDialogue = "It's a quiet day in town.")
+            string fallbackDialogue = "It's a quiet day in town.",
+            NpcDefinition[] npcs = null)
         {
             Items = items ?? Array.Empty<ItemDefinition>();
             ShopOffers = shopOffers ?? Array.Empty<ShopOffer>();
@@ -38,6 +40,7 @@ namespace CozyTown.Runtime.Core
             StartingDay = startingDay;
             StartingMinuteOfDay = startingMinuteOfDay;
             FallbackDialogue = fallbackDialogue;
+            Npcs = npcs ?? Array.Empty<NpcDefinition>();
         }
 
         public ItemDefinition[] Items { get; }
@@ -65,6 +68,8 @@ namespace CozyTown.Runtime.Core
         public int StartingMinuteOfDay { get; }
 
         public string FallbackDialogue { get; }
+
+        public NpcDefinition[] Npcs { get; }
 
         public static CozyTownConfiguration Empty()
         {
