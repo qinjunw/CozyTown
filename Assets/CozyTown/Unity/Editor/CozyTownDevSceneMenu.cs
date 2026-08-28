@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using CozyTown.Unity.Core;
 using CozyTown.Unity.Hud;
@@ -21,9 +22,10 @@ namespace CozyTown.Unity.Editor
         [MenuItem("CozyTown/Create Development Scene")]
         public static void CreateDevelopmentScene()
         {
-            if (File.Exists(ScenePath))
+            var existingScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(ScenePath);
+            if (existingScene != null || File.Exists(ScenePath))
             {
-                EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<SceneAsset>(ScenePath));
+                EditorGUIUtility.PingObject(existingScene);
                 Debug.Log($"Development scene already exists at {ScenePath}. No files were changed.");
                 return;
             }
@@ -35,12 +37,13 @@ namespace CozyTown.Unity.Editor
             {
                 var scene = EditorSceneManager.NewScene(
                     NewSceneSetup.EmptyScene,
-                    NewSceneMode.Additive);
+                    GetSceneCreationMode(previousScene));
                 SceneManager.SetActiveScene(scene);
 
                 var bootstrap = CreateBootstrap();
-                CreatePlayer();
-                CreateHud(bootstrap);
+                var playerInteractor = CreatePlayer();
+                CreateWorld();
+                CreateHud(bootstrap, playerInteractor);
                 CreateCamera();
 
                 EditorSceneManager.SaveScene(scene, ScenePath);
@@ -59,13 +62,29 @@ namespace CozyTown.Unity.Editor
             }
         }
 
+        private static NewSceneMode GetSceneCreationMode(Scene previousScene)
+        {
+            if (!string.IsNullOrEmpty(previousScene.path))
+            {
+                return NewSceneMode.Additive;
+            }
+
+            if (Application.isBatchMode)
+            {
+                return NewSceneMode.Single;
+            }
+
+            throw new InvalidOperationException(
+                "Save the active untitled scene before creating the development scene.");
+        }
+
         private static CozyTownBootstrap CreateBootstrap()
         {
             var gameRoot = new GameObject("CozyTown");
             return gameRoot.AddComponent<CozyTownBootstrap>();
         }
 
-        private static void CreatePlayer()
+        private static PlayerInteractor2D CreatePlayer()
         {
             var inputActions = AssetDatabase.LoadAssetAtPath<InputActionAsset>(InputActionsPath);
             if (inputActions == null)
@@ -75,11 +94,16 @@ namespace CozyTown.Unity.Editor
 
             var playerObject = new GameObject("Player");
             playerObject.transform.position = Vector3.zero;
+            ConfigureRenderer(
+                playerObject,
+                new Vector2(0.7f, 0.7f),
+                new Color(0.25f, 0.9f, 1f),
+                sortingOrder: 10);
 
             var body = playerObject.AddComponent<Rigidbody2D>();
             body.gravityScale = 0f;
             body.freezeRotation = true;
-            playerObject.AddComponent<CircleCollider2D>().radius = 0.35f;
+            playerObject.AddComponent<CircleCollider2D>().radius = 0.3f;
 
             var playerInput = playerObject.AddComponent<PlayerInput>();
             playerInput.actions = inputActions;
@@ -93,15 +117,79 @@ namespace CozyTown.Unity.Editor
             var probe = playerObject.AddComponent<InteractionProbe2D>();
             var interactor = playerObject.AddComponent<PlayerInteractor2D>();
             interactor.Configure(inputSource, probe);
+            return interactor;
         }
 
-        private static void CreateHud(CozyTownBootstrap bootstrap)
+        private static void CreateWorld()
+        {
+            var world = new GameObject("World");
+            var boundaries = new GameObject("Boundaries");
+            boundaries.transform.SetParent(world.transform, false);
+            CreateBoundary(
+                "North Boundary",
+                new Vector2(0f, 3f),
+                new Vector2(10.4f, 0.4f),
+                boundaries.transform);
+            CreateBoundary(
+                "South Boundary",
+                new Vector2(0f, -3f),
+                new Vector2(10.4f, 0.4f),
+                boundaries.transform);
+            CreateBoundary(
+                "West Boundary",
+                new Vector2(-5f, 0f),
+                new Vector2(0.4f, 6.4f),
+                boundaries.transform);
+            CreateBoundary(
+                "East Boundary",
+                new Vector2(5f, 0f),
+                new Vector2(0.4f, 6.4f),
+                boundaries.transform);
+
+            var interactionPoints = new GameObject("Interaction Points");
+            interactionPoints.transform.SetParent(world.transform, false);
+            CreateInteractionPoint(
+                "Shop",
+                TownInteractionKind.Shop,
+                "Press E to browse the shop",
+                new Vector2(-3f, 1.6f),
+                new Color(1f, 0.65f, 0.2f),
+                interactionPoints.transform);
+            CreateInteractionPoint(
+                "NPC",
+                TownInteractionKind.Npc,
+                "Press E to talk",
+                new Vector2(3f, 1.6f),
+                new Color(0.25f, 0.65f, 1f),
+                interactionPoints.transform);
+            CreateInteractionPoint(
+                "Bed",
+                TownInteractionKind.Bed,
+                "Press E to sleep until tomorrow",
+                new Vector2(-3f, -1.6f),
+                new Color(0.7f, 0.4f, 1f),
+                interactionPoints.transform);
+            CreateInteractionPoint(
+                "Farm",
+                TownInteractionKind.Farm,
+                "Press E to inspect the farm",
+                new Vector2(3f, -1.6f),
+                new Color(0.35f, 0.85f, 0.35f),
+                interactionPoints.transform);
+        }
+
+        private static void CreateHud(
+            CozyTownBootstrap bootstrap,
+            PlayerInteractor2D playerInteractor)
         {
             var hudObject = new GameObject("Debug HUD");
             var view = hudObject.AddComponent<CozyTownDebugHudView>();
             var presenter = hudObject.AddComponent<CozyTownHudPresenter>();
             presenter.ConfigureView(view);
             bootstrap.RegisterHudPresenter(presenter);
+
+            var interactionView = hudObject.AddComponent<CozyTownInteractionDebugView>();
+            interactionView.Configure(playerInteractor);
         }
 
         private static void CreateCamera()
@@ -112,9 +200,79 @@ namespace CozyTown.Unity.Editor
 
             var camera = cameraObject.AddComponent<Camera>();
             camera.orthographic = true;
-            camera.orthographicSize = 5f;
+            camera.orthographicSize = 3.7f;
             camera.clearFlags = CameraClearFlags.SolidColor;
             camera.backgroundColor = new Color(0.08f, 0.11f, 0.12f);
+        }
+
+        private static void CreateBoundary(
+            string name,
+            Vector2 position,
+            Vector2 size,
+            Transform parent)
+        {
+            var boundary = new GameObject(name);
+            boundary.transform.SetParent(parent, false);
+            boundary.transform.position = position;
+            boundary.AddComponent<BoxCollider2D>().size = size;
+            ConfigureRenderer(
+                boundary,
+                size,
+                new Color(0.18f, 0.23f, 0.25f),
+                sortingOrder: 0);
+        }
+
+        private static void CreateInteractionPoint(
+            string name,
+            TownInteractionKind kind,
+            string prompt,
+            Vector2 position,
+            Color color,
+            Transform parent)
+        {
+            var pointObject = new GameObject(name);
+            pointObject.transform.SetParent(parent, false);
+            pointObject.transform.position = position;
+
+            var collider = pointObject.AddComponent<BoxCollider2D>();
+            collider.size = new Vector2(1.2f, 1.2f);
+            collider.isTrigger = true;
+
+            ConfigureRenderer(
+                pointObject,
+                collider.size,
+                color,
+                sortingOrder: 1);
+            pointObject
+                .AddComponent<TownInteractionPoint2D>()
+                .Configure(kind, prompt);
+        }
+
+        private static void ConfigureRenderer(
+            GameObject target,
+            Vector2 size,
+            Color color,
+            int sortingOrder)
+        {
+            var sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+            if (sprite == null)
+            {
+                throw new InvalidOperationException("Unity built-in UISprite could not be loaded.");
+            }
+
+            var visual = new GameObject("Visual");
+            visual.transform.SetParent(target.transform, false);
+
+            var renderer = visual.AddComponent<SpriteRenderer>();
+            renderer.sprite = sprite;
+            renderer.color = color;
+            renderer.sortingOrder = sortingOrder;
+
+            var spriteSize = sprite.bounds.size;
+            visual.transform.localScale = new Vector3(
+                size.x / spriteSize.x,
+                size.y / spriteSize.y,
+                1f);
         }
 
         private static void EnsureFolder(string path)
