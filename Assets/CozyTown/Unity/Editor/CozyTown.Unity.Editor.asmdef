@@ -1,0 +1,19 @@
+{
+  "name": "CozyTown.Unity.Editor",
+  "rootNamespace": "CozyTown.Unity.Editor",
+  "references": [
+    "CozyTown.Unity",
+    "Unity.InputSystem"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
