@@ -5,6 +5,11 @@ using CozyTown.Unity.Input;
 using CozyTown.Unity.Interaction;
 using CozyTown.Unity.Player;
 using CozyTown.Unity.Shop;
+using CozyTown.Unity.Farm;
+using CozyTown.Unity.Bed;
+using CozyTown.Unity.Coop;
+using CozyTown.Unity.Pond;
+using CozyTown.Unity.Kitchen;
 using NUnit.Framework;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -33,6 +38,7 @@ namespace CozyTown.Tests.UnityEditMode
                 Assert.That(player.GetComponent<InputSystemPlayerInputSource>(), Is.Not.Null);
                 Assert.That(player.GetComponent<PlayerMovement2D>(), Is.Not.Null);
                 Assert.That(player.GetComponent<PlayerInteractor2D>(), Is.Not.Null);
+                Assert.That(player.GetComponent<PlayerModalInputGate2D>(), Is.Not.Null);
                 Assert.That(player.GetComponentInChildren<SpriteRenderer>(true), Is.Not.Null);
 
                 var world = RequireRoot(scene, "World");
@@ -43,10 +49,23 @@ namespace CozyTown.Tests.UnityEditMode
                     Has.Length.EqualTo(4));
 
                 var points = world.GetComponentsInChildren<TownInteractionPoint2D>(true);
-                Assert.That(points, Has.Length.EqualTo(4));
+                Assert.That(points, Has.Length.EqualTo(7));
                 foreach (var point in points)
                 {
                     Assert.That(point.PromptText, Is.Not.Empty);
+                    Assert.That(point.GetComponent<SpriteRenderer>(), Is.Null);
+                    var visual = point.transform.Find("Visual");
+                    Assert.That(visual, Is.Not.Null, $"{point.name} is missing its Visual child.");
+                    var renderer = visual.GetComponent<SpriteRenderer>();
+                    Assert.That(renderer, Is.Not.Null);
+                    Assert.That(renderer.sprite, Is.Not.Null);
+                    Assert.That(renderer.sortingOrder, Is.EqualTo(1));
+                    var spriteSize = renderer.sprite.bounds.size;
+                    var renderedSize = Vector2.Scale(
+                        new Vector2(spriteSize.x, spriteSize.y),
+                        new Vector2(visual.lossyScale.x, visual.lossyScale.y));
+                    Assert.That(renderedSize.x, Is.EqualTo(1.2f).Within(0.001f));
+                    Assert.That(renderedSize.y, Is.EqualTo(1.2f).Within(0.001f));
                 }
 
                 CollectionAssert.AreEquivalent(
@@ -55,7 +74,10 @@ namespace CozyTown.Tests.UnityEditMode
                         TownInteractionKind.Shop,
                         TownInteractionKind.Npc,
                         TownInteractionKind.Bed,
-                        TownInteractionKind.Farm
+                        TownInteractionKind.Farm,
+                        TownInteractionKind.Coop,
+                        TownInteractionKind.Pond,
+                        TownInteractionKind.Kitchen
                     },
                     Array.ConvertAll(points, point => point.Kind));
 
@@ -64,6 +86,12 @@ namespace CozyTown.Tests.UnityEditMode
                 Assert.That(hud.GetComponent<CozyTownInteractionDebugView>(), Is.Not.Null);
                 Assert.That(hud.GetComponent<CozyTownShopDebugView>(), Is.Not.Null);
                 Assert.That(hud.GetComponent<CozyTownShopDebugPresenter>(), Is.Not.Null);
+                Assert.That(hud.GetComponent<CozyTownFarmDebugView>(), Is.Not.Null);
+                Assert.That(hud.GetComponent<CozyTownFarmDebugPresenter>(), Is.Not.Null);
+                Assert.That(hud.GetComponent<CozyTownBedDebugPresenter>(), Is.Not.Null);
+                Assert.That(hud.GetComponent<CozyTownCoopDebugPresenter>(), Is.Not.Null);
+                Assert.That(hud.GetComponent<CozyTownPondDebugPresenter>(), Is.Not.Null);
+                Assert.That(hud.GetComponent<CozyTownKitchenDebugPresenter>(), Is.Not.Null);
 
                 var camera = RequireRoot(scene, "Main Camera");
                 Assert.That(camera.GetComponent<Camera>()?.orthographic, Is.True);

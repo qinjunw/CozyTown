@@ -1,10 +1,15 @@
 using System;
 using System.IO;
+using CozyTown.Unity.Bed;
+using CozyTown.Unity.Coop;
 using CozyTown.Unity.Core;
+using CozyTown.Unity.Farm;
 using CozyTown.Unity.Hud;
 using CozyTown.Unity.Input;
 using CozyTown.Unity.Interaction;
+using CozyTown.Unity.Kitchen;
 using CozyTown.Unity.Player;
+using CozyTown.Unity.Pond;
 using CozyTown.Unity.Shop;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -43,8 +48,8 @@ namespace CozyTown.Unity.Editor
 
                 var bootstrap = CreateBootstrap();
                 var playerInteractor = CreatePlayer();
-                var shopPoint = CreateWorld();
-                CreateHud(bootstrap, playerInteractor, shopPoint);
+                var points = CreateWorld();
+                CreateHud(bootstrap, playerInteractor, points);
                 CreateCamera();
 
                 EditorSceneManager.SaveScene(scene, ScenePath);
@@ -118,10 +123,11 @@ namespace CozyTown.Unity.Editor
             var probe = playerObject.AddComponent<InteractionProbe2D>();
             var interactor = playerObject.AddComponent<PlayerInteractor2D>();
             interactor.Configure(inputSource, probe);
+            playerObject.AddComponent<PlayerModalInputGate2D>();
             return interactor;
         }
 
-        private static TownInteractionPoint2D CreateWorld()
+        private static TownInteractionPoint2D[] CreateWorld()
         {
             var world = new GameObject("World");
             var boundaries = new GameObject("Boundaries");
@@ -156,34 +162,46 @@ namespace CozyTown.Unity.Editor
                 new Vector2(-3f, 1.6f),
                 new Color(1f, 0.65f, 0.2f),
                 interactionPoints.transform);
-            CreateInteractionPoint(
+            var npcPoint = CreateInteractionPoint(
                 "NPC",
                 TownInteractionKind.Npc,
                 "Press E to talk",
                 new Vector2(3f, 1.6f),
                 new Color(0.25f, 0.65f, 1f),
                 interactionPoints.transform);
-            CreateInteractionPoint(
+            var bedPoint = CreateInteractionPoint(
                 "Bed",
                 TownInteractionKind.Bed,
                 "Press E to sleep until tomorrow",
                 new Vector2(-3f, -1.6f),
                 new Color(0.7f, 0.4f, 1f),
                 interactionPoints.transform);
-            CreateInteractionPoint(
+            var farmPoint = CreateInteractionPoint(
                 "Farm",
                 TownInteractionKind.Farm,
                 "Press E to inspect the farm",
                 new Vector2(3f, -1.6f),
                 new Color(0.35f, 0.85f, 0.35f),
                 interactionPoints.transform);
-            return shopPoint;
+            var coopPoint = CreateInteractionPoint(
+                "Coop", TownInteractionKind.Coop, "Press E to tend the coop",
+                new Vector2(0f, 1.6f), new Color(.9f, .8f, .35f), interactionPoints.transform);
+            var pondPoint = CreateInteractionPoint(
+                "Pond", TownInteractionKind.Pond, "Press E to fish",
+                new Vector2(0f, -1.6f), new Color(.2f, .75f, .9f), interactionPoints.transform);
+            var kitchenPoint = CreateInteractionPoint(
+                "Kitchen", TownInteractionKind.Kitchen, "Press E to cook",
+                new Vector2(3f, 0f), new Color(.95f, .45f, .35f), interactionPoints.transform);
+            return new[]
+            {
+                shopPoint, npcPoint, bedPoint, farmPoint, coopPoint, pondPoint, kitchenPoint
+            };
         }
 
         private static void CreateHud(
             CozyTownBootstrap bootstrap,
             PlayerInteractor2D playerInteractor,
-            TownInteractionPoint2D shopPoint)
+            TownInteractionPoint2D[] points)
         {
             var hudObject = new GameObject("Debug HUD");
             var view = hudObject.AddComponent<CozyTownDebugHudView>();
@@ -196,8 +214,29 @@ namespace CozyTown.Unity.Editor
 
             var shopView = hudObject.AddComponent<CozyTownShopDebugView>();
             var shopPresenter = hudObject.AddComponent<CozyTownShopDebugPresenter>();
-            shopPresenter.Configure(shopPoint, shopView);
+            shopPresenter.Configure(points[0], shopView);
             bootstrap.RegisterShopPresenter(shopPresenter);
+
+            var farmView = hudObject.AddComponent<CozyTownFarmDebugView>();
+            var farmPresenter = hudObject.AddComponent<CozyTownFarmDebugPresenter>();
+            farmPresenter.Configure(points[3], farmView);
+            bootstrap.RegisterFarmPresenter(farmPresenter);
+            var bedView = hudObject.AddComponent<CozyTownBedDebugView>();
+            var bedPresenter = hudObject.AddComponent<CozyTownBedDebugPresenter>();
+            bedPresenter.Configure(points[2], bedView);
+            bootstrap.RegisterBedPresenter(bedPresenter);
+            var coopView = hudObject.AddComponent<CozyTownCoopDebugView>();
+            var coopPresenter = hudObject.AddComponent<CozyTownCoopDebugPresenter>();
+            coopPresenter.Configure(points[4], coopView);
+            bootstrap.RegisterCoopPresenter(coopPresenter);
+            var pondView = hudObject.AddComponent<CozyTownPondDebugView>();
+            var pondPresenter = hudObject.AddComponent<CozyTownPondDebugPresenter>();
+            pondPresenter.Configure(points[5], pondView);
+            bootstrap.RegisterPondPresenter(pondPresenter);
+            var kitchenView = hudObject.AddComponent<CozyTownKitchenDebugView>();
+            var kitchenPresenter = hudObject.AddComponent<CozyTownKitchenDebugPresenter>();
+            kitchenPresenter.Configure(points[6], kitchenView);
+            bootstrap.RegisterKitchenPresenter(kitchenPresenter);
         }
 
         private static void CreateCamera()

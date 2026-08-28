@@ -9,6 +9,11 @@ using CozyTown.Unity.Input;
 using CozyTown.Unity.Interaction;
 using CozyTown.Unity.Player;
 using CozyTown.Unity.Shop;
+using CozyTown.Unity.Farm;
+using CozyTown.Unity.Bed;
+using CozyTown.Unity.Coop;
+using CozyTown.Unity.Pond;
+using CozyTown.Unity.Kitchen;
 using NUnit.Framework;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -79,12 +84,37 @@ namespace CozyTown.Tests.PlayMode
 
             var points = RequireRoot(_loadedScene, "World")
                 .GetComponentsInChildren<TownInteractionPoint2D>(true);
-            Assert.That(points, Has.Length.EqualTo(4));
+            Assert.That(points, Has.Length.EqualTo(7));
             var hud = RequireRoot(_loadedScene, "Debug HUD");
             var shopView = hud.GetComponent<CozyTownShopDebugView>();
             var shopPresenter = hud.GetComponent<CozyTownShopDebugPresenter>();
+            var farmView = hud.GetComponent<CozyTownFarmDebugView>();
+            var bedView = hud.GetComponent<CozyTownBedDebugView>();
+            var coopView = hud.GetComponent<CozyTownCoopDebugView>();
+            var pondView = hud.GetComponent<CozyTownPondDebugView>();
+            var pondPresenter = hud.GetComponent<CozyTownPondDebugPresenter>();
+            var kitchenView = hud.GetComponent<CozyTownKitchenDebugView>();
             Assert.That(shopView, Is.Not.Null);
             Assert.That(shopPresenter, Is.Not.Null);
+            Assert.That(farmView, Is.Not.Null);
+            Assert.That(bedView, Is.Not.Null);
+            Assert.That(coopView, Is.Not.Null);
+            Assert.That(pondView, Is.Not.Null);
+            Assert.That(kitchenView, Is.Not.Null);
+            pondPresenter.SetRollSource(new FixedFishingRollSource(0));
+
+            IEnumerator Open(TownInteractionKind kind)
+            {
+                var point = points.Single(candidate => candidate.Kind == kind);
+                var position = (Vector2)point.transform.position;
+                body.position = position;
+                player.transform.position = position;
+                Physics2D.SyncTransforms();
+                yield return null;
+                Assert.That(interactor.CurrentPrompt, Is.EqualTo(point.PromptText));
+                testInput.PressInteract();
+                yield return null;
+            }
 
             var shopPoint = points.Single(point => point.Kind == TownInteractionKind.Shop);
             var shopPosition = (Vector2)shopPoint.transform.position;
@@ -113,10 +143,57 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(shopView.State.Balance, Is.EqualTo(280));
             Assert.That(shopView.Feedback, Is.EqualTo(
                 "Sell failed: inventory.insufficient_quantity"));
+            shopView.RequestBuy(DefaultMvpIds.Items.ChickenFeed);
+            shopView.RequestBuy(DefaultMvpIds.Items.Salt);
+            shopView.RequestBuy(DefaultMvpIds.Items.Salt);
+            Assert.That(shopView.State.Balance, Is.EqualTo(260));
             shopView.RequestClose();
             Assert.That(shopView.IsVisible, Is.False);
             Assert.That(movement.enabled, Is.True);
             Assert.That(interactor.enabled, Is.True);
+
+            yield return Open(TownInteractionKind.Farm);
+            farmView.RequestPlant("plot.01", DefaultMvpIds.Items.PotatoSeed);
+            farmView.RequestWater("plot.01");
+            farmView.RequestClose();
+            yield return Open(TownInteractionKind.Coop);
+            coopView.RequestFeed(DefaultMvpIds.Livestock.Hen);
+            coopView.RequestClose();
+            yield return Open(TownInteractionKind.Pond);
+            pondView.RequestCatch();
+            Assert.That(pondView.State.Entries.Single(e => e.ItemId == DefaultMvpIds.Items.Carp).OwnedQuantity, Is.EqualTo(1));
+            pondView.RequestClose();
+            yield return Open(TownInteractionKind.Bed);
+            bedView.RequestSleep();
+            Assert.That(bedView.Feedback, Is.EqualTo("Slept to day 2."));
+            bedView.RequestClose();
+            yield return Open(TownInteractionKind.Coop);
+            coopView.RequestCollect(DefaultMvpIds.Livestock.Hen);
+            coopView.RequestClose();
+            yield return Open(TownInteractionKind.Farm);
+            farmView.RequestWater("plot.01");
+            farmView.RequestClose();
+            yield return Open(TownInteractionKind.Bed);
+            bedView.RequestSleep();
+            Assert.That(bedView.Feedback, Is.EqualTo("Slept to day 3."));
+            bedView.RequestClose();
+            yield return Open(TownInteractionKind.Farm);
+            farmView.RequestHarvest("plot.01");
+            farmView.RequestClose();
+            yield return Open(TownInteractionKind.Kitchen);
+            kitchenView.RequestCook(DefaultMvpIds.Recipes.BakedPotato);
+            kitchenView.RequestCook(DefaultMvpIds.Recipes.GrilledFish);
+            kitchenView.RequestClose();
+            yield return Open(TownInteractionKind.Shop);
+            shopView.RequestSell(DefaultMvpIds.Items.Potato);
+            shopView.RequestSell(DefaultMvpIds.Items.BakedPotato);
+            shopView.RequestSell(DefaultMvpIds.Items.GrilledFish);
+            shopView.RequestSell(DefaultMvpIds.Items.Egg);
+            Assert.That(shopView.State.Balance, Is.EqualTo(405));
+            shopView.RequestBuy(DefaultMvpIds.Items.PotatoSeed);
+            Assert.That(shopView.State.Balance, Is.EqualTo(385));
+            Assert.That(shopView.State.Items.Single(i => i.ItemId == DefaultMvpIds.Items.PotatoSeed).OwnedQuantity, Is.EqualTo(1));
+            shopView.RequestClose();
 
             foreach (var point in points)
             {
@@ -136,6 +213,26 @@ namespace CozyTown.Tests.PlayMode
                 if (shopView.IsVisible)
                 {
                     shopView.RequestClose();
+                }
+                if (farmView.IsVisible)
+                {
+                    farmView.RequestClose();
+                }
+                if (bedView.IsVisible)
+                {
+                    bedView.RequestClose();
+                }
+                if (coopView.IsVisible)
+                {
+                    coopView.RequestClose();
+                }
+                if (pondView.IsVisible)
+                {
+                    pondView.RequestClose();
+                }
+                if (kitchenView.IsVisible)
+                {
+                    kitchenView.RequestClose();
                 }
             }
 
@@ -165,6 +262,13 @@ namespace CozyTown.Tests.PlayMode
                 candidate => candidate.name == name);
             Assert.That(root, Is.Not.Null, $"Root object '{name}' was not found.");
             return root;
+        }
+
+        private sealed class FixedFishingRollSource : IFishingRollSource
+        {
+            private readonly int _roll;
+            public FixedFishingRollSource(int roll) => _roll = roll;
+            public int NextRoll() => _roll;
         }
     }
 }

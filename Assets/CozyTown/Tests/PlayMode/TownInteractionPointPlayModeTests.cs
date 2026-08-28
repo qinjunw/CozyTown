@@ -10,6 +10,9 @@ namespace CozyTown.Tests.PlayMode
         [TestCase(TownInteractionKind.Npc, "Talk")]
         [TestCase(TownInteractionKind.Bed, "Sleep")]
         [TestCase(TownInteractionKind.Farm, "Tend field")]
+        [TestCase(TownInteractionKind.Coop, "Tend coop")]
+        [TestCase(TownInteractionKind.Pond, "Fish")]
+        [TestCase(TownInteractionKind.Kitchen, "Cook")]
         public void Configure_SetsKindAndPrompt_AndRequiresAnActor(
             TownInteractionKind kind,
             string prompt)

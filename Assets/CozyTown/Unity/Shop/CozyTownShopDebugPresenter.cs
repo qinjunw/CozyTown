@@ -18,11 +18,7 @@ namespace CozyTown.Unity.Shop
         private IShopTradingCoordinator _coordinator;
         private ICozyTownShopDebugView _view;
         private GameObject _actor;
-        private PlayerMovement2D _movement;
-        private PlayerInteractor2D _interactor;
-        private Rigidbody2D _body;
-        private bool _movementWasEnabled;
-        private bool _interactorWasEnabled;
+        private PlayerModalInputGate2D _inputGate;
         private bool _isSubscribed;
 
         public bool IsOpen => _actor != null;
@@ -130,27 +126,15 @@ namespace CozyTown.Unity.Shop
             }
 
             _actor = context.Actor;
-            _movement = _actor.GetComponent<PlayerMovement2D>();
-            _interactor = _actor.GetComponent<PlayerInteractor2D>();
-            _body = _actor.GetComponent<Rigidbody2D>();
-            _movementWasEnabled = _movement != null && _movement.enabled;
-            _interactorWasEnabled = _interactor != null && _interactor.enabled;
-
-            if (_movement != null)
+            _inputGate = _actor.GetComponent<PlayerModalInputGate2D>();
+            if (_inputGate == null || !_inputGate.TryAcquire(this))
             {
-                _movement.enabled = false;
+                _actor = null;
+                _inputGate = null;
+                return;
             }
 
-            if (_interactor != null)
-            {
-                _interactor.enabled = false;
-            }
-
-            if (_body != null)
-            {
-                _body.linearVelocity = Vector2.zero;
-            }
-
+            _inputGate.AcquisitionRevoked += HandleInputGateRevoked;
             _view.Show(_coordinator.GetCurrentState(), string.Empty);
         }
 
@@ -188,21 +172,24 @@ namespace CozyTown.Unity.Shop
         {
             if (_actor != null)
             {
-                if (_movement != null)
-                {
-                    _movement.enabled = _movementWasEnabled;
-                }
-
-                if (_interactor != null)
-                {
-                    _interactor.enabled = _interactorWasEnabled;
-                }
+                _inputGate.AcquisitionRevoked -= HandleInputGateRevoked;
+                _inputGate.Release(this);
             }
 
             _actor = null;
-            _movement = null;
-            _interactor = null;
-            _body = null;
+            _inputGate = null;
+            _view?.Hide();
+        }
+
+        private void HandleInputGateRevoked()
+        {
+            if (_inputGate != null)
+            {
+                _inputGate.AcquisitionRevoked -= HandleInputGateRevoked;
+            }
+
+            _actor = null;
+            _inputGate = null;
             _view?.Hide();
         }
 

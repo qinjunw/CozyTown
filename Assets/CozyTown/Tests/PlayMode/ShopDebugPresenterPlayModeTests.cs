@@ -93,6 +93,31 @@ namespace CozyTown.Tests.PlayMode
         }
 
         [UnityTest]
+        public IEnumerator DisablingInputGate_ClosesShopAndRestoresActor()
+        {
+            CreateActor();
+            var point = CreateShopPoint();
+            var presenter = CreatePresenter(
+                point,
+                new StubShopTradingCoordinator(State(300, 0)),
+                out var view);
+            var gate = _actor.GetComponent<PlayerModalInputGate2D>();
+            var movement = _actor.GetComponent<PlayerMovement2D>();
+            var interactor = _actor.GetComponent<PlayerInteractor2D>();
+
+            point.Interact(new InteractionContext(_actor));
+            yield return null;
+            Assert.That(presenter.IsOpen, Is.True);
+
+            gate.enabled = false;
+
+            Assert.That(presenter.IsOpen, Is.False);
+            Assert.That(view.IsVisible, Is.False);
+            Assert.That(movement.enabled, Is.True);
+            Assert.That(interactor.enabled, Is.True);
+        }
+
+        [UnityTest]
         public IEnumerator Close_PreservesOriginallyDisabledActorComponents()
         {
             CreateActor();
@@ -215,6 +240,7 @@ namespace CozyTown.Tests.PlayMode
             var probe = _actor.AddComponent<InteractionProbe2D>();
             var interactor = _actor.AddComponent<PlayerInteractor2D>();
             interactor.Configure(input, probe);
+            _actor.AddComponent<PlayerModalInputGate2D>();
             _actor.SetActive(true);
             return input;
         }

@@ -152,6 +152,9 @@ Transform:
   - {fileID: 2135212516}
   - {fileID: 1906968166}
   - {fileID: 2108550156}
+  - {fileID: 300000002}
+  - {fileID: 300000012}
+  - {fileID: 300000022}
   m_Father: {fileID: 351526447}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &149004238
@@ -374,6 +377,16 @@ GameObject:
   - component: {fileID: 351428449}
   - component: {fileID: 351428453}
   - component: {fileID: 351428454}
+  - component: {fileID: 351428455}
+  - component: {fileID: 351428456}
+  - component: {fileID: 351428457}
+  - component: {fileID: 351428458}
+  - component: {fileID: 351428459}
+  - component: {fileID: 351428460}
+  - component: {fileID: 351428461}
+  - component: {fileID: 351428462}
+  - component: {fileID: 351428463}
+  - component: {fileID: 351428464}
   m_Layer: 0
   m_Name: Debug HUD
   m_TagString: Untagged
@@ -460,6 +473,76 @@ MonoBehaviour:
   m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Shop.CozyTownShopDebugPresenter
   shopPoint: {fileID: 815552602}
   viewBehaviour: {fileID: 351428453}
+--- !u!114 &351428455
+MonoBehaviour:
+  m_GameObject: {fileID: 351428448}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 2951fb1ae7c445e1b75c0d21b7e3f2d2, type: 3}
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Farm.CozyTownFarmDebugView
+--- !u!114 &351428456
+MonoBehaviour:
+  m_GameObject: {fileID: 351428448}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: e1a862191dcb4592956e4b4832affc68, type: 3}
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Farm.CozyTownFarmDebugPresenter
+  _interactionPoint: {fileID: 2108550157}
+  _view: {fileID: 351428455}
+--- !u!114 &351428457
+MonoBehaviour:
+  m_GameObject: {fileID: 351428448}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 485f7fbd17b84b7f892d6fd83f3be3ba, type: 3}
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Bed.CozyTownBedDebugView
+--- !u!114 &351428458
+MonoBehaviour:
+  m_GameObject: {fileID: 351428448}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: f350c73c830b45a6bcf0c8eb9d61798d, type: 3}
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Bed.CozyTownBedDebugPresenter
+  _interactionPoint: {fileID: 1906968167}
+  _view: {fileID: 351428457}
+--- !u!114 &351428459
+MonoBehaviour:
+  m_GameObject: {fileID: 351428448}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 70c8669f7d8243c4a87b5531779c69f1, type: 3}
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Coop.CozyTownCoopDebugView
+--- !u!114 &351428460
+MonoBehaviour:
+  m_GameObject: {fileID: 351428448}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: e0c830a67cc3498b8418a9897ac2b100, type: 3}
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Coop.CozyTownCoopDebugPresenter
+  _interactionPoint: {fileID: 300000004}
+  _view: {fileID: 351428459}
+--- !u!114 &351428461
+MonoBehaviour:
+  m_GameObject: {fileID: 351428448}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 234ff9a8b87641e5a538c2a9dd78d0df, type: 3}
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Pond.CozyTownPondDebugView
+--- !u!114 &351428462
+MonoBehaviour:
+  m_GameObject: {fileID: 351428448}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 9ca59608b3284e63af6acd702d4d56f9, type: 3}
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Pond.CozyTownPondDebugPresenter
+  _interactionPoint: {fileID: 300000014}
+  _view: {fileID: 351428461}
+--- !u!114 &351428463
+MonoBehaviour:
+  m_GameObject: {fileID: 351428448}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 83ebedcd587447dca333806890986a45, type: 3}
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Kitchen.CozyTownKitchenDebugView
+--- !u!114 &351428464
+MonoBehaviour:
+  m_GameObject: {fileID: 351428448}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 3d19626fd0a5443a92ae4911f0fa0648, type: 3}
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Kitchen.CozyTownKitchenDebugPresenter
+  _interactionPoint: {fileID: 300000024}
+  _view: {fileID: 351428463}
 --- !u!1 &351526446
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,6 +592,7 @@ GameObject:
   - component: {fileID: 403398931}
   - component: {fileID: 403398928}
   - component: {fileID: 403398927}
+  - component: {fileID: 403398935}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -530,6 +614,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Interaction.PlayerInteractor2D
   inputSourceBehaviour: {fileID: 403398929}
   interactionProbe: {fileID: 403398928}
+--- !u!114 &403398935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403398926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f63b4c0fdc4b46a58ef5baf198c38d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Player.PlayerModalInputGate2D
 --- !u!114 &403398928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1343,6 +1439,16 @@ MonoBehaviour:
   - {fileID: 351428450}
   shopPresenters:
   - {fileID: 351428454}
+  _farmPresenters:
+  - {fileID: 351428456}
+  _bedPresenters:
+  - {fileID: 351428458}
+  _coopPresenters:
+  - {fileID: 351428460}
+  _pondPresenters:
+  - {fileID: 351428462}
+  _kitchenPresenters:
+  - {fileID: 351428464}
 --- !u!4 &1750674607
 Transform:
   m_ObjectHideFlags: 0
@@ -2166,6 +2272,195 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.2, y: 1.2}
   m_EdgeRadius: 0
+--- !u!1 &300000001
+GameObject:
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 300000002}
+  - component: {fileID: 300000003}
+  - component: {fileID: 300000004}
+  m_Layer: 0
+  m_Name: Coop
+  m_TagString: Untagged
+  m_IsActive: 1
+--- !u!4 &300000002
+Transform:
+  m_GameObject: {fileID: 300000001}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 300000006}
+  m_Father: {fileID: 1619818}
+--- !u!61 &300000003
+BoxCollider2D:
+  m_GameObject: {fileID: 300000001}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_IsTrigger: 1
+  m_Size: {x: 1.2, y: 1.2}
+--- !u!114 &300000004
+MonoBehaviour:
+  m_GameObject: {fileID: 300000001}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 5675f2582e444302b7c10fca18768d5f, type: 3}
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Interaction.TownInteractionPoint2D
+  kind: 4
+  promptText: Press E to tend the coop
+--- !u!212 &300000005
+SpriteRenderer:
+  m_GameObject: {fileID: 300000007}
+  m_Enabled: 1
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 0.9, g: 0.8, b: 0.35, a: 1}
+  m_SortingOrder: 1
+  m_Size: {x: 0.16, y: 0.16}
+--- !u!1 &300000007
+GameObject:
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 300000006}
+  - component: {fileID: 300000005}
+  m_Layer: 0
+  m_Name: Visual
+  m_TagString: Untagged
+  m_IsActive: 1
+--- !u!4 &300000006
+Transform:
+  m_GameObject: {fileID: 300000007}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 7.5000005, y: 7.5000005, z: 1}
+  m_Children: []
+  m_Father: {fileID: 300000002}
+--- !u!1 &300000011
+GameObject:
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 300000012}
+  - component: {fileID: 300000013}
+  - component: {fileID: 300000014}
+  m_Layer: 0
+  m_Name: Pond
+  m_TagString: Untagged
+  m_IsActive: 1
+--- !u!4 &300000012
+Transform:
+  m_GameObject: {fileID: 300000011}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 300000016}
+  m_Father: {fileID: 1619818}
+--- !u!61 &300000013
+BoxCollider2D:
+  m_GameObject: {fileID: 300000011}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_IsTrigger: 1
+  m_Size: {x: 1.2, y: 1.2}
+--- !u!1 &300000017
+GameObject:
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 300000016}
+  - component: {fileID: 300000015}
+  m_Layer: 0
+  m_Name: Visual
+  m_TagString: Untagged
+  m_IsActive: 1
+--- !u!4 &300000016
+Transform:
+  m_GameObject: {fileID: 300000017}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 7.5000005, y: 7.5000005, z: 1}
+  m_Children: []
+  m_Father: {fileID: 300000012}
+--- !u!114 &300000014
+MonoBehaviour:
+  m_GameObject: {fileID: 300000011}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 5675f2582e444302b7c10fca18768d5f, type: 3}
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Interaction.TownInteractionPoint2D
+  kind: 5
+  promptText: Press E to fish
+--- !u!212 &300000015
+SpriteRenderer:
+  m_GameObject: {fileID: 300000017}
+  m_Enabled: 1
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 0.2, g: 0.75, b: 0.9, a: 1}
+  m_SortingOrder: 1
+  m_Size: {x: 0.16, y: 0.16}
+--- !u!1 &300000021
+GameObject:
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 300000022}
+  - component: {fileID: 300000023}
+  - component: {fileID: 300000024}
+  m_Layer: 0
+  m_Name: Kitchen
+  m_TagString: Untagged
+  m_IsActive: 1
+--- !u!4 &300000022
+Transform:
+  m_GameObject: {fileID: 300000021}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 300000026}
+  m_Father: {fileID: 1619818}
+--- !u!61 &300000023
+BoxCollider2D:
+  m_GameObject: {fileID: 300000021}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_IsTrigger: 1
+  m_Size: {x: 1.2, y: 1.2}
+--- !u!1 &300000027
+GameObject:
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 300000026}
+  - component: {fileID: 300000025}
+  m_Layer: 0
+  m_Name: Visual
+  m_TagString: Untagged
+  m_IsActive: 1
+--- !u!4 &300000026
+Transform:
+  m_GameObject: {fileID: 300000027}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 7.5000005, y: 7.5000005, z: 1}
+  m_Children: []
+  m_Father: {fileID: 300000022}
+--- !u!114 &300000024
+MonoBehaviour:
+  m_GameObject: {fileID: 300000021}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 5675f2582e444302b7c10fca18768d5f, type: 3}
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Interaction.TownInteractionPoint2D
+  kind: 6
+  promptText: Press E to cook
+--- !u!212 &300000025
+SpriteRenderer:
+  m_GameObject: {fileID: 300000027}
+  m_Enabled: 1
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 0.95, g: 0.45, b: 0.35, a: 1}
+  m_SortingOrder: 1
+  m_Size: {x: 0.16, y: 0.16}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
