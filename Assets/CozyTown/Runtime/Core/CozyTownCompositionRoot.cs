@@ -38,6 +38,11 @@ namespace CozyTown.Runtime.Core
                 configuration.InventoryCapacitySlots);
             var wallet = new InMemoryWallet(configuration.StartingBalance);
             var shop = new InMemoryShopService(configuration.ShopOffers, wallet, inventory);
+            var shopTrading = new ShopTradingCoordinator(
+                configuration.Items,
+                shop,
+                wallet,
+                inventory);
             var farm = new InMemoryFarmService(
                 configuration.FarmPlotIds,
                 configuration.Crops,
@@ -64,6 +69,7 @@ namespace CozyTown.Runtime.Core
                 inventory,
                 wallet,
                 shop,
+                shopTrading,
                 farm,
                 livestock,
                 fishing,

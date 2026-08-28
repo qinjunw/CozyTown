@@ -35,17 +35,23 @@ namespace CozyTown.Runtime.Economy
                 return OperationResult<ShopReceipt>.Failure(error);
             }
 
+            WalletSnapshot walletBefore = _wallet.CaptureSnapshot();
+            InventorySnapshot inventoryBefore = _inventory.CaptureSnapshot();
+            if (!SnapshotsAreValid(walletBefore, inventoryBefore))
+            {
+                return OperationResult<ShopReceipt>.Failure("shop.snapshot_invalid");
+            }
+
             OperationResult debit = _wallet.Debit(total);
             if (!debit.IsSuccess)
             {
-                return OperationResult<ShopReceipt>.Failure(debit.ErrorCode);
+                return RollBack(walletBefore, inventoryBefore, debit.ErrorCode);
             }
 
             OperationResult add = _inventory.Add(itemId, quantity);
             if (!add.IsSuccess)
             {
-                _wallet.Credit(total);
-                return OperationResult<ShopReceipt>.Failure(add.ErrorCode);
+                return RollBack(walletBefore, inventoryBefore, add.ErrorCode);
             }
 
             return OperationResult<ShopReceipt>.Success(
@@ -59,21 +65,54 @@ namespace CozyTown.Runtime.Economy
                 return OperationResult<ShopReceipt>.Failure(error);
             }
 
+            WalletSnapshot walletBefore = _wallet.CaptureSnapshot();
+            InventorySnapshot inventoryBefore = _inventory.CaptureSnapshot();
+            if (!SnapshotsAreValid(walletBefore, inventoryBefore))
+            {
+                return OperationResult<ShopReceipt>.Failure("shop.snapshot_invalid");
+            }
+
             OperationResult remove = _inventory.Remove(itemId, quantity);
             if (!remove.IsSuccess)
             {
-                return OperationResult<ShopReceipt>.Failure(remove.ErrorCode);
+                return RollBack(walletBefore, inventoryBefore, remove.ErrorCode);
             }
 
             OperationResult credit = _wallet.Credit(total);
             if (!credit.IsSuccess)
             {
-                _inventory.Add(itemId, quantity);
-                return OperationResult<ShopReceipt>.Failure(credit.ErrorCode);
+                return RollBack(walletBefore, inventoryBefore, credit.ErrorCode);
             }
 
             return OperationResult<ShopReceipt>.Success(
                 new ShopReceipt(offer.ItemId, quantity, total, false));
+        }
+
+        private OperationResult<ShopReceipt> RollBack(
+            WalletSnapshot walletSnapshot,
+            InventorySnapshot inventorySnapshot,
+            string originalError)
+        {
+            OperationResult walletRestore = _wallet.Restore(walletSnapshot);
+            OperationResult inventoryRestore = _inventory.Restore(inventorySnapshot);
+
+            int failureCount = (walletRestore.IsSuccess ? 0 : 1)
+                + (inventoryRestore.IsSuccess ? 0 : 1);
+            if (failureCount == 0)
+            {
+                return OperationResult<ShopReceipt>.Failure(originalError);
+            }
+
+            if (failureCount > 1)
+            {
+                return OperationResult<ShopReceipt>.Failure(
+                    "shop.rollback_multiple_failed");
+            }
+
+            return OperationResult<ShopReceipt>.Failure(
+                walletRestore.IsSuccess
+                    ? "shop.rollback_inventory_failed"
+                    : "shop.rollback_wallet_failed");
         }
 
         private bool TryGetTotal(
@@ -124,6 +163,13 @@ namespace CozyTown.Runtime.Economy
                 && !string.IsNullOrWhiteSpace(offer.ItemId)
                 && offer.BuyPrice >= 0
                 && offer.SellPrice >= 0;
+        }
+
+        private static bool SnapshotsAreValid(
+            WalletSnapshot walletSnapshot,
+            InventorySnapshot inventorySnapshot)
+        {
+            return walletSnapshot.Balance >= 0 && inventorySnapshot != null;
         }
     }
 }

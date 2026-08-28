@@ -20,6 +20,7 @@ namespace CozyTown.Runtime.Core
             IInventory inventory,
             IWallet wallet,
             IShopService shop,
+            IShopTradingCoordinator shopTrading,
             IFarmService farm,
             ILivestockService livestock,
             IFishingService fishing,
@@ -32,6 +33,7 @@ namespace CozyTown.Runtime.Core
             Inventory = inventory ?? throw new ArgumentNullException(nameof(inventory));
             Wallet = wallet ?? throw new ArgumentNullException(nameof(wallet));
             Shop = shop ?? throw new ArgumentNullException(nameof(shop));
+            ShopTrading = shopTrading ?? throw new ArgumentNullException(nameof(shopTrading));
             Farm = farm ?? throw new ArgumentNullException(nameof(farm));
             Livestock = livestock ?? throw new ArgumentNullException(nameof(livestock));
             Fishing = fishing ?? throw new ArgumentNullException(nameof(fishing));
@@ -49,6 +51,8 @@ namespace CozyTown.Runtime.Core
         public IWallet Wallet { get; }
 
         public IShopService Shop { get; }
+
+        public IShopTradingCoordinator ShopTrading { get; }
 
         public IFarmService Farm { get; }
 
