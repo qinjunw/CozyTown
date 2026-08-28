@@ -5,8 +5,8 @@
 - 适用版本：MVP 系统框架阶段。
 - Unity 版本：`6000.5.5f1`。
 - 测试框架：`manifest.json` 请求 Unity Test Framework `1.4.5`，Unity `6000.5.5f1` 实际解析内置 `1.7.0`。
-- 当前状态：两个 EditMode 测试程序集共包含 56 个用例；2026-08-28 的隔离批处理 XML 结果为 56 passed、0 failed、0 skipped。
-- 当前边界：Unity Bootstrap、移动、交互契约和调试 HUD 已有适配层测试；可玩小镇场景、业务 UI、文件存档适配器和线上 AI 适配器尚未实现，因此 PlayMode、磁盘故障和联网验证仍属于后续阶段。
+- 当前状态：两个 EditMode 测试程序集包含 57 个用例，PlayMode 测试程序集包含 8 个用例；2026-08-28 的隔离批处理结果分别为 57 passed 与 8 passed，均为 0 failed、0 skipped。
+- 当前边界：M2 开发场景、移动、碰撞、交互提示和四类浅交互已自动化；生产经济 UI、文件存档适配器和线上 AI 适配器尚未实现，因此经济闭环、磁盘故障和联网验证仍属于后续阶段。
 
 本计划覆盖时间、背包、经济、商店、种植、畜牧、钓鱼、烹饪、NPC 对话、AI 对话边界和存档系统。框架阶段验证模块职责、公开契约、状态转换与跨模块闭环，不验证美术质量、数值平衡、复杂 NPC 日程、季节、天气、战斗或野外地图。
 
@@ -21,7 +21,7 @@
 
 ## 3. 测试项目结构
 
-当前测试程序集只引用 Runtime 程序集和 Unity Test Framework：
+测试程序集按被测层分别引用 Runtime 或 Unity 适配程序集，并统一使用 Unity Test Framework：
 
 ```text
 Assets/CozyTown/Tests/
@@ -39,18 +39,25 @@ Assets/CozyTown/Tests/
 │   ├── Cooking/
 │   ├── Npc/
 │   └── Save/
-└── UnityEditMode/
-    ├── CozyTown.Tests.UnityEditMode.asmdef
-    ├── CozyTownHudStateTests.cs
-    ├── InteractionContextTests.cs
-    └── PlayerMovement2DTests.cs
+├── UnityEditMode/
+│   ├── CozyTown.Tests.UnityEditMode.asmdef
+│   ├── CozyTownHudStateTests.cs
+│   ├── DevelopmentSceneEditModeTests.cs
+│   ├── InteractionContextTests.cs
+│   └── PlayerMovement2DTests.cs
+└── PlayMode/
+    ├── CozyTown.Tests.PlayMode.asmdef
+    ├── DevelopmentScenePlayModeTests.cs
+    ├── InteractionPlayModeTests.cs
+    ├── PlayerMovementPlayModeTests.cs
+    └── TownInteractionPointPlayModeTests.cs
 ```
 
-M1 不创建 PlayMode 测试程序集。M2 接入可见玩家、碰撞交互点和业务 UI 时增加 `Assets/CozyTown/Tests/PlayMode/`，覆盖玩家输入启停、碰撞目标选择、UI 绑定、场景切换和 MonoBehaviour 生命周期。
+M2 已增加 `Assets/CozyTown/Tests/PlayMode/`，覆盖玩家位移、边界阻挡、输入边沿、组件禁用、碰撞目标选择、提示与反馈、正式场景装配和 MonoBehaviour 生命周期。
 
 ### 3.1 测试夹具
 
-测试数据必须使用测试内构造的最小定义，不读取正式场景或正式资源：
+纯逻辑和组件测试使用测试内构造的最小定义。M2 另保留一条 EditMode 和一条 PlayMode 冒烟测试，显式读取 `CozyTown_Dev.unity` 验证正式装配：
 
 - 物品：土豆种子、土豆、鱼、鸡蛋、盐、烤土豆。
 - 配方：一个有效配方和一个材料不足配方。
@@ -74,8 +81,8 @@ M1 不创建 PlayMode 测试程序集。M2 接入可见玩家、碰撞交互点�
 | 纯逻辑组件测试 | EditMode | 值对象、服务、状态转换、校验器 | 必须 |
 | 模块契约测试 | EditMode | 调用方与模块公开接口之间的输入、输出和失败语义 | 必须 |
 | 跨模块集成测试 | EditMode | 背包、经济、生产、烹饪、存档组合 | 必须 |
-| 场景与交互测试 | PlayMode | 输入、碰撞、UI、场景对象连接 | 后续阶段 |
-| 人工可玩验证 | Unity Editor | 一座小镇内的完整用户路径 | 场景可运行后执行 |
+| 场景与交互测试 | PlayMode | 输入、碰撞、HUD、场景对象连接 | M2 必须，已实现 |
+| 人工可玩验证 | Unity Editor | 一座小镇内的完整用户路径 | M3 经济闭环完成后执行 |
 
 EditMode 测试不得调用真实大模型、真实网络接口或真实文件系统。真实 AI 服务只在受控的人工验证或独立后端集成环境中检查。
 
@@ -197,7 +204,7 @@ EditMode 测试不得调用真实大模型、真实网络接口或真实文件�
 
 覆盖矩阵描述完整 MVP 的最低回归范围。每个里程碑必须自动化其已实现范围内的 P0；尚无对应适配器的 P0 保留为后续里程碑入口条件。P1 可以随对应交互实现补齐，但公开失败语义必须先确定。
 
-当前 56 个用例覆盖组合根、时间溢出、背包容量、交易回滚、作物成长与快照校验、畜牧产出、钓鱼命中、烹饪回滚、固定 NPC 回退、内存存档隔离、跨日三模块回滚、默认内容可达性、配置数组隔离以及 Unity 移动/HUD/交互上下文表面。上表是完整 MVP 的最低覆盖目标，不表示每个条目当前均已自动化；完整经济闭环、AI 提供者故障注入、磁盘损坏、版本迁移和场景生命周期要在对应协调器或适配器实现后补齐。
+当前 65 个用例覆盖组合根、时间溢出、背包容量、交易回滚、作物成长与快照校验、畜牧产出、钓鱼命中、烹饪回滚、固定 NPC 回退、内存存档隔离、跨日三模块回滚、默认内容可达性、配置数组隔离，以及 Unity 移动、碰撞、HUD、交互边沿和正式场景装配。上表是完整 MVP 的最低覆盖目标，不表示每个条目当前均已自动化；完整生产经济 UI 闭环、AI 提供者故障注入、磁盘损坏和版本迁移要在对应适配器实现后补齐。
 
 ## 7. 跨模块经济闭环场景
 
@@ -276,23 +283,25 @@ MVP 首个模式版本记为 `v1`；实际常量名称以 Runtime API 为准。
   -logFile '<project-root>/Logs/EditModeTests.log'
 ```
 
+运行 PlayMode 时，将 `-testPlatform` 改为 `PlayMode`，并把结果和日志文件名改为 `PlayModeTests.xml`、`PlayModeTests.log`，避免覆盖 EditMode 证据。
+
 命令不附加 `-quit`，由 Unity Test Framework 在测试结束后关闭批处理进程。附加 `-quit` 可能在测试运行器写出 XML 前结束 Editor。
 
 验证结果必须同时满足：
 
-1. `Logs/EditModeTests.xml` 存在且本次运行时间匹配。
+1. 对应平台的 XML 存在且本次运行时间匹配。
 2. XML 中失败数为 `0`。
-3. `Logs/EditModeTests.log` 不包含编译错误、未激活许可证或测试运行器异常。
+3. 对应平台的日志不包含编译错误、未激活许可证或测试运行器异常。
 
 Windows 上 Unity 启动器可能先返回退出码 `0`，而编辑器进程随后在日志中报告失败。因此不得只使用 PowerShell 的 `$LASTEXITCODE` 作为通过依据。
 
 ### 10.2 当前验证结果
 
-2026-08-28 使用 10.1 的命令在提交 `55cd247` 的隔离 Git worktree 中运行 Unity `6000.5.5f1`。批处理重新解析 43 个包并生成 `CozyTown.Runtime`、`CozyTown.Unity`、`CozyTown.Unity.Editor` 和两个测试程序集；`EditModeTests.xml` 记录 56 passed、0 failed、0 skipped。日志中 `error CS`、`Scripts have compiler errors`、`Compilation failed`、`Test run failed`、无效许可证和未处理异常的匹配数均为 0，测试运行器以代码 `0` 结束。
+2026-08-28 在包含 M2 场景的隔离 Git worktree 中运行 Unity `6000.5.5f1`。`M2EditModeTests.xml` 记录 57 passed、0 failed、0 skipped；`M2PlayModeTests.xml` 记录 8 passed、0 failed、0 skipped。PlayMode 的正式场景用例验证玩家实际移动、东侧边界阻挡、Bootstrap/HUD 运行态装配，以及商店、NPC、床和农田四点的提示、触发与反馈。两份日志中 `error CS`、`Scripts have compiler errors`、`Compilation failed`、`Test run failed`、无效许可证和未处理异常的匹配数均为 0；场景生成日志还确认没有切片渲染警告或执行方法异常。
 
 ## 11. 人工验证步骤
 
-可玩场景完成后，按以下顺序执行并记录结果、Unity 版本、提交号和异常截图：
+完整 MVP 演示候选完成后，按以下顺序执行并记录结果、Unity 版本、提交号和异常截图：
 
 1. 从空存档启动，确认初始日期、金币和背包与配置一致。
 2. 在商店购买种子、盐和饲料；分别验证余额充足与不足路径。
@@ -315,13 +324,22 @@ Windows 上 Unity 启动器可能先返回退出码 `0`，而编辑器进程随�
 - 跨日协调失败不会留下时间、农田或畜牧的部分提交。
 - Unity 组件不公开完整服务集合，交互上下文没有领域写入口。
 - Unity Test Runner 的 56 个现有用例全部通过，日志无编译、测试或许可证错误。
-- 未实现的可玩场景、PlayMode、磁盘存档和线上 AI 明确保留为后续范围。
+- M1 退出时，可玩场景、PlayMode、磁盘存档和线上 AI 明确保留为后续范围。
 
-### 12.2 完整 MVP 进入作品集交付
+### 12.2 M2 小镇可行走切片
+
+- `CozyTown_Dev.unity` 包含可见玩家、四面碰撞边界、相机、HUD 和四类浅交互点。
+- EditMode 场景测试验证资产装配、四类枚举与非空提示；PlayMode 验证运行态装配、实际位移、边界阻挡、最近目标和连续输入边沿。
+- 正式场景中的商店、NPC、床和农田均完成一次自动触发，提示、计数与反馈可观察。
+- 完整服务容器未进入交互上下文或通用场景组件。
+- Unity Test Runner 的 57 个 EditMode 与 8 个 PlayMode 用例全部通过，相关日志无编译、测试、装配或许可证错误。
+- 生产经济 UI、磁盘存档和线上 AI 明确保留为 M3/M4 范围。
+
+### 12.3 完整 MVP 进入作品集交付
 
 - Runtime 与 EditMode 测试程序集编译通过。
 - 覆盖矩阵中的 P0 测试已实现且全部通过。
 - AI 异常回退测试不访问真实网络。
 - `LOOP-01` 与 `LOOP-02` 通过，并验证失败操作无部分状态变更。
 - 存档往返、损坏数据和未知版本路径均有自动化结果。
-- 人工验证中尚未实现的场景被标记为“未实现”，没有记录为通过。
+- 人工验证中尚未实现的功能路径被标记为“未实现”，没有记录为通过。

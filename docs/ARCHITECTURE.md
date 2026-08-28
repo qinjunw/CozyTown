@@ -2,7 +2,7 @@
 
 ## 1. 范围与当前阶段
 
-本架构采用 Unity 项目内的模块化单体。当前 M1 基线由模块契约、确定性内存实现、应用协调器、默认内容、显式组合根、Unity 表现适配骨架和 EditMode 测试组成。可玩场景、业务 UI、持久化文件适配器和线上 AI 适配器在后续里程碑接入。仓库当前状态和验证结果见 [`README.md`](../README.md)。
+本架构采用 Unity 项目内的模块化单体。当前已完成 M2 可行走小镇切片：M1 的模块契约、确定性内存实现、应用协调器、默认内容和显式组合根保持不变，Unity 层新增单场景移动、碰撞、提示和四类浅交互点。生产经济 UI、持久化文件适配器和线上 AI 适配器在后续里程碑接入。仓库当前状态和验证结果见 [`README.md`](../README.md)。
 
 产品边界见 [`PRD.md`](PRD.md)。关键决策见：
 
@@ -45,12 +45,15 @@ Assets/CozyTown/
 │  ├─ Interaction/
 │  ├─ Hud/
 │  └─ Editor/
+├─ Scenes/
+│  └─ CozyTown_Dev.unity
 └─ Tests/
    ├─ EditMode/
-   └─ UnityEditMode/
+   ├─ UnityEditMode/
+   └─ PlayMode/
 ```
 
-`CozyTown.Runtime` 是确定性领域与应用程序集，并设置 `noEngineReferences: true`。`CozyTown.Unity` 单向引用 Runtime 和 Input System；`CozyTown.Unity.Editor` 只在 Editor 平台编译。`CozyTown.Tests.EditMode` 验证普通 C# 行为，`CozyTown.Tests.UnityEditMode` 验证不需要场景运行的 Unity 适配行为。
+`CozyTown.Runtime` 是确定性领域与应用程序集，并设置 `noEngineReferences: true`。`CozyTown.Unity` 单向引用 Runtime 和 Input System；`CozyTown.Unity.Editor` 只在 Editor 平台编译。`CozyTown.Tests.EditMode` 验证普通 C# 行为，`CozyTown.Tests.UnityEditMode` 验证场景资产和不需要运行帧的 Unity 适配行为，`CozyTown.Tests.PlayMode` 验证 Physics2D、生命周期和正式开发场景装配。
 
 ## 4. 模块职责与接口
 
@@ -217,15 +220,15 @@ Load use case
 
 钓鱼测试直接传入固定 `roll`；文件系统和 AI 服务通过接口或固定替身隔离。默认测试不访问网络，也不依赖调用计费模型。
 
-2026-08-28 的 Unity `6000.5.5f1` 批处理运行发现并执行 56 个 EditMode 用例，结果为 56 passed、0 failed、0 skipped。当前 4 个 Unity 适配用例不替代 PlayMode 的碰撞、输入生命周期和场景装配验证。
+2026-08-28 的 Unity `6000.5.5f1` 隔离批处理运行发现并执行 57 个 EditMode 用例和 8 个 PlayMode 用例，结果分别为 57 passed 与 8 passed，均为 0 failed、0 skipped。PlayMode 覆盖玩家实际位移、边界阻挡、最近目标选择、连续输入边沿、正式场景四类交互点及运行态装配。
 
-### 9.2 后续测试层
+### 9.2 测试层
 
 | 层级 | 触发条件 | 覆盖内容 |
 | --- | --- | --- |
 | EditMode 组件测试 | 每次业务规则变更 | 模块不变量、边界、原子操作和存档迁移 |
 | EditMode 协作测试 | 两个以上模块形成用例后 | 购买、烹饪、跨日结算和保存快照 |
-| PlayMode 测试 | 场景与控制器接入后 | 交互触发、场景绑定、UI 刷新和场景切换 |
+| PlayMode 测试 | 场景、物理或生命周期变更 | 移动、碰撞、交互触发、场景绑定和 HUD 装配 |
 | AI 离线评测 | 提示词、模型或解析器变更 | 结构、人设、世界状态矛盾和越权请求 |
 | 人工演示检查 | 发布作品版本前 | 完整经济闭环、回退体验、存档恢复和录屏脚本 |
 
@@ -244,9 +247,10 @@ Load use case
 1. 已完成：固定模块接口、内存实现和 EditMode 测试。
 2. 已完成：增加跨日用例协调器、默认稳定 ID 内容和启动前校验。
 3. 已完成：接入 Unity Bootstrap、输入/刚体移动、交互探测契约和调试 HUD 骨架。
-4. 下一步：生成单一小镇场景，加入可见玩家和商店、NPC、床、农田等交互点，并增加 PlayMode 冒烟测试。
-5. 后续：实现版本化本地文件存档适配器和迁移测试。
-6. 后续：接入 AI 代理适配器、结构校验、超时与固定回退。
-7. 后续：运行完整经济闭环、AI 离线评测、构建和演示录制。
+4. 已完成：生成单一小镇场景，加入可见玩家、碰撞边界、交互提示、商店/NPC/床/农田浅交互点和 PlayMode 冒烟测试。
+5. 下一步：实现购买、种植、浇水、收获、喂鸡、钓鱼、烹饪和出售的生产经济 UI 闭环。
+6. 后续：实现版本化本地文件存档适配器和迁移测试。
+7. 后续：接入 AI 代理适配器、结构校验、超时与固定回退。
+8. 后续：运行完整经济闭环、AI 离线评测、构建和演示录制。
 
 每一步只扩展已定义接口所需的行为；如果接口不能表达已确认用例，先补充失败用例测试和 ADR，再调整公共契约。
