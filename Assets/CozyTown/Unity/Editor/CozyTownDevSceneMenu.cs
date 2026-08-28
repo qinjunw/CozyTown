@@ -5,6 +5,7 @@ using CozyTown.Unity.Hud;
 using CozyTown.Unity.Input;
 using CozyTown.Unity.Interaction;
 using CozyTown.Unity.Player;
+using CozyTown.Unity.Shop;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -42,8 +43,8 @@ namespace CozyTown.Unity.Editor
 
                 var bootstrap = CreateBootstrap();
                 var playerInteractor = CreatePlayer();
-                CreateWorld();
-                CreateHud(bootstrap, playerInteractor);
+                var shopPoint = CreateWorld();
+                CreateHud(bootstrap, playerInteractor, shopPoint);
                 CreateCamera();
 
                 EditorSceneManager.SaveScene(scene, ScenePath);
@@ -120,7 +121,7 @@ namespace CozyTown.Unity.Editor
             return interactor;
         }
 
-        private static void CreateWorld()
+        private static TownInteractionPoint2D CreateWorld()
         {
             var world = new GameObject("World");
             var boundaries = new GameObject("Boundaries");
@@ -148,7 +149,7 @@ namespace CozyTown.Unity.Editor
 
             var interactionPoints = new GameObject("Interaction Points");
             interactionPoints.transform.SetParent(world.transform, false);
-            CreateInteractionPoint(
+            var shopPoint = CreateInteractionPoint(
                 "Shop",
                 TownInteractionKind.Shop,
                 "Press E to browse the shop",
@@ -176,11 +177,13 @@ namespace CozyTown.Unity.Editor
                 new Vector2(3f, -1.6f),
                 new Color(0.35f, 0.85f, 0.35f),
                 interactionPoints.transform);
+            return shopPoint;
         }
 
         private static void CreateHud(
             CozyTownBootstrap bootstrap,
-            PlayerInteractor2D playerInteractor)
+            PlayerInteractor2D playerInteractor,
+            TownInteractionPoint2D shopPoint)
         {
             var hudObject = new GameObject("Debug HUD");
             var view = hudObject.AddComponent<CozyTownDebugHudView>();
@@ -190,6 +193,11 @@ namespace CozyTown.Unity.Editor
 
             var interactionView = hudObject.AddComponent<CozyTownInteractionDebugView>();
             interactionView.Configure(playerInteractor);
+
+            var shopView = hudObject.AddComponent<CozyTownShopDebugView>();
+            var shopPresenter = hudObject.AddComponent<CozyTownShopDebugPresenter>();
+            shopPresenter.Configure(shopPoint, shopView);
+            bootstrap.RegisterShopPresenter(shopPresenter);
         }
 
         private static void CreateCamera()
@@ -222,7 +230,7 @@ namespace CozyTown.Unity.Editor
                 sortingOrder: 0);
         }
 
-        private static void CreateInteractionPoint(
+        private static TownInteractionPoint2D CreateInteractionPoint(
             string name,
             TownInteractionKind kind,
             string prompt,
@@ -243,9 +251,9 @@ namespace CozyTown.Unity.Editor
                 collider.size,
                 color,
                 sortingOrder: 1);
-            pointObject
-                .AddComponent<TownInteractionPoint2D>()
-                .Configure(kind, prompt);
+            var interactionPoint = pointObject.AddComponent<TownInteractionPoint2D>();
+            interactionPoint.Configure(kind, prompt);
+            return interactionPoint;
         }
 
         private static void ConfigureRenderer(

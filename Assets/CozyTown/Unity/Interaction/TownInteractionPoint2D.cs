@@ -14,6 +14,8 @@ namespace CozyTown.Unity.Interaction
 
         public int InteractionCount { get; private set; }
 
+        public event Action<InteractionContext> Interacted;
+
         public void Configure(TownInteractionKind interactionKind, string prompt)
         {
             if (!Enum.IsDefined(typeof(TownInteractionKind), interactionKind))
@@ -38,6 +40,7 @@ namespace CozyTown.Unity.Interaction
             }
 
             InteractionCount++;
+            Interacted?.Invoke(context);
         }
     }
 }

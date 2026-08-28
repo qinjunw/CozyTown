@@ -2,7 +2,8 @@
   "name": "CozyTown.Tests.PlayMode",
   "rootNamespace": "CozyTown.Tests.PlayMode",
   "references": [
-    "CozyTown.Unity"
+    "CozyTown.Unity",
+    "CozyTown.Runtime"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

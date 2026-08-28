@@ -1,6 +1,7 @@
 using System;
 using CozyTown.Runtime.Core;
 using CozyTown.Unity.Hud;
+using CozyTown.Unity.Shop;
 using UnityEngine;
 
 namespace CozyTown.Unity.Core
@@ -12,6 +13,7 @@ namespace CozyTown.Unity.Core
         [Tooltip("Optional MonoBehaviour implementing ICozyTownServicesFactory. The default MVP configuration is used when omitted.")]
         private MonoBehaviour servicesFactoryBehaviour;
         [SerializeField] private CozyTownHudPresenter[] hudPresenters = Array.Empty<CozyTownHudPresenter>();
+        [SerializeField] private CozyTownShopDebugPresenter[] shopPresenters = Array.Empty<CozyTownShopDebugPresenter>();
 
         private ICozyTownServicesFactory _factoryOverride;
         private CozyTownServices _services;
@@ -38,6 +40,7 @@ namespace CozyTown.Unity.Core
 
             _services = services ?? throw new ArgumentNullException(nameof(services));
             BindHudPresenters();
+            BindShopPresenters();
         }
 
         public void RegisterHudPresenter(CozyTownHudPresenter presenter)
@@ -56,6 +59,25 @@ namespace CozyTown.Unity.Core
             if (IsInitialized)
             {
                 BindHudPresenter(presenter);
+            }
+        }
+
+        public void RegisterShopPresenter(CozyTownShopDebugPresenter presenter)
+        {
+            if (presenter == null)
+            {
+                throw new ArgumentNullException(nameof(presenter));
+            }
+
+            if (Array.IndexOf(shopPresenters, presenter) < 0)
+            {
+                Array.Resize(ref shopPresenters, shopPresenters.Length + 1);
+                shopPresenters[shopPresenters.Length - 1] = presenter;
+            }
+
+            if (IsInitialized)
+            {
+                BindShopPresenter(presenter);
             }
         }
 
@@ -115,6 +137,22 @@ namespace CozyTown.Unity.Core
         private void BindHudPresenter(CozyTownHudPresenter presenter)
         {
             presenter.Bind(_services.Time, _services.Wallet);
+        }
+
+        private void BindShopPresenters()
+        {
+            foreach (var presenter in shopPresenters)
+            {
+                if (presenter != null)
+                {
+                    BindShopPresenter(presenter);
+                }
+            }
+        }
+
+        private void BindShopPresenter(CozyTownShopDebugPresenter presenter)
+        {
+            presenter.Bind(_services.ShopTrading);
         }
     }
 }

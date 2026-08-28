@@ -372,6 +372,8 @@ GameObject:
   - component: {fileID: 351428451}
   - component: {fileID: 351428450}
   - component: {fileID: 351428449}
+  - component: {fileID: 351428453}
+  - component: {fileID: 351428454}
   m_Layer: 0
   m_Name: Debug HUD
   m_TagString: Untagged
@@ -432,6 +434,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &351428453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351428448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b33998b2c0d34b1293e98fb5273d7557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Shop.CozyTownShopDebugView
+--- !u!114 &351428454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351428448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49e901d9824d4e8f9d8fe0224f29357d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Shop.CozyTownShopDebugPresenter
+  shopPoint: {fileID: 815552602}
+  viewBehaviour: {fileID: 351428453}
 --- !u!1 &351526446
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,6 +1341,8 @@ MonoBehaviour:
   servicesFactoryBehaviour: {fileID: 0}
   hudPresenters:
   - {fileID: 351428450}
+  shopPresenters:
+  - {fileID: 351428454}
 --- !u!4 &1750674607
 Transform:
   m_ObjectHideFlags: 0

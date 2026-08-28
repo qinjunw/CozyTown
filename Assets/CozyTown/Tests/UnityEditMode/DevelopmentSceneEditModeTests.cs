@@ -4,6 +4,7 @@ using CozyTown.Unity.Hud;
 using CozyTown.Unity.Input;
 using CozyTown.Unity.Interaction;
 using CozyTown.Unity.Player;
+using CozyTown.Unity.Shop;
 using NUnit.Framework;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace CozyTown.Tests.UnityEditMode
         private const string ScenePath = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
 
         [Test]
-        public void DevelopmentScene_ContainsTheM2WalkingSlice()
+        public void DevelopmentScene_ContainsWalkingAndShopTradingSlice()
         {
             var previousScene = SceneManager.GetActiveScene();
             var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
@@ -61,6 +62,8 @@ namespace CozyTown.Tests.UnityEditMode
                 var hud = RequireRoot(scene, "Debug HUD");
                 Assert.That(hud.GetComponent<CozyTownHudPresenter>(), Is.Not.Null);
                 Assert.That(hud.GetComponent<CozyTownInteractionDebugView>(), Is.Not.Null);
+                Assert.That(hud.GetComponent<CozyTownShopDebugView>(), Is.Not.Null);
+                Assert.That(hud.GetComponent<CozyTownShopDebugPresenter>(), Is.Not.Null);
 
                 var camera = RequireRoot(scene, "Main Camera");
                 Assert.That(camera.GetComponent<Camera>()?.orthographic, Is.True);

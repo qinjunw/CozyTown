@@ -2,7 +2,8 @@
   "name": "CozyTown.Tests.UnityEditMode",
   "rootNamespace": "CozyTown.Tests.UnityEditMode",
   "references": [
-    "CozyTown.Unity"
+    "CozyTown.Unity",
+    "CozyTown.Runtime"
   ],
   "includePlatforms": [
     "Editor"
