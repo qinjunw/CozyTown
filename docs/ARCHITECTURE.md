@@ -2,7 +2,7 @@
 
 ## 1. 范围与当前阶段
 
-本架构采用 Unity 项目内的模块化单体。当前已完成 M2 可行走小镇切片：M1 的模块契约、确定性内存实现、应用协调器、默认内容和显式组合根保持不变，Unity 层新增单场景移动、碰撞、提示和四类浅交互点。生产经济 UI、持久化文件适配器和线上 AI 适配器在后续里程碑接入。仓库当前状态和验证结果见 [`README.md`](../README.md)。
+本架构采用 Unity 项目内的模块化单体。M2 可行走小镇切片已经完成，M3 生产经济闭环正在进行。M3-1 已增加商店交易应用门面、失败事务回滚和 Unity 调试交易面板；种植、畜牧、钓鱼、烹饪、持久化文件适配器和线上 AI 适配器仍在后续工作包接入。仓库当前状态和验证结果见 [`README.md`](../README.md)。
 
 产品边界见 [`PRD.md`](PRD.md)。关键决策见：
 
@@ -44,6 +44,7 @@ Assets/CozyTown/
 │  ├─ Player/
 │  ├─ Interaction/
 │  ├─ Hud/
+│  ├─ Shop/
 │  └─ Editor/
 ├─ Scenes/
 │  └─ CozyTown_Dev.unity
@@ -59,7 +60,7 @@ Assets/CozyTown/
 
 | 模块 | 公共入口 | 职责 | 不负责 |
 | --- | --- | --- | --- |
-| `Application` | `IDayTransitionCoordinator` | 协调时间、农田和畜牧的单次跨日事务与失败回滚 | 表现、输入、数值平衡 |
+| `Application` | `IDayTransitionCoordinator`、`IShopTradingCoordinator` | 协调跨日事务，并向商店表现层提供只读交易状态与单一买卖入口 | 表现、输入、数值平衡 |
 | `Content` | `DefaultMvpContent`、`MvpContentValidator` | 提供默认稳定 ID、定义表和启动前引用/可达性校验 | 运行时状态、UI 编辑器 |
 | `Core` | `CozyTownCompositionRoot`、`CozyTownServices` | 创建默认实现并公开类型化服务引用 | 业务规则、存档格式、场景查找 |
 | `Time` | `ITimeService` | 当前天数和跨日推进 | 决定作物、动物的具体结算规则 |
@@ -71,7 +72,7 @@ Assets/CozyTown/
 | `Cooking` | `ICookingService` | 配方查询、食材校验和烹饪事务 | 食材生产、料理表现 |
 | `Npc` | `INpcDialogueGenerator` | 根据只读上下文返回对话候选或固定回退 | 写入金币、物品、时间、生产或存档状态 |
 | `Save` | `ISaveStorage` | 版本化存档快照的读写边界；MVP 调用方使用一个固定槽位 ID | 收集各模块状态、业务迁移决策 |
-| `Unity` | `CozyTownBootstrap`、输入/移动/交互/HUD 适配器 | 连接 Unity 生命周期、Input System、Physics2D 与窄接口 presenter | 领域规则、全局服务解析、跨模块事务 |
+| `Unity` | `CozyTownBootstrap`、输入/移动/交互/HUD/商店适配器 | 连接 Unity 生命周期、Input System、Physics2D 与窄接口 presenter | 领域规则、全局服务解析、跨模块事务 |
 
 接口输入和输出使用模块自己的 DTO 或值对象。公开集合应以只读视图或副本返回，调用方不能通过集合引用绕过模块规则。
 
@@ -110,7 +111,7 @@ CozyTownCompositionRoot 只负责创建并连接上述对象。
 当前 `CozyTownBootstrap` 的职责限定为：
 
 1. 调用组合根创建一次对象图；
-2. 私有持有对象图，并将 `ITimeService`、`IWallet` 等所需窄接口推送给控制器或 presenter；
+2. 私有持有对象图，并将 HUD 所需接口或 `IShopTradingCoordinator` 等窄入口推送给对应 presenter；
 3. 订阅状态变化并更新 Unity 视图；
 4. 在退出或保存点调用存档用例。
 
@@ -122,6 +123,7 @@ CozyTownCompositionRoot 只负责创建并连接上述对象。
 
 ```text
 Shop UI
+  → IShopTradingCoordinator.Buy(商品, 数量)
   → IShopService.Buy(商品, 数量)
   → 校验商品、数量、余额和背包接收条件
   → 同一事务中扣除金币并增加物品
@@ -220,7 +222,7 @@ Load use case
 
 钓鱼测试直接传入固定 `roll`；文件系统和 AI 服务通过接口或固定替身隔离。默认测试不访问网络，也不依赖调用计费模型。
 
-2026-08-28 的 Unity `6000.5.5f1` 隔离批处理运行发现并执行 57 个 EditMode 用例和 8 个 PlayMode 用例，结果分别为 57 passed 与 8 passed，均为 0 failed、0 skipped。PlayMode 覆盖玩家实际位移、边界阻挡、最近目标选择、连续输入边沿、正式场景四类交互点及运行态装配。
+2026-08-28 的 Unity `6000.5.5f1` M3-1 隔离批处理运行发现并执行 70 个 EditMode 用例和 14 个 PlayMode 用例，结果分别为 70 passed 与 14 passed，均为 0 failed、0 skipped。PlayMode 覆盖玩家实际位移、边界阻挡、最近目标选择、连续输入边沿、商店输入门控、买卖反馈、Presenter 生命周期和正式场景装配。
 
 ### 9.2 测试层
 
@@ -248,9 +250,11 @@ Load use case
 2. 已完成：增加跨日用例协调器、默认稳定 ID 内容和启动前校验。
 3. 已完成：接入 Unity Bootstrap、输入/刚体移动、交互探测契约和调试 HUD 骨架。
 4. 已完成：生成单一小镇场景，加入可见玩家、碰撞边界、交互提示、商店/NPC/床/农田浅交互点和 PlayMode 冒烟测试。
-5. 下一步：实现购买、种植、浇水、收获、喂鸡、钓鱼、烹饪和出售的生产经济 UI 闭环。
-6. 后续：实现版本化本地文件存档适配器和迁移测试。
-7. 后续：接入 AI 代理适配器、结构校验、超时与固定回退。
-8. 后续：运行完整经济闭环、AI 离线评测、构建和演示录制。
+5. 进行中：商店交易门面、购买/出售调试 UI、输入门控和正式场景接线已经完成。
+6. 下一步：把播种、浇水、跨日成长和收获接入现有农田点，使已购买种子进入第一条生产路径。
+7. 后续：接入畜牧、钓鱼、烹饪和成功出售，完成生产经济闭环。
+8. 后续：实现版本化本地文件存档适配器和迁移测试。
+9. 后续：接入 AI 代理适配器、结构校验、超时与固定回退。
+10. 后续：运行完整经济闭环、AI 离线评测、构建和演示录制。
 
 每一步只扩展已定义接口所需的行为；如果接口不能表达已确认用例，先补充失败用例测试和 ADR，再调整公共契约。
