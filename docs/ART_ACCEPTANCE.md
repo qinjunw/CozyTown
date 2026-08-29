@@ -1,0 +1,84 @@
+# CozyTown 纯像素美术验收标准
+
+## 1. 验收范围
+
+本标准覆盖纯像素资源从 A0 风格锚点到 A1 Unity 生产资源的准入。自动化检查验证文件、Sprite 布局和 Unity 导入结果；人工检查验证像素画的可读性、一致性和原创性。自动化通过不能替代视觉验收。
+
+## 2. TDD 测试缝隙
+
+本阶段只在以下公开缝隙编写自动化测试：
+
+1. Unity 将 `Assets/CozyTown/Art/Production/` 下的 PNG 导入后，通过 `AssetImporter.GetAtPath` 可观察到统一的纯像素设置。
+2. 生产清单声明 Sprite Sheet 后，通过 `AssetDatabase.LoadAllAssetsAtPath` 可观察到尺寸、切片数量、PPU、Pivot 和名称。
+3. 正式场景开始消费生产资源后，通过场景中的公开 Camera、SpriteRenderer 和 Tilemap 组件验证引用及 Pixel Perfect Camera。
+
+测试不得读取 `.meta` YAML 或断言 AssetPostprocessor 私有方法。A0 风格锚点不进入 Sprite 布局测试，因为它们不是生产资源。
+
+## 3. A0 自动检查
+
+- 五个约定文件全部存在于 `Assets/CozyTown/Art/References/A0/`。
+- 文件为 PNG，能够被 Unity 导入并读取。
+- 文件名与 `ART_DIRECTION.md` 一致，不以显示名称替代稳定资源名。
+- A0 不被正式场景、Prefab 或运行时代码引用。
+
+## 4. A0 人工验收
+
+| 编号 | 检查项 | 通过条件 |
+| --- | --- | --- |
+| ART-A0-01 | 纯像素媒介 | 边缘由一致大小的硬像素块组成；没有抗锯齿、模糊、景深或体积光 |
+| ART-A0-02 | 视角与光向 | 所有场景与角色保持 3/4 俯视；主要光源来自左上方 |
+| ART-A0-03 | 地标可读性 | 商店、床/住宅、农田、鸡舍、池塘和厨房不看文字也能区分 |
+| ART-A0-04 | 角色区分 | 玩家与 4 名 NPC 在轮廓、发色或服装中至少有两项稳定差异 |
+| ART-A0-05 | 玩法边界 | 图片只表现当前 MVP，不出现野外、战斗、季节或新增可交互系统 |
+| ART-A0-06 | 风格一致 | 五张锚点的像素密度、描边、饱和度和材质处理没有明显批次漂移 |
+| ART-A0-07 | 原创性 | 不包含现有游戏的可识别角色、地图、建筑、Logo 或图标复制 |
+| ART-A0-08 | 小尺寸可读 | 角色、地标和代表图标在目标原生尺寸或整数倍显示时仍可辨认 |
+
+任一检查不通过时，只针对失败项重新生成或编辑；A0 未全部通过前不批量生产 A1。
+
+## 5. A1 Unity 导入验收
+
+`Assets/CozyTown/Art/Production/` 下的 PNG 必须满足：
+
+- Texture Type：Sprite。
+- Sprite Mode：按资产清单声明为 Single 或 Multiple。
+- Pixels Per Unit：`16`。
+- Filter Mode：Point。
+- Compression：None / Uncompressed。
+- Generate Mip Maps：Off。
+- Wrap Mode：Clamp。
+- Non Power of 2：None。
+- sRGB：On。
+- Alpha Is Transparency：On。
+
+生产 Sprite 的画布尺寸必须是 `16 px` 网格的整数倍。角色帧为 `16×24 px`，脚底中心 Pivot 保持一致；物品图标为 `16×16 px`。所有 Sprite 名称使用稳定 ID 的资源形式，例如 `npc_shopkeeper_mina_idle_down`、`item_seed_potato` 和 `crop_tomato_stage_04`。
+
+## 6. A1 视觉与动画验收
+
+- 草地、道路、土地和水面以 `3×3` 重复铺设时没有可见接缝。
+- 透明边缘没有白边、暗边、棋盘格背景或半透明噪点。
+- 玩家、NPC、建筑门口、成熟作物和交互提示在相邻背景上保持清楚轮廓。
+- 动画各帧的身体高度、头部大小、光向和脚底位置不跳动。
+- 原生尺寸及 `2×`、`4×` 整数放大时像素边缘清楚；非整数缩放不作为发布显示方式。
+- Unity 导入、场景加载和对应 EditMode/PlayMode 测试没有编译错误、丢失引用或运行时异常。
+
+## 7. 红—绿循环
+
+| 循环 | Red | Green | 后续验收 |
+| --- | --- | --- | --- |
+| Import-01 | 测试纹理仍以 Bilinear、压缩或错误 PPU 导入 | Production 目录的导入策略统一为 Point、无压缩、16 PPU、无 mipmap | Reviewer 检查测试只通过公开 Importer 结果 |
+| Anchor-01 | A0 清单缺少一个或多个锚点 | 五个 A0 PNG 均存在且可导入 | 人工执行 ART-A0-01 至 ART-A0-08 |
+| Sprite-01 | 首个角色或 Tile Sheet 的尺寸、Pivot、切片或名称不符合清单 | 对应生产资源通过布局测试 | 在测试场景检查轮廓、接缝和脚底稳定性 |
+| Scene-01 | 正式场景仍引用占位方块或缺少 Pixel Perfect Camera | 场景引用验收后的 Production 资源并使用整数像素显示 | PlayMode 验证移动、交互和 UI 不回归 |
+
+每次只推进一个垂直切片。不得一次生成全部资产后再补测试，也不得为了让测试通过而降低像素规格。
+
+## 8. 当前状态
+
+| 项目 | 状态 |
+| --- | --- |
+| 纯像素方向与规格 | 已锁定 |
+| A0 五张风格锚点 | 待生成与验收 |
+| Production 导入测试 | 待执行 Red |
+| A1 可切片资源 | 未开始 |
+| 正式场景替换 | 未开始 |
