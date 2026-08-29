@@ -13,8 +13,9 @@
 3. 生产清单声明 Sprite Sheet 后，通过 `ImageConversion.LoadImage`、`AssetImporter.GetAtPath` 和 `AssetDatabase.LoadAllAssetsAtPath` 可观察到真实 PNG 画布、二值 Alpha、导入参数、切片数量、PPU、Pivot 和名称。
 4. 每张生产 PNG 的 4× 预览必须与原图逐像素最近邻扩展结果一致。
 5. 正式场景开始消费生产资源后，通过场景中的公开 Camera、SpriteRenderer 和 Tilemap 组件验证引用及 Pixel Perfect Camera。
+6. Scene-01c 通过公开的 UGUI `Canvas`、`CanvasScaler`、`Image`、`Button`、`Text` 组件、现有 View 接口和 `Button.onClick` 验证 Production UI 引用与交互接线。
 
-测试不得读取 `.meta` YAML 或断言 AssetPostprocessor 私有方法。A0 风格锚点不进入 Sprite 布局测试，因为它们不是生产资源。
+测试不得读取 `.meta` YAML、断言 AssetPostprocessor 私有方法、调用 `OnGUI` 或读取 UI 私有字段。A0 风格锚点不进入 Sprite 布局测试，因为它们不是生产资源。
 
 ## 3. A0 自动检查
 
@@ -91,10 +92,13 @@ Scene-01 按三个垂直切片验收，任一切片未通过时不得把正式�
    - 6 个农田位置把空地、浇水和既有作物成长进度映射到清单中的状态 Sprite。
    - 母鸡把未喂、已喂和产物可收映射到三个既有状态 Sprite；映射只读取现有 ViewState。
 3. **Scene-01c UI 皮肤**
+   - 正式界面使用 UGUI `Canvas`；`CanvasScaler` 的参考分辨率为 `320×180`。`OnGUI` 调试界面不得作为本切片的验收对象。
    - 正式 HUD、模态面板和按钮消费 `ui_panel` 与四个按钮状态的 `3 px` 九宫格资源；金币、时间、保存、读取、关闭和交互提示使用对应图标。
    - 文字由 Unity 字体渲染；在 `320×180` 参考分辨率及 `2×`、`4×` 整数倍窗口中不裁切、不重叠，按钮仍可操作。
 
-最终退出条件：EditMode 与 PlayMode 全量测试通过；人工完成 Tile 接缝、玩家脚底稳定、功能物件辨识、农田和母鸡状态、UI 可读性检查。Scene-01 通过前保持固定 NPC 对话和故障替身，不接入真实 AI 驱动 NPC。
+自动化停止线：EditMode 与 PlayMode 全量测试通过，Production UI 引用、文字值、按钮状态与事件、关键布局边界、模态输入恢复和升级幂等均有通过记录，且场景无丢失引用或运行时异常。自动化通过不判定文字肉眼可读性、图标辨识、Tile 接缝、玩家脚底稳定或整体构图。
+
+最终退出条件：人工在 `320×180`、`640×360`、`1280×720` 画面中完成 Tile 接缝、玩家脚底稳定、功能物件辨识、农田和母鸡状态、UI 可读性与按钮可操作性检查。Scene-01 人工验收通过前保持固定 NPC 对话和故障替身，不接入真实 AI 驱动 NPC，也不开始 AI NPC 评测。
 
 ## 8. 当前状态
 

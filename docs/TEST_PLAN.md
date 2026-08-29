@@ -328,6 +328,7 @@ Windows 上 Unity 启动器可能先返回退出码 `0`，而编辑器进程随�
 ### 10.5 Scene-01 场景接线测试缝隙
 
 - EditMode 场景资产测试通过公开的 `Camera`、`PixelPerfectCamera`、`Grid`、`Tilemap`、`SpriteRenderer` 和表现组件验证 Production 引用，不读取私有字段或运行时 `AssetDatabase` 查找结果。
+- Scene-01c 只通过 UGUI 的公开 `Canvas`、`CanvasScaler`、`Image`、`Button`、`Text` 组件，现有 View 的 `Render`、`Show`、`Hide`、`Request*` 接口，以及 `Button.onClick` 验证界面。测试不调用 `OnGUI`，不读取私有字段，也不依赖仅供布局使用的子对象层级。
 - PlayMode 测试通过真实玩家移动、交互输入和既有 Presenter 入口验证四方向动画、状态刷新和 7 个交互点，不重复测试领域算法。
 - 资源导入测试继续验证 11 个 PNG 与 98 个 Sprite；场景测试只验证哪些资源被消费以及显示配置，不复制清单算法。
 - 每个垂直切片先记录能精确描述缺失能力的 RED，再加入通过该测试的最小接线；固定 NPC 回退和完整经济闭环作为不回归基线。
@@ -335,6 +336,12 @@ Windows 上 Unity 启动器可能先返回退出码 `0`，而编辑器进程随�
 ### 10.6 Scene-01a/01b 验证结果
 
 2026-08-29 在正式场景完成世界与运行时状态接线后运行 Unity `6000.5.5f1`。`Scene01bCommittedSceneEditModeTests.xml` 记录 159 passed、0 failed、0 skipped；`Scene01bCommittedScenePlayModeTests.xml` 记录 26 passed、0 failed、0 skipped。场景测试验证 `16 PPU`、`320×180` Pixel Perfect Camera、Tilemap、7 个 Production 功能点、玩家移动与停止 Sprite、6 个农田土壤/作物叠层，以及母鸡 idle/fed/product-ready 状态。完整 PlayMode 经济闭环和固定 NPC 回退继续通过。A1 场景升级入口连续执行两次后，`CozyTown_Dev.unity` 的两次 SHA-256 比较结果相同；哈希只用于本次幂等性检查，不作为跨版本场景身份。
+
+### 10.7 Scene-01c 自动化停止线
+
+Scene-01c 按画布与皮肤、HUD 与交互提示、存档、首个商店模态、其余模态和场景回归的顺序逐片执行 RED→GREEN。自动化验证 `320×180` 参考分辨率、Production 九宫格与图标引用、文字值、按钮状态与事件接线、关键 `RectTransform` 未越界、模态输入恢复及既有经济闭环；测试不重复领域规则。
+
+EditMode 与 PlayMode 全量通过、场景无丢失引用或运行时异常、升级入口连续两次结果一致后，Scene-01c 自动化停止。文字肉眼可读性、图标辨识、Tile 接缝、玩家脚底稳定、整体构图及 `320×180`、`640×360`、`1280×720` 实际画面质量由人工场景验收判定，不使用截图黄金图替代。人工场景验收通过前只保留固定 NPC 对话与故障替身，不调用真实 AI 服务，也不开始 AI NPC 评测。
 
 ## 11. 人工验证步骤
 
