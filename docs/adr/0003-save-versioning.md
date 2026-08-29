@@ -53,7 +53,11 @@ GameSaveSnapshot
 - 解析、迁移或校验失败时保留原始文件并返回错误，不自动覆盖为新游戏。
 - 模型生成对话正文默认不进入权威游戏状态。若未来保存对话历史，需要单独定义容量、脱敏和迁移规则。
 
-当前 `InMemorySaveStorage` 对 `GameSaveSnapshot` 执行复制、schema v1 校验和槽位读写；它不执行磁盘序列化或旧版本迁移。MVP 调用方使用一个固定槽位 ID，存储接口保留 `slotId` 参数以支持隔离测试。
+## 当前实现
+
+M4 的 `JsonFileSaveStorage` 使用独立于运行时对象的 schema v1 JSON 数据包。写入时在目标文件同一目录生成临时文件，复读并校验后使用文件替换提交；临时写入或替换失败时，上一份有效存档保持可读。读取路径区分空槽、截断或结构损坏、未来版本和无效载荷。当前没有旧版本迁移器，非 v1 数据会被拒绝。
+
+`GameSaveCoordinator` 为逻辑槽位 `main` 捕获时间、金币、背包、农田和畜牧快照。读取先校验载荷状态范围，并检查时间、农田和畜牧日期一致性，再恢复五个模块；任一步失败时回滚五份调用前快照。常规 Editor Play 与构建使用 `<Application.persistentDataPath>/CozyTown/main.json`，批处理测试注入 `InMemorySaveStorage`，避免接触玩家存档。
 
 ## 后果
 

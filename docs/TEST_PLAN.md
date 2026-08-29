@@ -2,11 +2,11 @@
 
 ## 1. 文档状态与范围
 
-- 适用版本：MVP 系统框架阶段。
+- 适用版本：可玩 MVP，M4 持久化与 AI 完成状态。
 - Unity 版本：`6000.5.5f1`。
 - 测试框架：`manifest.json` 请求 Unity Test Framework `1.4.5`，Unity `6000.5.5f1` 实际解析内置 `1.7.0`。
-- 当前状态：两个 EditMode 测试程序集包含 108 个用例，PlayMode 测试程序集包含 22 个用例；2026-08-29 的 M3 隔离批处理结果分别为 108 passed 与 22 passed，均为 0 failed、0 skipped。
-- 当前边界：M3 已自动化交易与四个生产模块的失败原子性、只读玩法状态、连续跨日、统一输入门控、七点场景装配和完整生产经济闭环。文件存档适配器、线上 AI 适配器及对应故障测试仍属于 M4。
+- 当前状态：两个 EditMode 测试程序集包含 151 个用例，PlayMode 测试程序集包含 26 个用例；2026-08-29 的 M4 批处理结果分别为 151 passed 与 26 passed，均为 0 failed、0 skipped。
+- 当前边界：M4 已自动化 schema v1 JSON 单槽存档、五模块保存恢复与回滚、AI 代理编解码与故障回退、状态越权隔离、对话/存档 Presenter 生命周期，以及正式场景装配。真实模型服务、30 条离线评测、延迟与成本统计、Windows 构建和录屏属于 M5。
 
 本计划覆盖时间、背包、经济、商店、种植、畜牧、钓鱼、烹饪、NPC 对话、AI 对话边界和存档系统。框架阶段验证模块职责、公开契约、状态转换与跨模块闭环，不验证美术质量、数值平衡、复杂 NPC 日程、季节、天气、战斗或野外地图。
 
@@ -45,8 +45,11 @@ Assets/CozyTown/Tests/
 │   ├── DevelopmentSceneEditModeTests.cs
 │   ├── GameplayDebugViewsEditModeTests.cs
 │   ├── InteractionContextTests.cs
+│   ├── NpcDebugViewEditModeTests.cs
 │   ├── PlayerModalInputGate2DTests.cs
 │   ├── PlayerMovement2DTests.cs
+│   ├── ProxyNpcDialogueJsonCodecTests.cs
+│   ├── SaveDebugViewEditModeTests.cs
 │   ├── ShopDebugViewEditModeTests.cs
 │   └── TownInteractionPointEventEditModeTests.cs
 └── PlayMode/
@@ -57,6 +60,8 @@ Assets/CozyTown/Tests/
     ├── PlayerModalInputGate2DPlayModeTests.cs
     ├── PlayerMovementPlayModeTests.cs
     ├── PlayModeTestComponents.cs
+    ├── NpcDebugPresenterPlayModeTests.cs
+    ├── SaveDebugPresenterPlayModeTests.cs
     ├── ShopDebugPresenterPlayModeTests.cs
     └── TownInteractionPointPlayModeTests.cs
 ```
@@ -74,13 +79,15 @@ Assets/CozyTown/Tests/
 - 动物：一只鸡，喂食后次日产生一个鸡蛋。
 - NPC：一个固定身份、固定回退文本的测试 NPC。
 
-正式场景另保留一条 EditMode 资产测试和一条 PlayMode 闭环测试，显式读取 `CozyTown_Dev.unity`。资产测试验证七个交互点、Visual 层级、组件引用和窄接口装配；PlayMode 测试使用默认内容对象图，验证移动、输入恢复以及购买、种植、畜牧、钓鱼、跨日、烹饪、出售和再次投入。
+正式场景另保留 EditMode 资产测试和 PlayMode 闭环测试，显式读取 `CozyTown_Dev.unity`。资产测试验证七个交互点、Visual 层级、组件引用和窄接口装配；PlayMode 测试使用默认内容对象图，验证移动、输入恢复、4 名 NPC、存档入口，以及购买、种植、畜牧、钓鱼、跨日、烹饪、出售和再次投入。
 
 ### 3.2 测试替身
 
-仅在后续接口出现相应依赖时创建：
+当前测试按端口提供最小替身：
 
-- `FakeDialogueProvider`：返回成功、超时、无效结构或异常结果。
+- AI 客户端替身：返回成功、超时、空结果、非法标签或异常。
+- 存档与模块替身：模拟空槽、保存失败和恢复失败，并验证成功回滚到调用前状态。
+- 文件测试在测试独占的临时目录中运行，结束时清理，不访问应用持久化目录。
 
 测试替身不得复制业务规则；业务判断仍由被测模块完成。
 
@@ -91,10 +98,10 @@ Assets/CozyTown/Tests/
 | 纯逻辑组件测试 | EditMode | 值对象、服务、状态转换、校验器 | 必须 |
 | 模块契约测试 | EditMode | 调用方与模块公开接口之间的输入、输出和失败语义 | 必须 |
 | 跨模块集成测试 | EditMode | 背包、经济、生产、烹饪、存档组合 | 必须 |
-| 场景与交互测试 | PlayMode | 输入、碰撞、HUD、六组功能面板和场景对象连接 | M3 已实现 |
+| 场景与交互测试 | PlayMode | 输入、碰撞、HUD、生产/对话/存档面板和场景对象连接 | M4 已实现 |
 | 人工可玩验证 | Unity Editor | 一座小镇内的完整用户路径 | 自动化闭环已完成；作品集发布前仍需人工验收 |
 
-EditMode 测试不得调用真实大模型、真实网络接口或真实文件系统。真实 AI 服务只在受控的人工验证或独立后端集成环境中检查。
+EditMode 测试不得调用真实大模型或真实网络接口。文件适配器测试只使用测试独占的临时目录；批处理场景注入内存存储，不访问玩家正式存档。真实 AI 服务只在受控的人工验证或独立后端集成环境中检查。
 
 ## 5. 系统契约
 
@@ -214,7 +221,7 @@ EditMode 测试不得调用真实大模型、真实网络接口或真实文件�
 
 覆盖矩阵描述完整 MVP 的最低回归范围。每个里程碑必须自动化其已实现范围内的 P0；尚无对应适配器的 P0 保留为后续里程碑入口条件。P1 可以随对应交互实现补齐，但公开失败语义必须先确定。
 
-当前 130 个用例覆盖组合根、时间溢出、背包容量、交易与生产模块回滚、只读玩法投影、连续跨日、默认内容可达性、配置集合隔离，以及 Unity 移动、碰撞、HUD、七点交互、模态输入生命周期、晚注册和正式场景完整闭环。上表是完整 MVP 的最低覆盖目标，不表示每个条目当前均已自动化；AI 提供者故障注入、磁盘损坏、版本迁移和完整存档往返仍要在 M4 对应适配器实现后补齐。
+当前 177 个用例覆盖组合根、时间溢出、背包容量、交易与生产模块回滚、只读玩法投影、连续跨日、默认内容可达性、配置集合隔离、schema v1 文件往返与原文件保护、五模块存档回滚、AI 故障回退和状态越权隔离，以及 Unity 移动、碰撞、HUD、七点交互、模态输入生命周期、晚注册、4 名 NPC、存档入口和正式场景完整闭环。当前没有第二个 schema 版本，因此不存在旧版本迁移夹具；引入 v2 前必须先补充迁移测试。
 
 ## 7. 跨模块经济闭环场景
 
@@ -306,9 +313,13 @@ MVP 首个模式版本记为 `v1`；实际常量名称以 Runtime API 为准。
 
 Windows 上 Unity 启动器可能先返回退出码 `0`，而编辑器进程随后在日志中报告失败。因此不得只使用 PowerShell 的 `$LASTEXITCODE` 作为通过依据。
 
-### 10.2 当前验证结果
+### 10.2 M3 验证结果
 
 2026-08-29 在包含完整 M3 改动的隔离 Git worktree 中运行 Unity `6000.5.5f1`。`M3UnityEditModeTests.xml` 记录 108 passed、0 failed、0 skipped；`M3UnityPlayModeTests.xml` 记录 22 passed、0 failed、0 skipped。PlayMode 的正式场景用例通过真实 `PlayerInteractor2D` 完成购买、种植、喂鸡、固定鲤鱼、两次跨日、收蛋、收获、两道料理、四次成功出售和再次购买；金币从 300 变为 260、405，最终为 385。两份日志中 `error CS`、`Scripts have compiler errors`、`Compilation failed`、`Test run failed`、未处理异常和运行态装配错误的匹配数均为 0。
+
+### 10.3 M4 验证结果
+
+2026-08-29 在集成提交 `47332fd` 上运行 Unity `6000.5.5f1`。`M4EditModeTests.xml` 记录 151 passed、0 failed、0 skipped；`M4PlayModeTests.xml` 记录 26 passed、0 failed、0 skipped。新增用例覆盖临时文件写入和实际替换失败时保留旧存档、截断与有类型但无效 JSON、版本与载荷错误区分、五模块恢复失败回滚、AI 超时/异常/空结果/非法标签回退、恶意文本不改变五类状态、异步 Presenter 停止后不更新 UI，以及正式场景 4 名 NPC 和存档面板装配。两份日志中 `error CS`、`Scripts have compiler errors`、`Compilation failed`、`Test run failed`、`Unhandled Exception` 和 `NullReferenceException` 的匹配数均为 0，PlayMode 日志的 Bootstrap 初始化失败匹配数为 0。
 
 ## 11. 人工验证步骤
 
@@ -355,7 +366,16 @@ Windows 上 Unity 启动器可能先返回退出码 `0`，而编辑器进程随�
 - 六个功能面板共用互斥输入门控；关闭、禁用、撤销、重复启停和跨帧晚注册均有 PlayMode 结果。
 - Unity Test Runner 的 108 个 EditMode 与 22 个 PlayMode 用例全部通过，相关日志无编译、测试、未处理异常或装配错误。
 
-### 12.4 完整 MVP 进入作品集交付
+### 12.4 M4 持久化与 AI
+
+- 单槽 schema v1 JSON 存档覆盖时间、金币、背包、农田和畜牧；保存失败保留上一份有效文件。
+- 空槽、损坏 JSON、未来版本和无效载荷返回可区分结果，五模块恢复失败会回滚调用前状态。
+- AI 输出只包含文本和允许表现标签；超时、传输错误、提供者异常、空文本、结构错误和非法标签均返回固定对话。
+- 恶意对话文本不能改变钱包、背包、时间、农田或畜牧状态。
+- 正式场景装配 4 名 NPC 和单槽存档面板；批处理测试不访问玩家正式存档。
+- Unity Test Runner 的 151 个 EditMode 与 26 个 PlayMode 用例全部通过，相关日志无编译、测试、未处理异常或装配错误。
+
+### 12.5 完整 MVP 进入作品集交付
 
 - Runtime 与 EditMode 测试程序集编译通过。
 - 覆盖矩阵中的 P0 测试已实现且全部通过。

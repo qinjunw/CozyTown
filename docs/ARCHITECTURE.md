@@ -2,7 +2,7 @@
 
 ## 1. 范围与当前阶段
 
-本架构采用 Unity 项目内的模块化单体。M3 生产经济闭环已经完成：交易与四个生产模块具有失败原子性，Unity 场景通过窄应用接口接入购买、种植、畜牧、钓鱼、跨日、烹饪、出售和再次投入。持久化文件适配器和线上 AI 适配器保留在 M4。仓库当前状态和验证结果见 [`README.md`](../README.md)。
+本架构采用 Unity 项目内的模块化单体。M4 持久化与 AI 已经完成：交易与生产规则仍由确定性模块负责，应用层协调同一时点的保存与原子恢复，Runtime 文件适配器负责 JSON 槽位，Unity 层提供不含客户端密钥的 AI 代理适配并选择应用持久化路径。正式场景通过窄应用接口接入生产经济闭环、单槽位保存/读取和 4 名 NPC 对话。仓库当前状态和验证结果见 [`README.md`](../README.md)。
 
 产品边界见 [`PRD.md`](PRD.md)。关键决策见：
 
@@ -50,6 +50,8 @@ Assets/CozyTown/
 │  ├─ Coop/
 │  ├─ Pond/
 │  ├─ Kitchen/
+│  ├─ Npc/
+│  ├─ Save/
 │  └─ Editor/
 ├─ Scenes/
 │  └─ CozyTown_Dev.unity
@@ -65,7 +67,7 @@ Assets/CozyTown/
 
 | 模块 | 公共入口 | 职责 | 不负责 |
 | --- | --- | --- | --- |
-| `Application` | `IDayTransitionCoordinator`、`IShopTradingCoordinator`、四个 `*GameplayCoordinator` | 协调跨日事务，并向交易与生产表现层提供只读状态和单次命令入口 | 表现、输入、数值平衡 |
+| `Application` | `IDayTransitionCoordinator`、`IShopTradingCoordinator`、四个 `*GameplayCoordinator`、`INpcDialogueCoordinator`、`IGameSaveCoordinator` | 协调跨日、存档恢复事务，并向交易、生产、对话和存档表现层提供窄用例入口 | 表现、输入、数值平衡 |
 | `Content` | `DefaultMvpContent`、`MvpContentValidator` | 提供默认稳定 ID、定义表和启动前引用/可达性校验 | 运行时状态、UI 编辑器 |
 | `Core` | `CozyTownCompositionRoot`、`CozyTownServices` | 创建默认实现并公开类型化服务引用 | 业务规则、存档格式、场景查找 |
 | `Time` | `ITimeService` | 当前天数和跨日推进 | 决定作物、动物的具体结算规则 |
@@ -75,9 +77,9 @@ Assets/CozyTown/
 | `Livestock` | `ILivestockService` | 鸡的喂食与鸡蛋产出状态 | 饲料定价、NPC 行为 |
 | `Fishing` | `IFishingService` | 固定鱼池规则和钓鱼结果 | 实时操作 UI、背包显示 |
 | `Cooking` | `ICookingService` | 配方查询、食材校验和烹饪事务 | 食材生产、料理表现 |
-| `Npc` | `INpcDialogueGenerator` | 根据只读上下文返回对话候选或固定回退 | 写入金币、物品、时间、生产或存档状态 |
-| `Save` | `ISaveStorage` | 版本化存档快照的读写边界；MVP 调用方使用一个固定槽位 ID | 收集各模块状态、业务迁移决策 |
-| `Unity` | `CozyTownBootstrap`、输入门控、交互点及六组调试 Presenter/View | 连接 Unity 生命周期、Input System、Physics2D 与窄接口 Presenter | 领域规则、全局服务解析、跨模块事务 |
+| `Npc` | `INpcDialogueGenerator`、`IAiNpcDialogueClient` | 根据只读上下文校验 AI 候选并返回对话或固定回退 | 写入金币、物品、时间、生产或存档状态 |
+| `Save` | `ISaveStorage`、`JsonFileSaveStorage` | 版本化存档快照的单槽读写、JSON 校验和安全替换 | 收集或直接修改各模块状态 |
+| `Unity` | `CozyTownBootstrap`、输入门控、交互点、对话/存档及六组玩法 Presenter/View | 连接 Unity 生命周期、Input System、Physics2D、HTTP(S) 代理与窄接口 Presenter | 领域规则、全局服务解析、跨模块事务 |
 
 接口输入和输出使用模块自己的 DTO 或值对象。公开集合应以只读视图或副本返回，调用方不能通过集合引用绕过模块规则。
 
@@ -111,16 +113,16 @@ CozyTownCompositionRoot 只负责创建并连接上述对象。
 
 ## 6. 组合根
 
-`Runtime/Core/CozyTownCompositionRoot.cs` 是默认对象图的唯一构造入口。`CreateDefault()` 创建经过校验的 MVP 对象图，`Create(configuration)` 接收显式配置，`CreateEmpty()` 保留空配置测试入口。三者都返回类型化的 `CozyTownServices`；该服务集合只在组合边界使用，不向通用 `MonoBehaviour` 或交互上下文公开。
+`Runtime/Core/CozyTownCompositionRoot.cs` 是默认对象图的唯一构造入口。`CreateDefault()` 创建经过校验的 MVP 对象图，`Create(configuration)` 接收显式配置，带适配器的重载接收对话生成器与存储端口，`CreateEmpty()` 保留空配置测试入口。入口都返回类型化的 `CozyTownServices`；该服务集合只在组合边界使用，不向通用 `MonoBehaviour` 或交互上下文公开。
 
 当前 `CozyTownBootstrap` 的职责限定为：
 
 1. 调用组合根创建一次对象图；
-2. 私有持有对象图，并将 HUD、商店、农田、床、鸡舍、池塘和厨房所需的窄入口推送给对应 Presenter；
+2. 私有持有对象图，并将 HUD、商店、农田、床、鸡舍、池塘、厨房、NPC 和存档所需的窄入口推送给对应 Presenter；
 3. 支持场景序列化注册和初始化后的显式晚注册；
 4. 不把 `CozyTownServices`、背包或原始生产服务交给场景 Presenter。
 
-测试可以直接构造单个模块，也可以调用组合根验证默认对象图。M4 接入外部 AI 和文件系统时，由独立适配器或组合工厂注入，不改变领域接口。
+测试可以直接构造单个模块，也可以调用组合根验证默认对象图。批处理运行向组合根注入内存存档；常规 Editor Play 和构建注入应用持久化目录下的文件存储。AI 代理端点为空时注入固定回退，配置绝对 HTTP(S) 端点时才创建代理客户端。
 
 ## 7. 关键数据流
 
@@ -172,6 +174,7 @@ Sleep interaction
 ```text
 NPC interaction
   → 从确定性模块复制最小只读快照
+  → INpcDialogueCoordinator.GenerateAsync(npcId)
   → INpcDialogueGenerator.GenerateAsync(context)
   → 解析并校验文本与允许标签
        ├─ 有效：返回对话候选
@@ -185,18 +188,19 @@ NPC interaction
 
 ```text
 Save use case
-  → 从持续性模块导出 DTO
+  → IGameSaveCoordinator 从持续性模块导出 DTO
   → 组装带 SchemaVersion 的 GameSaveSnapshot
-  → ISaveStorage 写入单槽位
+  → JsonFileSaveStorage 在同目录写入并复读验证临时文件
+  → 原子替换 main 槽位；失败时保留旧文件
 
 Load use case
-  → ISaveStorage 读取载荷
-  → 校验版本并按需要迁移
-  → 校验稳定 ID 与数值范围
-  → 恢复各模块
+  → ISaveStorage 区分空槽、损坏、版本和载荷错误
+  → 协调器校验载荷数值范围，并检查 Time / Farm / Livestock 日期一致性
+  → 恢复 Time / Wallet / Inventory / Farm / Livestock
+  → 任一步失败时恢复五份调用前快照
 ```
 
-未来版本或损坏载荷不得在未确认的情况下覆盖原文件。详细规则见 [`ADR-0003`](adr/0003-save-versioning.md)。
+当前只支持 schema v1，不尝试猜测或迁移未知版本。未来版本或损坏载荷不得覆盖原文件。详细规则见 [`ADR-0003`](adr/0003-save-versioning.md)。
 
 ## 8. 数据与配置约定
 
@@ -229,7 +233,7 @@ Load use case
 
 钓鱼测试直接传入固定 `roll`；文件系统和 AI 服务通过接口或固定替身隔离。默认测试不访问网络，也不依赖调用计费模型。
 
-2026-08-29 的 Unity `6000.5.5f1` M3 隔离批处理运行发现并执行 108 个 EditMode 用例和 22 个 PlayMode 用例，结果分别为 108 passed 与 22 passed，均为 0 failed、0 skipped。PlayMode 覆盖玩家移动与边界、输入门控、Presenter 启停和晚注册，以及正式场景中的购买、生产、两次跨日、两道料理、成功出售和再次投入。
+2026-08-29 的 Unity `6000.5.5f1` M4 批处理运行发现并执行 151 个 EditMode 用例和 26 个 PlayMode 用例，结果分别为 151 passed 与 26 passed，均为 0 failed、0 skipped。新增覆盖 JSON 往返与损坏保护、五模块保存恢复与回滚、AI 超时/异常/无效候选回退、恶意状态指令隔离、对话异步生命周期，以及正式场景中的 4 名 NPC 和存档面板装配。
 
 ### 9.2 测试层
 
@@ -246,10 +250,10 @@ Load use case
 ## 10. 错误处理与可观察性
 
 - 预期业务失败返回可枚举或稳定字符串原因，供 UI 映射为提示文本。
-- 未预期异常在系统边界记录模块、操作和关联 ID，不记录模型密钥。
-- 线上 AI 适配器接入后，调用日志记录提供商、模型、延迟、Token 计量、重试次数、结构校验结果和回退原因。
+- 未预期的存档异常映射为稳定错误码，AI Presenter 显示不可用状态；统一诊断记录器属于 M5。
+- M4 的 AI 生成与 AI 回退结果携带关联 ID、是否回退和回退原因，调试面板显示回退原因；固定离线对话不生成关联 ID。提供商、模型、延迟分位数、Token、成本和重试汇总在 M5 接入真实服务后补齐。
 - 存档失败保留原有载荷，并向调用方返回失败结果；UI 决定如何提示和重试。
-- 开发构建可以显示 AI 诊断信息，发布构建默认隐藏诊断界面。
+- 当前开发场景使用调试界面；发布构建的诊断开关和隐藏策略在 M5 确定。
 
 ## 11. 后续实现顺序
 
@@ -259,8 +263,8 @@ Load use case
 4. 已完成：生成单一小镇场景，加入可见玩家、碰撞边界、交互提示、商店/NPC/床/农田浅交互点和 PlayMode 冒烟测试。
 5. 已完成：商店交易门面、购买/出售调试 UI 和统一输入门控。
 6. 已完成：接入种植、畜牧、钓鱼、跨日和烹饪，并在正式场景完成成功出售与再次投入。
-7. 下一步：实现版本化本地文件存档适配器和迁移测试。
-8. 后续：接入 AI 代理适配器、结构校验、超时与固定回退。
-9. 后续：运行 AI 离线评测、Windows 构建和演示录制。
+7. 已完成：实现 schema v1 单槽 JSON 文件存档、损坏保护、五模块恢复和失败回滚。
+8. 已完成：接入 AI HTTP(S) 代理适配器、结构校验、超时、固定回退和 4 名 NPC 场景切片。
+9. 下一步：运行不少于 30 条 AI 离线评测，补充延迟与成本诊断，执行 Windows 构建、性能检查和演示录制。
 
 每一步只扩展已定义接口所需的行为；如果接口不能表达已确认用例，先补充失败用例测试和 ADR，再调整公共契约。
