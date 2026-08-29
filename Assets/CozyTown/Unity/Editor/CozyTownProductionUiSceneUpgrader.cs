@@ -1,7 +1,9 @@
 using System;
 using System.IO;
+using CozyTown.Runtime.Content;
 using CozyTown.Unity.Hud;
 using CozyTown.Unity.Save;
+using CozyTown.Unity.Shop;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -17,6 +19,8 @@ namespace CozyTown.Unity.Editor
     {
         private const string ScenePath = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
         private const string UiPath = "Assets/CozyTown/Art/Production/UI/ui_mvp_16.png";
+        private const string ItemPath = "Assets/CozyTown/Art/Production/Items/item_mvp_16.png";
+        private const string PortraitPath = "Assets/CozyTown/Art/Production/Characters/npc_portraits_48.png";
         private const string InputActionsPath = "Assets/Settings/InputSystem_Actions.inputactions";
 
         [MenuItem("CozyTown/Art/Upgrade Development Scene for A1 Production UI")]
@@ -43,7 +47,9 @@ namespace CozyTown.Unity.Editor
                 ConfigureSavePanel(canvasTransform, uiSprites);
                 ConfigureInteractionPanel(canvasTransform, uiSprites);
                 ConfigureModalShells(canvasTransform, uiSprites);
+                var iconCatalog = ConfigureIconCatalog(canvasTransform);
                 ConfigurePersistentViewBindings(hud, canvasTransform);
+                ConfigureShopViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
                 ConfigureEventSystem(scene);
 
                 EditorSceneManager.MarkSceneDirty(scene);
@@ -189,6 +195,147 @@ namespace CozyTown.Unity.Editor
                 RequireChild(interactionPanel, "Feedback Text").GetComponent<Text>());
         }
 
+        private static CozyTownUiIconCatalog ConfigureIconCatalog(RectTransform canvas)
+        {
+            var catalog = GetOrAdd<CozyTownUiIconCatalog>(canvas.gameObject);
+            catalog.Configure(
+                new[]
+                {
+                    DefaultMvpIds.Items.PotatoSeed,
+                    DefaultMvpIds.Items.CarrotSeed,
+                    DefaultMvpIds.Items.TomatoSeed,
+                    DefaultMvpIds.Items.Potato,
+                    DefaultMvpIds.Items.Carrot,
+                    DefaultMvpIds.Items.Tomato,
+                    DefaultMvpIds.Items.ChickenFeed,
+                    DefaultMvpIds.Items.Egg,
+                    DefaultMvpIds.Items.Carp,
+                    DefaultMvpIds.Items.Trout,
+                    DefaultMvpIds.Items.Bass,
+                    DefaultMvpIds.Items.Salt,
+                    DefaultMvpIds.Items.Flour,
+                    DefaultMvpIds.Items.BakedPotato,
+                    DefaultMvpIds.Items.VegetableSoup,
+                    DefaultMvpIds.Items.GrilledFish,
+                    DefaultMvpIds.Items.TomatoEgg,
+                    DefaultMvpIds.Items.FishPie
+                },
+                LoadSprites(
+                    ItemPath,
+                    "item_seed_potato",
+                    "item_seed_carrot",
+                    "item_seed_tomato",
+                    "item_crop_potato",
+                    "item_crop_carrot",
+                    "item_crop_tomato",
+                    "item_feed_chicken",
+                    "item_animal_product_egg",
+                    "item_fish_carp",
+                    "item_fish_trout",
+                    "item_fish_bass",
+                    "item_ingredient_salt",
+                    "item_ingredient_flour",
+                    "item_food_baked_potato",
+                    "item_food_vegetable_soup",
+                    "item_food_grilled_fish",
+                    "item_food_tomato_egg",
+                    "item_food_fish_pie"),
+                new[]
+                {
+                    DefaultMvpIds.Npcs.Shopkeeper,
+                    DefaultMvpIds.Npcs.Farmer,
+                    DefaultMvpIds.Npcs.Fisher,
+                    DefaultMvpIds.Npcs.Cook
+                },
+                LoadSprites(
+                    PortraitPath,
+                    "npc_shopkeeper_mina_portrait",
+                    "npc_farmer_eli_portrait",
+                    "npc_fisher_ren_portrait",
+                    "npc_cook_sora_portrait"));
+            return catalog;
+        }
+
+        private static void ConfigureShopViewBinding(
+            GameObject hud,
+            RectTransform canvas,
+            UiSprites sprites,
+            CozyTownUiIconCatalog iconCatalog)
+        {
+            var panel = RequireChild(canvas, "Shop Panel");
+            var rows = ConfigureListRows(panel, "Shop Rows", 18, sprites, CreateShopRow);
+            var view = hud.GetComponent<CozyTownShopDebugView>()
+                ?? throw new InvalidOperationException("Debug HUD is missing CozyTownShopDebugView.");
+            view.ConfigureUi(
+                panel.gameObject,
+                RequireChild(panel, "Title Text").GetComponent<Text>(),
+                RequireChild(panel, "Feedback Text").GetComponent<Text>(),
+                rows,
+                RequireChild(panel, "Close Button").GetComponent<Button>(),
+                iconCatalog);
+        }
+
+        private static CozyTownUiListRow[] ConfigureListRows(
+            RectTransform panel,
+            string rowsName,
+            int rowCount,
+            UiSprites sprites,
+            Action<RectTransform, UiSprites, CozyTownUiListRow> configureRow)
+        {
+            var viewport = RequireChild(panel, "Content");
+            GetOrAdd<RectMask2D>(viewport.gameObject);
+            var content = GetOrCreateRect(viewport, rowsName);
+            content.anchorMin = new Vector2(0f, 1f);
+            content.anchorMax = new Vector2(1f, 1f);
+            content.pivot = new Vector2(0.5f, 1f);
+            content.anchoredPosition = Vector2.zero;
+            content.sizeDelta = new Vector2(0f, rowCount * 22f);
+
+            var scroll = GetOrAdd<ScrollRect>(viewport.gameObject);
+            scroll.viewport = viewport;
+            scroll.content = content;
+            scroll.horizontal = false;
+            scroll.vertical = true;
+            scroll.movementType = ScrollRect.MovementType.Clamped;
+            scroll.scrollSensitivity = 12f;
+
+            var rows = new CozyTownUiListRow[rowCount];
+            for (var index = 0; index < rowCount; index++)
+            {
+                var rowRect = GetOrCreateRect(content, $"Row {index + 1:00}");
+                rowRect.anchorMin = new Vector2(0f, 1f);
+                rowRect.anchorMax = new Vector2(1f, 1f);
+                rowRect.pivot = new Vector2(0.5f, 1f);
+                rowRect.anchoredPosition = new Vector2(0f, -index * 22f);
+                rowRect.sizeDelta = new Vector2(0f, 20f);
+                var row = GetOrAdd<CozyTownUiListRow>(rowRect.gameObject);
+                configureRow(rowRect, sprites, row);
+                rows[index] = row;
+            }
+
+            return rows;
+        }
+
+        private static void CreateShopRow(
+            RectTransform rowRect,
+            UiSprites sprites,
+            CozyTownUiListRow row)
+        {
+            var icon = CreateIcon(rowRect, "Item Icon", null, new Vector2(0f, -2f));
+            var label = CreateText(rowRect, "Item Label", string.Empty, new Vector2(20f, 0f), new Vector2(106f, 20f), 8);
+            var buy = CreateButton(rowRect, "Buy Button", "Buy", null, new Vector2(128f, -1f), new Vector2(68f, 18f), sprites);
+            var sell = CreateButton(rowRect, "Sell Button", "Sell", null, new Vector2(198f, -1f), new Vector2(68f, 18f), sprites);
+            row.Configure(
+                label,
+                icon,
+                new[] { buy, sell },
+                new[]
+                {
+                    RequireChild(buy.transform, "Label").GetComponent<Text>(),
+                    RequireChild(sell.transform, "Label").GetComponent<Text>()
+                });
+        }
+
         private static void CreateModal(
             RectTransform canvas,
             string name,
@@ -283,7 +430,7 @@ namespace CozyTown.Unity.Editor
             return rect;
         }
 
-        private static void CreateButton(
+        private static Button CreateButton(
             RectTransform parent,
             string name,
             string label,
@@ -310,7 +457,9 @@ namespace CozyTown.Unity.Editor
             };
 
             CreateIcon(rect, "Icon", icon, new Vector2(3f, -2f), new Vector2(14f, 14f));
-            CreateText(rect, "Label", label, new Vector2(19f, -2f), new Vector2(size.x - 22f, size.y - 4f));
+            float labelLeft = icon != null ? 19f : 3f;
+            CreateText(rect, "Label", label, new Vector2(labelLeft, -2f), new Vector2(size.x - labelLeft - 3f, size.y - 4f));
+            return button;
         }
 
         private static Image CreateIcon(
@@ -412,6 +561,32 @@ namespace CozyTown.Unity.Editor
         private static T GetOrAdd<T>(GameObject target) where T : Component
         {
             return target.GetComponent<T>() ?? target.AddComponent<T>();
+        }
+
+        private static Sprite[] LoadSprites(string assetPath, params string[] spriteNames)
+        {
+            var sprites = new Sprite[spriteNames.Length];
+            for (var index = 0; index < spriteNames.Length; index++)
+            {
+                sprites[index] = LoadSprite(assetPath, spriteNames[index]);
+            }
+
+            return sprites;
+        }
+
+        private static Sprite LoadSprite(string assetPath, string spriteName)
+        {
+            foreach (var asset in AssetDatabase.LoadAllAssetsAtPath(assetPath))
+            {
+                if (asset is Sprite sprite && sprite.name == spriteName)
+                {
+                    return sprite;
+                }
+            }
+
+            throw new FileNotFoundException(
+                $"Sprite '{spriteName}' was not found in '{assetPath}'.",
+                assetPath);
         }
 
         private sealed class UiSprites

@@ -2,16 +2,20 @@ using System;
 using CozyTown.Runtime.Application;
 using CozyTown.Unity.Hud;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CozyTown.Unity.Shop
 {
     public sealed class CozyTownShopDebugView : MonoBehaviour, ICozyTownShopDebugView
     {
-        private Vector2 _scrollPosition;
-        private GUIStyle _boxStyle;
-        private GUIStyle _labelStyle;
-        private GUIStyle _buttonStyle;
-        private int _fontSize;
+        [SerializeField] private GameObject panel;
+        [SerializeField] private Text balanceText;
+        [SerializeField] private Text feedbackText;
+        [SerializeField] private CozyTownUiListRow[] rows = Array.Empty<CozyTownUiListRow>();
+        [SerializeField] private Button closeButton;
+        [SerializeField] private CozyTownUiIconCatalog iconCatalog;
+
+        private bool _closeListenerAttached;
 
         public event Action<string> BuyRequested;
 
@@ -25,16 +29,65 @@ namespace CozyTown.Unity.Shop
 
         public string Feedback { get; private set; } = string.Empty;
 
+        public void ConfigureUi(
+            GameObject configuredPanel,
+            Text configuredBalanceText,
+            Text configuredFeedbackText,
+            CozyTownUiListRow[] configuredRows,
+            Button configuredCloseButton,
+            CozyTownUiIconCatalog configuredIconCatalog)
+        {
+            DetachCloseListener();
+            panel = configuredPanel != null
+                ? configuredPanel
+                : throw new ArgumentNullException(nameof(configuredPanel));
+            balanceText = configuredBalanceText != null
+                ? configuredBalanceText
+                : throw new ArgumentNullException(nameof(configuredBalanceText));
+            feedbackText = configuredFeedbackText != null
+                ? configuredFeedbackText
+                : throw new ArgumentNullException(nameof(configuredFeedbackText));
+            closeButton = configuredCloseButton != null
+                ? configuredCloseButton
+                : throw new ArgumentNullException(nameof(configuredCloseButton));
+            iconCatalog = configuredIconCatalog != null
+                ? configuredIconCatalog
+                : throw new ArgumentNullException(nameof(configuredIconCatalog));
+
+            if (configuredRows == null)
+            {
+                throw new ArgumentNullException(nameof(configuredRows));
+            }
+
+            if (configuredRows.Length == 0
+                || Array.Exists(configuredRows, row => row == null))
+            {
+                throw new ArgumentException(
+                    "Shop UI requires at least one configured row.",
+                    nameof(configuredRows));
+            }
+
+            rows = (CozyTownUiListRow[])configuredRows.Clone();
+            panel.SetActive(IsVisible);
+            AttachCloseListener();
+            RefreshUi();
+        }
+
         public void Show(ShopViewState state, string feedback)
         {
             State = state ?? throw new ArgumentNullException(nameof(state));
             Feedback = feedback ?? string.Empty;
             IsVisible = true;
+            RefreshUi();
         }
 
         public void Hide()
         {
             IsVisible = false;
+            if (panel != null)
+            {
+                panel.SetActive(false);
+            }
         }
 
         public void RequestBuy(string itemId)
@@ -61,80 +114,79 @@ namespace CozyTown.Unity.Shop
             }
         }
 
-        private void OnGUI()
+        private void OnEnable()
         {
-            if (!IsVisible || State == null)
-            {
-                return;
-            }
-
-            EnsureStyles();
-            var width = Mathf.Min(820f, Screen.width - 32f);
-            var height = Mathf.Min(700f, Screen.height - 64f);
-            var left = (Screen.width - width) * 0.5f;
-            var top = (Screen.height - height) * 0.5f;
-
-            GUILayout.BeginArea(new Rect(left, top, width, height), _boxStyle);
-            GUILayout.Label($"Town Shop — Coins: {State.Balance}", _labelStyle);
-            if (!string.IsNullOrWhiteSpace(Feedback))
-            {
-                GUILayout.Label(Feedback, _labelStyle);
-            }
-
-            _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
-            foreach (var item in State.Items)
-            {
-                GUILayout.BeginHorizontal();
-                GUILayout.Label(
-                    $"{item.DisplayName}  Owned: {item.OwnedQuantity}",
-                    _labelStyle,
-                    GUILayout.ExpandWidth(true));
-                if (item.BuyPrice > 0
-                    && GUILayout.Button(
-                        $"Buy 1 ({item.BuyPrice})",
-                        _buttonStyle,
-                        GUILayout.Width(180f)))
-                {
-                    RequestBuy(item.ItemId);
-                }
-
-                if (item.SellPrice > 0
-                    && GUILayout.Button(
-                        $"Sell 1 ({item.SellPrice})",
-                        _buttonStyle,
-                        GUILayout.Width(180f)))
-                {
-                    RequestSell(item.ItemId);
-                }
-
-                GUILayout.EndHorizontal();
-            }
-
-            GUILayout.EndScrollView();
-            if (GUILayout.Button("Close", _buttonStyle, GUILayout.Height(_fontSize + 18f)))
-            {
-                RequestClose();
-            }
-
-            GUILayout.EndArea();
+            AttachCloseListener();
         }
 
-        private void EnsureStyles()
+        private void OnDisable()
         {
-            var fontSize = CozyTownDebugGuiStyles.CalculateFontSize(Screen.height);
-            if (_labelStyle != null && _fontSize == fontSize)
+            DetachCloseListener();
+        }
+
+        private void RefreshUi()
+        {
+            if (panel == null
+                || balanceText == null
+                || feedbackText == null
+                || iconCatalog == null
+                || State == null)
             {
                 return;
             }
 
-            _fontSize = fontSize;
-            _labelStyle = CozyTownDebugGuiStyles.CreateLabelStyle(fontSize);
-            _boxStyle = CozyTownDebugGuiStyles.CreateBoxStyle();
-            _buttonStyle = new GUIStyle(GUI.skin.button)
+            panel.SetActive(IsVisible);
+            balanceText.text = $"Town Shop — Coins: {State.Balance}";
+            feedbackText.text = Feedback;
+
+            var visibleCount = Mathf.Min(State.Items.Count, rows.Length);
+            for (var index = 0; index < visibleCount; index++)
             {
-                fontSize = fontSize,
-                fontStyle = FontStyle.Bold
-            };
+                var item = State.Items[index];
+                var stableItemId = item.ItemId;
+                var row = rows[index];
+                row.SetContent(
+                    $"{item.DisplayName}  Owned: {item.OwnedQuantity}",
+                    iconCatalog.GetItemSprite(stableItemId));
+                row.SetButton(
+                    0,
+                    $"Buy 1 ({item.BuyPrice})",
+                    item.BuyPrice > 0 && State.Balance >= item.BuyPrice,
+                    () => RequestBuy(stableItemId));
+                row.SetButton(
+                    1,
+                    $"Sell 1 ({item.SellPrice})",
+                    item.SellPrice > 0 && item.OwnedQuantity > 0,
+                    () => RequestSell(stableItemId));
+                row.HideUnusedButtons(2);
+            }
+
+            for (var index = visibleCount; index < rows.Length; index++)
+            {
+                rows[index].Clear();
+            }
+        }
+
+        private void AttachCloseListener()
+        {
+            if (_closeListenerAttached || closeButton == null || !isActiveAndEnabled)
+            {
+                return;
+            }
+
+            closeButton.onClick.AddListener(RequestClose);
+            _closeListenerAttached = true;
+        }
+
+        private void DetachCloseListener()
+        {
+            if (!_closeListenerAttached || closeButton == null)
+            {
+                return;
+            }
+
+            closeButton.onClick.RemoveListener(RequestClose);
+            _closeListenerAttached = false;
         }
     }
 }
