@@ -5,7 +5,7 @@
 - 适用版本：可玩 MVP；M4 已完成；A1 独立美术阶段正在进行。
 - Unity 版本：`6000.5.5f1`。
 - 测试框架：`manifest.json` 请求 Unity Test Framework `1.4.5`，Unity `6000.5.5f1` 实际解析内置 `1.7.0`。
-- 当前状态：两个 EditMode 测试程序集包含 166 个用例，PlayMode 测试程序集包含 27 个用例；2026-08-29 在 Scene-01c 自动化完成后的全量批处理结果分别为 166 passed 与 27 passed，均为 0 failed、0 skipped。
+- 当前状态：两个 EditMode 测试程序集包含 167 个用例，PlayMode 测试程序集包含 27 个用例；2026-08-30 修复 Scene-01 三个交互视觉的空 URP 材质引用后，全量批处理结果分别为 167 passed 与 27 passed，均为 0 failed、0 skipped。
 - 当前边界：M4 已自动化 schema v1 JSON 单槽存档、五模块保存恢复与回滚、AI 代理编解码与故障回退、状态越权隔离和 Presenter 生命周期。A1 已完成 Production 资源门禁、Scene-01a 世界表现、Scene-01b 运行时状态表现和 Scene-01c Production UGUI 接线；自动化已停在人工场景验收前。真实 AI 驱动 NPC、30 条评测、延迟与成本统计、Windows 构建和录屏在 Scene-01 验收后进入 M5。
 
 本计划覆盖时间、背包、经济、商店、种植、畜牧、钓鱼、烹饪、NPC 对话、AI 对话边界和存档系统。框架阶段验证模块职责、公开契约、状态转换与跨模块闭环，不验证美术质量、数值平衡、复杂 NPC 日程、季节、天气、战斗或野外地图。
@@ -346,6 +346,8 @@ EditMode 与 PlayMode 全量通过、场景无丢失引用或运行时异常、�
 ### 10.8 Scene-01c 验证结果
 
 2026-08-29 使用 Unity `6000.5.5f1` 完成 Scene-01c 自动化。TDD 垂直切片依次接入画布与皮肤、HUD、交互提示、存档、商店、农田、床、鸡舍、池塘、厨房和 NPC 固定回退界面；所有模态均使用 UGUI，退役的 IMGUI 绘制路径已删除。场景级 PlayMode 用例通过真实 `Button.onClick` 执行保存、读取、购买和关闭，并验证正式商店、鸡舍和厨房视图禁用/重启时的面板与监听生命周期；EditMode 用例对 10 个正式面板执行三档同宽高比的静态参考坐标边界检查，实际分辨率布局仍由人工验证。`Scene01cPostReviewFullEditMode.xml` 记录 166 passed、0 failed、0 skipped；`Scene01cPostReviewFinalPlayMode.xml` 记录 27 passed、0 failed、0 skipped，相关日志未匹配到编译错误、测试失败或未处理异常。修正 Unity Text 首次序列化字号边界后，连续执行场景升级器的 `CozyTown_Dev.unity` SHA-256 保持一致。自动化现已停止，下一步仅执行第 11 节人工场景验收；真实 AI 服务和 AI NPC 评测仍未启用。
+
+2026-08-30 的首次人工场景检查发现鸡舍、池塘和厨房显示为洋红块。新增场景契约测试先复现 `Coop` 直属 `Visual` 的材质为空，再由 A1 世界视觉升级器为全部交互视觉显式绑定 URP `Sprite-Lit-Default`，并更新正式场景中的三个空引用。目标测试为 1 passed，正式场景 EditMode 子集为 5 passed；全量结果为 EditMode 167 passed、PlayMode 27 passed，均为 0 failed、0 skipped。升级器重复执行前后的场景 SHA-256 一致。自动化结果只确认材质引用和回归状态，鸡舍、池塘与厨房的实际显示仍需再次人工验收。
 
 ## 11. 人工验证步骤
 

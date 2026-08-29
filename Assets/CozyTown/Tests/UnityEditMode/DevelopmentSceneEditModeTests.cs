@@ -29,6 +29,44 @@ namespace CozyTown.Tests.UnityEditMode
     {
         private const string ScenePath = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
         private const string ProductionRoot = "Assets/CozyTown/Art/Production/";
+        private const string UrpSpriteLitMaterialPath =
+            "Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Lit-Default.mat";
+
+        [Test]
+        public void DevelopmentScene_InteractionVisualsUseUrp2dSpriteMaterial()
+        {
+            var previousScene = SceneManager.GetActiveScene();
+            var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
+
+            try
+            {
+                var expectedMaterial = AssetDatabase.LoadAssetAtPath<Material>(UrpSpriteLitMaterialPath);
+                Assert.That(expectedMaterial, Is.Not.Null);
+
+                var world = RequireRoot(scene, "World");
+                var points = world.GetComponentsInChildren<TownInteractionPoint2D>(true);
+                Assert.That(points, Has.Length.EqualTo(7));
+                foreach (var point in points)
+                {
+                    var visual = point.transform.Find("Visual");
+                    Assert.That(visual, Is.Not.Null, $"{point.name} is missing its Visual child.");
+                    var renderer = visual.GetComponent<SpriteRenderer>();
+                    Assert.That(renderer, Is.Not.Null, $"{point.name} Visual is missing its SpriteRenderer.");
+                    Assert.That(
+                        renderer.sharedMaterial,
+                        Is.SameAs(expectedMaterial),
+                        $"{point.name} visual must use the URP 2D Sprite-Lit-Default material.");
+                }
+            }
+            finally
+            {
+                EditorSceneManager.CloseScene(scene, true);
+                if (previousScene.IsValid() && previousScene.isLoaded)
+                {
+                    SceneManager.SetActiveScene(previousScene);
+                }
+            }
+        }
 
         [Test]
         public void DevelopmentScene_UsesProductionWorldVisualsAtPixelPerfectResolution()

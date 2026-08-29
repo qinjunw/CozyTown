@@ -38,6 +38,8 @@ namespace CozyTown.Unity.Editor
         private const string PlayerPath = ArtRoot + "/Characters/chr_player_move_16x24.png";
         private const string MinaPath = ArtRoot + "/Characters/npc_shopkeeper_mina_idle_down.png";
         private const string SceneTileFolder = "Assets/CozyTown/Art/Scene/Tiles";
+        private const string UrpSpriteLitMaterialPath =
+            "Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Lit-Default.mat";
 
         [MenuItem("CozyTown/Create Development Scene")]
         public static void CreateDevelopmentScene()
@@ -631,6 +633,10 @@ namespace CozyTown.Unity.Editor
 
             var renderer = GetOrAdd<SpriteRenderer>(visual.gameObject);
             renderer.sprite = sprite;
+            renderer.sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>(UrpSpriteLitMaterialPath)
+                ?? throw new FileNotFoundException(
+                    "URP 2D Sprite-Lit-Default material was not found.",
+                    UrpSpriteLitMaterialPath);
             renderer.color = Color.white;
             renderer.drawMode = SpriteDrawMode.Simple;
             renderer.sortingOrder = sortingOrder;
