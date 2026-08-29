@@ -6,11 +6,13 @@ CozyTown 是一个 Unity 2D 小镇生活模拟项目。MVP 由种植、养鸡、
 
 M4“持久化与 AI”已经完成。玩家可在单一小镇场景中完成生产经济闭环，并通过右上角调试面板保存或读取一个本地存档。存档覆盖时间、金币、背包、农田和畜牧状态，使用 schema v1 JSON；写入先生成并验证临时文件，再替换正式槽位，损坏内容、缺失存档和不支持版本会返回不同错误。NPC 交互点可选择 4 名 NPC；固定对话始终可用，也可通过不含客户端密钥的 HTTP(S) 代理适配器请求 AI 对话。超时、传输异常、空文本、结构错误或非法标签都会返回对应 NPC 的固定文本。
 
+纯像素美术已完成 A0 目录、规格、验收标准、生成记录和 5 张参考锚点。A0 不被场景引用；当前文件仍是高分辨率 RGB 草图，进入 A1 前需要清理烘焙棋盘格、锁定平面色板，并按 `16×16` Tile、`16×24` 角色帧和硬透明边缘重制为生产资源。
+
 默认配置包含 3 种作物、3 种鱼、5 个料理配方、1 只鸡和 4 名 NPC；组合根通过 `CreateDefault()` 创建同一对象图。`CozyTown.Runtime` 设置 `noEngineReferences: true`，不引用 UnityEngine。Unity 组件位于独立的 `CozyTown.Unity` 程序集；Bootstrap 私有持有完整对象图，并只向各 Presenter 注入对应的交易、生产、跨日、对话或存档用例接口。
 
-Unity Editor `6000.5.5f1` 已完成包解析、资源导入和六个 CozyTown 程序集的脚本编译。2026-08-29 的 M4 批处理运行得到 151 passed、0 failed、0 skipped 的 EditMode 结果，以及 26 passed、0 failed、0 skipped 的 PlayMode 结果；日志未出现 C# 编译错误、测试失败、未处理异常或运行态装配错误。批处理测试使用内存存档，不读写玩家的正式槽位。
+Unity Editor `6000.5.5f1` 已完成包解析、资源导入和六个 CozyTown 程序集的脚本编译。2026-08-29 的批处理运行得到 154 passed、0 failed、0 skipped 的 EditMode 结果，以及 26 passed、0 failed、0 skipped 的 PlayMode 结果；日志未出现 C# 编译错误、测试失败、未处理异常或运行态装配错误。批处理测试使用内存存档，不读写玩家的正式槽位。
 
-产品范围和验收条件见 [PRD](docs/PRD.md)，领域词汇见 [CONTEXT](CONTEXT.md)，模块边界和依赖规则见 [架构说明](docs/ARCHITECTURE.md)，组件与集成用例见 [测试计划](docs/TEST_PLAN.md)。架构决策记录位于 [`docs/adr`](docs/adr)。
+产品范围和验收条件见 [PRD](docs/PRD.md)，领域词汇见 [CONTEXT](CONTEXT.md)，模块边界和依赖规则见 [架构说明](docs/ARCHITECTURE.md)，组件与集成用例见 [测试计划](docs/TEST_PLAN.md)。纯像素规格、准入条件和 A0 生成记录分别见 [美术方向](docs/ART_DIRECTION.md)、[美术验收](docs/ART_ACCEPTANCE.md) 和 [生成记录](docs/ART_GENERATION_LOG.md)。架构决策记录位于 [`docs/adr`](docs/adr)。
 
 ## 技术基线
 
@@ -32,6 +34,7 @@ Unity Editor `6000.5.5f1` 已完成包解析、资源导入和六个 CozyTown �
 Assets/CozyTown/Runtime/       游戏模块、公共接口和组合根
 Assets/CozyTown/Unity/         Unity 生命周期、输入、移动、交互、HUD 和生产玩法适配
 Assets/CozyTown/Scenes/        M2-M4 开发场景
+Assets/CozyTown/Art/           A0 风格参考与验收后的生产美术
 Assets/CozyTown/Tests/EditMode/纯 C# 组件与模块协作测试
 Assets/CozyTown/Tests/UnityEditMode/Unity 适配层 EditMode 测试
 Assets/CozyTown/Tests/PlayMode/场景、物理和交互生命周期测试
