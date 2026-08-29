@@ -10,6 +10,7 @@ namespace CozyTown.Unity.Coop
     {
         private ILivestockGameplayCoordinator _coordinator;
         [SerializeField] private CozyTownCoopDebugView _view;
+        [SerializeField] private CozyTownCoopWorldView _worldView;
 
         protected override TownInteractionKind ExpectedKind => TownInteractionKind.Coop;
         protected override bool HasDependencies => _coordinator != null && _view != null;
@@ -20,9 +21,19 @@ namespace CozyTown.Unity.Coop
             ConfigureInteraction(point);
         }
 
+        public void ConfigureWorldView(CozyTownCoopWorldView worldView)
+        {
+            _worldView = worldView ?? throw new ArgumentNullException(nameof(worldView));
+            if (_coordinator != null)
+            {
+                _worldView.Show(_coordinator.GetCurrentState());
+            }
+        }
+
         public void Bind(ILivestockGameplayCoordinator coordinator)
         {
             _coordinator = coordinator ?? throw new ArgumentNullException(nameof(coordinator));
+            _worldView?.Show(_coordinator.GetCurrentState());
             DependenciesChanged();
         }
 
@@ -40,7 +51,7 @@ namespace CozyTown.Unity.Coop
             _view.CloseRequested -= CloseModal;
         }
 
-        protected override void ShowInitialState() => _view.Show(_coordinator.GetCurrentState(), string.Empty);
+        protected override void ShowInitialState() => Present(_coordinator.GetCurrentState(), string.Empty);
         protected override void HideView() => _view?.Hide();
         private void Feed(string id) => Run(() => _coordinator.Feed(id), "Feed");
         private void Collect(string id) => Run(() => _coordinator.CollectProduct(id), "Collect");
@@ -48,9 +59,15 @@ namespace CozyTown.Unity.Coop
         private void Run(Func<OperationResult> command, string action)
         {
             var result = command();
-            _view.Show(
+            Present(
                 _coordinator.GetCurrentState(),
                 result.IsSuccess ? $"{action} succeeded." : $"{action} failed: {result.ErrorCode}");
+        }
+
+        private void Present(LivestockViewState state, string feedback)
+        {
+            _worldView?.Show(state);
+            _view.Show(state, feedback);
         }
     }
 }

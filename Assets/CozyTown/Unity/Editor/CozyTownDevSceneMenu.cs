@@ -33,6 +33,8 @@ namespace CozyTown.Unity.Editor
         private const string TownTilesPath = ArtRoot + "/Environment/Tiles/tile_town_base_16.png";
         private const string BuildingsPath = ArtRoot + "/Buildings/bld_town_functions_64.png";
         private const string TownFunctionsPath = ArtRoot + "/Props/prop_town_functions_96x64.png";
+        private const string FarmStatesPath = ArtRoot + "/Props/prop_farm_states_16.png";
+        private const string HenStatesPath = ArtRoot + "/Props/prop_hen_states_16.png";
         private const string PlayerPath = ArtRoot + "/Characters/chr_player_move_16x24.png";
         private const string MinaPath = ArtRoot + "/Characters/npc_shopkeeper_mina_idle_down.png";
         private const string SceneTileFolder = "Assets/CozyTown/Art/Scene/Tiles";
@@ -163,10 +165,13 @@ namespace CozyTown.Unity.Editor
                 ConfigureTownTilemap(world);
                 ConfigureWorldBoundaries(world);
                 ConfigureWorldInteractionVisuals(world);
-                ConfigureProductionRenderer(
+                ConfigureFarmWorldView(scene, world);
+                ConfigureCoopWorldView(scene, world);
+                var playerRenderer = ConfigureProductionRenderer(
                     player,
                     LoadSprite(PlayerPath, "chr_player_idle_down"),
                     sortingOrder: 20);
+                ConfigurePlayerAnimation(player, playerRenderer);
 
                 EditorSceneManager.MarkSceneDirty(scene);
                 EditorSceneManager.SaveScene(scene, ScenePath);
@@ -462,12 +467,6 @@ namespace CozyTown.Unity.Editor
 
         private static void ConfigureTownTilemap(GameObject world)
         {
-            var existingGrid = world.transform.Find("A1 Tile Grid");
-            if (existingGrid != null)
-            {
-                UnityEngine.Object.DestroyImmediate(existingGrid.gameObject);
-            }
-
             EnsureFolder(SceneTileFolder);
             var grassTiles = new[]
             {
@@ -480,15 +479,14 @@ namespace CozyTown.Unity.Editor
             var pathVertical = GetOrCreateTile("tile_path_vertical");
             var pathCross = GetOrCreateTile("tile_path_cross");
 
-            var gridObject = new GameObject("A1 Tile Grid");
-            gridObject.transform.SetParent(world.transform, false);
-            gridObject.AddComponent<Grid>();
+            var gridTransform = GetOrCreateChild(world.transform, "A1 Tile Grid");
+            GetOrAdd<Grid>(gridTransform.gameObject);
 
-            var tilemapObject = new GameObject("Ground Tilemap");
-            tilemapObject.transform.SetParent(gridObject.transform, false);
-            var tilemap = tilemapObject.AddComponent<Tilemap>();
-            var tilemapRenderer = tilemapObject.AddComponent<TilemapRenderer>();
+            var tilemapTransform = GetOrCreateChild(gridTransform, "Ground Tilemap");
+            var tilemap = GetOrAdd<Tilemap>(tilemapTransform.gameObject);
+            var tilemapRenderer = GetOrAdd<TilemapRenderer>(tilemapTransform.gameObject);
             tilemapRenderer.sortingOrder = -20;
+            tilemap.ClearAllTiles();
 
             for (var y = -6; y <= 6; y++)
             {
@@ -614,7 +612,7 @@ namespace CozyTown.Unity.Editor
             }
         }
 
-        private static void ConfigureProductionRenderer(
+        private static SpriteRenderer ConfigureProductionRenderer(
             GameObject target,
             Sprite sprite,
             int sortingOrder)
@@ -637,6 +635,124 @@ namespace CozyTown.Unity.Editor
             renderer.drawMode = SpriteDrawMode.Simple;
             renderer.sortingOrder = sortingOrder;
             renderer.spriteSortPoint = SpriteSortPoint.Pivot;
+            return renderer;
+        }
+
+        private static void ConfigurePlayerAnimation(GameObject player, SpriteRenderer renderer)
+        {
+            var movement = player.GetComponent<PlayerMovement2D>()
+                ?? throw new InvalidOperationException("Player is missing PlayerMovement2D.");
+            var body = player.GetComponent<Rigidbody2D>()
+                ?? throw new InvalidOperationException("Player is missing Rigidbody2D.");
+            var animator = GetOrAdd<CozyTownPlayerSpriteAnimator>(player);
+            animator.Configure(
+                renderer,
+                movement,
+                body,
+                new[]
+                {
+                    LoadSprite(PlayerPath, "chr_player_idle_down"),
+                    LoadSprite(PlayerPath, "chr_player_idle_left"),
+                    LoadSprite(PlayerPath, "chr_player_idle_right"),
+                    LoadSprite(PlayerPath, "chr_player_idle_up")
+                },
+                new[]
+                {
+                    LoadSprite(PlayerPath, "chr_player_walk_down_00"),
+                    LoadSprite(PlayerPath, "chr_player_walk_down_01"),
+                    LoadSprite(PlayerPath, "chr_player_walk_left_00"),
+                    LoadSprite(PlayerPath, "chr_player_walk_left_01"),
+                    LoadSprite(PlayerPath, "chr_player_walk_right_00"),
+                    LoadSprite(PlayerPath, "chr_player_walk_right_01"),
+                    LoadSprite(PlayerPath, "chr_player_walk_up_00"),
+                    LoadSprite(PlayerPath, "chr_player_walk_up_01")
+                });
+        }
+
+        private static void ConfigureFarmWorldView(Scene scene, GameObject world)
+        {
+            var farmPoint = Array.Find(
+                world.GetComponentsInChildren<TownInteractionPoint2D>(true),
+                point => point.Kind == TownInteractionKind.Farm)
+                ?? throw new InvalidOperationException("Development scene is missing the Farm point.");
+
+            var statesTransform = GetOrCreateChild(farmPoint.transform, "Farm States");
+            var soilRenderers = new SpriteRenderer[6];
+            var cropRenderers = new SpriteRenderer[6];
+            var drySoil = LoadSprite(FarmStatesPath, "farm_plot_soil_dry");
+            var wateredSoil = LoadSprite(FarmStatesPath, "farm_plot_soil_watered");
+            var positions = new[]
+            {
+                new Vector2(-1.75f, 1.15f),
+                new Vector2(0f, 1.15f),
+                new Vector2(1.75f, 1.15f),
+                new Vector2(-1.75f, 2.55f),
+                new Vector2(0f, 2.55f),
+                new Vector2(1.75f, 2.55f)
+            };
+
+            for (var index = 0; index < positions.Length; index++)
+            {
+                var plot = GetOrCreateChild(statesTransform, $"Plot {index + 1:00}");
+                plot.localPosition = positions[index];
+
+                var soil = GetOrCreateChild(plot, "Soil");
+                soilRenderers[index] = GetOrAdd<SpriteRenderer>(soil.gameObject);
+                soilRenderers[index].sprite = drySoil;
+                soilRenderers[index].sortingOrder = 6;
+
+                var crop = GetOrCreateChild(plot, "Crop");
+                cropRenderers[index] = GetOrAdd<SpriteRenderer>(crop.gameObject);
+                cropRenderers[index].sprite = null;
+                cropRenderers[index].sortingOrder = 7;
+            }
+
+            var worldView = GetOrAdd<CozyTownFarmWorldView>(statesTransform.gameObject);
+            worldView.Configure(
+                soilRenderers,
+                cropRenderers,
+                drySoil,
+                wateredSoil,
+                LoadSprites(FarmStatesPath,
+                    "crop_potato_stage_00", "crop_potato_stage_01", "crop_potato_stage_02"),
+                LoadSprites(FarmStatesPath,
+                    "crop_carrot_stage_00", "crop_carrot_stage_01",
+                    "crop_carrot_stage_02", "crop_carrot_stage_03"),
+                LoadSprites(FarmStatesPath,
+                    "crop_tomato_stage_00", "crop_tomato_stage_01", "crop_tomato_stage_02",
+                    "crop_tomato_stage_03", "crop_tomato_stage_04"));
+
+            var farmPresenter = RequireRoot(scene, "Debug HUD")
+                .GetComponent<CozyTownFarmDebugPresenter>()
+                ?? throw new InvalidOperationException("Development scene is missing its Farm presenter.");
+            farmPresenter.ConfigureWorldView(worldView);
+        }
+
+        private static void ConfigureCoopWorldView(Scene scene, GameObject world)
+        {
+            var coopPoint = Array.Find(
+                world.GetComponentsInChildren<TownInteractionPoint2D>(true),
+                point => point.Kind == TownInteractionKind.Coop)
+                ?? throw new InvalidOperationException("Development scene is missing the Coop point.");
+
+            var stateTransform = GetOrCreateChild(coopPoint.transform, "Hen State");
+            stateTransform.localPosition = new Vector3(0.9f, 0.5f, 0f);
+            var renderer = GetOrAdd<SpriteRenderer>(stateTransform.gameObject);
+            var idleSprite = LoadSprite(HenStatesPath, "animal_hen_idle");
+            renderer.sprite = idleSprite;
+            renderer.sortingOrder = 7;
+
+            var worldView = GetOrAdd<CozyTownCoopWorldView>(stateTransform.gameObject);
+            worldView.Configure(
+                renderer,
+                idleSprite,
+                LoadSprite(HenStatesPath, "animal_hen_fed"),
+                LoadSprite(HenStatesPath, "animal_hen_product_ready"));
+
+            var coopPresenter = RequireRoot(scene, "Debug HUD")
+                .GetComponent<CozyTownCoopDebugPresenter>()
+                ?? throw new InvalidOperationException("Development scene is missing its Coop presenter.");
+            coopPresenter.ConfigureWorldView(worldView);
         }
 
         private static Tile GetOrCreateTile(string spriteName)
@@ -673,6 +789,17 @@ namespace CozyTown.Unity.Editor
                 assetPath);
         }
 
+        private static Sprite[] LoadSprites(string assetPath, params string[] spriteNames)
+        {
+            var sprites = new Sprite[spriteNames.Length];
+            for (var index = 0; index < spriteNames.Length; index++)
+            {
+                sprites[index] = LoadSprite(assetPath, spriteNames[index]);
+            }
+
+            return sprites;
+        }
+
         private static void EnsureFolder(string path)
         {
             var segments = path.Split('/');
@@ -703,6 +830,22 @@ namespace CozyTown.Unity.Editor
         {
             var component = target.GetComponent<T>();
             return component != null ? component : target.AddComponent<T>();
+        }
+
+        private static Transform GetOrCreateChild(Transform parent, string name)
+        {
+            var child = parent.Find(name);
+            if (child != null)
+            {
+                child.localPosition = Vector3.zero;
+                child.localRotation = Quaternion.identity;
+                child.localScale = Vector3.one;
+                return child;
+            }
+
+            var childObject = new GameObject(name);
+            childObject.transform.SetParent(parent, false);
+            return childObject.transform;
         }
     }
 }

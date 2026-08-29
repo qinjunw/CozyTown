@@ -69,10 +69,19 @@ namespace CozyTown.Tests.UnityEditMode
                     player.GetComponentInChildren<SpriteRenderer>(true),
                     "Player visual");
 
+                var emptyCropRenderers = 0;
                 foreach (var renderer in world.GetComponentsInChildren<SpriteRenderer>(true))
                 {
+                    if (renderer.sprite == null)
+                    {
+                        Assert.That(renderer.gameObject.name, Is.EqualTo("Crop"));
+                        emptyCropRenderers++;
+                        continue;
+                    }
+
                     AssertProductionSprite(renderer, renderer.gameObject.name);
                 }
+                Assert.That(emptyCropRenderers, Is.EqualTo(6));
             }
             finally
             {

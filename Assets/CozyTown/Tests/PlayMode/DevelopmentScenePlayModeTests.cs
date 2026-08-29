@@ -54,10 +54,12 @@ namespace CozyTown.Tests.PlayMode
             var movement = player.GetComponent<PlayerMovement2D>();
             var probe = player.GetComponent<InteractionProbe2D>();
             var interactor = player.GetComponent<PlayerInteractor2D>();
+            var playerRenderer = player.GetComponentInChildren<SpriteRenderer>(true);
             Assert.That(body, Is.Not.Null);
             Assert.That(movement?.enabled, Is.True);
             Assert.That(probe?.enabled, Is.True);
             Assert.That(interactor?.enabled, Is.True);
+            Assert.That(playerRenderer, Is.Not.Null);
 
             var testInput = player.AddComponent<PlayModePlayerInputSource>();
             movement.SetInputSource(testInput);
@@ -67,8 +69,12 @@ namespace CozyTown.Tests.PlayMode
             testInput.Movement = Vector2.right;
             yield return new WaitForFixedUpdate();
             yield return new WaitForFixedUpdate();
+            yield return null;
+            Assert.That(playerRenderer.sprite.name, Does.StartWith("chr_player_walk_right_"));
             testInput.Movement = Vector2.zero;
             body.linearVelocity = Vector2.zero;
+            yield return null;
+            Assert.That(playerRenderer.sprite.name, Is.EqualTo("chr_player_idle_right"));
             Assert.That(body.position.x, Is.GreaterThan(startPosition.x));
 
             var world = RequireRoot(_loadedScene, "World");
@@ -114,6 +120,22 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(saveView, Is.Not.Null);
             Assert.That(saveView.IsVisible, Is.True);
             pondPresenter.SetRollSource(new FixedFishingRollSource(0));
+
+            var farmPoint = points.Single(point => point.Kind == TownInteractionKind.Farm);
+            var plot01Soil = farmPoint.transform.Find("Farm States/Plot 01/Soil")
+                ?.GetComponent<SpriteRenderer>();
+            var plot01Crop = farmPoint.transform.Find("Farm States/Plot 01/Crop")
+                ?.GetComponent<SpriteRenderer>();
+            Assert.That(plot01Soil, Is.Not.Null);
+            Assert.That(plot01Crop, Is.Not.Null);
+            Assert.That(plot01Soil.sprite.name, Is.EqualTo("farm_plot_soil_dry"));
+            Assert.That(plot01Crop.sprite, Is.Null);
+
+            var coopPoint = points.Single(point => point.Kind == TownInteractionKind.Coop);
+            var henRenderer = coopPoint.transform.Find("Hen State")
+                ?.GetComponent<SpriteRenderer>();
+            Assert.That(henRenderer, Is.Not.Null);
+            Assert.That(henRenderer.sprite.name, Is.EqualTo("animal_hen_idle"));
 
             IEnumerator Open(TownInteractionKind kind)
             {
@@ -167,9 +189,12 @@ namespace CozyTown.Tests.PlayMode
             yield return Open(TownInteractionKind.Farm);
             farmView.RequestPlant("plot.01", DefaultMvpIds.Items.PotatoSeed);
             farmView.RequestWater("plot.01");
+            Assert.That(plot01Soil.sprite.name, Is.EqualTo("farm_plot_soil_watered"));
+            Assert.That(plot01Crop.sprite.name, Is.EqualTo("crop_potato_stage_00"));
             farmView.RequestClose();
             yield return Open(TownInteractionKind.Coop);
             coopView.RequestFeed(DefaultMvpIds.Livestock.Hen);
+            Assert.That(henRenderer.sprite.name, Is.EqualTo("animal_hen_fed"));
             coopView.RequestClose();
             yield return Open(TownInteractionKind.Pond);
             pondView.RequestCatch();
@@ -180,7 +205,9 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(bedView.Feedback, Is.EqualTo("Slept to day 2."));
             bedView.RequestClose();
             yield return Open(TownInteractionKind.Coop);
+            Assert.That(henRenderer.sprite.name, Is.EqualTo("animal_hen_product_ready"));
             coopView.RequestCollect(DefaultMvpIds.Livestock.Hen);
+            Assert.That(henRenderer.sprite.name, Is.EqualTo("animal_hen_idle"));
             coopView.RequestClose();
             yield return Open(TownInteractionKind.Farm);
             farmView.RequestWater("plot.01");
@@ -191,6 +218,8 @@ namespace CozyTown.Tests.PlayMode
             bedView.RequestClose();
             yield return Open(TownInteractionKind.Farm);
             farmView.RequestHarvest("plot.01");
+            Assert.That(plot01Soil.sprite.name, Is.EqualTo("farm_plot_soil_dry"));
+            Assert.That(plot01Crop.sprite, Is.Null);
             farmView.RequestClose();
             yield return Open(TownInteractionKind.Kitchen);
             kitchenView.RequestCook(DefaultMvpIds.Recipes.BakedPotato);

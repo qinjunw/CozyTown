@@ -10,6 +10,7 @@ namespace CozyTown.Unity.Farm
     {
         private IFarmGameplayCoordinator _coordinator;
         [SerializeField] private CozyTownFarmDebugView _view;
+        [SerializeField] private CozyTownFarmWorldView _worldView;
 
         protected override TownInteractionKind ExpectedKind => TownInteractionKind.Farm;
         protected override bool HasDependencies => _coordinator != null && _view != null;
@@ -20,9 +21,19 @@ namespace CozyTown.Unity.Farm
             ConfigureInteraction(point);
         }
 
+        public void ConfigureWorldView(CozyTownFarmWorldView worldView)
+        {
+            _worldView = worldView ?? throw new ArgumentNullException(nameof(worldView));
+            if (_coordinator != null)
+            {
+                _worldView.Show(_coordinator.GetCurrentState());
+            }
+        }
+
         public void Bind(IFarmGameplayCoordinator coordinator)
         {
             _coordinator = coordinator ?? throw new ArgumentNullException(nameof(coordinator));
+            _worldView?.Show(_coordinator.GetCurrentState());
             DependenciesChanged();
         }
 
@@ -42,7 +53,7 @@ namespace CozyTown.Unity.Farm
             _view.CloseRequested -= CloseModal;
         }
 
-        protected override void ShowInitialState() => _view.Show(_coordinator.GetCurrentState(), string.Empty);
+        protected override void ShowInitialState() => Present(_coordinator.GetCurrentState(), string.Empty);
         protected override void HideView() => _view?.Hide();
         private void Plant(string plot, string seed) => Run(() => _coordinator.Plant(plot, seed), "Plant");
         private void Water(string plot) => Run(() => _coordinator.Water(plot), "Water");
@@ -51,9 +62,15 @@ namespace CozyTown.Unity.Farm
         private void Run(Func<OperationResult> command, string action)
         {
             var result = command();
-            _view.Show(
+            Present(
                 _coordinator.GetCurrentState(),
                 result.IsSuccess ? $"{action} succeeded." : $"{action} failed: {result.ErrorCode}");
+        }
+
+        private void Present(FarmViewState state, string feedback)
+        {
+            _worldView?.Show(state);
+            _view.Show(state, feedback);
         }
     }
 }
