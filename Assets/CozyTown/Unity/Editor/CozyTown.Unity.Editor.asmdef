@@ -6,7 +6,7 @@
     "CozyTown.Runtime",
     "Unity.InputSystem",
     "Unity.RenderPipelines.Universal.2D.Runtime",
-    "Unity.UGUI"
+    "UnityEngine.UI"
   ],
   "includePlatforms": [
     "Editor"

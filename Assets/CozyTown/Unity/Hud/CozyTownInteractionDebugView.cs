@@ -1,22 +1,41 @@
 using System;
 using CozyTown.Unity.Interaction;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CozyTown.Unity.Hud
 {
     public sealed class CozyTownInteractionDebugView : MonoBehaviour
     {
         [SerializeField] private PlayerInteractor2D playerInteractor;
-
-        private GUIStyle _boxStyle;
-        private GUIStyle _labelStyle;
-        private int _fontSize;
+        [SerializeField] private GameObject panel;
+        [SerializeField] private Text promptText;
+        [SerializeField] private Text feedbackText;
 
         public void Configure(PlayerInteractor2D interactor)
         {
             playerInteractor = interactor != null
                 ? interactor
                 : throw new ArgumentNullException(nameof(interactor));
+            Refresh();
+        }
+
+        public void ConfigureUi(
+            GameObject targetPanel,
+            Text targetPromptText,
+            Text targetFeedbackText)
+        {
+            panel = targetPanel != null
+                ? targetPanel
+                : throw new ArgumentNullException(nameof(targetPanel));
+            promptText = targetPromptText != null
+                ? targetPromptText
+                : throw new ArgumentNullException(nameof(targetPromptText));
+            feedbackText = targetFeedbackText != null
+                ? targetFeedbackText
+                : throw new ArgumentNullException(nameof(targetFeedbackText));
+
+            Refresh();
         }
 
         private void Awake()
@@ -28,48 +47,33 @@ namespace CozyTown.Unity.Hud
             }
         }
 
-        private void OnGUI()
+        private void Update()
         {
-            EnsureStyles();
-            var prompt = playerInteractor.CurrentPrompt;
-            var feedback = playerInteractor.LastInteractionFeedback;
-            var lineCount = string.IsNullOrWhiteSpace(feedback) ? 1 : 2;
-            var lineHeight = _fontSize + 12f;
-            var height = lineHeight * lineCount + 24f;
-            var width = Mathf.Min(
-                Mathf.Max(520f, Screen.width * 0.48f),
-                Screen.width - 32f);
-
-            GUILayout.BeginArea(
-                new Rect(16f, Screen.height - height - 16f, width, height),
-                _boxStyle);
-            GUILayout.Label(string.IsNullOrWhiteSpace(prompt)
-                ? "Interaction: move near a colored point"
-                : $"Interaction: {prompt}",
-                _labelStyle,
-                GUILayout.Height(lineHeight));
-            if (!string.IsNullOrWhiteSpace(feedback))
-            {
-                GUILayout.Label(
-                    $"Last: {feedback}",
-                    _labelStyle,
-                    GUILayout.Height(lineHeight));
-            }
-
-            GUILayout.EndArea();
+            Refresh();
         }
 
-        private void EnsureStyles()
+        public void Refresh()
         {
-            var fontSize = CozyTownDebugGuiStyles.CalculateFontSize(Screen.height);
-            if (_labelStyle != null && _fontSize == fontSize)
+            if (panel == null || promptText == null || feedbackText == null)
             {
                 return;
             }
 
-            _fontSize = fontSize;
-            _labelStyle = CozyTownDebugGuiStyles.CreateLabelStyle(fontSize);
-            _boxStyle = CozyTownDebugGuiStyles.CreateBoxStyle();
+            bool hasInteractor = playerInteractor != null;
+            panel.SetActive(hasInteractor);
+            if (!hasInteractor)
+            {
+                return;
+            }
+
+            string prompt = playerInteractor.CurrentPrompt;
+            string feedback = playerInteractor.LastInteractionFeedback;
+            promptText.text = string.IsNullOrWhiteSpace(prompt)
+                ? "Interaction: move near a colored point"
+                : $"Interaction: {prompt}";
+            feedbackText.text = string.IsNullOrWhiteSpace(feedback)
+                ? string.Empty
+                : $"Last: {feedback}";
         }
     }
 }

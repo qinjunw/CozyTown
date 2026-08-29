@@ -1,15 +1,15 @@
 using System;
-using CozyTown.Unity.Hud;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CozyTown.Unity.Save
 {
     public sealed class CozyTownSaveDebugView : MonoBehaviour
     {
-        private GUIStyle _boxStyle;
-        private GUIStyle _buttonStyle;
-        private GUIStyle _labelStyle;
-        private int _fontSize;
+        [SerializeField] private GameObject panel;
+        [SerializeField] private Text feedbackText;
+        [SerializeField] private Button saveButton;
+        [SerializeField] private Button loadButton;
 
         public event Action SaveRequested;
 
@@ -21,16 +21,55 @@ namespace CozyTown.Unity.Save
 
         public string Feedback { get; private set; } = string.Empty;
 
+        public void ConfigureUi(
+            GameObject targetPanel,
+            Text targetFeedbackText,
+            Button targetSaveButton,
+            Button targetLoadButton)
+        {
+            if (targetPanel == null)
+            {
+                throw new ArgumentNullException(nameof(targetPanel));
+            }
+
+            if (targetFeedbackText == null)
+            {
+                throw new ArgumentNullException(nameof(targetFeedbackText));
+            }
+
+            if (targetSaveButton == null)
+            {
+                throw new ArgumentNullException(nameof(targetSaveButton));
+            }
+
+            if (targetLoadButton == null)
+            {
+                throw new ArgumentNullException(nameof(targetLoadButton));
+            }
+
+            RemoveButtonListeners();
+
+            panel = targetPanel;
+            feedbackText = targetFeedbackText;
+            saveButton = targetSaveButton;
+            loadButton = targetLoadButton;
+
+            BindButtonListeners();
+            RefreshUi();
+        }
+
         public void Show(bool hasSave, string feedback)
         {
             HasSave = hasSave;
             Feedback = feedback ?? string.Empty;
             IsVisible = true;
+            RefreshUi();
         }
 
         public void Hide()
         {
             IsVisible = false;
+            RefreshUi();
         }
 
         public void RequestSave()
@@ -49,57 +88,66 @@ namespace CozyTown.Unity.Save
             }
         }
 
-        private void OnGUI()
+        private void OnEnable()
         {
-            if (!IsVisible)
-            {
-                return;
-            }
-
-            EnsureStyles();
-            float width = Mathf.Min(440f, Screen.width - 32f);
-            float height = _fontSize * 4f + 92f;
-            GUILayout.BeginArea(
-                new Rect(Screen.width - width - 16f, 16f, width, height),
-                _boxStyle);
-            GUILayout.Label("Save", _labelStyle);
-            if (!string.IsNullOrWhiteSpace(Feedback))
-            {
-                GUILayout.Label(Feedback, _labelStyle);
-            }
-
-            if (GUILayout.Button("Save game", _buttonStyle, GUILayout.Height(_fontSize + 18f)))
-            {
-                RequestSave();
-            }
-
-            bool wasEnabled = GUI.enabled;
-            GUI.enabled = wasEnabled && HasSave;
-            if (GUILayout.Button("Load game", _buttonStyle, GUILayout.Height(_fontSize + 18f)))
-            {
-                RequestLoad();
-            }
-
-            GUI.enabled = wasEnabled;
-            GUILayout.EndArea();
+            BindButtonListeners();
+            RefreshUi();
         }
 
-        private void EnsureStyles()
+        private void OnDisable()
         {
-            int size = CozyTownDebugGuiStyles.CalculateFontSize(Screen.height);
-            if (_labelStyle != null && size == _fontSize)
+            RemoveButtonListeners();
+        }
+
+        private void RefreshUi()
+        {
+            if (panel != null)
             {
-                return;
+                panel.SetActive(IsVisible);
             }
 
-            _fontSize = size;
-            _labelStyle = CozyTownDebugGuiStyles.CreateLabelStyle(size);
-            _boxStyle = CozyTownDebugGuiStyles.CreateBoxStyle();
-            _buttonStyle = new GUIStyle(GUI.skin.button)
+            if (feedbackText != null)
             {
-                fontSize = size,
-                fontStyle = FontStyle.Bold
-            };
+                feedbackText.text = Feedback;
+            }
+
+            if (saveButton != null)
+            {
+                saveButton.interactable = IsVisible;
+            }
+
+            if (loadButton != null)
+            {
+                loadButton.interactable = IsVisible && HasSave;
+            }
+        }
+
+        private void RemoveButtonListeners()
+        {
+            if (saveButton != null)
+            {
+                saveButton.onClick.RemoveListener(RequestSave);
+            }
+
+            if (loadButton != null)
+            {
+                loadButton.onClick.RemoveListener(RequestLoad);
+            }
+        }
+
+        private void BindButtonListeners()
+        {
+            if (saveButton != null)
+            {
+                saveButton.onClick.RemoveListener(RequestSave);
+                saveButton.onClick.AddListener(RequestSave);
+            }
+
+            if (loadButton != null)
+            {
+                loadButton.onClick.RemoveListener(RequestLoad);
+                loadButton.onClick.AddListener(RequestLoad);
+            }
         }
     }
 }

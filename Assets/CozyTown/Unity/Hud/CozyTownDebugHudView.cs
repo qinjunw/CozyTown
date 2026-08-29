@@ -1,56 +1,58 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CozyTown.Unity.Hud
 {
     public sealed class CozyTownDebugHudView : MonoBehaviour, ICozyTownHudView
     {
+        [SerializeField] private GameObject panel;
+        [SerializeField] private Text clockText;
+        [SerializeField] private Text coinText;
+
         private CozyTownHudState _state;
         private bool _hasState;
-        private GUIStyle _boxStyle;
-        private GUIStyle _labelStyle;
-        private int _fontSize;
+
+        public void ConfigureUi(
+            GameObject targetPanel,
+            Text targetClockText,
+            Text targetCoinText)
+        {
+            panel = targetPanel != null
+                ? targetPanel
+                : throw new ArgumentNullException(nameof(targetPanel));
+            clockText = targetClockText != null
+                ? targetClockText
+                : throw new ArgumentNullException(nameof(targetClockText));
+            coinText = targetCoinText != null
+                ? targetCoinText
+                : throw new ArgumentNullException(nameof(targetCoinText));
+
+            RefreshUi();
+        }
 
         public void Render(CozyTownHudState state)
         {
             _state = state;
             _hasState = true;
+            RefreshUi();
         }
 
-        private void OnGUI()
+        private void RefreshUi()
         {
+            if (panel == null || clockText == null || coinText == null)
+            {
+                return;
+            }
+
+            panel.SetActive(_hasState);
             if (!_hasState)
             {
                 return;
             }
 
-            EnsureStyles();
-            var lineHeight = _fontSize + 10f;
-            var width = Mathf.Min(360f, Screen.width - 32f);
-            var height = lineHeight * 2f + 24f;
-
-            GUILayout.BeginArea(new Rect(16f, 16f, width, height), _boxStyle);
-            GUILayout.Label(
-                $"Day {_state.Day}  {_state.Hour:00}:{_state.Minute:00}",
-                _labelStyle,
-                GUILayout.Height(lineHeight));
-            GUILayout.Label(
-                $"Coins: {_state.Balance}",
-                _labelStyle,
-                GUILayout.Height(lineHeight));
-            GUILayout.EndArea();
-        }
-
-        private void EnsureStyles()
-        {
-            var fontSize = CozyTownDebugGuiStyles.CalculateFontSize(Screen.height);
-            if (_labelStyle != null && _fontSize == fontSize)
-            {
-                return;
-            }
-
-            _fontSize = fontSize;
-            _labelStyle = CozyTownDebugGuiStyles.CreateLabelStyle(fontSize);
-            _boxStyle = CozyTownDebugGuiStyles.CreateBoxStyle();
+            clockText.text = $"Day {_state.Day}  {_state.Hour:00}:{_state.Minute:00}";
+            coinText.text = $"Coins: {_state.Balance}";
         }
     }
 }

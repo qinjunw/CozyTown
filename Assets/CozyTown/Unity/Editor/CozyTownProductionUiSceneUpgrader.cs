@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using CozyTown.Unity.Hud;
+using CozyTown.Unity.Save;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -41,6 +43,7 @@ namespace CozyTown.Unity.Editor
                 ConfigureSavePanel(canvasTransform, uiSprites);
                 ConfigureInteractionPanel(canvasTransform, uiSprites);
                 ConfigureModalShells(canvasTransform, uiSprites);
+                ConfigurePersistentViewBindings(hud, canvasTransform);
                 ConfigureEventSystem(scene);
 
                 EditorSceneManager.MarkSceneDirty(scene);
@@ -117,9 +120,10 @@ namespace CozyTown.Unity.Editor
                 sprites.Panel,
                 new Vector2(1f, 1f),
                 new Vector2(-4f, -4f),
-                new Vector2(92f, 46f));
-            CreateButton(panel, "Save Button", "Save", sprites.Save, new Vector2(4f, -4f), new Vector2(84f, 18f), sprites);
-            CreateButton(panel, "Load Button", "Load", sprites.LoadIcon, new Vector2(4f, -24f), new Vector2(84f, 18f), sprites);
+                new Vector2(92f, 62f));
+            CreateText(panel, "Feedback Text", string.Empty, new Vector2(4f, -4f), new Vector2(84f, 14f), 8);
+            CreateButton(panel, "Save Button", "Save", sprites.Save, new Vector2(4f, -20f), new Vector2(84f, 18f), sprites);
+            CreateButton(panel, "Load Button", "Load", sprites.LoadIcon, new Vector2(4f, -40f), new Vector2(84f, 18f), sprites);
         }
 
         private static void ConfigureInteractionPanel(RectTransform canvas, UiSprites sprites)
@@ -155,6 +159,34 @@ namespace CozyTown.Unity.Editor
             CreateModal(canvas, "Pond Panel", "Fishing Pond", false, sprites);
             CreateModal(canvas, "Kitchen Panel", "Kitchen", false, sprites);
             CreateModal(canvas, "NPC Panel", "Town NPC Dialogue", true, sprites);
+        }
+
+        private static void ConfigurePersistentViewBindings(GameObject hud, RectTransform canvas)
+        {
+            var hudPanel = RequireChild(canvas, "HUD Panel");
+            var hudView = hud.GetComponent<CozyTownDebugHudView>()
+                ?? throw new InvalidOperationException("Debug HUD is missing CozyTownDebugHudView.");
+            hudView.ConfigureUi(
+                hudPanel.gameObject,
+                RequireChild(hudPanel, "Clock Text").GetComponent<Text>(),
+                RequireChild(hudPanel, "Coin Text").GetComponent<Text>());
+
+            var savePanel = RequireChild(canvas, "Save Panel");
+            var saveView = hud.GetComponent<CozyTownSaveDebugView>()
+                ?? throw new InvalidOperationException("Debug HUD is missing CozyTownSaveDebugView.");
+            saveView.ConfigureUi(
+                savePanel.gameObject,
+                RequireChild(savePanel, "Feedback Text").GetComponent<Text>(),
+                RequireChild(savePanel, "Save Button").GetComponent<Button>(),
+                RequireChild(savePanel, "Load Button").GetComponent<Button>());
+
+            var interactionPanel = RequireChild(canvas, "Interaction Panel");
+            var interactionView = hud.GetComponent<CozyTownInteractionDebugView>()
+                ?? throw new InvalidOperationException("Debug HUD is missing CozyTownInteractionDebugView.");
+            interactionView.ConfigureUi(
+                interactionPanel.gameObject,
+                RequireChild(interactionPanel, "Prompt Text").GetComponent<Text>(),
+                RequireChild(interactionPanel, "Feedback Text").GetComponent<Text>());
         }
 
         private static void CreateModal(
@@ -356,6 +388,14 @@ namespace CozyTown.Unity.Editor
             rect.localRotation = Quaternion.identity;
             rect.localScale = Vector3.one;
             return rect;
+        }
+
+        private static RectTransform RequireChild(Transform parent, string name)
+        {
+            var child = parent.Find(name) as RectTransform;
+            return child != null
+                ? child
+                : throw new InvalidOperationException($"UI node '{name}' was not found below '{parent.name}'.");
         }
 
         private static GameObject RequireRoot(Scene scene, string name)
