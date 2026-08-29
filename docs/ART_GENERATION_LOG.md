@@ -29,3 +29,30 @@ A0 锚点使用内置图像生成器创建，并用图像编辑模式收敛到 `
 ## 3. 输出限制
 
 当前生成文件是高分辨率 RGB 参考图。角色和 UI 图片中的棋盘格已经烘焙进像素，调色板色块仍含明度渐变；它们没有满足生产资源的透明通道、精确网格和锁色要求。上述问题必须在像素编辑器中清理后，才能进入 `Art/Production`。Unity 场景不得直接引用这些 A0 文件。
+
+## 4. A0 胡萝卜像素管线探针
+
+### 4.1 输入与提示词
+
+内置图像生成器生成了 `ArtSource/Generated/A0/item_crop_carrot_source.png`。源文件为 `1254×1254 RGBA`，包含 256 个 Alpha 等级和约 3.3 万种 RGBA 颜色，因此只作为编译输入。
+
+> Use case: stylized-concept. Asset type: source image for a 16×16 game UI item icon pixel-compilation probe. Create one original harvested carrot item icon, not carrot seeds, on a genuinely transparent background. Use a single compact carrot with a tapered orange root, a small separated green leaf crown, logical 16×16 pure pixel-art structure, upper-left highlight, lower-right solid shadow, at most 8 flat opaque colors, hard binary alpha, and a one-pixel-equivalent margin. Do not include antialiasing, blur, gradients, semi-transparent pixels, soft shadows, text, labels, watermarks, backgrounds, multiple carrots, seed packets, or an identifiable existing-game icon.
+
+### 4.2 确定性处理
+
+`CozyTownA0PixelProbeCompiler` 执行透明边界裁切、面积采样、8 色锁色、二值 Alpha 和 `16×16 px` 输出，并生成 `64×64 px` 最近邻预览。Unity 菜单入口为 `CozyTown > Art > Build A0 Carrot Pixel Probe`。
+
+最终文件：
+
+```text
+Assets/CozyTown/Art/References/A0/a0_item_crop_carrot.png
+ArtSource/Previews/A0/item_crop_carrot_4x.png
+```
+
+### 4.3 验证结果
+
+- Unity EditMode 探针测试：`1/1` 通过。
+- 输出：`16×16 RGBA`，Alpha 仅 `0`、`255`，非透明颜色 `7`，非透明像素 `67`。
+- 预览：`64×64 RGBA`，与 4 倍最近邻结果逐像素一致。
+- 独立视觉复核：1×/4×可读性、硬边、左上光向、色板关系和原创性通过。
+- 阶段约束：探针留在 A0，不进入 `Production`，不解除 A1 门禁。

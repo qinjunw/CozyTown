@@ -34,6 +34,10 @@ CozyTown 采用纯像素 2D 美术。本文件规定 A0 风格锚点和后续 A1
 ## 4. 资产分层
 
 ```text
+ArtSource/
+├─ Generated/A0/    生成式源图；不由 Unity 导入
+└─ Previews/A0/     确定性工具生成的整数倍预览
+
 Assets/CozyTown/Art/
 ├─ References/A0/    风格锚点；不被运行时代码或正式场景引用
 └─ Production/       通过技术与视觉验收后才能进入的可切片资源
@@ -61,4 +65,4 @@ A1 只替换当前 MVP 可以消费的画面：小镇地面与边界装饰、4 �
 
 ## 7. 工具边界
 
-内置图像生成用于 A0 风格锚点和 Production 草稿。可切片的 Tile、透明 Sprite Sheet 和逐帧动画需要像素编辑器完成网格对齐、锁色板、清边和修帧。项目已安装 Unity Aseprite Importer，但当前开发环境未发现 Aseprite 桌面程序；进入 A1 前需要安装 Aseprite、LibreSprite 或 Pixelorama 之一。
+内置图像生成用于 A0 风格锚点和 Production 草稿。确定性 Unity Editor 工具负责尺寸收敛、锁色板、二值 Alpha、整数倍预览和导入验收；人工复核负责语义可读性、光向和原创性。Pixelorama 1.2.1 已作为人工修像素的本地后备工具安装，自动化管线不依赖它。Tile 接缝、透明 Sprite Sheet 和逐帧动画仍需逐像素复核，不能只凭自动检查准入。

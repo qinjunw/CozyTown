@@ -9,8 +9,9 @@
 本阶段只在以下公开缝隙编写自动化测试：
 
 1. Unity 将 `Assets/CozyTown/Art/Production/` 下的 PNG 导入后，通过 `AssetImporter.GetAtPath` 可观察到统一的纯像素设置。
-2. 生产清单声明 Sprite Sheet 后，通过 `AssetDatabase.LoadAllAssetsAtPath` 可观察到尺寸、切片数量、PPU、Pivot 和名称。
-3. 正式场景开始消费生产资源后，通过场景中的公开 Camera、SpriteRenderer 和 Tilemap 组件验证引用及 Pixel Perfect Camera。
+2. A0 像素管线探针通过 `ImageConversion.LoadImage` 和 `AssetDatabase.LoadAssetAtPath` 可观察到源 PNG 尺寸、Alpha、颜色数及实际 Sprite 输出。
+3. 生产清单声明 Sprite Sheet 后，通过 `AssetDatabase.LoadAllAssetsAtPath` 可观察到尺寸、切片数量、PPU、Pivot 和名称。
+4. 正式场景开始消费生产资源后，通过场景中的公开 Camera、SpriteRenderer 和 Tilemap 组件验证引用及 Pixel Perfect Camera。
 
 测试不得读取 `.meta` YAML 或断言 AssetPostprocessor 私有方法。A0 风格锚点不进入 Sprite 布局测试，因为它们不是生产资源。
 
@@ -68,6 +69,7 @@
 | --- | --- | --- | --- |
 | Import-01 | 测试纹理仍以 Bilinear、压缩或错误 PPU 导入 | Production 目录的导入策略统一为 Point、无压缩、16 PPU、无 mipmap | Reviewer 检查测试只通过公开 Importer 结果 |
 | Anchor-01 | A0 清单缺少一个或多个锚点 | 五个 A0 PNG 均存在且可导入 | 人工执行 ART-A0-01 至 ART-A0-08 |
+| Probe-01 | A0 胡萝卜探针不存在，导入契约测试失败 | 源稿经确定性工具编译为 16×16、二值 Alpha、最多 8 色的 Single Sprite | Reviewer 检查 1×/4×可读性、光向和原创性 |
 | Sprite-01 | 首个角色或 Tile Sheet 的尺寸、Pivot、切片或名称不符合清单 | 对应生产资源通过布局测试 | 在测试场景检查轮廓、接缝和脚底稳定性 |
 | Scene-01 | 正式场景仍引用占位方块或缺少 Pixel Perfect Camera | 场景引用验收后的 Production 资源并使用整数像素显示 | PlayMode 验证移动、交互和 UI 不回归 |
 
@@ -79,6 +81,7 @@
 | --- | --- |
 | 纯像素方向与规格 | 已锁定 |
 | A0 五张风格锚点 | 已生成；自动检查 2/2 通过，人工检查未通过 |
+| A0 胡萝卜像素管线探针 | 自动检查 1/1 通过；人工复核通过 |
 | Production 导入测试 | Red 已复现，Green 1/1 通过 |
 | A1 可切片资源 | 未开始；受 A0 人工验收阻断 |
 | 正式场景替换 | 未开始 |
@@ -97,3 +100,9 @@
 | ART-A0-08 | 未通过 | 镇景不是 `320×180` 的整数倍，人物和图标未提供真实 `16×24`、`16×16` 原生样张 |
 
 五张图均为 RGB，不含 Alpha；人物与 UI 图中的棋盘格是烘焙背景。它们可以继续作为构图、角色轮廓和暖色关系参考，但不得缩小后直接复制到 `Production`。进入 A1 的前置条件是：用统一的 16px 像素语言重制五张锚点、提供 `320×180` 镇景及整数倍预览，并以真实原生尺寸展示人物和代表图标。
+
+## 10. A0 胡萝卜像素探针记录（2026-08-29）
+
+`a0_item_crop_carrot.png` 是 `crop.carrot` 的单图标管线探针。自动检查验证了源 PNG 与 Unity Sprite 的 `16×16 px` 尺寸、中心 Pivot、16 PPU、Point、无压缩、无 mipmap、Clamp、Full Rect、真实 Alpha、二值 Alpha 和最多 8 个不透明颜色。
+
+人工复核结果：非透明像素 `67`，不透明颜色 `7`，Alpha 取值为 `0` 和 `255`，`64×64 px` 预览与 4 倍最近邻结果完全一致；1× 可读性、硬像素边缘、左上光向、色板关系和原创性均通过。本结论只批准该图标作为后续物品图标的像素语言基准，不改变五张 A0 锚点仍未全部通过的状态，也不解除 A1 门禁。
