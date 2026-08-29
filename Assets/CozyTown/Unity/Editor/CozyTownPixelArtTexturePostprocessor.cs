@@ -1,6 +1,5 @@
 using System;
 using UnityEditor;
-using UnityEngine;
 
 namespace CozyTown.Unity.Editor
 {
@@ -9,8 +8,6 @@ namespace CozyTown.Unity.Editor
         private const string ProductionPrefix = "Assets/CozyTown/Art/Production/";
         private const string A0CarrotProbePath =
             "Assets/CozyTown/Art/References/A0/a0_item_crop_carrot.png";
-        private const float PixelsPerUnit = 16f;
-
         private void OnPreprocessTexture()
         {
             if (!assetPath.StartsWith(ProductionPrefix, StringComparison.Ordinal)
@@ -23,12 +20,7 @@ namespace CozyTown.Unity.Editor
             }
 
             var importer = (TextureImporter)assetImporter;
-            var settings = new TextureImporterSettings();
-            importer.ReadTextureSettings(settings);
-            settings.spriteMeshType = SpriteMeshType.FullRect;
-            importer.SetTextureSettings(settings);
-
-            importer.textureType = TextureImporterType.Sprite;
+            CozyTownPixelArtImportProfile.Apply(importer);
             if (string.Equals(
                     assetPath,
                     A0CarrotProbePath,
@@ -37,23 +29,6 @@ namespace CozyTown.Unity.Editor
                 importer.spriteImportMode = SpriteImportMode.Single;
             }
 
-            importer.spritePixelsPerUnit = PixelsPerUnit;
-            importer.filterMode = FilterMode.Point;
-            importer.textureCompression = TextureImporterCompression.Uncompressed;
-            importer.crunchedCompression = false;
-            importer.mipmapEnabled = false;
-            importer.alphaIsTransparency = true;
-            importer.wrapMode = TextureWrapMode.Clamp;
-            importer.npotScale = TextureImporterNPOTScale.None;
-            importer.sRGBTexture = true;
-
-            TextureImporterPlatformSettings standalone =
-                importer.GetPlatformTextureSettings("Standalone");
-            if (standalone.overridden)
-            {
-                standalone.overridden = false;
-                importer.SetPlatformTextureSettings(standalone);
-            }
         }
     }
 }

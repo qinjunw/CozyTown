@@ -1,0 +1,670 @@
+fileFormatVersion: 2
+guid: d65ec5ae7d7adfe43b4fa1e63bbc45de
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8942556131214073842
+    second: item_mvp_16_0
+  - first:
+      213: -8085005061160057168
+    second: item_mvp_16_1
+  - first:
+      213: -8244046204698914049
+    second: item_mvp_16_2
+  - first:
+      213: -9169414114249121884
+    second: item_mvp_16_3
+  - first:
+      213: -1705661927886231806
+    second: item_mvp_16_4
+  - first:
+      213: 2350804248129409181
+    second: item_mvp_16_5
+  - first:
+      213: 2332259069956896870
+    second: item_mvp_16_6
+  - first:
+      213: -2345918374852093826
+    second: item_mvp_16_7
+  - first:
+      213: -6009256063920661711
+    second: item_mvp_16_8
+  - first:
+      213: 2045971187284632833
+    second: item_mvp_16_9
+  - first:
+      213: 570401423398216254
+    second: item_mvp_16_10
+  - first:
+      213: 5705124317810874097
+    second: item_mvp_16_11
+  - first:
+      213: -1761876232756078969
+    second: item_mvp_16_12
+  - first:
+      213: -2482784712449720040
+    second: item_mvp_16_13
+  - first:
+      213: 1460943232903159241
+    second: item_mvp_16_14
+  - first:
+      213: -8381199341542469348
+    second: item_mvp_16_15
+  - first:
+      213: 4387732704530829570
+    second: item_mvp_16_16
+  - first:
+      213: 8365690101129811540
+    second: item_mvp_16_17
+  - first:
+      213: -3497120130779195510
+    second: item_seed_potato
+  - first:
+      213: 3098351812040923881
+    second: item_seed_carrot
+  - first:
+      213: -4147936221628390966
+    second: item_seed_tomato
+  - first:
+      213: -1797080739461589000
+    second: item_crop_potato
+  - first:
+      213: 6677003174387893646
+    second: item_crop_carrot
+  - first:
+      213: -3707620493361169897
+    second: item_crop_tomato
+  - first:
+      213: -2827905569949650960
+    second: item_feed_chicken
+  - first:
+      213: -8616177115260918798
+    second: item_animal_product_egg
+  - first:
+      213: -7839178590050638784
+    second: item_fish_carp
+  - first:
+      213: 4872754664803057743
+    second: item_fish_trout
+  - first:
+      213: -1783550112424738608
+    second: item_fish_bass
+  - first:
+      213: 640352506629711803
+    second: item_ingredient_salt
+  - first:
+      213: 1514138889196650665
+    second: item_ingredient_flour
+  - first:
+      213: -110089492238524064
+    second: item_food_baked_potato
+  - first:
+      213: -5589967031216897576
+    second: item_food_vegetable_soup
+  - first:
+      213: 8099486834073327104
+    second: item_food_grilled_fish
+  - first:
+      213: -5424713900305603534
+    second: item_food_tomato_egg
+  - first:
+      213: 381887205955548791
+    second: item_food_fish_pie
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: item_seed_potato
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a87d90405cbb77fc0800000000000000
+      internalID: -3497120130779195510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_seed_carrot
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ea13e9ae8e8ffa20800000000000000
+      internalID: 3098351812040923881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_seed_tomato
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac12ddeabf19f66c0800000000000000
+      internalID: -4147936221628390966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_crop_potato
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f712bbb69c7f07e0800000000000000
+      internalID: -1797080739461589000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_crop_carrot
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e85cb85c20b79ac50800000000000000
+      internalID: 6677003174387893646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_crop_tomato
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 32
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71abf3b1ec2eb8cc0800000000000000
+      internalID: -3707620493361169897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_feed_chicken
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ff6dc4fdd241c8d0800000000000000
+      internalID: -2827905569949650960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_animal_product_egg
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f3e50b60903d6880800000000000000
+      internalID: -8616177115260918798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_fish_carp
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0442f292b94a53390800000000000000
+      internalID: -7839178590050638784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_fish_trout
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f40c639fc808f9340800000000000000
+      internalID: 4872754664803057743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_fish_bass
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 16
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d0c0d55f9e8f37e0800000000000000
+      internalID: -1783550112424738608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_ingredient_salt
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 16
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb7e1b8463df2e800800000000000000
+      internalID: 640352506629711803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_ingredient_flour
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a0cb272c4d430510800000000000000
+      internalID: 1514138889196650665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_food_baked_potato
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 061ae99a032e87ef0800000000000000
+      internalID: -110089492238524064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_food_vegetable_soup
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d10c2e1a927c62b0800000000000000
+      internalID: -5589967031216897576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_food_grilled_fish
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 006d4e7dc58276070800000000000000
+      internalID: 8099486834073327104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_food_tomato_egg
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2342924f27b87b4b0800000000000000
+      internalID: -5424713900305603534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_food_fish_pie
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7763f37f36cbc4500800000000000000
+      internalID: 381887205955548791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      item_animal_product_egg: -8616177115260918798
+      item_crop_carrot: 6677003174387893646
+      item_crop_potato: -1797080739461589000
+      item_crop_tomato: -3707620493361169897
+      item_feed_chicken: -2827905569949650960
+      item_fish_bass: -1783550112424738608
+      item_fish_carp: -7839178590050638784
+      item_fish_trout: 4872754664803057743
+      item_food_baked_potato: -110089492238524064
+      item_food_fish_pie: 381887205955548791
+      item_food_grilled_fish: 8099486834073327104
+      item_food_tomato_egg: -5424713900305603534
+      item_food_vegetable_soup: -5589967031216897576
+      item_ingredient_flour: 1514138889196650665
+      item_ingredient_salt: 640352506629711803
+      item_mvp_16_0: -8942556131214073842
+      item_mvp_16_1: -8085005061160057168
+      item_mvp_16_10: 570401423398216254
+      item_mvp_16_11: 5705124317810874097
+      item_mvp_16_12: -1761876232756078969
+      item_mvp_16_13: -2482784712449720040
+      item_mvp_16_14: 1460943232903159241
+      item_mvp_16_15: -8381199341542469348
+      item_mvp_16_16: 4387732704530829570
+      item_mvp_16_17: 8365690101129811540
+      item_mvp_16_2: -8244046204698914049
+      item_mvp_16_3: -9169414114249121884
+      item_mvp_16_4: -1705661927886231806
+      item_mvp_16_5: 2350804248129409181
+      item_mvp_16_6: 2332259069956896870
+      item_mvp_16_7: -2345918374852093826
+      item_mvp_16_8: -6009256063920661711
+      item_mvp_16_9: 2045971187284632833
+      item_seed_carrot: 3098351812040923881
+      item_seed_potato: -3497120130779195510
+      item_seed_tomato: -4147936221628390966
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
