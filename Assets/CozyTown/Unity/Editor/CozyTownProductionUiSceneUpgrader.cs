@@ -702,6 +702,9 @@ namespace CozyTown.Unity.Editor
             var text = GetOrAdd<Text>(rect.gameObject);
             text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             text.fontSize = fontSize;
+            text.resizeTextForBestFit = false;
+            text.resizeTextMinSize = fontSize;
+            text.resizeTextMaxSize = fontSize;
             text.fontStyle = FontStyle.Bold;
             text.color = new Color32(255, 244, 214, 255);
             text.alignment = TextAnchor.MiddleLeft;
