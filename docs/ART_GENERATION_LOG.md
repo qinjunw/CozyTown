@@ -104,4 +104,4 @@ Unity.exe -batchmode -nographics -quit `
 
 输出位于 `Assets/CozyTown/Art/Production/`，预览位于 `ArtSource/Previews/A1/`。Production 清单测试从 11 个文件缺失的 RED 开始；独立审查再以道路连接、UI border 和玩家脚底基线 `3/3` RED 收紧契约。最终验证 11 个 PNG、98 个 Sprite、32 色、二值 Alpha、固定导入参数、道路连接、脚底基线、九宫格 border、切片、Pivot 和 4× 最近邻预览。全量结果为 EditMode `158/158`、PlayMode `26/26` 通过。
 
-本轮没有使用 Pixelorama 或其他外部像素编辑器。细节润色与正式场景接线留在后续阶段；源稿不得直接被场景引用。
+本资源生成批次没有使用 Pixelorama 或其他外部像素编辑器，源稿不得直接被场景引用。后续 Scene-01a/01b 已消费 Production 资源完成世界与运行时状态接线；UI 皮肤、细节润色和最终人工画面验收仍待完成，进度以 `ART_ACCEPTANCE.md` 为准。

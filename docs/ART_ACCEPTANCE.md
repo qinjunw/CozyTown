@@ -105,7 +105,7 @@ Scene-01 按三个垂直切片验收，任一切片未通过时不得把正式�
 | A0 胡萝卜像素管线探针 | 自动检查 1/1 通过；人工复核通过 |
 | A1 Production 清单测试 | Red 精确报告 11 个缺失文件；Green 1/1 通过 |
 | A1 可切片资源 | 11 个 PNG、98 个 Sprite、11 个 4× 预览已生成并完成批次目视检查 |
-| 正式场景替换 | 未开始 |
+| 正式场景替换 | Scene-01a 世界表现与 Scene-01b 状态表现已完成；UI 与最终人工验收待完成 |
 
 ## 9. A0 审查记录（2026-08-29）
 
@@ -137,9 +137,19 @@ Scene-01 按三个垂直切片验收，任一切片未通过时不得把正式�
 - 全量回归：EditMode `158/158`、PlayMode `26/26` 通过；日志中未发现 C# 编译错误、测试失败、未处理异常或 Bootstrap 初始化失败。
 - 自动门禁：真实 PNG 尺寸、二值 Alpha、全不透明 Tile、32 色成员、道路连接、BottomCenter 脚底基线、UI border、Sprite 类型、16 PPU、Point、无压缩、无 mipmap、Clamp、Full Rect、切片数量/名称/Rect/Pivot，以及 4× 最近邻预览均通过。
 - 目视门禁：建筑、农田、池塘、人物方向、4 名 NPC、18 个物品、作物成长、母鸡三态和 12 个 UI 图标均可辨识；细节润色不阻断本批次。
-- 未覆盖：正式场景引用、Tilemap `3×3` 实铺视觉接缝、运行时动画播放和 Pixel Perfect Camera；这些属于下一阶段 Scene-01。
+- 本次资源批次验收当时未覆盖正式场景引用、Tilemap `3×3` 实铺视觉接缝、运行时动画播放和 Pixel Perfect Camera；Scene-01a/01b 的后续接线结果见第 12 节，最终人工接缝检查仍待完成。
 
-## 12. 可延期润色项
+## 12. Scene-01a/01b 接线记录（2026-08-29）
+
+- Scene-01a：正式场景已使用 Tilemap、7 个 Production 功能点、Production 玩家与世界 NPC；Main Camera 使用 `assetsPPU=16`、`320×180` 的 URP Pixel Perfect Camera。
+- Scene-01b：玩家根据真实 Rigidbody2D 速度和最后方向切换四方向 idle/walk；6 个农田位置使用独立土壤与作物叠层；母鸡显示 idle/fed/product-ready。
+- 权限边界：农田和母鸡世界视图只接收 `FarmViewState` 与 `LivestockViewState`；未增加领域写接口、玩法对象或 AI 接口。
+- TDD：Scene-01a RED 命中缺少 Pixel Perfect Camera；玩家、农田和母鸡 RED 分别命中静态 idle、缺少 Farm States 和缺少 Hen State。对应 GREEN 均进入正式场景测试。
+- 自动回归：EditMode `159/159`、PlayMode `26/26` 通过；日志无 C# 编译错误、测试失败、未处理异常或 Bootstrap 初始化失败。
+- 升级幂等：连续两次执行 A1 场景升级后，`CozyTown_Dev.unity` 的两次 SHA-256 比较结果相同。
+- 未覆盖：Production UI 皮肤、目标分辨率文字与按钮人工检查、最终 Tile 接缝和整体构图人工检查；因此 Scene-01 尚未完成。
+
+## 13. 可延期润色项
 
 - 道路连接已满足功能契约，但细节密度低于草地；后续可在不改变 6 px 边缘签名的前提下增加纹理。
 - 玩家上下方向的正背面特征、左向步行时的头顶高度可以进一步统一；当前脚底基线已通过。
