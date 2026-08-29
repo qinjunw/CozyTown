@@ -97,6 +97,10 @@ namespace CozyTown.Unity.Save
         private void OnDisable()
         {
             RemoveButtonListeners();
+            if (panel != null)
+            {
+                panel.SetActive(false);
+            }
         }
 
         private void RefreshUi()

@@ -78,11 +78,17 @@ namespace CozyTown.Unity.Pond
         private void OnEnable()
         {
             AttachListeners();
+            RefreshUi();
         }
 
         private void OnDisable()
         {
             DetachListeners();
+            ClearRows();
+            if (panel != null)
+            {
+                panel.SetActive(false);
+            }
         }
 
         private void RefreshUi()
@@ -112,6 +118,19 @@ namespace CozyTown.Unity.Pond
             for (var index = visibleCount; index < rows.Length; index++)
             {
                 rows[index].Clear();
+            }
+        }
+
+        private void ClearRows()
+        {
+            if (rows == null)
+            {
+                return;
+            }
+
+            foreach (var row in rows)
+            {
+                row?.Clear();
             }
         }
 

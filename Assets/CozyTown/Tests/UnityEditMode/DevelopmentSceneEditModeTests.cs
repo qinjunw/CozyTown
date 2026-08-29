@@ -199,6 +199,23 @@ namespace CozyTown.Tests.UnityEditMode
                 Assert.That(scaler.referenceResolution, Is.EqualTo(new Vector2(320f, 180f)));
                 Assert.That(canvas.GetComponent<GraphicRaycaster>(), Is.Not.Null);
 
+                var catalog = canvas.GetComponent<CozyTownUiIconCatalog>();
+                Assert.That(catalog, Is.Not.Null);
+                Assert.That(catalog.ItemSprites, Has.Count.EqualTo(18));
+                Assert.That(catalog.NpcSprites, Has.Count.EqualTo(4));
+                foreach (var sprite in catalog.ItemSprites)
+                {
+                    Assert.That(
+                        AssetDatabase.GetAssetPath(sprite),
+                        Is.EqualTo(ProductionRoot + "Items/item_mvp_16.png"));
+                }
+                foreach (var sprite in catalog.NpcSprites)
+                {
+                    Assert.That(
+                        AssetDatabase.GetAssetPath(sprite),
+                        Is.EqualTo(ProductionRoot + "Characters/npc_portraits_48.png"));
+                }
+
                 var eventSystem = RequireRoot(scene, "EventSystem");
                 Assert.That(eventSystem.GetComponent<EventSystem>(), Is.Not.Null);
                 Assert.That(eventSystem.GetComponent<InputSystemUIInputModule>(), Is.Not.Null);
@@ -206,6 +223,11 @@ namespace CozyTown.Tests.UnityEditMode
                 var uiSpriteNames = new System.Collections.Generic.HashSet<string>();
                 foreach (var image in canvas.GetComponentsInChildren<Image>(true))
                 {
+                    if (image.sprite == null)
+                    {
+                        Assert.That(image.enabled, Is.False, $"{image.name} has an enabled empty Image.");
+                    }
+
                     if (image.sprite != null
                         && AssetDatabase.GetAssetPath(image.sprite)
                             == ProductionRoot + "UI/ui_mvp_16.png")
@@ -267,7 +289,7 @@ namespace CozyTown.Tests.UnityEditMode
         }
 
         [Test]
-        public void DevelopmentScene_ProductionPanelsFitAllTargetResolutions()
+        public void DevelopmentScene_ProductionPanelReferenceCoordinatesFitTargetAspectRatios()
         {
             var previousScene = SceneManager.GetActiveScene();
             var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
@@ -279,8 +301,7 @@ namespace CozyTown.Tests.UnityEditMode
                 Assert.That(canvas, Is.Not.Null);
                 var panelRects = Array.FindAll(
                     canvas.GetComponentsInChildren<Image>(true),
-                    image => image.transform.parent == canvas.transform
-                        && image.sprite != null
+                    image => image.sprite != null
                         && image.sprite.name == "ui_panel");
                 Assert.That(panelRects, Has.Length.EqualTo(10));
 

@@ -117,6 +117,7 @@ namespace CozyTown.Unity.Farm
         private void OnDisable()
         {
             RemoveCloseListener();
+            ClearRows();
             if (panel != null)
             {
                 panel.SetActive(false);
@@ -125,13 +126,7 @@ namespace CozyTown.Unity.Farm
 
         private void RefreshUi()
         {
-            if (rows != null)
-            {
-                foreach (var row in rows)
-                {
-                    row?.Clear();
-                }
-            }
+            ClearRows();
 
             if (panel != null)
             {
@@ -152,6 +147,19 @@ namespace CozyTown.Unity.Farm
             for (var index = 0; index < visibleRowCount; index++)
             {
                 RefreshRow(rows[index], State.Plots[index]);
+            }
+        }
+
+        private void ClearRows()
+        {
+            if (rows == null)
+            {
+                return;
+            }
+
+            foreach (var row in rows)
+            {
+                row?.Clear();
             }
         }
 

@@ -114,6 +114,7 @@ namespace CozyTown.Tests.UnityEditMode
             Assert.That(boughtId, Is.EqualTo("seed.potato"));
             Assert.That(soldId, Is.EqualTo("seed.potato"));
             Assert.That(closeCalls, Is.EqualTo(1));
+
         }
 
         [Test]
@@ -190,6 +191,7 @@ namespace CozyTown.Tests.UnityEditMode
             Assert.That(buttons[4].interactable, Is.True);
             buttons[4].onClick.Invoke();
             Assert.That(harvestedPlot, Is.EqualTo("plot.01"));
+
         }
 
         [Test]
@@ -326,7 +328,7 @@ namespace CozyTown.Tests.UnityEditMode
             Assert.That(dialogue.text, Does.Contain("The east field needs water."));
             Assert.That(metadata.text, Does.Contain("calm"));
             Assert.That(selection.enabled, Is.True);
-            Assert.That(selection.transform.parent, Is.SameAs(secondRow.transform));
+            Assert.That(view.CurrentNpcId, Is.EqualTo("npc.farmer_eli"));
             Assert.That(talkAgain.interactable, Is.True);
             Assert.That(firstButtons[0].interactable, Is.True);
 

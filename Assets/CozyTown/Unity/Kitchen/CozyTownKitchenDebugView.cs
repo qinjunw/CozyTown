@@ -73,11 +73,17 @@ namespace CozyTown.Unity.Kitchen
         private void OnEnable()
         {
             AttachCloseListener();
+            RefreshUi();
         }
 
         private void OnDisable()
         {
             DetachCloseListener();
+            ClearRows();
+            if (panel != null)
+            {
+                panel.SetActive(false);
+            }
         }
 
         private void RefreshUi()
@@ -112,6 +118,19 @@ namespace CozyTown.Unity.Kitchen
             for (var index = visibleCount; index < rows.Length; index++)
             {
                 rows[index].Clear();
+            }
+        }
+
+        private void ClearRows()
+        {
+            if (rows == null)
+            {
+                return;
+            }
+
+            foreach (var row in rows)
+            {
+                row?.Clear();
             }
         }
 

@@ -684,6 +684,7 @@ namespace CozyTown.Unity.Editor
             ConfigureTopLeft(rect, anchoredPosition, size ?? new Vector2(16f, 16f));
             var image = GetOrAdd<Image>(rect.gameObject);
             image.sprite = sprite;
+            image.enabled = sprite != null;
             image.preserveAspect = true;
             image.raycastTarget = false;
             return image;

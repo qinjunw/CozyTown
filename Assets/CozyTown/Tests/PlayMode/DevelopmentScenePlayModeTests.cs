@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using CozyTown.Runtime.Application;
 using CozyTown.Runtime.Content;
 using CozyTown.Unity.Core;
 using CozyTown.Unity.Hud;
@@ -299,6 +300,116 @@ namespace CozyTown.Tests.PlayMode
 
             Assert.That(hud.GetComponent<CozyTownHudPresenter>()?.enabled, Is.True);
             Assert.That(hud.GetComponent<CozyTownInteractionDebugView>()?.enabled, Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator DevelopmentScene_DisablingProductionViewsHidesPanelsAndDisconnectsRows()
+        {
+            var loadOperation = EditorSceneManager.LoadSceneAsyncInPlayMode(
+                ScenePath,
+                new LoadSceneParameters(LoadSceneMode.Additive));
+            yield return loadOperation;
+            yield return null;
+
+            _loadedScene = SceneManager.GetSceneByPath(ScenePath);
+            var hud = RequireRoot(_loadedScene, "Debug HUD");
+            var view = hud.GetComponent<CozyTownShopDebugView>();
+            Assert.That(view, Is.Not.Null);
+            view.Show(
+                new ShopViewState(
+                    300,
+                    new[]
+                    {
+                        new ShopLineItem(
+                            DefaultMvpIds.Items.PotatoSeed,
+                            "Potato Seed",
+                            20,
+                            10,
+                            0)
+                    }),
+                string.Empty);
+
+            var row = hud.GetComponentsInChildren<CozyTownUiListRow>(false)
+                .Single(candidate => candidate.Label.text.StartsWith("Potato Seed", StringComparison.Ordinal));
+            var buyButton = row.Buttons[0];
+            var buyCalls = 0;
+            view.BuyRequested += _ => buyCalls++;
+            view.enabled = false;
+
+            Assert.That(row.gameObject.activeInHierarchy, Is.False);
+            buyButton.onClick.Invoke();
+            Assert.That(buyCalls, Is.Zero);
+
+            view.enabled = true;
+            yield return null;
+            Assert.That(row.gameObject.activeInHierarchy, Is.True);
+            row.Buttons[0].onClick.Invoke();
+            Assert.That(buyCalls, Is.EqualTo(1));
+            view.Hide();
+
+            var coop = hud.GetComponent<CozyTownCoopDebugView>();
+            coop.Show(
+                new LivestockViewState(
+                    new[]
+                    {
+                        new AnimalView(
+                            DefaultMvpIds.Livestock.Hen,
+                            "species.chicken",
+                            DefaultMvpIds.Items.ChickenFeed,
+                            "Chicken Feed",
+                            1,
+                            DefaultMvpIds.Items.Egg,
+                            "Egg",
+                            0,
+                            false,
+                            false)
+                    }),
+                string.Empty);
+            var coopRow = hud.GetComponentsInChildren<CozyTownUiListRow>(false)
+                .Single(candidate => candidate.Label.text.StartsWith(DefaultMvpIds.Livestock.Hen, StringComparison.Ordinal));
+            var feedCalls = 0;
+            coop.FeedRequested += _ => feedCalls++;
+            var feedButton = coopRow.Buttons[0];
+            coop.enabled = false;
+            Assert.That(coopRow.gameObject.activeInHierarchy, Is.False);
+            feedButton.onClick.Invoke();
+            Assert.That(feedCalls, Is.Zero);
+            coop.enabled = true;
+            yield return null;
+            Assert.That(coopRow.gameObject.activeInHierarchy, Is.True);
+            coopRow.Buttons[0].onClick.Invoke();
+            Assert.That(feedCalls, Is.EqualTo(1));
+            coop.Hide();
+
+            var kitchen = hud.GetComponent<CozyTownKitchenDebugView>();
+            kitchen.Show(
+                new CookingViewState(
+                    new[]
+                    {
+                        new RecipeView(
+                            DefaultMvpIds.Recipes.BakedPotato,
+                            DefaultMvpIds.Items.BakedPotato,
+                            "Baked Potato",
+                            1,
+                            true,
+                            Array.Empty<RecipeIngredientView>())
+                    }),
+                string.Empty);
+            var kitchenRow = hud.GetComponentsInChildren<CozyTownUiListRow>(false)
+                .Single(candidate => candidate.Label.text.StartsWith("Baked Potato", StringComparison.Ordinal));
+            var cookCalls = 0;
+            kitchen.CookRequested += _ => cookCalls++;
+            var cookButton = kitchenRow.Buttons[0];
+            kitchen.enabled = false;
+            Assert.That(kitchenRow.gameObject.activeInHierarchy, Is.False);
+            cookButton.onClick.Invoke();
+            Assert.That(cookCalls, Is.Zero);
+            kitchen.enabled = true;
+            yield return null;
+            Assert.That(kitchenRow.gameObject.activeInHierarchy, Is.True);
+            kitchenRow.Buttons[0].onClick.Invoke();
+            Assert.That(cookCalls, Is.EqualTo(1));
+            kitchen.Hide();
         }
 
         [UnityTearDown]

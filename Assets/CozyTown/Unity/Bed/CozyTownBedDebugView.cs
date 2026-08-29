@@ -67,11 +67,16 @@ namespace CozyTown.Unity.Bed
         private void OnEnable()
         {
             AttachListeners();
+            RefreshUi();
         }
 
         private void OnDisable()
         {
             DetachListeners();
+            if (panel != null)
+            {
+                panel.SetActive(false);
+            }
         }
 
         private void RefreshUi()
