@@ -10,8 +10,9 @@
 
 1. Unity 将 `Assets/CozyTown/Art/Production/` 下的 PNG 导入后，通过 `AssetImporter.GetAtPath` 可观察到统一的纯像素设置。
 2. A0 像素管线探针通过 `ImageConversion.LoadImage` 和 `AssetDatabase.LoadAssetAtPath` 可观察到源 PNG 尺寸、Alpha、颜色数及实际 Sprite 输出。
-3. 生产清单声明 Sprite Sheet 后，通过 `AssetDatabase.LoadAllAssetsAtPath` 可观察到尺寸、切片数量、PPU、Pivot 和名称。
-4. 正式场景开始消费生产资源后，通过场景中的公开 Camera、SpriteRenderer 和 Tilemap 组件验证引用及 Pixel Perfect Camera。
+3. 生产清单声明 Sprite Sheet 后，通过 `ImageConversion.LoadImage`、`AssetImporter.GetAtPath` 和 `AssetDatabase.LoadAllAssetsAtPath` 可观察到真实 PNG 画布、二值 Alpha、导入参数、切片数量、PPU、Pivot 和名称。
+4. 每张生产 PNG 的 4× 预览必须与原图逐像素最近邻扩展结果一致。
+5. 正式场景开始消费生产资源后，通过场景中的公开 Camera、SpriteRenderer 和 Tilemap 组件验证引用及 Pixel Perfect Camera。
 
 测试不得读取 `.meta` YAML 或断言 AssetPostprocessor 私有方法。A0 风格锚点不进入 Sprite 布局测试，因为它们不是生产资源。
 
@@ -35,7 +36,7 @@
 | ART-A0-07 | 原创性 | 不包含现有游戏的可识别角色、地图、建筑、Logo 或图标复制 |
 | ART-A0-08 | 小尺寸可读 | 角色、地标和代表图标在目标原生尺寸或整数倍显示时仍可辨认 |
 
-任一检查不通过时，只针对失败项重新生成或编辑；A0 未全部通过前不批量生产 A1。
+任一检查不通过时，只针对失败项重新生成或编辑。A0 原有软渐变缺陷继续记录，但根据 2026-08-29 的范围决策，不再阻断满足 A1 硬技术门禁的全套资源批次。
 
 ## 5. A1 Unity 导入验收
 
@@ -70,20 +71,21 @@
 | Import-01 | 测试纹理仍以 Bilinear、压缩或错误 PPU 导入 | Production 目录的导入策略统一为 Point、无压缩、16 PPU、无 mipmap | Reviewer 检查测试只通过公开 Importer 结果 |
 | Anchor-01 | A0 清单缺少一个或多个锚点 | 五个 A0 PNG 均存在且可导入 | 人工执行 ART-A0-01 至 ART-A0-08 |
 | Probe-01 | A0 胡萝卜探针不存在，导入契约测试失败 | 源稿经确定性工具编译为 16×16、二值 Alpha、最多 8 色的 Single Sprite | Reviewer 检查 1×/4×可读性、光向和原创性 |
+| Batch-01 | 11 个 Production PNG 均不存在，清单测试列出全部缺失项 | 声明式编译器生成 11 个 PNG、98 个 Sprite 与 11 个 4× 预览，清单测试通过 | Reviewer 按角色、世界、物品、状态和 UI 批次检查可读性 |
 | Sprite-01 | 首个角色或 Tile Sheet 的尺寸、Pivot、切片或名称不符合清单 | 对应生产资源通过布局测试 | 在测试场景检查轮廓、接缝和脚底稳定性 |
 | Scene-01 | 正式场景仍引用占位方块或缺少 Pixel Perfect Camera | 场景引用验收后的 Production 资源并使用整数像素显示 | PlayMode 验证移动、交互和 UI 不回归 |
 
-每次只推进一个垂直切片。不得一次生成全部资产后再补测试，也不得为了让测试通过而降低像素规格。
+先固定清单和可观察契约，再生成对应批次；不得在资源生成后补写更宽松的测试，也不得为了让测试通过而降低像素规格。
 
 ## 8. 当前状态
 
 | 项目 | 状态 |
 | --- | --- |
 | 纯像素方向与规格 | 已锁定 |
-| A0 五张风格锚点 | 已生成；自动检查 2/2 通过，人工检查未通过 |
+| A0 五张风格锚点 | 已生成；自动检查 2/2 通过，人工检查仍有软渐变问题 |
 | A0 胡萝卜像素管线探针 | 自动检查 1/1 通过；人工复核通过 |
-| Production 导入测试 | Red 已复现，Green 1/1 通过 |
-| A1 可切片资源 | 未开始；受 A0 人工验收阻断 |
+| A1 Production 清单测试 | Red 精确报告 11 个缺失文件；Green 1/1 通过 |
+| A1 可切片资源 | 11 个 PNG、98 个 Sprite、11 个 4× 预览已生成并完成批次目视检查 |
 | 正式场景替换 | 未开始 |
 
 ## 9. A0 审查记录（2026-08-29）
@@ -99,10 +101,28 @@
 | ART-A0-07 | 通过 | 视觉检查未发现现有游戏角色、Logo、地图或建筑的可识别复制；该结论不是法律审计 |
 | ART-A0-08 | 未通过 | 镇景不是 `320×180` 的整数倍，人物和图标未提供真实 `16×24`、`16×16` 原生样张 |
 
-五张图均为 RGB，不含 Alpha；人物与 UI 图中的棋盘格是烘焙背景。它们可以继续作为构图、角色轮廓和暖色关系参考，但不得缩小后直接复制到 `Production`。进入 A1 的前置条件是：用统一的 16px 像素语言重制五张锚点、提供 `320×180` 镇景及整数倍预览，并以真实原生尺寸展示人物和代表图标。
+五张图均为 RGB，不含 Alpha；人物与 UI 图中的棋盘格是烘焙背景。它们继续只作为构图、角色轮廓和暖色关系参考，不得缩小后直接复制到 `Production`。A1 使用独立源稿与确定性编译器解决真实原生尺寸、锁色和硬透明问题。
 
 ## 10. A0 胡萝卜像素探针记录（2026-08-29）
 
 `a0_item_crop_carrot.png` 是 `crop.carrot` 的单图标管线探针。自动检查验证了源 PNG 与 Unity Sprite 的 `16×16 px` 尺寸、中心 Pivot、16 PPU、Point、无压缩、无 mipmap、Clamp、Full Rect、真实 Alpha、二值 Alpha 和最多 8 个不透明颜色。
 
-人工复核结果：非透明像素 `67`，不透明颜色 `7`，Alpha 取值为 `0` 和 `255`，`64×64 px` 预览与 4 倍最近邻结果完全一致；1× 可读性、硬像素边缘、左上光向、色板关系和原创性均通过。本结论只批准该图标作为后续物品图标的像素语言基准，不改变五张 A0 锚点仍未全部通过的状态，也不解除 A1 门禁。
+人工复核结果：非透明像素 `67`，不透明颜色 `7`，Alpha 取值为 `0` 和 `255`，`64×64 px` 预览与 4 倍最近邻结果完全一致；1× 可读性、硬像素边缘、左上光向、色板关系和原创性均通过。本结论只批准该图标作为后续物品图标的像素语言基准；A1 使用独立清单和批次门禁。
+
+## 11. A1 全套资源验收记录（2026-08-29）
+
+- 范围：`docs/ART_ASSET_MANIFEST.md` 中 11 个 PNG、98 个命名 Sprite，未增加玩法对象。
+- TDD RED：`Logs/A1ProductionManifestCurrentRedTests.xml` 为 1 failed，失败内容仅为 11 个 Production PNG 缺失。
+- TDD GREEN：`Logs/A1ProductionManifestGreenTests.xml` 为 1 passed；A0 回归 1 passed。
+- 第二轮 RED：道路连接、UI 九宫格 border 和玩家脚底基线 `3/3` 精确失败；修复后目标测试 `3/3` 通过。
+- 全量回归：EditMode `158/158`、PlayMode `26/26` 通过；日志中未发现 C# 编译错误、测试失败、未处理异常或 Bootstrap 初始化失败。
+- 自动门禁：真实 PNG 尺寸、二值 Alpha、全不透明 Tile、32 色成员、道路连接、BottomCenter 脚底基线、UI border、Sprite 类型、16 PPU、Point、无压缩、无 mipmap、Clamp、Full Rect、切片数量/名称/Rect/Pivot，以及 4× 最近邻预览均通过。
+- 目视门禁：建筑、农田、池塘、人物方向、4 名 NPC、18 个物品、作物成长、母鸡三态和 12 个 UI 图标均可辨识；细节润色不阻断本批次。
+- 未覆盖：正式场景引用、Tilemap `3×3` 实铺视觉接缝、运行时动画播放和 Pixel Perfect Camera；这些属于下一阶段 Scene-01。
+
+## 12. 可延期润色项
+
+- 道路连接已满足功能契约，但细节密度低于草地；后续可在不改变 6 px 边缘签名的前提下增加纹理。
+- 玩家上下方向的正背面特征、左向步行时的头顶高度可以进一步统一；当前脚底基线已通过。
+- 已喂母鸡、可收蛋、干地和湿地状态可以增加色相或轮廓差异；当前原生尺寸可辨识。
+- 重建前后文件哈希、Catalog 文件拆分和 Unity 新版 Sprite 数据接口属于管线强化，不阻断本批次或正式场景接线。

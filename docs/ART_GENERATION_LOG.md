@@ -1,4 +1,4 @@
-# CozyTown A0 美术生成记录
+# CozyTown A0/A1 美术生成记录
 
 ## 1. 生成方式
 
@@ -55,4 +55,53 @@ ArtSource/Previews/A0/item_crop_carrot_4x.png
 - 输出：`16×16 RGBA`，Alpha 仅 `0`、`255`，非透明颜色 `7`，非透明像素 `67`。
 - 预览：`64×64 RGBA`，与 4 倍最近邻结果逐像素一致。
 - 独立视觉复核：1×/4×可读性、硬边、左上光向、色板关系和原创性通过。
-- 阶段约束：探针留在 A0，不进入 `Production`，不解除 A1 门禁。
+- 阶段约束：探针留在 A0，不进入 `Production`；A1 使用独立源稿、清单和批次门禁。
+
+## 5. A1 全套资源源稿
+
+### 5.1 生成方式与文件
+
+A1 使用内置图像生成器生成高分辨率栅格源稿，再由 Unity Editor 确定性编译器收敛到原生像素资源。源稿不被 Unity AssetDatabase 或运行时代码引用。
+
+| 源稿 | 网格语义 | 背景处理 |
+| --- | --- | --- |
+| `ArtSource/Generated/A1/tiles_source.png` | `4×5` 小镇草地与道路 | Alpha；草地保留，16 个道路按连接掩码重建 |
+| `ArtSource/Generated/A1/decor_source.png` | `4×2` 树、灌木、花、围栏、路牌、石块 | 连通白底移除 |
+| `ArtSource/Generated/A1/buildings_source.png` | `2×2` 商店、住宅、厨房、鸡舍 | Alpha |
+| `ArtSource/Generated/A1/town_functions_source.png` | `2×1` 六格农田、池塘 | Alpha |
+| `ArtSource/Generated/A1/farm_states_source.png` | `7×2` 土壤与 3 种作物阶段 | Alpha |
+| `ArtSource/Generated/A1/hen_states_source.png` | `3×1` 空闲、已喂、产物可收 | Alpha |
+| `ArtSource/Generated/A1/player_source.png` | `3×4` 四方向的 idle/walkA/walkB | 连通白底移除 |
+| `ArtSource/Generated/A1/mina_source.png` | 单个 Mina 世界 Sprite | 连通白底移除 |
+| `ArtSource/Generated/A1/portraits_source.png` | `4×1` Mina、Eli、Ren、Sora | 连通白底移除 |
+| `ArtSource/Generated/A1/items_source.png` | `6×3` 18 个 MVP 物品 | 连通白底移除 |
+| `ArtSource/Generated/A1/ui_source.png` | `4×3` 面板、按钮状态、图标和标记 | Alpha |
+
+### 5.2 可复现提示约束
+
+以下记录去除了服务参数，保留生成时使用的完整语义约束。各批次共用前缀：
+
+> Create original pure pixel art for a cozy rural top-down RPG. Use hard square pixels, flat limited colors, warm rural palette, upper-left light, dark warm outlines, strict equal grid cells, no text, logo, watermark, blur, antialiasing, gradients, checkerboard, copied game assets, or additional gameplay objects.
+
+- 世界批次：严格生成 `4×5` 草地/道路、`4×2` 非交互装饰、`2×2` 商店/住宅/厨房/鸡舍和 `2×1` 六格农田/池塘；建筑入口和功能轮廓必须无需文字即可区分。
+- 玩家批次：严格 `3×4`，行序为 down/left/right/up，列序为 idle/walkA/walkB；棕发、奶油衬衣、蓝色背带裤，四向身份一致，脚底基线稳定。
+- NPC 批次：Mina 世界图保持棕发红发带、奶油衬衣和棕色围裙；头像严格单行 Mina/Eli/Ren/Sora，后三者分别以草帽农夫、蓝帽渔夫和橙发厨师区分。
+- 物品批次：严格 `6×3`；第一行土豆/胡萝卜/番茄种子和对应作物，第二行鸡饲料、鸡蛋、鲤鱼、鳟鱼、鲈鱼、盐，第三行面粉、烤土豆、蔬菜汤、烤鱼、番茄炒蛋、鱼肉派。
+- 生产状态批次：农田严格 `7×2`，包含干/湿土壤、土豆 3 阶段、胡萝卜 4 阶段、番茄 5 阶段；母鸡严格 `3×1`，包含空闲、已喂和鸡蛋可收。
+- UI 批次：严格 `4×3`，依次包含 panel、normal/hover/pressed button、disabled button、coin、clock、save、load、close、selection 和 interact；不烘焙文字。
+
+## 6. A1 确定性编译与验证
+
+`CozyTownA1PixelArtBatchCompiler` 读取 11 张源稿，按声明式清单逐格裁切，移除 Alpha 或连通白底，面积采样到目标帧，锁定 32 色板，生成硬透明边缘，并写出 Production PNG、Sprite 切片和 4× 最近邻预览。小镇 Tile 为全不透明输出；4 个草地变体保留编译后的源稿纹理，16 个道路 Tile 根据 N/E/S/W 连接掩码确定性重建为统一 `6 px` 出口，源稿道路只承担草稿与语义输入。UI 前 5 个 Sprite 写入 `3 px` 九宫格 border，所有 BottomCenter Sprite 在编译后统一落到本地 `y=0`。
+
+Unity 菜单入口为 `CozyTown > Art > Build Current A1 Pixel Art Batch`，批处理入口为：
+
+```powershell
+Unity.exe -batchmode -nographics -quit `
+  -projectPath <project-root> `
+  -executeMethod CozyTown.Unity.Editor.CozyTownA1PixelArtBatchCompiler.Build
+```
+
+输出位于 `Assets/CozyTown/Art/Production/`，预览位于 `ArtSource/Previews/A1/`。Production 清单测试从 11 个文件缺失的 RED 开始；独立审查再以道路连接、UI border 和玩家脚底基线 `3/3` RED 收紧契约。最终验证 11 个 PNG、98 个 Sprite、32 色、二值 Alpha、固定导入参数、道路连接、脚底基线、九宫格 border、切片、Pivot 和 4× 最近邻预览。全量结果为 EditMode `158/158`、PlayMode `26/26` 通过。
+
+本轮没有使用 Pixelorama 或其他外部像素编辑器。细节润色与正式场景接线留在后续阶段；源稿不得直接被场景引用。

@@ -321,6 +321,10 @@ Windows 上 Unity 启动器可能先返回退出码 `0`，而编辑器进程随�
 
 2026-08-29 在集成提交 `47332fd` 上运行 Unity `6000.5.5f1`。`M4EditModeTests.xml` 记录 151 passed、0 failed、0 skipped；`M4PlayModeTests.xml` 记录 26 passed、0 failed、0 skipped。新增用例覆盖临时文件写入和实际替换失败时保留旧存档、截断与有类型但无效 JSON、版本与载荷错误区分、五模块恢复失败回滚、AI 超时/异常/空结果/非法标签回退、恶意文本不改变五类状态、异步 Presenter 停止后不更新 UI，以及正式场景 4 名 NPC 和存档面板装配。两份日志中 `error CS`、`Scripts have compiler errors`、`Compilation failed`、`Test run failed`、`Unhandled Exception` 和 `NullReferenceException` 的匹配数均为 0，PlayMode 日志的 Bootstrap 初始化失败匹配数为 0。
 
+### 10.4 A1 Production 美术包验证结果
+
+2026-08-29 使用 Unity `6000.5.5f1` 在最终 A1 批次上运行测试。`A1HardBlockersFullEditModeTests.xml` 记录 158 passed、0 failed、0 skipped；`A1HardBlockersFullPlayModeTests.xml` 记录 26 passed、0 failed、0 skipped。`ProductionPixelArtAssetManifestTests` 验证 11 个 PNG、98 个 Sprite、32 色成员、二值 Alpha、导入参数、切片、Pivot、4× 最近邻预览、道路边缘连接、BottomCenter 脚底基线和 UI 九宫格 border。两份日志中编译错误、测试失败、未处理异常和 Bootstrap 初始化失败的匹配数均为 0。资源语义可读性由 `docs/ART_ACCEPTANCE.md` 的人工记录补充，不由自动化测试替代。
+
 ## 11. 人工验证步骤
 
 完整 MVP 演示候选完成后，按以下顺序执行并记录结果、Unity 版本、提交号和异常截图：

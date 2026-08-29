@@ -241,7 +241,7 @@ height = frameHeight
 | r2c2 | `ui_marker_selection` | 当前列表或 NPC 选择 |
 | r2c3 | `ui_marker_interact` | 靠近既有功能点时的交互提示 |
 
-12 个 UI Sprite 使用 `16×16` 和 Center Pivot。`ui_panel` 与 4 个按钮状态需要保留可配置九宫格边缘；最终文字继续由 Unity 字体渲染，不烘焙进图片。
+12 个 UI Sprite 使用 `16×16` 和 Center Pivot。`ui_panel` 与 4 个按钮状态使用 `(3,3,3,3)` 九宫格 border，其余 Sprite border 为 `0`；最终文字继续由 Unity 字体渲染，不烘焙进图片。
 
 ## 5. 批次验收
 
@@ -252,7 +252,9 @@ height = frameHeight
 3. Multiple 文件按约定行列得到准确切片数；Single 文件只产生一个主 Sprite。
 4. 98 个 Sprite 名与本清单逐项一致，没有额外、缺失或重复名称。
 5. 每个 Sprite Rect 由第 2 节公式和对应 Cell 唯一确定；Pivot 与源文件总表一致。
-6. Production 资源不包含对 Runtime 领域程序集的反向依赖，正式场景接入前不改变既有玩法对象数量。
+6. 16 个道路 Tile 的 N/E/S/W 边缘连接与稳定名称一致，声明连接使用统一宽度和边缘签名，未声明方向没有道路出口。
+7. 所有 BottomCenter Sprite 的最底不透明像素落在本地 `y=0`；UI 前 5 个九宫格 Sprite 使用 `3 px` border。
+8. Production 可见像素只使用锁定的 32 色板；资源不包含对 Runtime 领域程序集的反向依赖，正式场景接入前不改变既有玩法对象数量。
 
 ### 5.2 人工可读性项
 
