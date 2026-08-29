@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using CozyTown.Runtime.Content;
+using CozyTown.Unity.Farm;
 using CozyTown.Unity.Hud;
 using CozyTown.Unity.Save;
 using CozyTown.Unity.Shop;
@@ -50,6 +51,7 @@ namespace CozyTown.Unity.Editor
                 var iconCatalog = ConfigureIconCatalog(canvasTransform);
                 ConfigurePersistentViewBindings(hud, canvasTransform);
                 ConfigureShopViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
+                ConfigureFarmViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
                 ConfigureEventSystem(scene);
 
                 EditorSceneManager.MarkSceneDirty(scene);
@@ -263,7 +265,7 @@ namespace CozyTown.Unity.Editor
             CozyTownUiIconCatalog iconCatalog)
         {
             var panel = RequireChild(canvas, "Shop Panel");
-            var rows = ConfigureListRows(panel, "Shop Rows", 18, sprites, CreateShopRow);
+            var rows = ConfigureListRows(panel, "Shop Rows", 18, 22f, sprites, CreateShopRow);
             var view = hud.GetComponent<CozyTownShopDebugView>()
                 ?? throw new InvalidOperationException("Debug HUD is missing CozyTownShopDebugView.");
             view.ConfigureUi(
@@ -275,10 +277,29 @@ namespace CozyTown.Unity.Editor
                 iconCatalog);
         }
 
+        private static void ConfigureFarmViewBinding(
+            GameObject hud,
+            RectTransform canvas,
+            UiSprites sprites,
+            CozyTownUiIconCatalog iconCatalog)
+        {
+            var panel = RequireChild(canvas, "Farm Panel");
+            var rows = ConfigureListRows(panel, "Farm Rows", 6, 58f, sprites, CreateFarmRow);
+            var view = hud.GetComponent<CozyTownFarmDebugView>()
+                ?? throw new InvalidOperationException("Debug HUD is missing CozyTownFarmDebugView.");
+            view.ConfigureUi(
+                panel.gameObject,
+                RequireChild(panel, "Feedback Text").GetComponent<Text>(),
+                rows,
+                RequireChild(panel, "Close Button").GetComponent<Button>(),
+                iconCatalog);
+        }
+
         private static CozyTownUiListRow[] ConfigureListRows(
             RectTransform panel,
             string rowsName,
             int rowCount,
+            float rowHeight,
             UiSprites sprites,
             Action<RectTransform, UiSprites, CozyTownUiListRow> configureRow)
         {
@@ -289,7 +310,7 @@ namespace CozyTown.Unity.Editor
             content.anchorMax = new Vector2(1f, 1f);
             content.pivot = new Vector2(0.5f, 1f);
             content.anchoredPosition = Vector2.zero;
-            content.sizeDelta = new Vector2(0f, rowCount * 22f);
+            content.sizeDelta = new Vector2(0f, rowCount * rowHeight);
 
             var scroll = GetOrAdd<ScrollRect>(viewport.gameObject);
             scroll.viewport = viewport;
@@ -306,8 +327,8 @@ namespace CozyTown.Unity.Editor
                 rowRect.anchorMin = new Vector2(0f, 1f);
                 rowRect.anchorMax = new Vector2(1f, 1f);
                 rowRect.pivot = new Vector2(0.5f, 1f);
-                rowRect.anchoredPosition = new Vector2(0f, -index * 22f);
-                rowRect.sizeDelta = new Vector2(0f, 20f);
+                rowRect.anchoredPosition = new Vector2(0f, -index * rowHeight);
+                rowRect.sizeDelta = new Vector2(0f, rowHeight - 2f);
                 var row = GetOrAdd<CozyTownUiListRow>(rowRect.gameObject);
                 configureRow(rowRect, sprites, row);
                 rows[index] = row;
@@ -334,6 +355,30 @@ namespace CozyTown.Unity.Editor
                     RequireChild(buy.transform, "Label").GetComponent<Text>(),
                     RequireChild(sell.transform, "Label").GetComponent<Text>()
                 });
+        }
+
+        private static void CreateFarmRow(
+            RectTransform rowRect,
+            UiSprites sprites,
+            CozyTownUiListRow row)
+        {
+            var icon = CreateIcon(rowRect, "Plot Icon", null, new Vector2(0f, -1f));
+            var label = CreateText(rowRect, "Plot Label", string.Empty, new Vector2(20f, 0f), new Vector2(246f, 16f), 8);
+            var buttons = new[]
+            {
+                CreateButton(rowRect, "Seed Button 1", "Seed 1", null, new Vector2(0f, -18f), new Vector2(86f, 18f), sprites),
+                CreateButton(rowRect, "Seed Button 2", "Seed 2", null, new Vector2(90f, -18f), new Vector2(86f, 18f), sprites),
+                CreateButton(rowRect, "Seed Button 3", "Seed 3", null, new Vector2(180f, -18f), new Vector2(86f, 18f), sprites),
+                CreateButton(rowRect, "Water Button", "Water", null, new Vector2(0f, -38f), new Vector2(130f, 18f), sprites),
+                CreateButton(rowRect, "Harvest Button", "Harvest", null, new Vector2(136f, -38f), new Vector2(130f, 18f), sprites)
+            };
+            var labels = new Text[buttons.Length];
+            for (var index = 0; index < buttons.Length; index++)
+            {
+                labels[index] = RequireChild(buttons[index].transform, "Label").GetComponent<Text>();
+            }
+
+            row.Configure(label, icon, buttons, labels);
         }
 
         private static void CreateModal(

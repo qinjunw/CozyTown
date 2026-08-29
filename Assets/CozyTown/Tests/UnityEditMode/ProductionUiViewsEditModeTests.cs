@@ -1,4 +1,6 @@
 using CozyTown.Runtime.Application;
+using CozyTown.Runtime.Farming;
+using CozyTown.Unity.Farm;
 using CozyTown.Unity.Hud;
 using CozyTown.Unity.Save;
 using CozyTown.Unity.Shop;
@@ -109,6 +111,82 @@ namespace CozyTown.Tests.UnityEditMode
         }
 
         [Test]
+        public void FarmView_UsesInventoryStateAndRoutesVisiblePlotActions()
+        {
+            EnsureItemIcon();
+            var catalog = _root.AddComponent<CozyTownUiIconCatalog>();
+            catalog.Configure(
+                new[] { "seed.potato" },
+                new[] { _itemIcon },
+                System.Array.Empty<string>(),
+                System.Array.Empty<Sprite>());
+
+            var rowObject = CreateUiObject("Farm Row");
+            var row = rowObject.AddComponent<CozyTownUiListRow>();
+            var plotLabel = CreateUiObject("Plot Label").AddComponent<Text>();
+            var plotIcon = CreateUiObject("Plot Icon").AddComponent<Image>();
+            var buttons = new Button[5];
+            var buttonLabels = new Text[5];
+            for (var index = 0; index < buttons.Length; index++)
+            {
+                buttons[index] = CreateUiObject($"Farm Button {index}").AddComponent<Button>();
+                buttonLabels[index] = CreateUiObject($"Farm Button Label {index}").AddComponent<Text>();
+            }
+            row.Configure(plotLabel, plotIcon, buttons, buttonLabels);
+
+            var panel = CreateUiObject("Farm Panel");
+            var feedbackText = CreateUiObject("Farm Feedback Text").AddComponent<Text>();
+            var closeButton = CreateUiObject("Farm Close Button").AddComponent<Button>();
+            var view = _root.AddComponent<CozyTownFarmDebugView>();
+            view.ConfigureUi(panel, feedbackText, new[] { row }, closeButton, catalog);
+
+            var plantedPlot = string.Empty;
+            var plantedSeed = string.Empty;
+            var wateredPlot = string.Empty;
+            var harvestedPlot = string.Empty;
+            view.PlantRequested += (plotId, seedId) =>
+            {
+                plantedPlot = plotId;
+                plantedSeed = seedId;
+            };
+            view.WaterRequested += plotId => wateredPlot = plotId;
+            view.HarvestRequested += plotId => harvestedPlot = plotId;
+
+            view.Show(
+                CreateFarmState(FarmPlotStatus.Empty, watered: false, seedQuantity: 0),
+                "Choose a seed.");
+            Assert.That(panel.activeSelf, Is.True);
+            Assert.That(feedbackText.text, Is.EqualTo("Choose a seed."));
+            Assert.That(buttons[0].gameObject.activeSelf, Is.True);
+            Assert.That(buttons[0].interactable, Is.False);
+            Assert.That(buttons[3].gameObject.activeSelf, Is.False);
+            Assert.That(buttons[4].gameObject.activeSelf, Is.False);
+
+            view.Show(
+                CreateFarmState(FarmPlotStatus.Empty, watered: false, seedQuantity: 1),
+                string.Empty);
+            buttons[0].onClick.Invoke();
+            Assert.That(plantedPlot, Is.EqualTo("plot.01"));
+            Assert.That(plantedSeed, Is.EqualTo("seed.potato"));
+
+            view.Show(
+                CreateFarmState(FarmPlotStatus.Growing, watered: false, seedQuantity: 0),
+                string.Empty);
+            Assert.That(buttons[3].gameObject.activeSelf, Is.True);
+            Assert.That(buttons[3].interactable, Is.True);
+            buttons[3].onClick.Invoke();
+            Assert.That(wateredPlot, Is.EqualTo("plot.01"));
+
+            view.Show(
+                CreateFarmState(FarmPlotStatus.Ready, watered: true, seedQuantity: 0),
+                string.Empty);
+            Assert.That(buttons[4].gameObject.activeSelf, Is.True);
+            Assert.That(buttons[4].interactable, Is.True);
+            buttons[4].onClick.Invoke();
+            Assert.That(harvestedPlot, Is.EqualTo("plot.01"));
+        }
+
+        [Test]
         public void HudAndSaveViews_DriveConfiguredTextButtonsAndVisibility()
         {
             var hudPanel = CreateUiObject("HUD Panel");
@@ -158,6 +236,49 @@ namespace CozyTown.Tests.UnityEditMode
             var value = new GameObject(name, typeof(RectTransform));
             value.transform.SetParent(_root.transform, false);
             return value;
+        }
+
+        private void EnsureItemIcon()
+        {
+            if (_itemIcon != null)
+            {
+                return;
+            }
+
+            _iconTexture = new Texture2D(1, 1);
+            _itemIcon = Sprite.Create(
+                _iconTexture,
+                new Rect(0f, 0f, 1f, 1f),
+                new Vector2(0.5f, 0.5f));
+        }
+
+        private static FarmViewState CreateFarmState(
+            FarmPlotStatus status,
+            bool watered,
+            int seedQuantity)
+        {
+            return new FarmViewState(
+                new[]
+                {
+                    new FarmPlotView(
+                        "plot.01",
+                        status == FarmPlotStatus.Empty ? string.Empty : "crop_definition.potato",
+                        status == FarmPlotStatus.Empty ? string.Empty : "Potato",
+                        status,
+                        growthProgressDays: status == FarmPlotStatus.Ready ? 2 : 1,
+                        growthDays: 2,
+                        wateredToday: watered)
+                },
+                new[]
+                {
+                    new FarmSeedOption(
+                        "crop_definition.potato",
+                        "seed.potato",
+                        "Potato Seed",
+                        seedQuantity,
+                        growthDays: 2,
+                        harvestQuantity: 2)
+                });
         }
     }
 }
