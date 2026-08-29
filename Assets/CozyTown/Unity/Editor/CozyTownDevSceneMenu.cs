@@ -18,7 +18,9 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 namespace CozyTown.Unity.Editor
 {
@@ -27,6 +29,13 @@ namespace CozyTown.Unity.Editor
         private const string SceneFolder = "Assets/CozyTown/Scenes";
         private const string ScenePath = SceneFolder + "/CozyTown_Dev.unity";
         private const string InputActionsPath = "Assets/Settings/InputSystem_Actions.inputactions";
+        private const string ArtRoot = "Assets/CozyTown/Art/Production";
+        private const string TownTilesPath = ArtRoot + "/Environment/Tiles/tile_town_base_16.png";
+        private const string BuildingsPath = ArtRoot + "/Buildings/bld_town_functions_64.png";
+        private const string TownFunctionsPath = ArtRoot + "/Props/prop_town_functions_96x64.png";
+        private const string PlayerPath = ArtRoot + "/Characters/chr_player_move_16x24.png";
+        private const string MinaPath = ArtRoot + "/Characters/npc_shopkeeper_mina_idle_down.png";
+        private const string SceneTileFolder = "Assets/CozyTown/Art/Scene/Tiles";
 
         [MenuItem("CozyTown/Create Development Scene")]
         public static void CreateDevelopmentScene()
@@ -119,6 +128,50 @@ namespace CozyTown.Unity.Editor
                 EditorSceneManager.SaveScene(scene, ScenePath);
                 AssetDatabase.SaveAssets();
                 Debug.Log($"Upgraded development scene for M4 at {ScenePath}.");
+            }
+            finally
+            {
+                if (closeWhenFinished && scene.IsValid() && scene.isLoaded)
+                {
+                    EditorSceneManager.CloseScene(scene, true);
+                }
+            }
+        }
+
+        [MenuItem("CozyTown/Art/Upgrade Development Scene for A1 World Visuals")]
+        public static void UpgradeDevelopmentSceneForA1WorldVisuals()
+        {
+            if (!File.Exists(ScenePath))
+            {
+                throw new FileNotFoundException("Development scene was not found.", ScenePath);
+            }
+
+            var scene = SceneManager.GetSceneByPath(ScenePath);
+            bool closeWhenFinished = !scene.IsValid() || !scene.isLoaded;
+            if (closeWhenFinished)
+            {
+                scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
+            }
+
+            try
+            {
+                var world = RequireRoot(scene, "World");
+                var player = RequireRoot(scene, "Player");
+                var camera = RequireRoot(scene, "Main Camera");
+
+                ConfigurePixelPerfectCamera(camera);
+                ConfigureTownTilemap(world);
+                ConfigureWorldBoundaries(world);
+                ConfigureWorldInteractionVisuals(world);
+                ConfigureProductionRenderer(
+                    player,
+                    LoadSprite(PlayerPath, "chr_player_idle_down"),
+                    sortingOrder: 20);
+
+                EditorSceneManager.MarkSceneDirty(scene);
+                EditorSceneManager.SaveScene(scene, ScenePath);
+                AssetDatabase.SaveAssets();
+                Debug.Log($"Upgraded development scene with A1 world visuals at {ScenePath}.");
             }
             finally
             {
@@ -389,6 +442,235 @@ namespace CozyTown.Unity.Editor
                 size.x / spriteSize.x,
                 size.y / spriteSize.y,
                 1f);
+        }
+
+        private static void ConfigurePixelPerfectCamera(GameObject cameraObject)
+        {
+            var camera = cameraObject.GetComponent<Camera>()
+                ?? throw new InvalidOperationException("Development scene is missing its Camera component.");
+            camera.orthographic = true;
+            camera.clearFlags = CameraClearFlags.SolidColor;
+            camera.backgroundColor = new Color(0.15f, 0.24f, 0.20f);
+
+            var pixelPerfect = GetOrAdd<PixelPerfectCamera>(cameraObject);
+            pixelPerfect.assetsPPU = 16;
+            pixelPerfect.refResolutionX = 320;
+            pixelPerfect.refResolutionY = 180;
+            pixelPerfect.gridSnapping = PixelPerfectCamera.GridSnapping.UpscaleRenderTexture;
+            pixelPerfect.cropFrame = PixelPerfectCamera.CropFrame.Windowbox;
+        }
+
+        private static void ConfigureTownTilemap(GameObject world)
+        {
+            var existingGrid = world.transform.Find("A1 Tile Grid");
+            if (existingGrid != null)
+            {
+                UnityEngine.Object.DestroyImmediate(existingGrid.gameObject);
+            }
+
+            EnsureFolder(SceneTileFolder);
+            var grassTiles = new[]
+            {
+                GetOrCreateTile("tile_grass_00"),
+                GetOrCreateTile("tile_grass_01"),
+                GetOrCreateTile("tile_grass_02"),
+                GetOrCreateTile("tile_grass_03")
+            };
+            var pathHorizontal = GetOrCreateTile("tile_path_horizontal");
+            var pathVertical = GetOrCreateTile("tile_path_vertical");
+            var pathCross = GetOrCreateTile("tile_path_cross");
+
+            var gridObject = new GameObject("A1 Tile Grid");
+            gridObject.transform.SetParent(world.transform, false);
+            gridObject.AddComponent<Grid>();
+
+            var tilemapObject = new GameObject("Ground Tilemap");
+            tilemapObject.transform.SetParent(gridObject.transform, false);
+            var tilemap = tilemapObject.AddComponent<Tilemap>();
+            var tilemapRenderer = tilemapObject.AddComponent<TilemapRenderer>();
+            tilemapRenderer.sortingOrder = -20;
+
+            for (var y = -6; y <= 6; y++)
+            {
+                for (var x = -10; x <= 10; x++)
+                {
+                    TileBase tile;
+                    if (x == 0 && y == 0)
+                    {
+                        tile = pathCross;
+                    }
+                    else if (y == 0)
+                    {
+                        tile = pathHorizontal;
+                    }
+                    else if (x == 0)
+                    {
+                        tile = pathVertical;
+                    }
+                    else
+                    {
+                        var variant = Mathf.Abs((x * 3) + (y * 5)) % grassTiles.Length;
+                        tile = grassTiles[variant];
+                    }
+
+                    tilemap.SetTile(new Vector3Int(x, y, 0), tile);
+                }
+            }
+
+            tilemap.CompressBounds();
+        }
+
+        private static void ConfigureWorldBoundaries(GameObject world)
+        {
+            var boundaries = world.transform.Find("Boundaries")
+                ?? throw new InvalidOperationException("Development scene is missing its Boundaries object.");
+
+            ConfigureBoundary(boundaries, "North Boundary", new Vector2(0f, 5.5f), new Vector2(20.4f, 0.4f));
+            ConfigureBoundary(boundaries, "South Boundary", new Vector2(0f, -5.5f), new Vector2(20.4f, 0.4f));
+            ConfigureBoundary(boundaries, "West Boundary", new Vector2(-10.2f, 0f), new Vector2(0.4f, 11.4f));
+            ConfigureBoundary(boundaries, "East Boundary", new Vector2(10.2f, 0f), new Vector2(0.4f, 11.4f));
+        }
+
+        private static void ConfigureBoundary(
+            Transform boundaries,
+            string name,
+            Vector2 position,
+            Vector2 size)
+        {
+            var boundary = boundaries.Find(name)
+                ?? throw new InvalidOperationException($"Development scene is missing '{name}'.");
+            boundary.position = position;
+            var collider = boundary.GetComponent<BoxCollider2D>()
+                ?? throw new InvalidOperationException($"'{name}' is missing BoxCollider2D.");
+            collider.size = size;
+
+            var obsoleteVisual = boundary.Find("Visual");
+            if (obsoleteVisual != null)
+            {
+                UnityEngine.Object.DestroyImmediate(obsoleteVisual.gameObject);
+            }
+        }
+
+        private static void ConfigureWorldInteractionVisuals(GameObject world)
+        {
+            var points = world.GetComponentsInChildren<TownInteractionPoint2D>(true);
+            if (points.Length != 7)
+            {
+                throw new InvalidOperationException(
+                    $"Development scene must contain 7 interaction points, but found {points.Length}.");
+            }
+
+            foreach (var point in points)
+            {
+                string assetPath;
+                string spriteName;
+                Vector2 position;
+                switch (point.Kind)
+                {
+                    case TownInteractionKind.Shop:
+                        assetPath = BuildingsPath;
+                        spriteName = "bld_shop";
+                        position = new Vector2(-7f, 1f);
+                        break;
+                    case TownInteractionKind.Npc:
+                        assetPath = MinaPath;
+                        spriteName = "npc_shopkeeper_mina_idle_down";
+                        position = new Vector2(-3f, 0.5f);
+                        break;
+                    case TownInteractionKind.Bed:
+                        assetPath = BuildingsPath;
+                        spriteName = "bld_home";
+                        position = new Vector2(-7f, -4f);
+                        break;
+                    case TownInteractionKind.Farm:
+                        assetPath = TownFunctionsPath;
+                        spriteName = "prop_farm";
+                        position = new Vector2(6f, -4f);
+                        break;
+                    case TownInteractionKind.Coop:
+                        assetPath = BuildingsPath;
+                        spriteName = "bld_coop";
+                        position = new Vector2(0f, 1f);
+                        break;
+                    case TownInteractionKind.Pond:
+                        assetPath = TownFunctionsPath;
+                        spriteName = "prop_pond";
+                        position = new Vector2(0f, -4f);
+                        break;
+                    case TownInteractionKind.Kitchen:
+                        assetPath = BuildingsPath;
+                        spriteName = "bld_kitchen";
+                        position = new Vector2(6.5f, 1f);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(point.Kind), point.Kind, null);
+                }
+
+                point.transform.position = position;
+                ConfigureProductionRenderer(
+                    point.gameObject,
+                    LoadSprite(assetPath, spriteName),
+                    sortingOrder: point.Kind == TownInteractionKind.Npc ? 15 : 5);
+            }
+        }
+
+        private static void ConfigureProductionRenderer(
+            GameObject target,
+            Sprite sprite,
+            int sortingOrder)
+        {
+            var visual = target.transform.Find("Visual");
+            if (visual == null)
+            {
+                var visualObject = new GameObject("Visual");
+                visualObject.transform.SetParent(target.transform, false);
+                visual = visualObject.transform;
+            }
+
+            visual.localPosition = Vector3.zero;
+            visual.localRotation = Quaternion.identity;
+            visual.localScale = Vector3.one;
+
+            var renderer = GetOrAdd<SpriteRenderer>(visual.gameObject);
+            renderer.sprite = sprite;
+            renderer.color = Color.white;
+            renderer.drawMode = SpriteDrawMode.Simple;
+            renderer.sortingOrder = sortingOrder;
+            renderer.spriteSortPoint = SpriteSortPoint.Pivot;
+        }
+
+        private static Tile GetOrCreateTile(string spriteName)
+        {
+            var assetPath = $"{SceneTileFolder}/{spriteName}.asset";
+            var tile = AssetDatabase.LoadAssetAtPath<Tile>(assetPath);
+            if (tile == null)
+            {
+                tile = ScriptableObject.CreateInstance<Tile>();
+                AssetDatabase.CreateAsset(tile, assetPath);
+            }
+
+            tile.name = spriteName;
+            tile.sprite = LoadSprite(TownTilesPath, spriteName);
+            tile.color = Color.white;
+            tile.transform = Matrix4x4.identity;
+            tile.colliderType = Tile.ColliderType.None;
+            EditorUtility.SetDirty(tile);
+            return tile;
+        }
+
+        private static Sprite LoadSprite(string assetPath, string spriteName)
+        {
+            foreach (var asset in AssetDatabase.LoadAllAssetsAtPath(assetPath))
+            {
+                if (asset is Sprite sprite && sprite.name == spriteName)
+                {
+                    return sprite;
+                }
+            }
+
+            throw new FileNotFoundException(
+                $"Sprite '{spriteName}' was not found in '{assetPath}'.",
+                assetPath);
         }
 
         private static void EnsureFolder(string path)

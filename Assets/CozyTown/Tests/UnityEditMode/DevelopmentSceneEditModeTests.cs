@@ -13,15 +13,76 @@ using CozyTown.Unity.Kitchen;
 using CozyTown.Unity.Npc;
 using CozyTown.Unity.Save;
 using NUnit.Framework;
+using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 namespace CozyTown.Tests.UnityEditMode
 {
     public sealed class DevelopmentSceneEditModeTests
     {
         private const string ScenePath = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
+        private const string ProductionRoot = "Assets/CozyTown/Art/Production/";
+
+        [Test]
+        public void DevelopmentScene_UsesProductionWorldVisualsAtPixelPerfectResolution()
+        {
+            var previousScene = SceneManager.GetActiveScene();
+            var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
+
+            try
+            {
+                var cameraObject = RequireRoot(scene, "Main Camera");
+                var pixelPerfectCamera = cameraObject.GetComponent<PixelPerfectCamera>();
+                Assert.That(pixelPerfectCamera, Is.Not.Null);
+                Assert.That(pixelPerfectCamera.assetsPPU, Is.EqualTo(16));
+                Assert.That(pixelPerfectCamera.refResolutionX, Is.EqualTo(320));
+                Assert.That(pixelPerfectCamera.refResolutionY, Is.EqualTo(180));
+                Assert.That(
+                    pixelPerfectCamera.gridSnapping,
+                    Is.EqualTo(PixelPerfectCamera.GridSnapping.UpscaleRenderTexture));
+
+                var world = RequireRoot(scene, "World");
+                Assert.That(world.GetComponentInChildren<Grid>(true), Is.Not.Null);
+                var tilemap = world.GetComponentInChildren<Tilemap>(true);
+                Assert.That(tilemap, Is.Not.Null);
+                Assert.That(tilemap.GetUsedTilesCount(), Is.GreaterThanOrEqualTo(2));
+                Assert.That(tilemap.GetComponent<TilemapRenderer>(), Is.Not.Null);
+
+                var points = world.GetComponentsInChildren<TownInteractionPoint2D>(true);
+                Assert.That(points, Has.Length.EqualTo(7));
+                foreach (var point in points)
+                {
+                    var visual = point.transform.Find("Visual");
+                    Assert.That(visual, Is.Not.Null, $"{point.name} is missing its Visual child.");
+                    Assert.That(visual.localScale, Is.EqualTo(Vector3.one));
+                    AssertProductionSprite(
+                        visual.GetComponent<SpriteRenderer>(),
+                        $"{point.name} visual");
+                }
+
+                var player = RequireRoot(scene, "Player");
+                AssertProductionSprite(
+                    player.GetComponentInChildren<SpriteRenderer>(true),
+                    "Player visual");
+
+                foreach (var renderer in world.GetComponentsInChildren<SpriteRenderer>(true))
+                {
+                    AssertProductionSprite(renderer, renderer.gameObject.name);
+                }
+            }
+            finally
+            {
+                EditorSceneManager.CloseScene(scene, true);
+                if (previousScene.IsValid() && previousScene.isLoaded)
+                {
+                    SceneManager.SetActiveScene(previousScene);
+                }
+            }
+        }
 
         [Test]
         public void DevelopmentScene_ContainsWalkingAndShopTradingSlice()
@@ -62,13 +123,6 @@ namespace CozyTown.Tests.UnityEditMode
                     var renderer = visual.GetComponent<SpriteRenderer>();
                     Assert.That(renderer, Is.Not.Null);
                     Assert.That(renderer.sprite, Is.Not.Null);
-                    Assert.That(renderer.sortingOrder, Is.EqualTo(1));
-                    var spriteSize = renderer.sprite.bounds.size;
-                    var renderedSize = Vector2.Scale(
-                        new Vector2(spriteSize.x, spriteSize.y),
-                        new Vector2(visual.lossyScale.x, visual.lossyScale.y));
-                    Assert.That(renderedSize.x, Is.EqualTo(1.2f).Within(0.001f));
-                    Assert.That(renderedSize.y, Is.EqualTo(1.2f).Within(0.001f));
                 }
 
                 CollectionAssert.AreEquivalent(
@@ -120,6 +174,16 @@ namespace CozyTown.Tests.UnityEditMode
                 candidate => candidate.name == name);
             Assert.That(root, Is.Not.Null, $"Root object '{name}' was not found.");
             return root;
+        }
+
+        private static void AssertProductionSprite(SpriteRenderer renderer, string context)
+        {
+            Assert.That(renderer, Is.Not.Null, $"{context} is missing SpriteRenderer.");
+            Assert.That(renderer.sprite, Is.Not.Null, $"{context} is missing a Sprite.");
+            Assert.That(
+                AssetDatabase.GetAssetPath(renderer.sprite),
+                Does.StartWith(ProductionRoot),
+                $"{context} still uses a non-Production Sprite.");
         }
     }
 }

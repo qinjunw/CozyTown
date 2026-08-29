@@ -71,7 +71,13 @@ namespace CozyTown.Tests.PlayMode
             body.linearVelocity = Vector2.zero;
             Assert.That(body.position.x, Is.GreaterThan(startPosition.x));
 
-            body.position = new Vector2(4f, 0f);
+            var world = RequireRoot(_loadedScene, "World");
+            var eastBoundary = world.transform.Find("Boundaries/East Boundary")
+                ?.GetComponent<BoxCollider2D>();
+            Assert.That(eastBoundary, Is.Not.Null);
+            var boundaryInnerEdge = eastBoundary.bounds.min.x;
+
+            body.position = new Vector2(boundaryInnerEdge - 1f, 0f);
             player.transform.position = body.position;
             Physics2D.SyncTransforms();
             testInput.Movement = Vector2.right;
@@ -82,10 +88,9 @@ namespace CozyTown.Tests.PlayMode
 
             testInput.Movement = Vector2.zero;
             body.linearVelocity = Vector2.zero;
-            Assert.That(body.position.x, Is.LessThan(4.8f));
+            Assert.That(body.position.x, Is.LessThan(boundaryInnerEdge));
 
-            var points = RequireRoot(_loadedScene, "World")
-                .GetComponentsInChildren<TownInteractionPoint2D>(true);
+            var points = world.GetComponentsInChildren<TownInteractionPoint2D>(true);
             Assert.That(points, Has.Length.EqualTo(7));
             var hud = RequireRoot(_loadedScene, "Debug HUD");
             var shopView = hud.GetComponent<CozyTownShopDebugView>();
