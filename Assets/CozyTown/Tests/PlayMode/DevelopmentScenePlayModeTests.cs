@@ -21,6 +21,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 
 namespace CozyTown.Tests.PlayMode
 {
@@ -121,6 +122,15 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(saveView.IsVisible, Is.True);
             pondPresenter.SetRollSource(new FixedFishingRollSource(0));
 
+            var saveButton = RequireActiveButtonByIcon(hud, "ui_icon_save");
+            var loadButton = RequireActiveButtonByIcon(hud, "ui_icon_load");
+            Assert.That(loadButton.interactable, Is.False);
+            saveButton.onClick.Invoke();
+            Assert.That(saveView.Feedback, Is.EqualTo("Game saved."));
+            Assert.That(loadButton.interactable, Is.True);
+            loadButton.onClick.Invoke();
+            Assert.That(saveView.Feedback, Is.EqualTo("Game loaded."));
+
             var farmPoint = points.Single(point => point.Kind == TownInteractionKind.Farm);
             var plot01Soil = farmPoint.transform.Find("Farm States/Plot 01/Soil")
                 ?.GetComponent<SpriteRenderer>();
@@ -166,7 +176,10 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(interactor.enabled, Is.False);
             Assert.That(shopView.State.Balance, Is.EqualTo(300));
 
-            shopView.RequestBuy(DefaultMvpIds.Items.PotatoSeed);
+            var potatoSeedRow = hud.GetComponentsInChildren<CozyTownUiListRow>(false)
+                .Single(row => row.Label.text.StartsWith("Potato Seed", StringComparison.Ordinal));
+            Assert.That(potatoSeedRow.Buttons[0].interactable, Is.True);
+            potatoSeedRow.Buttons[0].onClick.Invoke();
             Assert.That(shopView.State.Balance, Is.EqualTo(280));
             Assert.That(
                 shopView.State.Items.Single(item => item.ItemId == DefaultMvpIds.Items.PotatoSeed).OwnedQuantity,
@@ -181,7 +194,7 @@ namespace CozyTown.Tests.PlayMode
             shopView.RequestBuy(DefaultMvpIds.Items.Salt);
             shopView.RequestBuy(DefaultMvpIds.Items.Salt);
             Assert.That(shopView.State.Balance, Is.EqualTo(260));
-            shopView.RequestClose();
+            RequireActiveButtonByIcon(hud, "ui_icon_close").onClick.Invoke();
             Assert.That(shopView.IsVisible, Is.False);
             Assert.That(movement.enabled, Is.True);
             Assert.That(interactor.enabled, Is.True);
@@ -310,6 +323,16 @@ namespace CozyTown.Tests.PlayMode
                 candidate => candidate.name == name);
             Assert.That(root, Is.Not.Null, $"Root object '{name}' was not found.");
             return root;
+        }
+
+        private static Button RequireActiveButtonByIcon(GameObject root, string spriteName)
+        {
+            var button = root.GetComponentsInChildren<Button>(false)
+                .SingleOrDefault(candidate => candidate
+                    .GetComponentsInChildren<Image>(true)
+                    .Any(image => image.sprite != null && image.sprite.name == spriteName));
+            Assert.That(button, Is.Not.Null, $"Active button with icon '{spriteName}' was not found.");
+            return button;
         }
 
         private sealed class FixedFishingRollSource : IFishingRollSource

@@ -266,6 +266,60 @@ namespace CozyTown.Tests.UnityEditMode
             }
         }
 
+        [Test]
+        public void DevelopmentScene_ProductionPanelsFitAllTargetResolutions()
+        {
+            var previousScene = SceneManager.GetActiveScene();
+            var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
+
+            try
+            {
+                var hud = RequireRoot(scene, "Debug HUD");
+                var canvas = hud.GetComponentInChildren<Canvas>(true);
+                Assert.That(canvas, Is.Not.Null);
+                var panelRects = Array.FindAll(
+                    canvas.GetComponentsInChildren<Image>(true),
+                    image => image.transform.parent == canvas.transform
+                        && image.sprite != null
+                        && image.sprite.name == "ui_panel");
+                Assert.That(panelRects, Has.Length.EqualTo(10));
+
+                var reference = new Vector2(320f, 180f);
+                var targetResolutions = new[]
+                {
+                    reference,
+                    new Vector2(640f, 360f),
+                    new Vector2(1280f, 720f)
+                };
+                foreach (var panelImage in panelRects)
+                {
+                    var rect = panelImage.rectTransform;
+                    Assert.That(rect.anchorMin, Is.EqualTo(rect.anchorMax));
+                    var pivotPoint = Vector2.Scale(rect.anchorMin, reference) + rect.anchoredPosition;
+                    var referenceMin = pivotPoint - Vector2.Scale(rect.pivot, rect.sizeDelta);
+                    var referenceMax = referenceMin + rect.sizeDelta;
+                    foreach (var resolution in targetResolutions)
+                    {
+                        var scale = resolution.x / reference.x;
+                        var minimum = referenceMin * scale;
+                        var maximum = referenceMax * scale;
+                        Assert.That(minimum.x, Is.GreaterThanOrEqualTo(0f), panelImage.name);
+                        Assert.That(minimum.y, Is.GreaterThanOrEqualTo(0f), panelImage.name);
+                        Assert.That(maximum.x, Is.LessThanOrEqualTo(resolution.x), panelImage.name);
+                        Assert.That(maximum.y, Is.LessThanOrEqualTo(resolution.y), panelImage.name);
+                    }
+                }
+            }
+            finally
+            {
+                EditorSceneManager.CloseScene(scene, true);
+                if (previousScene.IsValid() && previousScene.isLoaded)
+                {
+                    SceneManager.SetActiveScene(previousScene);
+                }
+            }
+        }
+
         private static GameObject RequireRoot(Scene scene, string name)
         {
             var root = Array.Find(
