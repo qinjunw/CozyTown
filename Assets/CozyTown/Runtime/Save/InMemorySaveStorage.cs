@@ -5,7 +5,6 @@ using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Farming;
 using CozyTown.Runtime.Inventory;
 using CozyTown.Runtime.Livestock;
-using CozyTown.Runtime.Time;
 
 namespace CozyTown.Runtime.Save
 {
@@ -26,9 +25,10 @@ namespace CozyTown.Runtime.Save
                 return OperationResult.Failure("save.slot_invalid");
             }
 
-            if (!IsValid(snapshot))
+            OperationResult validation = GameSaveSnapshotValidator.Validate(snapshot);
+            if (!validation.IsSuccess)
             {
-                return OperationResult.Failure("save.snapshot_invalid");
+                return validation;
             }
 
             _slots[slotId] = Clone(snapshot);
@@ -48,19 +48,6 @@ namespace CozyTown.Runtime.Save
             }
 
             return OperationResult<GameSaveSnapshot>.Success(Clone(snapshot));
-        }
-
-        private static bool IsValid(GameSaveSnapshot snapshot)
-        {
-            return snapshot != null
-                && snapshot.SchemaVersion == GameSaveSnapshot.CurrentSchemaVersion
-                && snapshot.Clock.Day >= 1
-                && snapshot.Clock.MinuteOfDay >= 0
-                && snapshot.Clock.MinuteOfDay < InMemoryTimeService.MinutesPerDay
-                && snapshot.Wallet.Balance >= 0
-                && snapshot.Inventory != null
-                && snapshot.Farm != null
-                && snapshot.Livestock != null;
         }
 
         private static GameSaveSnapshot Clone(GameSaveSnapshot snapshot)
