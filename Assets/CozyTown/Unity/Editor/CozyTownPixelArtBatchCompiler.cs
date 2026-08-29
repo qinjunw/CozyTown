@@ -54,7 +54,8 @@ namespace CozyTown.Unity.Editor
             Color32? opaqueFillColor = null,
             IReadOnlyList<int> sourceCellIndices = null,
             IReadOnlyList<Vector4> spriteBorders = null,
-            IReadOnlyList<PixelArtRoadConnection> roadConnections = null)
+            IReadOnlyList<PixelArtRoadConnection> roadConnections = null,
+            IReadOnlyList<Color32?> transparentFillColors = null)
         {
             if (string.IsNullOrWhiteSpace(sourceRelativePath))
             {
@@ -175,6 +176,18 @@ namespace CozyTown.Unity.Editor
                     nameof(roadConnections));
             }
 
+            Color32?[] resolvedTransparentFillColors = transparentFillColors == null
+                ? new Color32?[cellCount]
+                : transparentFillColors.ToArray();
+            if (resolvedTransparentFillColors.Length != cellCount
+                || resolvedTransparentFillColors.Any(color =>
+                    color.HasValue && !palette.Contains(color.Value)))
+            {
+                throw new ArgumentException(
+                    "Transparent fill colors must contain one palette color or null per cell.",
+                    nameof(transparentFillColors));
+            }
+
             SourceRelativePath = sourceRelativePath;
             OutputAssetPath = outputAssetPath;
             PreviewRelativePath = previewRelativePath;
@@ -196,6 +209,7 @@ namespace CozyTown.Unity.Editor
             SourceCellIndices = resolvedSourceCellIndices;
             SpriteBorders = resolvedSpriteBorders;
             RoadConnections = resolvedRoadConnections;
+            TransparentFillColors = resolvedTransparentFillColors;
         }
 
         public string SourceRelativePath { get; }
@@ -219,6 +233,7 @@ namespace CozyTown.Unity.Editor
         public IReadOnlyList<int> SourceCellIndices { get; }
         public IReadOnlyList<Vector4> SpriteBorders { get; }
         public IReadOnlyList<PixelArtRoadConnection> RoadConnections { get; }
+        public IReadOnlyList<Color32?> TransparentFillColors { get; }
         public int OutputWidth => Columns * FrameWidth;
         public int OutputHeight => Rows * FrameHeight;
         public SpriteImportMode ImportMode => SpriteNames.Count == 1
@@ -405,6 +420,12 @@ namespace CozyTown.Unity.Editor
                         definition.FrameWidth,
                         definition.FrameHeight,
                         definition.RoadConnections[outputIndex]);
+                }
+                Color32? transparentFillColor =
+                    definition.TransparentFillColors[outputIndex];
+                if (transparentFillColor.HasValue)
+                {
+                    FillTransparentPixels(compiledCell, transparentFillColor.Value);
                 }
                 CopyCellToSheet(
                     compiledCell,

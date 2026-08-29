@@ -203,6 +203,21 @@ namespace CozyTown.Unity.Editor
                     Vector4.zero,
                     Vector4.zero,
                     Vector4.zero
+                },
+                transparentFillColors: new Color32?[]
+                {
+                    new Color32(0x1F, 0x1B, 0x24, 0xFF),
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
                 });
 
         public static IReadOnlyList<PixelArtBatchDefinition> CurrentA1Batch { get; } =

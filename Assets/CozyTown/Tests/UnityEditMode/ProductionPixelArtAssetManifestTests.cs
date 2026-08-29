@@ -123,6 +123,52 @@ namespace CozyTown.Tests.UnityEditMode
         }
 
         [Test]
+        public void UiPanel_StretchableCenter_IsFullyOpaque()
+        {
+            Sprite uiPanel = AssetDatabase.LoadAllAssetsAtPath(UiPath)
+                .OfType<Sprite>()
+                .Single(sprite => sprite.name == "ui_panel");
+            var texture = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            try
+            {
+                Assert.That(
+                    ImageConversion.LoadImage(texture, File.ReadAllBytes(UiPath), false),
+                    Is.True,
+                    $"Could not decode UI PNG: {UiPath}");
+
+                int centerMinX = Mathf.RoundToInt(uiPanel.rect.xMin + uiPanel.border.x);
+                int centerMaxX = Mathf.RoundToInt(uiPanel.rect.xMax - uiPanel.border.z);
+                int centerMinY = Mathf.RoundToInt(uiPanel.rect.yMin + uiPanel.border.y);
+                int centerMaxY = Mathf.RoundToInt(uiPanel.rect.yMax - uiPanel.border.w);
+                Color32[] pixels = texture.GetPixels32();
+                var nonOpaquePositions = new List<Vector2Int>();
+                for (var y = centerMinY; y < centerMaxY; y++)
+                {
+                    for (var x = centerMinX; x < centerMaxX; x++)
+                    {
+                        if (pixels[y * texture.width + x].a < 255)
+                        {
+                            nonOpaquePositions.Add(new Vector2Int(
+                                x - Mathf.RoundToInt(uiPanel.rect.xMin),
+                                y - Mathf.RoundToInt(uiPanel.rect.yMin)));
+                        }
+                    }
+                }
+
+                Assert.That(
+                    nonOpaquePositions,
+                    Is.Empty,
+                    $"ui_panel stretchable center contains {nonOpaquePositions.Count} "
+                    + "non-opaque pixels at local positions: "
+                    + string.Join(", ", nonOpaquePositions));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(texture);
+            }
+        }
+
+        [Test]
         public void TownRoadTiles_MatchDeclaredEdgeConnections()
         {
             var roads = new[]
