@@ -30,7 +30,9 @@ namespace CozyTown.Runtime.Core
             ICookingService cooking,
             ICookingGameplayCoordinator cookingGameplay,
             INpcDialogueGenerator npcDialogue,
-            ISaveStorage saveStorage)
+            INpcDialogueCoordinator npcDialogueGameplay,
+            ISaveStorage saveStorage,
+            IGameSaveCoordinator gameSave)
         {
             DayTransition = dayTransition ?? throw new ArgumentNullException(nameof(dayTransition));
             Time = time ?? throw new ArgumentNullException(nameof(time));
@@ -50,7 +52,10 @@ namespace CozyTown.Runtime.Core
             CookingGameplay = cookingGameplay
                 ?? throw new ArgumentNullException(nameof(cookingGameplay));
             NpcDialogue = npcDialogue ?? throw new ArgumentNullException(nameof(npcDialogue));
+            NpcDialogueGameplay = npcDialogueGameplay
+                ?? throw new ArgumentNullException(nameof(npcDialogueGameplay));
             SaveStorage = saveStorage ?? throw new ArgumentNullException(nameof(saveStorage));
+            GameSave = gameSave ?? throw new ArgumentNullException(nameof(gameSave));
         }
 
         public IDayTransitionCoordinator DayTransition { get; }
@@ -83,6 +88,10 @@ namespace CozyTown.Runtime.Core
 
         public INpcDialogueGenerator NpcDialogue { get; }
 
+        public INpcDialogueCoordinator NpcDialogueGameplay { get; }
+
         public ISaveStorage SaveStorage { get; }
+
+        public IGameSaveCoordinator GameSave { get; }
     }
 }

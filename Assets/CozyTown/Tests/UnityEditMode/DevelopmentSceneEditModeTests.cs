@@ -10,6 +10,8 @@ using CozyTown.Unity.Bed;
 using CozyTown.Unity.Coop;
 using CozyTown.Unity.Pond;
 using CozyTown.Unity.Kitchen;
+using CozyTown.Unity.Npc;
+using CozyTown.Unity.Save;
 using NUnit.Framework;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -31,6 +33,7 @@ namespace CozyTown.Tests.UnityEditMode
             {
                 var bootstrap = RequireRoot(scene, "CozyTown");
                 Assert.That(bootstrap.GetComponent<CozyTownBootstrap>(), Is.Not.Null);
+                Assert.That(typeof(CozyTownBootstrap).GetProperty("Services"), Is.Null);
 
                 var player = RequireRoot(scene, "Player");
                 Assert.That(player.GetComponent<Rigidbody2D>(), Is.Not.Null);
@@ -92,6 +95,10 @@ namespace CozyTown.Tests.UnityEditMode
                 Assert.That(hud.GetComponent<CozyTownCoopDebugPresenter>(), Is.Not.Null);
                 Assert.That(hud.GetComponent<CozyTownPondDebugPresenter>(), Is.Not.Null);
                 Assert.That(hud.GetComponent<CozyTownKitchenDebugPresenter>(), Is.Not.Null);
+                Assert.That(hud.GetComponent<CozyTownNpcDebugView>(), Is.Not.Null);
+                Assert.That(hud.GetComponent<CozyTownNpcDebugPresenter>(), Is.Not.Null);
+                Assert.That(hud.GetComponent<CozyTownSaveDebugView>(), Is.Not.Null);
+                Assert.That(hud.GetComponent<CozyTownSaveDebugPresenter>(), Is.Not.Null);
 
                 var camera = RequireRoot(scene, "Main Camera");
                 Assert.That(camera.GetComponent<Camera>()?.orthographic, Is.True);

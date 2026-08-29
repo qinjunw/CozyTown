@@ -6,6 +6,7 @@ using CozyTown.Runtime.Content;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Livestock;
 using CozyTown.Runtime.Npc;
+using CozyTown.Runtime.Save;
 using NUnit.Framework;
 
 namespace CozyTown.Tests.EditMode.Core
@@ -32,7 +33,9 @@ namespace CozyTown.Tests.EditMode.Core
             Assert.That(services.Cooking, Is.Not.Null);
             Assert.That(services.CookingGameplay, Is.Not.Null);
             Assert.That(services.NpcDialogue, Is.Not.Null);
+            Assert.That(services.NpcDialogueGameplay, Is.Not.Null);
             Assert.That(services.SaveStorage, Is.Not.Null);
+            Assert.That(services.GameSave, Is.Not.Null);
             Assert.That(services.Time.Current.Day, Is.EqualTo(1));
             Assert.That(services.Inventory.CapacitySlots, Is.EqualTo(24));
             Assert.That(services.Wallet.Balance, Is.Zero);
@@ -94,6 +97,24 @@ namespace CozyTown.Tests.EditMode.Core
 
             Assert.That(reply.IsFallback, Is.True);
             Assert.That(reply.Text, Is.EqualTo(npc.FallbackDialogue));
+        }
+
+        [Test]
+        public void Create_WithExternalDialogueAndStorage_UsesProvidedAdapters()
+        {
+            CozyTownConfiguration configuration = DefaultMvpContent.CreateConfiguration();
+            var dialogue = new FixedFallbackDialogueGenerator("External fallback.");
+            var storage = new InMemorySaveStorage();
+
+            CozyTownServices services = CozyTownCompositionRoot.Create(
+                configuration,
+                dialogue,
+                storage);
+
+            Assert.That(services.NpcDialogue, Is.SameAs(dialogue));
+            Assert.That(services.SaveStorage, Is.SameAs(storage));
+            Assert.That(services.NpcDialogueGameplay, Is.Not.Null);
+            Assert.That(services.GameSave, Is.Not.Null);
         }
 
         [Test]

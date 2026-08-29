@@ -120,7 +120,9 @@ namespace CozyTown.Tests.PlayMode
                 defaults.Cooking,
                 defaults.CookingGameplay,
                 defaults.NpcDialogue,
-                defaults.SaveStorage);
+                defaults.NpcDialogueGameplay,
+                defaults.SaveStorage,
+                defaults.GameSave);
         }
 
         private static void Destroy(Object target)

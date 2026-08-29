@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using CozyTown.Runtime.Content;
 using CozyTown.Unity.Bed;
 using CozyTown.Unity.Coop;
 using CozyTown.Unity.Core;
@@ -8,8 +9,10 @@ using CozyTown.Unity.Hud;
 using CozyTown.Unity.Input;
 using CozyTown.Unity.Interaction;
 using CozyTown.Unity.Kitchen;
+using CozyTown.Unity.Npc;
 using CozyTown.Unity.Player;
 using CozyTown.Unity.Pond;
+using CozyTown.Unity.Save;
 using CozyTown.Unity.Shop;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -64,6 +67,64 @@ namespace CozyTown.Unity.Editor
                 if (previousScene.IsValid())
                 {
                     SceneManager.SetActiveScene(previousScene);
+                }
+            }
+        }
+
+        [MenuItem("CozyTown/Upgrade Development Scene for M4")]
+        public static void UpgradeDevelopmentSceneForM4()
+        {
+            if (!File.Exists(ScenePath))
+            {
+                throw new FileNotFoundException("Development scene was not found.", ScenePath);
+            }
+
+            var scene = SceneManager.GetSceneByPath(ScenePath);
+            bool closeWhenFinished = !scene.IsValid() || !scene.isLoaded;
+            if (closeWhenFinished)
+            {
+                scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
+            }
+
+            try
+            {
+                var bootstrapObject = RequireRoot(scene, "CozyTown");
+                var bootstrap = bootstrapObject.GetComponent<CozyTownBootstrap>();
+                if (bootstrap == null)
+                {
+                    throw new InvalidOperationException("Development scene is missing CozyTownBootstrap.");
+                }
+
+                var hud = RequireRoot(scene, "Debug HUD");
+                var npcPoint = Array.Find(
+                    RequireRoot(scene, "World")
+                        .GetComponentsInChildren<TownInteractionPoint2D>(true),
+                    point => point.Kind == TownInteractionKind.Npc);
+                if (npcPoint == null)
+                {
+                    throw new InvalidOperationException("Development scene is missing the NPC point.");
+                }
+
+                var npcView = GetOrAdd<CozyTownNpcDebugView>(hud);
+                var npcPresenter = GetOrAdd<CozyTownNpcDebugPresenter>(hud);
+                npcPresenter.Configure(npcPoint, npcView, DefaultMvpIds.Npcs.Shopkeeper);
+                bootstrap.RegisterNpcPresenter(npcPresenter);
+
+                var saveView = GetOrAdd<CozyTownSaveDebugView>(hud);
+                var savePresenter = GetOrAdd<CozyTownSaveDebugPresenter>(hud);
+                savePresenter.Configure(saveView);
+                bootstrap.RegisterSavePresenter(savePresenter);
+
+                EditorSceneManager.MarkSceneDirty(scene);
+                EditorSceneManager.SaveScene(scene, ScenePath);
+                AssetDatabase.SaveAssets();
+                Debug.Log($"Upgraded development scene for M4 at {ScenePath}.");
+            }
+            finally
+            {
+                if (closeWhenFinished && scene.IsValid() && scene.isLoaded)
+                {
+                    EditorSceneManager.CloseScene(scene, true);
                 }
             }
         }
@@ -237,6 +298,14 @@ namespace CozyTown.Unity.Editor
             var kitchenPresenter = hudObject.AddComponent<CozyTownKitchenDebugPresenter>();
             kitchenPresenter.Configure(points[6], kitchenView);
             bootstrap.RegisterKitchenPresenter(kitchenPresenter);
+            var npcView = hudObject.AddComponent<CozyTownNpcDebugView>();
+            var npcPresenter = hudObject.AddComponent<CozyTownNpcDebugPresenter>();
+            npcPresenter.Configure(points[1], npcView, DefaultMvpIds.Npcs.Shopkeeper);
+            bootstrap.RegisterNpcPresenter(npcPresenter);
+            var saveView = hudObject.AddComponent<CozyTownSaveDebugView>();
+            var savePresenter = hudObject.AddComponent<CozyTownSaveDebugPresenter>();
+            savePresenter.Configure(saveView);
+            bootstrap.RegisterSavePresenter(savePresenter);
         }
 
         private static void CreateCamera()
@@ -336,6 +405,22 @@ namespace CozyTown.Unity.Editor
 
                 current = next;
             }
+        }
+
+        private static GameObject RequireRoot(Scene scene, string name)
+        {
+            var root = Array.Find(
+                scene.GetRootGameObjects(),
+                candidate => candidate.name == name);
+            return root != null
+                ? root
+                : throw new InvalidOperationException($"Root object '{name}' was not found.");
+        }
+
+        private static T GetOrAdd<T>(GameObject target) where T : Component
+        {
+            var component = target.GetComponent<T>();
+            return component != null ? component : target.AddComponent<T>();
         }
     }
 }

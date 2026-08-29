@@ -14,6 +14,8 @@ using CozyTown.Unity.Bed;
 using CozyTown.Unity.Coop;
 using CozyTown.Unity.Pond;
 using CozyTown.Unity.Kitchen;
+using CozyTown.Unity.Npc;
+using CozyTown.Unity.Save;
 using NUnit.Framework;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -94,6 +96,8 @@ namespace CozyTown.Tests.PlayMode
             var pondView = hud.GetComponent<CozyTownPondDebugView>();
             var pondPresenter = hud.GetComponent<CozyTownPondDebugPresenter>();
             var kitchenView = hud.GetComponent<CozyTownKitchenDebugView>();
+            var npcView = hud.GetComponent<CozyTownNpcDebugView>();
+            var saveView = hud.GetComponent<CozyTownSaveDebugView>();
             Assert.That(shopView, Is.Not.Null);
             Assert.That(shopPresenter, Is.Not.Null);
             Assert.That(farmView, Is.Not.Null);
@@ -101,6 +105,9 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(coopView, Is.Not.Null);
             Assert.That(pondView, Is.Not.Null);
             Assert.That(kitchenView, Is.Not.Null);
+            Assert.That(npcView, Is.Not.Null);
+            Assert.That(saveView, Is.Not.Null);
+            Assert.That(saveView.IsVisible, Is.True);
             pondPresenter.SetRollSource(new FixedFishingRollSource(0));
 
             IEnumerator Open(TownInteractionKind kind)
@@ -233,6 +240,13 @@ namespace CozyTown.Tests.PlayMode
                 if (kitchenView.IsVisible)
                 {
                     kitchenView.RequestClose();
+                }
+                if (npcView.IsVisible)
+                {
+                    Assert.That(npcView.State, Is.Not.Null);
+                    Assert.That(npcView.State.IsFallback, Is.True);
+                    Assert.That(npcView.NpcCount, Is.EqualTo(4));
+                    npcView.RequestClose();
                 }
             }
 

@@ -1,11 +1,17 @@
 using System;
+using System.IO;
+using CozyTown.Runtime.Content;
 using CozyTown.Runtime.Core;
+using CozyTown.Runtime.Npc;
+using CozyTown.Runtime.Save;
 using CozyTown.Unity.Bed;
 using CozyTown.Unity.Coop;
 using CozyTown.Unity.Farm;
 using CozyTown.Unity.Hud;
 using CozyTown.Unity.Kitchen;
+using CozyTown.Unity.Npc;
 using CozyTown.Unity.Pond;
+using CozyTown.Unity.Save;
 using CozyTown.Unity.Shop;
 using UnityEngine;
 
@@ -34,6 +40,18 @@ namespace CozyTown.Unity.Core
         [SerializeField]
         private CozyTownKitchenDebugPresenter[] _kitchenPresenters =
             Array.Empty<CozyTownKitchenDebugPresenter>();
+        [SerializeField]
+        private CozyTownNpcDebugPresenter[] _npcPresenters =
+            Array.Empty<CozyTownNpcDebugPresenter>();
+        [SerializeField]
+        private CozyTownSaveDebugPresenter[] _savePresenters =
+            Array.Empty<CozyTownSaveDebugPresenter>();
+        [SerializeField]
+        [Tooltip("Optional HTTP(S) proxy endpoint. Leave empty to use fixed NPC dialogue.")]
+        private string _aiProxyEndpoint = string.Empty;
+        [SerializeField]
+        [Min(0.1f)]
+        private float _aiProxyTimeoutSeconds = 8f;
 
         private ICozyTownServicesFactory _factoryOverride;
         private CozyTownServices _services;
@@ -147,6 +165,24 @@ namespace CozyTown.Unity.Core
             }
         }
 
+        public void RegisterNpcPresenter(CozyTownNpcDebugPresenter presenter)
+        {
+            Register(ref _npcPresenters, presenter);
+            if (IsInitialized)
+            {
+                presenter.Bind(_services.NpcDialogueGameplay);
+            }
+        }
+
+        public void RegisterSavePresenter(CozyTownSaveDebugPresenter presenter)
+        {
+            Register(ref _savePresenters, presenter);
+            if (IsInitialized)
+            {
+                presenter.Bind(_services.GameSave);
+            }
+        }
+
         private void Awake()
         {
             if (IsInitialized)
@@ -159,7 +195,7 @@ namespace CozyTown.Unity.Core
                 var factory = ResolveFactory();
                 Initialize(factory != null
                     ? factory.Create()
-                    : CozyTownCompositionRoot.CreateDefault());
+                    : CreateDefaultUnityServices());
             }
             catch (Exception exception)
             {
@@ -187,6 +223,41 @@ namespace CozyTown.Unity.Core
 
             throw new InvalidOperationException(
                 $"{servicesFactoryBehaviour.name} must implement {nameof(ICozyTownServicesFactory)}.");
+        }
+
+        private CozyTownServices CreateDefaultUnityServices()
+        {
+            var configuration = DefaultMvpContent.CreateConfiguration();
+            INpcDialogueGenerator fallback = new ConfiguredFallbackDialogueGenerator(
+                configuration.Npcs,
+                configuration.FallbackDialogue);
+            INpcDialogueGenerator dialogue = fallback;
+            if (!string.IsNullOrWhiteSpace(_aiProxyEndpoint))
+            {
+                dialogue = new AiNpcDialogueGenerator(
+                    new ProxyNpcDialogueClient(_aiProxyEndpoint),
+                    fallback,
+                    TimeSpan.FromSeconds(Mathf.Max(0.1f, _aiProxyTimeoutSeconds)));
+            }
+
+            ISaveStorage saveStorage;
+            if (Application.isBatchMode)
+            {
+                saveStorage = new InMemorySaveStorage();
+            }
+            else
+            {
+                string savePath = Path.Combine(
+                    Application.persistentDataPath,
+                    "CozyTown",
+                    "main.json");
+                saveStorage = new JsonFileSaveStorage(savePath);
+            }
+
+            return CozyTownCompositionRoot.Create(
+                configuration,
+                dialogue,
+                saveStorage);
         }
 
         private void BindHudPresenters()
@@ -256,6 +327,20 @@ namespace CozyTown.Unity.Core
                 if (presenter != null)
                 {
                     presenter.Bind(_services.CookingGameplay);
+                }
+            }
+            foreach (var presenter in _npcPresenters)
+            {
+                if (presenter != null)
+                {
+                    presenter.Bind(_services.NpcDialogueGameplay);
+                }
+            }
+            foreach (var presenter in _savePresenters)
+            {
+                if (presenter != null)
+                {
+                    presenter.Bind(_services.GameSave);
                 }
             }
         }

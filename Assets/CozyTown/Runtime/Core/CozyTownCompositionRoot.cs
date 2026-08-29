@@ -17,6 +17,14 @@ namespace CozyTown.Runtime.Core
     {
         public static CozyTownServices Create(CozyTownConfiguration configuration)
         {
+            return Create(configuration, npcDialogue: null, saveStorage: null);
+        }
+
+        public static CozyTownServices Create(
+            CozyTownConfiguration configuration,
+            INpcDialogueGenerator npcDialogue,
+            ISaveStorage saveStorage)
+        {
             if (configuration == null)
             {
                 throw new ArgumentNullException(nameof(configuration));
@@ -73,12 +81,24 @@ namespace CozyTown.Runtime.Core
                 configuration.Items,
                 cooking,
                 inventory);
-            INpcDialogueGenerator npcDialogue = configuration.Npcs.Length == 0
-                ? new FixedFallbackDialogueGenerator(configuration.FallbackDialogue)
+            npcDialogue = npcDialogue ?? (configuration.Npcs.Length == 0
+                ? (INpcDialogueGenerator)new FixedFallbackDialogueGenerator(
+                    configuration.FallbackDialogue)
                 : new ConfiguredFallbackDialogueGenerator(
                     configuration.Npcs,
-                    configuration.FallbackDialogue);
-            var saveStorage = new InMemorySaveStorage();
+                    configuration.FallbackDialogue));
+            saveStorage = saveStorage ?? new InMemorySaveStorage();
+            var npcDialogueGameplay = new NpcDialogueCoordinator(
+                configuration.Npcs,
+                npcDialogue,
+                () => time.Current);
+            var gameSave = new GameSaveCoordinator(
+                time,
+                inventory,
+                wallet,
+                farm,
+                livestock,
+                saveStorage);
             var dayTransition = new DayTransitionCoordinator(time, farm, livestock);
 
             return new CozyTownServices(
@@ -97,7 +117,9 @@ namespace CozyTown.Runtime.Core
                 cooking,
                 cookingGameplay,
                 npcDialogue,
-                saveStorage);
+                npcDialogueGameplay,
+                saveStorage,
+                gameSave);
         }
 
         public static CozyTownServices CreateDefault()
