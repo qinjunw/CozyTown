@@ -1,8 +1,12 @@
 using System;
 using System.IO;
 using CozyTown.Runtime.Content;
+using CozyTown.Unity.Bed;
+using CozyTown.Unity.Coop;
 using CozyTown.Unity.Farm;
 using CozyTown.Unity.Hud;
+using CozyTown.Unity.Kitchen;
+using CozyTown.Unity.Pond;
 using CozyTown.Unity.Save;
 using CozyTown.Unity.Shop;
 using UnityEditor;
@@ -52,6 +56,7 @@ namespace CozyTown.Unity.Editor
                 ConfigurePersistentViewBindings(hud, canvasTransform);
                 ConfigureShopViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
                 ConfigureFarmViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
+                ConfigureSecondaryProductionViewBindings(hud, canvasTransform, uiSprites, iconCatalog);
                 ConfigureEventSystem(scene);
 
                 EditorSceneManager.MarkSceneDirty(scene);
@@ -295,6 +300,72 @@ namespace CozyTown.Unity.Editor
                 iconCatalog);
         }
 
+        private static void ConfigureSecondaryProductionViewBindings(
+            GameObject hud,
+            RectTransform canvas,
+            UiSprites sprites,
+            CozyTownUiIconCatalog iconCatalog)
+        {
+            var bedPanel = RequireChild(canvas, "Bed Panel");
+            var sleepButton = CreateButton(
+                RequireChild(bedPanel, "Content"),
+                "Sleep Button",
+                "Sleep until tomorrow",
+                null,
+                Vector2.zero,
+                new Vector2(272f, 22f),
+                sprites);
+            var bed = hud.GetComponent<CozyTownBedDebugView>()
+                ?? throw new InvalidOperationException("Debug HUD is missing CozyTownBedDebugView.");
+            bed.ConfigureUi(
+                bedPanel.gameObject,
+                RequireChild(bedPanel, "Feedback Text").GetComponent<Text>(),
+                RequireChild(bedPanel, "Close Button").GetComponent<Button>(),
+                sleepButton);
+
+            var coopPanel = RequireChild(canvas, "Coop Panel");
+            var coopRows = ConfigureListRows(coopPanel, "Coop Rows", 1, 40f, sprites, CreateTwoButtonRow);
+            var coop = hud.GetComponent<CozyTownCoopDebugView>()
+                ?? throw new InvalidOperationException("Debug HUD is missing CozyTownCoopDebugView.");
+            coop.ConfigureUi(
+                coopPanel.gameObject,
+                RequireChild(coopPanel, "Feedback Text").GetComponent<Text>(),
+                coopRows,
+                RequireChild(coopPanel, "Close Button").GetComponent<Button>(),
+                iconCatalog);
+
+            var pondPanel = RequireChild(canvas, "Pond Panel");
+            var pondRows = ConfigureListRows(pondPanel, "Pond Rows", 3, 22f, sprites, CreateReadOnlyRow);
+            var castButton = CreateButton(
+                RequireChild(pondPanel, "Content"),
+                "Cast Button",
+                "Cast",
+                null,
+                new Vector2(0f, -87f),
+                new Vector2(272f, 20f),
+                sprites);
+            var pond = hud.GetComponent<CozyTownPondDebugView>()
+                ?? throw new InvalidOperationException("Debug HUD is missing CozyTownPondDebugView.");
+            pond.ConfigureUi(
+                pondPanel.gameObject,
+                RequireChild(pondPanel, "Feedback Text").GetComponent<Text>(),
+                pondRows,
+                RequireChild(pondPanel, "Close Button").GetComponent<Button>(),
+                castButton,
+                iconCatalog);
+
+            var kitchenPanel = RequireChild(canvas, "Kitchen Panel");
+            var kitchenRows = ConfigureListRows(kitchenPanel, "Kitchen Rows", 5, 26f, sprites, CreateOneButtonRow);
+            var kitchen = hud.GetComponent<CozyTownKitchenDebugView>()
+                ?? throw new InvalidOperationException("Debug HUD is missing CozyTownKitchenDebugView.");
+            kitchen.ConfigureUi(
+                kitchenPanel.gameObject,
+                RequireChild(kitchenPanel, "Feedback Text").GetComponent<Text>(),
+                kitchenRows,
+                RequireChild(kitchenPanel, "Close Button").GetComponent<Button>(),
+                iconCatalog);
+        }
+
         private static CozyTownUiListRow[] ConfigureListRows(
             RectTransform panel,
             string rowsName,
@@ -379,6 +450,51 @@ namespace CozyTown.Unity.Editor
             }
 
             row.Configure(label, icon, buttons, labels);
+        }
+
+        private static void CreateTwoButtonRow(
+            RectTransform rowRect,
+            UiSprites sprites,
+            CozyTownUiListRow row)
+        {
+            var icon = CreateIcon(rowRect, "Item Icon", null, new Vector2(0f, -1f));
+            var label = CreateText(rowRect, "Item Label", string.Empty, new Vector2(20f, 0f), new Vector2(246f, 16f), 8);
+            var first = CreateButton(rowRect, "Action Button 1", "Action 1", null, new Vector2(0f, -18f), new Vector2(130f, 18f), sprites);
+            var second = CreateButton(rowRect, "Action Button 2", "Action 2", null, new Vector2(136f, -18f), new Vector2(130f, 18f), sprites);
+            row.Configure(
+                label,
+                icon,
+                new[] { first, second },
+                new[]
+                {
+                    RequireChild(first.transform, "Label").GetComponent<Text>(),
+                    RequireChild(second.transform, "Label").GetComponent<Text>()
+                });
+        }
+
+        private static void CreateOneButtonRow(
+            RectTransform rowRect,
+            UiSprites sprites,
+            CozyTownUiListRow row)
+        {
+            var icon = CreateIcon(rowRect, "Item Icon", null, new Vector2(0f, -2f));
+            var label = CreateText(rowRect, "Item Label", string.Empty, new Vector2(20f, 0f), new Vector2(166f, 22f), 8);
+            var action = CreateButton(rowRect, "Action Button", "Action", null, new Vector2(190f, -2f), new Vector2(76f, 18f), sprites);
+            row.Configure(
+                label,
+                icon,
+                new[] { action },
+                new[] { RequireChild(action.transform, "Label").GetComponent<Text>() });
+        }
+
+        private static void CreateReadOnlyRow(
+            RectTransform rowRect,
+            UiSprites sprites,
+            CozyTownUiListRow row)
+        {
+            var icon = CreateIcon(rowRect, "Item Icon", null, new Vector2(0f, -2f));
+            var label = CreateText(rowRect, "Item Label", string.Empty, new Vector2(20f, 0f), new Vector2(246f, 20f), 8);
+            row.Configure(label, icon, Array.Empty<Button>(), Array.Empty<Text>());
         }
 
         private static void CreateModal(

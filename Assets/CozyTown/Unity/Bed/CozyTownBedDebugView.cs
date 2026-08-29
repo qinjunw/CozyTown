@@ -1,14 +1,60 @@
 using System;
 using CozyTown.Unity.Hud;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CozyTown.Unity.Bed
 {
     public sealed class CozyTownBedDebugView : CozyTownModalDebugViewBase
     {
+        [SerializeField] private GameObject panel;
+        [SerializeField] private Text feedbackText;
+        [SerializeField] private Button closeButton;
+        [SerializeField] private Button sleepButton;
+
+        private bool _listenersAttached;
+
         public event Action SleepRequested;
 
-        public void Show(string feedback) => ShowBase(feedback);
+        public void ConfigureUi(
+            GameObject configuredPanel,
+            Text configuredFeedbackText,
+            Button configuredCloseButton,
+            Button configuredSleepButton)
+        {
+            DetachListeners();
+            panel = configuredPanel != null
+                ? configuredPanel
+                : throw new ArgumentNullException(nameof(configuredPanel));
+            feedbackText = configuredFeedbackText != null
+                ? configuredFeedbackText
+                : throw new ArgumentNullException(nameof(configuredFeedbackText));
+            closeButton = configuredCloseButton != null
+                ? configuredCloseButton
+                : throw new ArgumentNullException(nameof(configuredCloseButton));
+            sleepButton = configuredSleepButton != null
+                ? configuredSleepButton
+                : throw new ArgumentNullException(nameof(configuredSleepButton));
+
+            panel.SetActive(IsVisible);
+            AttachListeners();
+            RefreshUi();
+        }
+
+        public void Show(string feedback)
+        {
+            ShowBase(feedback);
+            RefreshUi();
+        }
+
+        public new void Hide()
+        {
+            base.Hide();
+            if (panel != null)
+            {
+                panel.SetActive(false);
+            }
+        }
 
         public void RequestSleep()
         {
@@ -18,19 +64,60 @@ namespace CozyTown.Unity.Bed
             }
         }
 
-        private void OnGUI()
+        private void OnEnable()
         {
-            if (!BeginPanel("Bed — sleep until tomorrow?"))
+            AttachListeners();
+        }
+
+        private void OnDisable()
+        {
+            DetachListeners();
+        }
+
+        private void RefreshUi()
+        {
+            if (panel == null || feedbackText == null)
             {
                 return;
             }
 
-            if (GUILayout.Button("Sleep", ButtonStyle))
+            panel.SetActive(IsVisible);
+            feedbackText.text = Feedback;
+        }
+
+        private void AttachListeners()
+        {
+            if (_listenersAttached
+                || closeButton == null
+                || sleepButton == null
+                || !isActiveAndEnabled)
             {
-                RequestSleep();
+                return;
             }
 
-            EndPanel();
+            closeButton.onClick.AddListener(RequestClose);
+            sleepButton.onClick.AddListener(RequestSleep);
+            _listenersAttached = true;
+        }
+
+        private void DetachListeners()
+        {
+            if (!_listenersAttached)
+            {
+                return;
+            }
+
+            if (closeButton != null)
+            {
+                closeButton.onClick.RemoveListener(RequestClose);
+            }
+
+            if (sleepButton != null)
+            {
+                sleepButton.onClick.RemoveListener(RequestSleep);
+            }
+
+            _listenersAttached = false;
         }
     }
 }

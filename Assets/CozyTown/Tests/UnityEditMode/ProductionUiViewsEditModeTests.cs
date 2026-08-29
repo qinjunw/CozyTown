@@ -1,7 +1,11 @@
 using CozyTown.Runtime.Application;
 using CozyTown.Runtime.Farming;
 using CozyTown.Unity.Farm;
+using CozyTown.Unity.Bed;
+using CozyTown.Unity.Coop;
 using CozyTown.Unity.Hud;
+using CozyTown.Unity.Kitchen;
+using CozyTown.Unity.Pond;
 using CozyTown.Unity.Save;
 using CozyTown.Unity.Shop;
 using NUnit.Framework;
@@ -187,6 +191,81 @@ namespace CozyTown.Tests.UnityEditMode
         }
 
         [Test]
+        public void SecondaryProductionViews_RouteOnlyAvailableActionsThroughButtons()
+        {
+            EnsureItemIcon();
+            var catalog = _root.AddComponent<CozyTownUiIconCatalog>();
+            catalog.Configure(
+                new[] { "feed.chicken", "animal_product.egg", "fish.carp", "food.baked_potato" },
+                new[] { _itemIcon, _itemIcon, _itemIcon, _itemIcon },
+                System.Array.Empty<string>(),
+                System.Array.Empty<Sprite>());
+
+            var bedPanel = CreateUiObject("Bed Panel");
+            var bedFeedback = CreateUiObject("Bed Feedback").AddComponent<Text>();
+            var bedClose = CreateUiObject("Bed Close").AddComponent<Button>();
+            var sleepButton = CreateUiObject("Sleep Button").AddComponent<Button>();
+            var bed = _root.AddComponent<CozyTownBedDebugView>();
+            bed.ConfigureUi(bedPanel, bedFeedback, bedClose, sleepButton);
+            var sleepCalls = 0;
+            bed.SleepRequested += () => sleepCalls++;
+            bed.Show(string.Empty);
+            sleepButton.onClick.Invoke();
+            Assert.That(sleepCalls, Is.EqualTo(1));
+
+            var coopRow = CreateListRow("Coop Row", buttonCount: 2, out var coopButtons);
+            var coopPanel = CreateUiObject("Coop Panel");
+            var coopFeedback = CreateUiObject("Coop Feedback").AddComponent<Text>();
+            var coopClose = CreateUiObject("Coop Close").AddComponent<Button>();
+            var coop = _root.AddComponent<CozyTownCoopDebugView>();
+            coop.ConfigureUi(coopPanel, coopFeedback, new[] { coopRow }, coopClose, catalog);
+            var fedId = string.Empty;
+            var collectedId = string.Empty;
+            coop.FeedRequested += id => fedId = id;
+            coop.CollectRequested += id => collectedId = id;
+            coop.Show(CreateLivestockState(feed: 0, fed: false, ready: false), string.Empty);
+            Assert.That(coopButtons[0].interactable, Is.False);
+            Assert.That(coopButtons[1].interactable, Is.False);
+            coop.Show(CreateLivestockState(feed: 1, fed: false, ready: false), string.Empty);
+            coopButtons[0].onClick.Invoke();
+            Assert.That(fedId, Is.EqualTo("animal.hen_01"));
+            coop.Show(CreateLivestockState(feed: 0, fed: true, ready: true), string.Empty);
+            coopButtons[1].onClick.Invoke();
+            Assert.That(collectedId, Is.EqualTo("animal.hen_01"));
+
+            var pondRow = CreateListRow("Pond Row", buttonCount: 0, out _);
+            var pondPanel = CreateUiObject("Pond Panel");
+            var pondFeedback = CreateUiObject("Pond Feedback").AddComponent<Text>();
+            var pondClose = CreateUiObject("Pond Close").AddComponent<Button>();
+            var castButton = CreateUiObject("Cast Button").AddComponent<Button>();
+            var pond = _root.AddComponent<CozyTownPondDebugView>();
+            pond.ConfigureUi(pondPanel, pondFeedback, new[] { pondRow }, pondClose, castButton, catalog);
+            var castCalls = 0;
+            pond.CatchRequested += () => castCalls++;
+            pond.Show(
+                new FishingViewState(
+                    new[] { new FishingEntryView("fish_definition.carp", "fish.carp", "Carp", 0, 10, 2) }),
+                string.Empty);
+            castButton.onClick.Invoke();
+            Assert.That(pondRow.Label.text, Is.EqualTo("Carp  Owned: 2"));
+            Assert.That(castCalls, Is.EqualTo(1));
+
+            var kitchenRow = CreateListRow("Kitchen Row", buttonCount: 1, out var kitchenButtons);
+            var kitchenPanel = CreateUiObject("Kitchen Panel");
+            var kitchenFeedback = CreateUiObject("Kitchen Feedback").AddComponent<Text>();
+            var kitchenClose = CreateUiObject("Kitchen Close").AddComponent<Button>();
+            var kitchen = _root.AddComponent<CozyTownKitchenDebugView>();
+            kitchen.ConfigureUi(kitchenPanel, kitchenFeedback, new[] { kitchenRow }, kitchenClose, catalog);
+            var cookedId = string.Empty;
+            kitchen.CookRequested += id => cookedId = id;
+            kitchen.Show(CreateCookingState(hasIngredients: false), string.Empty);
+            Assert.That(kitchenButtons[0].interactable, Is.False);
+            kitchen.Show(CreateCookingState(hasIngredients: true), string.Empty);
+            kitchenButtons[0].onClick.Invoke();
+            Assert.That(cookedId, Is.EqualTo("recipe.baked_potato"));
+        }
+
+        [Test]
         public void HudAndSaveViews_DriveConfiguredTextButtonsAndVisibility()
         {
             var hudPanel = CreateUiObject("HUD Panel");
@@ -250,6 +329,61 @@ namespace CozyTown.Tests.UnityEditMode
                 _iconTexture,
                 new Rect(0f, 0f, 1f, 1f),
                 new Vector2(0.5f, 0.5f));
+        }
+
+        private CozyTownUiListRow CreateListRow(
+            string name,
+            int buttonCount,
+            out Button[] buttons)
+        {
+            var rowObject = CreateUiObject(name);
+            var row = rowObject.AddComponent<CozyTownUiListRow>();
+            var label = CreateUiObject(name + " Label").AddComponent<Text>();
+            var icon = CreateUiObject(name + " Icon").AddComponent<Image>();
+            buttons = new Button[buttonCount];
+            var labels = new Text[buttonCount];
+            for (var index = 0; index < buttonCount; index++)
+            {
+                buttons[index] = CreateUiObject($"{name} Button {index}").AddComponent<Button>();
+                labels[index] = CreateUiObject($"{name} Button Label {index}").AddComponent<Text>();
+            }
+
+            row.Configure(label, icon, buttons, labels);
+            return row;
+        }
+
+        private static LivestockViewState CreateLivestockState(int feed, bool fed, bool ready)
+        {
+            return new LivestockViewState(
+                new[]
+                {
+                    new AnimalView(
+                        "animal.hen_01",
+                        "species.chicken",
+                        "feed.chicken",
+                        "Chicken Feed",
+                        feed,
+                        "animal_product.egg",
+                        "Egg",
+                        1,
+                        fed,
+                        ready)
+                });
+        }
+
+        private static CookingViewState CreateCookingState(bool hasIngredients)
+        {
+            return new CookingViewState(
+                new[]
+                {
+                    new RecipeView(
+                        "recipe.baked_potato",
+                        "food.baked_potato",
+                        "Baked Potato",
+                        1,
+                        hasIngredients,
+                        System.Array.Empty<RecipeIngredientView>())
+                });
         }
 
         private static FarmViewState CreateFarmState(
