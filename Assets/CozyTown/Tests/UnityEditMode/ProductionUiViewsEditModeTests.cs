@@ -1,10 +1,12 @@
 using CozyTown.Runtime.Application;
 using CozyTown.Runtime.Farming;
+using CozyTown.Runtime.Npc;
 using CozyTown.Unity.Farm;
 using CozyTown.Unity.Bed;
 using CozyTown.Unity.Coop;
 using CozyTown.Unity.Hud;
 using CozyTown.Unity.Kitchen;
+using CozyTown.Unity.Npc;
 using CozyTown.Unity.Pond;
 using CozyTown.Unity.Save;
 using CozyTown.Unity.Shop;
@@ -263,6 +265,80 @@ namespace CozyTown.Tests.UnityEditMode
             kitchen.Show(CreateCookingState(hasIngredients: true), string.Empty);
             kitchenButtons[0].onClick.Invoke();
             Assert.That(cookedId, Is.EqualTo("recipe.baked_potato"));
+        }
+
+        [Test]
+        public void NpcProductionView_ShowsFallbackPortraitSelectionAndRoutesRealButtons()
+        {
+            EnsureItemIcon();
+            var catalog = _root.AddComponent<CozyTownUiIconCatalog>();
+            catalog.Configure(
+                System.Array.Empty<string>(),
+                System.Array.Empty<Sprite>(),
+                new[] { "npc.shopkeeper_mina", "npc.farmer_eli" },
+                new[] { _itemIcon, _itemIcon });
+            var firstRow = CreateListRow("Mina Row", buttonCount: 1, out var firstButtons);
+            var secondRow = CreateListRow("Eli Row", buttonCount: 1, out var secondButtons);
+            var panel = CreateUiObject("NPC Panel");
+            var feedback = CreateUiObject("NPC Feedback").AddComponent<Text>();
+            var selection = CreateUiObject("NPC Selection").AddComponent<Image>();
+            var portrait = CreateUiObject("NPC Portrait").AddComponent<Image>();
+            var dialogue = CreateUiObject("NPC Dialogue").AddComponent<Text>();
+            var metadata = CreateUiObject("NPC Metadata").AddComponent<Text>();
+            var talkAgain = CreateUiObject("Talk Again").AddComponent<Button>();
+            var close = CreateUiObject("NPC Close").AddComponent<Button>();
+            var view = _root.AddComponent<CozyTownNpcDebugView>();
+            view.ConfigureUi(
+                panel,
+                feedback,
+                new[] { firstRow, secondRow },
+                selection,
+                portrait,
+                dialogue,
+                metadata,
+                talkAgain,
+                close,
+                catalog);
+
+            var options = new[]
+            {
+                new NpcDialogueOption("npc.shopkeeper_mina", "Mina"),
+                new NpcDialogueOption("npc.farmer_eli", "Eli")
+            };
+            view.ShowLoading(options, "npc.farmer_eli");
+            Assert.That(panel.activeSelf, Is.True);
+            Assert.That(feedback.text, Is.EqualTo("Generating dialogue..."));
+            Assert.That(talkAgain.interactable, Is.False);
+            Assert.That(firstButtons[0].interactable, Is.False);
+            Assert.That(secondButtons[0].interactable, Is.False);
+
+            view.Show(new NpcDialogueViewState(
+                "npc.farmer_eli",
+                "Eli",
+                "The east field needs water.",
+                "calm",
+                "point",
+                true,
+                "request-1",
+                NpcDialogueFallbackReason.ProviderFailure), options);
+
+            Assert.That(portrait.sprite, Is.SameAs(_itemIcon));
+            Assert.That(dialogue.text, Does.Contain("The east field needs water."));
+            Assert.That(metadata.text, Does.Contain("calm"));
+            Assert.That(selection.enabled, Is.True);
+            Assert.That(selection.transform.parent, Is.SameAs(secondRow.transform));
+            Assert.That(talkAgain.interactable, Is.True);
+            Assert.That(firstButtons[0].interactable, Is.True);
+
+            var selectedNpc = string.Empty;
+            var talkCalls = 0;
+            view.NpcRequested += id => selectedNpc = id;
+            view.TalkRequested += () => talkCalls++;
+            firstButtons[0].onClick.Invoke();
+            talkAgain.onClick.Invoke();
+
+            Assert.That(selectedNpc, Is.EqualTo("npc.shopkeeper_mina"));
+            Assert.That(talkCalls, Is.EqualTo(1));
         }
 
         [Test]

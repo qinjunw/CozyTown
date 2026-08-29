@@ -6,6 +6,7 @@ using CozyTown.Unity.Coop;
 using CozyTown.Unity.Farm;
 using CozyTown.Unity.Hud;
 using CozyTown.Unity.Kitchen;
+using CozyTown.Unity.Npc;
 using CozyTown.Unity.Pond;
 using CozyTown.Unity.Save;
 using CozyTown.Unity.Shop;
@@ -57,6 +58,7 @@ namespace CozyTown.Unity.Editor
                 ConfigureShopViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
                 ConfigureFarmViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
                 ConfigureSecondaryProductionViewBindings(hud, canvasTransform, uiSprites, iconCatalog);
+                ConfigureNpcProductionViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
                 ConfigureEventSystem(scene);
 
                 EditorSceneManager.MarkSceneDirty(scene);
@@ -363,6 +365,54 @@ namespace CozyTown.Unity.Editor
                 RequireChild(kitchenPanel, "Feedback Text").GetComponent<Text>(),
                 kitchenRows,
                 RequireChild(kitchenPanel, "Close Button").GetComponent<Button>(),
+                iconCatalog);
+        }
+
+        private static void ConfigureNpcProductionViewBinding(
+            GameObject hud,
+            RectTransform canvas,
+            UiSprites sprites,
+            CozyTownUiIconCatalog iconCatalog)
+        {
+            var panel = RequireChild(canvas, "NPC Panel");
+            var content = RequireChild(panel, "Content");
+            var rowsRoot = GetOrCreateRect(content, "NPC Rows");
+            ConfigureTopLeft(rowsRoot, Vector2.zero, new Vector2(108f, 104f));
+            var rows = new CozyTownUiListRow[4];
+            for (var index = 0; index < rows.Length; index++)
+            {
+                var rowRect = GetOrCreateRect(rowsRoot, $"Row {index + 1:00}");
+                ConfigureTopLeft(rowRect, new Vector2(0f, -index * 26f), new Vector2(108f, 24f));
+                var row = GetOrAdd<CozyTownUiListRow>(rowRect.gameObject);
+                var icon = CreateIcon(rowRect, "Portrait", null, new Vector2(14f, -4f), new Vector2(16f, 16f));
+                var label = CreateText(rowRect, "NPC Name", string.Empty, new Vector2(32f, -2f), new Vector2(44f, 20f), 8);
+                var select = CreateButton(rowRect, "Talk Button", "Talk", null, new Vector2(78f, -2f), new Vector2(30f, 20f), sprites);
+                row.Configure(
+                    label,
+                    icon,
+                    new[] { select },
+                    new[] { RequireChild(select.transform, "Label").GetComponent<Text>() });
+                rows[index] = row;
+            }
+
+            var selection = RequireChild(content, "Selection Marker").GetComponent<Image>();
+            selection.rectTransform.sizeDelta = new Vector2(12f, 12f);
+            var portrait = CreateIcon(content, "Current Portrait", null, new Vector2(116f, 0f), new Vector2(48f, 48f));
+            var dialogue = CreateText(content, "Dialogue Text", string.Empty, new Vector2(168f, 0f), new Vector2(104f, 48f), 8);
+            var metadata = CreateText(content, "Metadata Text", string.Empty, new Vector2(116f, -52f), new Vector2(156f, 30f), 8);
+            var talkAgain = CreateButton(content, "Talk Again Button", "Talk again", null, new Vector2(116f, -86f), new Vector2(156f, 20f), sprites);
+            var view = hud.GetComponent<CozyTownNpcDebugView>()
+                ?? throw new InvalidOperationException("Debug HUD is missing CozyTownNpcDebugView.");
+            view.ConfigureUi(
+                panel.gameObject,
+                RequireChild(panel, "Feedback Text").GetComponent<Text>(),
+                rows,
+                selection,
+                portrait,
+                dialogue,
+                metadata,
+                talkAgain,
+                RequireChild(panel, "Close Button").GetComponent<Button>(),
                 iconCatalog);
         }
 
