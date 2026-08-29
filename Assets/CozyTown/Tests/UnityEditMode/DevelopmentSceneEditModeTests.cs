@@ -16,9 +16,12 @@ using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 namespace CozyTown.Tests.UnityEditMode
 {
@@ -165,6 +168,93 @@ namespace CozyTown.Tests.UnityEditMode
 
                 var camera = RequireRoot(scene, "Main Camera");
                 Assert.That(camera.GetComponent<Camera>()?.orthographic, Is.True);
+            }
+            finally
+            {
+                EditorSceneManager.CloseScene(scene, true);
+                if (previousScene.IsValid() && previousScene.isLoaded)
+                {
+                    SceneManager.SetActiveScene(previousScene);
+                }
+            }
+        }
+
+        [Test]
+        public void DevelopmentScene_UsesProductionCanvasAndCompleteUiSkin()
+        {
+            var previousScene = SceneManager.GetActiveScene();
+            var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
+
+            try
+            {
+                var hud = RequireRoot(scene, "Debug HUD");
+                var canvas = hud.GetComponentInChildren<Canvas>(true);
+                Assert.That(canvas, Is.Not.Null);
+                Assert.That(canvas.renderMode, Is.EqualTo(RenderMode.ScreenSpaceOverlay));
+                Assert.That(canvas.pixelPerfect, Is.True);
+
+                var scaler = canvas.GetComponent<CanvasScaler>();
+                Assert.That(scaler, Is.Not.Null);
+                Assert.That(scaler.uiScaleMode, Is.EqualTo(CanvasScaler.ScaleMode.ScaleWithScreenSize));
+                Assert.That(scaler.referenceResolution, Is.EqualTo(new Vector2(320f, 180f)));
+                Assert.That(canvas.GetComponent<GraphicRaycaster>(), Is.Not.Null);
+
+                var eventSystem = RequireRoot(scene, "EventSystem");
+                Assert.That(eventSystem.GetComponent<EventSystem>(), Is.Not.Null);
+                Assert.That(eventSystem.GetComponent<InputSystemUIInputModule>(), Is.Not.Null);
+
+                var uiSpriteNames = new System.Collections.Generic.HashSet<string>();
+                foreach (var image in canvas.GetComponentsInChildren<Image>(true))
+                {
+                    if (image.sprite != null
+                        && AssetDatabase.GetAssetPath(image.sprite)
+                            == ProductionRoot + "UI/ui_mvp_16.png")
+                    {
+                        uiSpriteNames.Add(image.sprite.name);
+                    }
+
+                    if (image.sprite != null && image.sprite.name == "ui_panel")
+                    {
+                        Assert.That(image.type, Is.EqualTo(Image.Type.Sliced));
+                    }
+                }
+
+                foreach (var button in canvas.GetComponentsInChildren<Button>(true))
+                {
+                    Assert.That(button.transition, Is.EqualTo(Selectable.Transition.SpriteSwap));
+                    Assert.That(button.targetGraphic, Is.TypeOf<Image>());
+                    var targetImage = (Image)button.targetGraphic;
+                    Assert.That(targetImage.sprite?.name, Is.EqualTo("ui_button_normal"));
+                    Assert.That(targetImage.type, Is.EqualTo(Image.Type.Sliced));
+
+                    var spriteState = button.spriteState;
+                    Assert.That(spriteState.highlightedSprite?.name, Is.EqualTo("ui_button_hover"));
+                    Assert.That(spriteState.pressedSprite?.name, Is.EqualTo("ui_button_pressed"));
+                    Assert.That(spriteState.disabledSprite?.name, Is.EqualTo("ui_button_disabled"));
+                    uiSpriteNames.Add(targetImage.sprite.name);
+                    uiSpriteNames.Add(spriteState.highlightedSprite.name);
+                    uiSpriteNames.Add(spriteState.pressedSprite.name);
+                    uiSpriteNames.Add(spriteState.disabledSprite.name);
+                }
+
+                Assert.That(
+                    uiSpriteNames,
+                    Is.EquivalentTo(new[]
+                    {
+                        "ui_panel",
+                        "ui_button_normal",
+                        "ui_button_hover",
+                        "ui_button_pressed",
+                        "ui_button_disabled",
+                        "ui_icon_coin",
+                        "ui_icon_clock",
+                        "ui_icon_save",
+                        "ui_icon_load",
+                        "ui_icon_close",
+                        "ui_marker_selection",
+                        "ui_marker_interact"
+                    }));
+                Assert.That(canvas.GetComponentsInChildren<Text>(true), Is.Not.Empty);
             }
             finally
             {
