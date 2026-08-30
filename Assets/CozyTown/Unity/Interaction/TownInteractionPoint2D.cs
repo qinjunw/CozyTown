@@ -7,10 +7,13 @@ namespace CozyTown.Unity.Interaction
     {
         [SerializeField] private TownInteractionKind kind;
         [SerializeField] private string promptText = "Interact";
+        [SerializeField] private Transform promptAnchor;
 
         public TownInteractionKind Kind => kind;
 
         public string PromptText => promptText ?? string.Empty;
+
+        public Transform PromptAnchor => promptAnchor != null ? promptAnchor : transform;
 
         public int InteractionCount { get; private set; }
 
@@ -25,6 +28,11 @@ namespace CozyTown.Unity.Interaction
 
             kind = interactionKind;
             promptText = prompt ?? string.Empty;
+        }
+
+        public void ConfigurePromptAnchor(Transform anchor)
+        {
+            promptAnchor = anchor;
         }
 
         public bool CanInteract(InteractionContext context)

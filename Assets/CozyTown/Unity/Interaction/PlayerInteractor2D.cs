@@ -14,7 +14,11 @@ namespace CozyTown.Unity.Interaction
 
         public string CurrentPrompt { get; private set; } = string.Empty;
 
+        public Transform CurrentPromptAnchor { get; private set; }
+
         public string LastInteractionFeedback { get; private set; } = string.Empty;
+
+        public event Action<Transform> CurrentPromptAnchorChanged;
 
         public void Configure(
             IPlayerInputSource inputSource,
@@ -79,15 +83,27 @@ namespace CozyTown.Unity.Interaction
             }
 
             _currentTarget = target;
-            CurrentPrompt = target is IInteractionPromptSource promptSource
-                ? promptSource.PromptText ?? string.Empty
-                : string.Empty;
+            var promptSource = target as IInteractionPromptSource;
+            CurrentPrompt = promptSource?.PromptText ?? string.Empty;
+            SetCurrentPromptAnchor(promptSource?.PromptAnchor);
         }
 
         private void ClearCurrentTarget()
         {
             _currentTarget = null;
             CurrentPrompt = string.Empty;
+            SetCurrentPromptAnchor(null);
+        }
+
+        private void SetCurrentPromptAnchor(Transform anchor)
+        {
+            if (ReferenceEquals(CurrentPromptAnchor, anchor))
+            {
+                return;
+            }
+
+            CurrentPromptAnchor = anchor;
+            CurrentPromptAnchorChanged?.Invoke(anchor);
         }
 
         private static string BuildFeedback(IInteractable target)
