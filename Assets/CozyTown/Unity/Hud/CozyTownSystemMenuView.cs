@@ -20,6 +20,7 @@ namespace CozyTown.Unity.Hud
         public event Action SettingsRequested;
         public event Action BackRequested;
         public event Action QuitRequested;
+        public event Action Deactivated;
 
         public bool IsVisible { get; private set; }
         public bool IsSettingsVisible { get; private set; }
@@ -90,10 +91,14 @@ namespace CozyTown.Unity.Hud
         private void OnDisable()
         {
             RemoveButtonListeners();
+            IsVisible = false;
+            IsSettingsVisible = false;
             if (panel != null)
             {
                 panel.SetActive(false);
             }
+
+            Deactivated?.Invoke();
         }
 
         private void RequestGear() => GearRequested?.Invoke();

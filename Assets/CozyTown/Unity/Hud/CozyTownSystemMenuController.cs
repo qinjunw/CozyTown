@@ -56,6 +56,7 @@ namespace CozyTown.Unity.Hud
             view.SettingsRequested += ShowSettings;
             view.BackRequested += ShowMain;
             view.QuitRequested += Quit;
+            view.Deactivated += Close;
             inputGate.AcquisitionRevoked += HandleGateRevoked;
             _subscribed = true;
         }
@@ -71,6 +72,7 @@ namespace CozyTown.Unity.Hud
             view.SettingsRequested -= ShowSettings;
             view.BackRequested -= ShowMain;
             view.QuitRequested -= Quit;
+            view.Deactivated -= Close;
             inputGate.AcquisitionRevoked -= HandleGateRevoked;
             _subscribed = false;
         }

@@ -49,6 +49,27 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(controller.IsOpen, Is.False);
         }
 
+        [UnityTest]
+        public IEnumerator Controller_WhenViewIsDisabled_ReleasesGateAndRestoresControls()
+        {
+            var fixture = CreateViewFixture();
+            var gate = CreatePlayerGate();
+            var movement = _player.GetComponent<PlayerMovement2D>();
+            var interactor = _player.GetComponent<PlayerInteractor2D>();
+            var controller = _uiRoot.AddComponent<CozyTownSystemMenuController>();
+            controller.Configure(gate, fixture.View);
+            fixture.GearButton.onClick.Invoke();
+            Assert.That(gate.IsAcquired, Is.True);
+
+            fixture.View.enabled = false;
+            yield return null;
+
+            Assert.That(gate.IsAcquired, Is.False);
+            Assert.That(controller.IsOpen, Is.False);
+            Assert.That(movement.enabled, Is.True);
+            Assert.That(interactor.enabled, Is.True);
+        }
+
         private SystemMenuFixture CreateViewFixture()
         {
             _uiRoot = new GameObject("System Menu PlayMode Fixture");

@@ -144,7 +144,7 @@ namespace CozyTown.Unity.Editor
                 string.Empty,
                 sprites.Settings,
                 Vector2.zero,
-                new Vector2(18f, 18f),
+                new Vector2(16f, 16f),
                 sprites);
             var gearRect = (RectTransform)gearButton.transform;
             gearRect.anchorMin = Vector2.one;

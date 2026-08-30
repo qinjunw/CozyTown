@@ -255,6 +255,7 @@ namespace CozyTown.Tests.UnityEditMode
                 Assert.That(
                     gearButton.transform.Find("Icon")?.GetComponent<Image>()?.sprite?.name,
                     Is.EqualTo("ui_icon_settings"));
+                Assert.That(gearButton.image.rectTransform.sizeDelta, Is.EqualTo(new Vector2(16f, 16f)));
                 Assert.That(gearButton.image.rectTransform.anchorMin, Is.EqualTo(Vector2.one));
 
                 var hotbar = uiRoot.Find("Hotbar Panel");
