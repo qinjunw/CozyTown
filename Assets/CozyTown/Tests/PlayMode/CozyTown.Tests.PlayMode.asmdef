@@ -3,7 +3,9 @@
   "rootNamespace": "CozyTown.Tests.PlayMode",
   "references": [
     "CozyTown.Unity",
-    "CozyTown.Runtime"
+    "CozyTown.Runtime",
+    "Unity.InputSystem",
+    "Unity.InputSystem.TestFramework"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],
