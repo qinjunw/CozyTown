@@ -105,3 +105,9 @@ Unity.exe -batchmode -nographics -quit `
 输出位于 `Assets/CozyTown/Art/Production/`，预览位于 `ArtSource/Previews/A1/`。Production 清单测试从 11 个文件缺失的 RED 开始；独立审查再以道路连接、UI border 和玩家脚底基线 `3/3` RED 收紧契约。最终验证 11 个 PNG、98 个 Sprite、32 色、二值 Alpha、固定导入参数、道路连接、脚底基线、九宫格 border、切片、Pivot 和 4× 最近邻预览。全量结果为 EditMode `158/158`、PlayMode `26/26` 通过。
 
 本资源生成批次没有使用 Pixelorama 或其他外部像素编辑器，源稿不得直接被场景引用。后续 Scene-01a/01b 已消费 Production 资源完成世界与运行时状态接线，Scene-01c 已接入 Production UGUI；细节润色和最终人工画面验收仍待完成，进度以 `ART_ACCEPTANCE.md` 为准。
+
+## 7. UI 纯净木框视觉参考
+
+2026-08-30 使用内置图像生成器生成 `ArtSource/Generated/A1/ui_clean_wood_panel_reference.png`。该图只作为面板材质和色彩关系参考，不作为 Production Sprite、场景布局或新增功能清单。Production 实现由 A1 确定性编译器生成，像素契约记录在 `ART_ACCEPTANCE.md` 第 13.2 节。
+
+> Use case: ui-mockup. Asset type: CozyTown Unity 2D farming-life-sim pixel-art UI visual reference board. Design one clean cohesive direction for the existing HUD, save/load panel, interaction strip, and Fishing Pond modal. Use a flat near-black charcoal interior (`#1F1B24`) with a straight minimal farm-wood frame using warm browns (`#5B2E1A`, `#8A3B12`, `#C98256`). Use crisp true pixel art, uniform square corners and high-contrast cream text. Avoid green or beige corner patches, checkerboard or mosaic patterns, ornaments, leaves, flowers, rope, nails, gradients, blur, noisy wood grain, perspective distortion, red annotations, logos and watermarks.
