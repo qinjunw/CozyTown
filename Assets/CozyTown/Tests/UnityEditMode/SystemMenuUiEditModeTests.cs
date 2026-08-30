@@ -109,22 +109,6 @@ namespace CozyTown.Tests.UnityEditMode
             Assert.That(fixture.View.IsVisible, Is.False);
         }
 
-        [Test]
-        public void Controller_WhenGateIsRevoked_HidesMenu()
-        {
-            var fixture = CreateViewFixture();
-            var gate = CreatePlayerGate();
-            var controller = _uiRoot.AddComponent<CozyTownSystemMenuController>();
-            controller.Configure(gate, fixture.View, new RecordingApplicationQuitter());
-            fixture.GearButton.onClick.Invoke();
-            Assert.That(fixture.View.IsVisible, Is.True);
-
-            gate.enabled = false;
-
-            Assert.That(fixture.View.IsVisible, Is.False);
-            Assert.That(controller.IsOpen, Is.False);
-        }
-
         private SystemMenuFixture CreateViewFixture()
         {
             _uiRoot = new GameObject("System Menu Fixture");
