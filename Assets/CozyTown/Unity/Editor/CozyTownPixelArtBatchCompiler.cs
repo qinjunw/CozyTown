@@ -55,7 +55,8 @@ namespace CozyTown.Unity.Editor
             IReadOnlyList<int> sourceCellIndices = null,
             IReadOnlyList<Vector4> spriteBorders = null,
             IReadOnlyList<PixelArtRoadConnection> roadConnections = null,
-            IReadOnlyList<Color32[]> insetBandColors = null)
+            IReadOnlyList<Color32[]> insetBandColors = null,
+            IReadOnlyList<string> authoredCellSourcePaths = null)
         {
             if (string.IsNullOrWhiteSpace(sourceRelativePath))
             {
@@ -190,6 +191,18 @@ namespace CozyTown.Unity.Editor
                     nameof(insetBandColors));
             }
 
+            string[] resolvedAuthoredCellSourcePaths = authoredCellSourcePaths == null
+                ? new string[cellCount]
+                : authoredCellSourcePaths
+                    .Select(path => string.IsNullOrWhiteSpace(path) ? null : path)
+                    .ToArray();
+            if (resolvedAuthoredCellSourcePaths.Length != cellCount)
+            {
+                throw new ArgumentException(
+                    "Authored cell source paths must contain one path or null per cell.",
+                    nameof(authoredCellSourcePaths));
+            }
+
             SourceRelativePath = sourceRelativePath;
             OutputAssetPath = outputAssetPath;
             PreviewRelativePath = previewRelativePath;
@@ -212,6 +225,7 @@ namespace CozyTown.Unity.Editor
             SpriteBorders = resolvedSpriteBorders;
             RoadConnections = resolvedRoadConnections;
             InsetBandColors = resolvedInsetBandColors;
+            AuthoredCellSourcePaths = resolvedAuthoredCellSourcePaths;
         }
 
         public string SourceRelativePath { get; }
@@ -236,6 +250,7 @@ namespace CozyTown.Unity.Editor
         public IReadOnlyList<Vector4> SpriteBorders { get; }
         public IReadOnlyList<PixelArtRoadConnection> RoadConnections { get; }
         public IReadOnlyList<Color32[]> InsetBandColors { get; }
+        public IReadOnlyList<string> AuthoredCellSourcePaths { get; }
         public int OutputWidth => Columns * FrameWidth;
         public int OutputHeight => Rows * FrameHeight;
         public SpriteImportMode ImportMode => SpriteNames.Count == 1
@@ -276,6 +291,8 @@ namespace CozyTown.Unity.Editor
 
     public static class CozyTownPixelArtBatchCompiler
     {
+        private const string AuthoredPaletteCodes = "0123456789ABCDEFGHIJKLMNOPQRSTUV";
+
         public static void BuildAll(IReadOnlyList<PixelArtBatchDefinition> definitions)
         {
             if (definitions == null || definitions.Count == 0)
@@ -309,6 +326,22 @@ namespace CozyTown.Unity.Editor
                         $"Pixel-art batch source is missing for '{definition.OutputAssetPath}'.",
                         sourcePath);
                 }
+
+                foreach (string authoredCellSourcePath in definition.AuthoredCellSourcePaths)
+                {
+                    if (string.IsNullOrWhiteSpace(authoredCellSourcePath))
+                    {
+                        continue;
+                    }
+
+                    string authoredPath = Path.Combine(projectRoot, authoredCellSourcePath);
+                    if (!File.Exists(authoredPath))
+                    {
+                        throw new FileNotFoundException(
+                            $"Authored cell source is missing for '{definition.OutputAssetPath}'.",
+                            authoredPath);
+                    }
+                }
             }
 
             foreach (PixelArtBatchDefinition definition in definitions)
@@ -321,15 +354,10 @@ namespace CozyTown.Unity.Editor
         {
             string sourcePath = Path.Combine(projectRoot, definition.SourceRelativePath);
             string outputPath = Path.Combine(projectRoot, definition.OutputAssetPath);
-            var source = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            Texture2D source = LoadSourceTexture(sourcePath, definition.Palette);
             try
             {
-                if (!ImageConversion.LoadImage(source, File.ReadAllBytes(sourcePath), false))
-                {
-                    throw new InvalidDataException($"Could not decode source PNG: {sourcePath}");
-                }
-
-                Color32[] outputPixels = CompileSheet(source, definition);
+                Color32[] outputPixels = CompileSheet(source, definition, projectRoot);
                 WritePng(
                     outputPath,
                     definition.OutputWidth,
@@ -361,6 +389,76 @@ namespace CozyTown.Unity.Editor
             Debug.Log($"Built pixel-art batch asset: {definition.OutputAssetPath}");
         }
 
+        private static Texture2D LoadSourceTexture(
+            string sourcePath,
+            IReadOnlyList<Color32> palette)
+        {
+            if (string.Equals(Path.GetExtension(sourcePath), ".pixels", StringComparison.OrdinalIgnoreCase))
+            {
+                return LoadAuthoredPixelSource(sourcePath, palette);
+            }
+
+            var source = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            if (ImageConversion.LoadImage(source, File.ReadAllBytes(sourcePath), false))
+            {
+                return source;
+            }
+
+            UnityEngine.Object.DestroyImmediate(source);
+            throw new InvalidDataException($"Could not decode source PNG: {sourcePath}");
+        }
+
+        private static Texture2D LoadAuthoredPixelSource(
+            string sourcePath,
+            IReadOnlyList<Color32> palette)
+        {
+            string[] rowsFromTop = File.ReadLines(sourcePath)
+                .Select(line => line.Trim())
+                .Where(line => line.Length > 0 && !line.StartsWith("#", StringComparison.Ordinal))
+                .ToArray();
+            if (rowsFromTop.Length == 0)
+            {
+                throw new InvalidDataException($"Authored pixel source has no rows: {sourcePath}");
+            }
+
+            int width = rowsFromTop[0].Length;
+            if (width == 0 || rowsFromTop.Any(row => row.Length != width))
+            {
+                throw new InvalidDataException(
+                    $"Authored pixel source rows must have one consistent positive width: {sourcePath}");
+            }
+
+            int height = rowsFromTop.Length;
+            var pixels = new Color32[width * height];
+            for (var rowFromTop = 0; rowFromTop < height; rowFromTop++)
+            {
+                int destinationY = height - 1 - rowFromTop;
+                for (var x = 0; x < width; x++)
+                {
+                    char code = rowsFromTop[rowFromTop][x];
+                    if (code == '.')
+                    {
+                        pixels[destinationY * width + x] = new Color32(0, 0, 0, 0);
+                        continue;
+                    }
+
+                    int paletteIndex = AuthoredPaletteCodes.IndexOf(code);
+                    if (paletteIndex < 0 || paletteIndex >= palette.Count)
+                    {
+                        throw new InvalidDataException(
+                            $"Authored pixel source uses invalid palette code '{code}': {sourcePath}");
+                    }
+
+                    pixels[destinationY * width + x] = palette[paletteIndex];
+                }
+            }
+
+            var source = new Texture2D(width, height, TextureFormat.RGBA32, false);
+            source.SetPixels32(pixels);
+            source.Apply(false, false);
+            return source;
+        }
+
         private static string ResolvePreviewRelativePath(PixelArtBatchDefinition definition)
         {
             if (!string.IsNullOrWhiteSpace(definition.PreviewRelativePath))
@@ -380,7 +478,8 @@ namespace CozyTown.Unity.Editor
 
         private static Color32[] CompileSheet(
             Texture2D source,
-            PixelArtBatchDefinition definition)
+            PixelArtBatchDefinition definition,
+            string projectRoot)
         {
             Color32[] sourcePixels = source.GetPixels32();
             var output = new Color32[definition.OutputWidth * definition.OutputHeight];
@@ -389,32 +488,43 @@ namespace CozyTown.Unity.Editor
                  outputIndex < definition.SourceCellIndices.Count;
                  outputIndex++)
             {
-                int sourceIndex = definition.SourceCellIndices[outputIndex];
-                int sourceRowFromTop = sourceIndex / definition.Columns;
-                int sourceColumn = sourceIndex % definition.Columns;
                 int outputRowFromTop = outputIndex / definition.Columns;
                 int outputColumn = outputIndex % definition.Columns;
-                RectInt sourceCell = GetSourceCell(
-                    source.width,
-                    source.height,
-                    definition.Columns,
-                    definition.Rows,
-                    sourceColumn,
-                    sourceRowFromTop);
-                Color32[] cellPixels = ExtractCell(
-                    sourcePixels,
-                    source.width,
-                    sourceCell);
-                ApplyBackgroundMode(
-                    cellPixels,
-                    sourceCell.width,
-                    sourceCell.height,
-                    definition);
-                Color32[] compiledCell = CompileCell(
-                    cellPixels,
-                    sourceCell.width,
-                    sourceCell.height,
-                    definition);
+                string authoredCellSourcePath = definition.AuthoredCellSourcePaths[outputIndex];
+                Color32[] compiledCell;
+                if (!string.IsNullOrWhiteSpace(authoredCellSourcePath))
+                {
+                    compiledCell = LoadAuthoredCell(
+                        Path.Combine(projectRoot, authoredCellSourcePath),
+                        definition);
+                }
+                else
+                {
+                    int sourceIndex = definition.SourceCellIndices[outputIndex];
+                    int sourceRowFromTop = sourceIndex / definition.Columns;
+                    int sourceColumn = sourceIndex % definition.Columns;
+                    RectInt sourceCell = GetSourceCell(
+                        source.width,
+                        source.height,
+                        definition.Columns,
+                        definition.Rows,
+                        sourceColumn,
+                        sourceRowFromTop);
+                    Color32[] cellPixels = ExtractCell(
+                        sourcePixels,
+                        source.width,
+                        sourceCell);
+                    ApplyBackgroundMode(
+                        cellPixels,
+                        sourceCell.width,
+                        sourceCell.height,
+                        definition);
+                    compiledCell = CompileCell(
+                        cellPixels,
+                        sourceCell.width,
+                        sourceCell.height,
+                        definition);
+                }
                 if (definition.RoadConnections != null)
                 {
                     RebuildRoadConnections(
@@ -446,6 +556,44 @@ namespace CozyTown.Unity.Editor
             }
 
             return output;
+        }
+
+        private static Color32[] LoadAuthoredCell(
+            string sourcePath,
+            PixelArtBatchDefinition definition)
+        {
+            Texture2D source = LoadSourceTexture(sourcePath, definition.Palette);
+            try
+            {
+                if (source.width != definition.FrameWidth || source.height != definition.FrameHeight)
+                {
+                    throw new InvalidDataException(
+                        $"Authored cell source must be {definition.FrameWidth}x{definition.FrameHeight}: "
+                        + sourcePath);
+                }
+
+                Color32[] pixels = source.GetPixels32();
+                foreach (Color32 pixel in pixels)
+                {
+                    if (pixel.a != 0 && pixel.a != 255)
+                    {
+                        throw new InvalidDataException(
+                            $"Authored cell source contains partial alpha: {sourcePath}");
+                    }
+
+                    if (pixel.a == 255 && !definition.Palette.Contains(pixel))
+                    {
+                        throw new InvalidDataException(
+                            $"Authored cell source contains an off-palette color: {sourcePath}");
+                    }
+                }
+
+                return pixels;
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(source);
+            }
         }
 
         private static void RebuildRoadConnections(

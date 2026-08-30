@@ -224,7 +224,29 @@ namespace CozyTown.Unity.Editor
                     null,
                     null,
                     null
+                },
+                authoredCellSourcePaths: new[]
+                {
+                    null, null, null, null,
+                    null, null, null, null,
+                    null, null, null,
+                    "ArtSource/Authored/A1/ui_marker_interact.pixels"
                 });
+
+        public static readonly PixelArtBatchDefinition A1SettingsIcon =
+            new PixelArtBatchDefinition(
+                "ArtSource/Authored/A1/ui_icon_settings.pixels",
+                "Assets/CozyTown/Art/Production/UI/ui_icon_settings.png",
+                "ArtSource/Previews/A1/ui_icon_settings_4x.png",
+                1,
+                1,
+                16,
+                16,
+                0,
+                PixelArtPivotKind.Center,
+                PixelArtBackgroundMode.Alpha,
+                CozyTownPixelArtPalettes.WarmRural32,
+                new[] { "ui_icon_settings" });
 
         public static IReadOnlyList<PixelArtBatchDefinition> CurrentA1Batch { get; } =
             new[]
@@ -239,7 +261,8 @@ namespace CozyTown.Unity.Editor
                 A1MinaWorld,
                 A1NpcPortraits,
                 A1Items,
-                A1Ui
+                A1Ui,
+                A1SettingsIcon
             };
 
         private static PixelArtBatchDefinition A1(

@@ -14,6 +14,8 @@ namespace CozyTown.Tests.UnityEditMode
             "Assets/CozyTown/Art/Production/Environment/Tiles/tile_town_base_16.png";
         private const string UiPath =
             "Assets/CozyTown/Art/Production/UI/ui_mvp_16.png";
+        private const string SettingsIconPath =
+            "Assets/CozyTown/Art/Production/UI/ui_icon_settings.png";
         private const string PlayerPath =
             "Assets/CozyTown/Art/Production/Characters/chr_player_move_16x24.png";
 
@@ -103,7 +105,11 @@ namespace CozyTown.Tests.UnityEditMode
                 4, 3, 16, 16, PivotKind.Center, true,
                 "ui_panel", "ui_button_normal", "ui_button_hover", "ui_button_pressed",
                 "ui_button_disabled", "ui_icon_coin", "ui_icon_clock", "ui_icon_save",
-                "ui_icon_load", "ui_icon_close", "ui_marker_selection", "ui_marker_interact")
+                "ui_icon_load", "ui_icon_close", "ui_marker_selection", "ui_marker_interact"),
+            Single(
+                SettingsIconPath,
+                16, 16, PivotKind.Center, true,
+                "ui_icon_settings")
         };
 
         [Test]
@@ -224,6 +230,60 @@ namespace CozyTown.Tests.UnityEditMode
             {
                 UnityEngine.Object.DestroyImmediate(texture);
             }
+        }
+
+        [Test]
+        public void SettingsIcon_UsesApprovedSixteenPixelGearSilhouette()
+        {
+            AssertSpriteMatchesPattern(
+                SettingsIconPath,
+                "ui_icon_settings",
+                new[]
+                {
+                    "......1111......",
+                    "......1SS1......",
+                    "..11.1SSSS1.11..",
+                    "..1S11SSSS11S1..",
+                    "...1SSSSSSSS1...",
+                    "111SSS1111SSS111",
+                    "1SSSS110011SSSS1",
+                    "1SSSS100001SSSS1",
+                    "1SSSS100001SSSS1",
+                    "1SSSS110011SSSS1",
+                    "111SSS1111SSS111",
+                    "...1SSSSSSSS1...",
+                    "..1S11SSSS11S1..",
+                    "..11.1SSSS1.11..",
+                    "......1SS1......",
+                    "......1111......"
+                });
+        }
+
+        [Test]
+        public void InteractMarker_UsesApprovedCleanTailedBubble()
+        {
+            AssertSpriteMatchesPattern(
+                UiPath,
+                "ui_marker_interact",
+                new[]
+                {
+                    "...1111111111...",
+                    ".11SSSSSSSSSS11.",
+                    "1SS0000000000SS1",
+                    "1S000000000000S1",
+                    "1S000000000000S1",
+                    "1S000000000000S1",
+                    "1S000000000000S1",
+                    "1S000000000000S1",
+                    "1S000000000000S1",
+                    "1S000000000000S1",
+                    "1SS0000000000SS1",
+                    ".11SSSSSSSSSS11.",
+                    "...1111111111...",
+                    ".........11.....",
+                    "........11......",
+                    ".......11......."
+                });
         }
 
         [Test]
@@ -491,6 +551,72 @@ namespace CozyTown.Tests.UnityEditMode
             int localY)
         {
             return pixels[(origin.y + localY) * textureWidth + origin.x + localX];
+        }
+
+        private static void AssertSpriteMatchesPattern(
+            string assetPath,
+            string spriteName,
+            IReadOnlyList<string> rowsFromTop)
+        {
+            Assert.That(File.Exists(assetPath), Is.True, $"Missing Production PNG: {assetPath}");
+            Sprite sprite = AssetDatabase.LoadAllAssetsAtPath(assetPath)
+                .OfType<Sprite>()
+                .Single(candidate => candidate.name == spriteName);
+            Assert.That(sprite.rect.size, Is.EqualTo(new Vector2(16f, 16f)));
+            Assert.That(rowsFromTop.Count, Is.EqualTo(16));
+
+            var texture = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            try
+            {
+                Assert.That(
+                    ImageConversion.LoadImage(texture, File.ReadAllBytes(assetPath), false),
+                    Is.True,
+                    $"Could not decode Production PNG: {assetPath}");
+                Color32[] pixels = texture.GetPixels32();
+                int spriteX = Mathf.RoundToInt(sprite.rect.xMin);
+                int spriteY = Mathf.RoundToInt(sprite.rect.yMin);
+                var failures = new List<string>();
+                for (var rowFromTop = 0; rowFromTop < rowsFromTop.Count; rowFromTop++)
+                {
+                    string row = rowsFromTop[rowFromTop];
+                    Assert.That(row.Length, Is.EqualTo(16), $"Pattern row {rowFromTop} must be 16 pixels.");
+                    int localY = 15 - rowFromTop;
+                    for (var localX = 0; localX < row.Length; localX++)
+                    {
+                        Color32 expected = DecodeUiPatternColor(row[localX]);
+                        Color32 actual = pixels[
+                            (spriteY + localY) * texture.width + spriteX + localX];
+                        if (!actual.Equals(expected))
+                        {
+                            failures.Add(
+                                $"({localX},{localY}) expected #{ColorUtility.ToHtmlStringRGBA(expected)} "
+                                + $"but was #{ColorUtility.ToHtmlStringRGBA(actual)}");
+                        }
+                    }
+                }
+
+                Assert.That(
+                    failures,
+                    Is.Empty,
+                    $"Sprite '{spriteName}' does not match its approved pixel contract:\n"
+                    + string.Join("\n", failures));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(texture);
+            }
+        }
+
+        private static Color32 DecodeUiPatternColor(char code)
+        {
+            return code switch
+            {
+                '.' => new Color32(0, 0, 0, 0),
+                '0' => Rgb(0x1F, 0x1B, 0x24),
+                '1' => Rgb(0x3B, 0x1F, 0x1B),
+                'S' => Rgb(0xC9, 0x82, 0x56),
+                _ => throw new ArgumentOutOfRangeException(nameof(code), code, "Unknown UI pattern color.")
+            };
         }
 
         private static bool IsGrass(Color32 color)

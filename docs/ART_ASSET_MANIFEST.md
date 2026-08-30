@@ -4,7 +4,7 @@
 
 本清单是 `Assets/CozyTown/Art/Production/` 的生产资源契约。资源只覆盖当前 MVP 已有画面：一张小镇地图、商店、NPC、床、农田、鸡舍、池塘和厨房 7 个交互点，3 种作物、3 种鱼、1 只鸡、5 个料理、18 个物品和 4 名 NPC。
 
-本轮交付采用批次级技术与可读性验收。11 个 PNG 源文件可以作为一个批次生成，但只有在文件、切片、导入策略和小尺寸可读性全部通过后，才能接入正式场景。A0 参考图只提供构图、轮廓和色彩关系；不得缩放、裁切或改名后直接作为 Production 资源。
+本轮交付采用批次级技术与可读性验收。12 个 Production PNG 可以作为一个批次生成，但只有在文件、切片、导入策略和小尺寸可读性全部通过后，才能接入正式场景。A0 参考图只提供构图、轮廓和色彩关系；不得缩放、裁切或改名后直接作为 Production 资源。
 
 本清单不包含室内地图、野外、季节、天气、工具动作全集、NPC 行走日程、新的交互点、更多内容物或宣传插画。
 
@@ -43,6 +43,7 @@ height = frameHeight
 | 9 | `Assets/CozyTown/Art/Production/Characters/npc_portraits_48.png` | `192×48` | Multiple | `4×1` | `48×48` | 4 | Center | 硬透明 |
 | 10 | `Assets/CozyTown/Art/Production/Items/item_mvp_16.png` | `96×48` | Multiple | `6×3` | `16×16` | 18 | Center | 硬透明 |
 | 11 | `Assets/CozyTown/Art/Production/UI/ui_mvp_16.png` | `64×48` | Multiple | `4×3` | `16×16` | 12 | Center | 硬透明 |
+| 12 | `Assets/CozyTown/Art/Production/UI/ui_icon_settings.png` | `16×16` | Single | `1×1` | `16×16` | 1 | Center | 硬透明 |
 
 ## 4. Sprite 切片清单
 
@@ -239,18 +240,28 @@ height = frameHeight
 | r2c0 | `ui_icon_load` | 单槽读取 |
 | r2c1 | `ui_icon_close` | 关闭模态面板 |
 | r2c2 | `ui_marker_selection` | 当前列表或 NPC 选择 |
-| r2c3 | `ui_marker_interact` | 靠近既有功能点时的交互提示 |
+| r2c3 | `ui_marker_interact` | 当前交互目标上方的带尾气泡；字母 `E` 由 Unity `Text` 叠加 |
 
 12 个 UI Sprite 使用 `16×16` 和 Center Pivot。`ui_panel` 与 4 个按钮状态使用 `(3,3,3,3)` 九宫格 border，其余 Sprite border 为 `0`；最终文字继续由 Unity 字体渲染，不烘焙进图片。
+
+### 4.12 系统菜单图标
+
+文件：`UI/ui_icon_settings.png`
+
+| Sprite 名 | 对应玩法对象 |
+| --- | --- |
+| `ui_icon_settings` | 右上系统菜单齿轮按钮 |
+
+该 Single Sprite 使用 `16×16` 和 Center Pivot，Sprite border 为 `0`。轮廓只使用固定 32 色板与硬透明 Alpha。
 
 ## 5. 批次验收
 
 ### 5.1 自动化可验证项
 
-1. 11 个固定路径全部存在，PNG 画布尺寸与总表一致。
+1. 12 个固定路径全部存在，PNG 画布尺寸与总表一致。
 2. Unity 导入后的 Sprite Mode、PPU、Filter、Compression、Mip Map、Wrap、sRGB 和 Alpha 设置符合第 2 节。
 3. Multiple 文件按约定行列得到准确切片数；Single 文件只产生一个主 Sprite。
-4. 98 个 Sprite 名与本清单逐项一致，没有额外、缺失或重复名称。
+4. 99 个 Sprite 名与本清单逐项一致，没有额外、缺失或重复名称。
 5. 每个 Sprite Rect 由第 2 节公式和对应 Cell 唯一确定；Pivot 与源文件总表一致。
 6. 16 个道路 Tile 的 N/E/S/W 边缘连接与稳定名称一致，声明连接使用统一宽度和边缘签名，未声明方向没有道路出口。
 7. 所有 BottomCenter Sprite 的最底不透明像素落在本地 `y=0`；UI 前 5 个九宫格 Sprite 使用 `3 px` border。
@@ -272,7 +283,7 @@ height = frameHeight
 
 | 项目 | 数量 |
 | --- | ---: |
-| Production PNG 源文件 | 11 |
+| Production PNG | 12 |
 | Environment Tile | 20 |
 | 边界与装饰 Sprite | 8 |
 | 建筑 Sprite | 4 |
@@ -283,5 +294,5 @@ height = frameHeight
 | 世界 NPC Sprite | 1 |
 | NPC 头像 Sprite | 4 |
 | 物品图标 Sprite | 18 |
-| UI Sprite | 12 |
-| **Sprite 总数** | **98** |
+| UI Sprite | 13 |
+| **Sprite 总数** | **99** |
