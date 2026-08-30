@@ -113,3 +113,7 @@ Unity.exe -batchmode -nographics -quit `
 > Use case: ui-mockup. Asset type: CozyTown Unity 2D farming-life-sim pixel-art UI visual reference board. Design one clean cohesive direction for the existing HUD, save/load panel, interaction strip, and Fishing Pond modal. Use a flat near-black charcoal interior (`#1F1B24`) with a straight minimal farm-wood frame using warm browns (`#5B2E1A`, `#8A3B12`, `#C98256`). Use crisp true pixel art, uniform square corners and high-contrast cream text. Avoid green or beige corner patches, checkerboard or mosaic patterns, ornaments, leaves, flowers, rope, nails, gradients, blur, noisy wood grain, perspective distortion, red annotations, logos and watermarks.
 
 A1 编译定义将参考图收敛为 `16×16 px` 的 `ui_panel`：三层木框依次使用 `#3B1F1B`、`#8A3B12`、`#C98256`，中心使用 `#1F1B24`。参考图中的附加控件和图标未进入 Production；正式图集只改变首个面板单元。
+
+## 8. Scene-01d UI 增量资源
+
+2026-08-30 为 Scene-01d 增加声明式 `16×16 px` 齿轮源稿与独立 Production 文件 `ui_icon_settings.png`，并把 `ui_marker_interact` 的目标单元收敛为带尾部的按键气泡。当前批次总计 12 个 Production PNG、99 个命名 Sprite 和 12 个 4× 最近邻预览；两次构建的 24 个 Production 与预览输出哈希一致。相对前一批次，现有 UI 图集中只允许交互标记目标单元变化，其他单元像素变化为 0。

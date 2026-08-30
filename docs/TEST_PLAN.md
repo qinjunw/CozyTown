@@ -2,11 +2,11 @@
 
 ## 1. 文档状态与范围
 
-- 适用版本：可玩 MVP；M4 已完成；A1 独立美术阶段正在进行。
+- 适用版本：可玩 MVP；M4 已完成；A1 自动接线已完成，等待人工 Scene-01 验收。
 - Unity 版本：`6000.5.5f1`。
 - 测试框架：`manifest.json` 请求 Unity Test Framework `1.4.5`，Unity `6000.5.5f1` 实际解析内置 `1.7.0`。
-- 当前状态：两个 EditMode 测试程序集包含 169 个用例，PlayMode 测试程序集包含 27 个用例；2026-08-30 将 Production UI 面板重建为近黑纯底与三层暖棕木框后，全量批处理结果分别为 169 passed 与 27 passed，均为 0 failed、0 skipped。
-- 当前边界：M4 已自动化 schema v1 JSON 单槽存档、五模块保存恢复与回滚、AI 代理编解码与故障回退、状态越权隔离和 Presenter 生命周期。A1 已完成 Production 资源门禁、Scene-01a 世界表现、Scene-01b 运行时状态表现和 Scene-01c Production UGUI 接线；自动化已停在人工场景验收前。真实 AI 驱动 NPC、30 条评测、延迟与成本统计、Windows 构建和录屏在 Scene-01 验收后进入 M5。
+- 当前状态：两个 EditMode 测试程序集包含 179 个用例，PlayMode 测试程序集包含 31 个用例；2026-08-30 完成 Scene-01d 后，全量批处理结果为 EditMode `179/179`、PlayMode `31/31` 通过，均为 0 failed、0 skipped。
+- 当前边界：M4 已自动化 schema v1 JSON 单槽存档、五模块保存恢复与回滚、AI 代理编解码与故障回退、状态越权隔离和 Presenter 生命周期。A1 已完成 Production 资源门禁及 Scene-01a 至 Scene-01d；自动化已停在人工场景验收前。真实 AI 驱动 NPC、30 条评测、延迟与成本统计、Windows 构建和录屏在 Scene-01 验收后进入 M5。
 
 本计划覆盖时间、背包、经济、商店、种植、畜牧、钓鱼、烹饪、NPC 对话、AI 对话边界和存档系统。框架阶段验证模块职责、公开契约、状态转换与跨模块闭环，不验证美术质量、数值平衡、复杂 NPC 日程、季节、天气、战斗或野外地图。
 
@@ -353,7 +353,7 @@ EditMode 与 PlayMode 全量通过、场景无丢失引用或运行时异常、�
 
 同日的第三次人工检查发现 `ui_panel` 四角保留绿色、米色和深棕拼块，九宫格放大后在 HUD 与模态面板重复形成花色。新增视觉参考固定近黑纯底与直线木框方向，资产契约测试先逐像素复现原面板偏差，再由 A1 批次定义生成三层暖棕内缩色带和纯色中心。目标测试为 1 passed，Production 资源清单为 5 passed；全量结果为 EditMode 169 passed、PlayMode 27 passed，均为 0 failed、0 skipped。两次 A1 Build 的 22 个输出哈希一致；仅首个 UI 单元及其 4× 预览对应区域变化，其他 Production、预览、Meta 和场景均未变化。三档实际画面仍需人工复查。
 
-### 10.9 Scene-01d 常驻 UI 重构计划
+### 10.9 Scene-01d 常驻 UI 重构
 
 Scene-01d 采用四个独立 RED→GREEN 垂直切片：常驻壳、交互气泡、包裹与快捷栏、系统菜单。该切片只重组正式 UI、增加只读投影和输入路由，不修改背包写规则、存档 schema、交互点数量、玩法结果或 AI 边界。
 
@@ -364,6 +364,8 @@ Scene-01d 采用四个独立 RED→GREEN 垂直切片：常驻壳、交互气泡
 - 包裹、系统菜单和既有业务模态通过 `PlayerModalInputGate2D` 验证两两互斥、关闭恢复、撤销恢复与组件停用恢复。
 - `ui_icon_settings` 与气泡化的 `ui_marker_interact` 继续满足 16 PPU、Point、无压缩、二值 Alpha、32 色成员和 4× 最近邻预览；现有图集只允许目标格发生像素变化。
 - 最终重新运行完整 EditMode、PlayMode、Production 清单、场景幂等和经济闭环。自动化结果不替代三档分辨率下的人工可读性与遮挡检查。
+
+2026-08-30 使用 Unity `6000.5.5f1` 完成 Scene-01d 自动化。组件测试覆盖只读投影、槽位渲染、系统菜单按钮与模态门生命周期；场景 PlayMode 使用虚拟 Keyboard 经过正式 `PlayerInput`、`InputSystemPlayerInputSource` 和 `CozyTownInventoryPresenter` 验证数字 `5` 选中第五格以及 `B` 打开、关闭包裹。场景级 EditMode `5/5`、PlayMode `2/2` 通过；全量结果为 EditMode `179/179`、PlayMode `31/31`，均为 0 failed、0 skipped。场景升级器连续两次运行后的 SHA-256 均为 `6A3420F637BA43A8A0F30EB8411C9008107DA737EE031E1379A595112AD4287F`。自动化不替代三档实际画面的人工检查。
 
 ## 11. 人工验证步骤
 
