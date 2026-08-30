@@ -8,6 +8,7 @@ using CozyTown.Unity.Bed;
 using CozyTown.Unity.Coop;
 using CozyTown.Unity.Farm;
 using CozyTown.Unity.Hud;
+using CozyTown.Unity.Inventory;
 using CozyTown.Unity.Kitchen;
 using CozyTown.Unity.Npc;
 using CozyTown.Unity.Pond;
@@ -46,6 +47,9 @@ namespace CozyTown.Unity.Core
         [SerializeField]
         private CozyTownSaveDebugPresenter[] _savePresenters =
             Array.Empty<CozyTownSaveDebugPresenter>();
+        [SerializeField]
+        private CozyTownInventoryPresenter[] _inventoryPresenters =
+            Array.Empty<CozyTownInventoryPresenter>();
         [SerializeField]
         [Tooltip("Optional HTTP(S) proxy endpoint. Leave empty to use fixed NPC dialogue.")]
         private string _aiProxyEndpoint = string.Empty;
@@ -180,6 +184,15 @@ namespace CozyTown.Unity.Core
             if (IsInitialized)
             {
                 presenter.Bind(_services.GameSave);
+            }
+        }
+
+        public void RegisterInventoryPresenter(CozyTownInventoryPresenter presenter)
+        {
+            Register(ref _inventoryPresenters, presenter);
+            if (IsInitialized)
+            {
+                presenter.Bind(_services.InventoryProjection);
             }
         }
 
@@ -341,6 +354,13 @@ namespace CozyTown.Unity.Core
                 if (presenter != null)
                 {
                     presenter.Bind(_services.GameSave);
+                }
+            }
+            foreach (var presenter in _inventoryPresenters)
+            {
+                if (presenter != null)
+                {
+                    presenter.Bind(_services.InventoryProjection);
                 }
             }
         }

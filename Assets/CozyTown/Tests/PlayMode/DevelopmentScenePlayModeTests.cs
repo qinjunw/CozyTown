@@ -8,6 +8,7 @@ using CozyTown.Unity.Core;
 using CozyTown.Unity.Hud;
 using CozyTown.Unity.Input;
 using CozyTown.Unity.Interaction;
+using CozyTown.Unity.Inventory;
 using CozyTown.Unity.Player;
 using CozyTown.Unity.Shop;
 using CozyTown.Unity.Farm;
@@ -111,6 +112,10 @@ namespace CozyTown.Tests.PlayMode
             var kitchenView = hud.GetComponent<CozyTownKitchenDebugView>();
             var npcView = hud.GetComponent<CozyTownNpcDebugView>();
             var saveView = hud.GetComponent<CozyTownSaveDebugView>();
+            var systemMenuView = hud.GetComponent<CozyTownSystemMenuView>();
+            var inventoryPresenter = hud.GetComponent<CozyTownInventoryPresenter>();
+            var backpackView = hud.GetComponent<CozyTownBackpackView>();
+            var hotbarView = hud.GetComponent<CozyTownHotbarView>();
             Assert.That(shopView, Is.Not.Null);
             Assert.That(shopPresenter, Is.Not.Null);
             Assert.That(farmView, Is.Not.Null);
@@ -120,9 +125,18 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(kitchenView, Is.Not.Null);
             Assert.That(npcView, Is.Not.Null);
             Assert.That(saveView, Is.Not.Null);
+            Assert.That(systemMenuView, Is.Not.Null);
+            Assert.That(inventoryPresenter, Is.Not.Null);
+            Assert.That(backpackView, Is.Not.Null);
+            Assert.That(hotbarView, Is.Not.Null);
             Assert.That(saveView.IsVisible, Is.True);
             pondPresenter.SetRollSource(new FixedFishingRollSource(0));
 
+            var gearButton = RequireActiveButtonByIcon(hud, "ui_icon_settings");
+            gearButton.onClick.Invoke();
+            Assert.That(systemMenuView.IsVisible, Is.True);
+            Assert.That(movement.enabled, Is.False);
+            Assert.That(interactor.enabled, Is.False);
             var saveButton = RequireActiveButtonByIcon(hud, "ui_icon_save");
             var loadButton = RequireActiveButtonByIcon(hud, "ui_icon_load");
             Assert.That(loadButton.interactable, Is.False);
@@ -131,6 +145,10 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(loadButton.interactable, Is.True);
             loadButton.onClick.Invoke();
             Assert.That(saveView.Feedback, Is.EqualTo("Game loaded."));
+            gearButton.onClick.Invoke();
+            Assert.That(systemMenuView.IsVisible, Is.False);
+            Assert.That(movement.enabled, Is.True);
+            Assert.That(interactor.enabled, Is.True);
 
             var farmPoint = points.Single(point => point.Kind == TownInteractionKind.Farm);
             var plot01Soil = farmPoint.transform.Find("Farm States/Plot 01/Soil")
@@ -299,7 +317,8 @@ namespace CozyTown.Tests.PlayMode
             }
 
             Assert.That(hud.GetComponent<CozyTownHudPresenter>()?.enabled, Is.True);
-            Assert.That(hud.GetComponent<CozyTownInteractionDebugView>()?.enabled, Is.True);
+            Assert.That(hud.GetComponent<CozyTownInteractionDebugView>(), Is.Null);
+            Assert.That(hud.GetComponent<CozyTownInteractionBubbleView>()?.enabled, Is.True);
         }
 
         [UnityTest]

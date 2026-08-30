@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using CozyTown.Unity.Core;
 using CozyTown.Unity.Hud;
 using CozyTown.Unity.Input;
@@ -237,6 +238,50 @@ namespace CozyTown.Tests.UnityEditMode
                 Assert.That(scaler.referenceResolution, Is.EqualTo(new Vector2(320f, 180f)));
                 Assert.That(canvas.GetComponent<GraphicRaycaster>(), Is.Not.Null);
 
+                var uiRoot = canvas.transform;
+                Assert.That(uiRoot.Find("Interaction Panel"), Is.Null);
+                Assert.That(uiRoot.Find("Save Panel"), Is.Null);
+
+                var hudPanel = uiRoot.Find("HUD Panel") as RectTransform;
+                Assert.That(hudPanel, Is.Not.Null);
+                Assert.That(hudPanel.anchorMin, Is.EqualTo(new Vector2(0f, 1f)));
+                Assert.That(hudPanel.sizeDelta.x, Is.LessThanOrEqualTo(96f));
+                Assert.That(hudPanel.sizeDelta.y, Is.LessThanOrEqualTo(36f));
+
+                var gearButton = uiRoot.Find("Gear Button")?.GetComponent<Button>();
+                Assert.That(gearButton, Is.Not.Null);
+                Assert.That(gearButton.image.sprite?.name, Is.EqualTo("ui_icon_settings"));
+                Assert.That(gearButton.image.rectTransform.anchorMin, Is.EqualTo(Vector2.one));
+
+                var hotbar = uiRoot.Find("Hotbar Panel");
+                Assert.That(hotbar, Is.Not.Null);
+                Assert.That(hotbar.GetComponentsInChildren<CozyTownInventorySlotView>(true), Has.Length.EqualTo(5));
+                Assert.That(
+                    hotbar.GetComponentsInChildren<Text>(true)
+                        .Count(text => new[] { "1", "2", "3", "4", "5" }.Contains(text.text)),
+                    Is.EqualTo(5));
+
+                var backpack = uiRoot.Find("Backpack Panel");
+                Assert.That(backpack, Is.Not.Null);
+                Assert.That(backpack.gameObject.activeSelf, Is.False);
+                Assert.That(backpack.GetComponentsInChildren<CozyTownInventorySlotView>(true), Has.Length.EqualTo(24));
+
+                var systemMenu = uiRoot.Find("System Menu Panel");
+                Assert.That(systemMenu, Is.Not.Null);
+                Assert.That(systemMenu.gameObject.activeSelf, Is.False);
+                var systemLabels = systemMenu.GetComponentsInChildren<Text>(true)
+                    .Select(text => text.text)
+                    .ToArray();
+                Assert.That(systemLabels, Does.Contain("保存游戏"));
+                Assert.That(systemLabels, Does.Contain("加载存档"));
+                Assert.That(systemLabels, Does.Contain("设置"));
+                Assert.That(systemLabels, Does.Contain("离开游戏"));
+
+                var interactionBubble = uiRoot.Find("Interaction Bubble");
+                Assert.That(interactionBubble, Is.Not.Null);
+                Assert.That(hud.GetComponent<CozyTownInteractionBubbleView>(), Is.Not.Null);
+                Assert.That(interactionBubble.gameObject.activeSelf, Is.False);
+
                 var catalog = canvas.GetComponent<CozyTownUiIconCatalog>();
                 Assert.That(catalog, Is.Not.Null);
                 Assert.That(catalog.ItemSprites, Has.Count.EqualTo(18));
@@ -267,8 +312,9 @@ namespace CozyTown.Tests.UnityEditMode
                     }
 
                     if (image.sprite != null
-                        && AssetDatabase.GetAssetPath(image.sprite)
-                            == ProductionRoot + "UI/ui_mvp_16.png")
+                        && AssetDatabase.GetAssetPath(image.sprite).StartsWith(
+                            ProductionRoot + "UI/",
+                            StringComparison.Ordinal))
                     {
                         uiSpriteNames.Add(image.sprite.name);
                     }
@@ -312,7 +358,8 @@ namespace CozyTown.Tests.UnityEditMode
                         "ui_icon_load",
                         "ui_icon_close",
                         "ui_marker_selection",
-                        "ui_marker_interact"
+                        "ui_marker_interact",
+                        "ui_icon_settings"
                     }));
                 Assert.That(canvas.GetComponentsInChildren<Text>(true), Is.Not.Empty);
             }
@@ -337,11 +384,24 @@ namespace CozyTown.Tests.UnityEditMode
                 var hud = RequireRoot(scene, "Debug HUD");
                 var canvas = hud.GetComponentInChildren<Canvas>(true);
                 Assert.That(canvas, Is.Not.Null);
-                var panelRects = Array.FindAll(
-                    canvas.GetComponentsInChildren<Image>(true),
-                    image => image.sprite != null
-                        && image.sprite.name == "ui_panel");
-                Assert.That(panelRects, Has.Length.EqualTo(10));
+                var panelNames = new[]
+                {
+                    "HUD Panel",
+                    "Hotbar Panel",
+                    "Backpack Panel",
+                    "System Menu Panel",
+                    "Shop Panel",
+                    "Farm Panel",
+                    "Bed Panel",
+                    "Coop Panel",
+                    "Pond Panel",
+                    "Kitchen Panel",
+                    "NPC Panel"
+                };
+                var panelRects = panelNames
+                    .Select(name => canvas.transform.Find(name)?.GetComponent<Image>())
+                    .ToArray();
+                Assert.That(panelRects, Has.All.Not.Null);
 
                 var reference = new Vector2(320f, 180f);
                 var targetResolutions = new[]
@@ -352,6 +412,7 @@ namespace CozyTown.Tests.UnityEditMode
                 };
                 foreach (var panelImage in panelRects)
                 {
+                    Assert.That(panelImage.sprite?.name, Is.EqualTo("ui_panel"), panelImage.name);
                     var rect = panelImage.rectTransform;
                     Assert.That(rect.anchorMin, Is.EqualTo(rect.anchorMax));
                     var pivotPoint = Vector2.Scale(rect.anchorMin, reference) + rect.anchoredPosition;

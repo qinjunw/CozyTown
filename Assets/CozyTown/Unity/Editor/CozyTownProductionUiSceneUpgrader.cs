@@ -3,13 +3,18 @@ using System.IO;
 using CozyTown.Runtime.Content;
 using CozyTown.Unity.Bed;
 using CozyTown.Unity.Coop;
+using CozyTown.Unity.Core;
 using CozyTown.Unity.Farm;
 using CozyTown.Unity.Hud;
+using CozyTown.Unity.Input;
+using CozyTown.Unity.Interaction;
+using CozyTown.Unity.Inventory;
 using CozyTown.Unity.Kitchen;
 using CozyTown.Unity.Npc;
 using CozyTown.Unity.Pond;
 using CozyTown.Unity.Save;
 using CozyTown.Unity.Shop;
+using CozyTown.Unity.Player;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -25,6 +30,7 @@ namespace CozyTown.Unity.Editor
     {
         private const string ScenePath = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
         private const string UiPath = "Assets/CozyTown/Art/Production/UI/ui_mvp_16.png";
+        private const string SettingsIconPath = "Assets/CozyTown/Art/Production/UI/ui_icon_settings.png";
         private const string ItemPath = "Assets/CozyTown/Art/Production/Items/item_mvp_16.png";
         private const string PortraitPath = "Assets/CozyTown/Art/Production/Characters/npc_portraits_48.png";
         private const string InputActionsPath = "Assets/Settings/InputSystem_Actions.inputactions";
@@ -50,11 +56,11 @@ namespace CozyTown.Unity.Editor
                 var hud = RequireRoot(scene, "Debug HUD");
                 var canvasTransform = ConfigureCanvas(hud.transform);
                 ConfigureHud(canvasTransform, uiSprites);
-                ConfigureSavePanel(canvasTransform, uiSprites);
-                ConfigureInteractionPanel(canvasTransform, uiSprites);
+                ConfigurePersistentUiShells(canvasTransform, uiSprites);
                 ConfigureModalShells(canvasTransform, uiSprites);
+                ConfigureInteractionPromptAnchors(scene);
                 var iconCatalog = ConfigureIconCatalog(canvasTransform);
-                ConfigurePersistentViewBindings(hud, canvasTransform);
+                ConfigurePersistentViewBindings(scene, hud, canvasTransform, iconCatalog);
                 ConfigureShopViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
                 ConfigureFarmViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
                 ConfigureSecondaryProductionViewBindings(hud, canvasTransform, uiSprites, iconCatalog);
@@ -120,49 +126,160 @@ namespace CozyTown.Unity.Editor
                 sprites.Panel,
                 new Vector2(0f, 1f),
                 new Vector2(4f, -4f),
-                new Vector2(108f, 42f));
-            CreateIcon(panel, "Clock Icon", sprites.Clock, new Vector2(4f, -4f));
-            CreateText(panel, "Clock Text", "Day 1  06:00", new Vector2(23f, -4f), new Vector2(80f, 16f));
-            CreateIcon(panel, "Coin Icon", sprites.Coin, new Vector2(4f, -22f));
-            CreateText(panel, "Coin Text", "Coins: 300", new Vector2(23f, -22f), new Vector2(80f, 16f));
+                new Vector2(94f, 34f));
+            CreateIcon(panel, "Clock Icon", sprites.Clock, new Vector2(4f, -3f), new Vector2(14f, 14f));
+            CreateText(panel, "Clock Text", "Day 1  06:00", new Vector2(21f, -3f), new Vector2(69f, 14f));
+            CreateIcon(panel, "Coin Icon", sprites.Coin, new Vector2(4f, -18f), new Vector2(14f, 14f));
+            CreateText(panel, "Coin Text", "Coins: 300", new Vector2(21f, -18f), new Vector2(69f, 14f));
         }
 
-        private static void ConfigureSavePanel(RectTransform canvas, UiSprites sprites)
+        private static void ConfigurePersistentUiShells(RectTransform canvas, UiSprites sprites)
         {
-            var panel = CreatePanel(
-                canvas,
-                "Save Panel",
-                sprites.Panel,
-                new Vector2(1f, 1f),
-                new Vector2(-4f, -4f),
-                new Vector2(92f, 62f));
-            CreateText(panel, "Feedback Text", string.Empty, new Vector2(4f, -4f), new Vector2(84f, 14f), 8);
-            CreateButton(panel, "Save Button", "Save", sprites.Save, new Vector2(4f, -20f), new Vector2(84f, 18f), sprites);
-            CreateButton(panel, "Load Button", "Load", sprites.LoadIcon, new Vector2(4f, -40f), new Vector2(84f, 18f), sprites);
-        }
+            RemoveManagedNode(canvas, "Save Panel");
+            RemoveManagedNode(canvas, "Interaction Panel");
 
-        private static void ConfigureInteractionPanel(RectTransform canvas, UiSprites sprites)
-        {
-            var panel = CreatePanel(
+            var gearButton = CreateButton(
                 canvas,
-                "Interaction Panel",
-                sprites.Panel,
-                new Vector2(0f, 0f),
-                new Vector2(4f, 4f),
-                new Vector2(220f, 34f));
-            CreateIcon(panel, "Interact Icon", sprites.Interact, new Vector2(4f, -4f));
-            CreateText(
-                panel,
-                "Prompt Text",
-                "Move near a town location",
-                new Vector2(23f, -4f),
-                new Vector2(192f, 12f));
-            CreateText(
-                panel,
-                "Feedback Text",
+                "Gear Button",
                 string.Empty,
-                new Vector2(23f, -17f),
-                new Vector2(192f, 12f));
+                sprites.Settings,
+                Vector2.zero,
+                new Vector2(18f, 18f),
+                sprites);
+            var gearRect = (RectTransform)gearButton.transform;
+            gearRect.anchorMin = Vector2.one;
+            gearRect.anchorMax = Vector2.one;
+            gearRect.pivot = Vector2.one;
+            gearRect.anchoredPosition = new Vector2(-4f, -4f);
+
+            var systemPanel = CreatePanel(
+                canvas,
+                "System Menu Panel",
+                sprites.Panel,
+                new Vector2(0.5f, 0.5f),
+                Vector2.zero,
+                new Vector2(128f, 132f));
+
+            var mainPage = GetOrCreateRect(systemPanel, "Main Page");
+            Stretch(mainPage);
+            var title = CreateText(mainPage, "Title Text", "系统设置", new Vector2(8f, -7f), new Vector2(112f, 14f), 10);
+            title.alignment = TextAnchor.MiddleCenter;
+            var saveContent = GetOrCreateRect(mainPage, "Save Content");
+            Stretch(saveContent);
+            var feedback = CreateText(saveContent, "Feedback Text", string.Empty, new Vector2(8f, -22f), new Vector2(112f, 12f), 7);
+            feedback.alignment = TextAnchor.MiddleCenter;
+            CreateButton(saveContent, "Save Button", "保存游戏", sprites.Save, new Vector2(8f, -36f), new Vector2(112f, 18f), sprites);
+            CreateButton(saveContent, "Load Button", "加载存档", sprites.LoadIcon, new Vector2(8f, -58f), new Vector2(112f, 18f), sprites);
+            CreateButton(mainPage, "Settings Button", "设置", sprites.Settings, new Vector2(8f, -80f), new Vector2(112f, 18f), sprites);
+            CreateButton(mainPage, "Quit Button", "离开游戏", null, new Vector2(8f, -102f), new Vector2(112f, 18f), sprites);
+
+            var settingsPage = GetOrCreateRect(systemPanel, "Settings Page");
+            Stretch(settingsPage);
+            var settingsTitle = CreateText(settingsPage, "Title Text", "设置", new Vector2(8f, -8f), new Vector2(112f, 16f), 10);
+            settingsTitle.alignment = TextAnchor.MiddleCenter;
+            var settingsMessage = CreateText(
+                settingsPage,
+                "Message Text",
+                "设置项将在后续范围定义",
+                new Vector2(12f, -38f),
+                new Vector2(104f, 38f),
+                8);
+            settingsMessage.alignment = TextAnchor.MiddleCenter;
+            CreateButton(settingsPage, "Back Button", "返回", null, new Vector2(24f, -96f), new Vector2(80f, 18f), sprites);
+
+            var bubble = GetOrCreateRect(canvas, "Interaction Bubble");
+            bubble.anchorMin = new Vector2(0.5f, 0.5f);
+            bubble.anchorMax = new Vector2(0.5f, 0.5f);
+            bubble.pivot = new Vector2(0.5f, 0.5f);
+            bubble.sizeDelta = new Vector2(16f, 16f);
+            bubble.anchoredPosition = Vector2.zero;
+            var bubbleImage = GetOrAdd<Image>(bubble.gameObject);
+            bubbleImage.sprite = sprites.Interact;
+            bubbleImage.preserveAspect = true;
+            bubbleImage.raycastTarget = false;
+            var keyText = CreateText(bubble, "Key Text", "E", Vector2.zero, new Vector2(16f, 13f), 8);
+            keyText.alignment = TextAnchor.MiddleCenter;
+
+            ConfigureInventoryShells(canvas, sprites);
+
+            systemPanel.gameObject.SetActive(false);
+            bubble.gameObject.SetActive(false);
+        }
+
+        private static void ConfigureInventoryShells(RectTransform canvas, UiSprites sprites)
+        {
+            var hotbar = CreatePanel(
+                canvas,
+                "Hotbar Panel",
+                sprites.Panel,
+                new Vector2(0.5f, 0f),
+                new Vector2(0f, 4f),
+                new Vector2(112f, 24f));
+            for (var index = 0; index < 5; index++)
+            {
+                var slot = CreateInventorySlot(
+                    hotbar,
+                    $"Hotbar Slot {index + 1}",
+                    new Vector2(4f + index * 21f, -2f),
+                    sprites);
+                var keyLabel = CreateText(
+                    (RectTransform)slot.transform,
+                    "Key Label",
+                    (index + 1).ToString(),
+                    new Vector2(1f, -1f),
+                    new Vector2(7f, 7f),
+                    6);
+                keyLabel.alignment = TextAnchor.UpperLeft;
+            }
+
+            var backpack = CreatePanel(
+                canvas,
+                "Backpack Panel",
+                sprites.Panel,
+                new Vector2(0.5f, 0.5f),
+                Vector2.zero,
+                new Vector2(158f, 116f));
+            CreateText(backpack, "Title Text", "包裹  B", new Vector2(8f, -6f), new Vector2(118f, 14f), 10);
+            CreateButton(backpack, "Close Button", string.Empty, sprites.Close, new Vector2(132f, -4f), new Vector2(20f, 18f), sprites);
+            for (var index = 0; index < 24; index++)
+            {
+                var column = index % 6;
+                var row = index / 6;
+                CreateInventorySlot(
+                    backpack,
+                    $"Backpack Slot {index + 1:00}",
+                    new Vector2(14f + column * 22f, -24f - row * 22f),
+                    sprites);
+            }
+
+            backpack.gameObject.SetActive(false);
+        }
+
+        private static CozyTownInventorySlotView CreateInventorySlot(
+            RectTransform parent,
+            string name,
+            Vector2 anchoredPosition,
+            UiSprites sprites)
+        {
+            var rect = GetOrCreateRect(parent, name);
+            ConfigureTopLeft(rect, anchoredPosition, new Vector2(20f, 20f));
+            var background = GetOrAdd<Image>(rect.gameObject);
+            background.sprite = sprites.ButtonNormal;
+            background.type = Image.Type.Sliced;
+            background.raycastTarget = false;
+            var icon = CreateIcon(rect, "Icon", null, new Vector2(2f, -2f), new Vector2(16f, 16f));
+            var quantity = CreateText(rect, "Quantity Text", string.Empty, new Vector2(9f, -10f), new Vector2(9f, 8f), 6);
+            quantity.alignment = TextAnchor.LowerRight;
+            var selection = CreateIcon(
+                rect,
+                "Selection",
+                sprites.Selection,
+                new Vector2(2f, -2f),
+                new Vector2(16f, 16f));
+            selection.gameObject.SetActive(false);
+            var slot = GetOrAdd<CozyTownInventorySlotView>(rect.gameObject);
+            slot.ConfigureUi(icon, quantity, selection.gameObject);
+            return slot;
         }
 
         private static void ConfigureModalShells(RectTransform canvas, UiSprites sprites)
@@ -176,7 +293,11 @@ namespace CozyTown.Unity.Editor
             CreateModal(canvas, "NPC Panel", "Town NPC Dialogue", true, sprites);
         }
 
-        private static void ConfigurePersistentViewBindings(GameObject hud, RectTransform canvas)
+        private static void ConfigurePersistentViewBindings(
+            Scene scene,
+            GameObject hud,
+            RectTransform canvas,
+            CozyTownUiIconCatalog iconCatalog)
         {
             var hudPanel = RequireChild(canvas, "HUD Panel");
             var hudView = hud.GetComponent<CozyTownDebugHudView>()
@@ -186,22 +307,118 @@ namespace CozyTown.Unity.Editor
                 RequireChild(hudPanel, "Clock Text").GetComponent<Text>(),
                 RequireChild(hudPanel, "Coin Text").GetComponent<Text>());
 
-            var savePanel = RequireChild(canvas, "Save Panel");
+            var systemPanel = RequireChild(canvas, "System Menu Panel");
+            var mainPage = RequireChild(systemPanel, "Main Page");
+            var saveContent = RequireChild(mainPage, "Save Content");
             var saveView = hud.GetComponent<CozyTownSaveDebugView>()
                 ?? throw new InvalidOperationException("Debug HUD is missing CozyTownSaveDebugView.");
             saveView.ConfigureUi(
-                savePanel.gameObject,
-                RequireChild(savePanel, "Feedback Text").GetComponent<Text>(),
-                RequireChild(savePanel, "Save Button").GetComponent<Button>(),
-                RequireChild(savePanel, "Load Button").GetComponent<Button>());
+                saveContent.gameObject,
+                RequireChild(saveContent, "Feedback Text").GetComponent<Text>(),
+                RequireChild(saveContent, "Save Button").GetComponent<Button>(),
+                RequireChild(saveContent, "Load Button").GetComponent<Button>());
 
-            var interactionPanel = RequireChild(canvas, "Interaction Panel");
-            var interactionView = hud.GetComponent<CozyTownInteractionDebugView>()
-                ?? throw new InvalidOperationException("Debug HUD is missing CozyTownInteractionDebugView.");
-            interactionView.ConfigureUi(
-                interactionPanel.gameObject,
-                RequireChild(interactionPanel, "Prompt Text").GetComponent<Text>(),
-                RequireChild(interactionPanel, "Feedback Text").GetComponent<Text>());
+            var systemView = GetOrAdd<CozyTownSystemMenuView>(hud);
+            var settingsPage = RequireChild(systemPanel, "Settings Page");
+            systemView.ConfigureUi(
+                RequireChild(canvas, "Gear Button").GetComponent<Button>(),
+                systemPanel.gameObject,
+                mainPage.gameObject,
+                settingsPage.gameObject,
+                RequireChild(mainPage, "Settings Button").GetComponent<Button>(),
+                RequireChild(settingsPage, "Back Button").GetComponent<Button>(),
+                RequireChild(mainPage, "Quit Button").GetComponent<Button>());
+
+            var player = RequireRoot(scene, "Player");
+            var inputGate = player.GetComponent<PlayerModalInputGate2D>()
+                ?? throw new InvalidOperationException("Player is missing PlayerModalInputGate2D.");
+            var systemController = GetOrAdd<CozyTownSystemMenuController>(hud);
+            systemController.Configure(inputGate, systemView);
+
+            var interactor = player.GetComponent<PlayerInteractor2D>()
+                ?? throw new InvalidOperationException("Player is missing PlayerInteractor2D.");
+            var worldCamera = RequireRoot(scene, "Main Camera").GetComponent<Camera>()
+                ?? throw new InvalidOperationException("Main Camera is missing Camera.");
+            var bubble = RequireChild(canvas, "Interaction Bubble");
+            var bubbleView = GetOrAdd<CozyTownInteractionBubbleView>(hud);
+            bubbleView.Configure(interactor, worldCamera);
+            bubbleView.ConfigureUi(
+                bubble,
+                RequireChild(bubble, "Key Text").GetComponent<Text>());
+
+            var oldInteractionView = hud.GetComponent<CozyTownInteractionDebugView>();
+            if (oldInteractionView != null)
+            {
+                UnityEngine.Object.DestroyImmediate(oldInteractionView);
+            }
+
+            var backpackPanel = RequireChild(canvas, "Backpack Panel");
+            var backpackSlots = backpackPanel
+                .GetComponentsInChildren<CozyTownInventorySlotView>(true);
+            Array.Sort(
+                backpackSlots,
+                (left, right) => string.CompareOrdinal(left.name, right.name));
+            var backpackView = GetOrAdd<CozyTownBackpackView>(hud);
+            backpackView.ConfigureUi(
+                backpackPanel.gameObject,
+                backpackSlots,
+                RequireChild(backpackPanel, "Close Button").GetComponent<Button>(),
+                iconCatalog);
+
+            var hotbarPanel = RequireChild(canvas, "Hotbar Panel");
+            var hotbarSlots = hotbarPanel
+                .GetComponentsInChildren<CozyTownInventorySlotView>(true);
+            Array.Sort(
+                hotbarSlots,
+                (left, right) => string.CompareOrdinal(left.name, right.name));
+            var hotbarView = GetOrAdd<CozyTownHotbarView>(hud);
+            hotbarView.ConfigureUi(hotbarSlots, iconCatalog);
+
+            var inputSource = player.GetComponent<InputSystemPlayerInputSource>();
+            if (inputSource is not IInventoryUiInputSource inventoryInput)
+            {
+                throw new InvalidOperationException(
+                    "Player input source must implement IInventoryUiInputSource.");
+            }
+
+            var inventoryPresenter = GetOrAdd<CozyTownInventoryPresenter>(hud);
+            inventoryPresenter.Configure(inventoryInput, inputGate, backpackView, hotbarView);
+            var bootstrap = RequireRoot(scene, "CozyTown").GetComponent<CozyTownBootstrap>()
+                ?? throw new InvalidOperationException("CozyTown root is missing CozyTownBootstrap.");
+            bootstrap.RegisterInventoryPresenter(inventoryPresenter);
+        }
+
+        private static void ConfigureInteractionPromptAnchors(Scene scene)
+        {
+            var world = RequireRoot(scene, "World");
+            foreach (var point in world.GetComponentsInChildren<TownInteractionPoint2D>(true))
+            {
+                var anchor = point.transform.Find("Prompt Anchor");
+                if (anchor == null)
+                {
+                    var anchorObject = new GameObject("Prompt Anchor");
+                    anchorObject.transform.SetParent(point.transform, false);
+                    anchor = anchorObject.transform;
+                }
+
+                var renderers = point.GetComponentsInChildren<SpriteRenderer>(true);
+                var highestY = point.transform.position.y + 0.75f;
+                foreach (var renderer in renderers)
+                {
+                    if (renderer.sprite != null)
+                    {
+                        highestY = Mathf.Max(highestY, renderer.bounds.max.y + 0.25f);
+                    }
+                }
+
+                anchor.position = new Vector3(
+                    point.transform.position.x,
+                    highestY,
+                    point.transform.position.z);
+                anchor.localRotation = Quaternion.identity;
+                anchor.localScale = Vector3.one;
+                point.ConfigurePromptAnchor(anchor);
+            }
         }
 
         private static CozyTownUiIconCatalog ConfigureIconCatalog(RectTransform canvas)
@@ -754,6 +971,15 @@ namespace CozyTown.Unity.Editor
             return rect;
         }
 
+        private static void RemoveManagedNode(Transform parent, string name)
+        {
+            var child = parent.Find(name);
+            if (child != null)
+            {
+                UnityEngine.Object.DestroyImmediate(child.gameObject);
+            }
+        }
+
         private static RectTransform RequireChild(Transform parent, string name)
         {
             var child = parent.Find(name) as RectTransform;
@@ -820,6 +1046,7 @@ namespace CozyTown.Unity.Editor
                 Close = Load("ui_icon_close");
                 Selection = Load("ui_marker_selection");
                 Interact = Load("ui_marker_interact");
+                Settings = LoadSprite(SettingsIconPath, "ui_icon_settings");
             }
 
             public Sprite Panel { get; }
@@ -834,6 +1061,7 @@ namespace CozyTown.Unity.Editor
             public Sprite Close { get; }
             public Sprite Selection { get; }
             public Sprite Interact { get; }
+            public Sprite Settings { get; }
 
             private static Sprite Load(string spriteName)
             {
