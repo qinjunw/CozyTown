@@ -13,7 +13,7 @@
 3. 生产清单声明 Sprite Sheet 后，通过 `ImageConversion.LoadImage`、`AssetImporter.GetAtPath` 和 `AssetDatabase.LoadAllAssetsAtPath` 可观察到真实 PNG 画布、二值 Alpha、导入参数、切片数量、PPU、Pivot 和名称。
 4. 每张生产 PNG 的 4× 预览必须与原图逐像素最近邻扩展结果一致。
 5. 正式场景开始消费生产资源后，通过场景中的公开 Camera、SpriteRenderer 和 Tilemap 组件验证引用及 Pixel Perfect Camera。
-6. Scene-01c 通过公开的 UGUI `Canvas`、`CanvasScaler`、`Image`、`Button`、`Text` 组件、现有 View 接口和 `Button.onClick` 验证 Production UI 引用与交互接线。
+6. Scene-01c/01d 通过公开的 UGUI `Canvas`、`CanvasScaler`、`RectTransform`、`Image`、`Button`、`Text` 组件、现有 View 接口和 `Button.onClick` 验证 Production UI 引用与交互接线。
 
 测试不得读取 `.meta` YAML、断言 AssetPostprocessor 私有方法、调用 `OnGUI` 或读取 UI 私有字段。A0 风格锚点不进入 Sprite 布局测试，因为它们不是生产资源。
 
@@ -80,7 +80,7 @@
 
 ### 7.1 Scene-01 场景接线验收
 
-Scene-01 按三个垂直切片验收，任一切片未通过时不得把正式场景标记为完成：
+Scene-01 按四个垂直切片验收，任一切片未通过时不得把正式场景标记为完成：
 
 1. **Scene-01a 世界表现**
    - Main Camera 具有 URP `PixelPerfectCamera`，`assetsPPU=16`、参考分辨率 `320×180`，使用点采样整数放大。
@@ -93,8 +93,12 @@ Scene-01 按三个垂直切片验收，任一切片未通过时不得把正式�
    - 母鸡把未喂、已喂和产物可收映射到三个既有状态 Sprite；映射只读取现有 ViewState。
 3. **Scene-01c UI 皮肤**
    - 正式界面使用 UGUI `Canvas`；`CanvasScaler` 的参考分辨率为 `320×180`。`OnGUI` 调试界面不得作为本切片的验收对象。
-   - 正式 HUD、模态面板和按钮消费 `ui_panel` 与四个按钮状态的 `3 px` 九宫格资源；金币、时间、保存、读取、关闭和交互提示使用对应图标。
+   - 正式 HUD、模态面板和按钮消费 `ui_panel` 与四个按钮状态的 `3 px` 九宫格资源；金币、时间、保存、读取、齿轮和交互气泡使用对应图标。
    - 文字由 Unity 字体渲染；在 `320×180` 参考分辨率及 `2×`、`4×` 整数倍窗口中不裁切、不重叠，按钮仍可操作。
+4. **Scene-01d UI 信息架构**
+   - Scene-01d 收口后，左下持续交互面板不存在；交互提示只在最近目标上方显示 `E` 气泡。左上只保留天数、时间和金币，右上只保留齿轮，底部中央显示五格快捷栏。
+   - 包裹和系统菜单继续使用相同的近黑纯底与木框；系统菜单主页面只包含“保存游戏”“加载存档”“设置”“离开游戏”。
+   - 包裹、系统菜单和既有业务模态共享输入门；任一界面关闭或被撤销后恢复原有玩家控制。
 
 自动化停止线：EditMode 与 PlayMode 全量测试通过，Production UI 引用、文字值、按钮状态与事件、关键布局边界、模态输入恢复和升级幂等均有通过记录，且场景无丢失引用或运行时异常。自动化通过不判定文字肉眼可读性、图标辨识、Tile 接缝、玩家脚底稳定或整体构图。
 

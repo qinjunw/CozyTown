@@ -353,6 +353,18 @@ EditMode 与 PlayMode 全量通过、场景无丢失引用或运行时异常、�
 
 同日的第三次人工检查发现 `ui_panel` 四角保留绿色、米色和深棕拼块，九宫格放大后在 HUD 与模态面板重复形成花色。新增视觉参考固定近黑纯底与直线木框方向，资产契约测试先逐像素复现原面板偏差，再由 A1 批次定义生成三层暖棕内缩色带和纯色中心。目标测试为 1 passed，Production 资源清单为 5 passed；全量结果为 EditMode 169 passed、PlayMode 27 passed，均为 0 failed、0 skipped。两次 A1 Build 的 22 个输出哈希一致；仅首个 UI 单元及其 4× 预览对应区域变化，其他 Production、预览、Meta 和场景均未变化。三档实际画面仍需人工复查。
 
+### 10.9 Scene-01d 常驻 UI 重构计划
+
+Scene-01d 采用四个独立 RED→GREEN 垂直切片：常驻壳、交互气泡、包裹与快捷栏、系统菜单。该切片只重组正式 UI、增加只读投影和输入路由，不修改背包写规则、存档 schema、交互点数量、玩法结果或 AI 边界。
+
+- 常驻壳通过公开 `RectTransform`、`Image`、`Button` 和 `Text` 验证左上 HUD、右上齿轮、底部五格快捷栏及旧左下交互面板退役；测试不依赖装饰性子节点顺序。
+- 交互气泡通过 `PlayerInteractor2D` 的公开提示锚点和 View 显示状态验证最近目标、离开范围及模态停用；不读取 Collider 集合或私有目标字段。
+- 包裹通过 Runtime 只读投影验证配置顺序、堆叠拆分、空槽和容量；Unity View 只显示图标、数量与空槽。B 与 `1` 至 `5` 使用 Input Action 公开绑定和可注入输入边沿验证。
+- 系统菜单通过 Gear、保存、读取、设置、返回和离开按钮的 `onClick` 与公开事件验证。自动化使用退出替身，不调用真实 `Application.Quit`。
+- 包裹、系统菜单和既有业务模态通过 `PlayerModalInputGate2D` 验证两两互斥、关闭恢复、撤销恢复与组件停用恢复。
+- `ui_icon_settings` 与气泡化的 `ui_marker_interact` 继续满足 16 PPU、Point、无压缩、二值 Alpha、32 色成员和 4× 最近邻预览；现有图集只允许目标格发生像素变化。
+- 最终重新运行完整 EditMode、PlayMode、Production 清单、场景幂等和经济闭环。自动化结果不替代三档分辨率下的人工可读性与遮挡检查。
+
 ## 11. 人工验证步骤
 
 完整 MVP 演示候选完成后，按以下顺序执行并记录结果、Unity 版本、提交号和异常截图：
