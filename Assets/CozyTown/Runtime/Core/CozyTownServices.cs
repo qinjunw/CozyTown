@@ -37,6 +37,10 @@ namespace CozyTown.Runtime.Core
             DayTransition = dayTransition ?? throw new ArgumentNullException(nameof(dayTransition));
             Time = time ?? throw new ArgumentNullException(nameof(time));
             Inventory = inventory ?? throw new ArgumentNullException(nameof(inventory));
+            InventoryProjection = inventory as IInventoryProjection
+                ?? throw new ArgumentException(
+                    $"{nameof(inventory)} must implement {nameof(IInventoryProjection)}.",
+                    nameof(inventory));
             Wallet = wallet ?? throw new ArgumentNullException(nameof(wallet));
             Shop = shop ?? throw new ArgumentNullException(nameof(shop));
             ShopTrading = shopTrading ?? throw new ArgumentNullException(nameof(shopTrading));
@@ -63,6 +67,8 @@ namespace CozyTown.Runtime.Core
         public ITimeService Time { get; }
 
         public IInventory Inventory { get; }
+
+        public IInventoryProjection InventoryProjection { get; }
 
         public IWallet Wallet { get; }
 

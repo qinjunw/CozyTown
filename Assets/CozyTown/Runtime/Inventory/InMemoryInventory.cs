@@ -5,9 +5,10 @@ using CozyTown.Runtime.Core;
 
 namespace CozyTown.Runtime.Inventory
 {
-    public sealed class InMemoryInventory : IInventory
+    public sealed class InMemoryInventory : IInventory, IInventoryProjection
     {
         private readonly Dictionary<string, ItemDefinition> _catalog;
+        private readonly ItemDefinition[] _orderedCatalog;
         private readonly Dictionary<string, int> _quantities = new Dictionary<string, int>();
 
         public InMemoryInventory(IEnumerable<ItemDefinition> catalog, int capacitySlots)
@@ -18,10 +19,13 @@ namespace CozyTown.Runtime.Inventory
             }
 
             CapacitySlots = capacitySlots;
-            _catalog = (catalog ?? Array.Empty<ItemDefinition>())
+            _orderedCatalog = (catalog ?? Array.Empty<ItemDefinition>())
                 .Where(IsValidDefinition)
                 .GroupBy(item => item.Id, StringComparer.Ordinal)
-                .ToDictionary(group => group.Key, group => group.First(), StringComparer.Ordinal);
+                .Select(group => group.First())
+                .ToArray();
+            _catalog = _orderedCatalog
+                .ToDictionary(item => item.Id, item => item, StringComparer.Ordinal);
         }
 
         public int CapacitySlots { get; }
@@ -100,6 +104,31 @@ namespace CozyTown.Runtime.Inventory
                 .Select(pair => new ItemStack(pair.Key, pair.Value))
                 .ToArray();
             return new InventorySnapshot(items);
+        }
+
+        public InventoryProjection CaptureProjection()
+        {
+            var slots = new List<InventorySlotProjection>(CapacitySlots);
+            foreach (ItemDefinition definition in _orderedCatalog)
+            {
+                int remaining = Count(definition.Id);
+                while (remaining > 0)
+                {
+                    int quantity = Math.Min(remaining, definition.MaxStack);
+                    slots.Add(new InventorySlotProjection(
+                        definition.Id,
+                        definition.DisplayName,
+                        quantity));
+                    remaining -= quantity;
+                }
+            }
+
+            while (slots.Count < CapacitySlots)
+            {
+                slots.Add(new InventorySlotProjection(string.Empty, string.Empty, 0));
+            }
+
+            return new InventoryProjection(CapacitySlots, slots.ToArray());
         }
 
         public OperationResult Restore(InventorySnapshot snapshot)
