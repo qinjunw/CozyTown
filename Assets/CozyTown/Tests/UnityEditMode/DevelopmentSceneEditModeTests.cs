@@ -192,7 +192,8 @@ namespace CozyTown.Tests.UnityEditMode
 
                 var hud = RequireRoot(scene, "Debug HUD");
                 Assert.That(hud.GetComponent<CozyTownHudPresenter>(), Is.Not.Null);
-                Assert.That(hud.GetComponent<CozyTownInteractionDebugView>(), Is.Not.Null);
+                Assert.That(hud.GetComponent<CozyTownInteractionDebugView>(), Is.Null);
+                Assert.That(hud.GetComponent<CozyTownInteractionBubbleView>(), Is.Not.Null);
                 Assert.That(hud.GetComponent<CozyTownShopDebugView>(), Is.Not.Null);
                 Assert.That(hud.GetComponent<CozyTownShopDebugPresenter>(), Is.Not.Null);
                 Assert.That(hud.GetComponent<CozyTownFarmDebugView>(), Is.Not.Null);
@@ -251,7 +252,9 @@ namespace CozyTown.Tests.UnityEditMode
 
                 var gearButton = uiRoot.Find("Gear Button")?.GetComponent<Button>();
                 Assert.That(gearButton, Is.Not.Null);
-                Assert.That(gearButton.image.sprite?.name, Is.EqualTo("ui_icon_settings"));
+                Assert.That(
+                    gearButton.transform.Find("Icon")?.GetComponent<Image>()?.sprite?.name,
+                    Is.EqualTo("ui_icon_settings"));
                 Assert.That(gearButton.image.rectTransform.anchorMin, Is.EqualTo(Vector2.one));
 
                 var hotbar = uiRoot.Find("Hotbar Panel");
