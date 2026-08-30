@@ -4,6 +4,7 @@ using CozyTown.Unity.Core;
 using CozyTown.Unity.Hud;
 using CozyTown.Unity.Input;
 using CozyTown.Unity.Interaction;
+using CozyTown.Unity.Inventory;
 using CozyTown.Unity.Player;
 using CozyTown.Unity.Shop;
 using CozyTown.Unity.Farm;
