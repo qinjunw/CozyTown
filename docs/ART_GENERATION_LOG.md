@@ -111,3 +111,5 @@ Unity.exe -batchmode -nographics -quit `
 2026-08-30 使用内置图像生成器生成 `ArtSource/Generated/A1/ui_clean_wood_panel_reference.png`。该图只作为面板材质和色彩关系参考，不作为 Production Sprite、场景布局或新增功能清单。Production 实现由 A1 确定性编译器生成，像素契约记录在 `ART_ACCEPTANCE.md` 第 13.2 节。
 
 > Use case: ui-mockup. Asset type: CozyTown Unity 2D farming-life-sim pixel-art UI visual reference board. Design one clean cohesive direction for the existing HUD, save/load panel, interaction strip, and Fishing Pond modal. Use a flat near-black charcoal interior (`#1F1B24`) with a straight minimal farm-wood frame using warm browns (`#5B2E1A`, `#8A3B12`, `#C98256`). Use crisp true pixel art, uniform square corners and high-contrast cream text. Avoid green or beige corner patches, checkerboard or mosaic patterns, ornaments, leaves, flowers, rope, nails, gradients, blur, noisy wood grain, perspective distortion, red annotations, logos and watermarks.
+
+A1 编译定义将参考图收敛为 `16×16 px` 的 `ui_panel`：三层木框依次使用 `#3B1F1B`、`#8A3B12`、`#C98256`，中心使用 `#1F1B24`。参考图中的附加控件和图标未进入 Production；正式图集只改变首个面板单元。

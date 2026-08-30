@@ -204,9 +204,15 @@ namespace CozyTown.Unity.Editor
                     Vector4.zero,
                     Vector4.zero
                 },
-                transparentFillColors: new Color32?[]
+                insetBandColors: new Color32[][]
                 {
-                    new Color32(0x1F, 0x1B, 0x24, 0xFF),
+                    new[]
+                    {
+                        new Color32(0x3B, 0x1F, 0x1B, 0xFF),
+                        new Color32(0x8A, 0x3B, 0x12, 0xFF),
+                        new Color32(0xC9, 0x82, 0x56, 0xFF),
+                        new Color32(0x1F, 0x1B, 0x24, 0xFF)
+                    },
                     null,
                     null,
                     null,

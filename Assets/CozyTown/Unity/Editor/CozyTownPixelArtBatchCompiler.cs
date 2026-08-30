@@ -55,7 +55,7 @@ namespace CozyTown.Unity.Editor
             IReadOnlyList<int> sourceCellIndices = null,
             IReadOnlyList<Vector4> spriteBorders = null,
             IReadOnlyList<PixelArtRoadConnection> roadConnections = null,
-            IReadOnlyList<Color32?> transparentFillColors = null)
+            IReadOnlyList<Color32[]> insetBandColors = null)
         {
             if (string.IsNullOrWhiteSpace(sourceRelativePath))
             {
@@ -176,16 +176,18 @@ namespace CozyTown.Unity.Editor
                     nameof(roadConnections));
             }
 
-            Color32?[] resolvedTransparentFillColors = transparentFillColors == null
-                ? new Color32?[cellCount]
-                : transparentFillColors.ToArray();
-            if (resolvedTransparentFillColors.Length != cellCount
-                || resolvedTransparentFillColors.Any(color =>
-                    color.HasValue && !palette.Contains(color.Value)))
+            Color32[][] resolvedInsetBandColors = insetBandColors == null
+                ? new Color32[cellCount][]
+                : insetBandColors.Select(colors => colors?.ToArray()).ToArray();
+            if (resolvedInsetBandColors.Length != cellCount
+                || resolvedInsetBandColors.Any(colors =>
+                    colors != null
+                    && (colors.Length == 0
+                        || colors.Any(color => !palette.Contains(color)))))
             {
                 throw new ArgumentException(
-                    "Transparent fill colors must contain one palette color or null per cell.",
-                    nameof(transparentFillColors));
+                    "Inset band colors must contain one non-empty palette-color list or null per cell.",
+                    nameof(insetBandColors));
             }
 
             SourceRelativePath = sourceRelativePath;
@@ -209,7 +211,7 @@ namespace CozyTown.Unity.Editor
             SourceCellIndices = resolvedSourceCellIndices;
             SpriteBorders = resolvedSpriteBorders;
             RoadConnections = resolvedRoadConnections;
-            TransparentFillColors = resolvedTransparentFillColors;
+            InsetBandColors = resolvedInsetBandColors;
         }
 
         public string SourceRelativePath { get; }
@@ -233,7 +235,7 @@ namespace CozyTown.Unity.Editor
         public IReadOnlyList<int> SourceCellIndices { get; }
         public IReadOnlyList<Vector4> SpriteBorders { get; }
         public IReadOnlyList<PixelArtRoadConnection> RoadConnections { get; }
-        public IReadOnlyList<Color32?> TransparentFillColors { get; }
+        public IReadOnlyList<Color32[]> InsetBandColors { get; }
         public int OutputWidth => Columns * FrameWidth;
         public int OutputHeight => Rows * FrameHeight;
         public SpriteImportMode ImportMode => SpriteNames.Count == 1
@@ -421,11 +423,14 @@ namespace CozyTown.Unity.Editor
                         definition.FrameHeight,
                         definition.RoadConnections[outputIndex]);
                 }
-                Color32? transparentFillColor =
-                    definition.TransparentFillColors[outputIndex];
-                if (transparentFillColor.HasValue)
+                Color32[] insetBandColors = definition.InsetBandColors[outputIndex];
+                if (insetBandColors != null)
                 {
-                    FillTransparentPixels(compiledCell, transparentFillColor.Value);
+                    FillInsetBands(
+                        compiledCell,
+                        definition.FrameWidth,
+                        definition.FrameHeight,
+                        insetBandColors);
                 }
                 CopyCellToSheet(
                     compiledCell,
@@ -551,6 +556,24 @@ namespace CozyTown.Unity.Editor
                 if (pixels[index].a == 0)
                 {
                     pixels[index] = fillColor;
+                }
+            }
+        }
+
+        private static void FillInsetBands(
+            Color32[] pixels,
+            int width,
+            int height,
+            IReadOnlyList<Color32> colors)
+        {
+            for (var y = 0; y < height; y++)
+            {
+                for (var x = 0; x < width; x++)
+                {
+                    int edgeDistance = Math.Min(
+                        Math.Min(x, width - 1 - x),
+                        Math.Min(y, height - 1 - y));
+                    pixels[y * width + x] = colors[Math.Min(edgeDistance, colors.Count - 1)];
                 }
             }
         }

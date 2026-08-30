@@ -169,6 +169,64 @@ namespace CozyTown.Tests.UnityEditMode
         }
 
         [Test]
+        public void UiPanel_UsesUniformThreeBandWoodFrame()
+        {
+            Sprite uiPanel = AssetDatabase.LoadAllAssetsAtPath(UiPath)
+                .OfType<Sprite>()
+                .Single(sprite => sprite.name == "ui_panel");
+            Assert.That(uiPanel.rect.size, Is.EqualTo(new Vector2(16f, 16f)));
+            Assert.That(uiPanel.border, Is.EqualTo(new Vector4(3f, 3f, 3f, 3f)));
+
+            var texture = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            try
+            {
+                Assert.That(
+                    ImageConversion.LoadImage(texture, File.ReadAllBytes(UiPath), false),
+                    Is.True,
+                    $"Could not decode UI PNG: {UiPath}");
+
+                Color32[] pixels = texture.GetPixels32();
+                int spriteX = Mathf.RoundToInt(uiPanel.rect.xMin);
+                int spriteY = Mathf.RoundToInt(uiPanel.rect.yMin);
+                var failures = new List<string>();
+                for (var localY = 0; localY < 16; localY++)
+                {
+                    for (var localX = 0; localX < 16; localX++)
+                    {
+                        int edgeDistance = Mathf.Min(
+                            Mathf.Min(localX, 15 - localX),
+                            Mathf.Min(localY, 15 - localY));
+                        Color32 expected = edgeDistance switch
+                        {
+                            0 => Rgb(0x3B, 0x1F, 0x1B),
+                            1 => Rgb(0x8A, 0x3B, 0x12),
+                            2 => Rgb(0xC9, 0x82, 0x56),
+                            _ => Rgb(0x1F, 0x1B, 0x24)
+                        };
+                        Color32 actual = pixels[
+                            (spriteY + localY) * texture.width + spriteX + localX];
+                        if (!actual.Equals(expected))
+                        {
+                            failures.Add(
+                                $"({localX},{localY}) expected #{ColorUtility.ToHtmlStringRGBA(expected)} "
+                                + $"but was #{ColorUtility.ToHtmlStringRGBA(actual)}");
+                        }
+                    }
+                }
+
+                Assert.That(
+                    failures,
+                    Is.Empty,
+                    "ui_panel does not match the uniform three-band wood frame contract:\n"
+                    + string.Join("\n", failures));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(texture);
+            }
+        }
+
+        [Test]
         public void TownRoadTiles_MatchDeclaredEdgeConnections()
         {
             var roads = new[]

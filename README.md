@@ -10,7 +10,7 @@ M4“持久化与 AI”已经完成。玩家可在单一小镇场景中完成生
 
 默认配置包含 3 种作物、3 种鱼、5 个料理配方、1 只鸡和 4 名 NPC；组合根通过 `CreateDefault()` 创建同一对象图。`CozyTown.Runtime` 设置 `noEngineReferences: true`，不引用 UnityEngine。Unity 组件位于独立的 `CozyTown.Unity` 程序集；Bootstrap 私有持有完整对象图，并只向各 Presenter 注入对应的交易、生产、跨日、对话或存档用例接口。
 
-Unity Editor `6000.5.5f1` 已完成包解析、资源导入和六个 CozyTown 程序集的脚本编译。2026-08-30 修复 Production UI 面板的透明九宫格中心后运行全量测试，得到 168 passed、0 failed、0 skipped 的 EditMode 结果，以及 27 passed、0 failed、0 skipped 的 PlayMode 结果；日志未出现 C# 编译错误、测试失败、未处理异常或运行态装配错误。批处理测试使用内存存档，不读写玩家的正式槽位。
+Unity Editor `6000.5.5f1` 已完成包解析、资源导入和六个 CozyTown 程序集的脚本编译。2026-08-30 将 Production UI 面板重建为近黑纯底与三层暖棕木框后运行全量测试，得到 169 passed、0 failed、0 skipped 的 EditMode 结果，以及 27 passed、0 failed、0 skipped 的 PlayMode 结果；日志未出现 C# 编译错误、测试失败、未处理异常或运行态装配错误。批处理测试使用内存存档，不读写玩家的正式槽位。
 
 产品范围和验收条件见 [PRD](docs/PRD.md)，领域词汇见 [CONTEXT](CONTEXT.md)，模块边界和依赖规则见 [架构说明](docs/ARCHITECTURE.md)，组件与集成用例见 [测试计划](docs/TEST_PLAN.md)。纯像素规格、准入条件和 A0 生成记录分别见 [美术方向](docs/ART_DIRECTION.md)、[美术验收](docs/ART_ACCEPTANCE.md) 和 [生成记录](docs/ART_GENERATION_LOG.md)。架构决策记录位于 [`docs/adr`](docs/adr)。
 
