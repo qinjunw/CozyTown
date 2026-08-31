@@ -34,8 +34,9 @@ namespace CozyTown.Unity.Editor
         private const string ItemPath = "Assets/CozyTown/Art/Production/Items/item_mvp_16.png";
         private const string PortraitPath = "Assets/CozyTown/Art/Production/Characters/npc_portraits_48.png";
         private const string InputActionsPath = "Assets/Settings/InputSystem_Actions.inputactions";
-        private static readonly Color32 FarmButtonTint = new Color32(0x6F, 0x5A, 0x4A, 0xFF);
+        private static readonly Color32 DarkWoodButtonTint = new Color32(0x6F, 0x5A, 0x4A, 0xFF);
         private static readonly Color32 CreamText = new Color32(0xFF, 0xF4, 0xD6, 0xFF);
+        private static readonly Color32 DarkInk = new Color32(0x3B, 0x1F, 0x1B, 0xFF);
 
         [MenuItem("CozyTown/Art/Upgrade Development Scene for A1 Production UI")]
         public static void UpgradeDevelopmentSceneForA1ProductionUi()
@@ -67,6 +68,7 @@ namespace CozyTown.Unity.Editor
                 ConfigureFarmViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
                 ConfigureSecondaryProductionViewBindings(hud, canvasTransform, uiSprites, iconCatalog);
                 ConfigureNpcProductionViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
+                ConfigureInteractionPanelButtonTheme(canvasTransform);
                 ConfigureEventSystem(scene);
 
                 EditorSceneManager.MarkSceneDirty(scene);
@@ -170,16 +172,16 @@ namespace CozyTown.Unity.Editor
             feedback.alignment = TextAnchor.MiddleCenter;
             CreateButton(
                 saveContent, "Save Button", "保存游戏", sprites.Save,
-                new Vector2(8f, -36f), new Vector2(112f, 18f), sprites, 10, FarmButtonTint);
+                new Vector2(8f, -36f), new Vector2(112f, 18f), sprites, 10, DarkWoodButtonTint);
             CreateButton(
                 saveContent, "Load Button", "加载存档", sprites.LoadIcon,
-                new Vector2(8f, -58f), new Vector2(112f, 18f), sprites, 10, FarmButtonTint);
+                new Vector2(8f, -58f), new Vector2(112f, 18f), sprites, 10, DarkWoodButtonTint);
             CreateButton(
                 mainPage, "Settings Button", "设置", sprites.Settings,
-                new Vector2(8f, -80f), new Vector2(112f, 18f), sprites, 10, FarmButtonTint);
+                new Vector2(8f, -80f), new Vector2(112f, 18f), sprites, 10, DarkWoodButtonTint);
             CreateButton(
                 mainPage, "Quit Button", "离开游戏", null,
-                new Vector2(8f, -102f), new Vector2(112f, 18f), sprites, 10, FarmButtonTint);
+                new Vector2(8f, -102f), new Vector2(112f, 18f), sprites, 10, DarkWoodButtonTint);
 
             var settingsPage = GetOrCreateRect(systemPanel, "Settings Page");
             Stretch(settingsPage);
@@ -238,6 +240,7 @@ namespace CozyTown.Unity.Editor
                     new Vector2(7f, 7f),
                     6);
                 keyLabel.alignment = TextAnchor.UpperLeft;
+                keyLabel.color = DarkInk;
             }
 
             var backpack = CreatePanel(
@@ -299,6 +302,38 @@ namespace CozyTown.Unity.Editor
             CreateModal(canvas, "Pond Panel", "Fishing Pond", false, sprites);
             CreateModal(canvas, "Kitchen Panel", "Kitchen", false, sprites);
             CreateModal(canvas, "NPC Panel", "Town NPC Dialogue", true, sprites);
+        }
+
+        private static void ConfigureInteractionPanelButtonTheme(RectTransform canvas)
+        {
+            foreach (var panelName in new[]
+                     {
+                         "Shop Panel",
+                         "Farm Panel",
+                         "Bed Panel",
+                         "Coop Panel",
+                         "Pond Panel",
+                         "Kitchen Panel",
+                         "NPC Panel"
+                     })
+            {
+                var panel = RequireChild(canvas, panelName);
+                foreach (var button in panel.GetComponentsInChildren<Button>(true))
+                {
+                    if (button.targetGraphic is not Image background)
+                    {
+                        throw new InvalidOperationException(
+                            $"Interaction button '{panelName}/{button.name}' must target an Image.");
+                    }
+
+                    background.color = DarkWoodButtonTint;
+                    var label = button.transform.Find("Label")?.GetComponent<Text>();
+                    if (label != null && !string.IsNullOrEmpty(label.text))
+                    {
+                        label.color = CreamText;
+                    }
+                }
+            }
         }
 
         private static void ConfigurePersistentViewBindings(
@@ -797,6 +832,7 @@ namespace CozyTown.Unity.Editor
                 CreateIcon(content, "Selection Marker", sprites.Selection, new Vector2(0f, 0f));
             }
 
+            panel.SetAsLastSibling();
             panel.gameObject.SetActive(false);
         }
 

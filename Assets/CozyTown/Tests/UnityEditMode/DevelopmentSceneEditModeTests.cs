@@ -428,6 +428,143 @@ namespace CozyTown.Tests.UnityEditMode
         }
 
         [Test]
+        public void DevelopmentScene_InteractionPanelsRenderAboveHotbar()
+        {
+            var previousScene = SceneManager.GetActiveScene();
+            var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
+
+            try
+            {
+                var hud = RequireRoot(scene, "Debug HUD");
+                var uiRoot = hud.GetComponentInChildren<Canvas>(true)?.transform;
+                Assert.That(uiRoot, Is.Not.Null);
+
+                var hotbar = uiRoot.Find("Hotbar Panel");
+                Assert.That(hotbar, Is.Not.Null);
+                foreach (var panelName in new[]
+                         {
+                             "Shop Panel",
+                             "Farm Panel",
+                             "Bed Panel",
+                             "Coop Panel",
+                             "Pond Panel",
+                             "Kitchen Panel",
+                             "NPC Panel"
+                         })
+                {
+                    var panel = uiRoot.Find(panelName);
+                    Assert.That(panel, Is.Not.Null, panelName);
+                    Assert.That(panel.parent, Is.SameAs(hotbar.parent), panelName);
+                    Assert.That(
+                        panel.GetSiblingIndex(),
+                        Is.GreaterThan(hotbar.GetSiblingIndex()),
+                        $"{panelName} must render after the hotbar on the production canvas.");
+                }
+            }
+            finally
+            {
+                EditorSceneManager.CloseScene(scene, true);
+                if (previousScene.IsValid() && previousScene.isLoaded)
+                {
+                    SceneManager.SetActiveScene(previousScene);
+                }
+            }
+        }
+
+        [Test]
+        public void DevelopmentScene_InteractionPanelButtonsUseReadableWoodTheme()
+        {
+            var previousScene = SceneManager.GetActiveScene();
+            var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
+
+            try
+            {
+                var hud = RequireRoot(scene, "Debug HUD");
+                var uiRoot = hud.GetComponentInChildren<Canvas>(true)?.transform;
+                Assert.That(uiRoot, Is.Not.Null);
+
+                foreach (var panelName in new[]
+                         {
+                             "Shop Panel",
+                             "Farm Panel",
+                             "Bed Panel",
+                             "Coop Panel",
+                             "Pond Panel",
+                             "Kitchen Panel",
+                             "NPC Panel"
+                         })
+                {
+                    var panel = uiRoot.Find(panelName);
+                    Assert.That(panel, Is.Not.Null, panelName);
+                    var buttons = panel.GetComponentsInChildren<Button>(true);
+                    Assert.That(buttons, Is.Not.Empty, panelName);
+
+                    foreach (var button in buttons)
+                    {
+                        Assert.That(button.targetGraphic, Is.TypeOf<Image>(), $"{panelName}/{button.name}");
+                        Assert.That(
+                            (Color32)((Image)button.targetGraphic).color,
+                            Is.EqualTo(new Color32(111, 90, 74, 255)),
+                            $"{panelName}/{button.name}");
+
+                        var label = button.transform.Find("Label")?.GetComponent<Text>();
+                        if (label != null && !string.IsNullOrEmpty(label.text))
+                        {
+                            Assert.That(
+                                (Color32)label.color,
+                                Is.EqualTo(new Color32(255, 244, 214, 255)),
+                                $"{panelName}/{button.name}");
+                        }
+                    }
+                }
+            }
+            finally
+            {
+                EditorSceneManager.CloseScene(scene, true);
+                if (previousScene.IsValid() && previousScene.isLoaded)
+                {
+                    SceneManager.SetActiveScene(previousScene);
+                }
+            }
+        }
+
+        [Test]
+        public void DevelopmentScene_HotbarKeyLabelsUseDarkHighContrastInk()
+        {
+            var previousScene = SceneManager.GetActiveScene();
+            var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
+
+            try
+            {
+                var hud = RequireRoot(scene, "Debug HUD");
+                var uiRoot = hud.GetComponentInChildren<Canvas>(true)?.transform;
+                Assert.That(uiRoot, Is.Not.Null);
+
+                var hotbar = uiRoot.Find("Hotbar Panel");
+                Assert.That(hotbar, Is.Not.Null);
+                var keyLabels = hotbar.GetComponentsInChildren<Text>(true)
+                    .Where(text => new[] { "1", "2", "3", "4", "5" }.Contains(text.text))
+                    .ToArray();
+                Assert.That(keyLabels, Has.Length.EqualTo(5));
+                foreach (var keyLabel in keyLabels)
+                {
+                    Assert.That(
+                        (Color32)keyLabel.color,
+                        Is.EqualTo(new Color32(59, 31, 27, 255)),
+                        keyLabel.text);
+                }
+            }
+            finally
+            {
+                EditorSceneManager.CloseScene(scene, true);
+                if (previousScene.IsValid() && previousScene.isLoaded)
+                {
+                    SceneManager.SetActiveScene(previousScene);
+                }
+            }
+        }
+
+        [Test]
         public void DevelopmentScene_ProductionPanelReferenceCoordinatesFitTargetAspectRatios()
         {
             var previousScene = SceneManager.GetActiveScene();

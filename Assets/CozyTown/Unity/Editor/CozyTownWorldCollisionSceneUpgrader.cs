@@ -146,7 +146,7 @@ namespace CozyTown.Unity.Editor
             const float left = -1.9f;
             const float right = 1.9f;
             const float bottom = 0f;
-            const float top = 4f;
+            const float top = 2.4f;
             var halfDoor = doorWidth * 0.5f;
             var doorLeft = doorCenterX - halfDoor;
             var doorRight = doorCenterX + halfDoor;

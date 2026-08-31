@@ -63,9 +63,19 @@ namespace CozyTown.Tests.UnityEditMode
                             ?.sprite
                             ?.name));
 
-                Assert.That(
-                    npcPoints.Select(point => (Vector2)point.transform.position).Distinct().Count(),
-                    Is.EqualTo(4));
+                Vector2[] npcPositions = npcPoints
+                    .Select(point => (Vector2)point.transform.position)
+                    .ToArray();
+                for (var first = 0; first < npcPositions.Length; first++)
+                {
+                    for (var second = first + 1; second < npcPositions.Length; second++)
+                    {
+                        Assert.That(
+                            Vector2.Distance(npcPositions[first], npcPositions[second]),
+                            Is.GreaterThanOrEqualTo(3f),
+                            $"NPCs at {npcPositions[first]} and {npcPositions[second]} are visually clustered.");
+                    }
+                }
                 foreach (TownInteractionPoint2D point in npcPoints)
                 {
                     Assert.That(point.PromptText, Is.EqualTo("Press E to talk"));

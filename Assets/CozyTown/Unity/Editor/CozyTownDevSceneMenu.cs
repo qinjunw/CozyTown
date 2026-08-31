@@ -905,7 +905,7 @@ namespace CozyTown.Unity.Editor
                 ?? throw new InvalidOperationException("Development scene is missing the Coop point.");
 
             var stateTransform = GetOrCreateChild(coopPoint.transform, "Hen State");
-            stateTransform.localPosition = new Vector3(0.9f, 0.5f, 0f);
+            stateTransform.position = new Vector3(9.25f, -3f, 0f);
             var renderer = GetOrAdd<SpriteRenderer>(stateTransform.gameObject);
             var idleSprite = LoadSprite(HenStatesPath, "animal_hen_idle");
             renderer.sprite = idleSprite;

@@ -86,7 +86,9 @@ namespace CozyTown.Tests.UnityEditMode
                     var doorCenter = (Vector2)trigger.bounds.center;
                     var shallowIngress = new Vector2(doorCenter.x, origin.y + 0.35f);
                     var backWall = new Vector2(doorCenter.x, origin.y + 1.6f);
-                    var sideWall = new Vector2(origin.x - 1.5f, origin.y + 0.6f);
+                    var leftWall = new Vector2(origin.x - 1.5f, origin.y + 0.6f);
+                    var rightWall = new Vector2(origin.x + 1.5f, origin.y + 0.6f);
+                    var upperBackArea = new Vector2(origin.x, origin.y + 3.2f);
                     var doorApproach = new Vector2(doorCenter.x, origin.y - 0.35f);
                     var nonDoorApproach = new Vector2(origin.x - 1.5f, origin.y - 0.35f);
 
@@ -94,10 +96,16 @@ namespace CozyTown.Tests.UnityEditMode
                         $"{building.ObstacleName} closes the door entrance.");
                     Assert.That(solid.OverlapPoint(backWall), Is.True,
                         $"{building.ObstacleName} does not stop the player behind the doorway.");
-                    Assert.That(solid.OverlapPoint(sideWall), Is.True,
-                        $"{building.ObstacleName} leaves a pass-through wall.");
+                    Assert.That(solid.OverlapPoint(leftWall), Is.True,
+                        $"{building.ObstacleName} leaves a pass-through left wall.");
+                    Assert.That(solid.OverlapPoint(rightWall), Is.True,
+                        $"{building.ObstacleName} leaves a pass-through right wall.");
+                    Assert.That(solid.bounds.max.y, Is.EqualTo(origin.y + 2.4f).Within(0.01f),
+                        $"{building.ObstacleName} must reserve its upper two-fifths for back-side travel.");
+                    Assert.That(solid.OverlapPoint(upperBackArea), Is.False,
+                        $"{building.ObstacleName} blocks the upper back-side travel region.");
                     Assert.That(trigger.OverlapPoint(doorCenter), Is.True);
-                    Assert.That(trigger.OverlapPoint(sideWall), Is.False,
+                    Assert.That(trigger.OverlapPoint(leftWall), Is.False,
                         $"{building.ObstacleName} exposes its interaction away from the door.");
                     Assert.That(
                         Physics2D.OverlapCircleAll(doorApproach, 0.75f)
