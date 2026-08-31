@@ -35,12 +35,12 @@ height = frameHeight
 | 1 | `Assets/CozyTown/Art/Production/Environment/Tiles/tile_town_base_16.png` | `64×80` | Multiple | `4×5` | `16×16` | 20 | Center | 全不透明 |
 | 2 | `Assets/CozyTown/Art/Production/Props/prop_town_decor_16x32.png` | `64×64` | Multiple | `4×2` | `16×32` | 8 | BottomCenter | 硬透明 |
 | 3 | `Assets/CozyTown/Art/Production/Buildings/bld_town_functions_64.png` | `128×128` | Multiple | `2×2` | `64×64` | 4 | BottomCenter | 硬透明 |
-| 4 | `Assets/CozyTown/Art/Production/Props/prop_town_functions_96x64.png` | `192×64` | Multiple | `2×1` | `96×64` | 2 | BottomCenter | 硬透明 |
-| 5 | `Assets/CozyTown/Art/Production/Props/prop_farm_states_16.png` | `112×32` | Multiple | `7×2` | `16×16` | 14 | Center | 硬透明 |
-| 6 | `Assets/CozyTown/Art/Production/Props/prop_hen_states_16.png` | `48×16` | Multiple | `3×1` | `16×16` | 3 | BottomCenter | 硬透明 |
-| 7 | `Assets/CozyTown/Art/Production/Characters/chr_player_move_16x24.png` | `48×96` | Multiple | `3×4` | `16×24` | 12 | BottomCenter | 硬透明 |
-| 8 | `Assets/CozyTown/Art/Production/Characters/npc_shopkeeper_mina_idle_down.png` | `16×24` | Single | `1×1` | `16×24` | 1 | BottomCenter | 硬透明 |
-| 9 | `Assets/CozyTown/Art/Production/Characters/npc_townsfolk_idle_down_16x24.png` | `64×24` | Multiple | `4×1` | `16×24` | 4 | BottomCenter | 硬透明 |
+| 4 | `Assets/CozyTown/Art/Production/Buildings/bld_town_roof_foregrounds_64.png` | `128×128` | Multiple | `2×2` | `64×64` | 4 | BottomCenter | 硬透明 |
+| 5 | `Assets/CozyTown/Art/Production/Props/prop_town_functions_96x64.png` | `192×64` | Multiple | `2×1` | `96×64` | 2 | BottomCenter | 硬透明 |
+| 6 | `Assets/CozyTown/Art/Production/Props/prop_farm_states_16.png` | `112×32` | Multiple | `7×2` | `16×16` | 14 | Center | 硬透明 |
+| 7 | `Assets/CozyTown/Art/Production/Props/prop_hen_states_16.png` | `48×16` | Multiple | `3×1` | `16×16` | 3 | BottomCenter | 硬透明 |
+| 8 | `Assets/CozyTown/Art/Production/Characters/chr_player_move_24x32.png` | `72×128` | Multiple | `3×4` | `24×32` | 12 | BottomCenter | 硬透明 |
+| 9 | `Assets/CozyTown/Art/Production/Characters/npc_townsfolk_idle_down_24x32.png` | `96×32` | Multiple | `4×1` | `24×32` | 4 | BottomCenter | 硬透明 |
 | 10 | `Assets/CozyTown/Art/Production/Characters/npc_portraits_48.png` | `192×48` | Multiple | `4×1` | `48×48` | 4 | Center | 硬透明 |
 | 11 | `Assets/CozyTown/Art/Production/Items/item_mvp_16.png` | `96×48` | Multiple | `6×3` | `16×16` | 18 | Center | 硬透明 |
 | 12 | `Assets/CozyTown/Art/Production/UI/ui_mvp_16.png` | `64×48` | Multiple | `4×3` | `16×16` | 12 | Center | 硬透明 |
@@ -107,6 +107,8 @@ height = frameHeight
 
 4 个建筑使用 `64×64` 帧和 BottomCenter Pivot。正面入口必须在无文字时可辨认，并保留足够对比度供现有交互提示叠加。
 
+Scene-01g 另外从同一建筑源稿确定性生成 `Buildings/bld_town_roof_foregrounds_64.png`。四个 `64×64` 单元保留原建筑顶部 26 行，底部 38 行为全透明；Sprite 名分别在建筑名后追加 `_roof_foreground`。该图集只用于角色经过房屋背面时的前景遮挡，不增加碰撞或交互语义。
+
 ### 4.4 农田与池塘
 
 文件：`Props/prop_town_functions_96x64.png`
@@ -155,7 +157,7 @@ height = frameHeight
 
 ### 4.7 玩家移动
 
-文件：`Characters/chr_player_move_16x24.png`
+文件：`Characters/chr_player_move_24x32.png`
 
 | Cell | Sprite 名 | 对应玩法对象 |
 | --- | --- | --- |
@@ -172,13 +174,11 @@ height = frameHeight
 | r3c1 | `chr_player_walk_up_00` | 玩家向上步行相位 A |
 | r3c2 | `chr_player_walk_up_01` | 玩家向上步行相位 B |
 
-12 帧使用 `16×24` 和 BottomCenter Pivot。每个方向只保留 1 帧静止与 2 帧步行；不生产浇水、挥锄、抛竿、睡觉或烹饪动作。
+12 帧使用 `24×32` 和 BottomCenter Pivot。每个方向只保留 1 帧静止与 2 帧步行；不生产浇水、挥锄、抛竿、睡觉或烹饪动作。
 
 ### 4.8 世界 NPC
 
-兼容文件：`Characters/npc_shopkeeper_mina_idle_down.png`
-
-正式场景文件：`Characters/npc_townsfolk_idle_down_16x24.png`
+正式场景文件：`Characters/npc_townsfolk_idle_down_24x32.png`
 
 | Cell | Sprite 名 | 对应玩法对象 |
 | --- | --- | --- |
@@ -187,7 +187,7 @@ height = frameHeight
 | r0c2 | `npc_fisher_ren_idle_down` | 渔夫 Ren 的独立世界实体 |
 | r0c3 | `npc_cook_sora_idle_down` | 厨师 Sora 的独立世界实体 |
 
-四个正式场景 Sprite 使用 `16×24` 和 BottomCenter Pivot。Mina 使用棕发与深棕围裙，Eli 使用草帽与绿衣，Ren 使用蓝帽与蓝衣，Sora 使用白厨师帽与橙发；这些特征与对应头像保持一致。旧 Mina Single Sprite 暂时保留用于资源兼容，不再作为正式场景唯一 NPC。四名 NPC 只增加独立静态位置，不增加移动、日程、任务或关系系统。
+四个正式场景 Sprite 使用 `24×32` 和 BottomCenter Pivot。Mina 使用棕发与深棕围裙，Eli 使用草帽与绿衣，Ren 使用蓝帽与蓝衣，Sora 使用白厨师帽与橙发；这些特征与对应头像保持一致。四名 NPC 只保留独立静态位置，不增加移动、日程、任务或关系系统。
 
 ### 4.9 NPC 头像
 
@@ -267,10 +267,10 @@ height = frameHeight
 1. 13 个固定路径全部存在，PNG 画布尺寸与总表一致。
 2. Unity 导入后的 Sprite Mode、PPU、Filter、Compression、Mip Map、Wrap、sRGB 和 Alpha 设置符合第 2 节。
 3. Multiple 文件按约定行列得到准确切片数；Single 文件只产生一个主 Sprite。
-4. 103 个 Sprite 与本清单逐项一致；每个资源内没有额外、缺失或重复名称。兼容 Mina Single 与正式四人图集共用 `npc_shopkeeper_mina_idle_down`，正式场景按图集路径引用。
+4. 106 个 Sprite 与本清单逐项一致；每个资源内没有额外、缺失或重复名称。正式场景按清单中的图集路径和稳定 Sprite 名引用。
 5. 每个 Sprite Rect 由第 2 节公式和对应 Cell 唯一确定；Pivot 与源文件总表一致。
 6. 16 个道路 Tile 的 N/E/S/W 边缘连接与稳定名称一致，声明连接使用统一宽度和边缘签名，未声明方向没有道路出口。
-7. 所有 BottomCenter Sprite 的最底不透明像素落在本地 `y=0`；UI 前 5 个九宫格 Sprite 使用 `3 px` border。
+7. 除明确保留透明下半部的屋顶前景外，所有 BottomCenter Sprite 的最底不透明像素落在本地 `y=0`；UI 前 5 个九宫格 Sprite 使用 `3 px` border。
 8. Production 可见像素只使用锁定的 32 色板；资源不包含对 Runtime 领域程序集的反向依赖，也不增加既有七种交互语义。
 
 ### 5.2 人工可读性项

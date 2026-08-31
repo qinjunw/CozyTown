@@ -117,3 +117,9 @@ A1 编译定义将参考图收敛为 `16×16 px` 的 `ui_panel`：三层木框�
 ## 8. Scene-01d UI 增量资源
 
 2026-08-30 为 Scene-01d 增加声明式 `16×16 px` 齿轮源稿与独立 Production 文件 `ui_icon_settings.png`，并把 `ui_marker_interact` 的目标单元收敛为带尾部的按键气泡。当前批次总计 12 个 Production PNG、99 个命名 Sprite 和 12 个 4× 最近邻预览；两次构建的 24 个 Production 与预览输出哈希一致。相对前一批次，现有 UI 图集中只允许交互标记目标单元变化，其他单元像素变化为 0。
+
+## 9. Scene-01g 世界角色与屋顶前景
+
+2026-09-01 使用内置图像生成器生成 `ArtSource/Generated/A1/npc_world_source.png`。身份参考来自既有四人头像，比例与轮廓参考来自用户提供的像素 RPG 小人截图。生成约束要求单行四名正面全身角色，顺序固定为 Mina、Eli、Ren、Sora，并分别保留棕发围裙、草帽绿衣、蓝帽蓝衣、白厨师帽橙发等身份特征；禁止场景、文字、水印和新增角色。源稿只作为编译输入，不由场景直接引用。
+
+编译器以连通白底移除、`WarmRural32` 色板和二值 Alpha 将源稿确定性收敛为 `npc_townsfolk_idle_down_24x32.png`。同一批次把主角四方向图集升级为 `24×32`，并从既有建筑源稿派生 `bld_town_roof_foregrounds_64.png`：每个单元底部 38 行清空，顶部 26 行保持与建筑底图相同。当前批次总计 13 个 Production PNG、106 个命名 Sprite 和 13 个 4× 最近邻预览。
