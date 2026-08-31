@@ -100,7 +100,7 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(body.position.x, Is.LessThan(boundaryInnerEdge));
 
             var points = world.GetComponentsInChildren<TownInteractionPoint2D>(true);
-            Assert.That(points, Has.Length.EqualTo(7));
+            Assert.That(points, Has.Length.EqualTo(10));
             var hud = RequireRoot(_loadedScene, "Debug HUD");
             var shopView = hud.GetComponent<CozyTownShopDebugView>();
             var shopPresenter = hud.GetComponent<CozyTownShopDebugPresenter>();
@@ -311,7 +311,10 @@ namespace CozyTown.Tests.PlayMode
                 {
                     Assert.That(npcView.State, Is.Not.Null);
                     Assert.That(npcView.State.IsFallback, Is.True);
-                    Assert.That(npcView.NpcCount, Is.EqualTo(4));
+                    Assert.That(npcView.NpcCount, Is.EqualTo(1));
+                    Assert.That(
+                        npcView.CurrentNpcId,
+                        Is.EqualTo(point.GetComponent<CozyTownNpcDebugPresenter>()?.NpcId));
                     npcView.RequestClose();
                 }
             }

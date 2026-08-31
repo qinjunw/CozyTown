@@ -47,7 +47,7 @@ namespace CozyTown.Tests.UnityEditMode
 
                 var world = RequireRoot(scene, "World");
                 var points = world.GetComponentsInChildren<TownInteractionPoint2D>(true);
-                Assert.That(points, Has.Length.EqualTo(7));
+                Assert.That(points, Has.Length.EqualTo(10));
                 foreach (var point in points)
                 {
                     var visual = point.transform.Find("Visual");
@@ -96,7 +96,7 @@ namespace CozyTown.Tests.UnityEditMode
                 Assert.That(tilemap.GetComponent<TilemapRenderer>(), Is.Not.Null);
 
                 var points = world.GetComponentsInChildren<TownInteractionPoint2D>(true);
-                Assert.That(points, Has.Length.EqualTo(7));
+                Assert.That(points, Has.Length.EqualTo(10));
                 foreach (var point in points)
                 {
                     var visual = point.transform.Find("Visual");
@@ -165,7 +165,7 @@ namespace CozyTown.Tests.UnityEditMode
                     Has.Length.EqualTo(4));
 
                 var points = world.GetComponentsInChildren<TownInteractionPoint2D>(true);
-                Assert.That(points, Has.Length.EqualTo(7));
+                Assert.That(points, Has.Length.EqualTo(10));
                 foreach (var point in points)
                 {
                     Assert.That(point.PromptText, Is.Not.Empty);
@@ -188,7 +188,7 @@ namespace CozyTown.Tests.UnityEditMode
                         TownInteractionKind.Pond,
                         TownInteractionKind.Kitchen
                     },
-                    Array.ConvertAll(points, point => point.Kind));
+                    points.Select(point => point.Kind).Distinct().ToArray());
 
                 var hud = RequireRoot(scene, "Debug HUD");
                 Assert.That(hud.GetComponent<CozyTownHudPresenter>(), Is.Not.Null);
@@ -203,7 +203,10 @@ namespace CozyTown.Tests.UnityEditMode
                 Assert.That(hud.GetComponent<CozyTownPondDebugPresenter>(), Is.Not.Null);
                 Assert.That(hud.GetComponent<CozyTownKitchenDebugPresenter>(), Is.Not.Null);
                 Assert.That(hud.GetComponent<CozyTownNpcDebugView>(), Is.Not.Null);
-                Assert.That(hud.GetComponent<CozyTownNpcDebugPresenter>(), Is.Not.Null);
+                Assert.That(hud.GetComponent<CozyTownNpcDebugPresenter>(), Is.Null);
+                Assert.That(
+                    points.Count(point => point.GetComponent<CozyTownNpcDebugPresenter>() != null),
+                    Is.EqualTo(4));
                 Assert.That(hud.GetComponent<CozyTownSaveDebugView>(), Is.Not.Null);
                 Assert.That(hud.GetComponent<CozyTownSaveDebugPresenter>(), Is.Not.Null);
 
@@ -252,9 +255,21 @@ namespace CozyTown.Tests.UnityEditMode
 
                 var gearButton = uiRoot.Find("Gear Button")?.GetComponent<Button>();
                 Assert.That(gearButton, Is.Not.Null);
+                Assert.That(gearButton.targetGraphic, Is.TypeOf<Image>());
+                var gearImage = (Image)gearButton.targetGraphic;
+                Assert.That(gearImage.sprite?.name, Is.EqualTo("ui_icon_settings"));
+                Assert.That(gearImage.type, Is.EqualTo(Image.Type.Simple));
+                Assert.That(gearImage.preserveAspect, Is.True);
+                Assert.That((Color32)gearImage.color, Is.EqualTo(new Color32(255, 255, 255, 255)));
+                Assert.That(gearButton.transition, Is.EqualTo(Selectable.Transition.ColorTint));
                 Assert.That(
-                    gearButton.transform.Find("Icon")?.GetComponent<Image>()?.sprite?.name,
-                    Is.EqualTo("ui_icon_settings"));
+                    (Color32)gearButton.colors.highlightedColor,
+                    Is.EqualTo(new Color32(230, 230, 230, 255)));
+                Assert.That(
+                    (Color32)gearButton.colors.pressedColor,
+                    Is.EqualTo(new Color32(180, 180, 180, 255)));
+                Assert.That(gearButton.transform.Find("Icon"), Is.Null);
+                Assert.That(gearButton.transform.Find("Label"), Is.Null);
                 Assert.That(gearButton.image.rectTransform.sizeDelta, Is.EqualTo(new Vector2(16f, 16f)));
                 Assert.That(gearButton.image.rectTransform.anchorMin, Is.EqualTo(Vector2.one));
 
@@ -281,6 +296,26 @@ namespace CozyTown.Tests.UnityEditMode
                 Assert.That(systemLabels, Does.Contain("加载存档"));
                 Assert.That(systemLabels, Does.Contain("设置"));
                 Assert.That(systemLabels, Does.Contain("离开游戏"));
+                var primarySystemLabels = new[] { "保存游戏", "加载存档", "设置", "离开游戏" };
+                var primarySystemButtonLabels = systemMenu.GetComponentsInChildren<Button>(true)
+                    .Select(button => button.transform.Find("Label")?.GetComponent<Text>())
+                    .Where(label => label != null && primarySystemLabels.Contains(label.text))
+                    .ToArray();
+                Assert.That(primarySystemButtonLabels, Has.Length.EqualTo(4));
+                foreach (var label in primarySystemButtonLabels)
+                {
+                    Assert.That(label.fontSize, Is.EqualTo(10), label.text);
+                    Assert.That(
+                        (Color32)label.color,
+                        Is.EqualTo(new Color32(255, 244, 214, 255)),
+                        label.text);
+                    var buttonImage = label.transform.parent.GetComponent<Button>()?.targetGraphic as Image;
+                    Assert.That(buttonImage, Is.Not.Null, label.text);
+                    Assert.That(
+                        (Color32)buttonImage.color,
+                        Is.EqualTo(new Color32(111, 90, 74, 255)),
+                        label.text);
+                }
 
                 var interactionBubble = uiRoot.Find("Interaction Bubble");
                 Assert.That(interactionBubble, Is.Not.Null);
@@ -332,11 +367,25 @@ namespace CozyTown.Tests.UnityEditMode
 
                 foreach (var button in canvas.GetComponentsInChildren<Button>(true))
                 {
+                    if (button == gearButton)
+                    {
+                        uiSpriteNames.Add(gearImage.sprite.name);
+                        continue;
+                    }
+
                     Assert.That(button.transition, Is.EqualTo(Selectable.Transition.SpriteSwap));
                     Assert.That(button.targetGraphic, Is.TypeOf<Image>());
                     var targetImage = (Image)button.targetGraphic;
                     Assert.That(targetImage.sprite?.name, Is.EqualTo("ui_button_normal"));
                     Assert.That(targetImage.type, Is.EqualTo(Image.Type.Sliced));
+                    var label = button.transform.Find("Label")?.GetComponent<Text>();
+                    if (label != null && !string.IsNullOrEmpty(label.text))
+                    {
+                        Assert.That(
+                            (Color32)label.color,
+                            Is.EqualTo(new Color32(255, 244, 214, 255)),
+                            button.name);
+                    }
 
                     var spriteState = button.spriteState;
                     Assert.That(spriteState.highlightedSprite?.name, Is.EqualTo("ui_button_hover"));

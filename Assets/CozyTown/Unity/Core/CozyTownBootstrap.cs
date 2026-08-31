@@ -178,6 +178,38 @@ namespace CozyTown.Unity.Core
             }
         }
 
+        public void ConfigureNpcPresenters(params CozyTownNpcDebugPresenter[] presenters)
+        {
+            if (IsInitialized)
+            {
+                throw new InvalidOperationException(
+                    "NPC presenters cannot be replaced after services are initialized.");
+            }
+            if (presenters == null)
+            {
+                throw new ArgumentNullException(nameof(presenters));
+            }
+
+            var configured = new CozyTownNpcDebugPresenter[presenters.Length];
+            for (var index = 0; index < presenters.Length; index++)
+            {
+                var presenter = presenters[index]
+                    ?? throw new ArgumentException(
+                        "NPC presenters must not contain null entries.",
+                        nameof(presenters));
+                if (Array.IndexOf(configured, presenter, 0, index) >= 0)
+                {
+                    throw new ArgumentException(
+                        "NPC presenters must not contain duplicate entries.",
+                        nameof(presenters));
+                }
+
+                configured[index] = presenter;
+            }
+
+            _npcPresenters = configured;
+        }
+
         public void RegisterSavePresenter(CozyTownSaveDebugPresenter presenter)
         {
             Register(ref _savePresenters, presenter);

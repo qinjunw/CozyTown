@@ -36,10 +36,35 @@ namespace CozyTown.Unity.Editor
         private const string FarmStatesPath = ArtRoot + "/Props/prop_farm_states_16.png";
         private const string HenStatesPath = ArtRoot + "/Props/prop_hen_states_16.png";
         private const string PlayerPath = ArtRoot + "/Characters/chr_player_move_16x24.png";
-        private const string MinaPath = ArtRoot + "/Characters/npc_shopkeeper_mina_idle_down.png";
+        private const string NpcTownsfolkPath =
+            ArtRoot + "/Characters/npc_townsfolk_idle_down_16x24.png";
         private const string SceneTileFolder = "Assets/CozyTown/Art/Scene/Tiles";
         private const string UrpSpriteLitMaterialPath =
             "Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Lit-Default.mat";
+
+        private static readonly NpcWorldSpec[] NpcWorldSpecs =
+        {
+            new NpcWorldSpec(
+                "NPC Mina",
+                DefaultMvpIds.Npcs.Shopkeeper,
+                "npc_shopkeeper_mina_idle_down",
+                new Vector2(-4.2f, 0.35f)),
+            new NpcWorldSpec(
+                "NPC Eli",
+                DefaultMvpIds.Npcs.Farmer,
+                "npc_farmer_eli_idle_down",
+                new Vector2(9.1f, -2f)),
+            new NpcWorldSpec(
+                "NPC Ren",
+                DefaultMvpIds.Npcs.Fisher,
+                "npc_fisher_ren_idle_down",
+                new Vector2(-4.2f, -3f)),
+            new NpcWorldSpec(
+                "NPC Sora",
+                DefaultMvpIds.Npcs.Cook,
+                "npc_cook_sora_idle_down",
+                new Vector2(3f, 0.35f))
+        };
 
         [MenuItem("CozyTown/Create Development Scene")]
         public static void CreateDevelopmentScene()
@@ -109,19 +134,8 @@ namespace CozyTown.Unity.Editor
                 }
 
                 var hud = RequireRoot(scene, "Debug HUD");
-                var npcPoint = Array.Find(
-                    RequireRoot(scene, "World")
-                        .GetComponentsInChildren<TownInteractionPoint2D>(true),
-                    point => point.Kind == TownInteractionKind.Npc);
-                if (npcPoint == null)
-                {
-                    throw new InvalidOperationException("Development scene is missing the NPC point.");
-                }
-
-                var npcView = GetOrAdd<CozyTownNpcDebugView>(hud);
-                var npcPresenter = GetOrAdd<CozyTownNpcDebugPresenter>(hud);
-                npcPresenter.Configure(npcPoint, npcView, DefaultMvpIds.Npcs.Shopkeeper);
-                bootstrap.RegisterNpcPresenter(npcPresenter);
+                var world = RequireRoot(scene, "World");
+                EnsureNpcWorldEntities(world, hud, bootstrap);
 
                 var saveView = GetOrAdd<CozyTownSaveDebugView>(hud);
                 var savePresenter = GetOrAdd<CozyTownSaveDebugPresenter>(hud);
@@ -162,11 +176,18 @@ namespace CozyTown.Unity.Editor
                 var world = RequireRoot(scene, "World");
                 var player = RequireRoot(scene, "Player");
                 var camera = RequireRoot(scene, "Main Camera");
+                var hud = RequireRoot(scene, "Debug HUD");
+                var bootstrap = RequireRoot(scene, "CozyTown")
+                    .GetComponent<CozyTownBootstrap>()
+                    ?? throw new InvalidOperationException(
+                        "Development scene is missing CozyTownBootstrap.");
 
                 ConfigurePixelPerfectCamera(camera);
                 ConfigureTownTilemap(world);
                 ConfigureWorldBoundaries(world);
+                EnsureNpcWorldEntities(world, hud, bootstrap);
                 ConfigureWorldInteractionVisuals(world);
+                CozyTownWorldCollisionSceneUpgrader.ConfigureWorld(world);
                 ConfigureFarmWorldView(scene, world);
                 ConfigureCoopWorldView(scene, world);
                 var playerRenderer = ConfigureProductionRenderer(
@@ -283,8 +304,8 @@ namespace CozyTown.Unity.Editor
                 new Vector2(-3f, 1.6f),
                 new Color(1f, 0.65f, 0.2f),
                 interactionPoints.transform);
-            var npcPoint = CreateInteractionPoint(
-                "NPC",
+            var minaPoint = CreateInteractionPoint(
+                "NPC Mina",
                 TownInteractionKind.Npc,
                 "Press E to talk",
                 new Vector2(3f, 1.6f),
@@ -313,9 +334,19 @@ namespace CozyTown.Unity.Editor
             var kitchenPoint = CreateInteractionPoint(
                 "Kitchen", TownInteractionKind.Kitchen, "Press E to cook",
                 new Vector2(3f, 0f), new Color(.95f, .45f, .35f), interactionPoints.transform);
+            var eliPoint = CreateInteractionPoint(
+                "NPC Eli", TownInteractionKind.Npc, "Press E to talk",
+                new Vector2(3.8f, 1.6f), new Color(.25f, .65f, 1f), interactionPoints.transform);
+            var renPoint = CreateInteractionPoint(
+                "NPC Ren", TownInteractionKind.Npc, "Press E to talk",
+                new Vector2(3.8f, .8f), new Color(.25f, .65f, 1f), interactionPoints.transform);
+            var soraPoint = CreateInteractionPoint(
+                "NPC Sora", TownInteractionKind.Npc, "Press E to talk",
+                new Vector2(3.8f, 0f), new Color(.25f, .65f, 1f), interactionPoints.transform);
             return new[]
             {
-                shopPoint, npcPoint, bedPoint, farmPoint, coopPoint, pondPoint, kitchenPoint
+                shopPoint, minaPoint, bedPoint, farmPoint, coopPoint, pondPoint, kitchenPoint,
+                eliPoint, renPoint, soraPoint
             };
         }
 
@@ -335,33 +366,31 @@ namespace CozyTown.Unity.Editor
 
             var shopView = hudObject.AddComponent<CozyTownShopDebugView>();
             var shopPresenter = hudObject.AddComponent<CozyTownShopDebugPresenter>();
-            shopPresenter.Configure(points[0], shopView);
+            shopPresenter.Configure(FindUniquePoint(points, TownInteractionKind.Shop), shopView);
             bootstrap.RegisterShopPresenter(shopPresenter);
 
             var farmView = hudObject.AddComponent<CozyTownFarmDebugView>();
             var farmPresenter = hudObject.AddComponent<CozyTownFarmDebugPresenter>();
-            farmPresenter.Configure(points[3], farmView);
+            farmPresenter.Configure(FindUniquePoint(points, TownInteractionKind.Farm), farmView);
             bootstrap.RegisterFarmPresenter(farmPresenter);
             var bedView = hudObject.AddComponent<CozyTownBedDebugView>();
             var bedPresenter = hudObject.AddComponent<CozyTownBedDebugPresenter>();
-            bedPresenter.Configure(points[2], bedView);
+            bedPresenter.Configure(FindUniquePoint(points, TownInteractionKind.Bed), bedView);
             bootstrap.RegisterBedPresenter(bedPresenter);
             var coopView = hudObject.AddComponent<CozyTownCoopDebugView>();
             var coopPresenter = hudObject.AddComponent<CozyTownCoopDebugPresenter>();
-            coopPresenter.Configure(points[4], coopView);
+            coopPresenter.Configure(FindUniquePoint(points, TownInteractionKind.Coop), coopView);
             bootstrap.RegisterCoopPresenter(coopPresenter);
             var pondView = hudObject.AddComponent<CozyTownPondDebugView>();
             var pondPresenter = hudObject.AddComponent<CozyTownPondDebugPresenter>();
-            pondPresenter.Configure(points[5], pondView);
+            pondPresenter.Configure(FindUniquePoint(points, TownInteractionKind.Pond), pondView);
             bootstrap.RegisterPondPresenter(pondPresenter);
             var kitchenView = hudObject.AddComponent<CozyTownKitchenDebugView>();
             var kitchenPresenter = hudObject.AddComponent<CozyTownKitchenDebugPresenter>();
-            kitchenPresenter.Configure(points[6], kitchenView);
+            kitchenPresenter.Configure(FindUniquePoint(points, TownInteractionKind.Kitchen), kitchenView);
             bootstrap.RegisterKitchenPresenter(kitchenPresenter);
             var npcView = hudObject.AddComponent<CozyTownNpcDebugView>();
-            var npcPresenter = hudObject.AddComponent<CozyTownNpcDebugPresenter>();
-            npcPresenter.Configure(points[1], npcView, DefaultMvpIds.Npcs.Shopkeeper);
-            bootstrap.RegisterNpcPresenter(npcPresenter);
+            ConfigureNpcPresenters(points, npcView, bootstrap);
             var saveView = hudObject.AddComponent<CozyTownSaveDebugView>();
             var savePresenter = hudObject.AddComponent<CozyTownSaveDebugPresenter>();
             savePresenter.Configure(saveView);
@@ -422,6 +451,123 @@ namespace CozyTown.Unity.Editor
             var interactionPoint = pointObject.AddComponent<TownInteractionPoint2D>();
             interactionPoint.Configure(kind, prompt);
             return interactionPoint;
+        }
+
+        private static TownInteractionPoint2D FindUniquePoint(
+            TownInteractionPoint2D[] points,
+            TownInteractionKind kind)
+        {
+            TownInteractionPoint2D match = null;
+            foreach (var point in points)
+            {
+                if (point.Kind != kind)
+                {
+                    continue;
+                }
+
+                if (match != null)
+                {
+                    throw new InvalidOperationException(
+                        $"Development scene contains more than one {kind} interaction point.");
+                }
+
+                match = point;
+            }
+
+            return match ?? throw new InvalidOperationException(
+                $"Development scene is missing its {kind} interaction point.");
+        }
+
+        private static void ConfigureNpcPresenters(
+            TownInteractionPoint2D[] points,
+            CozyTownNpcDebugView view,
+            CozyTownBootstrap bootstrap)
+        {
+            var presenters = new CozyTownNpcDebugPresenter[NpcWorldSpecs.Length];
+            for (var index = 0; index < NpcWorldSpecs.Length; index++)
+            {
+                var spec = NpcWorldSpecs[index];
+                TownInteractionPoint2D point = Array.Find(
+                    points,
+                    candidate => string.Equals(candidate.name, spec.ObjectName, StringComparison.Ordinal));
+                if (point == null || point.Kind != TownInteractionKind.Npc)
+                {
+                    throw new InvalidOperationException(
+                        $"Development scene is missing NPC entity '{spec.ObjectName}'.");
+                }
+
+                var presenter = GetOrAdd<CozyTownNpcDebugPresenter>(point.gameObject);
+                presenter.Configure(point, view, spec.NpcId);
+                presenters[index] = presenter;
+            }
+
+            bootstrap.ConfigureNpcPresenters(presenters);
+        }
+
+        private static void EnsureNpcWorldEntities(
+            GameObject world,
+            GameObject hud,
+            CozyTownBootstrap bootstrap)
+        {
+            var interactionPoints = world.transform.Find("Interaction Points")
+                ?? throw new InvalidOperationException(
+                    "Development scene is missing its Interaction Points object.");
+            var existingNpcPoints = world.GetComponentsInChildren<TownInteractionPoint2D>(true);
+            TownInteractionPoint2D legacyNpc = Array.Find(
+                existingNpcPoints,
+                point => point.Kind == TownInteractionKind.Npc
+                    && Array.FindIndex(
+                        NpcWorldSpecs,
+                        spec => string.Equals(spec.ObjectName, point.name, StringComparison.Ordinal)) < 0);
+
+            var resolved = new TownInteractionPoint2D[NpcWorldSpecs.Length];
+            for (var index = 0; index < NpcWorldSpecs.Length; index++)
+            {
+                var spec = NpcWorldSpecs[index];
+                var pointTransform = interactionPoints.Find(spec.ObjectName);
+                TownInteractionPoint2D point = pointTransform?.GetComponent<TownInteractionPoint2D>();
+                if (point == null && index == 0 && legacyNpc != null)
+                {
+                    point = legacyNpc;
+                    point.name = spec.ObjectName;
+                }
+
+                if (point == null)
+                {
+                    point = CreateInteractionPoint(
+                        spec.ObjectName,
+                        TownInteractionKind.Npc,
+                        "Press E to talk",
+                        spec.Position,
+                        new Color(.25f, .65f, 1f),
+                        interactionPoints);
+                }
+
+                point.Configure(TownInteractionKind.Npc, "Press E to talk");
+                point.transform.position = spec.Position;
+                var trigger = point.GetComponent<BoxCollider2D>()
+                    ?? point.gameObject.AddComponent<BoxCollider2D>();
+                foreach (var collider in point.GetComponents<Collider2D>())
+                {
+                    if (!ReferenceEquals(collider, trigger))
+                    {
+                        UnityEngine.Object.DestroyImmediate(collider);
+                    }
+                }
+                trigger.enabled = true;
+                trigger.isTrigger = true;
+                trigger.offset = new Vector2(0f, 0.3f);
+                trigger.size = new Vector2(.8f, .8f);
+                resolved[index] = point;
+            }
+
+            foreach (var legacyPresenter in hud.GetComponents<CozyTownNpcDebugPresenter>())
+            {
+                UnityEngine.Object.DestroyImmediate(legacyPresenter);
+            }
+
+            var view = GetOrAdd<CozyTownNpcDebugView>(hud);
+            ConfigureNpcPresenters(resolved, view, bootstrap);
         }
 
         private static void ConfigureRenderer(
@@ -554,10 +700,10 @@ namespace CozyTown.Unity.Editor
         private static void ConfigureWorldInteractionVisuals(GameObject world)
         {
             var points = world.GetComponentsInChildren<TownInteractionPoint2D>(true);
-            if (points.Length != 7)
+            if (points.Length != 10)
             {
                 throw new InvalidOperationException(
-                    $"Development scene must contain 7 interaction points, but found {points.Length}.");
+                    $"Development scene must contain 10 interaction entities, but found {points.Length}.");
             }
 
             foreach (var point in points)
@@ -573,9 +719,13 @@ namespace CozyTown.Unity.Editor
                         position = new Vector2(-7f, 1f);
                         break;
                     case TownInteractionKind.Npc:
-                        assetPath = MinaPath;
-                        spriteName = "npc_shopkeeper_mina_idle_down";
-                        position = new Vector2(-3f, 0.5f);
+                        var presenter = point.GetComponent<CozyTownNpcDebugPresenter>()
+                            ?? throw new InvalidOperationException(
+                                $"NPC entity '{point.name}' is missing its presenter.");
+                        var npcSpec = FindNpcSpec(presenter.NpcId);
+                        assetPath = NpcTownsfolkPath;
+                        spriteName = npcSpec.SpriteName;
+                        position = npcSpec.Position;
                         break;
                     case TownInteractionKind.Bed:
                         assetPath = BuildingsPath;
@@ -612,6 +762,19 @@ namespace CozyTown.Unity.Editor
                     LoadSprite(assetPath, spriteName),
                     sortingOrder: point.Kind == TownInteractionKind.Npc ? 15 : 5);
             }
+        }
+
+        private static NpcWorldSpec FindNpcSpec(string npcId)
+        {
+            foreach (var spec in NpcWorldSpecs)
+            {
+                if (string.Equals(spec.NpcId, npcId, StringComparison.Ordinal))
+                {
+                    return spec;
+                }
+            }
+
+            throw new InvalidOperationException($"Unknown NPC world identity '{npcId}'.");
         }
 
         private static SpriteRenderer ConfigureProductionRenderer(
@@ -852,6 +1015,26 @@ namespace CozyTown.Unity.Editor
             var childObject = new GameObject(name);
             childObject.transform.SetParent(parent, false);
             return childObject.transform;
+        }
+
+        private readonly struct NpcWorldSpec
+        {
+            public NpcWorldSpec(
+                string objectName,
+                string npcId,
+                string spriteName,
+                Vector2 position)
+            {
+                ObjectName = objectName;
+                NpcId = npcId;
+                SpriteName = spriteName;
+                Position = position;
+            }
+
+            public string ObjectName { get; }
+            public string NpcId { get; }
+            public string SpriteName { get; }
+            public Vector2 Position { get; }
         }
     }
 }

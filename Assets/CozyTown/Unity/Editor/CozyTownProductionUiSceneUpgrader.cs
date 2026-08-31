@@ -34,6 +34,8 @@ namespace CozyTown.Unity.Editor
         private const string ItemPath = "Assets/CozyTown/Art/Production/Items/item_mvp_16.png";
         private const string PortraitPath = "Assets/CozyTown/Art/Production/Characters/npc_portraits_48.png";
         private const string InputActionsPath = "Assets/Settings/InputSystem_Actions.inputactions";
+        private static readonly Color32 FarmButtonTint = new Color32(0x6F, 0x5A, 0x4A, 0xFF);
+        private static readonly Color32 CreamText = new Color32(0xFF, 0xF4, 0xD6, 0xFF);
 
         [MenuItem("CozyTown/Art/Upgrade Development Scene for A1 Production UI")]
         public static void UpgradeDevelopmentSceneForA1ProductionUi()
@@ -138,14 +140,12 @@ namespace CozyTown.Unity.Editor
             RemoveManagedNode(canvas, "Save Panel");
             RemoveManagedNode(canvas, "Interaction Panel");
 
-            var gearButton = CreateButton(
+            var gearButton = CreateStandaloneIconButton(
                 canvas,
                 "Gear Button",
-                string.Empty,
                 sprites.Settings,
                 Vector2.zero,
-                new Vector2(16f, 16f),
-                sprites);
+                new Vector2(16f, 16f));
             var gearRect = (RectTransform)gearButton.transform;
             gearRect.anchorMin = Vector2.one;
             gearRect.anchorMax = Vector2.one;
@@ -168,10 +168,18 @@ namespace CozyTown.Unity.Editor
             Stretch(saveContent);
             var feedback = CreateText(saveContent, "Feedback Text", string.Empty, new Vector2(8f, -22f), new Vector2(112f, 12f), 7);
             feedback.alignment = TextAnchor.MiddleCenter;
-            CreateButton(saveContent, "Save Button", "保存游戏", sprites.Save, new Vector2(8f, -36f), new Vector2(112f, 18f), sprites);
-            CreateButton(saveContent, "Load Button", "加载存档", sprites.LoadIcon, new Vector2(8f, -58f), new Vector2(112f, 18f), sprites);
-            CreateButton(mainPage, "Settings Button", "设置", sprites.Settings, new Vector2(8f, -80f), new Vector2(112f, 18f), sprites);
-            CreateButton(mainPage, "Quit Button", "离开游戏", null, new Vector2(8f, -102f), new Vector2(112f, 18f), sprites);
+            CreateButton(
+                saveContent, "Save Button", "保存游戏", sprites.Save,
+                new Vector2(8f, -36f), new Vector2(112f, 18f), sprites, 10, FarmButtonTint);
+            CreateButton(
+                saveContent, "Load Button", "加载存档", sprites.LoadIcon,
+                new Vector2(8f, -58f), new Vector2(112f, 18f), sprites, 10, FarmButtonTint);
+            CreateButton(
+                mainPage, "Settings Button", "设置", sprites.Settings,
+                new Vector2(8f, -80f), new Vector2(112f, 18f), sprites, 10, FarmButtonTint);
+            CreateButton(
+                mainPage, "Quit Button", "离开游戏", null,
+                new Vector2(8f, -102f), new Vector2(112f, 18f), sprites, 10, FarmButtonTint);
 
             var settingsPage = GetOrCreateRect(systemPanel, "Settings Page");
             Stretch(settingsPage);
@@ -865,13 +873,17 @@ namespace CozyTown.Unity.Editor
             Sprite icon,
             Vector2 anchoredPosition,
             Vector2 size,
-            UiSprites sprites)
+            UiSprites sprites,
+            int labelFontSize = 9,
+            Color? backgroundTint = null)
         {
             var rect = GetOrCreateRect(parent, name);
             ConfigureTopLeft(rect, anchoredPosition, size);
             var image = GetOrAdd<Image>(rect.gameObject);
             image.sprite = sprites.ButtonNormal;
             image.type = Image.Type.Sliced;
+            image.preserveAspect = false;
+            image.color = backgroundTint ?? Color.white;
 
             var button = GetOrAdd<Button>(rect.gameObject);
             button.targetGraphic = image;
@@ -886,7 +898,50 @@ namespace CozyTown.Unity.Editor
 
             CreateIcon(rect, "Icon", icon, new Vector2(3f, -2f), new Vector2(14f, 14f));
             float labelLeft = icon != null ? 19f : 3f;
-            CreateText(rect, "Label", label, new Vector2(labelLeft, -2f), new Vector2(size.x - labelLeft - 3f, size.y - 4f));
+            var labelText = CreateText(
+                rect,
+                "Label",
+                label,
+                new Vector2(labelLeft, -2f),
+                new Vector2(size.x - labelLeft - 3f, size.y - 4f),
+                labelFontSize);
+            labelText.color = CreamText;
+            return button;
+        }
+
+        private static Button CreateStandaloneIconButton(
+            RectTransform parent,
+            string name,
+            Sprite icon,
+            Vector2 anchoredPosition,
+            Vector2 size)
+        {
+            var rect = GetOrCreateRect(parent, name);
+            ConfigureTopLeft(rect, anchoredPosition, size);
+            RemoveManagedNode(rect, "Icon");
+            RemoveManagedNode(rect, "Label");
+
+            var image = GetOrAdd<Image>(rect.gameObject);
+            image.sprite = icon;
+            image.type = Image.Type.Simple;
+            image.preserveAspect = true;
+            image.color = Color.white;
+            image.raycastTarget = true;
+
+            var button = GetOrAdd<Button>(rect.gameObject);
+            button.targetGraphic = image;
+            button.transition = Selectable.Transition.ColorTint;
+            button.spriteState = default;
+            button.colors = new ColorBlock
+            {
+                normalColor = Color.white,
+                highlightedColor = new Color32(230, 230, 230, 255),
+                pressedColor = new Color32(180, 180, 180, 255),
+                selectedColor = new Color32(230, 230, 230, 255),
+                disabledColor = new Color32(111, 111, 111, 128),
+                colorMultiplier = 1f,
+                fadeDuration = 0.05f
+            };
             return button;
         }
 
@@ -924,7 +979,7 @@ namespace CozyTown.Unity.Editor
             text.resizeTextMinSize = fontSize;
             text.resizeTextMaxSize = fontSize;
             text.fontStyle = FontStyle.Bold;
-            text.color = new Color32(255, 244, 214, 255);
+            text.color = CreamText;
             text.alignment = TextAnchor.MiddleLeft;
             text.horizontalOverflow = HorizontalWrapMode.Wrap;
             text.verticalOverflow = VerticalWrapMode.Truncate;

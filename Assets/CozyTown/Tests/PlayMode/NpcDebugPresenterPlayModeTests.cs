@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CozyTown.Runtime.Application;
@@ -17,6 +18,7 @@ namespace CozyTown.Tests.PlayMode
     {
         private GameObject _actor;
         private GameObject _pointObject;
+        private GameObject _secondPointObject;
         private GameObject _presenterObject;
 
         [UnityTest]
@@ -67,11 +69,69 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(view.State, Is.Null);
         }
 
+        [UnityTest]
+        public IEnumerator SharedView_OnlyOpenPresenterHandlesEventsAndProjectsItsNpc()
+        {
+            var coordinator = new MultiNpcCoordinator();
+            var minaPoint = CreatePoint();
+            _secondPointObject = new GameObject("Eli NPC Point");
+            var eliPoint = _secondPointObject.AddComponent<TownInteractionPoint2D>();
+            eliPoint.Configure(TownInteractionKind.Npc, "Talk to Eli");
+
+            _presenterObject = new GameObject("Shared NPC UI");
+            var view = _presenterObject.AddComponent<CozyTownNpcDebugView>();
+            var minaPresenter = _presenterObject.AddComponent<CozyTownNpcDebugPresenter>();
+            minaPresenter.Configure(minaPoint, view, "npc.shopkeeper_mina");
+            minaPresenter.Bind(coordinator);
+            var eliPresenter = _presenterObject.AddComponent<CozyTownNpcDebugPresenter>();
+            eliPresenter.Configure(eliPoint, view, "npc.farmer_eli");
+            eliPresenter.Bind(coordinator);
+            CreateActor();
+
+            Assert.That(minaPresenter.NpcId, Is.EqualTo("npc.shopkeeper_mina"));
+            Assert.That(eliPresenter.NpcId, Is.EqualTo("npc.farmer_eli"));
+
+            minaPoint.Interact(new InteractionContext(_actor));
+            yield return null;
+
+            Assert.That(view.CurrentNpcId, Is.EqualTo("npc.shopkeeper_mina"));
+            Assert.That(view.NpcCount, Is.EqualTo(1));
+            CollectionAssert.AreEqual(
+                new[] { "npc.shopkeeper_mina" },
+                coordinator.RequestedNpcIds);
+
+            view.RequestNpc("npc.farmer_eli");
+            yield return null;
+            Assert.That(view.CurrentNpcId, Is.EqualTo("npc.shopkeeper_mina"));
+            Assert.That(coordinator.RequestedNpcIds, Has.Count.EqualTo(1));
+
+            view.RequestTalk();
+            yield return null;
+
+            CollectionAssert.AreEqual(
+                new[] { "npc.shopkeeper_mina", "npc.shopkeeper_mina" },
+                coordinator.RequestedNpcIds);
+
+            view.RequestClose();
+            Assert.That(minaPresenter.IsOpen, Is.False);
+            Assert.That(eliPresenter.IsOpen, Is.False);
+            Assert.That(view.IsVisible, Is.False);
+
+            eliPoint.Interact(new InteractionContext(_actor));
+            yield return null;
+
+            Assert.That(view.CurrentNpcId, Is.EqualTo("npc.farmer_eli"));
+            Assert.That(view.NpcCount, Is.EqualTo(1));
+            Assert.That(coordinator.RequestedNpcIds.Last(), Is.EqualTo("npc.farmer_eli"));
+            Assert.That(coordinator.RequestedNpcIds, Has.Count.EqualTo(3));
+        }
+
         [TearDown]
         public void TearDown()
         {
             Destroy(_presenterObject);
             Destroy(_pointObject);
+            Destroy(_secondPointObject);
             Destroy(_actor);
         }
 
@@ -166,6 +226,36 @@ namespace CozyTown.Tests.PlayMode
                     "idle",
                     false,
                     "request-late",
+                    NpcDialogueFallbackReason.None));
+            }
+        }
+
+        private sealed class MultiNpcCoordinator : INpcDialogueCoordinator
+        {
+            public IReadOnlyList<NpcDialogueOption> Npcs { get; } = new[]
+            {
+                new NpcDialogueOption("npc.shopkeeper_mina", "Mina"),
+                new NpcDialogueOption("npc.farmer_eli", "Eli"),
+                new NpcDialogueOption("npc.fisher_ren", "Ren"),
+                new NpcDialogueOption("npc.cook_sora", "Sora")
+            };
+
+            public List<string> RequestedNpcIds { get; } = new List<string>();
+
+            public Task<NpcDialogueViewState> GenerateAsync(
+                string npcId,
+                CancellationToken cancellationToken)
+            {
+                RequestedNpcIds.Add(npcId);
+                string displayName = Npcs.Single(npc => npc.NpcId == npcId).DisplayName;
+                return Task.FromResult(new NpcDialogueViewState(
+                    npcId,
+                    displayName,
+                    $"Hello from {displayName}.",
+                    "neutral",
+                    "idle",
+                    false,
+                    $"request-{RequestedNpcIds.Count}",
                     NpcDialogueFallbackReason.None));
             }
         }

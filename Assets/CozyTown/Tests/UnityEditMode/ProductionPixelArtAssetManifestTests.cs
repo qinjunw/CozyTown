@@ -86,6 +86,11 @@ namespace CozyTown.Tests.UnityEditMode
                 16, 24, PivotKind.BottomCenter, true,
                 "npc_shopkeeper_mina_idle_down"),
             Multiple(
+                "Assets/CozyTown/Art/Production/Characters/npc_townsfolk_idle_down_16x24.png",
+                4, 1, 16, 24, PivotKind.BottomCenter, true,
+                "npc_shopkeeper_mina_idle_down", "npc_farmer_eli_idle_down",
+                "npc_fisher_ren_idle_down", "npc_cook_sora_idle_down"),
+            Multiple(
                 "Assets/CozyTown/Art/Production/Characters/npc_portraits_48.png",
                 4, 1, 48, 48, PivotKind.Center, true,
                 "npc_shopkeeper_mina_portrait", "npc_farmer_eli_portrait",
@@ -240,22 +245,22 @@ namespace CozyTown.Tests.UnityEditMode
                 "ui_icon_settings",
                 new[]
                 {
-                    "......1111......",
-                    "......1SS1......",
-                    "..11.1SSSS1.11..",
-                    "..1S11SSSS11S1..",
-                    "...1SSSSSSSS1...",
-                    "111SSS1111SSS111",
-                    "1SSSS110011SSSS1",
-                    "1SSSS100001SSSS1",
-                    "1SSSS100001SSSS1",
-                    "1SSSS110011SSSS1",
-                    "111SSS1111SSS111",
-                    "...1SSSSSSSS1...",
-                    "..1S11SSSS11S1..",
-                    "..11.1SSSS1.11..",
-                    "......1SS1......",
-                    "......1111......"
+                    "......0000......",
+                    "......0VV0......",
+                    "..00.0VVVV0.00..",
+                    "..0V00VVVV00V0..",
+                    "...0VVVVVVVV0...",
+                    "000VVV0000VVV000",
+                    "0VVVV000000VVVV0",
+                    "0VVVV000000VVVV0",
+                    "0VVVV000000VVVV0",
+                    "0VVVV000000VVVV0",
+                    "000VVV0000VVV000",
+                    "...0VVVVVVVV0...",
+                    "..0V00VVVV00V0..",
+                    "..00.0VVVV0.00..",
+                    "......0VV0......",
+                    "......0000......"
                 });
         }
 
@@ -615,6 +620,7 @@ namespace CozyTown.Tests.UnityEditMode
                 '0' => Rgb(0x1F, 0x1B, 0x24),
                 '1' => Rgb(0x3B, 0x1F, 0x1B),
                 'S' => Rgb(0xC9, 0x82, 0x56),
+                'V' => Rgb(0xD7, 0xDE, 0xE8),
                 _ => throw new ArgumentOutOfRangeException(nameof(code), code, "Unknown UI pattern color.")
             };
         }

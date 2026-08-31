@@ -163,6 +163,34 @@ namespace CozyTown.Unity.Editor
             1, 1, 16, 24, 0, PixelArtPivotKind.BottomCenter, PixelArtBackgroundMode.WhiteBackground,
             "npc_shopkeeper_mina_idle_down");
 
+        public static readonly PixelArtBatchDefinition A1NpcWorld =
+            new PixelArtBatchDefinition(
+                "ArtSource/Generated/A1/portraits_source.png",
+                "Assets/CozyTown/Art/Production/Characters/npc_townsfolk_idle_down_16x24.png",
+                "ArtSource/Previews/A1/npc_townsfolk_idle_down_16x24_4x.png",
+                4,
+                1,
+                16,
+                24,
+                0,
+                PixelArtPivotKind.BottomCenter,
+                PixelArtBackgroundMode.Alpha,
+                CozyTownPixelArtPalettes.WarmRural32,
+                new[]
+                {
+                    "npc_shopkeeper_mina_idle_down",
+                    "npc_farmer_eli_idle_down",
+                    "npc_fisher_ren_idle_down",
+                    "npc_cook_sora_idle_down"
+                },
+                authoredCellSourcePaths: new[]
+                {
+                    "ArtSource/Authored/A1/npc_shopkeeper_mina_idle_down.pixels",
+                    "ArtSource/Authored/A1/npc_farmer_eli_idle_down.pixels",
+                    "ArtSource/Authored/A1/npc_fisher_ren_idle_down.pixels",
+                    "ArtSource/Authored/A1/npc_cook_sora_idle_down.pixels"
+                });
+
         public static readonly PixelArtBatchDefinition A1NpcPortraits = A1(
             "portraits_source.png",
             "Characters/npc_portraits_48.png",
@@ -259,6 +287,7 @@ namespace CozyTown.Unity.Editor
                 A1HenStates,
                 A1Player,
                 A1MinaWorld,
+                A1NpcWorld,
                 A1NpcPortraits,
                 A1Items,
                 A1Ui,

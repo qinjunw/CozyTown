@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using CozyTown.Runtime.Application;
@@ -15,6 +16,9 @@ namespace CozyTown.Unity.Npc
         private INpcDialogueCoordinator _coordinator;
         private CancellationTokenSource _dialogueCancellation;
         private int _requestVersion;
+        private bool _ownsView;
+
+        public string NpcId => _defaultNpcId ?? string.Empty;
 
         protected override TownInteractionKind ExpectedKind => TownInteractionKind.Npc;
 
@@ -48,40 +52,65 @@ namespace CozyTown.Unity.Npc
         {
             _view.TalkRequested += TalkAgain;
             _view.NpcRequested += RequestDialogue;
-            _view.CloseRequested += CloseModal;
+            _view.CloseRequested += HandleCloseRequested;
         }
 
         protected override void UnsubscribeView()
         {
             _view.TalkRequested -= TalkAgain;
             _view.NpcRequested -= RequestDialogue;
-            _view.CloseRequested -= CloseModal;
+            _view.CloseRequested -= HandleCloseRequested;
         }
 
-        protected override void ShowInitialState() => RequestDialogue(_defaultNpcId);
+        protected override void ShowInitialState()
+        {
+            _ownsView = true;
+            RequestDialogue(_defaultNpcId);
+        }
 
         protected override void HideView()
         {
             CancelPendingDialogue();
+            if (!_ownsView)
+            {
+                return;
+            }
+
+            _ownsView = false;
             _view?.Hide();
         }
 
         private void TalkAgain()
         {
-            if (!string.IsNullOrWhiteSpace(_view.CurrentNpcId))
+            if (IsOpen)
             {
-                RequestDialogue(_view.CurrentNpcId);
+                RequestDialogue(_defaultNpcId);
+            }
+        }
+
+        private void HandleCloseRequested()
+        {
+            if (IsOpen)
+            {
+                CloseModal();
             }
         }
 
         private async void RequestDialogue(string npcId)
         {
+            if (!IsOpen
+                || !string.Equals(npcId, _defaultNpcId, StringComparison.Ordinal))
+            {
+                return;
+            }
+
             CancelPendingDialogue();
             int requestVersion = ++_requestVersion;
             var requestCancellation = new CancellationTokenSource();
             _dialogueCancellation = requestCancellation;
             CancellationToken cancellationToken = requestCancellation.Token;
-            _view.ShowLoading(_coordinator.Npcs, npcId);
+            IReadOnlyList<NpcDialogueOption> npcProjection = ProjectNpc(npcId);
+            _view.ShowLoading(npcProjection, npcId);
 
             try
             {
@@ -90,7 +119,7 @@ namespace CozyTown.Unity.Npc
                     cancellationToken);
                 if (CanApply(requestVersion, cancellationToken))
                 {
-                    _view.Show(state, _coordinator.Npcs);
+                    _view.Show(state, npcProjection);
                 }
             }
             catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
@@ -100,7 +129,7 @@ namespace CozyTown.Unity.Npc
             {
                 if (CanApply(requestVersion, cancellationToken))
                 {
-                    _view.ShowFailure(_coordinator.Npcs, npcId);
+                    _view.ShowFailure(npcProjection, npcId);
                 }
             }
             finally
@@ -112,6 +141,19 @@ namespace CozyTown.Unity.Npc
 
                 requestCancellation.Dispose();
             }
+        }
+
+        private IReadOnlyList<NpcDialogueOption> ProjectNpc(string npcId)
+        {
+            foreach (NpcDialogueOption npc in _coordinator.Npcs)
+            {
+                if (string.Equals(npc.NpcId, npcId, StringComparison.Ordinal))
+                {
+                    return new[] { npc };
+                }
+            }
+
+            return Array.Empty<NpcDialogueOption>();
         }
 
         private bool CanApply(int requestVersion, CancellationToken cancellationToken)
