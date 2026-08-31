@@ -187,7 +187,7 @@ height = frameHeight
 | r0c2 | `npc_fisher_ren_idle_down` | 渔夫 Ren 的独立世界实体 |
 | r0c3 | `npc_cook_sora_idle_down` | 厨师 Sora 的独立世界实体 |
 
-四个正式场景 Sprite 使用 `16×24` 和 BottomCenter Pivot。旧 Mina Single Sprite 暂时保留用于资源兼容，不再作为正式场景唯一 NPC。四名 NPC 只增加独立静态位置，不增加移动、日程、任务或关系系统。
+四个正式场景 Sprite 使用 `16×24` 和 BottomCenter Pivot。Mina 使用棕发与深棕围裙，Eli 使用草帽与绿衣，Ren 使用蓝帽与蓝衣，Sora 使用白厨师帽与橙发；这些特征与对应头像保持一致。旧 Mina Single Sprite 暂时保留用于资源兼容，不再作为正式场景唯一 NPC。四名 NPC 只增加独立静态位置，不增加移动、日程、任务或关系系统。
 
 ### 4.9 NPC 头像
 

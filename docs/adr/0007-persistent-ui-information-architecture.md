@@ -36,6 +36,7 @@ Scene-01c 已将正式界面迁移到 `320×180` 参考分辨率的 UGUI，但�
 - 保存与读取继续复用 `CozyTownSaveDebugPresenter` 和 `IGameSaveCoordinator`。保存 View 的内容节点可以预先刷新，但系统菜单根节点默认关闭，避免场景启动时自动展开。
 - 设置按钮只进入可返回的占位页；不在本切片新增音量、分辨率、键位或本地化选项。离开游戏通过窄退出适配器调用 `Application.Quit`，EditMode 和 PlayMode 测试使用替身。
 - Production UI 继续复用 `ui_panel`、`ui_button_*`、物品图标和 Unity Text。新增 `ui_icon_settings` 独立单图；现有 `ui_marker_interact` 只重绘为带尾部的气泡轮廓并由 Text 叠加 `E`。
+- 业务模态在 Canvas sibling 顺序上始终位于快捷栏之后，确保面板和行动按钮覆盖快捷栏；该规则只作用于商店、农田、床、鸡舍、池塘、厨房和 NPC 七个模态。七个模态按钮使用深木底与奶油字，快捷栏 `1` 至 `5` 使用独立深棕色文本。
 - 场景升级器继续按固定对象名幂等更新 A1 管理节点，不重建 Bootstrap、Presenter、交互点、碰撞或领域对象。运行时不得通过路径、Sprite 名或 `AssetDatabase` 查找资源。
 
 ## 公开测试缝隙
