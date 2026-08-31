@@ -4,13 +4,13 @@ CozyTown 是一个 Unity 2D 小镇生活模拟项目。MVP 由种植、养鸡、
 
 ## 当前状态
 
-M4“持久化与 AI”已经完成。玩家可在单一小镇场景中完成生产经济闭环，并通过右上角齿轮打开系统菜单，保存或读取一个本地存档。存档覆盖时间、金币、背包、农田和畜牧状态，使用 schema v1 JSON；写入先生成并验证临时文件，再替换正式槽位，损坏内容、缺失存档和不支持版本会返回不同错误。NPC 交互点可选择 4 名 NPC；固定对话始终可用，也可通过不含客户端密钥的 HTTP(S) 代理适配器请求 AI 对话。超时、传输异常、空文本、结构错误或非法标签都会返回对应 NPC 的固定文本。
+M4“持久化与 AI”已经完成。玩家可在单一小镇场景中完成生产经济闭环，并通过右上角齿轮打开系统菜单，保存或读取一个本地存档。存档覆盖时间、金币、背包、农田和畜牧状态，使用 schema v1 JSON；写入先生成并验证临时文件，再替换正式槽位，损坏内容、缺失存档和不支持版本会返回不同错误。Mina、Eli、Ren 和 Sora 分别作为独立世界实体提供对应固定对话；也可通过不含客户端密钥的 HTTP(S) 代理适配器请求 AI 对话。超时、传输异常、空文本、结构错误或非法标签都会返回对应 NPC 的固定文本。
 
-纯像素美术已完成 A0 参考与首批 A1 Production 资源。A1 包含 12 个 PNG、99 个命名 Sprite 和 12 个严格 4× 最近邻预览。正式场景已完成 Scene-01a 世界表现、Scene-01b 运行时状态表现、Scene-01c Production UGUI 接线和 Scene-01d 常驻 UI 收口：左上 HUD、目标上方 `E` 气泡、底部五格快捷栏、`B` 键只读包裹和右上齿轮系统菜单均已接线。自动化已停在人工场景验收前，三档实际画面的可读性、接缝与整体构图仍待人工确认。
+纯像素美术已完成 A0 参考与首批 A1 Production 资源。A1 包含 13 个 PNG、103 个命名 Sprite 和 13 个严格 4× 最近邻预览。正式场景已完成 Scene-01a 至 Scene-01e：左上 HUD、目标上方 `E` 气泡、底部五格快捷栏、`B` 键只读包裹、无底框灰色齿轮、四名独立世界 NPC，以及建筑、农田和池塘实体边界均已接线。自动化已停在人工场景验收前，三档实际画面的可读性、接缝、门口手感、岸线贴合和整体构图仍待人工确认。
 
 默认配置包含 3 种作物、3 种鱼、5 个料理配方、1 只鸡和 4 名 NPC；组合根通过 `CreateDefault()` 创建同一对象图。`CozyTown.Runtime` 设置 `noEngineReferences: true`，不引用 UnityEngine。Unity 组件位于独立的 `CozyTown.Unity` 程序集；Bootstrap 私有持有完整对象图，并只向各 Presenter 注入对应的交易、生产、跨日、对话或存档用例接口。
 
-Unity Editor `6000.5.5f1` 已完成包解析、资源导入和六个 CozyTown 程序集的脚本编译。2026-08-30 完成 Scene-01d 后运行全量测试，得到 EditMode `179/179`、PlayMode `31/31` 通过，均为 0 failed、0 skipped；日志未出现 C# 编译错误、测试失败、未处理异常或运行态装配错误。PlayMode 使用虚拟 Keyboard 验证数字 `1` 至 `5` 与 `B` 的正式场景输入链路；批处理测试使用内存存档，不读写玩家的正式槽位。
+Unity Editor `6000.5.5f1` 已完成包解析、资源导入和六个 CozyTown 程序集的脚本编译。2026-08-31 完成 Scene-01e 后运行全量测试，得到 EditMode `183/183`、PlayMode `35/35` 通过，均为 0 failed、0 skipped；日志未出现 C# 编译错误、测试失败、未处理异常或运行态装配错误。PlayMode 通过真实 Rigidbody2D 验证四座建筑的墙面与门槽、农田和池塘阻挡，并继续覆盖池塘四向交互优先级、数字 `1` 至 `5`、`B` 和完整经济闭环；批处理测试使用内存存档，不读写玩家的正式槽位。
 
 产品范围和验收条件见 [PRD](docs/PRD.md)，领域词汇见 [CONTEXT](CONTEXT.md)，模块边界和依赖规则见 [架构说明](docs/ARCHITECTURE.md)，组件与集成用例见 [测试计划](docs/TEST_PLAN.md)。纯像素规格、准入条件和 A0 生成记录分别见 [美术方向](docs/ART_DIRECTION.md)、[美术验收](docs/ART_ACCEPTANCE.md) 和 [生成记录](docs/ART_GENERATION_LOG.md)。架构决策记录位于 [`docs/adr`](docs/adr)。
 
@@ -52,9 +52,9 @@ Runtime 按 `Application`、`Content`、`Core`、`Time`、`Inventory`、`Economy
 3. 使用 Unity `6000.5.5f1` 打开项目。
 4. 等待 Package Manager 导入依赖并完成脚本编译。
 
-打开 `Assets/CozyTown/Scenes/CozyTown_Dev.unity` 运行当前切片。使用 WASD 或方向键移动，靠近功能色块后按 E 打开对应面板；按钮执行一次操作，点击 **Close** 返回移动。可按以下路线验证完整闭环：商店购买土豆种子、鸡饲料和两份盐；在农田播种并浇水；在鸡舍喂鸡；在池塘钓鱼；睡到第 2 天后收鸡蛋并再次浇水；睡到第 3 天后收获；在厨房制作烤土豆和烤鱼；回商店出售剩余土豆、两份料理和鸡蛋，再购买一份土豆种子。
+打开 `Assets/CozyTown/Scenes/CozyTown_Dev.unity` 运行当前切片。使用 WASD 或方向键移动；靠近建筑门口、NPC、农田边缘或池塘岸边时，目标上方出现 `E` 气泡，按 E 打开对应面板。可按以下路线验证完整闭环：商店购买土豆种子、鸡饲料和两份盐；在农田播种并浇水；在鸡舍喂鸡；在池塘钓鱼；睡到第 2 天后收鸡蛋并再次浇水；睡到第 3 天后收获；在厨房制作烤土豆和烤鱼；回商店出售剩余土豆、两份料理和鸡蛋，再购买一份土豆种子。
 
-右上角 **Save / Load** 面板操作逻辑槽位 `main`；默认 Bootstrap 在常规 Editor Play 和构建中写入 `<Application.persistentDataPath>/CozyTown/main.json`。靠近蓝色 NPC 点按 E 可在 4 名 NPC 之间选择并请求对话。Bootstrap 的 **Ai Proxy Endpoint** 默认留空，因此使用固定回退；要联调线上模型，应填入由开发者控制的绝对 HTTP(S) 代理地址。代理成功响应为 `{"text":"...","emotion":"...","action":"..."}`，客户端不保存模型服务密钥。
+右上角齿轮内的保存与加载按钮操作逻辑槽位 `main`；默认 Bootstrap 在常规 Editor Play 和构建中写入 `<Application.persistentDataPath>/CozyTown/main.json`。分别靠近 Mina、Eli、Ren 或 Sora 并按 E，只会请求当前 NPC 的对话。Bootstrap 的 **Ai Proxy Endpoint** 默认留空，因此使用固定回退；人工 Scene-01 验收前不配置真实代理。代理成功响应为 `{"text":"...","emotion":"...","action":"..."}`，客户端不保存模型服务密钥。
 
 Editor 菜单 **CozyTown > Create Development Scene** 只在固定路径不存在时创建场景，不覆盖已有资产；创建前若当前活动场景尚未保存，菜单会先要求保存。**CozyTown > Upgrade Development Scene for M4** 可重复执行 M4 接线；执行前应先保存正在编辑的其他场景。
 

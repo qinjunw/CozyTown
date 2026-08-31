@@ -2,11 +2,11 @@
 
 ## 1. 范围与交付门禁
 
-本清单是 `Assets/CozyTown/Art/Production/` 的生产资源契约。资源只覆盖当前 MVP 已有画面：一张小镇地图、商店、NPC、床、农田、鸡舍、池塘和厨房 7 个交互点，3 种作物、3 种鱼、1 只鸡、5 个料理、18 个物品和 4 名 NPC。
+本清单是 `Assets/CozyTown/Art/Production/` 的生产资源契约。资源只覆盖当前 MVP 已有画面：一张小镇地图、七种交互语义、10 个物理交互实体，3 种作物、3 种鱼、1 只鸡、5 个料理、18 个物品和 4 名 NPC。
 
-本轮交付采用批次级技术与可读性验收。12 个 Production PNG 可以作为一个批次生成，但只有在文件、切片、导入策略和小尺寸可读性全部通过后，才能接入正式场景。A0 参考图只提供构图、轮廓和色彩关系；不得缩放、裁切或改名后直接作为 Production 资源。
+本轮交付采用批次级技术与可读性验收。13 个 Production PNG 作为一个批次生成；文件、切片、导入策略和小尺寸可读性全部通过后才能接入正式场景。A0 参考图只提供构图、轮廓和色彩关系；不得缩放、裁切或改名后直接作为 Production 资源。
 
-本清单不包含室内地图、野外、季节、天气、工具动作全集、NPC 行走日程、新的交互点、更多内容物或宣传插画。
+本清单不包含室内地图、野外、季节、天气、工具动作全集、NPC 行走日程、当前 10 个物理实体之外的新交互入口、更多内容物或宣传插画。
 
 ## 2. 全局导入与切片约定
 
@@ -40,10 +40,11 @@ height = frameHeight
 | 6 | `Assets/CozyTown/Art/Production/Props/prop_hen_states_16.png` | `48×16` | Multiple | `3×1` | `16×16` | 3 | BottomCenter | 硬透明 |
 | 7 | `Assets/CozyTown/Art/Production/Characters/chr_player_move_16x24.png` | `48×96` | Multiple | `3×4` | `16×24` | 12 | BottomCenter | 硬透明 |
 | 8 | `Assets/CozyTown/Art/Production/Characters/npc_shopkeeper_mina_idle_down.png` | `16×24` | Single | `1×1` | `16×24` | 1 | BottomCenter | 硬透明 |
-| 9 | `Assets/CozyTown/Art/Production/Characters/npc_portraits_48.png` | `192×48` | Multiple | `4×1` | `48×48` | 4 | Center | 硬透明 |
-| 10 | `Assets/CozyTown/Art/Production/Items/item_mvp_16.png` | `96×48` | Multiple | `6×3` | `16×16` | 18 | Center | 硬透明 |
-| 11 | `Assets/CozyTown/Art/Production/UI/ui_mvp_16.png` | `64×48` | Multiple | `4×3` | `16×16` | 12 | Center | 硬透明 |
-| 12 | `Assets/CozyTown/Art/Production/UI/ui_icon_settings.png` | `16×16` | Single | `1×1` | `16×16` | 1 | Center | 硬透明 |
+| 9 | `Assets/CozyTown/Art/Production/Characters/npc_townsfolk_idle_down_16x24.png` | `64×24` | Multiple | `4×1` | `16×24` | 4 | BottomCenter | 硬透明 |
+| 10 | `Assets/CozyTown/Art/Production/Characters/npc_portraits_48.png` | `192×48` | Multiple | `4×1` | `48×48` | 4 | Center | 硬透明 |
+| 11 | `Assets/CozyTown/Art/Production/Items/item_mvp_16.png` | `96×48` | Multiple | `6×3` | `16×16` | 18 | Center | 硬透明 |
+| 12 | `Assets/CozyTown/Art/Production/UI/ui_mvp_16.png` | `64×48` | Multiple | `4×3` | `16×16` | 12 | Center | 硬透明 |
+| 13 | `Assets/CozyTown/Art/Production/UI/ui_icon_settings.png` | `16×16` | Single | `1×1` | `16×16` | 1 | Center | 硬透明 |
 
 ## 4. Sprite 切片清单
 
@@ -175,13 +176,18 @@ height = frameHeight
 
 ### 4.8 世界 NPC
 
-文件：`Characters/npc_shopkeeper_mina_idle_down.png`
+兼容文件：`Characters/npc_shopkeeper_mina_idle_down.png`
+
+正式场景文件：`Characters/npc_townsfolk_idle_down_16x24.png`
 
 | Cell | Sprite 名 | 对应玩法对象 |
 | --- | --- | --- |
-| r0c0 | `npc_shopkeeper_mina_idle_down` | 现有单一 NPC 世界交互点 |
+| r0c0 | `npc_shopkeeper_mina_idle_down` | 商店老板 Mina 的独立世界实体 |
+| r0c1 | `npc_farmer_eli_idle_down` | 农夫 Eli 的独立世界实体 |
+| r0c2 | `npc_fisher_ren_idle_down` | 渔夫 Ren 的独立世界实体 |
+| r0c3 | `npc_cook_sora_idle_down` | 厨师 Sora 的独立世界实体 |
 
-该 Single Sprite 使用 `16×24` 和 BottomCenter Pivot。世界里只显示一个静态 NPC，不增加 4 名 NPC 的独立位置、移动或日程。
+四个正式场景 Sprite 使用 `16×24` 和 BottomCenter Pivot。旧 Mina Single Sprite 暂时保留用于资源兼容，不再作为正式场景唯一 NPC。四名 NPC 只增加独立静态位置，不增加移动、日程、任务或关系系统。
 
 ### 4.9 NPC 头像
 
@@ -258,14 +264,14 @@ height = frameHeight
 
 ### 5.1 自动化可验证项
 
-1. 12 个固定路径全部存在，PNG 画布尺寸与总表一致。
+1. 13 个固定路径全部存在，PNG 画布尺寸与总表一致。
 2. Unity 导入后的 Sprite Mode、PPU、Filter、Compression、Mip Map、Wrap、sRGB 和 Alpha 设置符合第 2 节。
 3. Multiple 文件按约定行列得到准确切片数；Single 文件只产生一个主 Sprite。
-4. 99 个 Sprite 名与本清单逐项一致，没有额外、缺失或重复名称。
+4. 103 个 Sprite 与本清单逐项一致；每个资源内没有额外、缺失或重复名称。兼容 Mina Single 与正式四人图集共用 `npc_shopkeeper_mina_idle_down`，正式场景按图集路径引用。
 5. 每个 Sprite Rect 由第 2 节公式和对应 Cell 唯一确定；Pivot 与源文件总表一致。
 6. 16 个道路 Tile 的 N/E/S/W 边缘连接与稳定名称一致，声明连接使用统一宽度和边缘签名，未声明方向没有道路出口。
 7. 所有 BottomCenter Sprite 的最底不透明像素落在本地 `y=0`；UI 前 5 个九宫格 Sprite 使用 `3 px` border。
-8. Production 可见像素只使用锁定的 32 色板；资源不包含对 Runtime 领域程序集的反向依赖，正式场景接入前不改变既有玩法对象数量。
+8. Production 可见像素只使用锁定的 32 色板；资源不包含对 Runtime 领域程序集的反向依赖，也不增加既有七种交互语义。
 
 ### 5.2 人工可读性项
 
@@ -275,7 +281,7 @@ height = frameHeight
 4. 3 种作物在成熟状态下可区分，干地与湿地可区分，6 个地块可重复使用同一状态资源。
 5. 母鸡的未喂、已喂和可收蛋状态可区分。
 6. 18 个物品图标在 `16×16` 原生尺寸下可区分，尤其是种子与收获物、3 种鱼和 5 个料理。
-7. 4 名 NPC 头像在轮廓、发色或服装中至少有两项稳定差异；世界 NPC 与 Mina 头像保持一致特征。
+7. 4 名 NPC 的世界 Sprite 和头像在轮廓、发色或服装中至少有两项稳定差异；同一 NPC 的两种表现保持一致特征。
 8. UI 的正常、悬停、按下和禁用状态具有可观察差异，图标不依赖文字说明其基本含义。
 9. 资源没有抗锯齿、渐变、软阴影、棋盘格背景或现有游戏资产的可识别复制。
 
@@ -283,7 +289,7 @@ height = frameHeight
 
 | 项目 | 数量 |
 | --- | ---: |
-| Production PNG | 12 |
+| Production PNG | 13 |
 | Environment Tile | 20 |
 | 边界与装饰 Sprite | 8 |
 | 建筑 Sprite | 4 |
@@ -291,8 +297,8 @@ height = frameHeight
 | 农田状态 Sprite | 14 |
 | 母鸡状态 Sprite | 3 |
 | 玩家 Sprite | 12 |
-| 世界 NPC Sprite | 1 |
+| 世界 NPC Sprite | 5（正式 4 + 兼容 1） |
 | NPC 头像 Sprite | 4 |
 | 物品图标 Sprite | 18 |
 | UI Sprite | 13 |
-| **Sprite 总数** | **99** |
+| **Sprite 总数** | **103** |
