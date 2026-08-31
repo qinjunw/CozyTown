@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: d2224ba16f930714eb32c059b3000f05
+guid: c7fb5e3ba0609604a8d217983c5bc7b2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3136025475629796372
-    second: npc_townsfolk_idle_down_16x24_0
+      213: 6322172016844961165
+    second: npc_townsfolk_idle_down_24x32_0
   - first:
-      213: 915857045621628091
-    second: npc_townsfolk_idle_down_16x24_1
+      213: 8114439288097271585
+    second: npc_townsfolk_idle_down_24x32_1
   - first:
-      213: 4847253025441771362
-    second: npc_townsfolk_idle_down_16x24_2
+      213: -6846691057935517300
+    second: npc_townsfolk_idle_down_24x32_2
   - first:
-      213: -3544933971588707230
-    second: npc_townsfolk_idle_down_16x24_3
+      213: -390235253726889615
+    second: npc_townsfolk_idle_down_24x32_3
   - first:
       213: -1797794176356544083
     second: npc_shopkeeper_mina_idle_down
@@ -139,8 +139,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 24
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,10 +159,10 @@ TextureImporter:
       name: npc_farmer_eli_idle_down
       rect:
         serializedVersion: 2
-        x: 16
+        x: 24
         y: 0
-        width: 16
-        height: 24
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: npc_fisher_ren_idle_down
       rect:
         serializedVersion: 2
-        x: 32
+        x: 48
         y: 0
-        width: 16
-        height: 24
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,10 +203,10 @@ TextureImporter:
       name: npc_cook_sora_idle_down
       rect:
         serializedVersion: 2
-        x: 48
+        x: 72
         y: 0
-        width: 16
-        height: 24
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,10 +239,10 @@ TextureImporter:
       npc_farmer_eli_idle_down: 862581602810708292
       npc_fisher_ren_idle_down: -5273413222926941709
       npc_shopkeeper_mina_idle_down: -1797794176356544083
-      npc_townsfolk_idle_down_16x24_0: -3136025475629796372
-      npc_townsfolk_idle_down_16x24_1: 915857045621628091
-      npc_townsfolk_idle_down_16x24_2: 4847253025441771362
-      npc_townsfolk_idle_down_16x24_3: -3544933971588707230
+      npc_townsfolk_idle_down_24x32_0: 6322172016844961165
+      npc_townsfolk_idle_down_24x32_1: 8114439288097271585
+      npc_townsfolk_idle_down_24x32_2: -6846691057935517300
+      npc_townsfolk_idle_down_24x32_3: -390235253726889615
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

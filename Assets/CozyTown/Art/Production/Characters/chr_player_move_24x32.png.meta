@@ -1,37 +1,37 @@
 fileFormatVersion: 2
-guid: dc8a2567cf0b3ed4c9421355daca30ed
+guid: 91f796c5dcd720c419c624fea7d3a1f4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7573454648124925326
-    second: chr_player_move_16x24_0
+      213: -3493265347049308241
+    second: chr_player_move_24x32_0
   - first:
-      213: 2062695265218180037
-    second: chr_player_move_16x24_1
+      213: 7506074490895909651
+    second: chr_player_move_24x32_1
   - first:
-      213: 2914200134040309869
-    second: chr_player_move_16x24_2
+      213: 2155508217553702026
+    second: chr_player_move_24x32_2
   - first:
-      213: -9127880388124007998
-    second: chr_player_move_16x24_3
+      213: -2584012237898301501
+    second: chr_player_move_24x32_3
   - first:
-      213: -7275612710980248067
-    second: chr_player_move_16x24_4
+      213: -998891310017235781
+    second: chr_player_move_24x32_4
   - first:
-      213: 1697284165115116918
-    second: chr_player_move_16x24_5
+      213: -338768688681891632
+    second: chr_player_move_24x32_5
   - first:
-      213: 5984412270974659901
-    second: chr_player_move_16x24_6
+      213: -2007534619091136525
+    second: chr_player_move_24x32_6
   - first:
-      213: -2698987059845830497
-    second: chr_player_move_16x24_7
+      213: -5341184175143878784
+    second: chr_player_move_24x32_7
   - first:
-      213: -5006977916678015886
-    second: chr_player_move_16x24_8
+      213: 7527677750495232161
+    second: chr_player_move_24x32_8
   - first:
-      213: 2273187860085928888
-    second: chr_player_move_16x24_9
+      213: 3939801893154991369
+    second: chr_player_move_24x32_9
   - first:
       213: -3802437881020502469
     second: chr_player_idle_down
@@ -180,9 +180,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 72
-        width: 16
-        height: 24
+        y: 96
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -201,10 +201,10 @@ TextureImporter:
       name: chr_player_walk_down_00
       rect:
         serializedVersion: 2
-        x: 16
-        y: 72
-        width: 16
-        height: 24
+        x: 24
+        y: 96
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,10 +223,10 @@ TextureImporter:
       name: chr_player_walk_down_01
       rect:
         serializedVersion: 2
-        x: 32
-        y: 72
-        width: 16
-        height: 24
+        x: 48
+        y: 96
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,9 +246,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 48
-        width: 16
-        height: 24
+        y: 64
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -267,10 +267,10 @@ TextureImporter:
       name: chr_player_walk_left_00
       rect:
         serializedVersion: 2
-        x: 16
-        y: 48
-        width: 16
-        height: 24
+        x: 24
+        y: 64
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -289,10 +289,10 @@ TextureImporter:
       name: chr_player_walk_left_01
       rect:
         serializedVersion: 2
-        x: 32
-        y: 48
-        width: 16
-        height: 24
+        x: 48
+        y: 64
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -312,9 +312,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 24
-        width: 16
-        height: 24
+        y: 32
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -333,10 +333,10 @@ TextureImporter:
       name: chr_player_walk_right_00
       rect:
         serializedVersion: 2
-        x: 16
-        y: 24
-        width: 16
-        height: 24
+        x: 24
+        y: 32
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -355,10 +355,10 @@ TextureImporter:
       name: chr_player_walk_right_01
       rect:
         serializedVersion: 2
-        x: 32
-        y: 24
-        width: 16
-        height: 24
+        x: 48
+        y: 32
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -379,8 +379,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 24
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -399,10 +399,10 @@ TextureImporter:
       name: chr_player_walk_up_00
       rect:
         serializedVersion: 2
-        x: 16
+        x: 24
         y: 0
-        width: 16
-        height: 24
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -421,10 +421,10 @@ TextureImporter:
       name: chr_player_walk_up_01
       rect:
         serializedVersion: 2
-        x: 32
+        x: 48
         y: 0
-        width: 16
-        height: 24
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -457,16 +457,16 @@ TextureImporter:
       chr_player_idle_left: 2192956657570158993
       chr_player_idle_right: -4802624702218937268
       chr_player_idle_up: -9171160991009313276
-      chr_player_move_16x24_0: 7573454648124925326
-      chr_player_move_16x24_1: 2062695265218180037
-      chr_player_move_16x24_2: 2914200134040309869
-      chr_player_move_16x24_3: -9127880388124007998
-      chr_player_move_16x24_4: -7275612710980248067
-      chr_player_move_16x24_5: 1697284165115116918
-      chr_player_move_16x24_6: 5984412270974659901
-      chr_player_move_16x24_7: -2698987059845830497
-      chr_player_move_16x24_8: -5006977916678015886
-      chr_player_move_16x24_9: 2273187860085928888
+      chr_player_move_24x32_0: -3493265347049308241
+      chr_player_move_24x32_1: 7506074490895909651
+      chr_player_move_24x32_2: 2155508217553702026
+      chr_player_move_24x32_3: -2584012237898301501
+      chr_player_move_24x32_4: -998891310017235781
+      chr_player_move_24x32_5: -338768688681891632
+      chr_player_move_24x32_6: -2007534619091136525
+      chr_player_move_24x32_7: -5341184175143878784
+      chr_player_move_24x32_8: 7527677750495232161
+      chr_player_move_24x32_9: 3939801893154991369
       chr_player_walk_down_00: -7839433330629089329
       chr_player_walk_down_01: 4500845487658064327
       chr_player_walk_left_00: -4181379036717116380

@@ -1,10 +1,31 @@
 fileFormatVersion: 2
-guid: fef64a5d83ebdbe4dbf53d2f0f1830f4
+guid: ec6c0d8f4d53123408fadd017e3683f4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -486975836352762277
-    second: npc_shopkeeper_mina_idle_down_0
+      213: 8306732429000015890
+    second: bld_town_roof_foregrounds_64_0
+  - first:
+      213: 663586465062699817
+    second: bld_town_roof_foregrounds_64_1
+  - first:
+      213: -6899046427683954438
+    second: bld_town_roof_foregrounds_64_2
+  - first:
+      213: 8426611676244567375
+    second: bld_town_roof_foregrounds_64_3
+  - first:
+      213: 3690913944432813609
+    second: bld_shop_roof_foreground
+  - first:
+      213: -762693386765063349
+    second: bld_home_roof_foreground
+  - first:
+      213: 5976485846981887512
+    second: bld_kitchen_roof_foreground
+  - first:
+      213: -2988174388478283477
+    second: bld_coop_roof_foreground
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,11 +67,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 0
-  alignment: 9
-  spritePivot: {x: 0.5, y: 0}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -113,23 +134,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: npc_shopkeeper_mina_idle_down_0
+      name: bld_shop_roof_foreground
       rect:
         serializedVersion: 2
-        x: 1
-        y: 0
-        width: 13
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b5eaef39e0aed39f0800000000000000
-      internalID: -486975836352762277
+      spriteID: 926247a5da2c83330800000000000000
+      internalID: 3690913944432813609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bld_home_roof_foreground
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4b2459d76e5a65f0800000000000000
+      internalID: -762693386765063349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bld_kitchen_roof_foreground
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 816418a863eb0f250800000000000000
+      internalID: 5976485846981887512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bld_coop_roof_foreground
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b21f4d7c93fd786d0800000000000000
+      internalID: -2988174388478283477
       vertices: []
       indices: 
       edges: []
@@ -138,7 +225,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +235,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      npc_shopkeeper_mina_idle_down_0: -486975836352762277
+      bld_coop_roof_foreground: -2988174388478283477
+      bld_home_roof_foreground: -762693386765063349
+      bld_kitchen_roof_foreground: 5976485846981887512
+      bld_shop_roof_foreground: 3690913944432813609
+      bld_town_roof_foregrounds_64_0: 8306732429000015890
+      bld_town_roof_foregrounds_64_1: 663586465062699817
+      bld_town_roof_foregrounds_64_2: -6899046427683954438
+      bld_town_roof_foregrounds_64_3: 8426611676244567375
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

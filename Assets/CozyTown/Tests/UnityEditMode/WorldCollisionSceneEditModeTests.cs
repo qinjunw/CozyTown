@@ -1,7 +1,9 @@
 using System;
+using System.IO;
 using System.Linq;
 using CozyTown.Unity.Interaction;
 using NUnit.Framework;
+using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,6 +13,8 @@ namespace CozyTown.Tests.UnityEditMode
     public sealed class WorldCollisionSceneEditModeTests
     {
         private const string ScenePath = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
+        private const string RoofForegroundPath =
+            "Assets/CozyTown/Art/Production/Buildings/bld_town_roof_foregrounds_64.png";
 
         [Test]
         public void DevelopmentScene_StoresSixSolidObstaclesOutsideInteractionHierarchy()
@@ -122,6 +126,53 @@ namespace CozyTown.Tests.UnityEditMode
         }
 
         [Test]
+        public void DevelopmentScene_BuildingsKeepOnlyTheirUpperTwoFifthsAboveThePlayer()
+        {
+            WithDevelopmentScene(scene =>
+            {
+                var world = RequireRoot(scene, "World");
+                var playerRenderer = RequireRoot(scene, "Player")
+                    .GetComponentInChildren<SpriteRenderer>(true);
+                Assert.That(playerRenderer, Is.Not.Null);
+
+                var buildings = new[]
+                {
+                    new BuildingForegroundExpectation(
+                        TownInteractionKind.Shop, "bld_shop_roof_foreground"),
+                    new BuildingForegroundExpectation(
+                        TownInteractionKind.Coop, "bld_coop_roof_foreground"),
+                    new BuildingForegroundExpectation(
+                        TownInteractionKind.Kitchen, "bld_kitchen_roof_foreground"),
+                    new BuildingForegroundExpectation(
+                        TownInteractionKind.Bed, "bld_home_roof_foreground")
+                };
+
+                foreach (BuildingForegroundExpectation building in buildings)
+                {
+                    TownInteractionPoint2D point = FindUniquePoint(world, building.Kind);
+                    SpriteRenderer baseRenderer = point.transform.Find("Visual")
+                        ?.GetComponent<SpriteRenderer>();
+                    SpriteRenderer foreground = point.transform.Find("Roof Foreground")
+                        ?.GetComponent<SpriteRenderer>();
+                    Assert.That(baseRenderer, Is.Not.Null, building.Kind.ToString());
+                    Assert.That(foreground, Is.Not.Null,
+                        $"{building.Kind} is missing its roof foreground renderer.");
+                    Assert.That(foreground.sprite, Is.Not.Null);
+                    Assert.That(foreground.sprite.name, Is.EqualTo(building.SpriteName));
+                    Assert.That(
+                        AssetDatabase.GetAssetPath(foreground.sprite),
+                        Is.EqualTo(RoofForegroundPath));
+                    Assert.That(foreground.sortingOrder, Is.GreaterThan(playerRenderer.sortingOrder));
+                    Assert.That(baseRenderer.sortingOrder, Is.LessThan(playerRenderer.sortingOrder));
+                    Assert.That(foreground.bounds.center, Is.EqualTo(baseRenderer.bounds.center));
+                    Assert.That(foreground.bounds.size, Is.EqualTo(baseRenderer.bounds.size));
+
+                    AssertRoofForegroundPixels(baseRenderer.sprite, foreground.sprite);
+                }
+            });
+        }
+
+        [Test]
         public void DevelopmentScene_FarmAndPondFollowTheirVisibleFootprints()
         {
             WithDevelopmentScene(scene =>
@@ -184,6 +235,78 @@ namespace CozyTown.Tests.UnityEditMode
             return points[0];
         }
 
+        private static void AssertRoofForegroundPixels(Sprite baseSprite, Sprite foregroundSprite)
+        {
+            Color32[] basePixels = LoadSpritePixels(baseSprite, out int width, out int height);
+            Color32[] foregroundPixels = LoadSpritePixels(
+                foregroundSprite,
+                out int foregroundWidth,
+                out int foregroundHeight);
+            Assert.That(foregroundWidth, Is.EqualTo(width));
+            Assert.That(foregroundHeight, Is.EqualTo(height));
+            Assert.That(width, Is.EqualTo(64));
+            Assert.That(height, Is.EqualTo(64));
+
+            const int transparentBottomRows = 38;
+            for (var y = 0; y < height; y++)
+            {
+                for (var x = 0; x < width; x++)
+                {
+                    int index = y * width + x;
+                    if (y < transparentBottomRows)
+                    {
+                        Assert.That(foregroundPixels[index].a, Is.Zero,
+                            $"Roof foreground contains a facade pixel at ({x}, {y}).");
+                        continue;
+                    }
+
+                    Assert.That(
+                        foregroundPixels[index],
+                        Is.EqualTo(basePixels[index]),
+                        $"Roof foreground diverges from the building roof at ({x}, {y}).");
+                }
+            }
+
+            Assert.That(
+                foregroundPixels.Skip(transparentBottomRows * width).Any(pixel => pixel.a > 0),
+                Is.True,
+                "Roof foreground does not contain any visible roof pixels.");
+        }
+
+        private static Color32[] LoadSpritePixels(
+            Sprite sprite,
+            out int width,
+            out int height)
+        {
+            string assetPath = AssetDatabase.GetAssetPath(sprite);
+            var texture = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            try
+            {
+                Assert.That(
+                    ImageConversion.LoadImage(texture, File.ReadAllBytes(assetPath), false),
+                    Is.True,
+                    assetPath);
+                Rect rect = sprite.rect;
+                width = Mathf.RoundToInt(rect.width);
+                height = Mathf.RoundToInt(rect.height);
+                return texture.GetPixels32()
+                    .Where((_, index) =>
+                    {
+                        int x = index % texture.width;
+                        int y = index / texture.width;
+                        return x >= Mathf.RoundToInt(rect.x)
+                            && x < Mathf.RoundToInt(rect.xMax)
+                            && y >= Mathf.RoundToInt(rect.y)
+                            && y < Mathf.RoundToInt(rect.yMax);
+                    })
+                    .ToArray();
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(texture);
+            }
+        }
+
         private static void WithDevelopmentScene(Action<Scene> assertion)
         {
             var previousScene = SceneManager.GetActiveScene();
@@ -224,6 +347,18 @@ namespace CozyTown.Tests.UnityEditMode
             public TownInteractionKind Kind { get; }
             public string ObstacleName { get; }
             public Vector2 TriggerCenter { get; }
+        }
+
+        private readonly struct BuildingForegroundExpectation
+        {
+            public BuildingForegroundExpectation(TownInteractionKind kind, string spriteName)
+            {
+                Kind = kind;
+                SpriteName = spriteName;
+            }
+
+            public TownInteractionKind Kind { get; }
+            public string SpriteName { get; }
         }
     }
 }

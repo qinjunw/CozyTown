@@ -126,6 +126,28 @@ namespace CozyTown.Unity.Editor
             2, 2, 64, 64, 0, PixelArtPivotKind.BottomCenter, PixelArtBackgroundMode.Alpha,
             "bld_shop", "bld_home", "bld_kitchen", "bld_coop");
 
+        public static readonly PixelArtBatchDefinition A1BuildingRoofForegrounds =
+            new PixelArtBatchDefinition(
+                "ArtSource/Generated/A1/buildings_source.png",
+                "Assets/CozyTown/Art/Production/Buildings/bld_town_roof_foregrounds_64.png",
+                "ArtSource/Previews/A1/bld_town_roof_foregrounds_64_4x.png",
+                2,
+                2,
+                64,
+                64,
+                0,
+                PixelArtPivotKind.BottomCenter,
+                PixelArtBackgroundMode.Alpha,
+                CozyTownPixelArtPalettes.WarmRural32,
+                new[]
+                {
+                    "bld_shop_roof_foreground",
+                    "bld_home_roof_foreground",
+                    "bld_kitchen_roof_foreground",
+                    "bld_coop_roof_foreground"
+                },
+                transparentBottomRows: 38);
+
         public static readonly PixelArtBatchDefinition A1TownFunctions = A1(
             "town_functions_source.png",
             "Props/prop_town_functions_96x64.png",
@@ -150,31 +172,25 @@ namespace CozyTown.Unity.Editor
 
         public static readonly PixelArtBatchDefinition A1Player = A1(
             "player_source.png",
-            "Characters/chr_player_move_16x24.png",
-            3, 4, 16, 24, 0, PixelArtPivotKind.BottomCenter, PixelArtBackgroundMode.WhiteBackground,
+            "Characters/chr_player_move_24x32.png",
+            3, 4, 24, 32, 0, PixelArtPivotKind.BottomCenter, PixelArtBackgroundMode.WhiteBackground,
             "chr_player_idle_down", "chr_player_walk_down_00", "chr_player_walk_down_01",
             "chr_player_idle_left", "chr_player_walk_left_00", "chr_player_walk_left_01",
             "chr_player_idle_right", "chr_player_walk_right_00", "chr_player_walk_right_01",
             "chr_player_idle_up", "chr_player_walk_up_00", "chr_player_walk_up_01");
 
-        public static readonly PixelArtBatchDefinition A1MinaWorld = A1(
-            "mina_source.png",
-            "Characters/npc_shopkeeper_mina_idle_down.png",
-            1, 1, 16, 24, 0, PixelArtPivotKind.BottomCenter, PixelArtBackgroundMode.WhiteBackground,
-            "npc_shopkeeper_mina_idle_down");
-
         public static readonly PixelArtBatchDefinition A1NpcWorld =
             new PixelArtBatchDefinition(
-                "ArtSource/Generated/A1/portraits_source.png",
-                "Assets/CozyTown/Art/Production/Characters/npc_townsfolk_idle_down_16x24.png",
-                "ArtSource/Previews/A1/npc_townsfolk_idle_down_16x24_4x.png",
+                "ArtSource/Generated/A1/npc_world_source.png",
+                "Assets/CozyTown/Art/Production/Characters/npc_townsfolk_idle_down_24x32.png",
+                "ArtSource/Previews/A1/npc_townsfolk_idle_down_24x32_4x.png",
                 4,
                 1,
-                16,
                 24,
+                32,
                 0,
                 PixelArtPivotKind.BottomCenter,
-                PixelArtBackgroundMode.Alpha,
+                PixelArtBackgroundMode.WhiteBackground,
                 CozyTownPixelArtPalettes.WarmRural32,
                 new[]
                 {
@@ -182,13 +198,6 @@ namespace CozyTown.Unity.Editor
                     "npc_farmer_eli_idle_down",
                     "npc_fisher_ren_idle_down",
                     "npc_cook_sora_idle_down"
-                },
-                authoredCellSourcePaths: new[]
-                {
-                    "ArtSource/Authored/A1/npc_shopkeeper_mina_idle_down.pixels",
-                    "ArtSource/Authored/A1/npc_farmer_eli_idle_down.pixels",
-                    "ArtSource/Authored/A1/npc_fisher_ren_idle_down.pixels",
-                    "ArtSource/Authored/A1/npc_cook_sora_idle_down.pixels"
                 });
 
         public static readonly PixelArtBatchDefinition A1NpcPortraits = A1(
@@ -282,11 +291,11 @@ namespace CozyTown.Unity.Editor
                 A1TownTiles,
                 A1TownDecor,
                 A1Buildings,
+                A1BuildingRoofForegrounds,
                 A1TownFunctions,
                 A1FarmStates,
                 A1HenStates,
                 A1Player,
-                A1MinaWorld,
                 A1NpcWorld,
                 A1NpcPortraits,
                 A1Items,

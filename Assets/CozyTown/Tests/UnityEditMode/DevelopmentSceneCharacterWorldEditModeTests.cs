@@ -1,5 +1,7 @@
 #if UNITY_EDITOR
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using CozyTown.Runtime.Content;
 using CozyTown.Unity.Coop;
@@ -19,7 +21,9 @@ namespace CozyTown.Tests.UnityEditMode
     {
         private const string ScenePath = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
         private const string WorldNpcPath =
-            "Assets/CozyTown/Art/Production/Characters/npc_townsfolk_idle_down_16x24.png";
+            "Assets/CozyTown/Art/Production/Characters/npc_townsfolk_idle_down_24x32.png";
+        private const string PlayerPath =
+            "Assets/CozyTown/Art/Production/Characters/chr_player_move_24x32.png";
         private const string PortraitPath =
             "Assets/CozyTown/Art/Production/Characters/npc_portraits_48.png";
 
@@ -134,11 +138,18 @@ namespace CozyTown.Tests.UnityEditMode
                     Assert.That(worldSprite, Is.Not.Null, expectation.NpcId);
                     Assert.That(worldSprite.name, Is.EqualTo(expectation.WorldSpriteName));
                     Assert.That(AssetDatabase.GetAssetPath(worldSprite), Is.EqualTo(WorldNpcPath));
+                    Assert.That(worldSprite.rect.width, Is.EqualTo(24f));
+                    Assert.That(worldSprite.rect.height, Is.EqualTo(32f));
 
                     Sprite portrait = iconCatalog.GetNpcSprite(expectation.NpcId);
                     Assert.That(portrait, Is.Not.Null, expectation.NpcId);
                     Assert.That(portrait.name, Is.EqualTo(expectation.PortraitSpriteName));
                     Assert.That(AssetDatabase.GetAssetPath(portrait), Is.EqualTo(PortraitPath));
+                    Assert.That(
+                        CalculatePortraitPaletteCoverage(worldSprite, portrait),
+                        Is.GreaterThanOrEqualTo(0.7f),
+                        $"{expectation.NpcId} world Sprite does not preserve enough portrait identity colors.");
+                    AssertFullBodyOccupancy(worldSprite, expectation.NpcId);
                 }
 
                 Assert.That(
@@ -161,10 +172,142 @@ namespace CozyTown.Tests.UnityEditMode
             }
         }
 
+        [Test]
+        public void DevelopmentScene_PlayerUsesReadableTwentyFourByThirtyTwoMovementSprites()
+        {
+            Scene previousScene = SceneManager.GetActiveScene();
+            Scene scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
+
+            try
+            {
+                SpriteRenderer renderer = RequireRoot(scene, "Player")
+                    .GetComponentInChildren<SpriteRenderer>(true);
+                Assert.That(renderer, Is.Not.Null);
+                Assert.That(renderer.sprite, Is.Not.Null);
+                Assert.That(AssetDatabase.GetAssetPath(renderer.sprite), Is.EqualTo(PlayerPath));
+                Assert.That(renderer.sprite.rect.width, Is.EqualTo(24f));
+                Assert.That(renderer.sprite.rect.height, Is.EqualTo(32f));
+
+                Sprite[] movementSprites = AssetDatabase.LoadAllAssetsAtPath(PlayerPath)
+                    .OfType<Sprite>()
+                    .ToArray();
+                Assert.That(movementSprites, Has.Length.EqualTo(12));
+                Assert.That(movementSprites.All(sprite => sprite.rect.width == 24f), Is.True);
+                Assert.That(movementSprites.All(sprite => sprite.rect.height == 32f), Is.True);
+                Assert.That(movementSprites.Select(sprite => sprite.name), Is.EquivalentTo(new[]
+                {
+                    "chr_player_idle_down", "chr_player_walk_down_00", "chr_player_walk_down_01",
+                    "chr_player_idle_left", "chr_player_walk_left_00", "chr_player_walk_left_01",
+                    "chr_player_idle_right", "chr_player_walk_right_00", "chr_player_walk_right_01",
+                    "chr_player_idle_up", "chr_player_walk_up_00", "chr_player_walk_up_01"
+                }));
+            }
+            finally
+            {
+                EditorSceneManager.CloseScene(scene, true);
+                if (previousScene.IsValid() && previousScene.isLoaded)
+                {
+                    SceneManager.SetActiveScene(previousScene);
+                }
+            }
+        }
+
         private static GameObject RequireRoot(Scene scene, string name)
         {
             return Array.Find(scene.GetRootGameObjects(), candidate => candidate.name == name)
                 ?? throw new InvalidOperationException($"Root object '{name}' was not found.");
+        }
+
+        private static float CalculatePortraitPaletteCoverage(
+            Sprite worldSprite,
+            Sprite portraitSprite)
+        {
+            Color32[] world = LoadSpritePixels(worldSprite, out _, out _);
+            Color32[] portrait = LoadSpritePixels(portraitSprite, out _, out _);
+            var worldColors = CollectOpaqueColors(world);
+            var portraitColors = CollectOpaqueColors(portrait);
+            int sharedColorCount = portraitColors.Count(worldColors.Contains);
+            return portraitColors.Count == 0
+                ? 0f
+                : (float)sharedColorCount / portraitColors.Count;
+        }
+
+        private static HashSet<int> CollectOpaqueColors(IEnumerable<Color32> pixels)
+        {
+            var colors = new HashSet<int>();
+            foreach (Color32 pixel in pixels)
+            {
+                if (pixel.a > 0)
+                {
+                    colors.Add((pixel.r << 16) | (pixel.g << 8) | pixel.b);
+                }
+            }
+
+            return colors;
+        }
+
+        private static void AssertFullBodyOccupancy(Sprite sprite, string npcId)
+        {
+            Color32[] pixels = LoadSpritePixels(sprite, out int width, out int height);
+            int minimumOpaqueY = height;
+            int maximumOpaqueY = -1;
+            var opaquePixelCount = 0;
+            for (var y = 0; y < height; y++)
+            {
+                for (var x = 0; x < width; x++)
+                {
+                    if (pixels[y * width + x].a == 0)
+                    {
+                        continue;
+                    }
+
+                    opaquePixelCount++;
+                    minimumOpaqueY = Math.Min(minimumOpaqueY, y);
+                    maximumOpaqueY = Math.Max(maximumOpaqueY, y);
+                }
+            }
+
+            Assert.That(minimumOpaqueY, Is.LessThanOrEqualTo(1), npcId);
+            Assert.That(maximumOpaqueY, Is.GreaterThanOrEqualTo(height - 2), npcId);
+            Assert.That(opaquePixelCount, Is.GreaterThanOrEqualTo(320), npcId);
+        }
+
+        private static Color32[] LoadSpritePixels(
+            Sprite sprite,
+            out int width,
+            out int height)
+        {
+            string assetPath = AssetDatabase.GetAssetPath(sprite);
+            var texture = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            try
+            {
+                if (!ImageConversion.LoadImage(texture, File.ReadAllBytes(assetPath), false))
+                {
+                    throw new InvalidDataException($"Could not decode sprite texture '{assetPath}'.");
+                }
+
+                Rect rect = sprite.rect;
+                width = Mathf.RoundToInt(rect.width);
+                height = Mathf.RoundToInt(rect.height);
+                int startX = Mathf.RoundToInt(rect.x);
+                int startY = Mathf.RoundToInt(rect.y);
+                Color32[] atlas = texture.GetPixels32();
+                var result = new Color32[width * height];
+                for (var y = 0; y < height; y++)
+                {
+                    for (var x = 0; x < width; x++)
+                    {
+                        result[y * width + x] =
+                            atlas[(startY + y) * texture.width + startX + x];
+                    }
+                }
+
+                return result;
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(texture);
+            }
         }
 
         private readonly struct NpcAppearanceExpectation

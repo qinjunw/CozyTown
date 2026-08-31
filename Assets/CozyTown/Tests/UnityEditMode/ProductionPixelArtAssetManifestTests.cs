@@ -17,7 +17,7 @@ namespace CozyTown.Tests.UnityEditMode
         private const string SettingsIconPath =
             "Assets/CozyTown/Art/Production/UI/ui_icon_settings.png";
         private const string PlayerPath =
-            "Assets/CozyTown/Art/Production/Characters/chr_player_move_16x24.png";
+            "Assets/CozyTown/Art/Production/Characters/chr_player_move_24x32.png";
 
         private static readonly Color32[] WarmRural32 =
         {
@@ -58,6 +58,11 @@ namespace CozyTown.Tests.UnityEditMode
                 "Assets/CozyTown/Art/Production/Buildings/bld_town_functions_64.png",
                 2, 2, 64, 64, PivotKind.BottomCenter, true,
                 "bld_shop", "bld_home", "bld_kitchen", "bld_coop"),
+            MultipleOverlay(
+                "Assets/CozyTown/Art/Production/Buildings/bld_town_roof_foregrounds_64.png",
+                2, 2, 64, 64, PivotKind.BottomCenter,
+                "bld_shop_roof_foreground", "bld_home_roof_foreground",
+                "bld_kitchen_roof_foreground", "bld_coop_roof_foreground"),
             Multiple(
                 "Assets/CozyTown/Art/Production/Props/prop_town_functions_96x64.png",
                 2, 1, 96, 64, PivotKind.BottomCenter, true,
@@ -76,18 +81,14 @@ namespace CozyTown.Tests.UnityEditMode
                 "animal_hen_idle", "animal_hen_fed", "animal_hen_product_ready"),
             Multiple(
                 PlayerPath,
-                3, 4, 16, 24, PivotKind.BottomCenter, true,
+                3, 4, 24, 32, PivotKind.BottomCenter, true,
                 "chr_player_idle_down", "chr_player_walk_down_00", "chr_player_walk_down_01",
                 "chr_player_idle_left", "chr_player_walk_left_00", "chr_player_walk_left_01",
                 "chr_player_idle_right", "chr_player_walk_right_00", "chr_player_walk_right_01",
                 "chr_player_idle_up", "chr_player_walk_up_00", "chr_player_walk_up_01"),
-            Single(
-                "Assets/CozyTown/Art/Production/Characters/npc_shopkeeper_mina_idle_down.png",
-                16, 24, PivotKind.BottomCenter, true,
-                "npc_shopkeeper_mina_idle_down"),
             Multiple(
-                "Assets/CozyTown/Art/Production/Characters/npc_townsfolk_idle_down_16x24.png",
-                4, 1, 16, 24, PivotKind.BottomCenter, true,
+                "Assets/CozyTown/Art/Production/Characters/npc_townsfolk_idle_down_24x32.png",
+                4, 1, 24, 32, PivotKind.BottomCenter, true,
                 "npc_shopkeeper_mina_idle_down", "npc_farmer_eli_idle_down",
                 "npc_fisher_ren_idle_down", "npc_cook_sora_idle_down"),
             Multiple(
@@ -364,8 +365,8 @@ namespace CozyTown.Tests.UnityEditMode
                     ImageConversion.LoadImage(texture, File.ReadAllBytes(PlayerPath), false),
                     Is.True,
                     $"Could not decode player PNG: {PlayerPath}");
-                Assert.That(texture.width, Is.EqualTo(48));
-                Assert.That(texture.height, Is.EqualTo(96));
+                Assert.That(texture.width, Is.EqualTo(72));
+                Assert.That(texture.height, Is.EqualTo(128));
 
                 Color32[] pixels = texture.GetPixels32();
                 var failures = new List<string>();
@@ -373,11 +374,11 @@ namespace CozyTown.Tests.UnityEditMode
                 {
                     int rowFromTop = frameIndex / 3;
                     int column = frameIndex % 3;
-                    var origin = new Vector2Int(column * 16, (4 - 1 - rowFromTop) * 24);
-                    var minimumOpaqueY = 24;
-                    for (var y = 0; y < 24; y++)
+                    var origin = new Vector2Int(column * 24, (4 - 1 - rowFromTop) * 32);
+                    var minimumOpaqueY = 32;
+                    for (var y = 0; y < 32; y++)
                     {
-                        for (var x = 0; x < 16; x++)
+                        for (var x = 0; x < 24; x++)
                         {
                             if (GetPixel(pixels, texture.width, origin, x, y).a == 255)
                             {
@@ -815,7 +816,7 @@ namespace CozyTown.Tests.UnityEditMode
                         $"opaque source PNG contains {transparentCount} transparent pixels");
                 }
 
-                if (spec.Pivot == PivotKind.BottomCenter)
+                if (spec.Pivot == PivotKind.BottomCenter && spec.RequiresBottomContact)
                 {
                     ValidateBottomCenterGroundLines(spec, sourcePixels, failures);
                 }
@@ -954,6 +955,28 @@ namespace CozyTown.Tests.UnityEditMode
                 spriteNames);
         }
 
+        private static AssetSpec MultipleOverlay(
+            string path,
+            int columns,
+            int rows,
+            int frameWidth,
+            int frameHeight,
+            PivotKind pivot,
+            params string[] spriteNames)
+        {
+            return new AssetSpec(
+                path,
+                columns,
+                rows,
+                frameWidth,
+                frameHeight,
+                SpriteImportMode.Multiple,
+                pivot,
+                true,
+                spriteNames,
+                requiresBottomContact: false);
+        }
+
         private static AssetSpec Single(
             string path,
             int frameWidth,
@@ -1014,7 +1037,8 @@ namespace CozyTown.Tests.UnityEditMode
                 SpriteImportMode importMode,
                 PivotKind pivot,
                 bool requiresSourceAlpha,
-                string[] spriteNames)
+                string[] spriteNames,
+                bool requiresBottomContact = true)
             {
                 Path = path;
                 Columns = columns;
@@ -1024,6 +1048,7 @@ namespace CozyTown.Tests.UnityEditMode
                 ImportMode = importMode;
                 Pivot = pivot;
                 RequiresSourceAlpha = requiresSourceAlpha;
+                RequiresBottomContact = requiresBottomContact;
                 SpriteNames = spriteNames;
             }
 
@@ -1037,6 +1062,7 @@ namespace CozyTown.Tests.UnityEditMode
             public SpriteImportMode ImportMode { get; }
             public PivotKind Pivot { get; }
             public bool RequiresSourceAlpha { get; }
+            public bool RequiresBottomContact { get; }
             public string[] SpriteNames { get; }
             public string PreviewPath =>
                 "ArtSource/Previews/A1/"

@@ -56,7 +56,8 @@ namespace CozyTown.Unity.Editor
             IReadOnlyList<Vector4> spriteBorders = null,
             IReadOnlyList<PixelArtRoadConnection> roadConnections = null,
             IReadOnlyList<Color32[]> insetBandColors = null,
-            IReadOnlyList<string> authoredCellSourcePaths = null)
+            IReadOnlyList<string> authoredCellSourcePaths = null,
+            int transparentBottomRows = 0)
         {
             if (string.IsNullOrWhiteSpace(sourceRelativePath))
             {
@@ -126,6 +127,13 @@ namespace CozyTown.Unity.Editor
             if (minimumCoverage < 0f || minimumCoverage > 1f)
             {
                 throw new ArgumentOutOfRangeException(nameof(minimumCoverage));
+            }
+
+            if (transparentBottomRows < 0 || transparentBottomRows >= frameHeight)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(transparentBottomRows),
+                    "Transparent bottom rows must remain within the output frame.");
             }
 
             if (opaqueOutput && !opaqueFillColor.HasValue)
@@ -226,6 +234,7 @@ namespace CozyTown.Unity.Editor
             RoadConnections = resolvedRoadConnections;
             InsetBandColors = resolvedInsetBandColors;
             AuthoredCellSourcePaths = resolvedAuthoredCellSourcePaths;
+            TransparentBottomRows = transparentBottomRows;
         }
 
         public string SourceRelativePath { get; }
@@ -251,6 +260,7 @@ namespace CozyTown.Unity.Editor
         public IReadOnlyList<PixelArtRoadConnection> RoadConnections { get; }
         public IReadOnlyList<Color32[]> InsetBandColors { get; }
         public IReadOnlyList<string> AuthoredCellSourcePaths { get; }
+        public int TransparentBottomRows { get; }
         public int OutputWidth => Columns * FrameWidth;
         public int OutputHeight => Rows * FrameHeight;
         public SpriteImportMode ImportMode => SpriteNames.Count == 1
@@ -542,6 +552,10 @@ namespace CozyTown.Unity.Editor
                         definition.FrameHeight,
                         insetBandColors);
                 }
+                ClearBottomRows(
+                    compiledCell,
+                    definition.FrameWidth,
+                    definition.TransparentBottomRows);
                 CopyCellToSheet(
                     compiledCell,
                     output,
@@ -556,6 +570,15 @@ namespace CozyTown.Unity.Editor
             }
 
             return output;
+        }
+
+        private static void ClearBottomRows(Color32[] pixels, int width, int rowCount)
+        {
+            int clearedPixelCount = width * rowCount;
+            for (var index = 0; index < clearedPixelCount; index++)
+            {
+                pixels[index] = new Color32(0, 0, 0, 0);
+            }
         }
 
         private static Color32[] LoadAuthoredCell(

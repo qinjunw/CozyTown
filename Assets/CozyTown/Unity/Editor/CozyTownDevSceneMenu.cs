@@ -32,12 +32,14 @@ namespace CozyTown.Unity.Editor
         private const string ArtRoot = "Assets/CozyTown/Art/Production";
         private const string TownTilesPath = ArtRoot + "/Environment/Tiles/tile_town_base_16.png";
         private const string BuildingsPath = ArtRoot + "/Buildings/bld_town_functions_64.png";
+        private const string BuildingRoofForegroundsPath =
+            ArtRoot + "/Buildings/bld_town_roof_foregrounds_64.png";
         private const string TownFunctionsPath = ArtRoot + "/Props/prop_town_functions_96x64.png";
         private const string FarmStatesPath = ArtRoot + "/Props/prop_farm_states_16.png";
         private const string HenStatesPath = ArtRoot + "/Props/prop_hen_states_16.png";
-        private const string PlayerPath = ArtRoot + "/Characters/chr_player_move_16x24.png";
+        private const string PlayerPath = ArtRoot + "/Characters/chr_player_move_24x32.png";
         private const string NpcTownsfolkPath =
-            ArtRoot + "/Characters/npc_townsfolk_idle_down_16x24.png";
+            ArtRoot + "/Characters/npc_townsfolk_idle_down_24x32.png";
         private const string SceneTileFolder = "Assets/CozyTown/Art/Scene/Tiles";
         private const string UrpSpriteLitMaterialPath =
             "Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Lit-Default.mat";
@@ -761,7 +763,47 @@ namespace CozyTown.Unity.Editor
                     point.gameObject,
                     LoadSprite(assetPath, spriteName),
                     sortingOrder: point.Kind == TownInteractionKind.Npc ? 15 : 5);
+                if (IsBuilding(point.Kind))
+                {
+                    ConfigureBuildingRoofForeground(point.gameObject, spriteName);
+                }
             }
+        }
+
+        private static bool IsBuilding(TownInteractionKind kind)
+        {
+            return kind == TownInteractionKind.Shop
+                || kind == TownInteractionKind.Coop
+                || kind == TownInteractionKind.Kitchen
+                || kind == TownInteractionKind.Bed;
+        }
+
+        private static void ConfigureBuildingRoofForeground(GameObject target, string baseSpriteName)
+        {
+            var foreground = target.transform.Find("Roof Foreground");
+            if (foreground == null)
+            {
+                var foregroundObject = new GameObject("Roof Foreground");
+                foregroundObject.transform.SetParent(target.transform, false);
+                foreground = foregroundObject.transform;
+            }
+
+            foreground.localPosition = Vector3.zero;
+            foreground.localRotation = Quaternion.identity;
+            foreground.localScale = Vector3.one;
+
+            var renderer = GetOrAdd<SpriteRenderer>(foreground.gameObject);
+            renderer.sprite = LoadSprite(
+                BuildingRoofForegroundsPath,
+                baseSpriteName + "_roof_foreground");
+            renderer.sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>(UrpSpriteLitMaterialPath)
+                ?? throw new FileNotFoundException(
+                    "URP 2D Sprite-Lit-Default material was not found.",
+                    UrpSpriteLitMaterialPath);
+            renderer.color = Color.white;
+            renderer.drawMode = SpriteDrawMode.Simple;
+            renderer.sortingOrder = 30;
+            renderer.spriteSortPoint = SpriteSortPoint.Pivot;
         }
 
         private static NpcWorldSpec FindNpcSpec(string npcId)
