@@ -6,7 +6,7 @@ CozyTown 是一个用于测试 AI Agent 在游戏场景中实际落地的 Unity 
 
 项目仍在持续开发。
 
-![Uploading image.png…]()
+<img width="1700" height="966" alt="image" src="https://github.com/user-attachments/assets/c89afe68-34fd-4315-bc9d-3fa93dad01de" />
 
 
 ## 这个 Demo 验证什么
