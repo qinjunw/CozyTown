@@ -11,8 +11,8 @@ Replace the global player-only economy with stable character and shop ownership,
 
 ## Sequence
 
-1. [Add stable character and shop economy state storage](https://github.com/qinjunw/CozyTown/issues/14) — In progress.
-2. [Make purchases transfer character and shop assets atomically](https://github.com/qinjunw/CozyTown/issues/15) — Blocked by state storage.
+1. [Add stable character and shop economy state storage](https://github.com/qinjunw/CozyTown/issues/14) — Complete; targeted `2/2` and full EditMode `203/203` passed.
+2. [Make purchases transfer character and shop assets atomically](https://github.com/qinjunw/CozyTown/issues/15) — In progress.
 3. [Make sales transfer character and shop assets atomically](https://github.com/qinjunw/CozyTown/issues/16) — Blocked by purchase.
 4. [Expose stock-aware shop trading projections](https://github.com/qinjunw/CozyTown/issues/17) — Blocked by purchase and sale.
 5. [Replace shop stock deterministically for each new day](https://github.com/qinjunw/CozyTown/issues/18) — Blocked by projection.
