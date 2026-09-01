@@ -1,0 +1,30 @@
+# Implement conserved character–shop economy
+
+- Label: `wayfinder:map`
+- Status: Open
+- Tracker: https://github.com/qinjunw/CozyTown/issues/13
+- Decision map: [守恒型角色—商店经济重构](map.md)
+
+## Destination
+
+Replace the global player-only economy with stable character and shop ownership, conserved buy/sell transfers, deterministic daily stock replacement, and schema v2 persistence while preserving the existing production loop.
+
+## Sequence
+
+1. [Add stable character and shop economy state storage](https://github.com/qinjunw/CozyTown/issues/14) — In progress.
+2. [Make purchases transfer character and shop assets atomically](https://github.com/qinjunw/CozyTown/issues/15) — Blocked by state storage.
+3. [Make sales transfer character and shop assets atomically](https://github.com/qinjunw/CozyTown/issues/16) — Blocked by purchase.
+4. [Expose stock-aware shop trading projections](https://github.com/qinjunw/CozyTown/issues/17) — Blocked by purchase and sale.
+5. [Replace shop stock deterministically for each new day](https://github.com/qinjunw/CozyTown/issues/18) — Blocked by projection.
+6. [Publish shop restock atomically with the day transition](https://github.com/qinjunw/CozyTown/issues/19) — Blocked by deterministic restock.
+7. [Migrate main-slot saves from schema v1 to schema v2](https://github.com/qinjunw/CozyTown/issues/20) — Blocked by state storage and day transition.
+8. [Wire Unity shop flows to stable character and shop identities](https://github.com/qinjunw/CozyTown/issues/21) — Blocked by projection and save migration.
+9. [Verify conserved economy and migration regressions](https://github.com/qinjunw/CozyTown/issues/22) — Blocked by Unity wiring.
+
+## Constraints
+
+- Runtime remains independent of UnityEngine.
+- Each ticket advances one RED→GREEN public behavior at a time.
+- Existing behavior remains wired until its replacement slice passes.
+- Static definitions stay in read-only configuration; dynamic assets stay in character and shop state.
+- Price fluctuation, relationship discounts, autonomous NPC schedules, AI-triggered transactions, multiple save slots, networking, and a database remain out of scope.
