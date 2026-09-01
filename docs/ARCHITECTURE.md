@@ -12,6 +12,7 @@
 - [`ADR-0004：测试策略`](adr/0004-testing-strategy.md)
 - [`ADR-0005：Unity 适配层与窄接口注入`](adr/0005-unity-adapter-boundary.md)
 - [`ADR-0006：Production 美术场景接线`](adr/0006-production-art-scene-integration.md)
+- [`ADR-0010：角色与商店独立拥有资产并原子提交交易`](adr/0010-character-shop-economic-ownership-and-atomic-trade.md)
 
 ## 2. 架构目标与约束
 
@@ -68,12 +69,12 @@ Assets/CozyTown/
 
 | 模块 | 公共入口 | 职责 | 不负责 |
 | --- | --- | --- | --- |
-| `Application` | `IDayTransitionCoordinator`、`IShopTradingCoordinator`、四个 `*GameplayCoordinator`、`INpcDialogueCoordinator`、`IGameSaveCoordinator` | 协调跨日、存档恢复事务，并向交易、生产、对话和存档表现层提供窄用例入口 | 表现、输入、数值平衡 |
+| `Application` | `IDayTransitionCoordinator`、`ICharacterShopTradingCoordinator`、四个 `*GameplayCoordinator`、`INpcDialogueCoordinator`、`IGameSaveCoordinator` | 协调跨日、存档恢复事务，并向交易、生产、对话和存档表现层提供窄用例入口 | 表现、输入、数值平衡 |
 | `Content` | `DefaultMvpContent`、`MvpContentValidator` | 提供默认稳定 ID、定义表和启动前引用/可达性校验 | 运行时状态、UI 编辑器 |
 | `Core` | `CozyTownCompositionRoot`、`CozyTownServices` | 创建默认实现并公开类型化服务引用 | 业务规则、存档格式、场景查找 |
 | `Time` | `ITimeService` | 当前天数和跨日推进 | 决定作物、动物的具体结算规则 |
 | `Inventory` | `IInventory` | 物品数量查询、增加、移除和前置校验 | 价格、配方、掉落概率 |
-| `Economy` | `IWallet`、`IShopService` | 余额、报价、购买和出售的交易边界 | 物品生产、AI 决策 |
+| `Economy` | `IEconomyStateStore`、角色背包/钱包适配器、角色与商店经济快照 | 按稳定主体 ID 保存角色背包/钱包和商店库存/钱包，并原子发布交易候选 | 静态报价、物品生产、AI 决策 |
 | `Farming` | `IFarmService` | 地块、播种、浇水、成长和收获状态 | 玩家移动、商店交易 |
 | `Livestock` | `ILivestockService` | 鸡的喂食与鸡蛋产出状态 | 饲料定价、NPC 行为 |
 | `Fishing` | `IFishingService` | 固定鱼池规则和钓鱼结果 | 实时操作 UI、背包显示 |
@@ -106,7 +107,7 @@ CozyTownCompositionRoot 只负责创建并连接上述对象。
 依赖规则：
 
 1. 表现层依赖接口，不依赖具体内存实现。
-2. 具体实现可以依赖完成其事务所需的窄接口。例如商店可以依赖 `IWallet` 与 `IInventory`，但不能访问其内部集合。
+2. 具体实现可以依赖完成其事务所需的窄接口。例如生产模块通过默认角色的 `IWallet` 与 `IInventory` 适配器访问权威经济状态，但不能访问其内部集合。
 3. 模块不能通过 `FindObjectOfType`、静态单例或字符串路径取得其他服务。
 4. 双向依赖通过用例协调器、只读快照或领域事件解除；不得让两个模块互相持有具体实现。
 5. `Npc` 生成器没有确定性模块的写依赖。调用方只向它传递复制出的上下文数据。
@@ -131,15 +132,16 @@ CozyTownCompositionRoot 只负责创建并连接上述对象。
 
 ```text
 Shop UI
-  → IShopTradingCoordinator.Buy(商品, 数量)
-  → IShopService.Buy(商品, 数量)
-  → 校验商品、数量、余额和背包接收条件
-  → 同一事务中扣除金币并增加物品
+  → ICharacterShopTradingCoordinator.Buy(商店 ID, 角色 ID, 商品, 数量)
+  → 读取角色背包/钱包与商店库存/钱包快照
+  → 校验报价、现货、资金和背包接收条件
+  → 构造角色与商店两份完整候选状态
+  → IEconomyStateStore.Commit 同时发布双方候选
   → 返回成功或稳定失败原因
-  → UI 刷新只读余额与物品数量
+  → UI 按相同稳定 ID 重新读取库存感知投影
 ```
 
-任一前置校验失败时，钱包和背包均保持调用前状态。
+任一前置校验或提交失败时，角色与商店的物品总量和金币总量均保持调用前状态。Unity Presenter 只持有交易用例与稳定 ID，不持有权威经济仓库。
 
 ### 7.2 烹饪
 
@@ -161,11 +163,11 @@ Cooking UI
 ```text
 Sleep interaction
   → IDayTransitionCoordinator.SleepToNextDay()
-  → 捕获 Time / Farming / Livestock 快照
-  → 时间推进并产生唯一目标 Day
-  → 协调器依次通知 Farming 与 Livestock
-  → 各模块按同一个 Day 值结算一次
-  → 任一步失败时恢复三份快照
+  → 捕获 Time / Farming / Livestock / Shop 快照
+  → 为唯一目标 Day 生成确定性商店库存候选
+  → 时间、农田和畜牧按同一个 Day 值结算一次
+  → IEconomyStateStore.CommitShop 发布目标日库存
+  → 任一步失败时恢复调用前状态
 ```
 
 同一天的重复通知必须可检测或无副作用，防止重复成长和重复产出。

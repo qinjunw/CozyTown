@@ -143,8 +143,6 @@ namespace CozyTown.Tests.PlayMode
             saveButton.onClick.Invoke();
             Assert.That(saveView.Feedback, Is.EqualTo("Game saved."));
             Assert.That(loadButton.interactable, Is.True);
-            loadButton.onClick.Invoke();
-            Assert.That(saveView.Feedback, Is.EqualTo("Game loaded."));
             gearButton.onClick.Invoke();
             Assert.That(systemMenuView.IsVisible, Is.False);
             Assert.That(movement.enabled, Is.True);
@@ -193,26 +191,46 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(shopPresenter.IsOpen, Is.True);
             Assert.That(movement.enabled, Is.False);
             Assert.That(interactor.enabled, Is.False);
-            Assert.That(shopView.State.Balance, Is.EqualTo(300));
+            Assert.That(shopView.State.CharacterBalance, Is.EqualTo(300));
+            Assert.That(shopView.State.ShopBalance, Is.EqualTo(10000));
+            int savedFeedStock = shopView.State.PurchaseItems.Single(
+                item => item.ItemId == DefaultMvpIds.Items.ChickenFeed).Quantity;
 
-            var potatoSeedRow = hud.GetComponentsInChildren<CozyTownUiListRow>(false)
-                .Single(row => row.Label.text.StartsWith("Potato Seed", StringComparison.Ordinal));
-            Assert.That(potatoSeedRow.Buttons[0].interactable, Is.True);
-            potatoSeedRow.Buttons[0].onClick.Invoke();
-            Assert.That(shopView.State.Balance, Is.EqualTo(280));
-            Assert.That(
-                shopView.State.Items.Single(item => item.ItemId == DefaultMvpIds.Items.PotatoSeed).OwnedQuantity,
-                Is.EqualTo(1));
-            Assert.That(shopView.Feedback, Is.EqualTo("Bought 1 x Potato Seed for 20 coins."));
-
-            shopView.RequestSell(DefaultMvpIds.Items.Potato);
-            Assert.That(shopView.State.Balance, Is.EqualTo(280));
-            Assert.That(shopView.Feedback, Is.EqualTo(
-                "Sell failed: inventory.insufficient_quantity"));
             shopView.RequestBuy(DefaultMvpIds.Items.ChickenFeed);
+            Assert.That(shopView.State.CharacterBalance, Is.EqualTo(290));
+            Assert.That(shopView.State.ShopBalance, Is.EqualTo(10010));
+            Assert.That(
+                shopView.State.PurchaseItems.Single(
+                    item => item.ItemId == DefaultMvpIds.Items.ChickenFeed).Quantity,
+                Is.EqualTo(savedFeedStock - 1));
+            Assert.That(shopView.Feedback, Is.EqualTo(
+                "Bought 1 x Chicken Feed for 10 coins."));
+            shopView.RequestClose();
+
+            gearButton.onClick.Invoke();
+            loadButton.onClick.Invoke();
+            Assert.That(saveView.Feedback, Is.EqualTo("Game loaded."));
+            gearButton.onClick.Invoke();
+            yield return Open(TownInteractionKind.Shop);
+            Assert.That(shopView.State.CharacterBalance, Is.EqualTo(300));
+            Assert.That(shopView.State.ShopBalance, Is.EqualTo(10000));
+            Assert.That(
+                shopView.State.PurchaseItems.Single(
+                    item => item.ItemId == DefaultMvpIds.Items.ChickenFeed).Quantity,
+                Is.EqualTo(savedFeedStock));
+            Assert.That(shopView.State.SaleItems, Is.Empty);
+            shopView.RequestBuy(DefaultMvpIds.Items.ChickenFeed);
+            shopView.RequestClose();
+
+            yield return Open(TownInteractionKind.Bed);
+            bedView.RequestSleep();
+            Assert.That(bedView.Feedback, Is.EqualTo("Slept to day 2."));
+            bedView.RequestClose();
+            yield return Open(TownInteractionKind.Shop);
+            shopView.RequestBuy(DefaultMvpIds.Items.PotatoSeed);
             shopView.RequestBuy(DefaultMvpIds.Items.Salt);
             shopView.RequestBuy(DefaultMvpIds.Items.Salt);
-            Assert.That(shopView.State.Balance, Is.EqualTo(260));
+            Assert.That(shopView.State.CharacterBalance, Is.EqualTo(260));
             RequireActiveButtonByIcon(hud, "ui_icon_close").onClick.Invoke();
             Assert.That(shopView.IsVisible, Is.False);
             Assert.That(movement.enabled, Is.True);
@@ -234,7 +252,7 @@ namespace CozyTown.Tests.PlayMode
             pondView.RequestClose();
             yield return Open(TownInteractionKind.Bed);
             bedView.RequestSleep();
-            Assert.That(bedView.Feedback, Is.EqualTo("Slept to day 2."));
+            Assert.That(bedView.Feedback, Is.EqualTo("Slept to day 3."));
             bedView.RequestClose();
             yield return Open(TownInteractionKind.Coop);
             Assert.That(henRenderer.sprite.name, Is.EqualTo("animal_hen_product_ready"));
@@ -246,7 +264,7 @@ namespace CozyTown.Tests.PlayMode
             farmView.RequestClose();
             yield return Open(TownInteractionKind.Bed);
             bedView.RequestSleep();
-            Assert.That(bedView.Feedback, Is.EqualTo("Slept to day 3."));
+            Assert.That(bedView.Feedback, Is.EqualTo("Slept to day 4."));
             bedView.RequestClose();
             yield return Open(TownInteractionKind.Farm);
             farmView.RequestHarvest("plot.01");
@@ -262,10 +280,12 @@ namespace CozyTown.Tests.PlayMode
             shopView.RequestSell(DefaultMvpIds.Items.BakedPotato);
             shopView.RequestSell(DefaultMvpIds.Items.GrilledFish);
             shopView.RequestSell(DefaultMvpIds.Items.Egg);
-            Assert.That(shopView.State.Balance, Is.EqualTo(405));
-            shopView.RequestBuy(DefaultMvpIds.Items.PotatoSeed);
-            Assert.That(shopView.State.Balance, Is.EqualTo(385));
-            Assert.That(shopView.State.Items.Single(i => i.ItemId == DefaultMvpIds.Items.PotatoSeed).OwnedQuantity, Is.EqualTo(1));
+            Assert.That(shopView.State.CharacterBalance, Is.EqualTo(405));
+            ShopTradingLineItem availableItem = shopView.State.PurchaseItems.First();
+            shopView.RequestBuy(availableItem.ItemId);
+            Assert.That(
+                shopView.State.CharacterBalance,
+                Is.EqualTo(405 - availableItem.UnitPrice));
             shopView.RequestClose();
 
             foreach (var point in points)
@@ -338,17 +358,18 @@ namespace CozyTown.Tests.PlayMode
             var view = hud.GetComponent<CozyTownShopDebugView>();
             Assert.That(view, Is.Not.Null);
             view.Show(
-                new ShopViewState(
-                    300,
+                new ShopTradingViewState(
+                    characterBalance: 300,
+                    shopBalance: 10000,
                     new[]
                     {
-                        new ShopLineItem(
+                        new ShopTradingLineItem(
                             DefaultMvpIds.Items.PotatoSeed,
                             "Potato Seed",
                             20,
-                            10,
-                            0)
-                    }),
+                            10)
+                    },
+                    Array.Empty<ShopTradingLineItem>()),
                 string.Empty);
 
             var row = hud.GetComponentsInChildren<CozyTownUiListRow>(false)

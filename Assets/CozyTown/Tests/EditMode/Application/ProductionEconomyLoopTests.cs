@@ -12,15 +12,29 @@ namespace CozyTown.Tests.EditMode.Application
         public void DefaultGame_BuyProduceCookAndSell_CompletesDeterministicEconomyLoop()
         {
             CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
+            Assert.That(services.DayTransition.SleepToNextDay().IsSuccess, Is.True);
+            Assert.That(services.Time.Current.Day, Is.EqualTo(2));
 
             Assert.That(
-                services.ShopTrading.Buy(DefaultMvpIds.Items.PotatoSeed, 1).IsSuccess,
+                services.ShopTrading.Buy(
+                    DefaultMvpIds.Shops.TownGeneral,
+                    DefaultMvpIds.Characters.Player,
+                    DefaultMvpIds.Items.PotatoSeed,
+                    1).IsSuccess,
                 Is.True);
             Assert.That(
-                services.ShopTrading.Buy(DefaultMvpIds.Items.ChickenFeed, 1).IsSuccess,
+                services.ShopTrading.Buy(
+                    DefaultMvpIds.Shops.TownGeneral,
+                    DefaultMvpIds.Characters.Player,
+                    DefaultMvpIds.Items.ChickenFeed,
+                    1).IsSuccess,
                 Is.True);
             Assert.That(
-                services.ShopTrading.Buy(DefaultMvpIds.Items.Salt, 2).IsSuccess,
+                services.ShopTrading.Buy(
+                    DefaultMvpIds.Shops.TownGeneral,
+                    DefaultMvpIds.Characters.Player,
+                    DefaultMvpIds.Items.Salt,
+                    2).IsSuccess,
                 Is.True);
             Assert.That(services.Wallet.Balance, Is.EqualTo(260));
 
@@ -34,7 +48,7 @@ namespace CozyTown.Tests.EditMode.Application
                 Is.True);
             Assert.That(services.DayTransition.SleepToNextDay().IsSuccess, Is.True);
 
-            Assert.That(services.Time.Current.Day, Is.EqualTo(2));
+            Assert.That(services.Time.Current.Day, Is.EqualTo(3));
             Assert.That(
                 services.Farm.Plots.Single(plot => plot.PlotId == "plot.01")
                     .GrowthProgressDays,
@@ -47,7 +61,7 @@ namespace CozyTown.Tests.EditMode.Application
 
             Assert.That(services.FarmGameplay.Water("plot.01").IsSuccess, Is.True);
             Assert.That(services.DayTransition.SleepToNextDay().IsSuccess, Is.True);
-            Assert.That(services.Time.Current.Day, Is.EqualTo(3));
+            Assert.That(services.Time.Current.Day, Is.EqualTo(4));
             Assert.That(
                 services.Farm.Plots.Single(plot => plot.PlotId == "plot.01").Status,
                 Is.EqualTo(FarmPlotStatus.Ready));
@@ -64,17 +78,33 @@ namespace CozyTown.Tests.EditMode.Application
                 Is.True);
 
             Assert.That(
-                services.ShopTrading.Sell(DefaultMvpIds.Items.BakedPotato, 1).IsSuccess,
+                services.ShopTrading.Sell(
+                    DefaultMvpIds.Shops.TownGeneral,
+                    DefaultMvpIds.Characters.Player,
+                    DefaultMvpIds.Items.BakedPotato,
+                    1).IsSuccess,
                 Is.True);
             Assert.That(
-                services.ShopTrading.Sell(DefaultMvpIds.Items.GrilledFish, 1).IsSuccess,
+                services.ShopTrading.Sell(
+                    DefaultMvpIds.Shops.TownGeneral,
+                    DefaultMvpIds.Characters.Player,
+                    DefaultMvpIds.Items.GrilledFish,
+                    1).IsSuccess,
                 Is.True);
             Assert.That(
-                services.ShopTrading.Sell(DefaultMvpIds.Items.Egg, 1).IsSuccess,
+                services.ShopTrading.Sell(
+                    DefaultMvpIds.Shops.TownGeneral,
+                    DefaultMvpIds.Characters.Player,
+                    DefaultMvpIds.Items.Egg,
+                    1).IsSuccess,
                 Is.True);
             Assert.That(services.Wallet.Balance, Is.EqualTo(385));
             Assert.That(
-                services.ShopTrading.Buy(DefaultMvpIds.Items.PotatoSeed, 1).IsSuccess,
+                services.ShopTrading.Buy(
+                    DefaultMvpIds.Shops.TownGeneral,
+                    DefaultMvpIds.Characters.Player,
+                    DefaultMvpIds.Items.PotatoSeed,
+                    1).IsSuccess,
                 Is.True);
 
             Assert.That(services.Wallet.Balance, Is.EqualTo(365));

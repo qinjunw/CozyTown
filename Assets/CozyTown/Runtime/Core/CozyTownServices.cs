@@ -19,8 +19,7 @@ namespace CozyTown.Runtime.Core
             ITimeService time,
             IInventory inventory,
             IWallet wallet,
-            IShopService shop,
-            IShopTradingCoordinator shopTrading,
+            ICharacterShopTradingCoordinator shopTrading,
             IFarmService farm,
             IFarmGameplayCoordinator farmGameplay,
             ILivestockService livestock,
@@ -44,7 +43,6 @@ namespace CozyTown.Runtime.Core
                     $"{nameof(inventory)} must implement {nameof(IInventoryProjection)}.",
                     nameof(inventory));
             Wallet = wallet ?? throw new ArgumentNullException(nameof(wallet));
-            Shop = shop ?? throw new ArgumentNullException(nameof(shop));
             ShopTrading = shopTrading ?? throw new ArgumentNullException(nameof(shopTrading));
             Farm = farm ?? throw new ArgumentNullException(nameof(farm));
             FarmGameplay = farmGameplay ?? throw new ArgumentNullException(nameof(farmGameplay));
@@ -77,9 +75,7 @@ namespace CozyTown.Runtime.Core
 
         public IWallet Wallet { get; }
 
-        public IShopService Shop { get; }
-
-        public IShopTradingCoordinator ShopTrading { get; }
+        public ICharacterShopTradingCoordinator ShopTrading { get; }
 
         public IFarmService Farm { get; }
 

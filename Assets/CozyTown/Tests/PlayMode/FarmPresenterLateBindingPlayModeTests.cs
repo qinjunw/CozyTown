@@ -109,7 +109,6 @@ namespace CozyTown.Tests.PlayMode
                 defaults.Time,
                 defaults.Inventory,
                 defaults.Wallet,
-                defaults.Shop,
                 defaults.ShopTrading,
                 defaults.Farm,
                 farmGameplay,

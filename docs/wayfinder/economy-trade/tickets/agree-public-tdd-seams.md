@@ -19,7 +19,7 @@
 ## Confirmed public seams
 
 - `IEconomyStateStore`：按稳定角色或商店 ID 返回不可变状态快照，并且只通过一次原子提交发布角色与商店候选状态。
-- `IShopTradingCoordinator`：`Buy`、`Sell` 和 `GetCurrentState` 都显式接收 `shopId` 与 `characterId`；命令返回操作结果或交易收据，查询返回只读 UI 投影。
+- `ICharacterShopTradingCoordinator`：`Buy`、`Sell` 和 `GetCurrentState` 都显式接收 `shopId` 与 `characterId`；命令返回操作结果或交易收据，查询返回只读 UI 投影。
 - `IDayTransitionCoordinator`：继续作为唯一跨日入口；测试通过经济状态投影观察确定性刷新、同日幂等与失败不发布，不直接调用刷新实现细节。
 - `IGameSaveCoordinator` 与 `ISaveStorage`：验证 v2 往返、v1 迁移和无效加载不改变当前状态；JSON 字段只属于存储适配器契约测试。
 - Unity presenter 只依赖上述用例和投影；PlayMode 测试不读取 Runtime 私有字典或存档 DTO。

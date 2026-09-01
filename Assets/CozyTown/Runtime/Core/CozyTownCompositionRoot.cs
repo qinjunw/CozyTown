@@ -90,12 +90,11 @@ namespace CozyTown.Runtime.Core
             var wallet = new CharacterWalletAdapter(
                 DefaultMvpIds.Characters.Player,
                 economyState);
-            var shop = new InMemoryShopService(configuration.ShopOffers, wallet, inventory);
-            var shopTrading = new ShopTradingCoordinator(
+            var shopTrading = new CharacterShopTradingCoordinator(
                 configuration.Items,
-                shop,
-                wallet,
-                inventory);
+                configuration.ShopOffers,
+                configuration.InventoryCapacitySlots,
+                economyState);
             var farm = new InMemoryFarmService(
                 configuration.FarmPlotIds,
                 configuration.Crops,
@@ -160,7 +159,6 @@ namespace CozyTown.Runtime.Core
                 time,
                 inventory,
                 wallet,
-                shop,
                 shopTrading,
                 farm,
                 farmGameplay,

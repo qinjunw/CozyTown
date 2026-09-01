@@ -15,11 +15,18 @@ namespace CozyTown.Tests.UnityEditMode
             try
             {
                 var view = gameObject.AddComponent<CozyTownShopDebugView>();
-                var state = new ShopViewState(
-                    300,
+                var state = new ShopTradingViewState(
+                    characterBalance: 300,
+                    shopBalance: 10000,
+                    purchaseItems:
                     new[]
                     {
-                        new ShopLineItem("seed.potato", "Potato Seed", 20, 0, 0)
+                        new ShopTradingLineItem("seed.potato", "Potato Seed", 20, 3)
+                    },
+                    saleItems:
+                    new[]
+                    {
+                        new ShopTradingLineItem("crop.potato", "Potato", 8, 1)
                     });
                 string buyItemId = null;
                 string sellItemId = null;

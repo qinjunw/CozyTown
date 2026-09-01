@@ -1,5 +1,6 @@
 using System.Collections;
 using CozyTown.Runtime.Application;
+using CozyTown.Runtime.Content;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Economy;
 using CozyTown.Unity.Core;
@@ -24,12 +25,20 @@ namespace CozyTown.Tests.PlayMode
         {
             var input = CreateActor();
             var point = CreateShopPoint();
-            var initialState = State(balance: 300, potatoSeedOwned: 0);
-            var coordinator = new StubShopTradingCoordinator(initialState)
+            var initialState = State(
+                characterBalance: 300,
+                shopBalance: 10000,
+                potatoSeedStock: 5,
+                potatoSeedOwned: 0);
+            var coordinator = new StubCharacterShopTradingCoordinator(initialState)
             {
                 BuyResult = OperationResult<ShopReceipt>.Success(
                     new ShopReceipt("seed.potato", 1, 20, true)),
-                StateAfterBuy = State(balance: 280, potatoSeedOwned: 1),
+                StateAfterBuy = State(
+                    characterBalance: 280,
+                    shopBalance: 10020,
+                    potatoSeedStock: 4,
+                    potatoSeedOwned: 1),
                 SellResult = OperationResult<ShopReceipt>.Failure(
                     "inventory.insufficient_quantity")
             };
@@ -44,19 +53,39 @@ namespace CozyTown.Tests.PlayMode
 
             Assert.That(presenter.IsOpen, Is.True);
             Assert.That(view.IsVisible, Is.True);
+            Assert.That(
+                coordinator.LastShopId,
+                Is.EqualTo(DefaultMvpIds.Shops.TownGeneral));
+            Assert.That(
+                coordinator.LastCharacterId,
+                Is.EqualTo(DefaultMvpIds.Characters.Player));
             Assert.That(movement.enabled, Is.False);
             Assert.That(interactor.enabled, Is.False);
             Assert.That(body.linearVelocity, Is.EqualTo(Vector2.zero));
 
             view.RequestBuy("seed.potato");
             Assert.That(coordinator.BuyCalls, Is.EqualTo(1));
+            Assert.That(
+                coordinator.LastShopId,
+                Is.EqualTo(DefaultMvpIds.Shops.TownGeneral));
+            Assert.That(
+                coordinator.LastCharacterId,
+                Is.EqualTo(DefaultMvpIds.Characters.Player));
             Assert.That(coordinator.LastQuantity, Is.EqualTo(1));
-            Assert.That(view.State.Balance, Is.EqualTo(280));
-            Assert.That(view.State.Items[0].OwnedQuantity, Is.EqualTo(1));
+            Assert.That(view.State.CharacterBalance, Is.EqualTo(280));
+            Assert.That(view.State.ShopBalance, Is.EqualTo(10020));
+            Assert.That(view.State.PurchaseItems[0].Quantity, Is.EqualTo(4));
+            Assert.That(view.State.SaleItems[0].Quantity, Is.EqualTo(1));
             Assert.That(view.Feedback, Is.EqualTo("Bought 1 x Potato Seed for 20 coins."));
 
             view.RequestSell("crop.potato");
             Assert.That(coordinator.SellCalls, Is.EqualTo(1));
+            Assert.That(
+                coordinator.LastShopId,
+                Is.EqualTo(DefaultMvpIds.Shops.TownGeneral));
+            Assert.That(
+                coordinator.LastCharacterId,
+                Is.EqualTo(DefaultMvpIds.Characters.Player));
             Assert.That(coordinator.LastQuantity, Is.EqualTo(1));
             Assert.That(view.Feedback, Is.EqualTo(
                 "Sell failed: inventory.insufficient_quantity"));
@@ -74,7 +103,7 @@ namespace CozyTown.Tests.PlayMode
         {
             CreateActor();
             var point = CreateShopPoint();
-            var coordinator = new StubShopTradingCoordinator(State(300, 0));
+            var coordinator = new StubCharacterShopTradingCoordinator(State(300, 10000, 5, 0));
             var presenter = CreatePresenter(point, coordinator, out var view);
             var movement = _actor.GetComponent<PlayerMovement2D>();
             var interactor = _actor.GetComponent<PlayerInteractor2D>();
@@ -99,7 +128,7 @@ namespace CozyTown.Tests.PlayMode
             var point = CreateShopPoint();
             var presenter = CreatePresenter(
                 point,
-                new StubShopTradingCoordinator(State(300, 0)),
+                new StubCharacterShopTradingCoordinator(State(300, 10000, 5, 0)),
                 out var view);
             var gate = _actor.GetComponent<PlayerModalInputGate2D>();
             var movement = _actor.GetComponent<PlayerMovement2D>();
@@ -128,7 +157,7 @@ namespace CozyTown.Tests.PlayMode
             var point = CreateShopPoint();
             var presenter = CreatePresenter(
                 point,
-                new StubShopTradingCoordinator(State(300, 0)),
+                new StubCharacterShopTradingCoordinator(State(300, 10000, 5, 0)),
                 out var view);
 
             point.Interact(new InteractionContext(_actor));
@@ -145,7 +174,7 @@ namespace CozyTown.Tests.PlayMode
         {
             CreateActor();
             var point = CreateShopPoint();
-            var coordinator = new StubShopTradingCoordinator(State(300, 0))
+            var coordinator = new StubCharacterShopTradingCoordinator(State(300, 10000, 5, 0))
             {
                 BuyResult = OperationResult<ShopReceipt>.Failure("test.failure")
             };
@@ -167,7 +196,7 @@ namespace CozyTown.Tests.PlayMode
             var point = CreateShopPoint();
             _pointObject.AddComponent<CircleCollider2D>();
             _pointObject.transform.position = new Vector2(0.25f, 0f);
-            var coordinator = new StubShopTradingCoordinator(State(300, 0));
+            var coordinator = new StubCharacterShopTradingCoordinator(State(300, 10000, 5, 0));
             var presenter = CreatePresenter(point, coordinator, out var view);
             Physics2D.SyncTransforms();
             yield return null;
@@ -255,7 +284,7 @@ namespace CozyTown.Tests.PlayMode
 
         private CozyTownShopDebugPresenter CreatePresenter(
             TownInteractionPoint2D point,
-            IShopTradingCoordinator coordinator,
+            ICharacterShopTradingCoordinator coordinator,
             out CozyTownShopDebugView view)
         {
             _shopUi = new GameObject("Shop UI");
@@ -263,37 +292,51 @@ namespace CozyTown.Tests.PlayMode
             view = _shopUi.AddComponent<CozyTownShopDebugView>();
             var presenter = _shopUi.AddComponent<CozyTownShopDebugPresenter>();
             presenter.Configure(point, view);
-            presenter.Bind(coordinator);
+            presenter.Bind(
+                coordinator,
+                DefaultMvpIds.Shops.TownGeneral,
+                DefaultMvpIds.Characters.Player);
             _shopUi.SetActive(true);
             return presenter;
         }
 
-        private static ShopViewState State(int balance, int potatoSeedOwned)
+        private static ShopTradingViewState State(
+            int characterBalance,
+            int shopBalance,
+            int potatoSeedStock,
+            int potatoSeedOwned)
         {
-            return new ShopViewState(
-                balance,
-                new[]
-                {
-                    new ShopLineItem(
-                        "seed.potato",
-                        "Potato Seed",
-                        20,
-                        0,
-                        potatoSeedOwned),
-                    new ShopLineItem(
-                        "crop.potato",
-                        "Potato",
-                        0,
-                        20,
-                        0)
-                });
+            return new ShopTradingViewState(
+                characterBalance,
+                shopBalance,
+                potatoSeedStock > 0
+                    ? new[]
+                    {
+                        new ShopTradingLineItem(
+                            "seed.potato",
+                            "Potato Seed",
+                            20,
+                            potatoSeedStock)
+                    }
+                    : System.Array.Empty<ShopTradingLineItem>(),
+                potatoSeedOwned > 0
+                    ? new[]
+                    {
+                        new ShopTradingLineItem(
+                            "seed.potato",
+                            "Potato Seed",
+                            10,
+                            potatoSeedOwned)
+                    }
+                    : System.Array.Empty<ShopTradingLineItem>());
         }
 
-        private sealed class StubShopTradingCoordinator : IShopTradingCoordinator
+        private sealed class StubCharacterShopTradingCoordinator
+            : ICharacterShopTradingCoordinator
         {
-            private ShopViewState _state;
+            private ShopTradingViewState _state;
 
-            public StubShopTradingCoordinator(ShopViewState state)
+            public StubCharacterShopTradingCoordinator(ShopTradingViewState state)
             {
                 _state = state;
             }
@@ -302,9 +345,9 @@ namespace CozyTown.Tests.PlayMode
 
             public OperationResult<ShopReceipt> SellResult { get; set; }
 
-            public ShopViewState StateAfterBuy { get; set; }
+            public ShopTradingViewState StateAfterBuy { get; set; }
 
-            public ShopViewState StateAfterSell { get; set; }
+            public ShopTradingViewState StateAfterSell { get; set; }
 
             public int BuyCalls { get; private set; }
 
@@ -312,15 +355,27 @@ namespace CozyTown.Tests.PlayMode
 
             public int LastQuantity { get; private set; }
 
-            public ShopViewState GetCurrentState()
+            public string LastShopId { get; private set; }
+
+            public string LastCharacterId { get; private set; }
+
+            public OperationResult<ShopTradingViewState> GetCurrentState(
+                string shopId,
+                string characterId)
             {
-                return _state;
+                CaptureIds(shopId, characterId);
+                return OperationResult<ShopTradingViewState>.Success(_state);
             }
 
-            public OperationResult<ShopReceipt> Buy(string itemId, int quantity)
+            public OperationResult<ShopReceipt> Buy(
+                string shopId,
+                string characterId,
+                string itemId,
+                int quantity)
             {
                 BuyCalls++;
                 LastQuantity = quantity;
+                CaptureIds(shopId, characterId);
                 if (BuyResult.IsSuccess && StateAfterBuy != null)
                 {
                     _state = StateAfterBuy;
@@ -329,16 +384,27 @@ namespace CozyTown.Tests.PlayMode
                 return BuyResult;
             }
 
-            public OperationResult<ShopReceipt> Sell(string itemId, int quantity)
+            public OperationResult<ShopReceipt> Sell(
+                string shopId,
+                string characterId,
+                string itemId,
+                int quantity)
             {
                 SellCalls++;
                 LastQuantity = quantity;
+                CaptureIds(shopId, characterId);
                 if (SellResult.IsSuccess && StateAfterSell != null)
                 {
                     _state = StateAfterSell;
                 }
 
                 return SellResult;
+            }
+
+            private void CaptureIds(string shopId, string characterId)
+            {
+                LastShopId = shopId;
+                LastCharacterId = characterId;
             }
         }
     }

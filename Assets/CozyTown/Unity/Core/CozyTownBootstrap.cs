@@ -338,7 +338,10 @@ namespace CozyTown.Unity.Core
 
         private void BindShopPresenter(CozyTownShopDebugPresenter presenter)
         {
-            presenter.Bind(_services.ShopTrading);
+            presenter.Bind(
+                _services.ShopTrading,
+                DefaultMvpIds.Shops.TownGeneral,
+                DefaultMvpIds.Characters.Player);
         }
 
         private void BindGameplayPresenters()
