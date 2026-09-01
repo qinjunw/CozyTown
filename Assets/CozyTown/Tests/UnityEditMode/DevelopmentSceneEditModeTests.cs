@@ -145,8 +145,14 @@ namespace CozyTown.Tests.UnityEditMode
             try
             {
                 var bootstrap = RequireRoot(scene, "CozyTown");
-                Assert.That(bootstrap.GetComponent<CozyTownBootstrap>(), Is.Not.Null);
+                var bootstrapComponent = bootstrap.GetComponent<CozyTownBootstrap>();
+                Assert.That(bootstrapComponent, Is.Not.Null);
                 Assert.That(typeof(CozyTownBootstrap).GetProperty("Services"), Is.Null);
+                var serializedBootstrap = new SerializedObject(bootstrapComponent);
+                Assert.That(
+                    serializedBootstrap.FindProperty("_contentAsset")?.objectReferenceValue,
+                    Is.Not.Null,
+                    "The development scene Bootstrap must reference its default content asset.");
 
                 var player = RequireRoot(scene, "Player");
                 Assert.That(player.GetComponent<Rigidbody2D>(), Is.Not.Null);

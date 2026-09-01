@@ -17,6 +17,7 @@ namespace CozyTown.Runtime.Content
 
             if (configuration.InventoryCapacitySlots <= 0
                 || configuration.StartingBalance < 0
+                || configuration.StartingShopBalance < 0
                 || configuration.StartingDay <= 0
                 || configuration.StartingMinuteOfDay < 0
                 || configuration.StartingMinuteOfDay >= 24 * 60

@@ -232,10 +232,9 @@ namespace CozyTown.Runtime.Save
 
         private static IShopStockReplacementPolicy CreateDefaultLegacyRestockPolicy()
         {
-            var configuration = DefaultMvpContent.CreateConfiguration();
             return new DeterministicShopStockReplacementPolicy(
-                configuration.ShopRestockRules,
-                minimumDistinctItems: 4);
+                LegacyV1MigrationDefaults.CreateRestockRules(),
+                LegacyV1MigrationDefaults.MinimumDistinctItems);
         }
 
         private void TryDeleteTemporaryFile()
@@ -332,7 +331,7 @@ namespace CozyTown.Runtime.Save
                 var sourceShop = new ShopEconomySnapshot(
                     DefaultMvpIds.Shops.TownGeneral,
                     new InventorySnapshot(Array.Empty<ItemStack>()),
-                    new WalletSnapshot(DefaultMvpContent.DefaultShopStartingBalance),
+                    new WalletSnapshot(LegacyV1MigrationDefaults.ShopStartingBalance),
                     clock.Value.Day - 1,
                     DeterministicShopStockReplacementPolicy.VersionOne);
                 OperationResult<ShopEconomySnapshot> shop =

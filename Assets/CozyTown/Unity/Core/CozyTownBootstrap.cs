@@ -4,6 +4,7 @@ using CozyTown.Runtime.Content;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Npc;
 using CozyTown.Runtime.Save;
+using CozyTown.Unity.Content;
 using CozyTown.Unity.Bed;
 using CozyTown.Unity.Coop;
 using CozyTown.Unity.Farm;
@@ -24,6 +25,9 @@ namespace CozyTown.Unity.Core
         [SerializeField]
         [Tooltip("Optional MonoBehaviour implementing ICozyTownServicesFactory. The default MVP configuration is used when omitted.")]
         private MonoBehaviour servicesFactoryBehaviour;
+        [SerializeField]
+        [Tooltip("Validated economy and production content used by the default service graph.")]
+        private CozyTownMvpContentAsset _contentAsset;
         [SerializeField] private CozyTownHudPresenter[] hudPresenters = Array.Empty<CozyTownHudPresenter>();
         [SerializeField] private CozyTownShopDebugPresenter[] shopPresenters = Array.Empty<CozyTownShopDebugPresenter>();
         [SerializeField]
@@ -71,6 +75,17 @@ namespace CozyTown.Unity.Core
 
             _factoryOverride = factory ?? throw new ArgumentNullException(nameof(factory));
             servicesFactoryBehaviour = factory as MonoBehaviour;
+        }
+
+        public void ConfigureContentAsset(CozyTownMvpContentAsset contentAsset)
+        {
+            if (IsInitialized)
+            {
+                throw new InvalidOperationException("Services are already initialized.");
+            }
+
+            _contentAsset = contentAsset
+                ?? throw new ArgumentNullException(nameof(contentAsset));
         }
 
         public void Initialize(CozyTownServices services)
@@ -272,7 +287,20 @@ namespace CozyTown.Unity.Core
 
         private CozyTownServices CreateDefaultUnityServices()
         {
-            var configuration = DefaultMvpContent.CreateConfiguration();
+            if (_contentAsset == null)
+            {
+                throw new InvalidOperationException(
+                    "The default content asset has not been assigned.");
+            }
+
+            OperationResult<CozyTownConfiguration> content = _contentAsset.Load();
+            if (!content.IsSuccess)
+            {
+                throw new InvalidOperationException(
+                    $"The default content asset is invalid: {content.ErrorCode}");
+            }
+
+            CozyTownConfiguration configuration = content.Value;
             INpcDialogueGenerator fallback = new ConfiguredFallbackDialogueGenerator(
                 configuration.Npcs,
                 configuration.FallbackDialogue);

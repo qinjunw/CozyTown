@@ -1,0 +1,244 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2c1825081bf4a9299c390b04ec69ef0, type: 3}
+  m_Name: DefaultMvpContent
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Content.CozyTownMvpContentAsset
+  _inventoryCapacitySlots: 24
+  _startingBalance: 300
+  _startingShopBalance: 10000
+  _startingDay: 1
+  _startingMinuteOfDay: 360
+  _items:
+  - _id: seed.potato
+    _displayName: Potato Seed
+    _category: 1
+    _maxStack: 99
+  - _id: seed.carrot
+    _displayName: Carrot Seed
+    _category: 1
+    _maxStack: 99
+  - _id: seed.tomato
+    _displayName: Tomato Seed
+    _category: 1
+    _maxStack: 99
+  - _id: crop.potato
+    _displayName: Potato
+    _category: 2
+    _maxStack: 99
+  - _id: crop.carrot
+    _displayName: Carrot
+    _category: 2
+    _maxStack: 99
+  - _id: crop.tomato
+    _displayName: Tomato
+    _category: 2
+    _maxStack: 99
+  - _id: feed.chicken
+    _displayName: Chicken Feed
+    _category: 6
+    _maxStack: 99
+  - _id: animal_product.egg
+    _displayName: Egg
+    _category: 3
+    _maxStack: 99
+  - _id: fish.carp
+    _displayName: Carp
+    _category: 4
+    _maxStack: 99
+  - _id: fish.trout
+    _displayName: Trout
+    _category: 4
+    _maxStack: 99
+  - _id: fish.bass
+    _displayName: Bass
+    _category: 4
+    _maxStack: 99
+  - _id: ingredient.salt
+    _displayName: Salt
+    _category: 0
+    _maxStack: 99
+  - _id: ingredient.flour
+    _displayName: Flour
+    _category: 0
+    _maxStack: 99
+  - _id: food.baked_potato
+    _displayName: Baked Potato
+    _category: 5
+    _maxStack: 99
+  - _id: food.vegetable_soup
+    _displayName: Vegetable Soup
+    _category: 5
+    _maxStack: 99
+  - _id: food.grilled_fish
+    _displayName: Grilled Fish
+    _category: 5
+    _maxStack: 99
+  - _id: food.tomato_egg
+    _displayName: Tomato and Egg
+    _category: 5
+    _maxStack: 99
+  - _id: food.fish_pie
+    _displayName: Fish Pie
+    _category: 5
+    _maxStack: 99
+  _shopOffers:
+  - _itemId: seed.potato
+    _buyPrice: 20
+    _sellPrice: 0
+  - _itemId: seed.carrot
+    _buyPrice: 25
+    _sellPrice: 0
+  - _itemId: seed.tomato
+    _buyPrice: 30
+    _sellPrice: 0
+  - _itemId: feed.chicken
+    _buyPrice: 10
+    _sellPrice: 0
+  - _itemId: ingredient.salt
+    _buyPrice: 5
+    _sellPrice: 0
+  - _itemId: ingredient.flour
+    _buyPrice: 10
+    _sellPrice: 0
+  - _itemId: crop.potato
+    _buyPrice: 0
+    _sellPrice: 20
+  - _itemId: crop.carrot
+    _buyPrice: 0
+    _sellPrice: 25
+  - _itemId: crop.tomato
+    _buyPrice: 0
+    _sellPrice: 30
+  - _itemId: animal_product.egg
+    _buyPrice: 0
+    _sellPrice: 20
+  - _itemId: fish.carp
+    _buyPrice: 0
+    _sellPrice: 25
+  - _itemId: fish.trout
+    _buyPrice: 0
+    _sellPrice: 35
+  - _itemId: fish.bass
+    _buyPrice: 0
+    _sellPrice: 45
+  - _itemId: food.baked_potato
+    _buyPrice: 0
+    _sellPrice: 50
+  - _itemId: food.vegetable_soup
+    _buyPrice: 0
+    _sellPrice: 60
+  - _itemId: food.grilled_fish
+    _buyPrice: 0
+    _sellPrice: 55
+  - _itemId: food.tomato_egg
+    _buyPrice: 0
+    _sellPrice: 75
+  - _itemId: food.fish_pie
+    _buyPrice: 0
+    _sellPrice: 100
+  _shopRestockRules:
+  - _itemId: seed.potato
+    _appearancePermille: 700
+    _minQuantity: 3
+    _maxQuantity: 6
+  - _itemId: seed.carrot
+    _appearancePermille: 700
+    _minQuantity: 3
+    _maxQuantity: 6
+  - _itemId: seed.tomato
+    _appearancePermille: 700
+    _minQuantity: 3
+    _maxQuantity: 6
+  - _itemId: feed.chicken
+    _appearancePermille: 1000
+    _minQuantity: 6
+    _maxQuantity: 12
+  - _itemId: ingredient.salt
+    _appearancePermille: 750
+    _minQuantity: 3
+    _maxQuantity: 8
+  - _itemId: ingredient.flour
+    _appearancePermille: 750
+    _minQuantity: 3
+    _maxQuantity: 8
+  _crops:
+  - _id: crop_definition.potato
+    _seedItemId: seed.potato
+    _harvestItemId: crop.potato
+    _growthDays: 2
+    _harvestQuantity: 2
+  - _id: crop_definition.carrot
+    _seedItemId: seed.carrot
+    _harvestItemId: crop.carrot
+    _growthDays: 3
+    _harvestQuantity: 2
+  - _id: crop_definition.tomato
+    _seedItemId: seed.tomato
+    _harvestItemId: crop.tomato
+    _growthDays: 4
+    _harvestQuantity: 3
+  _fishingEntries:
+  - _fishId: fish_definition.carp
+    _itemId: fish.carp
+    _minRollInclusive: 0
+    _maxRollExclusive: 40
+  - _fishId: fish_definition.trout
+    _itemId: fish.trout
+    _minRollInclusive: 40
+    _maxRollExclusive: 70
+  - _fishId: fish_definition.bass
+    _itemId: fish.bass
+    _minRollInclusive: 70
+    _maxRollExclusive: 90
+  _recipes:
+  - _id: recipe.baked_potato
+    _ingredients:
+    - _itemId: crop.potato
+      _quantity: 1
+    - _itemId: ingredient.salt
+      _quantity: 1
+    _outputItemId: food.baked_potato
+    _outputQuantity: 1
+  - _id: recipe.vegetable_soup
+    _ingredients:
+    - _itemId: crop.carrot
+      _quantity: 1
+    - _itemId: crop.tomato
+      _quantity: 1
+    _outputItemId: food.vegetable_soup
+    _outputQuantity: 1
+  - _id: recipe.grilled_fish
+    _ingredients:
+    - _itemId: fish.carp
+      _quantity: 1
+    - _itemId: ingredient.salt
+      _quantity: 1
+    _outputItemId: food.grilled_fish
+    _outputQuantity: 1
+  - _id: recipe.tomato_egg
+    _ingredients:
+    - _itemId: crop.tomato
+      _quantity: 1
+    - _itemId: animal_product.egg
+      _quantity: 1
+    _outputItemId: food.tomato_egg
+    _outputQuantity: 1
+  - _id: recipe.fish_pie
+    _ingredients:
+    - _itemId: fish.trout
+      _quantity: 1
+    - _itemId: animal_product.egg
+      _quantity: 1
+    - _itemId: ingredient.flour
+      _quantity: 1
+    _outputItemId: food.fish_pie
+    _outputQuantity: 1

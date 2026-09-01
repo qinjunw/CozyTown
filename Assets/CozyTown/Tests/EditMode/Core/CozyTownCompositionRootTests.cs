@@ -142,6 +142,39 @@ namespace CozyTown.Tests.EditMode.Core
         }
 
         [Test]
+        public void Create_WithConfiguredShopBalance_SeedsShopWalletFromConfiguration()
+        {
+            CozyTownConfiguration source = DefaultMvpContent.CreateConfiguration();
+            var configuration = new CozyTownConfiguration(
+                source.Items,
+                source.ShopOffers,
+                source.Crops,
+                source.FarmPlotIds,
+                source.AnimalDefinitions,
+                source.Animals,
+                source.FishingEntries,
+                source.Recipes,
+                source.InventoryCapacitySlots,
+                source.StartingBalance,
+                source.StartingDay,
+                source.StartingMinuteOfDay,
+                source.FallbackDialogue,
+                source.Npcs,
+                source.ShopRestockRules,
+                source.StartingWorldSeed,
+                startingShopBalance: 4321);
+
+            CozyTownServices services = CozyTownCompositionRoot.Create(configuration);
+
+            Assert.That(
+                services.EconomyState.TryGetShop(
+                    DefaultMvpIds.Shops.TownGeneral,
+                    out var shop),
+                Is.True);
+            Assert.That(shop.Wallet.Balance, Is.EqualTo(4321));
+        }
+
+        [Test]
         public async Task CreateDefault_NpcDialogueUsesConfiguredNpcFallback()
         {
             CozyTownConfiguration configuration = DefaultMvpContent.CreateConfiguration();

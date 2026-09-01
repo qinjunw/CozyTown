@@ -366,16 +366,18 @@ namespace CozyTown.Tests.EditMode.Content
             Assert.That(result.ErrorCode, Is.EqualTo(expectedError));
         }
 
-        [TestCase(0, 360, 24, 0)]
-        [TestCase(1, -1, 24, 0)]
-        [TestCase(1, 1440, 24, 0)]
-        [TestCase(1, 360, 0, 0)]
-        [TestCase(1, 360, 24, -1)]
+        [TestCase(0, 360, 24, 0, 10000)]
+        [TestCase(1, -1, 24, 0, 10000)]
+        [TestCase(1, 1440, 24, 0, 10000)]
+        [TestCase(1, 360, 0, 0, 10000)]
+        [TestCase(1, 360, 24, -1, 10000)]
+        [TestCase(1, 360, 24, 0, -1)]
         public void Create_WhenCoreStartingValueIsInvalid_RejectsBeforeServiceConstruction(
             int startingDay,
             int startingMinute,
             int capacity,
-            int balance)
+            int balance,
+            int shopBalance)
         {
             CozyTownConfiguration source = DefaultMvpContent.CreateConfiguration();
             CozyTownConfiguration invalid = Copy(
@@ -383,7 +385,8 @@ namespace CozyTown.Tests.EditMode.Content
                 startingDay: startingDay,
                 startingMinuteOfDay: startingMinute,
                 inventoryCapacitySlots: capacity,
-                startingBalance: balance);
+                startingBalance: balance,
+                startingShopBalance: shopBalance);
 
             ArgumentException exception = Assert.Throws<ArgumentException>(
                 () => CozyTownCompositionRoot.Create(invalid));
@@ -407,7 +410,8 @@ namespace CozyTown.Tests.EditMode.Content
             int? startingBalance = null,
             int? startingDay = null,
             int? startingMinuteOfDay = null,
-            int? startingWorldSeed = null)
+            int? startingWorldSeed = null,
+            int? startingShopBalance = null)
         {
             return new CozyTownConfiguration(
                 items ?? source.Items,
@@ -425,7 +429,8 @@ namespace CozyTown.Tests.EditMode.Content
                 source.FallbackDialogue,
                 npcs ?? source.Npcs,
                 shopRestockRules ?? source.ShopRestockRules,
-                startingWorldSeed ?? source.StartingWorldSeed);
+                startingWorldSeed ?? source.StartingWorldSeed,
+                startingShopBalance ?? source.StartingShopBalance);
         }
     }
 }

@@ -59,7 +59,7 @@ namespace CozyTown.Runtime.Core
                 var initialShop = new ShopEconomySnapshot(
                     DefaultMvpIds.Shops.TownGeneral,
                     new InventorySnapshot(Array.Empty<ItemStack>()),
-                    new WalletSnapshot(DefaultMvpContent.DefaultShopStartingBalance),
+                    new WalletSnapshot(configuration.StartingShopBalance),
                     configuration.StartingDay - 1,
                     DeterministicShopStockReplacementPolicy.VersionOne);
                 OperationResult<ShopEconomySnapshot> initialRestock =

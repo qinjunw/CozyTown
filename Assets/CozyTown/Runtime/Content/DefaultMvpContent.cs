@@ -12,7 +12,6 @@ namespace CozyTown.Runtime.Content
     public static class DefaultMvpContent
     {
         public const int DefaultWorldSeed = 12345;
-        public const int DefaultShopStartingBalance = 10000;
 
         public static CozyTownConfiguration CreateConfiguration()
         {
@@ -54,7 +53,8 @@ namespace CozyTown.Runtime.Content
                 fallbackDialogue: "It's a quiet day in town.",
                 npcs: CreateNpcs(),
                 shopRestockRules: CreateShopRestockRules(),
-                startingWorldSeed: DefaultWorldSeed);
+                startingWorldSeed: DefaultWorldSeed,
+                startingShopBalance: 10000);
         }
 
         private static ItemDefinition[] CreateItems()

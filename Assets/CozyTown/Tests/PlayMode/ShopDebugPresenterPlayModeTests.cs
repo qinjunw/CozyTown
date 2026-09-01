@@ -221,7 +221,10 @@ namespace CozyTown.Tests.PlayMode
             presenter.Configure(point, view);
 
             _bootstrapObject = new GameObject("Bootstrap");
+            _bootstrapObject.SetActive(false);
             var bootstrap = _bootstrapObject.AddComponent<CozyTownBootstrap>();
+            bootstrap.SetFactory(new DefaultServicesFactory());
+            _bootstrapObject.SetActive(true);
             Assert.That(bootstrap.IsInitialized, Is.True);
             bootstrap.RegisterShopPresenter(presenter);
 
@@ -254,6 +257,14 @@ namespace CozyTown.Tests.PlayMode
             if (_actor != null)
             {
                 Object.DestroyImmediate(_actor);
+            }
+        }
+
+        private sealed class DefaultServicesFactory : ICozyTownServicesFactory
+        {
+            public CozyTownServices Create()
+            {
+                return CozyTownCompositionRoot.CreateDefault();
             }
         }
 
