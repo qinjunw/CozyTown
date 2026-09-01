@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Economy;
 using CozyTown.Runtime.Inventory;
@@ -121,6 +122,64 @@ namespace CozyTown.Runtime.Application
 
             return OperationResult<ShopReceipt>.Success(
                 new ShopReceipt(itemId, quantity, total, true));
+        }
+
+        public OperationResult<ShopTradingViewState> GetCurrentState(
+            string shopId,
+            string characterId)
+        {
+            if (!_stateStore.TryGetCharacter(characterId, out CharacterEconomySnapshot character))
+            {
+                return OperationResult<ShopTradingViewState>.Failure(
+                    "economy.character_unknown");
+            }
+
+            if (!_stateStore.TryGetShop(shopId, out ShopEconomySnapshot shop))
+            {
+                return OperationResult<ShopTradingViewState>.Failure(
+                    "economy.shop_unknown");
+            }
+
+            var purchaseItems = new List<ShopTradingLineItem>();
+            var saleItems = new List<ShopTradingLineItem>();
+            foreach (ShopOffer offer in _offers.Values.OrderBy(
+                         value => value.ItemId,
+                         StringComparer.Ordinal))
+            {
+                ItemDefinition definition = _catalog.First(
+                    item => string.Equals(
+                        item.Id,
+                        offer.ItemId,
+                        StringComparison.Ordinal));
+                int shopQuantity = Quantity(shop.Stock, offer.ItemId);
+                if (offer.BuyPrice > 0 && shopQuantity > 0)
+                {
+                    purchaseItems.Add(
+                        new ShopTradingLineItem(
+                            offer.ItemId,
+                            definition.DisplayName,
+                            offer.BuyPrice,
+                            shopQuantity));
+                }
+
+                int characterQuantity = Quantity(character.Backpack, offer.ItemId);
+                if (offer.SellPrice > 0 && characterQuantity > 0)
+                {
+                    saleItems.Add(
+                        new ShopTradingLineItem(
+                            offer.ItemId,
+                            definition.DisplayName,
+                            offer.SellPrice,
+                            characterQuantity));
+                }
+            }
+
+            return OperationResult<ShopTradingViewState>.Success(
+                new ShopTradingViewState(
+                    character.Wallet.Balance,
+                    shop.Wallet.Balance,
+                    purchaseItems,
+                    saleItems));
         }
 
         public OperationResult<ShopReceipt> Sell(
@@ -298,6 +357,19 @@ namespace CozyTown.Runtime.Application
 
             candidate = found ? new InventorySnapshot(items.ToArray()) : null;
             return found;
+        }
+
+        private static int Quantity(InventorySnapshot snapshot, string itemId)
+        {
+            foreach (ItemStack stack in snapshot.Items)
+            {
+                if (string.Equals(stack.ItemId, itemId, StringComparison.Ordinal))
+                {
+                    return stack.Quantity;
+                }
+            }
+
+            return 0;
         }
 
         private static bool TryAdd(

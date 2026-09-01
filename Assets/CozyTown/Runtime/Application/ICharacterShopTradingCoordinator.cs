@@ -5,6 +5,10 @@ namespace CozyTown.Runtime.Application
 {
     public interface ICharacterShopTradingCoordinator
     {
+        OperationResult<ShopTradingViewState> GetCurrentState(
+            string shopId,
+            string characterId);
+
         OperationResult<ShopReceipt> Buy(
             string shopId,
             string characterId,
