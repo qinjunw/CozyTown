@@ -410,6 +410,12 @@ RED 先复现旧 Production 帧的可见高度分布为 `29..32`，并命中右�
 
 连续 A1 重建前后的主角 Production PNG、4× 预览和当前场景 SHA-256 分别保持为 `6B3FDBE287AB23372CDAEBAAE41CAE645B9B4548EE2A2F15B175E7E9C1C13D90`、`1717079B2C7AE1D716959E45533788D86AFD9A508024CCE48F62DC73312E1604`、`903D7E53BCFB4D9244939F3F08EBF4C2499FB352520C06CB29AA9C2AB3BBEECC`。自动化不替代三档实际画面中的体型一致性、脚部完整性和步行动作观感检查。
 
+### 10.15 发布与 AI 代理配置
+
+项目配置测试验证唯一启用的构建场景为 `CozyTown_Dev.unity`，Standalone Player 使用 `Kaiisa`、`KaiisaTown` 和 `com.Kaiisa.KaiisaTown`。AI 代理配置测试验证进程环境变量覆盖场景默认值、未配置时保留固定对话路径，并拒绝无法解析、小于 `0.1`、`NaN` 或无穷大的超时值。
+
+2026-09-01 使用 Unity `6000.5.5f1` 运行全量回归。EditMode `201/201`、PlayMode `35/35` 通过，均为 0 failed、0 skipped；测试进程未设置 AI 代理环境变量，也未访问线上模型服务。
+
 ## 11. 人工验证步骤
 
 完整 MVP 演示候选完成后，按以下顺序执行并记录结果、Unity 版本、提交号和异常截图：

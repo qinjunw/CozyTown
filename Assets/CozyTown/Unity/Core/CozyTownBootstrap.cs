@@ -277,12 +277,16 @@ namespace CozyTown.Unity.Core
                 configuration.Npcs,
                 configuration.FallbackDialogue);
             INpcDialogueGenerator dialogue = fallback;
-            if (!string.IsNullOrWhiteSpace(_aiProxyEndpoint))
+            AiProxyRuntimeConfiguration aiProxy =
+                AiProxyRuntimeConfiguration.FromEnvironment(
+                    _aiProxyEndpoint,
+                    _aiProxyTimeoutSeconds);
+            if (!string.IsNullOrWhiteSpace(aiProxy.Endpoint))
             {
                 dialogue = new AiNpcDialogueGenerator(
-                    new ProxyNpcDialogueClient(_aiProxyEndpoint),
+                    new ProxyNpcDialogueClient(aiProxy.Endpoint),
                     fallback,
-                    TimeSpan.FromSeconds(Mathf.Max(0.1f, _aiProxyTimeoutSeconds)));
+                    TimeSpan.FromSeconds(aiProxy.TimeoutSeconds));
             }
 
             ISaveStorage saveStorage;

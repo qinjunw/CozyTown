@@ -86,12 +86,28 @@ Unity 包版本以 [`Packages/manifest.json`](Packages/manifest.json) 为准，E
 
 ## 使用 AI 代理
 
-场景中的 `CozyTownBootstrap` 默认将 **Ai Proxy Endpoint** 留空，因此 NPC 使用固定对话。接入模型服务时：
+场景中的 `CozyTownBootstrap` 默认将 **Ai Proxy Endpoint** 留空，因此 NPC 使用固定对话。运行时优先读取以下进程环境变量，未设置时才使用 Inspector 中的值：
+
+| 环境变量 | 说明 |
+| --- | --- |
+| `COZYTOWN_AI_PROXY_ENDPOINT` | 绝对 HTTP(S) 代理地址；留空时使用固定 NPC 对话 |
+| `COZYTOWN_AI_PROXY_TIMEOUT_SECONDS` | 请求超时秒数，必须不小于 `0.1`；默认值为 `8` |
+
+PowerShell 示例：
+
+```powershell
+$env:COZYTOWN_AI_PROXY_ENDPOINT = 'https://<proxy-host>/npc-dialogue'
+$env:COZYTOWN_AI_PROXY_TIMEOUT_SECONDS = '8'
+```
+
+设置变量后，从继承这些变量的进程启动 Unity Editor 或构建。仓库根目录的 [`.env.example`](.env.example) 只提供变量名和值格式，项目不会自动加载 `.env` 文件。
+
+接入模型服务时：
 
 1. 准备一个接收 JSON `POST` 请求的 HTTP(S) 代理。
 2. 由代理持有模型服务凭据并返回上文所示的响应结构。
-3. 在 `CozyTownBootstrap` 的 Inspector 中填写绝对代理地址。
-4. 按需要调整 **Ai Proxy Timeout Seconds**；默认值为 8 秒。
+3. 通过进程环境变量配置代理地址和超时。
+4. 保持被 Git 跟踪的开发场景不含环境专用地址和模型服务凭据。
 
 请求字段包括 `npcId`、`displayName`、`persona`、`day`、`minuteOfDay`、`affinity`、`recentActivities` 和 `memories`。字段定义与序列化实现见 [`Assets/CozyTown/Unity/Npc/ProxyNpcDialogueJsonCodec.cs`](Assets/CozyTown/Unity/Npc/ProxyNpcDialogueJsonCodec.cs)。
 
