@@ -126,6 +126,72 @@ namespace CozyTown.Tests.UnityEditMode
         }
 
         [Test]
+        public void DevelopmentScene_DoorIngressKeepsPlayerHeadOnePixelBelowRoofForeground()
+        {
+            WithDevelopmentScene(scene =>
+            {
+                var world = RequireRoot(scene, "World");
+                var obstacles = world.transform.Find("Obstacles");
+                Assert.That(obstacles, Is.Not.Null);
+
+                GameObject player = RequireRoot(scene, "Player");
+                CircleCollider2D playerCollider = player.GetComponent<CircleCollider2D>();
+                SpriteRenderer playerRenderer = player.GetComponentInChildren<SpriteRenderer>(true);
+                Assert.That(playerCollider, Is.Not.Null);
+                Assert.That(playerRenderer, Is.Not.Null);
+                Assert.That(playerRenderer.sprite, Is.Not.Null);
+
+                var buildings = new[]
+                {
+                    new BuildingForegroundExpectation(
+                        TownInteractionKind.Shop, "bld_shop_roof_foreground"),
+                    new BuildingForegroundExpectation(
+                        TownInteractionKind.Coop, "bld_coop_roof_foreground"),
+                    new BuildingForegroundExpectation(
+                        TownInteractionKind.Kitchen, "bld_kitchen_roof_foreground"),
+                    new BuildingForegroundExpectation(
+                        TownInteractionKind.Bed, "bld_home_roof_foreground")
+                };
+
+                float colliderTopFromPlayer =
+                    (playerCollider.offset.y + playerCollider.radius)
+                    * Mathf.Abs(playerCollider.transform.lossyScale.y);
+                float playerHeadFromPlayer =
+                    playerRenderer.transform.position.y
+                    - player.transform.position.y
+                    + (playerRenderer.sprite.bounds.max.y
+                        * Mathf.Abs(playerRenderer.transform.lossyScale.y));
+                const float onePixel = 1f / 16f;
+
+                foreach (BuildingForegroundExpectation building in buildings)
+                {
+                    TownInteractionPoint2D point = FindUniquePoint(world, building.Kind);
+                    PolygonCollider2D solid = obstacles.Find(building.Kind == TownInteractionKind.Bed
+                            ? "Home Obstacle"
+                            : building.Kind + " Obstacle")
+                        ?.GetComponent<PolygonCollider2D>();
+                    SpriteRenderer foreground = point.transform.Find("Roof Foreground")
+                        ?.GetComponent<SpriteRenderer>();
+                    Assert.That(solid, Is.Not.Null, building.Kind.ToString());
+                    Assert.That(foreground, Is.Not.Null, building.Kind.ToString());
+
+                    float doorBackLocalY = GetDoorBackLocalY(solid);
+                    float deepestPlayerHeadY = point.transform.position.y
+                        + doorBackLocalY
+                        - colliderTopFromPlayer
+                        + playerHeadFromPlayer;
+                    float roofOcclusionY = foreground.bounds.min.y
+                        + GetLowestOpaqueLocalY(foreground.sprite);
+
+                    Assert.That(
+                        deepestPlayerHeadY,
+                        Is.LessThanOrEqualTo(roofOcclusionY - onePixel),
+                        $"{building.Kind} door ingress lets the player head reach the roof foreground.");
+                }
+            });
+        }
+
+        [Test]
         public void DevelopmentScene_BuildingsKeepOnlyTheirUpperTwoFifthsAboveThePlayer()
         {
             WithDevelopmentScene(scene =>
@@ -271,6 +337,37 @@ namespace CozyTown.Tests.UnityEditMode
                 foregroundPixels.Skip(transparentBottomRows * width).Any(pixel => pixel.a > 0),
                 Is.True,
                 "Roof foreground does not contain any visible roof pixels.");
+        }
+
+        private static float GetDoorBackLocalY(PolygonCollider2D collider)
+        {
+            Vector2[] path = collider.GetPath(0);
+            float top = path.Max(point => point.y);
+            float[] interiorHeights = path
+                .Select(point => point.y)
+                .Where(y => y > 0f && y < top)
+                .Distinct()
+                .ToArray();
+            Assert.That(interiorHeights, Has.Length.EqualTo(1));
+            return interiorHeights[0];
+        }
+
+        private static float GetLowestOpaqueLocalY(Sprite sprite)
+        {
+            Color32[] pixels = LoadSpritePixels(sprite, out int width, out int height);
+            for (var y = 0; y < height; y++)
+            {
+                for (var x = 0; x < width; x++)
+                {
+                    if (pixels[y * width + x].a > 0)
+                    {
+                        return y / sprite.pixelsPerUnit;
+                    }
+                }
+            }
+
+            Assert.Fail($"Sprite '{sprite.name}' has no opaque pixels.");
+            return 0f;
         }
 
         private static Color32[] LoadSpritePixels(

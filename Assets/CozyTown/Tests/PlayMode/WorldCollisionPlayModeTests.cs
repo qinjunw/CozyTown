@@ -34,10 +34,10 @@ namespace CozyTown.Tests.PlayMode
 
             var expectations = new[]
             {
-                new BuildingExpectation(TownInteractionKind.Shop, 0f, 1.25f),
-                new BuildingExpectation(TownInteractionKind.Coop, 0f, 1.3f),
-                new BuildingExpectation(TownInteractionKind.Kitchen, .75f, 1.25f),
-                new BuildingExpectation(TownInteractionKind.Bed, .35f, 1.25f)
+                new BuildingExpectation(TownInteractionKind.Shop, 0f, .6f),
+                new BuildingExpectation(TownInteractionKind.Coop, 0f, .6f),
+                new BuildingExpectation(TownInteractionKind.Kitchen, .75f, .6f),
+                new BuildingExpectation(TownInteractionKind.Bed, .35f, .6f)
             };
 
             foreach (var expectation in expectations)

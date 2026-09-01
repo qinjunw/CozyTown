@@ -63,7 +63,7 @@ namespace CozyTown.Unity.Editor
                 "Shop Obstacle",
                 doorCenterX: 0f,
                 doorWidth: 1f,
-                doorDepth: 1.25f,
+                doorDepth: 0.6f,
                 triggerCenterY: 0.55f,
                 triggerHeight: 0.55f);
             ConfigureBuilding(
@@ -73,7 +73,7 @@ namespace CozyTown.Unity.Editor
                 "Coop Obstacle",
                 doorCenterX: 0f,
                 doorWidth: 1.25f,
-                doorDepth: 1.3f,
+                doorDepth: 0.6f,
                 triggerCenterY: 0.6f,
                 triggerHeight: 0.6f);
             ConfigureBuilding(
@@ -83,7 +83,7 @@ namespace CozyTown.Unity.Editor
                 "Kitchen Obstacle",
                 doorCenterX: 0.75f,
                 doorWidth: 1f,
-                doorDepth: 1.25f,
+                doorDepth: 0.6f,
                 triggerCenterY: 0.55f,
                 triggerHeight: 0.55f);
             ConfigureBuilding(
@@ -93,7 +93,7 @@ namespace CozyTown.Unity.Editor
                 "Home Obstacle",
                 doorCenterX: 0.35f,
                 doorWidth: 1f,
-                doorDepth: 1.25f,
+                doorDepth: 0.6f,
                 triggerCenterY: 0.55f,
                 triggerHeight: 0.55f);
 
