@@ -144,7 +144,8 @@ namespace CozyTown.Tests.EditMode.Core
                 source.StartingDay,
                 source.StartingMinuteOfDay,
                 source.FallbackDialogue,
-                source.Npcs);
+                source.Npcs,
+                source.ShopRestockRules);
 
             ArgumentException exception = Assert.Throws<ArgumentException>(
                 () => CozyTownCompositionRoot.Create(invalid));

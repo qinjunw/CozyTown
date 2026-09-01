@@ -49,7 +49,8 @@ namespace CozyTown.Runtime.Content
                 startingDay: 1,
                 startingMinuteOfDay: 6 * 60,
                 fallbackDialogue: "It's a quiet day in town.",
-                npcs: CreateNpcs());
+                npcs: CreateNpcs(),
+                shopRestockRules: CreateShopRestockRules());
         }
 
         private static ItemDefinition[] CreateItems()
@@ -99,6 +100,19 @@ namespace CozyTown.Runtime.Content
                 new ShopOffer(DefaultMvpIds.Items.GrilledFish, 0, 55),
                 new ShopOffer(DefaultMvpIds.Items.TomatoEgg, 0, 75),
                 new ShopOffer(DefaultMvpIds.Items.FishPie, 0, 100)
+            };
+        }
+
+        private static ShopRestockRule[] CreateShopRestockRules()
+        {
+            return new[]
+            {
+                new ShopRestockRule(DefaultMvpIds.Items.PotatoSeed, 700, 3, 6),
+                new ShopRestockRule(DefaultMvpIds.Items.CarrotSeed, 700, 3, 6),
+                new ShopRestockRule(DefaultMvpIds.Items.TomatoSeed, 700, 3, 6),
+                new ShopRestockRule(DefaultMvpIds.Items.ChickenFeed, 1000, 6, 12),
+                new ShopRestockRule(DefaultMvpIds.Items.Salt, 750, 3, 8),
+                new ShopRestockRule(DefaultMvpIds.Items.Flour, 750, 3, 8)
             };
         }
 

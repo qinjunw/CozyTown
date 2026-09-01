@@ -63,6 +63,28 @@ namespace CozyTown.Runtime.Content
                 return OperationResult.Failure("content.shop_offer_item_missing");
             }
 
+            if (configuration.ShopRestockRules.Any(rule =>
+                    rule == null
+                    || string.IsNullOrWhiteSpace(rule.ItemId)
+                    || rule.AppearancePermille < 0
+                    || rule.AppearancePermille > 1000
+                    || rule.MinQuantity <= 0
+                    || rule.MaxQuantity < rule.MinQuantity))
+            {
+                return OperationResult.Failure("content.shop_restock_rule_invalid");
+            }
+
+            if (HasDuplicate(configuration.ShopRestockRules.Select(rule => rule.ItemId)))
+            {
+                return OperationResult.Failure("content.shop_restock_rule_id_duplicate");
+            }
+
+            if (configuration.ShopRestockRules.Any(rule =>
+                    !itemIds.Contains(rule.ItemId)))
+            {
+                return OperationResult.Failure("content.shop_restock_rule_item_missing");
+            }
+
             var purchasableItemIds = new HashSet<string>(
                 configuration.ShopOffers
                     .Where(offer => offer.BuyPrice > 0)
@@ -260,6 +282,12 @@ namespace CozyTown.Runtime.Content
             if (HasDuplicate(configuration.Npcs.Select(npc => npc.Id)))
             {
                 return OperationResult.Failure("content.npc_id_duplicate");
+            }
+
+            if (configuration.ShopRestockRules.Any(rule =>
+                    !purchasableItemIds.Contains(rule.ItemId)))
+            {
+                return OperationResult.Failure("content.shop_restock_rule_item_not_for_sale");
             }
 
             if (configuration.ShopOffers.Any(offer =>
