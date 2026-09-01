@@ -73,6 +73,55 @@ namespace CozyTown.Tests.EditMode.Application
                 Is.EqualTo(3));
         }
 
+        [Test]
+        public void Sell_WhenSaleIsValid_TransfersItemsAndMoneyWithoutCreatingAssets()
+        {
+            IEconomyStateStore stateStore = new InMemoryEconomyStateStore(
+                new[]
+                {
+                    Character(
+                        "character.player",
+                        balance: 100,
+                        new ItemStack("seed.potato", 3))
+                },
+                new[]
+                {
+                    Shop("shop.town.general", balance: 1000)
+                });
+            ICharacterShopTradingCoordinator coordinator = Coordinator(stateStore);
+
+            OperationResult<ShopReceipt> result = coordinator.Sell(
+                "shop.town.general",
+                "character.player",
+                "seed.potato",
+                quantity: 2);
+
+            Assert.That(result.IsSuccess, Is.True);
+            Assert.That(result.Value.ItemId, Is.EqualTo("seed.potato"));
+            Assert.That(result.Value.Quantity, Is.EqualTo(2));
+            Assert.That(result.Value.TotalPrice, Is.EqualTo(20));
+            Assert.That(result.Value.IsPurchase, Is.False);
+            Assert.That(
+                stateStore.TryGetCharacter(
+                    "character.player",
+                    out CharacterEconomySnapshot character),
+                Is.True);
+            Assert.That(
+                stateStore.TryGetShop(
+                    "shop.town.general",
+                    out ShopEconomySnapshot shop),
+                Is.True);
+            Assert.That(character.Wallet.Balance, Is.EqualTo(120));
+            Assert.That(Quantity(character.Backpack, "seed.potato"), Is.EqualTo(1));
+            Assert.That(shop.Wallet.Balance, Is.EqualTo(980));
+            Assert.That(Quantity(shop.Stock, "seed.potato"), Is.EqualTo(2));
+            Assert.That(character.Wallet.Balance + shop.Wallet.Balance, Is.EqualTo(1100));
+            Assert.That(
+                Quantity(character.Backpack, "seed.potato")
+                    + Quantity(shop.Stock, "seed.potato"),
+                Is.EqualTo(3));
+        }
+
         [TestCase(
             "shop.unknown",
             "character.player",

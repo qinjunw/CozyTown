@@ -10,5 +10,11 @@ namespace CozyTown.Runtime.Application
             string characterId,
             string itemId,
             int quantity);
+
+        OperationResult<ShopReceipt> Sell(
+            string shopId,
+            string characterId,
+            string itemId,
+            int quantity);
     }
 }
