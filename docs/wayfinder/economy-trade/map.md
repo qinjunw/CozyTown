@@ -22,6 +22,7 @@
 - [调研商店状态持久化与数据库引入阈值](tickets/research-persistence-and-database-threshold.md)：当前规模继续使用内存聚合与版本化 JSON；静态内容可由代码配置或只读 ScriptableObject 提供，动态角色和商店状态进入存档。
 - [决定角色身份、背包与资金的所有权](tickets/decide-character-inventory-ownership.md)：玩家和未来 NPC 共享 `CharacterEconomyState`，以稳定 `CharacterId` 标识并拥有 `Backpack` 与 `Wallet`。
 - [决定商店聚合与资源守恒边界](tickets/decide-shop-aggregate-and-conservation-boundary.md)：角色与商店保持独立聚合，由经济 Unit of Work 一次提交双方候选状态或全部拒绝。
+- [决定每日库存刷新与确定性随机规则](tickets/decide-daily-stock-refresh.md)：每日完整替换六类基础补给的目标库存，使用确定性随机并保持同日幂等；角色售入的非补货物品在下一日清退。
 
 ## Not yet specified
 
