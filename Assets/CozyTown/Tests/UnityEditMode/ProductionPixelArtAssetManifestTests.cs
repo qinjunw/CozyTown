@@ -405,6 +405,260 @@ namespace CozyTown.Tests.UnityEditMode
             }
         }
 
+        [Test]
+        public void PlayerMovementFrames_StayInsideApprovedBodyEnvelopeAndKeepFeetConnected()
+        {
+            var texture = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            try
+            {
+                Assert.That(
+                    ImageConversion.LoadImage(texture, File.ReadAllBytes(PlayerPath), false),
+                    Is.True,
+                    $"Could not decode player PNG: {PlayerPath}");
+
+                Color32[] pixels = texture.GetPixels32();
+                var failures = new List<string>();
+                var visibleHeights = new List<int>();
+                for (var frameIndex = 0; frameIndex < 12; frameIndex++)
+                {
+                    int rowFromTop = frameIndex / 3;
+                    int column = frameIndex % 3;
+                    var origin = new Vector2Int(column * 24, (4 - 1 - rowFromTop) * 32);
+                    int minimumX = 24;
+                    int minimumY = 32;
+                    var maximumX = -1;
+                    var maximumY = -1;
+                    var bottomContactPixelCount = 0;
+                    var opaquePixelCount = 0;
+                    var occupiedRows = new bool[32];
+                    var opaquePixels = new bool[24, 32];
+
+                    for (var y = 0; y < 32; y++)
+                    {
+                        for (var x = 0; x < 24; x++)
+                        {
+                            if (GetPixel(pixels, texture.width, origin, x, y).a != 255)
+                            {
+                                continue;
+                            }
+
+                            minimumX = Math.Min(minimumX, x);
+                            minimumY = Math.Min(minimumY, y);
+                            maximumX = Math.Max(maximumX, x);
+                            maximumY = Math.Max(maximumY, y);
+                            opaquePixelCount++;
+                            occupiedRows[y] = true;
+                            opaquePixels[x, y] = true;
+                            if (y == 0)
+                            {
+                                bottomContactPixelCount++;
+                            }
+                        }
+                    }
+
+                    if (maximumY < 0)
+                    {
+                        failures.Add($"frame {frameIndex} contains no visible pixels");
+                        continue;
+                    }
+
+                    int visibleHeight = maximumY - minimumY + 1;
+                    visibleHeights.Add(visibleHeight);
+                    float horizontalCenter = (minimumX + maximumX) * 0.5f;
+                    if (minimumY != 0)
+                    {
+                        failures.Add($"frame {frameIndex} ground line is {minimumY}, expected 0");
+                    }
+                    if (maximumY < 29 || maximumY > 30)
+                    {
+                        failures.Add(
+                            $"frame {frameIndex} top is {maximumY}, expected 29 or 30");
+                    }
+                    if (minimumX < 2 || maximumX > 21)
+                    {
+                        failures.Add(
+                            $"frame {frameIndex} horizontal bounds are {minimumX}..{maximumX}, "
+                            + "expected 2..21 or narrower");
+                    }
+                    if (Mathf.Abs(horizontalCenter - 11.5f) > 0.5f)
+                    {
+                        failures.Add(
+                            $"frame {frameIndex} center is {horizontalCenter}, expected 11..12");
+                    }
+                    if (bottomContactPixelCount < 2)
+                    {
+                        failures.Add(
+                            $"frame {frameIndex} has {bottomContactPixelCount} ground pixels, expected at least 2");
+                    }
+
+                    var groundedPixelCount = CountGroundedOpaquePixels(opaquePixels);
+                    if (groundedPixelCount != opaquePixelCount)
+                    {
+                        failures.Add(
+                            $"frame {frameIndex} has {opaquePixelCount - groundedPixelCount} pixels "
+                            + "disconnected from the grounded body");
+                    }
+
+                    for (int y = minimumY; y <= maximumY; y++)
+                    {
+                        if (!occupiedRows[y])
+                        {
+                            failures.Add(
+                                $"frame {frameIndex} has a disconnected transparent row at y={y}");
+                        }
+                    }
+                }
+
+                if (visibleHeights.Count > 0
+                    && visibleHeights.Max() - visibleHeights.Min() > 1)
+                {
+                    failures.Add(
+                        $"visible heights range from {visibleHeights.Min()} to {visibleHeights.Max()}, "
+                        + "expected at most one pixel of walk bob");
+                }
+
+                Assert.That(
+                    failures,
+                    Is.Empty,
+                    "Player movement envelope mismatches:\n" + string.Join("\n", failures));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(texture);
+            }
+        }
+
+        private static int CountGroundedOpaquePixels(bool[,] opaquePixels)
+        {
+            const int width = 24;
+            const int height = 32;
+            var grounded = new bool[width, height];
+            var pending = new Queue<Vector2Int>();
+            for (var x = 0; x < width; x++)
+            {
+                if (opaquePixels[x, 0])
+                {
+                    grounded[x, 0] = true;
+                    pending.Enqueue(new Vector2Int(x, 0));
+                }
+            }
+
+            var groundedPixelCount = 0;
+            var offsets = new[]
+            {
+                Vector2Int.left,
+                Vector2Int.right,
+                Vector2Int.down,
+                Vector2Int.up
+            };
+            while (pending.Count > 0)
+            {
+                Vector2Int current = pending.Dequeue();
+                groundedPixelCount++;
+                foreach (Vector2Int offset in offsets)
+                {
+                    Vector2Int neighbor = current + offset;
+                    if (neighbor.x < 0 || neighbor.x >= width
+                        || neighbor.y < 0 || neighbor.y >= height
+                        || grounded[neighbor.x, neighbor.y]
+                        || !opaquePixels[neighbor.x, neighbor.y])
+                    {
+                        continue;
+                    }
+
+                    grounded[neighbor.x, neighbor.y] = true;
+                    pending.Enqueue(neighbor);
+                }
+            }
+
+            return groundedPixelCount;
+        }
+
+        [Test]
+        public void PlayerLeftAndRightMovementFrames_HaveEquivalentMirroredSilhouettes()
+        {
+            var texture = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            try
+            {
+                Assert.That(
+                    ImageConversion.LoadImage(texture, File.ReadAllBytes(PlayerPath), false),
+                    Is.True,
+                    $"Could not decode player PNG: {PlayerPath}");
+
+                Color32[] pixels = texture.GetPixels32();
+                var failures = new List<string>();
+                for (var frame = 0; frame < 3; frame++)
+                {
+                    var leftOrigin = new Vector2Int(frame * 24, 2 * 32);
+                    var rightOrigin = new Vector2Int(frame * 24, 1 * 32);
+                    var intersection = 0;
+                    var union = 0;
+                    var lowerBodyIntersection = 0;
+                    var lowerBodyUnion = 0;
+                    for (var y = 0; y < 32; y++)
+                    {
+                        for (var x = 0; x < 24; x++)
+                        {
+                            bool leftOpaque = GetPixel(
+                                pixels,
+                                texture.width,
+                                leftOrigin,
+                                x,
+                                y).a == 255;
+                            bool mirroredRightOpaque = GetPixel(
+                                pixels,
+                                texture.width,
+                                rightOrigin,
+                                23 - x,
+                                y).a == 255;
+                            if (leftOpaque && mirroredRightOpaque)
+                            {
+                                intersection++;
+                            }
+                            if (leftOpaque || mirroredRightOpaque)
+                            {
+                                union++;
+                            }
+                            if (y < 8 && leftOpaque && mirroredRightOpaque)
+                            {
+                                lowerBodyIntersection++;
+                            }
+                            if (y < 8 && (leftOpaque || mirroredRightOpaque))
+                            {
+                                lowerBodyUnion++;
+                            }
+                        }
+                    }
+
+                    float silhouetteIou = union == 0 ? 1f : (float)intersection / union;
+                    float lowerBodyIou = lowerBodyUnion == 0
+                        ? 1f
+                        : (float)lowerBodyIntersection / lowerBodyUnion;
+                    if (silhouetteIou < 0.9f)
+                    {
+                        failures.Add(
+                            $"side frame {frame} mirrored silhouette IoU is {silhouetteIou:F3}, "
+                            + "expected at least 0.900");
+                    }
+                    if (lowerBodyIou < 0.85f)
+                    {
+                        failures.Add(
+                            $"side frame {frame} lower-body mirrored silhouette IoU is {lowerBodyIou:F3}, "
+                            + "expected at least 0.850");
+                    }
+                }
+
+                Assert.That(
+                    failures,
+                    Is.Empty,
+                    "Player left/right silhouette mismatches:\n" + string.Join("\n", failures));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(texture);
+            }
+        }
+
         private static void ValidateRoadTile(
             IReadOnlyList<Color32> pixels,
             int textureWidth,

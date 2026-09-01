@@ -61,7 +61,7 @@ ArtSource/Previews/A0/item_crop_carrot_4x.png
 
 ### 5.1 生成方式与文件
 
-A1 使用内置图像生成器生成高分辨率栅格源稿，再由 Unity Editor 确定性编译器收敛到原生像素资源。源稿不被 Unity AssetDatabase 或运行时代码引用。
+A1 使用内置图像生成器生成高分辨率栅格源稿，并使用 `.pixels` 保存需要精确控制的原生像素单元，再由 Unity Editor 确定性编译器生成 Production 资源。源稿不被 Unity AssetDatabase 或运行时代码引用。
 
 | 源稿 | 网格语义 | 背景处理 |
 | --- | --- | --- |
@@ -71,7 +71,7 @@ A1 使用内置图像生成器生成高分辨率栅格源稿，再由 Unity Edit
 | `ArtSource/Generated/A1/town_functions_source.png` | `2×1` 六格农田、池塘 | Alpha |
 | `ArtSource/Generated/A1/farm_states_source.png` | `7×2` 土壤与 3 种作物阶段 | Alpha |
 | `ArtSource/Generated/A1/hen_states_source.png` | `3×1` 空闲、已喂、产物可收 | Alpha |
-| `ArtSource/Generated/A1/player_source.png` | `3×4` 四方向的 idle/walkA/walkB | 连通白底移除 |
+| `ArtSource/Generated/A1/player_source.png` | `3×4` 四方向的 idle/walkA/walkB；Scene-01i 后只保留为主角视觉参考和批次占位源 | Production 的 12 个单元由 authored 源覆盖 |
 | `ArtSource/Generated/A1/mina_source.png` | 单个 Mina 世界 Sprite | 连通白底移除 |
 | `ArtSource/Generated/A1/portraits_source.png` | `4×1` Mina、Eli、Ren、Sora | 连通白底移除 |
 | `ArtSource/Generated/A1/items_source.png` | `6×3` 18 个 MVP 物品 | 连通白底移除 |
@@ -123,3 +123,11 @@ A1 编译定义将参考图收敛为 `16×16 px` 的 `ui_panel`：三层木框�
 2026-09-01 使用内置图像生成器生成 `ArtSource/Generated/A1/npc_world_source.png`。身份参考来自既有四人头像，比例与轮廓参考来自用户提供的像素 RPG 小人截图。生成约束要求单行四名正面全身角色，顺序固定为 Mina、Eli、Ren、Sora，并分别保留棕发围裙、草帽绿衣、蓝帽蓝衣、白厨师帽橙发等身份特征；禁止场景、文字、水印和新增角色。源稿只作为编译输入，不由场景直接引用。
 
 编译器以连通白底移除、`WarmRural32` 色板和二值 Alpha 将源稿确定性收敛为 `npc_townsfolk_idle_down_24x32.png`。同一批次把主角四方向图集升级为 `24×32`，并从既有建筑源稿派生 `bld_town_roof_foregrounds_64.png`：每个单元底部 38 行清空，顶部 26 行保持与建筑底图相同。当前批次总计 13 个 Production PNG、106 个命名 Sprite 和 13 个 4× 最近邻预览。
+
+## 10. Scene-01i 主角精确像素源
+
+2026-09-01 将主角 12 个方向与动作单元改为 `ArtSource/Authored/A1/Characters/Player/*.pixels`。每份源为精确 `24×32`，使用 `WarmRural32` 代码和硬透明像素；A1 Catalog 通过 `authoredCellSourcePaths` 直接覆盖对应图集单元，不再对主角帧执行自动裁边和缩放。正式输出仍为 `Assets/CozyTown/Art/Production/Characters/chr_player_move_24x32.png`，12 个 Sprite 名、`16 PPU`、BottomCenter Pivot、图集顺序和 Animator 映射均未改变。
+
+RED 记录旧图集可见高度为 `29..32`，并复现右向脚部缺失；左右 idle、walkA、walkB 的整体水平镜像轮廓交并比分别为 `0.791`、`0.639`、`0.740`，底部 8 行分别为 `0.365`、`0.221`、`0.333`。GREEN 后每帧脚底为 `y=0`、顶部为 `y=29` 或 `y=30`、水平边界位于 `x=2..21` 内、中心位于 `x=11..12`，脚底至少包含 2 个不透明像素，所有不透明像素通过四邻域连接到脚底，12 帧可见高度差不超过 1 像素；左右整体和底部 8 行轮廓交并比均为 `1.0`。
+
+Production 目标夹具 `9/9`、全量 EditMode `193/193`、PlayMode `35/35` 通过，均为 0 failed、0 skipped。连续 A1 重建前后的主角 Production PNG、4× 预览和当前场景 SHA-256 分别保持为 `6B3FDBE287AB23372CDAEBAAE41CAE645B9B4548EE2A2F15B175E7E9C1C13D90`、`1717079B2C7AE1D716959E45533788D86AFD9A508024CCE48F62DC73312E1604`、`903D7E53BCFB4D9244939F3F08EBF4C2499FB352520C06CB29AA9C2AB3BBEECC`。三档实际画面中的体型一致性、脚部完整性和动作观感仍由人工场景验收判定。

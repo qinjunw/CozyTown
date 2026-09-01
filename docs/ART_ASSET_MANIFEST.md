@@ -159,6 +159,8 @@ Scene-01g 另外从同一建筑源稿确定性生成 `Buildings/bld_town_roof_fo
 
 文件：`Characters/chr_player_move_24x32.png`
 
+精确源：`ArtSource/Authored/A1/Characters/Player/*.pixels`。下表每个 Sprite 对应一个同名 `.pixels` 文件；每份源文件严格包含 32 行、每行 24 个像素代码，并由 A1 编译器直接覆盖对应图集单元，不经过自动裁边或缩放。
+
 | Cell | Sprite 名 | 对应玩法对象 |
 | --- | --- | --- |
 | r0c0 | `chr_player_idle_down` | 玩家向下静止 |
@@ -174,7 +176,7 @@ Scene-01g 另外从同一建筑源稿确定性生成 `Buildings/bld_town_roof_fo
 | r3c1 | `chr_player_walk_up_00` | 玩家向上步行相位 A |
 | r3c2 | `chr_player_walk_up_01` | 玩家向上步行相位 B |
 
-12 帧使用 `24×32` 和 BottomCenter Pivot。每个方向只保留 1 帧静止与 2 帧步行；不生产浇水、挥锄、抛竿、睡觉或烹饪动作。
+12 帧使用 `24×32`、`16 PPU` 和 BottomCenter Pivot。正式输出路径、上表 Sprite 名称和 3×4 顺序保持稳定，`CozyTownPlayerSpriteAnimator` 继续按既有四方向 idle/walk 映射消费这些 Sprite。每帧脚底为 `y=0`，顶部为 `y=29` 或 `y=30`，水平边界位于 `x=2..21` 内，中心位于 `x=11..12`；脚底至少包含 2 个不透明像素，所有不透明像素通过四邻域连接到脚底，12 帧可见高度差不超过 1 像素。左右对应帧的整体镜像轮廓交并比不低于 `0.9`，底部 8 行不低于 `0.85`。每个方向只保留 1 帧静止与 2 帧步行；不生产浇水、挥锄、抛竿、睡觉或烹饪动作。
 
 ### 4.8 世界 NPC
 

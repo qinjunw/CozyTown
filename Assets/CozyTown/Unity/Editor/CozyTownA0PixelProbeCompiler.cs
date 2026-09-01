@@ -170,14 +170,41 @@ namespace CozyTown.Unity.Editor
             3, 1, 16, 16, 0, PixelArtPivotKind.BottomCenter, PixelArtBackgroundMode.Alpha,
             "animal_hen_idle", "animal_hen_fed", "animal_hen_product_ready");
 
-        public static readonly PixelArtBatchDefinition A1Player = A1(
-            "player_source.png",
-            "Characters/chr_player_move_24x32.png",
-            3, 4, 24, 32, 0, PixelArtPivotKind.BottomCenter, PixelArtBackgroundMode.WhiteBackground,
-            "chr_player_idle_down", "chr_player_walk_down_00", "chr_player_walk_down_01",
-            "chr_player_idle_left", "chr_player_walk_left_00", "chr_player_walk_left_01",
-            "chr_player_idle_right", "chr_player_walk_right_00", "chr_player_walk_right_01",
-            "chr_player_idle_up", "chr_player_walk_up_00", "chr_player_walk_up_01");
+        public static readonly PixelArtBatchDefinition A1Player =
+            new PixelArtBatchDefinition(
+                "ArtSource/Generated/A1/player_source.png",
+                "Assets/CozyTown/Art/Production/Characters/chr_player_move_24x32.png",
+                "ArtSource/Previews/A1/chr_player_move_24x32_4x.png",
+                3,
+                4,
+                24,
+                32,
+                0,
+                PixelArtPivotKind.BottomCenter,
+                PixelArtBackgroundMode.WhiteBackground,
+                CozyTownPixelArtPalettes.WarmRural32,
+                new[]
+                {
+                    "chr_player_idle_down", "chr_player_walk_down_00", "chr_player_walk_down_01",
+                    "chr_player_idle_left", "chr_player_walk_left_00", "chr_player_walk_left_01",
+                    "chr_player_idle_right", "chr_player_walk_right_00", "chr_player_walk_right_01",
+                    "chr_player_idle_up", "chr_player_walk_up_00", "chr_player_walk_up_01"
+                },
+                authoredCellSourcePaths: new[]
+                {
+                    "ArtSource/Authored/A1/Characters/Player/chr_player_idle_down.pixels",
+                    "ArtSource/Authored/A1/Characters/Player/chr_player_walk_down_00.pixels",
+                    "ArtSource/Authored/A1/Characters/Player/chr_player_walk_down_01.pixels",
+                    "ArtSource/Authored/A1/Characters/Player/chr_player_idle_left.pixels",
+                    "ArtSource/Authored/A1/Characters/Player/chr_player_walk_left_00.pixels",
+                    "ArtSource/Authored/A1/Characters/Player/chr_player_walk_left_01.pixels",
+                    "ArtSource/Authored/A1/Characters/Player/chr_player_idle_right.pixels",
+                    "ArtSource/Authored/A1/Characters/Player/chr_player_walk_right_00.pixels",
+                    "ArtSource/Authored/A1/Characters/Player/chr_player_walk_right_01.pixels",
+                    "ArtSource/Authored/A1/Characters/Player/chr_player_idle_up.pixels",
+                    "ArtSource/Authored/A1/Characters/Player/chr_player_walk_up_00.pixels",
+                    "ArtSource/Authored/A1/Characters/Player/chr_player_walk_up_01.pixels"
+                });
 
         public static readonly PixelArtBatchDefinition A1NpcWorld =
             new PixelArtBatchDefinition(
