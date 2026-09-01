@@ -2,9 +2,9 @@
 
 - Parent: [守恒型角色—商店经济重构](../map.md)
 - Label: `wayfinder:grilling`
-- Status: Blocked
-- Blocked by:
-  - [决定商店聚合与资源守恒边界](decide-shop-aggregate-and-conservation-boundary.md)
+- Status: Claimed
+- Assignee: `qinjunw`
+- Tracker: https://github.com/qinjunw/CozyTown/issues/9
 
 ## Question
 

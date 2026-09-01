@@ -2,6 +2,7 @@
 
 - Label: `wayfinder:map`
 - Status: Open
+- Tracker: https://github.com/qinjunw/CozyTown/issues/3
 
 ## Destination
 
@@ -19,6 +20,8 @@
 - [审计现有经济、背包、商店与存档边界](tickets/audit-current-economy-and-save-boundaries.md)：现有商店只绑定唯一全局玩家背包与钱包，没有自己的库存、资金或刷新状态；普通购买和出售不满足世界资源与货币守恒。
 - [调研成熟角色库存与商店交易模型](tickets/research-inventory-shop-ledger-patterns.md)：成熟实现会分开静态物品定义、角色资产、商店资产和交易用例；同步单机交易应只发布同时满足双方不变量的完整候选状态。
 - [调研商店状态持久化与数据库引入阈值](tickets/research-persistence-and-database-threshold.md)：当前规模继续使用内存聚合与版本化 JSON；静态内容可由代码配置或只读 ScriptableObject 提供，动态角色和商店状态进入存档。
+- [决定角色身份、背包与资金的所有权](tickets/decide-character-inventory-ownership.md)：玩家和未来 NPC 共享 `CharacterEconomyState`，以稳定 `CharacterId` 标识并拥有 `Backpack` 与 `Wallet`。
+- [决定商店聚合与资源守恒边界](tickets/decide-shop-aggregate-and-conservation-boundary.md)：角色与商店保持独立聚合，由经济 Unit of Work 一次提交双方候选状态或全部拒绝。
 
 ## Not yet specified
 

@@ -2,7 +2,8 @@
 
 - Parent: [守恒型角色—商店经济重构](../map.md)
 - Label: `wayfinder:grilling`
-- Status: Open
+- Status: Closed
+- Tracker: https://github.com/qinjunw/CozyTown/issues/7
 
 ## Question
 
@@ -18,3 +19,7 @@
 1. **角色经济状态（推荐）**：Runtime `CharacterEconomyState` 以稳定 `CharacterId` 标识，拥有 `Backpack` 和 `Wallet`；玩家与未来 NPC 使用同一模型。Unity 的 Player/NPC GameObject 只映射 ID，不持有权威资产。
 2. **独立经济账户**：角色只引用单独的 `EconomicAccountId`，账户拥有库存和资金。它支持组织、共享仓库等更广场景，但当前没有相应需求。
 3. **保留玩家全局服务，NPC 以后另建**：改动较少，但会形成玩家与 NPC 两套所有权模型，并延续全局资产的双重真相风险。
+
+## Resolution
+
+用户确认采用角色经济状态：Runtime `CharacterEconomyState` 以稳定 `CharacterId` 标识并拥有 `Backpack` 与 `Wallet`；玩家和未来 NPC 使用同一模型。Unity GameObject 只映射 `CharacterId`，不持有权威资产。
