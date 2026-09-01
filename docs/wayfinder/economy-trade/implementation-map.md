@@ -1,7 +1,7 @@
 # Implement conserved character–shop economy
 
 - Label: `wayfinder:map`
-- Status: Open
+- Status: Complete
 - Tracker: https://github.com/qinjunw/CozyTown/issues/13
 - Decision map: [守恒型角色—商店经济重构](map.md)
 
@@ -19,7 +19,7 @@ Replace the global player-only economy with stable character and shop ownership,
 6. [Publish shop restock atomically with the day transition](https://github.com/qinjunw/CozyTown/issues/19) — Complete; targeted `22/22`, full EditMode `244/244`, and full PlayMode `35/35` passed.
 7. [Migrate main-slot saves from schema v1 to schema v2](https://github.com/qinjunw/CozyTown/issues/20) — Complete; targeted `38/38`, full EditMode `260/260`, and full PlayMode `35/35` passed.
 8. [Wire Unity shop flows to stable character and shop identities](https://github.com/qinjunw/CozyTown/issues/21) — Complete; Presenter `7/7`, Unity View `2/2`, scene save/load slice `1/1`, full EditMode `249/249`, and full PlayMode `35/35` passed.
-9. [Verify conserved economy and migration regressions](https://github.com/qinjunw/CozyTown/issues/22) — Ready.
+9. [Verify conserved economy and migration regressions](https://github.com/qinjunw/CozyTown/issues/22) — Complete; production loop `1/1`, focused EditMode `70/70`, scene save/UI slice `1/1`, full EditMode `249/249`, and full PlayMode `35/35` passed. Scene-01 manual acceptance remains a separate user-run gate.
 
 ## Constraints
 

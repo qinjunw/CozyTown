@@ -132,6 +132,25 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(saveView.IsVisible, Is.True);
             pondPresenter.SetRollSource(new FixedFishingRollSource(0));
 
+            var pondPointBeforeSave = points.Single(
+                point => point.Kind == TownInteractionKind.Pond);
+            var pondPositionBeforeSave = (Vector2)pondPointBeforeSave.transform.position;
+            body.position = pondPositionBeforeSave;
+            player.transform.position = pondPositionBeforeSave;
+            Physics2D.SyncTransforms();
+            yield return null;
+            Assert.That(
+                interactor.CurrentPrompt,
+                Is.EqualTo(pondPointBeforeSave.PromptText));
+            testInput.PressInteract();
+            yield return null;
+            pondView.RequestCatch();
+            Assert.That(
+                pondView.State.Entries.Single(
+                    entry => entry.ItemId == DefaultMvpIds.Items.Carp).OwnedQuantity,
+                Is.EqualTo(1));
+            pondView.RequestClose();
+
             var gearButton = RequireActiveButtonByIcon(hud, "ui_icon_settings");
             gearButton.onClick.Invoke();
             Assert.That(systemMenuView.IsVisible, Is.True);
@@ -205,6 +224,13 @@ namespace CozyTown.Tests.PlayMode
                 Is.EqualTo(savedFeedStock - 1));
             Assert.That(shopView.Feedback, Is.EqualTo(
                 "Bought 1 x Chicken Feed for 10 coins."));
+            shopView.RequestSell(DefaultMvpIds.Items.Carp);
+            Assert.That(shopView.State.CharacterBalance, Is.EqualTo(315));
+            Assert.That(shopView.State.ShopBalance, Is.EqualTo(9985));
+            Assert.That(
+                shopView.State.SaleItems.Any(
+                    item => item.ItemId == DefaultMvpIds.Items.Carp),
+                Is.False);
             shopView.RequestClose();
 
             gearButton.onClick.Invoke();
@@ -218,7 +244,10 @@ namespace CozyTown.Tests.PlayMode
                 shopView.State.PurchaseItems.Single(
                     item => item.ItemId == DefaultMvpIds.Items.ChickenFeed).Quantity,
                 Is.EqualTo(savedFeedStock));
-            Assert.That(shopView.State.SaleItems, Is.Empty);
+            Assert.That(
+                shopView.State.SaleItems.Single(
+                    item => item.ItemId == DefaultMvpIds.Items.Carp).Quantity,
+                Is.EqualTo(1));
             shopView.RequestBuy(DefaultMvpIds.Items.ChickenFeed);
             shopView.RequestClose();
 
@@ -248,7 +277,7 @@ namespace CozyTown.Tests.PlayMode
             coopView.RequestClose();
             yield return Open(TownInteractionKind.Pond);
             pondView.RequestCatch();
-            Assert.That(pondView.State.Entries.Single(e => e.ItemId == DefaultMvpIds.Items.Carp).OwnedQuantity, Is.EqualTo(1));
+            Assert.That(pondView.State.Entries.Single(e => e.ItemId == DefaultMvpIds.Items.Carp).OwnedQuantity, Is.EqualTo(2));
             pondView.RequestClose();
             yield return Open(TownInteractionKind.Bed);
             bedView.RequestSleep();
