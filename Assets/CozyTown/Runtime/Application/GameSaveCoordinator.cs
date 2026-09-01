@@ -2,7 +2,6 @@ using System;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Economy;
 using CozyTown.Runtime.Farming;
-using CozyTown.Runtime.Inventory;
 using CozyTown.Runtime.Livestock;
 using CozyTown.Runtime.Save;
 using CozyTown.Runtime.Time;
@@ -13,24 +12,25 @@ namespace CozyTown.Runtime.Application
     {
         private const string MainSlotId = "main";
 
+        private readonly IWorldSeedState _worldSeed;
         private readonly ITimeService _time;
-        private readonly IInventory _inventory;
-        private readonly IWallet _wallet;
+        private readonly IEconomyStateStore _economyState;
         private readonly IFarmService _farm;
         private readonly ILivestockService _livestock;
         private readonly ISaveStorage _storage;
 
         public GameSaveCoordinator(
+            IWorldSeedState worldSeed,
             ITimeService time,
-            IInventory inventory,
-            IWallet wallet,
+            IEconomyStateStore economyState,
             IFarmService farm,
             ILivestockService livestock,
             ISaveStorage storage)
         {
+            _worldSeed = worldSeed ?? throw new ArgumentNullException(nameof(worldSeed));
             _time = time ?? throw new ArgumentNullException(nameof(time));
-            _inventory = inventory ?? throw new ArgumentNullException(nameof(inventory));
-            _wallet = wallet ?? throw new ArgumentNullException(nameof(wallet));
+            _economyState = economyState
+                ?? throw new ArgumentNullException(nameof(economyState));
             _farm = farm ?? throw new ArgumentNullException(nameof(farm));
             _livestock = livestock ?? throw new ArgumentNullException(nameof(livestock));
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
@@ -44,7 +44,8 @@ namespace CozyTown.Runtime.Application
             if (snapshot.Farm == null
                 || snapshot.Livestock == null
                 || snapshot.Farm.LastProcessedDay != snapshot.Clock.Day
-                || snapshot.Livestock.LastProcessedDay != snapshot.Clock.Day)
+                || snapshot.Livestock.LastProcessedDay != snapshot.Clock.Day
+                || ShopsAreMisaligned(snapshot.Shops, snapshot.Clock.Day))
             {
                 return OperationResult.Failure("save.state_misaligned");
             }
@@ -74,33 +75,36 @@ namespace CozyTown.Runtime.Application
 
         private GameSaveSnapshot CaptureSnapshot()
         {
+            EconomyStateSnapshot economy = _economyState.CaptureSnapshot();
             return new GameSaveSnapshot(
                 GameSaveSnapshot.CurrentSchemaVersion,
+                _worldSeed.Value,
                 _time.Current,
-                _inventory.CaptureSnapshot(),
-                _wallet.CaptureSnapshot(),
+                economy.Characters,
+                economy.Shops,
                 _farm.CaptureSnapshot(),
                 _livestock.CaptureSnapshot());
         }
 
         private OperationResult RestoreSnapshot(GameSaveSnapshot snapshot)
         {
+            OperationResult worldSeedRestore = _worldSeed.Restore(snapshot.WorldSeed);
+            if (!worldSeedRestore.IsSuccess)
+            {
+                return OperationResult.Failure("save.restore_world_seed_failed");
+            }
+
             OperationResult timeRestore = _time.Restore(snapshot.Clock);
             if (!timeRestore.IsSuccess)
             {
                 return OperationResult.Failure("save.restore_time_failed");
             }
 
-            OperationResult walletRestore = _wallet.Restore(snapshot.Wallet);
-            if (!walletRestore.IsSuccess)
+            OperationResult economyRestore = _economyState.Restore(
+                new EconomyStateSnapshot(snapshot.Characters, snapshot.Shops));
+            if (!economyRestore.IsSuccess)
             {
-                return OperationResult.Failure("save.restore_wallet_failed");
-            }
-
-            OperationResult inventoryRestore = _inventory.Restore(snapshot.Inventory);
-            if (!inventoryRestore.IsSuccess)
-            {
-                return OperationResult.Failure("save.restore_inventory_failed");
+                return OperationResult.Failure("save.restore_economy_failed");
             }
 
             OperationResult farmRestore = _farm.Restore(snapshot.Farm);
@@ -117,15 +121,16 @@ namespace CozyTown.Runtime.Application
 
         private OperationResult RollBack(GameSaveSnapshot snapshot, string originalError)
         {
+            OperationResult worldSeedRestore = _worldSeed.Restore(snapshot.WorldSeed);
             OperationResult timeRestore = _time.Restore(snapshot.Clock);
-            OperationResult walletRestore = _wallet.Restore(snapshot.Wallet);
-            OperationResult inventoryRestore = _inventory.Restore(snapshot.Inventory);
+            OperationResult economyRestore = _economyState.Restore(
+                new EconomyStateSnapshot(snapshot.Characters, snapshot.Shops));
             OperationResult farmRestore = _farm.Restore(snapshot.Farm);
             OperationResult livestockRestore = _livestock.Restore(snapshot.Livestock);
 
-            int failureCount = (timeRestore.IsSuccess ? 0 : 1)
-                + (walletRestore.IsSuccess ? 0 : 1)
-                + (inventoryRestore.IsSuccess ? 0 : 1)
+            int failureCount = (worldSeedRestore.IsSuccess ? 0 : 1)
+                + (timeRestore.IsSuccess ? 0 : 1)
+                + (economyRestore.IsSuccess ? 0 : 1)
                 + (farmRestore.IsSuccess ? 0 : 1)
                 + (livestockRestore.IsSuccess ? 0 : 1);
             if (failureCount == 0)
@@ -138,19 +143,19 @@ namespace CozyTown.Runtime.Application
                 return OperationResult.Failure("save.rollback_multiple_failed");
             }
 
+            if (!worldSeedRestore.IsSuccess)
+            {
+                return OperationResult.Failure("save.rollback_world_seed_failed");
+            }
+
             if (!timeRestore.IsSuccess)
             {
                 return OperationResult.Failure("save.rollback_time_failed");
             }
 
-            if (!walletRestore.IsSuccess)
+            if (!economyRestore.IsSuccess)
             {
-                return OperationResult.Failure("save.rollback_wallet_failed");
-            }
-
-            if (!inventoryRestore.IsSuccess)
-            {
-                return OperationResult.Failure("save.rollback_inventory_failed");
+                return OperationResult.Failure("save.rollback_economy_failed");
             }
 
             if (!farmRestore.IsSuccess)
@@ -159,6 +164,21 @@ namespace CozyTown.Runtime.Application
             }
 
             return OperationResult.Failure("save.rollback_livestock_failed");
+        }
+
+        private static bool ShopsAreMisaligned(
+            ShopEconomySnapshot[] shops,
+            int currentDay)
+        {
+            foreach (ShopEconomySnapshot shop in shops)
+            {
+                if (shop == null || shop.LastRestockedDay != currentDay)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

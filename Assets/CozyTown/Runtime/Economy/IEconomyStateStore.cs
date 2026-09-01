@@ -12,10 +12,16 @@ namespace CozyTown.Runtime.Economy
             string shopId,
             out ShopEconomySnapshot snapshot);
 
+        EconomyStateSnapshot CaptureSnapshot();
+
+        OperationResult Restore(EconomyStateSnapshot snapshot);
+
         OperationResult Commit(
             CharacterEconomySnapshot characterCandidate,
             ShopEconomySnapshot shopCandidate);
 
         OperationResult CommitShop(ShopEconomySnapshot shopCandidate);
+
+        OperationResult CommitCharacter(CharacterEconomySnapshot characterCandidate);
     }
 }

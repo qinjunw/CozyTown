@@ -196,12 +196,12 @@ Save use case
 
 Load use case
   → ISaveStorage 区分空槽、损坏、版本和载荷错误
-  → 协调器校验载荷数值范围，并检查 Time / Farm / Livestock 日期一致性
-  → 恢复 Time / Wallet / Inventory / Farm / Livestock
+  → v1 先确定迁移为 v2，随后校验主体、资产及跨模块日期
+  → 恢复 WorldSeed / Time / EconomyState / Farm / Livestock
   → 任一步失败时恢复五份调用前快照
 ```
 
-当前只支持 schema v1，不尝试猜测或迁移未知版本。未来版本或损坏载荷不得覆盖原文件。详细规则见 [`ADR-0003`](adr/0003-save-versioning.md)。
+当前写入 schema v2，并通过固定迁移器读取 schema v1；未知未来版本或损坏载荷不得覆盖原文件。通用规则见 [`ADR-0003`](adr/0003-save-versioning.md)，经济状态字段及迁移规则见 [`ADR-0012`](adr/0012-economic-save-schema-v2-and-v1-migration.md)。
 
 ## 8. 数据与配置约定
 
@@ -276,7 +276,7 @@ Scene-01 仍需人工确认实际画面的可读性、角色动作、屋后遮�
 4. 已完成：生成单一小镇场景，加入可见玩家、碰撞边界、交互提示、商店/NPC/床/农田浅交互点和 PlayMode 冒烟测试。
 5. 已完成：商店交易门面、购买/出售调试 UI 和统一输入门控。
 6. 已完成：接入种植、畜牧、钓鱼、跨日和烹饪，并在正式场景完成成功出售与再次投入。
-7. 已完成：实现 schema v1 单槽 JSON 文件存档、损坏保护、五模块恢复和失败回滚。
+7. 已完成：实现 schema v2 单槽 JSON 文件存档、v1 确定迁移、损坏保护、五模块恢复和失败回滚。
 8. 已完成：接入 AI HTTP(S) 代理适配器、结构校验、超时、固定回退和 4 名 NPC 场景切片。
 9. 待人工执行：A1 Scene-01 自动接线与全量回归已完成；按验收脚本检查实际画面，不改变既有玩法和 AI 权限边界。
 10. Scene-01 通过后：运行不少于 30 条 AI 离线评测，补充延迟与成本诊断，执行 Windows 构建、性能检查和演示录制。

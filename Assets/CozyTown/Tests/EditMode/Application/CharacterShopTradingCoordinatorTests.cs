@@ -390,6 +390,11 @@ namespace CozyTown.Tests.EditMode.Application
                 return _inner.TryGetShop(shopId, out snapshot);
             }
 
+            public EconomyStateSnapshot CaptureSnapshot() => _inner.CaptureSnapshot();
+
+            public OperationResult Restore(EconomyStateSnapshot snapshot) =>
+                _inner.Restore(snapshot);
+
             public OperationResult Commit(
                 CharacterEconomySnapshot characterCandidate,
                 ShopEconomySnapshot shopCandidate)
@@ -400,6 +405,12 @@ namespace CozyTown.Tests.EditMode.Application
             public OperationResult CommitShop(ShopEconomySnapshot shopCandidate)
             {
                 return _inner.CommitShop(shopCandidate);
+            }
+
+            public OperationResult CommitCharacter(
+                CharacterEconomySnapshot characterCandidate)
+            {
+                return _inner.CommitCharacter(characterCandidate);
             }
         }
     }

@@ -178,6 +178,55 @@ namespace CozyTown.Tests.EditMode.Economy
             Assert.That(Quantity(shop.Stock, "seed.potato"), Is.EqualTo(6));
         }
 
+        [Test]
+        public void Restore_WhenWholeSnapshotIsValid_PublishesAllOwnedState()
+        {
+            IEconomyStateStore store = new InMemoryEconomyStateStore(
+                new[] { Character("character.player", 300, new ItemStack("seed.potato", 1)) },
+                new[] { Shop("shop.town.general", 10000, 1, 1, new ItemStack("seed.potato", 6)) },
+                Catalog(),
+                characterBackpackCapacitySlots: 2);
+            var replacement = new EconomyStateSnapshot(
+                new[] { Character("character.player", 275, new ItemStack("seed.carrot", 2)) },
+                new[] { Shop("shop.town.general", 10025, 2, 1, new ItemStack("seed.potato", 4)) });
+
+            OperationResult result = store.Restore(replacement);
+
+            Assert.That(result.IsSuccess, Is.True);
+            Assert.That(store.TryGetCharacter("character.player", out CharacterEconomySnapshot character), Is.True);
+            Assert.That(character.Wallet.Balance, Is.EqualTo(275));
+            Assert.That(Quantity(character.Backpack, "seed.carrot"), Is.EqualTo(2));
+            Assert.That(store.TryGetShop("shop.town.general", out ShopEconomySnapshot shop), Is.True);
+            Assert.That(shop.Wallet.Balance, Is.EqualTo(10025));
+            Assert.That(shop.LastRestockedDay, Is.EqualTo(2));
+            Assert.That(Quantity(shop.Stock, "seed.potato"), Is.EqualTo(4));
+        }
+
+        [Test]
+        public void Restore_WhenOneCharacterItemIsUnknown_PublishesNothing()
+        {
+            IEconomyStateStore store = new InMemoryEconomyStateStore(
+                new[] { Character("character.player", 300, new ItemStack("seed.potato", 1)) },
+                new[] { Shop("shop.town.general", 10000, 1, 1, new ItemStack("seed.potato", 6)) },
+                Catalog(),
+                characterBackpackCapacitySlots: 2);
+            EconomyStateSnapshot before = store.CaptureSnapshot();
+            var invalid = new EconomyStateSnapshot(
+                new[] { Character("character.player", 1, new ItemStack("unknown", 1)) },
+                new[] { Shop("shop.town.general", 10099, 2, 1, new ItemStack("seed.carrot", 4)) });
+
+            OperationResult result = store.Restore(invalid);
+
+            Assert.That(result.IsSuccess, Is.False);
+            Assert.That(result.ErrorCode, Is.EqualTo("economy.character_invalid"));
+            Assert.That(store.CaptureSnapshot().Characters[0].Wallet.Balance,
+                Is.EqualTo(before.Characters[0].Wallet.Balance));
+            Assert.That(store.CaptureSnapshot().Shops[0].Wallet.Balance,
+                Is.EqualTo(before.Shops[0].Wallet.Balance));
+            Assert.That(store.CaptureSnapshot().Shops[0].LastRestockedDay,
+                Is.EqualTo(before.Shops[0].LastRestockedDay));
+        }
+
         private static CharacterEconomySnapshot Character(
             string characterId,
             int balance,
@@ -208,6 +257,15 @@ namespace CozyTown.Tests.EditMode.Economy
         {
             ItemStack stack = snapshot.Items.Single(item => item.ItemId == itemId);
             return stack.Quantity;
+        }
+
+        private static ItemDefinition[] Catalog()
+        {
+            return new[]
+            {
+                new ItemDefinition("seed.potato", "Potato Seed", ItemCategory.Seed, 99),
+                new ItemDefinition("seed.carrot", "Carrot Seed", ItemCategory.Seed, 99)
+            };
         }
     }
 }

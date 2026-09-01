@@ -70,6 +70,7 @@ namespace CozyTown.Tests.EditMode.Application
                 services.Inventory.Remove(DefaultMvpIds.Items.Potato, 1).IsSuccess,
                 Is.True);
             Assert.That(services.Wallet.Credit(75).IsSuccess, Is.True);
+            Assert.That(services.WorldSeed.Restore(999).IsSuccess, Is.True);
             Assert.That(services.Time.AdvanceMinutes(30).IsSuccess, Is.True);
 
             OperationResult result = coordinator.Load();
@@ -83,11 +84,20 @@ namespace CozyTown.Tests.EditMode.Application
         {
             CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
             GameSaveSnapshot before = SaveTestSnapshots.Capture(services);
+            CharacterEconomySnapshot player = before.Characters[0];
             GameSaveSnapshot invalid = new GameSaveSnapshot(
                 GameSaveSnapshot.CurrentSchemaVersion,
+                before.WorldSeed,
                 new GameClockSnapshot(1, 10 * 60),
-                new InventorySnapshot(new[] { new ItemStack("unknown-item", 1) }),
-                new WalletSnapshot(1),
+                new[]
+                {
+                    new CharacterEconomySnapshot(
+                        player.CharacterId,
+                        new InventorySnapshot(
+                            new[] { new ItemStack("unknown-item", 1) }),
+                        new WalletSnapshot(1))
+                },
+                before.Shops,
                 services.Farm.CaptureSnapshot(),
                 services.Livestock.CaptureSnapshot());
             var storage = new InMemorySaveStorage();
@@ -97,7 +107,64 @@ namespace CozyTown.Tests.EditMode.Application
             OperationResult result = coordinator.Load();
 
             Assert.That(result.IsSuccess, Is.False);
-            Assert.That(result.ErrorCode, Is.EqualTo("save.restore_inventory_failed"));
+            Assert.That(result.ErrorCode, Is.EqualTo("save.restore_economy_failed"));
+            SaveTestSnapshots.AssertEquivalent(before, SaveTestSnapshots.Capture(services));
+        }
+
+        [Test]
+        public void Load_WhenSnapshotHasDuplicateCharacterIds_LeavesRuntimeUnchanged()
+        {
+            CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
+            GameSaveSnapshot before = SaveTestSnapshots.Capture(services);
+            var invalid = new GameSaveSnapshot(
+                before.SchemaVersion,
+                worldSeed: 777,
+                before.Clock,
+                new[] { before.Characters[0], before.Characters[0] },
+                before.Shops,
+                before.Farm,
+                before.Livestock);
+            var coordinator = CreateCoordinator(
+                services,
+                new FixedLoadSaveStorage(invalid));
+
+            OperationResult result = coordinator.Load();
+
+            Assert.That(result.IsSuccess, Is.False);
+            Assert.That(result.ErrorCode, Is.EqualTo("save.payload_invalid"));
+            SaveTestSnapshots.AssertEquivalent(before, SaveTestSnapshots.Capture(services));
+        }
+
+        [Test]
+        public void Load_WhenShopDateDoesNotMatchClock_LeavesRuntimeUnchanged()
+        {
+            CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
+            GameSaveSnapshot before = SaveTestSnapshots.Capture(services);
+            ShopEconomySnapshot shop = before.Shops[0];
+            var invalid = new GameSaveSnapshot(
+                before.SchemaVersion,
+                worldSeed: 777,
+                before.Clock,
+                before.Characters,
+                new[]
+                {
+                    new ShopEconomySnapshot(
+                        shop.ShopId,
+                        shop.Stock,
+                        shop.Wallet,
+                        before.Clock.Day + 1,
+                        shop.RestockAlgorithmVersion)
+                },
+                before.Farm,
+                before.Livestock);
+            var coordinator = CreateCoordinator(
+                services,
+                new FixedLoadSaveStorage(invalid));
+
+            OperationResult result = coordinator.Load();
+
+            Assert.That(result.IsSuccess, Is.False);
+            Assert.That(result.ErrorCode, Is.EqualTo("save.payload_invalid"));
             SaveTestSnapshots.AssertEquivalent(before, SaveTestSnapshots.Capture(services));
         }
 
@@ -106,13 +173,28 @@ namespace CozyTown.Tests.EditMode.Application
         {
             CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
             GameSaveSnapshot before = SaveTestSnapshots.Capture(services);
+            FarmPlotSnapshot[] targetPlots =
+                (FarmPlotSnapshot[])before.Farm.Plots.Clone();
+            targetPlots[0] = new FarmPlotSnapshot(
+                targetPlots[0].PlotId,
+                DefaultMvpIds.Crops.Potato,
+                growthProgressDays: 0,
+                wateredToday: true,
+                status: FarmPlotStatus.Growing);
             var target = new GameSaveSnapshot(
                 GameSaveSnapshot.CurrentSchemaVersion,
+                worldSeed: 777,
                 new GameClockSnapshot(1, 10 * 60),
-                new InventorySnapshot(
-                    new[] { new ItemStack(DefaultMvpIds.Items.Potato, 1) }),
-                new WalletSnapshot(1),
-                services.Farm.CaptureSnapshot(),
+                new[]
+                {
+                    new CharacterEconomySnapshot(
+                        DefaultMvpIds.Characters.Player,
+                        new InventorySnapshot(
+                            new[] { new ItemStack(DefaultMvpIds.Items.Potato, 1) }),
+                        new WalletSnapshot(1))
+                },
+                before.Shops,
+                new FarmSnapshot(1, targetPlots),
                 new LivestockSnapshot(
                     1,
                     new[]
@@ -125,15 +207,15 @@ namespace CozyTown.Tests.EditMode.Application
                     }));
             var storage = new InMemorySaveStorage();
             Assert.That(storage.Save(JsonFileSaveStorage.MainSlotId, target).IsSuccess, Is.True);
+            var worldSeed = new TrackingWorldSeedState(services.WorldSeed);
             var time = new TrackingTimeService(services.Time);
-            var inventory = new TrackingInventory(services.Inventory);
-            var wallet = new TrackingWallet(services.Wallet);
+            var economy = new TrackingEconomyStateStore(services.EconomyState);
             var farm = new TrackingFarmService(services.Farm);
             var livestock = new FailFirstRestoreLivestockService(services.Livestock);
             var coordinator = new GameSaveCoordinator(
+                worldSeed,
                 time,
-                inventory,
-                wallet,
+                economy,
                 farm,
                 livestock,
                 storage);
@@ -142,9 +224,9 @@ namespace CozyTown.Tests.EditMode.Application
 
             Assert.That(result.IsSuccess, Is.False);
             Assert.That(result.ErrorCode, Is.EqualTo("save.restore_livestock_failed"));
+            Assert.That(worldSeed.RestoreCallCount, Is.EqualTo(2));
             Assert.That(time.RestoreCallCount, Is.EqualTo(2));
-            Assert.That(wallet.RestoreCallCount, Is.EqualTo(2));
-            Assert.That(inventory.RestoreCallCount, Is.EqualTo(2));
+            Assert.That(economy.RestoreCallCount, Is.EqualTo(2));
             Assert.That(farm.RestoreCallCount, Is.EqualTo(2));
             Assert.That(livestock.RestoreCallCount, Is.EqualTo(2));
             SaveTestSnapshots.AssertEquivalent(before, SaveTestSnapshots.Capture(services));
@@ -174,9 +256,9 @@ namespace CozyTown.Tests.EditMode.Application
             ISaveStorage storage)
         {
             return new GameSaveCoordinator(
+                services.WorldSeed,
                 services.Time,
-                services.Inventory,
-                services.Wallet,
+                services.EconomyState,
                 services.Farm,
                 services.Livestock,
                 storage);
@@ -207,61 +289,82 @@ namespace CozyTown.Tests.EditMode.Application
             }
         }
 
-        private sealed class TrackingInventory : IInventory
+        private sealed class FixedLoadSaveStorage : ISaveStorage
         {
-            private readonly IInventory _inner;
+            private readonly GameSaveSnapshot _snapshot;
 
-            public TrackingInventory(IInventory inner)
+            public FixedLoadSaveStorage(GameSaveSnapshot snapshot)
+            {
+                _snapshot = snapshot;
+            }
+
+            public bool Exists(string slotId) => true;
+
+            public OperationResult Save(string slotId, GameSaveSnapshot snapshot) =>
+                OperationResult.Failure("test.save_not_supported");
+
+            public OperationResult<GameSaveSnapshot> Load(string slotId) =>
+                OperationResult<GameSaveSnapshot>.Success(_snapshot);
+        }
+
+        private sealed class TrackingWorldSeedState : IWorldSeedState
+        {
+            private readonly IWorldSeedState _inner;
+
+            public TrackingWorldSeedState(IWorldSeedState inner)
             {
                 _inner = inner;
             }
 
             public int RestoreCallCount { get; private set; }
 
-            public int CapacitySlots => _inner.CapacitySlots;
+            public int Value => _inner.Value;
 
-            public int Count(string itemId) => _inner.Count(itemId);
-
-            public bool Contains(string itemId, int quantity) => _inner.Contains(itemId, quantity);
-
-            public OperationResult Add(string itemId, int quantity) => _inner.Add(itemId, quantity);
-
-            public OperationResult Remove(string itemId, int quantity) =>
-                _inner.Remove(itemId, quantity);
-
-            public InventorySnapshot CaptureSnapshot() => _inner.CaptureSnapshot();
-
-            public OperationResult Restore(InventorySnapshot snapshot)
+            public OperationResult Restore(int worldSeed)
             {
                 RestoreCallCount++;
-                return _inner.Restore(snapshot);
+                return _inner.Restore(worldSeed);
             }
         }
 
-        private sealed class TrackingWallet : IWallet
+        private sealed class TrackingEconomyStateStore : IEconomyStateStore
         {
-            private readonly IWallet _inner;
+            private readonly IEconomyStateStore _inner;
 
-            public TrackingWallet(IWallet inner)
+            public TrackingEconomyStateStore(IEconomyStateStore inner)
             {
                 _inner = inner;
             }
 
             public int RestoreCallCount { get; private set; }
 
-            public int Balance => _inner.Balance;
+            public bool TryGetCharacter(
+                string characterId,
+                out CharacterEconomySnapshot snapshot) =>
+                _inner.TryGetCharacter(characterId, out snapshot);
 
-            public OperationResult Credit(int amount) => _inner.Credit(amount);
+            public bool TryGetShop(string shopId, out ShopEconomySnapshot snapshot) =>
+                _inner.TryGetShop(shopId, out snapshot);
 
-            public OperationResult Debit(int amount) => _inner.Debit(amount);
+            public EconomyStateSnapshot CaptureSnapshot() => _inner.CaptureSnapshot();
 
-            public WalletSnapshot CaptureSnapshot() => _inner.CaptureSnapshot();
-
-            public OperationResult Restore(WalletSnapshot snapshot)
+            public OperationResult Restore(EconomyStateSnapshot snapshot)
             {
                 RestoreCallCount++;
                 return _inner.Restore(snapshot);
             }
+
+            public OperationResult Commit(
+                CharacterEconomySnapshot characterCandidate,
+                ShopEconomySnapshot shopCandidate) =>
+                _inner.Commit(characterCandidate, shopCandidate);
+
+            public OperationResult CommitShop(ShopEconomySnapshot shopCandidate) =>
+                _inner.CommitShop(shopCandidate);
+
+            public OperationResult CommitCharacter(
+                CharacterEconomySnapshot characterCandidate) =>
+                _inner.CommitCharacter(characterCandidate);
         }
 
         private sealed class TrackingFarmService : IFarmService

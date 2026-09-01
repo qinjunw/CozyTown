@@ -1,50 +1,24 @@
 using System;
-using CozyTown.Runtime.Economy;
-using CozyTown.Runtime.Farming;
-using CozyTown.Runtime.Livestock;
-using CozyTown.Runtime.Time;
 
-namespace CozyTown.Runtime.Save
+namespace CozyTown.Runtime.Economy
 {
     [Serializable]
-    public sealed class GameSaveSnapshot
+    public sealed class EconomyStateSnapshot
     {
-        public const int CurrentSchemaVersion = 2;
+        public EconomyStateSnapshot(
+            CharacterEconomySnapshot[] characters,
+            ShopEconomySnapshot[] shops)
+        {
+            _characters = Copy(characters);
+            _shops = Copy(shops);
+        }
 
         private readonly CharacterEconomySnapshot[] _characters;
         private readonly ShopEconomySnapshot[] _shops;
 
-        public GameSaveSnapshot(
-            int schemaVersion,
-            int worldSeed,
-            GameClockSnapshot clock,
-            CharacterEconomySnapshot[] characters,
-            ShopEconomySnapshot[] shops,
-            FarmSnapshot farm,
-            LivestockSnapshot livestock)
-        {
-            SchemaVersion = schemaVersion;
-            WorldSeed = worldSeed;
-            Clock = clock;
-            _characters = Copy(characters);
-            _shops = Copy(shops);
-            Farm = farm;
-            Livestock = livestock;
-        }
-
-        public int SchemaVersion { get; }
-
-        public int WorldSeed { get; }
-
-        public GameClockSnapshot Clock { get; }
-
         public CharacterEconomySnapshot[] Characters => Copy(_characters);
 
         public ShopEconomySnapshot[] Shops => Copy(_shops);
-
-        public FarmSnapshot Farm { get; }
-
-        public LivestockSnapshot Livestock { get; }
 
         private static CharacterEconomySnapshot[] Copy(
             CharacterEconomySnapshot[] source)
