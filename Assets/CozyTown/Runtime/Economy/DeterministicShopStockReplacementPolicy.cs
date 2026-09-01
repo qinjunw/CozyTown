@@ -156,7 +156,7 @@ namespace CozyTown.Runtime.Economy
                 || string.IsNullOrWhiteSpace(snapshot.ShopId)
                 || snapshot.Stock == null
                 || snapshot.Wallet.Balance < 0
-                || snapshot.LastRestockedDay <= 0)
+                || snapshot.LastRestockedDay < 0)
             {
                 return false;
             }

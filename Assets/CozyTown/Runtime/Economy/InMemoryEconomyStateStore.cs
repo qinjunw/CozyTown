@@ -103,6 +103,23 @@ namespace CozyTown.Runtime.Economy
             return OperationResult.Success();
         }
 
+        public OperationResult CommitShop(ShopEconomySnapshot shopCandidate)
+        {
+            if (!IsValid(shopCandidate))
+            {
+                return OperationResult.Failure("economy.shop_invalid");
+            }
+
+            if (!_shops.ContainsKey(shopCandidate.ShopId))
+            {
+                return OperationResult.Failure("economy.shop_unknown");
+            }
+
+            ShopEconomySnapshot shop = Copy(shopCandidate);
+            _shops[shop.ShopId] = shop;
+            return OperationResult.Success();
+        }
+
         private static bool IsValid(CharacterEconomySnapshot snapshot)
         {
             return snapshot != null

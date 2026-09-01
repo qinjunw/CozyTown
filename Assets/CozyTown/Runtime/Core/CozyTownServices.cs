@@ -32,7 +32,9 @@ namespace CozyTown.Runtime.Core
             INpcDialogueGenerator npcDialogue,
             INpcDialogueCoordinator npcDialogueGameplay,
             ISaveStorage saveStorage,
-            IGameSaveCoordinator gameSave)
+            IGameSaveCoordinator gameSave,
+            IEconomyStateStore economyState,
+            IWorldSeedState worldSeed)
         {
             DayTransition = dayTransition ?? throw new ArgumentNullException(nameof(dayTransition));
             Time = time ?? throw new ArgumentNullException(nameof(time));
@@ -60,6 +62,9 @@ namespace CozyTown.Runtime.Core
                 ?? throw new ArgumentNullException(nameof(npcDialogueGameplay));
             SaveStorage = saveStorage ?? throw new ArgumentNullException(nameof(saveStorage));
             GameSave = gameSave ?? throw new ArgumentNullException(nameof(gameSave));
+            EconomyState = economyState
+                ?? throw new ArgumentNullException(nameof(economyState));
+            WorldSeed = worldSeed ?? throw new ArgumentNullException(nameof(worldSeed));
         }
 
         public IDayTransitionCoordinator DayTransition { get; }
@@ -99,5 +104,9 @@ namespace CozyTown.Runtime.Core
         public ISaveStorage SaveStorage { get; }
 
         public IGameSaveCoordinator GameSave { get; }
+
+        public IEconomyStateStore EconomyState { get; }
+
+        public IWorldSeedState WorldSeed { get; }
     }
 }

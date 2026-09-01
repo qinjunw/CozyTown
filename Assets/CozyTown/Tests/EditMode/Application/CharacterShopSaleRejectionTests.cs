@@ -228,6 +228,11 @@ namespace CozyTown.Tests.EditMode.Application
             {
                 return OperationResult.Failure("economy.commit_rejected");
             }
+
+            public OperationResult CommitShop(ShopEconomySnapshot shopCandidate)
+            {
+                return _inner.CommitShop(shopCandidate);
+            }
         }
     }
 }

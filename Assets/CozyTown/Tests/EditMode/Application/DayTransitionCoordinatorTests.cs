@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CozyTown.Runtime.Application;
 using CozyTown.Runtime.Core;
+using CozyTown.Runtime.Economy;
 using CozyTown.Runtime.Farming;
 using CozyTown.Runtime.Inventory;
 using CozyTown.Runtime.Livestock;
@@ -12,6 +13,172 @@ namespace CozyTown.Tests.EditMode.Application
 {
     public sealed class DayTransitionCoordinatorTests
     {
+        [Test]
+        public void SleepToNextDay_WhenShopCommitIsRejected_RollsBackEveryParticipant()
+        {
+            TransitionFixture fixture = CreateFixture();
+            var stored = new InMemoryEconomyStateStore(
+                new CharacterEconomySnapshot[0],
+                new[]
+                {
+                    new ShopEconomySnapshot(
+                        "shop.town.general",
+                        new InventorySnapshot(
+                            new[] { new ItemStack("fish.carp", 2) }),
+                        new WalletSnapshot(10000),
+                        lastRestockedDay: 1,
+                        restockAlgorithmVersion: 1)
+                });
+            var rejectingStore = new RejectingShopCommitEconomyStateStore(stored);
+            GameClockSnapshot clockBefore = fixture.Time.Current;
+            FarmSnapshot farmBefore = fixture.Farm.CaptureSnapshot();
+            LivestockSnapshot livestockBefore = fixture.Livestock.CaptureSnapshot();
+            Assert.That(
+                stored.TryGetShop("shop.town.general", out ShopEconomySnapshot shopBefore),
+                Is.True);
+            var coordinator = new DayTransitionCoordinator(
+                fixture.Time,
+                fixture.Farm,
+                fixture.Livestock,
+                rejectingStore,
+                new DeterministicShopStockReplacementPolicy(
+                    DefaultRestockRules(),
+                    minimumDistinctItems: 4),
+                new InMemoryWorldSeedState(12345),
+                "shop.town.general");
+
+            OperationResult<GameClockSnapshot> result = coordinator.SleepToNextDay();
+
+            Assert.That(result.IsSuccess, Is.False);
+            Assert.That(result.ErrorCode, Is.EqualTo("day_transition.shop_commit_failed"));
+            Assert.That(rejectingStore.ShopCommitCallCount, Is.EqualTo(1));
+            Assert.That(fixture.Time.Current, Is.EqualTo(clockBefore));
+            AssertFarmEquals(farmBefore, fixture.Farm.CaptureSnapshot());
+            AssertLivestockEquals(livestockBefore, fixture.Livestock.CaptureSnapshot());
+            Assert.That(
+                stored.TryGetShop("shop.town.general", out ShopEconomySnapshot shopAfter),
+                Is.True);
+            AssertShopEquals(shopBefore, shopAfter);
+        }
+
+        [Test]
+        public void SleepToNextDay_WhenAllParticipantsSucceed_PublishesRestockedShop()
+        {
+            TransitionFixture fixture = CreateFixture();
+            IEconomyStateStore store = StoreWithShop(lastRestockedDay: 1);
+            var coordinator = CreateShopAwareCoordinator(fixture, store);
+
+            OperationResult<GameClockSnapshot> result = coordinator.SleepToNextDay();
+
+            Assert.That(result.IsSuccess, Is.True, result.ErrorCode);
+            Assert.That(result.Value.Day, Is.EqualTo(2));
+            Assert.That(fixture.Time.Current.Day, Is.EqualTo(2));
+            Assert.That(fixture.Farm.CaptureSnapshot().LastProcessedDay, Is.EqualTo(2));
+            Assert.That(fixture.Livestock.CaptureSnapshot().LastProcessedDay, Is.EqualTo(2));
+            Assert.That(
+                store.TryGetShop("shop.town.general", out ShopEconomySnapshot shop),
+                Is.True);
+            Assert.That(shop.Wallet.Balance, Is.EqualTo(10000));
+            Assert.That(shop.LastRestockedDay, Is.EqualTo(2));
+            CollectionAssert.AreEqual(
+                new[]
+                {
+                    "seed.potato:3",
+                    "seed.carrot:3",
+                    "seed.tomato:3",
+                    "feed.chicken:9",
+                    "ingredient.salt:7"
+                },
+                shop.Stock.Items
+                    .Select(item => $"{item.ItemId}:{item.Quantity}")
+                    .ToArray());
+        }
+
+        [Test]
+        public void SleepToNextDay_WhenRestockPreparationFails_LeavesEveryParticipantUnchanged()
+        {
+            TransitionFixture fixture = CreateFixture();
+            var store = new TrackingEconomyStateStore(StoreWithShop(lastRestockedDay: 1));
+            GameClockSnapshot clockBefore = fixture.Time.Current;
+            FarmSnapshot farmBefore = fixture.Farm.CaptureSnapshot();
+            LivestockSnapshot livestockBefore = fixture.Livestock.CaptureSnapshot();
+            Assert.That(
+                store.TryGetShop("shop.town.general", out ShopEconomySnapshot shopBefore),
+                Is.True);
+            var coordinator = new DayTransitionCoordinator(
+                fixture.Time,
+                fixture.Farm,
+                fixture.Livestock,
+                store,
+                new RejectingRestockPolicy(),
+                new InMemoryWorldSeedState(12345),
+                "shop.town.general");
+
+            OperationResult<GameClockSnapshot> result = coordinator.SleepToNextDay();
+
+            Assert.That(result.IsSuccess, Is.False);
+            Assert.That(result.ErrorCode, Is.EqualTo("day_transition.shop_restock_failed"));
+            Assert.That(store.ShopCommitCallCount, Is.Zero);
+            Assert.That(fixture.Time.Current, Is.EqualTo(clockBefore));
+            AssertFarmEquals(farmBefore, fixture.Farm.CaptureSnapshot());
+            AssertLivestockEquals(livestockBefore, fixture.Livestock.CaptureSnapshot());
+            Assert.That(
+                store.TryGetShop("shop.town.general", out ShopEconomySnapshot shopAfter),
+                Is.True);
+            AssertShopEquals(shopBefore, shopAfter);
+        }
+
+        [Test]
+        public void SleepToNextDay_WhenFarmFails_DoesNotCommitPreparedShop()
+        {
+            TransitionFixture fixture = CreateFixture();
+            var store = new TrackingEconomyStateStore(StoreWithShop(lastRestockedDay: 1));
+            var failingFarm = new FailAfterAdvanceFarmService(fixture.Farm);
+            Assert.That(
+                store.TryGetShop("shop.town.general", out ShopEconomySnapshot shopBefore),
+                Is.True);
+            var coordinator = new DayTransitionCoordinator(
+                fixture.Time,
+                failingFarm,
+                fixture.Livestock,
+                store,
+                new DeterministicShopStockReplacementPolicy(
+                    DefaultRestockRules(),
+                    minimumDistinctItems: 4),
+                new InMemoryWorldSeedState(12345),
+                "shop.town.general");
+
+            OperationResult<GameClockSnapshot> result = coordinator.SleepToNextDay();
+
+            Assert.That(result.IsSuccess, Is.False);
+            Assert.That(result.ErrorCode, Is.EqualTo("day_transition.farm_failed"));
+            Assert.That(store.ShopCommitCallCount, Is.Zero);
+            Assert.That(
+                store.TryGetShop("shop.town.general", out ShopEconomySnapshot shopAfter),
+                Is.True);
+            AssertShopEquals(shopBefore, shopAfter);
+        }
+
+        [Test]
+        public void SleepToNextDay_WhenShopDayIsMisaligned_RejectsBeforeAdvancing()
+        {
+            TransitionFixture fixture = CreateFixture();
+            var store = new TrackingEconomyStateStore(StoreWithShop(lastRestockedDay: 2));
+            GameClockSnapshot clockBefore = fixture.Time.Current;
+            FarmSnapshot farmBefore = fixture.Farm.CaptureSnapshot();
+            LivestockSnapshot livestockBefore = fixture.Livestock.CaptureSnapshot();
+            var coordinator = CreateShopAwareCoordinator(fixture, store);
+
+            OperationResult<GameClockSnapshot> result = coordinator.SleepToNextDay();
+
+            Assert.That(result.IsSuccess, Is.False);
+            Assert.That(result.ErrorCode, Is.EqualTo("day_transition.state_misaligned"));
+            Assert.That(store.ShopCommitCallCount, Is.Zero);
+            Assert.That(fixture.Time.Current, Is.EqualTo(clockBefore));
+            AssertFarmEquals(farmBefore, fixture.Farm.CaptureSnapshot());
+            AssertLivestockEquals(livestockBefore, fixture.Livestock.CaptureSnapshot());
+        }
+
         [Test]
         public void SleepToNextDay_WhenModulesAreAligned_AdvancesEveryModuleToSameDayOnce()
         {
@@ -176,6 +343,38 @@ namespace CozyTown.Tests.EditMode.Application
             return new TransitionFixture(time, farm, livestock);
         }
 
+        private static DayTransitionCoordinator CreateShopAwareCoordinator(
+            TransitionFixture fixture,
+            IEconomyStateStore store)
+        {
+            return new DayTransitionCoordinator(
+                fixture.Time,
+                fixture.Farm,
+                fixture.Livestock,
+                store,
+                new DeterministicShopStockReplacementPolicy(
+                    DefaultRestockRules(),
+                    minimumDistinctItems: 4),
+                new InMemoryWorldSeedState(12345),
+                "shop.town.general");
+        }
+
+        private static IEconomyStateStore StoreWithShop(int lastRestockedDay)
+        {
+            return new InMemoryEconomyStateStore(
+                new CharacterEconomySnapshot[0],
+                new[]
+                {
+                    new ShopEconomySnapshot(
+                        "shop.town.general",
+                        new InventorySnapshot(
+                            new[] { new ItemStack("fish.carp", 2) }),
+                        new WalletSnapshot(10000),
+                        lastRestockedDay,
+                        restockAlgorithmVersion: 1)
+                });
+        }
+
         private static void AssertFarmEquals(FarmSnapshot expected, FarmSnapshot actual)
         {
             Assert.That(actual.LastProcessedDay, Is.EqualTo(expected.LastProcessedDay));
@@ -203,6 +402,38 @@ namespace CozyTown.Tests.EditMode.Application
                 Assert.That(actual.Animals[index].FedToday, Is.EqualTo(expected.Animals[index].FedToday));
                 Assert.That(actual.Animals[index].ProductReady, Is.EqualTo(expected.Animals[index].ProductReady));
             }
+        }
+
+        private static void AssertShopEquals(
+            ShopEconomySnapshot expected,
+            ShopEconomySnapshot actual)
+        {
+            Assert.That(actual.ShopId, Is.EqualTo(expected.ShopId));
+            Assert.That(actual.Wallet.Balance, Is.EqualTo(expected.Wallet.Balance));
+            Assert.That(actual.LastRestockedDay, Is.EqualTo(expected.LastRestockedDay));
+            Assert.That(
+                actual.RestockAlgorithmVersion,
+                Is.EqualTo(expected.RestockAlgorithmVersion));
+            CollectionAssert.AreEqual(
+                expected.Stock.Items
+                    .Select(item => $"{item.ItemId}:{item.Quantity}")
+                    .ToArray(),
+                actual.Stock.Items
+                    .Select(item => $"{item.ItemId}:{item.Quantity}")
+                    .ToArray());
+        }
+
+        private static ShopRestockRule[] DefaultRestockRules()
+        {
+            return new[]
+            {
+                new ShopRestockRule("seed.potato", 700, 3, 6),
+                new ShopRestockRule("seed.carrot", 700, 3, 6),
+                new ShopRestockRule("seed.tomato", 700, 3, 6),
+                new ShopRestockRule("feed.chicken", 1000, 6, 12),
+                new ShopRestockRule("ingredient.salt", 750, 3, 8),
+                new ShopRestockRule("ingredient.flour", 750, 3, 8)
+            };
         }
 
         private sealed class TransitionFixture
@@ -322,6 +553,97 @@ namespace CozyTown.Tests.EditMode.Application
             {
                 base.AdvanceDay(newDay);
                 return OperationResult.Failure("injected.livestock_failure");
+            }
+        }
+
+        private sealed class RejectingShopCommitEconomyStateStore
+            : IEconomyStateStore
+        {
+            private readonly IEconomyStateStore _inner;
+
+            public RejectingShopCommitEconomyStateStore(IEconomyStateStore inner)
+            {
+                _inner = inner;
+            }
+
+            public int ShopCommitCallCount { get; private set; }
+
+            public bool TryGetCharacter(
+                string characterId,
+                out CharacterEconomySnapshot snapshot)
+            {
+                return _inner.TryGetCharacter(characterId, out snapshot);
+            }
+
+            public bool TryGetShop(
+                string shopId,
+                out ShopEconomySnapshot snapshot)
+            {
+                return _inner.TryGetShop(shopId, out snapshot);
+            }
+
+            public OperationResult Commit(
+                CharacterEconomySnapshot characterCandidate,
+                ShopEconomySnapshot shopCandidate)
+            {
+                return _inner.Commit(characterCandidate, shopCandidate);
+            }
+
+            public OperationResult CommitShop(ShopEconomySnapshot shopCandidate)
+            {
+                ShopCommitCallCount++;
+                return OperationResult.Failure("injected.shop_commit_failure");
+            }
+        }
+
+        private sealed class TrackingEconomyStateStore : IEconomyStateStore
+        {
+            private readonly IEconomyStateStore _inner;
+
+            public TrackingEconomyStateStore(IEconomyStateStore inner)
+            {
+                _inner = inner;
+            }
+
+            public int ShopCommitCallCount { get; private set; }
+
+            public bool TryGetCharacter(
+                string characterId,
+                out CharacterEconomySnapshot snapshot)
+            {
+                return _inner.TryGetCharacter(characterId, out snapshot);
+            }
+
+            public bool TryGetShop(
+                string shopId,
+                out ShopEconomySnapshot snapshot)
+            {
+                return _inner.TryGetShop(shopId, out snapshot);
+            }
+
+            public OperationResult Commit(
+                CharacterEconomySnapshot characterCandidate,
+                ShopEconomySnapshot shopCandidate)
+            {
+                return _inner.Commit(characterCandidate, shopCandidate);
+            }
+
+            public OperationResult CommitShop(ShopEconomySnapshot shopCandidate)
+            {
+                ShopCommitCallCount++;
+                return _inner.CommitShop(shopCandidate);
+            }
+        }
+
+        private sealed class RejectingRestockPolicy : IShopStockReplacementPolicy
+        {
+            public OperationResult<ShopEconomySnapshot> CreateCandidate(
+                int worldSeed,
+                ShopEconomySnapshot current,
+                int targetDay)
+            {
+                return OperationResult<ShopEconomySnapshot>.Failure(
+                    "injected.restock_failure");
             }
         }
     }

@@ -122,7 +122,9 @@ namespace CozyTown.Tests.PlayMode
                 defaults.NpcDialogue,
                 defaults.NpcDialogueGameplay,
                 defaults.SaveStorage,
-                defaults.GameSave);
+                defaults.GameSave,
+                defaults.EconomyState,
+                defaults.WorldSeed);
         }
 
         private static void Destroy(Object target)

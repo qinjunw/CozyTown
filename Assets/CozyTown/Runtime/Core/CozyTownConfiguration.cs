@@ -26,7 +26,8 @@ namespace CozyTown.Runtime.Core
             int startingMinuteOfDay = 360,
             string fallbackDialogue = "It's a quiet day in town.",
             NpcDefinition[] npcs = null,
-            ShopRestockRule[] shopRestockRules = null)
+            ShopRestockRule[] shopRestockRules = null,
+            int startingWorldSeed = 0)
         {
             Items = Copy(items);
             ShopOffers = Copy(shopOffers);
@@ -43,6 +44,7 @@ namespace CozyTown.Runtime.Core
             FallbackDialogue = fallbackDialogue;
             Npcs = Copy(npcs);
             ShopRestockRules = Copy(shopRestockRules);
+            StartingWorldSeed = startingWorldSeed;
         }
 
         public ItemDefinition[] Items { get; }
@@ -74,6 +76,8 @@ namespace CozyTown.Runtime.Core
         public NpcDefinition[] Npcs { get; }
 
         public ShopRestockRule[] ShopRestockRules { get; }
+
+        public int StartingWorldSeed { get; }
 
         public static CozyTownConfiguration Empty()
         {

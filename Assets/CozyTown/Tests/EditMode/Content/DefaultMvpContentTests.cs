@@ -406,7 +406,8 @@ namespace CozyTown.Tests.EditMode.Content
             int? inventoryCapacitySlots = null,
             int? startingBalance = null,
             int? startingDay = null,
-            int? startingMinuteOfDay = null)
+            int? startingMinuteOfDay = null,
+            int? startingWorldSeed = null)
         {
             return new CozyTownConfiguration(
                 items ?? source.Items,
@@ -423,7 +424,8 @@ namespace CozyTown.Tests.EditMode.Content
                 startingMinuteOfDay ?? source.StartingMinuteOfDay,
                 source.FallbackDialogue,
                 npcs ?? source.Npcs,
-                shopRestockRules ?? source.ShopRestockRules);
+                shopRestockRules ?? source.ShopRestockRules,
+                startingWorldSeed ?? source.StartingWorldSeed);
         }
     }
 }

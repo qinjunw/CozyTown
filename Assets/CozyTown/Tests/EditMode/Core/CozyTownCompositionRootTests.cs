@@ -75,6 +75,32 @@ namespace CozyTown.Tests.EditMode.Core
         }
 
         [Test]
+        public void CreateDefault_DayTransitionPublishesShopOnExposedEconomyState()
+        {
+            CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
+            Assert.That(
+                services.EconomyState.TryGetShop(
+                    DefaultMvpIds.Shops.TownGeneral,
+                    out var before),
+                Is.True);
+
+            var result = services.DayTransition.SleepToNextDay();
+
+            Assert.That(result.IsSuccess, Is.True, result.ErrorCode);
+            Assert.That(before.LastRestockedDay, Is.EqualTo(1));
+            Assert.That(
+                services.EconomyState.TryGetShop(
+                    DefaultMvpIds.Shops.TownGeneral,
+                    out var after),
+                Is.True);
+            Assert.That(after.LastRestockedDay, Is.EqualTo(2));
+            Assert.That(after.Wallet.Balance, Is.EqualTo(10000));
+            Assert.That(
+                services.WorldSeed.Value,
+                Is.EqualTo(DefaultMvpContent.DefaultWorldSeed));
+        }
+
+        [Test]
         public async Task CreateDefault_NpcDialogueUsesConfiguredNpcFallback()
         {
             CozyTownConfiguration configuration = DefaultMvpContent.CreateConfiguration();
@@ -145,7 +171,8 @@ namespace CozyTown.Tests.EditMode.Core
                 source.StartingMinuteOfDay,
                 source.FallbackDialogue,
                 source.Npcs,
-                source.ShopRestockRules);
+                source.ShopRestockRules,
+                source.StartingWorldSeed);
 
             ArgumentException exception = Assert.Throws<ArgumentException>(
                 () => CozyTownCompositionRoot.Create(invalid));

@@ -1,5 +1,6 @@
 using System;
 using CozyTown.Runtime.Core;
+using CozyTown.Runtime.Economy;
 using CozyTown.Runtime.Farming;
 using CozyTown.Runtime.Livestock;
 using CozyTown.Runtime.Time;
@@ -11,6 +12,10 @@ namespace CozyTown.Runtime.Application
         private readonly ITimeService _time;
         private readonly IFarmService _farm;
         private readonly ILivestockService _livestock;
+        private readonly IEconomyStateStore _economyStateStore;
+        private readonly IShopStockReplacementPolicy _shopRestock;
+        private readonly IWorldSeedState _worldSeed;
+        private readonly string _shopId;
 
         public DayTransitionCoordinator(
             ITimeService time,
@@ -22,16 +27,45 @@ namespace CozyTown.Runtime.Application
             _livestock = livestock ?? throw new ArgumentNullException(nameof(livestock));
         }
 
+        public DayTransitionCoordinator(
+            ITimeService time,
+            IFarmService farm,
+            ILivestockService livestock,
+            IEconomyStateStore economyStateStore,
+            IShopStockReplacementPolicy shopRestock,
+            IWorldSeedState worldSeed,
+            string shopId)
+            : this(time, farm, livestock)
+        {
+            _economyStateStore = economyStateStore
+                ?? throw new ArgumentNullException(nameof(economyStateStore));
+            _shopRestock = shopRestock
+                ?? throw new ArgumentNullException(nameof(shopRestock));
+            _worldSeed = worldSeed ?? throw new ArgumentNullException(nameof(worldSeed));
+            _shopId = string.IsNullOrWhiteSpace(shopId)
+                ? throw new ArgumentException("Shop ID is required.", nameof(shopId))
+                : shopId;
+        }
+
         public OperationResult<GameClockSnapshot> SleepToNextDay()
         {
             GameClockSnapshot clockBefore = _time.Current;
             FarmSnapshot farmBefore = _farm.CaptureSnapshot();
             LivestockSnapshot livestockBefore = _livestock.CaptureSnapshot();
+            ShopEconomySnapshot shopBefore = null;
 
             if (farmBefore == null
                 || livestockBefore == null
                 || farmBefore.LastProcessedDay != clockBefore.Day
                 || livestockBefore.LastProcessedDay != clockBefore.Day)
+            {
+                return OperationResult<GameClockSnapshot>.Failure(
+                    "day_transition.state_misaligned");
+            }
+
+            if (_economyStateStore != null
+                && (!_economyStateStore.TryGetShop(_shopId, out shopBefore)
+                    || shopBefore.LastRestockedDay != clockBefore.Day))
             {
                 return OperationResult<GameClockSnapshot>.Failure(
                     "day_transition.state_misaligned");
@@ -44,6 +78,32 @@ namespace CozyTown.Runtime.Application
             }
 
             int targetDay = clockBefore.Day + 1;
+            ShopEconomySnapshot shopCandidate = null;
+            if (_economyStateStore != null)
+            {
+                OperationResult<ShopEconomySnapshot> restock =
+                    _shopRestock.CreateCandidate(
+                        _worldSeed.Value,
+                        shopBefore,
+                        targetDay);
+                if (!restock.IsSuccess
+                    || restock.Value == null
+                    || !string.Equals(
+                        restock.Value.ShopId,
+                        shopBefore.ShopId,
+                        StringComparison.Ordinal)
+                    || restock.Value.LastRestockedDay != targetDay
+                    || restock.Value.RestockAlgorithmVersion
+                        != shopBefore.RestockAlgorithmVersion
+                    || restock.Value.Wallet.Balance != shopBefore.Wallet.Balance)
+                {
+                    return OperationResult<GameClockSnapshot>.Failure(
+                        "day_transition.shop_restock_failed");
+                }
+
+                shopCandidate = restock.Value;
+            }
+
             GameClockSnapshot clockAfter;
             try
             {
@@ -85,6 +145,19 @@ namespace CozyTown.Runtime.Application
                     farmBefore,
                     livestockBefore,
                     "day_transition.livestock_failed");
+            }
+
+            if (_economyStateStore != null)
+            {
+                OperationResult shopCommit = _economyStateStore.CommitShop(shopCandidate);
+                if (!shopCommit.IsSuccess)
+                {
+                    return RollBack(
+                        clockBefore,
+                        farmBefore,
+                        livestockBefore,
+                        "day_transition.shop_commit_failed");
+                }
             }
 
             return OperationResult<GameClockSnapshot>.Success(clockAfter);

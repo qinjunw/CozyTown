@@ -16,8 +16,8 @@ Replace the global player-only economy with stable character and shop ownership,
 3. [Make sales transfer character and shop assets atomically](https://github.com/qinjunw/CozyTown/issues/16) — Complete; targeted success `1/1`, rejection matrix `9/9`, and full EditMode `224/224` passed.
 4. [Expose stock-aware shop trading projections](https://github.com/qinjunw/CozyTown/issues/17) — Complete; targeted `4/4` and full EditMode `228/228` passed.
 5. [Replace shop stock deterministically for each new day](https://github.com/qinjunw/CozyTown/issues/18) — Complete; targeted `37/37` and full EditMode `236/236` passed.
-6. [Publish shop restock atomically with the day transition](https://github.com/qinjunw/CozyTown/issues/19) — Ready.
-7. [Migrate main-slot saves from schema v1 to schema v2](https://github.com/qinjunw/CozyTown/issues/20) — Blocked by state storage and day transition.
+6. [Publish shop restock atomically with the day transition](https://github.com/qinjunw/CozyTown/issues/19) — Complete; targeted `22/22`, full EditMode `244/244`, and full PlayMode `35/35` passed.
+7. [Migrate main-slot saves from schema v1 to schema v2](https://github.com/qinjunw/CozyTown/issues/20) — Ready.
 8. [Wire Unity shop flows to stable character and shop identities](https://github.com/qinjunw/CozyTown/issues/21) — Blocked by projection and save migration.
 9. [Verify conserved economy and migration regressions](https://github.com/qinjunw/CozyTown/issues/22) — Blocked by Unity wiring.
 
