@@ -38,6 +38,19 @@ namespace CozyTown.Runtime.Core
                     nameof(configuration));
             }
 
+            OperationResult<NpcContentCatalog> npcContentResult =
+                NpcContentCatalog.Create(
+                    configuration.FallbackDialogue,
+                    configuration.Npcs);
+            if (!npcContentResult.IsSuccess)
+            {
+                throw new ArgumentException(
+                    $"NPC content is invalid: {npcContentResult.ErrorCode}",
+                    nameof(configuration));
+            }
+
+            NpcContentCatalog npcContent = npcContentResult.Value;
+
             var time = new InMemoryTimeService(
                 configuration.StartingDay,
                 configuration.StartingMinuteOfDay);
@@ -135,15 +148,11 @@ namespace CozyTown.Runtime.Core
                     restockPolicy,
                     worldSeed,
                     DefaultMvpIds.Shops.TownGeneral);
-            npcDialogue = npcDialogue ?? (configuration.Npcs.Length == 0
-                ? (INpcDialogueGenerator)new FixedFallbackDialogueGenerator(
-                    configuration.FallbackDialogue)
-                : new ConfiguredFallbackDialogueGenerator(
-                    configuration.Npcs,
-                    configuration.FallbackDialogue));
+            npcDialogue = npcDialogue
+                ?? new ConfiguredFallbackDialogueGenerator(npcContent);
             saveStorage = saveStorage ?? new InMemorySaveStorage();
             var npcDialogueGameplay = new NpcDialogueCoordinator(
-                configuration.Npcs,
+                npcContent,
                 npcDialogue,
                 () => time.Current);
             var gameSave = new GameSaveCoordinator(

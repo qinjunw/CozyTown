@@ -7,6 +7,7 @@ using CozyTown.Runtime.Economy;
 using CozyTown.Runtime.Farming;
 using CozyTown.Runtime.Fishing;
 using CozyTown.Runtime.Inventory;
+using CozyTown.Runtime.Npc;
 using UnityEngine;
 
 namespace CozyTown.Unity.Content
@@ -21,6 +22,9 @@ namespace CozyTown.Unity.Content
         [SerializeField, Min(0)] private int _startingShopBalance = 10000;
         [SerializeField, Min(1)] private int _startingDay = 1;
         [SerializeField, Range(0, 1439)] private int _startingMinuteOfDay = 360;
+        [SerializeField, TextArea] private string _fallbackDialogue =
+            "It's a quiet day in town.";
+        [SerializeField] private NpcRecord[] _npcs = Array.Empty<NpcRecord>();
         [SerializeField] private ItemRecord[] _items = Array.Empty<ItemRecord>();
         [SerializeField] private ShopOfferRecord[] _shopOffers =
             Array.Empty<ShopOfferRecord>();
@@ -47,15 +51,24 @@ namespace CozyTown.Unity.Content
                 _startingBalance,
                 _startingDay,
                 _startingMinuteOfDay,
-                defaults.FallbackDialogue,
-                defaults.Npcs,
+                _fallbackDialogue,
+                Convert(_npcs, record => record?.ToDefinition()),
                 Convert(_shopRestockRules, record => record?.ToDefinition()),
                 defaults.StartingWorldSeed,
                 _startingShopBalance);
             OperationResult validation = MvpContentValidator.Validate(configuration);
-            return validation.IsSuccess
-                ? OperationResult<CozyTownConfiguration>.Success(configuration)
-                : OperationResult<CozyTownConfiguration>.Failure(validation.ErrorCode);
+            if (!validation.IsSuccess)
+            {
+                return OperationResult<CozyTownConfiguration>.Failure(validation.ErrorCode);
+            }
+
+            if (!HasCanonicalNpcIds(configuration.Npcs))
+            {
+                return OperationResult<CozyTownConfiguration>.Failure(
+                    "content.npc_id_mismatch");
+            }
+
+            return OperationResult<CozyTownConfiguration>.Success(configuration);
         }
 
 #if UNITY_EDITOR
@@ -68,6 +81,8 @@ namespace CozyTown.Unity.Content
             asset._startingShopBalance = configuration.StartingShopBalance;
             asset._startingDay = configuration.StartingDay;
             asset._startingMinuteOfDay = configuration.StartingMinuteOfDay;
+            asset._fallbackDialogue = configuration.FallbackDialogue;
+            asset._npcs = configuration.Npcs.Select(NpcRecord.From).ToArray();
             asset._items = configuration.Items.Select(ItemRecord.From).ToArray();
             asset._shopOffers = configuration.ShopOffers.Select(ShopOfferRecord.From).ToArray();
             asset._shopRestockRules = configuration.ShopRestockRules
@@ -89,6 +104,44 @@ namespace CozyTown.Unity.Content
             return source == null || source.Length == 0
                 ? Array.Empty<TDefinition>()
                 : source.Select(convert).ToArray();
+        }
+
+        private static bool HasCanonicalNpcIds(NpcDefinition[] definitions)
+        {
+            return definitions.Length == 4
+                && definitions.Any(npc => npc.Id == DefaultMvpIds.Npcs.Shopkeeper)
+                && definitions.Any(npc => npc.Id == DefaultMvpIds.Npcs.Farmer)
+                && definitions.Any(npc => npc.Id == DefaultMvpIds.Npcs.Fisher)
+                && definitions.Any(npc => npc.Id == DefaultMvpIds.Npcs.Cook);
+        }
+
+        [Serializable]
+        private sealed class NpcRecord
+        {
+            [SerializeField] private string _id = string.Empty;
+            [SerializeField] private string _displayName = string.Empty;
+            [SerializeField, TextArea] private string _persona = string.Empty;
+            [SerializeField, TextArea] private string _fallbackDialogue = string.Empty;
+
+            internal NpcDefinition ToDefinition()
+            {
+                return new NpcDefinition(
+                    _id,
+                    _displayName,
+                    _persona,
+                    _fallbackDialogue);
+            }
+
+            internal static NpcRecord From(NpcDefinition definition)
+            {
+                return new NpcRecord
+                {
+                    _id = definition.Id,
+                    _displayName = definition.DisplayName,
+                    _persona = definition.Persona,
+                    _fallbackDialogue = definition.FallbackDialogue
+                };
+            }
         }
 
         [Serializable]

@@ -30,6 +30,53 @@ namespace CozyTown.Tests.UnityEditMode
         }
 
         [Test]
+        public void DefaultAsset_LoadsAuthoredNpcContent()
+        {
+            OperationResult<CozyTownConfiguration> result = LoadDefaultAsset().Load();
+
+            Assert.That(result.IsSuccess, Is.True, result.ErrorCode);
+            Assert.That(result.Value.FallbackDialogue, Is.EqualTo("It's a quiet day in town."));
+            Assert.That(
+                result.Value.Npcs.Select(npc =>
+                    $"{npc.Id}|{npc.DisplayName}|{npc.Persona}|{npc.FallbackDialogue}"),
+                Is.EqualTo(new[]
+                {
+                    "npc.shopkeeper_mina|Mina|A practical and kind shopkeeper who values fair trades.|Fresh supplies are ready whenever you need them.",
+                    "npc.farmer_eli|Eli|A patient farmer who explains crops in simple terms.|Watered crops grow a little stronger each day.",
+                    "npc.fisher_ren|Ren|A quiet fisher who notices small changes around the pond.|The pond is calm today. Take your time.",
+                    "npc.cook_sora|Sora|An energetic cook who enjoys combining local ingredients.|Bring good ingredients, and the recipe will do the rest."
+                }));
+        }
+
+        [Test]
+        public void Load_WhenNpcAuthoringChanges_UsesSerializedNpcContent()
+        {
+            CozyTownMvpContentAsset clone = UnityEngine.Object.Instantiate(LoadDefaultAsset());
+            try
+            {
+                var serialized = new SerializedObject(clone);
+                SetString(serialized, "_npcs.Array.data[0]._displayName", "Mina Test");
+                SetString(
+                    serialized,
+                    "_npcs.Array.data[0]._fallbackDialogue",
+                    "Authored fallback.");
+                serialized.ApplyModifiedPropertiesWithoutUndo();
+
+                OperationResult<CozyTownConfiguration> result = clone.Load();
+
+                Assert.That(result.IsSuccess, Is.True, result.ErrorCode);
+                Assert.That(result.Value.Npcs[0].DisplayName, Is.EqualTo("Mina Test"));
+                Assert.That(
+                    result.Value.Npcs[0].FallbackDialogue,
+                    Is.EqualTo("Authored fallback."));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(clone);
+            }
+        }
+
+        [Test]
         public void DefaultAsset_BuyGrowHarvestAndSell_CompletesEconomyLoop()
         {
             OperationResult<CozyTownConfiguration> content = LoadDefaultAsset().Load();
@@ -80,6 +127,11 @@ namespace CozyTown.Tests.UnityEditMode
         [TestCase(InvalidMutation.OverlappingFishingRange, "content.fishing_range_overlap")]
         [TestCase(InvalidMutation.UnreachableRecipe, "content.recipe_ingredient_unobtainable")]
         [TestCase(InvalidMutation.NegativeShopBalance, "content.configuration_invalid")]
+        [TestCase(InvalidMutation.DuplicateNpcId, "content.npc_id_duplicate")]
+        [TestCase(InvalidMutation.ReplacedStableNpcId, "content.npc_id_mismatch")]
+        [TestCase(InvalidMutation.EmptyNpcPersona, "content.npc_invalid")]
+        [TestCase(InvalidMutation.EmptyNpcFallback, "content.npc_invalid")]
+        [TestCase(InvalidMutation.EmptyGlobalFallback, "content.configuration_invalid")]
         public void Load_WhenSerializedContentIsInvalid_RejectsAsset(
             InvalidMutation mutation,
             string expectedError)
@@ -203,6 +255,27 @@ namespace CozyTown.Tests.UnityEditMode
                 case InvalidMutation.NegativeShopBalance:
                     SetInteger(serialized, "_startingShopBalance", -1);
                     return;
+                case InvalidMutation.DuplicateNpcId:
+                    SetString(
+                        serialized,
+                        "_npcs.Array.data[1]._id",
+                        DefaultMvpIds.Npcs.Shopkeeper);
+                    return;
+                case InvalidMutation.ReplacedStableNpcId:
+                    SetString(
+                        serialized,
+                        "_npcs.Array.data[0]._id",
+                        "npc.shopkeeper_replacement");
+                    return;
+                case InvalidMutation.EmptyNpcPersona:
+                    SetString(serialized, "_npcs.Array.data[0]._persona", " ");
+                    return;
+                case InvalidMutation.EmptyNpcFallback:
+                    SetString(serialized, "_npcs.Array.data[0]._fallbackDialogue", " ");
+                    return;
+                case InvalidMutation.EmptyGlobalFallback:
+                    SetString(serialized, "_fallbackDialogue", " ");
+                    return;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mutation), mutation, null);
             }
@@ -235,7 +308,12 @@ namespace CozyTown.Tests.UnityEditMode
             InvalidPrice,
             OverlappingFishingRange,
             UnreachableRecipe,
-            NegativeShopBalance
+            NegativeShopBalance,
+            DuplicateNpcId,
+            ReplacedStableNpcId,
+            EmptyNpcPersona,
+            EmptyNpcFallback,
+            EmptyGlobalFallback
         }
     }
 }

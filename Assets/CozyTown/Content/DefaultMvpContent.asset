@@ -17,6 +17,24 @@ MonoBehaviour:
   _startingShopBalance: 10000
   _startingDay: 1
   _startingMinuteOfDay: 360
+  _fallbackDialogue: It's a quiet day in town.
+  _npcs:
+  - _id: npc.shopkeeper_mina
+    _displayName: Mina
+    _persona: A practical and kind shopkeeper who values fair trades.
+    _fallbackDialogue: Fresh supplies are ready whenever you need them.
+  - _id: npc.farmer_eli
+    _displayName: Eli
+    _persona: A patient farmer who explains crops in simple terms.
+    _fallbackDialogue: Watered crops grow a little stronger each day.
+  - _id: npc.fisher_ren
+    _displayName: Ren
+    _persona: A quiet fisher who notices small changes around the pond.
+    _fallbackDialogue: The pond is calm today. Take your time.
+  - _id: npc.cook_sora
+    _displayName: Sora
+    _persona: An energetic cook who enjoys combining local ingredients.
+    _fallbackDialogue: Bring good ingredients, and the recipe will do the rest.
   _items:
   - _id: seed.potato
     _displayName: Potato Seed

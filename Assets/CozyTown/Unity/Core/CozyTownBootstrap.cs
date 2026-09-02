@@ -301,9 +301,17 @@ namespace CozyTown.Unity.Core
             }
 
             CozyTownConfiguration configuration = content.Value;
+            OperationResult<NpcContentCatalog> npcContent = NpcContentCatalog.Create(
+                configuration.FallbackDialogue,
+                configuration.Npcs);
+            if (!npcContent.IsSuccess)
+            {
+                throw new InvalidOperationException(
+                    $"The default NPC content is invalid: {npcContent.ErrorCode}");
+            }
+
             INpcDialogueGenerator fallback = new ConfiguredFallbackDialogueGenerator(
-                configuration.Npcs,
-                configuration.FallbackDialogue);
+                npcContent.Value);
             INpcDialogueGenerator dialogue = fallback;
             AiProxyRuntimeConfiguration aiProxy =
                 AiProxyRuntimeConfiguration.FromEnvironment(

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Inventory;
+using CozyTown.Runtime.Npc;
 
 namespace CozyTown.Runtime.Content
 {
@@ -20,10 +21,17 @@ namespace CozyTown.Runtime.Content
                 || configuration.StartingShopBalance < 0
                 || configuration.StartingDay <= 0
                 || configuration.StartingMinuteOfDay < 0
-                || configuration.StartingMinuteOfDay >= 24 * 60
-                || string.IsNullOrWhiteSpace(configuration.FallbackDialogue))
+                || configuration.StartingMinuteOfDay >= 24 * 60)
             {
                 return OperationResult.Failure("content.configuration_invalid");
+            }
+
+            OperationResult<NpcContentCatalog> npcContent = NpcContentCatalog.Create(
+                configuration.FallbackDialogue,
+                configuration.Npcs);
+            if (!npcContent.IsSuccess)
+            {
+                return OperationResult.Failure(npcContent.ErrorCode);
             }
 
             if (configuration.Items.Any(item =>
@@ -268,21 +276,6 @@ namespace CozyTown.Runtime.Content
                         !obtainableIngredientIds.Contains(ingredient.ItemId))))
             {
                 return OperationResult.Failure("content.recipe_ingredient_unobtainable");
-            }
-
-            if (configuration.Npcs.Any(npc =>
-                    npc == null
-                    || string.IsNullOrWhiteSpace(npc.Id)
-                    || string.IsNullOrWhiteSpace(npc.DisplayName)
-                    || string.IsNullOrWhiteSpace(npc.Persona)
-                    || string.IsNullOrWhiteSpace(npc.FallbackDialogue)))
-            {
-                return OperationResult.Failure("content.npc_invalid");
-            }
-
-            if (HasDuplicate(configuration.Npcs.Select(npc => npc.Id)))
-            {
-                return OperationResult.Failure("content.npc_id_duplicate");
             }
 
             if (configuration.ShopRestockRules.Any(rule =>

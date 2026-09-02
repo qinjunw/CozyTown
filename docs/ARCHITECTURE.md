@@ -70,7 +70,7 @@ Assets/CozyTown/
 | 模块 | 公共入口 | 职责 | 不负责 |
 | --- | --- | --- | --- |
 | `Application` | `IDayTransitionCoordinator`、`ICharacterShopTradingCoordinator`、四个 `*GameplayCoordinator`、`INpcDialogueCoordinator`、`IGameSaveCoordinator` | 协调跨日、存档恢复事务，并向交易、生产、对话和存档表现层提供窄用例入口 | 表现、输入、数值平衡 |
-| `Content` | `DefaultMvpContent`、`MvpContentValidator` | 提供默认稳定 ID、定义表和启动前引用/可达性校验 | 运行时状态、UI 编辑器 |
+| `Content` | `DefaultMvpContent`、`MvpContentValidator` | 提供代码默认内容和启动前引用/可达性校验；Unity 作者资产加载后仍经过同一 Runtime 校验入口 | 运行时状态、UI 编辑器 |
 | `Core` | `CozyTownCompositionRoot`、`CozyTownServices` | 创建默认实现并公开类型化服务引用 | 业务规则、存档格式、场景查找 |
 | `Time` | `ITimeService` | 当前天数和跨日推进 | 决定作物、动物的具体结算规则 |
 | `Inventory` | `IInventory` | 物品数量查询、增加、移除和前置校验 | 价格、配方、掉落概率 |
@@ -79,7 +79,7 @@ Assets/CozyTown/
 | `Livestock` | `ILivestockService` | 鸡的喂食与鸡蛋产出状态 | 饲料定价、NPC 行为 |
 | `Fishing` | `IFishingService` | 固定鱼池规则和钓鱼结果 | 实时操作 UI、背包显示 |
 | `Cooking` | `ICookingService` | 配方查询、食材校验和烹饪事务 | 食材生产、料理表现 |
-| `Npc` | `INpcDialogueGenerator`、`IAiNpcDialogueClient` | 根据只读上下文校验 AI 候选并返回对话或固定回退 | 写入金币、物品、时间、生产或存档状态 |
+| `Npc` | `NpcContentCatalog`、`INpcDialogueGenerator`、`IAiNpcDialogueClient` | 校验并索引 NPC 作者内容，根据只读上下文校验 AI 候选并返回对话或固定回退 | 写入金币、物品、时间、生产或存档状态 |
 | `Save` | `ISaveStorage`、`JsonFileSaveStorage` | 版本化存档快照的单槽读写、JSON 校验和安全替换 | 收集或直接修改各模块状态 |
 | `Unity` | `CozyTownBootstrap`、输入门控、交互点、对话/存档及六组玩法 Presenter/View | 连接 Unity 生命周期、Input System、Physics2D、HTTP(S) 代理与窄接口 Presenter | 领域规则、全局服务解析、跨模块事务 |
 
@@ -116,6 +116,8 @@ CozyTownCompositionRoot 只负责创建并连接上述对象。
 ## 6. 组合根
 
 `Runtime/Core/CozyTownCompositionRoot.cs` 是默认对象图的唯一构造入口。`CreateDefault()` 创建经过校验的 MVP 对象图，`Create(configuration)` 接收显式配置，带适配器的重载接收对话生成器与存储端口，`CreateEmpty()` 保留空配置测试入口。入口都返回类型化的 `CozyTownServices`；该服务集合只在组合边界使用，不向通用 `MonoBehaviour` 或交互上下文公开。
+
+正式场景由 `CozyTownMvpContentAsset.Load()` 把唯一的作者资产转换为 `CozyTownConfiguration`。加载过程校验经济、生产、全局对话回退和四名 NPC 的稳定 ID、显示名称、人设及专属回退；失败时 Bootstrap 不创建 NPC Catalog、固定回退生成器或 AI 适配器。通过校验后，各组合边界只把经同一工厂校验的不可变 `NpcContentCatalog` 交给消费者；对话协调器与固定回退生成器只依赖 Catalog 的查询和投影方法，不接收可变的原始 NPC 集合。Bootstrap 与 Runtime 组合根可以各自从同一不可变配置创建 Catalog，不承诺跨边界实例复用。
 
 当前 `CozyTownBootstrap` 的职责限定为：
 
