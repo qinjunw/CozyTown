@@ -117,7 +117,7 @@ CozyTownCompositionRoot 只负责创建并连接上述对象。
 
 `Runtime/Core/CozyTownCompositionRoot.cs` 是默认对象图的唯一构造入口。`CreateDefault()` 创建经过校验的 MVP 对象图，`Create(configuration)` 接收显式配置，带适配器的重载接收对话生成器与存储端口，`CreateEmpty()` 保留空配置测试入口。入口都返回类型化的 `CozyTownServices`；该服务集合只在组合边界使用，不向通用 `MonoBehaviour` 或交互上下文公开。
 
-正式场景由 `CozyTownMvpContentAsset.Load()` 把唯一的作者资产转换为 `CozyTownConfiguration`。加载过程校验经济、生产、全局对话回退和四名 NPC 的稳定 ID、显示名称、人设及专属回退；失败时 Bootstrap 不创建 NPC Catalog、固定回退生成器或 AI 适配器。通过校验后，各组合边界只把经同一工厂校验的不可变 `NpcContentCatalog` 交给消费者；对话协调器与固定回退生成器只依赖 Catalog 的查询和投影方法，不接收可变的原始 NPC 集合。Bootstrap 与 Runtime 组合根可以各自从同一不可变配置创建 Catalog，不承诺跨边界实例复用。
+正式场景由 `CozyTownMvpContentAsset.Load()` 把唯一的作者资产转换为 `CozyTownConfiguration`。Runtime 的 `MvpContentValidator` 统一校验经济、生产、全局对话回退和四名 NPC 的稳定 ID、显示名称、人设及专属回退；失败时 Bootstrap 不创建 NPC Catalog、固定回退生成器或 AI 适配器。通过校验后，各组合边界只把经同一工厂校验的不可变 `NpcContentCatalog` 交给消费者；对话协调器与固定回退生成器只依赖 Catalog 的查询和投影方法，不接收可变的原始 NPC 集合。Bootstrap 与 Runtime 组合根可以各自从同一不可变配置创建 Catalog，不承诺跨边界实例复用。
 
 当前 `CozyTownBootstrap` 的职责限定为：
 

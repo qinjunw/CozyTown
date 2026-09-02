@@ -62,12 +62,6 @@ namespace CozyTown.Unity.Content
                 return OperationResult<CozyTownConfiguration>.Failure(validation.ErrorCode);
             }
 
-            if (!HasCanonicalNpcIds(configuration.Npcs))
-            {
-                return OperationResult<CozyTownConfiguration>.Failure(
-                    "content.npc_id_mismatch");
-            }
-
             return OperationResult<CozyTownConfiguration>.Success(configuration);
         }
 
@@ -104,15 +98,6 @@ namespace CozyTown.Unity.Content
             return source == null || source.Length == 0
                 ? Array.Empty<TDefinition>()
                 : source.Select(convert).ToArray();
-        }
-
-        private static bool HasCanonicalNpcIds(NpcDefinition[] definitions)
-        {
-            return definitions.Length == 4
-                && definitions.Any(npc => npc.Id == DefaultMvpIds.Npcs.Shopkeeper)
-                && definitions.Any(npc => npc.Id == DefaultMvpIds.Npcs.Farmer)
-                && definitions.Any(npc => npc.Id == DefaultMvpIds.Npcs.Fisher)
-                && definitions.Any(npc => npc.Id == DefaultMvpIds.Npcs.Cook);
         }
 
         [Serializable]

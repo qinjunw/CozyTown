@@ -34,6 +34,12 @@ namespace CozyTown.Runtime.Content
                 return OperationResult.Failure(npcContent.ErrorCode);
             }
 
+            if (configuration.Npcs.Length > 0
+                && !HasCanonicalNpcIds(configuration.Npcs))
+            {
+                return OperationResult.Failure("content.npc_id_mismatch");
+            }
+
             if (configuration.Items.Any(item =>
                     item == null
                     || string.IsNullOrWhiteSpace(item.Id)
@@ -305,6 +311,15 @@ namespace CozyTown.Runtime.Content
             }
 
             return false;
+        }
+
+        private static bool HasCanonicalNpcIds(NpcDefinition[] definitions)
+        {
+            return definitions.Length == 4
+                && definitions.Any(npc => npc.Id == DefaultMvpIds.Npcs.Shopkeeper)
+                && definitions.Any(npc => npc.Id == DefaultMvpIds.Npcs.Farmer)
+                && definitions.Any(npc => npc.Id == DefaultMvpIds.Npcs.Fisher)
+                && definitions.Any(npc => npc.Id == DefaultMvpIds.Npcs.Cook);
         }
     }
 }

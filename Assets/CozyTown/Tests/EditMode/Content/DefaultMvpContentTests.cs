@@ -271,6 +271,25 @@ namespace CozyTown.Tests.EditMode.Content
         }
 
         [Test]
+        public void Validate_WhenCanonicalNpcIdIsReplaced_RejectsConfiguration()
+        {
+            CozyTownConfiguration source = DefaultMvpContent.CreateConfiguration();
+            NpcDefinition[] npcs = source.Npcs.ToArray();
+            NpcDefinition shopkeeper = npcs[0];
+            npcs[0] = new NpcDefinition(
+                "npc.shopkeeper_replacement",
+                shopkeeper.DisplayName,
+                shopkeeper.Persona,
+                shopkeeper.FallbackDialogue);
+            CozyTownConfiguration invalid = Copy(source, npcs: npcs);
+
+            OperationResult result = MvpContentValidator.Validate(invalid);
+
+            Assert.That(result.IsSuccess, Is.False);
+            Assert.That(result.ErrorCode, Is.EqualTo("content.npc_id_mismatch"));
+        }
+
+        [Test]
         public void Validate_WhenAnimalIsFedAndProductReady_RejectsUnreachableState()
         {
             CozyTownConfiguration source = DefaultMvpContent.CreateConfiguration();
