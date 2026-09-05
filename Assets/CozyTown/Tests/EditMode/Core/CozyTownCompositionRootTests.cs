@@ -14,6 +14,56 @@ namespace CozyTown.Tests.EditMode.Core
     public sealed class CozyTownCompositionRootTests
     {
         [Test]
+        public void CreateDefault_DaytimeClockAdvancesTheExposedTime()
+        {
+            var services = CozyTownCompositionRoot.CreateDefault();
+
+            Assert.That(services.DaytimeClock, Is.Not.Null);
+            Assert.That(services.DaytimeClock.AdvanceElapsed(5).IsSuccess, Is.True);
+            Assert.That(services.Time.Current.MinuteOfDay, Is.EqualTo(370));
+        }
+
+        [Test]
+        public void ExposedDayTransition_ClearsTheSharedClocksPartialTick()
+        {
+            var services = CozyTownCompositionRoot.CreateDefault();
+            services.DaytimeClock.AdvanceElapsed(4.9);
+
+            Assert.That(services.DayTransition.SleepToNextDay().IsSuccess, Is.True);
+            services.DaytimeClock.AdvanceElapsed(0.1);
+
+            Assert.That(services.Time.Current.Day, Is.EqualTo(2));
+            Assert.That(services.Time.Current.MinuteOfDay, Is.EqualTo(360));
+        }
+
+        [Test]
+        public void ExposedLoad_AtTheSameMinute_ClearsTheSharedClocksPartialTick()
+        {
+            var services = CozyTownCompositionRoot.CreateDefault();
+            Assert.That(services.GameSave.Save().IsSuccess, Is.True);
+            services.DaytimeClock.AdvanceElapsed(4.9);
+
+            Assert.That(services.GameSave.Load().IsSuccess, Is.True);
+            services.DaytimeClock.AdvanceElapsed(0.1);
+
+            Assert.That(services.Time.Current.MinuteOfDay, Is.EqualTo(360));
+        }
+
+        [Test]
+        public void CreateDefault_StartsANewClockWithoutPreviousGameResidual()
+        {
+            var previous = CozyTownCompositionRoot.CreateDefault();
+            previous.DaytimeClock.AdvanceElapsed(4.9);
+
+            var current = CozyTownCompositionRoot.CreateDefault();
+            current.DaytimeClock.AdvanceElapsed(0.1);
+
+            Assert.That(current.Time.Current.MinuteOfDay, Is.EqualTo(360));
+            previous.DaytimeClock.AdvanceElapsed(0.1);
+            Assert.That(previous.Time.Current.MinuteOfDay, Is.EqualTo(370));
+        }
+
+        [Test]
         public void CreateEmpty_ReturnsCompleteServiceGraph()
         {
             CozyTownServices services = CozyTownCompositionRoot.CreateEmpty();

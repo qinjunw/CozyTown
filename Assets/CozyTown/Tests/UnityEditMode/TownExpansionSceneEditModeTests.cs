@@ -5,6 +5,7 @@ using CozyTown.Runtime.Content;
 using CozyTown.Unity.Editor;
 using CozyTown.Unity.Interaction;
 using CozyTown.Unity.Town;
+using CozyTown.Unity.Time;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -17,6 +18,21 @@ namespace CozyTown.Tests.UnityEditMode
     public sealed class TownExpansionSceneEditModeTests
     {
         private const string ScenePath = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
+
+        [Test]
+        public void DevelopmentSceneAndRepeatedUpgrade_KeepOneDaytimeClockDriver()
+        {
+            WithDevelopmentScene(scene =>
+            {
+                var root = RequireRoot(scene, "CozyTown");
+                Assert.That(root.GetComponents<DaytimeClockDriver>(), Has.Length.EqualTo(1));
+                CozyTownDevSceneMenu.UpgradeTownWorld(scene);
+                CozyTownDevSceneMenu.UpgradeTownWorld(scene);
+                Assert.That(scene.GetRootGameObjects()
+                    .SelectMany(item => item.GetComponentsInChildren<DaytimeClockDriver>(true))
+                    .Count(), Is.EqualTo(1));
+            });
+        }
 
         [Test]
         public void DevelopmentScene_ProvidesContinuousThirtyTwoByTwentyTwoGroundForResidentialStreet()

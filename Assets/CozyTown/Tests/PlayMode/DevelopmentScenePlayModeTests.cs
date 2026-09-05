@@ -18,6 +18,7 @@ using CozyTown.Unity.Pond;
 using CozyTown.Unity.Kitchen;
 using CozyTown.Unity.Npc;
 using CozyTown.Unity.Save;
+using CozyTown.Unity.Time;
 using NUnit.Framework;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -32,6 +33,50 @@ namespace CozyTown.Tests.PlayMode
         private const string ScenePath = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
 
         private Scene _loadedScene;
+
+        [UnityTest]
+        public IEnumerator DevelopmentScene_ClockUpdatesHudAndSystemMenuLoadUsesSameTimeline()
+        {
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(
+                ScenePath, new LoadSceneParameters(LoadSceneMode.Additive));
+            _loadedScene = SceneManager.GetSceneByPath(ScenePath);
+            var driver = RequireRoot(_loadedScene, "CozyTown").GetComponent<DaytimeClockDriver>();
+            Assert.That(driver, Is.Not.Null);
+            var hud = RequireRoot(_loadedScene, "Debug HUD");
+            var clockText = hud.GetComponentsInChildren<Text>(true).Single(text => text.name == "Clock Text");
+            var gear = hud.GetComponentsInChildren<Button>(true).Single(button => button.name == "Gear Button");
+            var save = hud.GetComponent<CozyTownSaveDebugView>();
+            yield return null;
+
+            driver.SetApplicationFocus(true);
+            driver.AdvanceFrame(0);
+            driver.AdvanceFrame(5);
+            driver.SetApplicationFocus(false);
+            yield return null;
+            Assert.That(clockText.text, Is.EqualTo("Day 1  06:10"));
+
+            gear.onClick.Invoke();
+            Assert.That(driver.IsSimulationPaused, Is.True);
+            save.RequestSave();
+            Assert.That(save.HasSave, Is.True);
+            driver.AdvanceFrame(300);
+            gear.onClick.Invoke();
+            Assert.That(driver.IsSimulationPaused, Is.True, "Closing the menu must not clear focus pause.");
+            driver.SetApplicationFocus(true);
+            driver.AdvanceFrame(300);
+            driver.AdvanceFrame(5);
+            driver.SetApplicationFocus(false);
+            yield return null;
+            Assert.That(clockText.text, Is.EqualTo("Day 1  06:20"));
+
+            gear.onClick.Invoke();
+            save.RequestLoad();
+            driver.AdvanceFrame(300);
+            yield return null;
+            Assert.That(clockText.text, Is.EqualTo("Day 1  06:10"));
+            Assert.That(driver.IsSimulationPaused, Is.True);
+            gear.onClick.Invoke();
+        }
 
         [UnityTest]
         public IEnumerator DevelopmentScene_StartsWalkingAndShopTradingSlice()

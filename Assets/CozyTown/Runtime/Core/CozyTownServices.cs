@@ -33,7 +33,8 @@ namespace CozyTown.Runtime.Core
             ISaveStorage saveStorage,
             IGameSaveCoordinator gameSave,
             IEconomyStateStore economyState,
-            IWorldSeedState worldSeed)
+            IWorldSeedState worldSeed,
+            IDaytimeClock daytimeClock)
         {
             DayTransition = dayTransition ?? throw new ArgumentNullException(nameof(dayTransition));
             Time = time ?? throw new ArgumentNullException(nameof(time));
@@ -63,11 +64,14 @@ namespace CozyTown.Runtime.Core
             EconomyState = economyState
                 ?? throw new ArgumentNullException(nameof(economyState));
             WorldSeed = worldSeed ?? throw new ArgumentNullException(nameof(worldSeed));
+            DaytimeClock = daytimeClock ?? throw new ArgumentNullException(nameof(daytimeClock));
         }
 
         public IDayTransitionCoordinator DayTransition { get; }
 
         public ITimeService Time { get; }
+
+        public IDaytimeClock DaytimeClock { get; }
 
         public IInventory Inventory { get; }
 

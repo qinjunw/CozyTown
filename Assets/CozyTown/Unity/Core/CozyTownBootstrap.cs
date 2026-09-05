@@ -15,6 +15,7 @@ using CozyTown.Unity.Npc;
 using CozyTown.Unity.Pond;
 using CozyTown.Unity.Save;
 using CozyTown.Unity.Shop;
+using CozyTown.Unity.Time;
 using UnityEngine;
 
 namespace CozyTown.Unity.Core
@@ -54,6 +55,7 @@ namespace CozyTown.Unity.Core
         [SerializeField]
         private CozyTownInventoryPresenter[] _inventoryPresenters =
             Array.Empty<CozyTownInventoryPresenter>();
+        [SerializeField] private DaytimeClockDriver _daytimeClock;
         [SerializeField]
         [Tooltip("Optional HTTP(S) proxy endpoint. Leave empty to use fixed NPC dialogue.")]
         private string _aiProxyEndpoint = string.Empty;
@@ -99,6 +101,10 @@ namespace CozyTown.Unity.Core
             BindHudPresenters();
             BindShopPresenters();
             BindGameplayPresenters();
+            if (_daytimeClock != null)
+            {
+                _daytimeClock.Bind(_services.DaytimeClock);
+            }
         }
 
         public void RegisterHudPresenter(CozyTownHudPresenter presenter)
@@ -240,6 +246,24 @@ namespace CozyTown.Unity.Core
             if (IsInitialized)
             {
                 presenter.Bind(_services.InventoryProjection);
+            }
+        }
+
+        public void RegisterDaytimeClock(DaytimeClockDriver driver)
+        {
+            if (driver == null)
+            {
+                throw new ArgumentNullException(nameof(driver));
+            }
+            if (_daytimeClock != null && _daytimeClock != driver)
+            {
+                throw new InvalidOperationException("A daytime clock driver is already registered.");
+            }
+
+            _daytimeClock = driver;
+            if (IsInitialized)
+            {
+                driver.Bind(_services.DaytimeClock);
             }
         }
 
