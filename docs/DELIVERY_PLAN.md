@@ -18,7 +18,7 @@
 | M3 生产经济闭环 | 购买、种植、浇水、收获、喂鸡、钓鱼、烹饪和出售 UI | 从初始金币完成一次投入—生产—加工或出售—再投入 | 已完成；EditMode 108/108、PlayMode 22/22 |
 | M4 持久化与 AI | JSON 单槽存档、损坏保护、AI 代理适配、结构校验和固定回退 | 保存重载状态等价；AI 故障注入 100% 返回可显示文本 | 已完成；EditMode 151/151、PlayMode 26/26 |
 | A1 独立美术阶段 | Production 资源、正式场景接线、像素相机、动画、状态表现和 UI 皮肤 | 13 个 PNG、106 个 Sprite 通过资源门禁；Scene-01 通过场景验收 | Scene-01a/01b/01c/01d/01e/01f/01g/01h/01i 自动化已完成；人工验收待执行 |
-| T1 单镇扩建与 NPC 日常 | 扩大单镇、四户住宅、连续时间与晨间结算、确定性活动/返家与行走表现 | 扩大版 Scene-01 回归及 Town-01 验收；日程不改变经济资源 | T1-1/T1-2/T1-2b 自动化完成；T1-3～T1-5 待实施；不属于 A1 美术替换 |
+| T1 单镇扩建与 NPC 日常 | 扩大单镇、四户住宅、连续时间与晨间结算、确定性活动/返家与行走表现 | 扩大版 Scene-01 回归及 Town-01 验收；日程不改变经济资源 | T1-1～T1-4 自动化完成（含 T1-2b），全量 450 EditMode、115 PlayMode 通过；T1-5 人工验收待确认 |
 | M5 作品集交付 | 操作引导、诊断面板、AI 评测、性能检查、构建、录屏和技术说明 | 扩大版 Scene-01 与 Town-01 已通过；Windows 构建可运行；测试与 AI 评测报告可复核 | 待开始 |
 
 ## 3. 质量门槛
@@ -163,9 +163,9 @@ A1 和 M0～M4 的完成记录保持原值；T1 的新增测试、资产和人�
 | T1-1 | [扩镇与相机](https://github.com/qinjunw/CozyTown/issues/29) | 实现已合入主分支，任务已关闭；住宅美术仍为灰盒 |
 | T1-2 | [日内时钟与暂停](https://github.com/qinjunw/CozyTown/issues/30) | 实现已合入主分支，任务已关闭；午夜封顶仅为历史行为 |
 | T1-2b | [T1-2b: Verify continuous world time, morning settlement and sleep](https://github.com/qinjunw/CozyTown/issues/38) | EditMode 357/357、PlayMode 62/62；[实现 PR](https://github.com/qinjunw/CozyTown/pull/39) 已合入主分支，任务已关闭 |
-| T1-3 | [单 NPC 竖切](https://github.com/qinjunw/CozyTown/issues/31) | 依赖 T1-1、T1-2 及 T1-2b 时间规则 |
-| T1-4 | [四人配置与美术](https://github.com/qinjunw/CozyTown/issues/32) | 依赖 T1-3 |
-| T1-5 | [回归与人工验收](https://github.com/qinjunw/CozyTown/issues/33) | 依赖 T1-4；用户实际验收后才能完成 |
+| T1-3 | [单 NPC 竖切](https://github.com/qinjunw/CozyTown/issues/31) | 单人通勤、交互与读档重建已实现并自动验证，见第 10.4 节 |
+| T1-4 | [四人配置与美术](https://github.com/qinjunw/CozyTown/issues/32) | 四人共用模块、个人配置、四向动画及住宅美术已接入，见第 10.4 节 |
+| T1-5 | [回归与人工验收](https://github.com/qinjunw/CozyTown/issues/33) | 全量自动化通过；Scene-01/Town-01 须用户实际验收，任务保持开放 |
 
 ### 10.2 T1-2 日内时钟与暂停
 
@@ -194,3 +194,13 @@ A1 和 M0～M4 的完成记录保持原值；T1 的新增测试、资产和人�
 T1-3～T1-5 已按 [T1 当前验收](TOWN_LIFE_PLAN.md#10-t1-3t1-5-当前验收2026-09-06) 修订，依次为单 NPC 往返、四人配置与美术、联合回归和人工验收。修订未计作实现完成；人工 Scene-01 与 Town-01 仍须用户分别确认。
 
 NPC 日程和快进位置结果、扩大版 Scene-01/Town-01 人工验收尚未完成。保持真实 AI 端点关闭，不以本轮后端测试替代场景人工门禁。
+
+### 10.4 T1-3/T1-4 居民通勤与美术（2026-09-06）
+
+从 `3a50bb4` 实施单 Mina 竖切，再将同一作息、路径跟随和时间订阅模块按配置应用于四人。日程区分目标活动与实际到达，世界时间统一驱动移动和四向动画；睡眠推进现有旅程，加载重建合法位置，遇阻不会按截止时刻瞬移到家。
+
+四户正式外观、四人共 48 帧及屋顶资源由独立 T1 编译入口输出。56 个原生像素单元、生成源、处理脚本和资源测试独立管理；保留 A1 资产。正式场景接入一套生活控制器与四名居民，保留原生产、交易、存档及固定对话。
+
+最终全量 EditMode `450/450`、图形 PlayMode `115/115`，均无失败或跳过。实测正常通勤需 11～27 游戏分钟；睡眠与逐分钟推进的四人结果一致。回归包括暂停、失败操作、旧 v1/v2/v3 凌晨存档、门槽净空、角色前后排序、重复升级及真实场景相机截图，详见 [实现记录](TOWN_LIFE_IMPLEMENTATION.md)和[测试计划第 13.5 节](TEST_PLAN.md#135-t1-3t1-4-居民日常与美术2026-09-06)。
+
+交付范围到可进入 Play Mode 的人工验收候选版本。#33 保持开放，按 [Town-01 检查表](ART_ACCEPTANCE.md#15-t1--town-01-验收补充人工待执行)分别登记 Scene-01 与 Town-01 结果；真实 AI 端点继续关闭。
