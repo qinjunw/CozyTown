@@ -171,6 +171,7 @@ Unity 有效游玩秒数 ─→ 倍率/余量换算 ─┐
 
 | 公开入口 | 验收内容 |
 | --- | --- |
+| 拟议 `IWorldTimeCoordinator.Current / AdvanceMinutes` | 明确游戏分钟请求的跨界结果、公开生产/经济状态；内部结算顺序不暴露给调用方 |
 | `IDaytimeClock.Current / AdvanceElapsed` | 真实运行服务在跨午夜和晨间边界后的时刻、公开领域快照；不检查私有余量字段 |
 | 显式睡眠入口，输入游戏时长 | 不跨界、跨界、非法时长、失败无部分变化；最终时刻来自同一个权威时间服务 |
 | `IGameSaveCoordinator.Save / Load` 和受支持版本文件 | 午夜前后往返、先按旧协议校验的迁移、坏档拒绝与当前世界保留 |
@@ -178,6 +179,8 @@ Unity 有效游玩秒数 ─→ 倍率/余量换算 ─┐
 | `DaytimeClockDriver.AdvanceFrame / SetApplicationFocus`、Bootstrap 注册入口 | 模态/失焦组合暂停、恢复首样本丢弃、初始/晚绑定和重复绑定不双走时 |
 
 主要测试使用实际 Runtime 组合、公开领域状态和固定旧档夹具；不用内部方法调用次数证明结算正确。计时余量通过后续已知输入是否推进钟面观察。故障用例应使用可解释的输入/存储边界失败，不给领域内部方法增加专供测试的开关。
+
+秒数换算与睡眠范围校验作为薄适配，共用上述分钟推进入口。旧 `SleepToNextDay` 若保留兼容适配，也只能换算目标分钟后调用同一路径；不能继续独立结算，或把原“次日 06:00”静默截短为新选择器的最大时长。首批竖切依次验证跨午夜、一个晨间边界、未跨界的短睡眠、分段/整段一致、候选失败无发布和凌晨存读档；已有保护自然通过时记作回归，不故意破坏代码制造 RED。
 
 Unity 最小接线沿用现有床面板：修改 [Bed View](../../../Assets/CozyTown/Unity/Bed/CozyTownBedDebugView.cs)、[Bed Presenter](../../../Assets/CozyTown/Unity/Bed/CozyTownBedDebugPresenter.cs)、[Bootstrap](../../../Assets/CozyTown/Unity/Core/CozyTownBootstrap.cs) 的初始及晚注册，再由 [Production UI Upgrader](../../../Assets/CozyTown/Unity/Editor/CozyTownProductionUiSceneUpgrader.cs) 生成选择控件。时钟 Driver、HUD 和保存 Presenter 若原接口满足用例，则不做结构性改写。
 
