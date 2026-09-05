@@ -138,16 +138,8 @@ namespace CozyTown.Runtime.Core
                 configuration.Items,
                 cooking,
                 inventory);
-            IDayTransitionCoordinator dayTransition = restockPolicy == null
-                ? new DayTransitionCoordinator(time, farm, livestock)
-                : new DayTransitionCoordinator(
-                    time,
-                    farm,
-                    livestock,
-                    economyState,
-                    restockPolicy,
-                    worldSeed,
-                    DefaultMvpIds.Shops.TownGeneral);
+            var worldTime = new WorldTimeCoordinator(
+                time, farm, livestock, economyState, worldSeed, restockPolicy);
             npcDialogue = npcDialogue
                 ?? new ConfiguredFallbackDialogueGenerator(npcContent);
             saveStorage = saveStorage ?? new InMemorySaveStorage();
@@ -162,7 +154,7 @@ namespace CozyTown.Runtime.Core
                 farm,
                 livestock,
                 saveStorage);
-            var daytimeClock = new DaytimeClockCoordinator(time, dayTransition, gameSave);
+            var daytimeClock = new DaytimeClockCoordinator(worldTime, gameSave);
 
             return new CozyTownServices(
                 daytimeClock,
@@ -184,6 +176,8 @@ namespace CozyTown.Runtime.Core
                 daytimeClock,
                 economyState,
                 worldSeed,
+                daytimeClock,
+                worldTime,
                 daytimeClock);
         }
 

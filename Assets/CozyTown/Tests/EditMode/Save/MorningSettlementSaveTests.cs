@@ -126,6 +126,147 @@ namespace CozyTown.Tests.EditMode.Save
             }
         }
 
+        [Test]
+        public void Load_LegacyBeforeMorning_SkipsSettledBoundaryAndProcessesNextMorning()
+        {
+            string directory = Path.Combine(
+                Path.GetTempPath(),
+                "CozyTown.Tests",
+                Guid.NewGuid().ToString("N"));
+            try
+            {
+                Directory.CreateDirectory(directory);
+                string path = Path.Combine(directory, "main.json");
+                File.WriteAllText(path, LegacyV2BeforeMorning);
+                CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
+                var coordinator = CreateCoordinator(services, new JsonFileSaveStorage(path));
+                Assert.That(coordinator.Load().IsSuccess, Is.True);
+                GameSaveSnapshot loaded = SaveTestSnapshots.Capture(services);
+
+                OperationResult<GameClockSnapshot> sameMorning = services.WorldTime.AdvanceMinutes(240);
+
+                Assert.That(sameMorning.IsSuccess, Is.True, sameMorning.ErrorCode);
+                var expectedSameMorning = new GameSaveSnapshot(
+                    loaded.SchemaVersion,
+                    loaded.WorldSeed,
+                    new GameClockSnapshot(2, 300),
+                    loaded.Characters,
+                    loaded.Shops,
+                    loaded.Farm,
+                    loaded.Livestock);
+                SaveTestSnapshots.AssertEquivalent(
+                    expectedSameMorning,
+                    SaveTestSnapshots.Capture(services));
+
+                OperationResult<GameClockSnapshot> nextMorning = services.WorldTime.AdvanceMinutes(1440);
+
+                Assert.That(nextMorning.IsSuccess, Is.True, nextMorning.ErrorCode);
+                GameSaveSnapshot settled = SaveTestSnapshots.Capture(services);
+                Assert.That(settled.Clock.Day, Is.EqualTo(3));
+                Assert.That(settled.Clock.MinuteOfDay, Is.EqualTo(300));
+                Assert.That(settled.Farm.LastProcessedDay, Is.EqualTo(3));
+                Assert.That(settled.Livestock.LastProcessedDay, Is.EqualTo(3));
+                Assert.That(settled.Shops[0].LastRestockedDay, Is.EqualTo(3));
+                Assert.That(settled.Farm.Plots[0], Is.EqualTo(new FarmPlotSnapshot(
+                    "plot.01", DefaultMvpIds.Crops.Potato, 2, false, FarmPlotStatus.Ready)));
+                Assert.That(settled.Livestock.Animals[0].FedToday, Is.False);
+                Assert.That(settled.Livestock.Animals[0].ProductReady, Is.True);
+                Assert.That(Array.Exists(settled.Shops[0].Stock.Items,
+                    item => item.ItemId == DefaultMvpIds.Items.Carp), Is.False);
+                Assert.That(settled.Shops[0].Wallet.Balance, Is.EqualTo(9000));
+                Assert.That(settled.Characters[0].Wallet.Balance, Is.EqualTo(425));
+                Assert.That(settled.Characters[0].Backpack.Items,
+                    Is.EqualTo(new[] { new ItemStack(DefaultMvpIds.Items.Potato, 2) }));
+            }
+            finally
+            {
+                if (Directory.Exists(directory))
+                {
+                    Directory.Delete(directory, recursive: true);
+                }
+            }
+        }
+
+        [TestCase(2, 1, 60, 1, true)]
+        [TestCase(2, 2, 60, 1, false)]
+        [TestCase(2, 2, 60, 2, true)]
+        [TestCase(2, 2, 420, 2, true)]
+        [TestCase(3, 1, 60, 0, false)]
+        [TestCase(3, 1, 60, 1, true)]
+        [TestCase(3, 2, 0, 1, true)]
+        [TestCase(3, 2, 0, 2, true)]
+        [TestCase(3, 2, 299, 1, true)]
+        [TestCase(3, 2, 299, 2, true)]
+        [TestCase(3, 2, 300, 1, false)]
+        [TestCase(3, 2, 300, 2, true)]
+        [TestCase(3, 2, 420, 1, false)]
+        [TestCase(3, 2, 420, 2, true)]
+        [TestCase(3, 2, 1439, 2, true)]
+        [TestCase(3, 2, 60, 3, false)]
+        [TestCase(3, 3, 60, 1, false)]
+        [TestCase(3, 0, 60, 1, false)]
+        [TestCase(3, 2, -1, 2, false)]
+        [TestCase(3, 2, 1440, 2, false)]
+        [TestCase(3, int.MaxValue, 299, int.MaxValue - 1, true)]
+        [TestCase(3, int.MaxValue, 300, int.MaxValue, true)]
+        public void Load_ClockAndCompletedDay_UsesSourceSchemaRulesWithoutChangingTheFile(
+            int schemaVersion,
+            int day,
+            int minuteOfDay,
+            int completedDay,
+            bool expectedSuccess)
+        {
+            string directory = Path.Combine(
+                Path.GetTempPath(),
+                "CozyTown.Tests",
+                Guid.NewGuid().ToString("N"));
+            try
+            {
+                Directory.CreateDirectory(directory);
+                string path = Path.Combine(directory, "main.json");
+                string json = LegacyV2BeforeMorning
+                    .Replace("\"schemaVersion\": 2", $"\"schemaVersion\": {schemaVersion}")
+                    .Replace("\"day\": 2", $"\"day\": {day}")
+                    .Replace("\"minuteOfDay\": 60", $"\"minuteOfDay\": {minuteOfDay}")
+                    .Replace("\"lastProcessedDay\": 2", $"\"lastProcessedDay\": {completedDay}")
+                    .Replace("\"lastRestockedDay\": 2", $"\"lastRestockedDay\": {completedDay}");
+                File.WriteAllText(path, json);
+                byte[] originalBytes = File.ReadAllBytes(path);
+                CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
+                GameSaveSnapshot before = SaveTestSnapshots.Capture(services);
+                var coordinator = CreateCoordinator(services, new JsonFileSaveStorage(path));
+
+                OperationResult loaded = coordinator.Load();
+
+                Assert.That(loaded.IsSuccess, Is.EqualTo(expectedSuccess), loaded.ErrorCode);
+                if (expectedSuccess)
+                {
+                    GameSaveSnapshot first = SaveTestSnapshots.Capture(services);
+                    Assert.That(first.Clock.Day, Is.EqualTo(day));
+                    Assert.That(first.Clock.MinuteOfDay, Is.EqualTo(minuteOfDay));
+                    Assert.That(first.Farm.LastProcessedDay, Is.EqualTo(completedDay));
+                    Assert.That(first.Livestock.LastProcessedDay, Is.EqualTo(completedDay));
+                    Assert.That(first.Shops[0].LastRestockedDay, Is.EqualTo(completedDay));
+                    Assert.That(coordinator.Load().IsSuccess, Is.True);
+                    SaveTestSnapshots.AssertEquivalent(first, SaveTestSnapshots.Capture(services));
+                }
+                else
+                {
+                    Assert.That(loaded.ErrorCode, Is.EqualTo("save.payload_invalid"));
+                    SaveTestSnapshots.AssertEquivalent(before, SaveTestSnapshots.Capture(services));
+                }
+
+                Assert.That(File.ReadAllBytes(path), Is.EqualTo(originalBytes));
+            }
+            finally
+            {
+                if (Directory.Exists(directory))
+                {
+                    Directory.Delete(directory, recursive: true);
+                }
+            }
+        }
+
         private static GameSaveCoordinator CreateCoordinator(
             CozyTownServices services,
             ISaveStorage storage)

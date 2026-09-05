@@ -6,32 +6,28 @@ namespace CozyTown.Runtime.Application
 {
     public sealed class DaytimeClockCoordinator :
         IDaytimeClock,
+        ISleepCoordinator,
         IDayTransitionCoordinator,
         IGameSaveCoordinator
     {
-        private const double SecondsPerTick = 5;
-        private const int MinutesPerTick = 10;
+        private const double SecondsPerMinute = 0.5;
 
-        // Frame-by-frame addition can leave a completed tick just below five seconds.
-        private const double TickBoundaryToleranceSeconds = 1e-9;
+        // Frame-by-frame addition can round a completed minute below its boundary.
+        private const double MinuteBoundaryToleranceSeconds = 1e-9;
 
-        private readonly ITimeService _time;
-        private readonly IDayTransitionCoordinator _dayTransition;
+        private readonly IWorldTimeCoordinator _worldTime;
         private readonly IGameSaveCoordinator _gameSave;
         private double _elapsedSeconds;
 
         public DaytimeClockCoordinator(
-            ITimeService time,
-            IDayTransitionCoordinator dayTransition,
+            IWorldTimeCoordinator worldTime,
             IGameSaveCoordinator gameSave)
         {
-            _time = time ?? throw new ArgumentNullException(nameof(time));
-            _dayTransition = dayTransition
-                ?? throw new ArgumentNullException(nameof(dayTransition));
+            _worldTime = worldTime ?? throw new ArgumentNullException(nameof(worldTime));
             _gameSave = gameSave ?? throw new ArgumentNullException(nameof(gameSave));
         }
 
-        public GameClockSnapshot Current => _time.Current;
+        public GameClockSnapshot Current => _worldTime.Current;
 
         public bool HasSave => _gameSave.HasSave;
 
@@ -43,20 +39,18 @@ namespace CozyTown.Runtime.Application
             }
 
             double elapsed = _elapsedSeconds + seconds;
-            int remainingMinutes = InMemoryTimeService.MinutesPerDay - 1
-                - Current.MinuteOfDay;
-            int remainingTicks = (remainingMinutes + MinutesPerTick - 1) / MinutesPerTick;
-            int ticks = (int)Math.Min(
-                Math.Floor((elapsed + TickBoundaryToleranceSeconds) / SecondsPerTick),
-                remainingTicks);
-            int minutes = Math.Min(ticks * MinutesPerTick, remainingMinutes);
+            double minutes = Math.Floor(
+                (elapsed + MinuteBoundaryToleranceSeconds) / SecondsPerMinute);
+            if (minutes > WorldTimeCoordinator.MaximumAdvanceMinutes)
+            {
+                return OperationResult<GameClockSnapshot>.Failure("time.elapsed_too_large");
+            }
+
             OperationResult<GameClockSnapshot> result =
-                _time.AdvanceMinutes(minutes);
+                _worldTime.AdvanceMinutes((int)minutes);
             if (result.IsSuccess)
             {
-                _elapsedSeconds = minutes == remainingMinutes
-                    ? 0
-                    : Math.Max(0, elapsed - ticks * SecondsPerTick);
+                _elapsedSeconds = Math.Max(0, elapsed - minutes * SecondsPerMinute);
             }
 
             return result;
@@ -64,7 +58,23 @@ namespace CozyTown.Runtime.Application
 
         public OperationResult<GameClockSnapshot> SleepToNextDay()
         {
-            OperationResult<GameClockSnapshot> result = _dayTransition.SleepToNextDay();
+            int minutes = InMemoryTimeService.MinutesPerDay - Current.MinuteOfDay + 6 * 60;
+            return AdvanceExplicitly(minutes);
+        }
+
+        public OperationResult<GameClockSnapshot> SleepForMinutes(int gameMinutes)
+        {
+            if (gameMinutes < 60 || gameMinutes > 12 * 60 || gameMinutes % 60 != 0)
+            {
+                return OperationResult<GameClockSnapshot>.Failure("sleep.duration_invalid");
+            }
+
+            return AdvanceExplicitly(gameMinutes);
+        }
+
+        private OperationResult<GameClockSnapshot> AdvanceExplicitly(int gameMinutes)
+        {
+            OperationResult<GameClockSnapshot> result = _worldTime.AdvanceMinutes(gameMinutes);
             if (result.IsSuccess)
             {
                 _elapsedSeconds = 0;
