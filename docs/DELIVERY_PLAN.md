@@ -161,7 +161,19 @@ A1 和 M0～M4 的完成记录保持原值；T1 的新增测试、资产和人�
 | --- | --- | --- |
 | T1-0 | [确认契约](https://github.com/qinjunw/CozyTown/issues/28) | 用户已确认，ADR-0013 Accepted |
 | T1-1 | [扩镇与相机](https://github.com/qinjunw/CozyTown/issues/29) | 代码及自动化完成，PR #35 待审阅；住宅美术仍为灰盒 |
-| T1-2 | [日内时钟与暂停](https://github.com/qinjunw/CozyTown/issues/30) | 下一实施切片 |
+| T1-2 | [日内时钟与暂停](https://github.com/qinjunw/CozyTown/issues/30) | 代码及自动化完成，[PR #36](https://github.com/qinjunw/CozyTown/pull/36) 待审阅 |
 | T1-3 | [单 NPC 竖切](https://github.com/qinjunw/CozyTown/issues/31) | 依赖 T1-1 与 T1-2 |
 | T1-4 | [四人配置与美术](https://github.com/qinjunw/CozyTown/issues/32) | 依赖 T1-3 |
 | T1-5 | [回归与人工验收](https://github.com/qinjunw/CozyTown/issues/33) | 依赖 T1-4；用户实际验收后才能完成 |
+
+### 10.2 T1-2 日内时钟与暂停
+
+2026-09-05 实现单一日内时钟协调器，通过窄端口向 Unity 提供当前时间和有效时长推进。5 秒推进 10 游戏分钟，保留分帧余量并在同日 23:59 封顶；不会从逐帧路径直接触发日结。
+
+驱动器组合现有模态门控和焦点状态，暂停时不提交时长，恢复首帧不补算旧时间。睡觉和加载仍由原协调器执行；仅成功后清空日内残余，保存与失败操作保留。组合根和 Bootstrap 保证时钟、床和存档界面使用同一时间线，初次与晚注册接线均有测试。
+
+本切片未修改原子日结、经济、生产或 v2 存档格式，未增加 NPC 移动、正式美术或模型服务。已发现的 NPC 身份升级与 HUD 停用输入锁问题记录为 [T1-3 前置检查](https://github.com/qinjunw/CozyTown/issues/31#issuecomment-5552327230)。完整 LIFE-03 和 Scene-01/Town-01 验收仍待后续切片。
+
+自动化结果见 [T1-2 测试记录](TEST_PLAN.md#132-t1-2-自动化结果2026-09-05)。
+
+实现 PR [Add bounded daytime clock and composable scene pause](https://github.com/qinjunw/CozyTown/pull/36) 叠加于 T1-1 的 PR #35；保留父 PR 顺序和分支保护，不提前关闭合并审阅或人工验收任务。

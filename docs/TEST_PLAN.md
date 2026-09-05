@@ -581,3 +581,22 @@ Scene-01 人工验收通过后，M5 再执行真实 AI 成功对话、断网回�
 `GraphicsRequired` 用例在 `-nographics` 下明确跳过；不得把这种运行替代上述图形结果。复现全量时，使用 Unity `-batchmode -projectPath <project-root> -runTests -testPlatform EditMode` 或 `PlayMode` 并指定新的 `-testResults`、`-logFile`；测试命令不带 `-quit`，PlayMode 不带 `-nographics`。
 
 此记录证明 T1-1 静态布局、视口和旧玩法回归，不证明 NPC 作息、真实通勤、受阻恢复或人工画面验收。T1-2～T1-5 的结果另行登记。
+
+### 13.2 T1-2 自动化结果（2026-09-05）
+
+基准为 T1-1 提交 `3369618`。Runtime、Unity 适配和组合根分别按单个行为 RED → GREEN 推进，最后由独立 Reviewer 检查差异；未修改经济、生产、原子日结或存档 schema。新增命名空间引发的一次编译冲突不计行为 RED；真实帧测试的一次协程时序误报通过调整测试安排修正，未据此改变产品执行顺序。
+
+| 验证 | 结果 | 本地证据 |
+| --- | --- | --- |
+| 日内时钟 | 18/18：分帧精度、多 tick 余量、23:59 封顶、最大有限时长、最大日期及非法输入；除时钟外的持久状态不变 | `DaytimeClockCoordinatorTests`；`Logs/t1-2-full-editmode.xml` |
+| 时间线切换 | 成功睡觉和同分钟加载清余量；失败睡觉为真实日期错位；失败加载经过种子/时间恢复后经济拒绝并回滚；成功/失败保存均保留余量 | `Logs/t1-2-runtime-red05-core-red02.xml`、`Logs/t1-2-runtime-red06-core-red03.xml`，最终 GREEN 见全量结果 |
+| 组合根 | 新增 4 条共享时间、新游戏、睡觉及加载端口检查；该 fixture 共 12/12 | `CozyTownCompositionRootTests` |
+| Unity 暂停 | 8/8：模态、焦点、重新启用、重复绑定、门控撤销/重配/失败重配及真实 Update → LateUpdate 帧顺序 | `DaytimeClockPlayModeTests`；`Logs/t1-2-full-playmode.xml` |
+| 接线 | 初始与晚注册共 2/2；正式场景验证 HUD 走时、系统菜单暂停及读档；升级两次仍只有一个驱动器 | `DaytimeClockBindingPlayModeTests`、`DevelopmentScenePlayModeTests`、`TownExpansionSceneEditModeTests` |
+| 全量回归 | EditMode 310/310；带图形渲染的 PlayMode 54/54；无失败或跳过 | `Logs/t1-2-full-editmode.xml`、`Logs/t1-2-full-playmode.xml` |
+
+真实帧测试把预装余量和获取模态锁放在同一个辅助组件的 `Update` 中，避免把 UnityTest 协程的恢复阶段误认为帧开始。场景测试和批处理 Bootstrap 使用内存存档，未访问玩家正式存档；场景 AI 端点及运行环境的端点覆盖均未配置。
+
+全量通过后再次执行 M4 与 T1 升级，正式场景前后三次 SHA-256 均为 `ED31B0C678B03BCEF5397AD4F1F1429B2A3DA09BA919996E9BB4111B3CC7A95F`。场景仅新增一个驱动器，并配置 Bootstrap 和玩家门控引用；未改 Production PNG，Unity 自动升级的平台设置与场景模板配置已排除出提交。
+
+时钟证据不代表 NPC 已能行走或暂停动画。NPC HUD 单独停用后的输入锁及稳定身份升级问题记录为 [T1-3 前置检查](https://github.com/qinjunw/CozyTown/issues/31#issuecomment-5552327230)。LIFE-03 全部行为与联合 Scene-01/Town-01 人工验收仍待后续，不以本轮自动化关闭人工门禁。

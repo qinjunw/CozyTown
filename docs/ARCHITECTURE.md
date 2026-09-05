@@ -2,7 +2,7 @@
 
 ## 1. 范围与当前阶段
 
-本架构采用 Unity 项目内的模块化单体。M4 持久化与 AI 已经完成：交易与生产规则仍由确定性模块负责，应用层协调同一时点的保存与原子恢复，Runtime 文件适配器负责 JSON 槽位，Unity 层提供不含客户端密钥的 AI 代理适配并选择应用持久化路径。正式场景通过窄应用接口接入生产经济闭环、单槽位保存/读取和 4 名 NPC 对话。A1 独立美术阶段只替换 Unity 表现与资源引用，不修改这些领域和应用边界。仓库当前状态和验证结果见 [`README.md`](../README.md)。
+本架构采用 Unity 项目内的模块化单体。M4 已实现持久化与受约束的对话适配链路：交易与生产规则仍由确定性模块负责，应用层协调同一时点的保存与原子恢复，Runtime 文件适配器负责 JSON 槽位，Unity 层提供不含客户端密钥的 AI 代理适配并选择应用持久化路径。正式场景通过窄应用接口接入生产经济闭环、单槽位保存/读取和 4 名 NPC 对话。A1 独立美术阶段只替换 Unity 表现与资源引用，不修改这些领域和应用边界。T1 在此基础上增加扩镇与确定性居民日常；真实 Agent 接入仍受联合场景验收门禁约束。仓库当前状态和验证结果见 [`README.md`](../README.md)。
 
 产品边界见 [`PRD.md`](PRD.md)。关键决策见：
 
@@ -13,6 +13,7 @@
 - [`ADR-0005：Unity 适配层与窄接口注入`](adr/0005-unity-adapter-boundary.md)
 - [`ADR-0006：Production 美术场景接线`](adr/0006-production-art-scene-integration.md)
 - [`ADR-0010：角色与商店独立拥有资产并原子提交交易`](adr/0010-character-shop-economic-ownership-and-atomic-trade.md)
+- [`ADR-0013：确定性居民日程与派生位置`](adr/0013-deterministic-town-life-and-derived-npc-presence.md)
 
 ## 2. 架构目标与约束
 
@@ -43,6 +44,9 @@ Assets/CozyTown/
 ├─ Unity/
 │  ├─ Core/
 │  ├─ Input/
+│  ├─ Time/
+│  ├─ Town/
+│  ├─ CameraView/
 │  ├─ Player/
 │  ├─ Interaction/
 │  ├─ Hud/
@@ -84,6 +88,16 @@ Assets/CozyTown/
 | `Unity` | `CozyTownBootstrap`、输入门控、交互点、对话/存档及六组玩法 Presenter/View | 连接 Unity 生命周期、Input System、Physics2D、HTTP(S) 代理与窄接口 Presenter | 领域规则、全局服务解析、跨模块事务 |
 
 接口输入和输出使用模块自己的 DTO 或值对象。公开集合应以只读视图或副本返回，调用方不能通过集合引用绕过模块规则。
+
+### 4.1 T1 时钟与场景边界
+
+`TownMap2D` 提供住宅、地点和共享道路的只读查询；`CozyTownTownLayout` 是铺地、地标及道路装配的共同来源。当前 NPC 仍为静态实体，地图路径查询不代表已经实现通勤。
+
+`DaytimeClockCoordinator` 封装日内残余计时，以 `IDaytimeClock.AdvanceElapsed` 接收有效经过时长，5 秒推进 10 游戏分钟，在同日 23:59 封顶。组合根通过 `DaytimeClock`、`DayTransition`、`GameSave` 三个窄端口公开同一个实例；后两者委托原有事务，仅成功睡觉或加载后清空残余计时。保存和失败操作保留残余，存档 schema v2 不增加帧计时字段。
+
+`DaytimeClockDriver` 只取得 `IDaytimeClock` 和玩家输入门控，不取得服务集合或存档写接口。它在 `LateUpdate` 过滤原始 `unscaledDeltaTime`：模态、失焦、未绑定或驱动器停用时不提交时长；真实暂停/绑定状态变化后的首样本丢弃，防止包含旧时间段的帧被补算。重复绑定同一对象不触发重置。该适配不修改全局 `Time.timeScale`。
+
+`CozyTownBootstrap` 负责初始及晚注册绑定；公共场景升级入口维护一个时钟驱动器及其门控引用。未来 NPC 移动必须复用同一有效时长边界，不能只读取暂停布尔值后自行补算原始帧时间；T1-2 不提前增加无人使用的事件总线或日程接口。
 
 ## 5. 依赖方向
 
