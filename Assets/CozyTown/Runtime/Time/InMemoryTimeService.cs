@@ -19,6 +19,17 @@ namespace CozyTown.Runtime.Time
 
         public OperationResult<GameClockSnapshot> AdvanceMinutes(int minutes)
         {
+            OperationResult<GameClockSnapshot> candidate = CreateAdvanceCandidate(minutes);
+            if (candidate.IsSuccess)
+            {
+                CommitPrepared(candidate.Value);
+            }
+
+            return candidate;
+        }
+
+        internal OperationResult<GameClockSnapshot> CreateAdvanceCandidate(int minutes)
+        {
             if (minutes < 0)
             {
                 return OperationResult<GameClockSnapshot>.Failure("time.minutes_negative");
@@ -33,8 +44,13 @@ namespace CozyTown.Runtime.Time
                 return OperationResult<GameClockSnapshot>.Failure("time.day_overflow");
             }
 
-            _current = new GameClockSnapshot((int)day, (int)(absoluteMinutes % MinutesPerDay));
-            return OperationResult<GameClockSnapshot>.Success(_current);
+            return OperationResult<GameClockSnapshot>.Success(
+                new GameClockSnapshot((int)day, (int)(absoluteMinutes % MinutesPerDay)));
+        }
+
+        internal void CommitPrepared(GameClockSnapshot candidate)
+        {
+            _current = candidate;
         }
 
         public GameClockSnapshot SleepToNextDay()

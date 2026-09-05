@@ -101,9 +101,21 @@ namespace CozyTown.Runtime.Economy
 
         public OperationResult Restore(EconomyStateSnapshot snapshot)
         {
+            OperationResult<Action> prepared = PrepareRestore(snapshot);
+            if (!prepared.IsSuccess)
+            {
+                return OperationResult.Failure(prepared.ErrorCode);
+            }
+
+            prepared.Value();
+            return OperationResult.Success();
+        }
+
+        internal OperationResult<Action> PrepareRestore(EconomyStateSnapshot snapshot)
+        {
             if (snapshot == null)
             {
-                return OperationResult.Failure("economy.snapshot_invalid");
+                return OperationResult<Action>.Failure("economy.snapshot_invalid");
             }
 
             var characters = new Dictionary<string, CharacterEconomySnapshot>(
@@ -113,7 +125,7 @@ namespace CozyTown.Runtime.Economy
                 if (!IsValid(character)
                     || !characters.TryAdd(character.CharacterId, Copy(character)))
                 {
-                    return OperationResult.Failure("economy.character_invalid");
+                    return OperationResult<Action>.Failure("economy.character_invalid");
                 }
             }
 
@@ -122,7 +134,7 @@ namespace CozyTown.Runtime.Economy
             {
                 if (!IsValid(shop) || !shops.TryAdd(shop.ShopId, Copy(shop)))
                 {
-                    return OperationResult.Failure("economy.shop_invalid");
+                    return OperationResult<Action>.Failure("economy.shop_invalid");
                 }
             }
 
@@ -131,12 +143,14 @@ namespace CozyTown.Runtime.Economy
                 || !shops.Keys.ToHashSet(StringComparer.Ordinal)
                     .SetEquals(_shops.Keys))
             {
-                return OperationResult.Failure("economy.identity_set_mismatch");
+                return OperationResult<Action>.Failure("economy.identity_set_mismatch");
             }
 
-            _characters = characters;
-            _shops = shops;
-            return OperationResult.Success();
+            return OperationResult<Action>.Success(() =>
+            {
+                _characters = characters;
+                _shops = shops;
+            });
         }
 
         public OperationResult Commit(
