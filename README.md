@@ -21,13 +21,15 @@ CozyTown 是一个用于测试 AI Agent 在游戏场景中实际落地的 Unity 
 
 ## 当前可玩内容
 
-- 单场景小镇探索与 2D 角色移动
+- 32×22 单场景小镇、北侧四户 NPC 灰盒住宅与像素跟随相机
 - 种植、浇水、收获、养鸡、钓鱼和烹饪
 - 商店购买、出售与再次投入的经济闭环
 - 五格快捷栏、只读背包和交互面板
 - Mina、Eli、Ren、Sora 四名独立 NPC
 - 单槽位本地存档，覆盖时间、金币、背包、农田和畜牧状态
 - 固定 NPC 对话，以及可选的 HTTP(S) AI 代理对话
+
+T1-1 已接入住宅归属和可达道路；四名 NPC 当前仍在原职业地点静态站立。自动走时、按日程往返、差异化住宅美术和 NPC 行走帧属于 T1-2～T1-4，尚未实现。扩大版 Scene-01/Town-01 人工验收通过前，保持真实 AI 端点关闭。
 
 ## AI 接入边界
 
@@ -71,6 +73,8 @@ Unity 包版本以 [`Packages/manifest.json`](Packages/manifest.json) 为准，E
 3. 等待 Package Manager 完成依赖解析和脚本编译。
 4. 打开 [`Assets/CozyTown/Scenes/CozyTown_Dev.unity`](Assets/CozyTown/Scenes/CozyTown_Dev.unity)。
 5. 进入 Play Mode。
+
+已提交的场景包含住宅街，向北移动即可查看。只有需要重建标准世界布局时才使用非 Play 模式下的 `CozyTown > Upgrade Development Scene for T1 Town Life`；该菜单会按标准布局重设世界地标、住宅、道路和边界，不用于保留自定义场景布局。
 
 ### 操作
 
@@ -152,7 +156,7 @@ docs/                             产品、架构、测试和决策记录
 ## 相关文档
 
 - [`docs/PRD.md`](docs/PRD.md)：产品范围、用例和验收条件
-- [`docs/TOWN_LIFE_PLAN.md`](docs/TOWN_LIFE_PLAN.md)：T1 扩镇、四户住宅和确定性 NPC 日常规划（尚未实施）
+- [`docs/TOWN_LIFE_PLAN.md`](docs/TOWN_LIFE_PLAN.md)：T1 扩镇与日常规划；T1-1 灰盒场景已实现，作息切片待实施
 - [`CONTEXT.md`](CONTEXT.md)：领域词汇
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)：模块边界与依赖规则
 - [`docs/TEST_PLAN.md`](docs/TEST_PLAN.md)：测试矩阵与人工验证步骤

@@ -18,7 +18,7 @@
 | M3 生产经济闭环 | 购买、种植、浇水、收获、喂鸡、钓鱼、烹饪和出售 UI | 从初始金币完成一次投入—生产—加工或出售—再投入 | 已完成；EditMode 108/108、PlayMode 22/22 |
 | M4 持久化与 AI | JSON 单槽存档、损坏保护、AI 代理适配、结构校验和固定回退 | 保存重载状态等价；AI 故障注入 100% 返回可显示文本 | 已完成；EditMode 151/151、PlayMode 26/26 |
 | A1 独立美术阶段 | Production 资源、正式场景接线、像素相机、动画、状态表现和 UI 皮肤 | 13 个 PNG、106 个 Sprite 通过资源门禁；Scene-01 通过场景验收 | Scene-01a/01b/01c/01d/01e/01f/01g/01h/01i 自动化已完成；人工验收待执行 |
-| T1 单镇扩建与 NPC 日常 | 扩大单镇、四户住宅、日内走时、确定性活动/返家与行走表现 | 扩大版 Scene-01 回归及 Town-01 验收；日程不改变经济资源 | 规划，待实施；不属于 A1 美术替换 |
+| T1 单镇扩建与 NPC 日常 | 扩大单镇、四户住宅、日内走时、确定性活动/返家与行走表现 | 扩大版 Scene-01 回归及 Town-01 验收；日程不改变经济资源 | T1-1 自动化完成；T1-2～T1-5 待实施；不属于 A1 美术替换 |
 | M5 作品集交付 | 操作引导、诊断面板、AI 评测、性能检查、构建、录屏和技术说明 | 扩大版 Scene-01 与 Town-01 已通过；Windows 构建可运行；测试与 AI 评测报告可复核 | 待开始 |
 
 ## 3. 质量门槛
@@ -137,10 +137,31 @@ A1 场景接线按以下边界提交：
 
 若一个提交不能独立编译，必须与其直接依赖合并；不得以“后续提交会修复”为由提交已知不可编译状态。
 
-## 10. T1 扩镇与居民日常（2026-09-05 规划）
+## 10. T1 扩镇与居民日常
 
 本阶段按 [T1 规划](TOWN_LIFE_PLAN.md) 的 T1-0 至 T1-5 顺序交付：确认行为与公开缝隙 → 灰盒住宅街/相机 → 日内时钟 → 单 NPC 往返、交互和读档 → 四人配置与美术 → 完整回归和人工验收。地图与规则可由不同 Agent 并行，正式场景、生成器与图集由单一集成者写入，Debugger 与 Reviewer 独立验收。
 
 NPC 的位置和活动由确定性规则维护。T1 通过后，后续只读 Agent 的快照可增加住宅、实际位置、目的地和当前活动；Pi 服务、对话记忆与工具循环仍是另一实施范围，不在本阶段顺带接入。
 
 A1 和 M0～M4 的完成记录保持原值；T1 的新增测试、资产和人工结果必须单独登记。Scene-01 尚未人工通过，可在扩大版中与 Town-01 一起检查，但不能以本轮规划或新自动化免除原门禁。
+
+### 10.1 T1-1 灰盒住宅街与相机
+
+2026-09-05 实现 32×22 连续地面与四户 NPC 住宅灰盒，保留原六个功能地标、10 个业务/对话实体和唯一玩家床。住宅暂复用现有玩家住宅底图及屋顶，不增加 Production 图片或占用后续正式住宅美术验收。
+
+`TownMap2D` 保存住宅归属、具名地点和道路连接，提供只读查询与确定性静态路径；`CozyTownTownLayout` 是地标、住宅和道路铺设的共同来源。公开升级入口 `UpgradeTownWorld(Scene)` 不保存场景；创建和 M4/A1/T1 菜单调用它并各自负责保存。修复夹具只操作临时场景副本。
+
+相机跟随玩家，按原生像素视口夹紧；物理边界另按导入角色帧及脚底占地留出至少 1 像素余量。交互气泡在像素相机完成本帧投影后、UI 绘制前定位，避免跟随镜头造成首帧错位。
+
+全量 EditMode 287/287、开启图形渲染的 PlayMode 43/43 通过，均无失败或跳过。静态路径扫掠不代表 NPC 已能行走、遇阻重规划或按时到家；这些仍属于 T1-3。人工 Scene-01/Town-01 未通过，不启用真实 AI。
+
+远端总任务为 [Implement T1 town expansion and deterministic NPC life](https://github.com/qinjunw/CozyTown/issues/27)。实现 PR [Expand town housing and bound the pixel-perfect camera](https://github.com/qinjunw/CozyTown/pull/35) 叠加于[规划 PR #34](https://github.com/qinjunw/CozyTown/pull/34)，规划 PR 又依赖待合并的经济重构分支；按依赖顺序审阅合并，不绕过分支保护。
+
+| 切片 | 远端任务 | 状态与接续 |
+| --- | --- | --- |
+| T1-0 | [确认契约](https://github.com/qinjunw/CozyTown/issues/28) | 用户已确认，ADR-0013 Accepted |
+| T1-1 | [扩镇与相机](https://github.com/qinjunw/CozyTown/issues/29) | 代码及自动化完成，PR #35 待审阅；住宅美术仍为灰盒 |
+| T1-2 | [日内时钟与暂停](https://github.com/qinjunw/CozyTown/issues/30) | 下一实施切片 |
+| T1-3 | [单 NPC 竖切](https://github.com/qinjunw/CozyTown/issues/31) | 依赖 T1-1 与 T1-2 |
+| T1-4 | [四人配置与美术](https://github.com/qinjunw/CozyTown/issues/32) | 依赖 T1-3 |
+| T1-5 | [回归与人工验收](https://github.com/qinjunw/CozyTown/issues/33) | 依赖 T1-4；用户实际验收后才能完成 |
