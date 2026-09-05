@@ -1,5 +1,7 @@
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Content;
+using CozyTown.Runtime.Save;
+using System.IO;
 using System.Linq;
 using CozyTown.Runtime.NpcLife;
 using CozyTown.Unity.Npc;
@@ -164,11 +166,13 @@ namespace CozyTown.Tests.PlayMode
             services.GameSave.Load();
             services.WorldTime.AdvanceMinutes(2);
             controller.enabled = true;
-            Assert.That(resident.Position, Is.EqualTo(Vector2.zero), "A successful load must invalidate the old journey even when the controller missed the notification.");
+            Assert.That(resident.Position.x, Is.EqualTo(2).Within(0.001),
+                "Loading reconstructs the journey, then later accepted minutes must still move the resident.");
         }
 
-        [Test]
-        public void SleepAfterPartialMinute_ConsumesTheChosenDurationFromActualPosition()
+        [TestCase(false)]
+        [TestCase(true)]
+        public void SleepAfterPartialMinute_ConsumesTheChosenDurationFromActualPosition(bool disableController)
         {
             var map = world.GetComponent<TownMap2D>();
             map.Configure(new[] { new TownHome("home.mina", "npc.mina", "outside", "entry") },
@@ -179,7 +183,10 @@ namespace CozyTown.Tests.PlayMode
             world.GetComponent<CozyTownTownLifeController>().Bind(services.WorldTimeFlow);
             services.DaytimeClock.AdvanceElapsed(0.25);
             Assert.That(resident.Position.x, Is.EqualTo(0.5f).Within(0.001));
+            var controller = world.GetComponent<CozyTownTownLifeController>();
+            if (disableController) controller.enabled = false;
             services.Sleep.SleepForMinutes(60);
+            if (disableController) controller.enabled = true;
             Assert.That(resident.Position.x, Is.EqualTo(60.5f).Within(0.001));
             Assert.That(services.WorldTimeFlow.Current.FractionalMinute, Is.Zero);
         }
@@ -217,6 +224,55 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(services.Farm.CaptureSnapshot().LastProcessedDay, Is.EqualTo(2));
             Assert.That(services.Livestock.CaptureSnapshot().Animals, Is.EqualTo(withoutResidents.Livestock.CaptureSnapshot().Animals));
             Assert.That(resident.IsHome, Is.False);
+        }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        public void SupportedEarlyMorningSave_DoesNotSkipTheResidentsCurrentDay(int schema)
+        {
+            string path = Path.GetTempFileName();
+            try
+            {
+                File.WriteAllText(path, EarlyMorningSave(schema));
+                string original = File.ReadAllText(path);
+                services = CozyTownCompositionRoot.Create(DefaultMvpContent.CreateConfiguration(),
+                    npcDialogue: null, saveStorage: new JsonFileSaveStorage(path));
+                world.GetComponent<CozyTownTownLifeController>().Bind(services.WorldTimeFlow);
+                Assert.That(services.GameSave.Load().IsSuccess, Is.True);
+                Assert.That(services.GameSave.Load().IsSuccess, Is.True);
+                Assert.That(resident.IsHome, Is.True);
+                Assert.That(resident.Position, Is.EqualTo(new Vector2(0, 0.5f)));
+                var loadedStock = services.EconomyState.CaptureSnapshot().Shops[0].Stock.Items;
+                Assert.That(services.WorldTime.AdvanceMinutes(300).IsSuccess, Is.True);
+                Assert.That(services.Time.Current.Day, Is.EqualTo(2));
+                Assert.That(resident.IsHome, Is.False);
+                Assert.That(resident.Status, Is.EqualTo(TownRouteStatus.Travelling));
+                Assert.That(services.WorldTime.AdvanceMinutes(30).IsSuccess, Is.True);
+                Assert.That(resident.Position, Is.EqualTo(new Vector2(20, 0)));
+                Assert.That(resident.Status, Is.EqualTo(TownRouteStatus.Arrived));
+                Assert.That(services.Farm.CaptureSnapshot().LastProcessedDay, Is.EqualTo(2));
+                Assert.That(services.Livestock.CaptureSnapshot().Animals[0].FedToday, Is.True);
+                Assert.That(services.EconomyState.CaptureSnapshot().Shops[0].Stock.Items, Is.EqualTo(loadedStock));
+                Assert.That(File.ReadAllText(path), Is.EqualTo(original), "Loading must not rewrite the source save.");
+            }
+            finally
+            {
+                File.Delete(path);
+            }
+        }
+
+        private static string EarlyMorningSave(int schema)
+        {
+            string plots = string.Join(",", Enumerable.Range(1, 6).Select(index =>
+                "{\"plotId\":\"plot.0" + index + "\",\"cropId\":\"\",\"growthProgressDays\":0,\"wateredToday\":false,\"status\":0}"));
+            string economy = schema == 1
+                ? "\"inventory\":{\"items\":[]},\"wallet\":{\"balance\":425},"
+                : "\"worldSeed\":12345,\"characters\":[{\"characterId\":\"character.player\",\"backpack\":{\"items\":[]},\"wallet\":{\"balance\":425}}],"
+                    + "\"shops\":[{\"shopId\":\"shop.town.general\",\"stock\":{\"items\":[{\"itemId\":\"fish.carp\",\"quantity\":7}]},\"wallet\":{\"balance\":9000},\"lastRestockedDay\":2,\"restockAlgorithmVersion\":1}],";
+            return "{\"schemaVersion\":" + schema + ",\"clock\":{\"day\":2,\"minuteOfDay\":60}," + economy
+                + "\"farm\":{\"lastProcessedDay\":2,\"plots\":[" + plots + "]},"
+                + "\"livestock\":{\"lastProcessedDay\":2,\"animals\":[{\"animalId\":\"animal.hen_01\",\"speciesId\":\"species.chicken\",\"fedToday\":true,\"productReady\":false}]}}";
         }
     }
 }

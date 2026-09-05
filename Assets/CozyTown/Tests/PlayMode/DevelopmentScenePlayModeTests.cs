@@ -36,6 +36,25 @@ namespace CozyTown.Tests.PlayMode
         private Scene _loadedScene;
 
         [UnityTest]
+        public IEnumerator DevelopmentScene_SmallAcceptedIntervalMovesMinaOnceAtConfiguredSpeed()
+        {
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(
+                ScenePath, new LoadSceneParameters(LoadSceneMode.Additive));
+            _loadedScene = SceneManager.GetSceneByPath(ScenePath);
+            var root = RequireRoot(_loadedScene, "CozyTown");
+            var driver = root.GetComponent<DaytimeClockDriver>();
+            driver.SetApplicationFocus(false);
+            var mina = RequireRoot(_loadedScene, "World").GetComponentsInChildren<NpcWorldResident2D>(true)
+                .Single(npc => npc.NpcId == DefaultMvpIds.Npcs.Shopkeeper);
+            Vector2 initial = mina.Position;
+            driver.SetApplicationFocus(true);
+            driver.AdvanceFrame(0);
+            driver.AdvanceFrame(0.25);
+            driver.SetApplicationFocus(false);
+            Assert.That(Vector2.Distance(initial, mina.Position), Is.EqualTo(0.5f).Within(0.001));
+        }
+
+        [UnityTest]
         public IEnumerator DevelopmentScene_MinaTraversesActualRoadsAndReturnsHomeBeforeNextMorning()
         {
             yield return EditorSceneManager.LoadSceneAsyncInPlayMode(

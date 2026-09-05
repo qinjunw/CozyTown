@@ -23,27 +23,20 @@ namespace CozyTown.Unity.Npc
             foreach (var resident in residents) resident.ValidateConfiguration();
             if (_hasState && ReferenceEquals(_timeFlow, timeFlow)) return;
             if (_timeFlow != null) _timeFlow.Changed -= Apply;
-            _timeFlow = timeFlow ?? throw new ArgumentNullException(nameof(timeFlow));
+            _timeFlow = timeFlow;
             _hasState = false;
             Apply(_timeFlow.Current);
-            if (isActiveAndEnabled) _timeFlow.Changed += Apply;
-        }
-
-        private void OnEnable()
-        {
-            if (_timeFlow == null) return;
-            ApplyProgress(_timeFlow.Current, true);
             _timeFlow.Changed += Apply;
         }
 
-        private void OnDisable()
+        // The world clock owns pause; this subscription follows the bound session,
+        // including explicit sleep/load while the presentation is disabled.
+        private void OnDestroy()
         {
             if (_timeFlow != null) _timeFlow.Changed -= Apply;
         }
 
-        private void Apply(WorldTimeProgress progress) => ApplyProgress(progress, false);
-
-        private void ApplyProgress(WorldTimeProgress progress, bool catchUp)
+        private void Apply(WorldTimeProgress progress)
         {
             var candidates = new NpcWorldResident2D.Journey[residents.Length];
             bool rebuild = !_hasState || progress.RebuildVersion != _last.RebuildVersion;
@@ -51,7 +44,7 @@ namespace CozyTown.Unity.Npc
             {
                 candidates[i] = rebuild
                     ? residents[i].Reconstruct(progress.Clock.MinuteOfDay)
-                    : residents[i].Advance(catchUp ? _last.TotalMinutes : progress.AdvanceFromTotalMinutes, progress.TotalMinutes);
+                    : residents[i].Advance(progress.AdvanceFromTotalMinutes, progress.TotalMinutes);
             }
             for (int i = 0; i < residents.Length; i++)
             {

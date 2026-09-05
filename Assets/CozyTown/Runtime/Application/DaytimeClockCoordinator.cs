@@ -10,7 +10,7 @@ namespace CozyTown.Runtime.Application
         IDayTransitionCoordinator,
         IGameSaveCoordinator
     {
-        private const double SecondsPerMinute = 0.5;
+        private const double SecondsPerMinute = WorldTimeProgress.EffectiveSecondsPerGameMinute;
 
         // Frame-by-frame addition can round a completed minute below its boundary.
         private const double MinuteBoundaryToleranceSeconds = 1e-9;

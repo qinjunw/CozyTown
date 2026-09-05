@@ -10,6 +10,8 @@ namespace CozyTown.Runtime.Time
 
     public readonly struct WorldTimeProgress
     {
+        public const double EffectiveSecondsPerGameMinute = 0.5;
+
         public WorldTimeProgress(GameClockSnapshot clock, double fractionalMinute, bool isRebuild,
             long rebuildVersion = 0, double? advanceFromTotalMinutes = null)
         {
