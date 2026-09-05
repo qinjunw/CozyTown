@@ -16,6 +16,7 @@ using CozyTown.Unity.Pond;
 using CozyTown.Unity.Save;
 using CozyTown.Unity.Shop;
 using CozyTown.Unity.Town;
+using CozyTown.Unity.Time;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -100,6 +101,9 @@ namespace CozyTown.Unity.Editor
             ConfigureFarmWorldView(scene, world);
             ConfigureCoopWorldView(scene, world);
             ConfigurePlayerAnimation(player, playerRenderer);
+            var daytimeClock = GetOrAdd<DaytimeClockDriver>(bootstrap.gameObject);
+            daytimeClock.ConfigureInputGate(GetOrAdd<PlayerModalInputGate2D>(player));
+            bootstrap.RegisterDaytimeClock(daytimeClock);
         }
 
         [MenuItem("CozyTown/Create Development Scene")]

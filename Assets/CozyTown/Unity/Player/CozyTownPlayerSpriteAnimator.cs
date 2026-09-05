@@ -104,7 +104,7 @@ namespace CozyTown.Unity.Player
 
         private void Update()
         {
-            Refresh(Time.deltaTime);
+            Refresh(UnityEngine.Time.deltaTime);
         }
 
         private bool HasValidConfiguration()

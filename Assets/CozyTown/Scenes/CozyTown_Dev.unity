@@ -51800,6 +51800,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1750674607}
   - component: {fileID: 1750674606}
+  - component: {fileID: 1750674608}
   m_Layer: 0
   m_Name: CozyTown
   m_TagString: Untagged
@@ -51844,6 +51845,7 @@ MonoBehaviour:
   - {fileID: 351428465}
   _inventoryPresenters:
   - {fileID: 351428469}
+  _daytimeClock: {fileID: 1750674608}
   _aiProxyEndpoint: 
   _aiProxyTimeoutSeconds: 8
 --- !u!4 &1750674607
@@ -51861,6 +51863,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1750674608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750674605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf9f87a058a04e3f85036b3bd17c285d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Time.DaytimeClockDriver
+  _inputGate: {fileID: 403398935}
 --- !u!114 &1751796269
 MonoBehaviour:
   m_ObjectHideFlags: 0

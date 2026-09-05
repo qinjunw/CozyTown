@@ -16,6 +16,8 @@ namespace CozyTown.Unity.Player
 
         public bool IsAcquired => _owner != null;
 
+        public event Action<bool> AcquisitionChanged;
+
         public event Action AcquisitionRevoked;
 
         public bool TryAcquire(object owner)
@@ -44,6 +46,7 @@ namespace CozyTown.Unity.Player
             _interactor.enabled = false;
 
             _body.linearVelocity = Vector2.zero;
+            AcquisitionChanged?.Invoke(true);
             return true;
         }
 
@@ -98,6 +101,7 @@ namespace CozyTown.Unity.Player
             }
 
             _owner = null;
+            AcquisitionChanged?.Invoke(false);
         }
     }
 }
