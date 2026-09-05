@@ -17,7 +17,7 @@ namespace CozyTown.Tests.UnityEditMode
             "Assets/CozyTown/Art/Production/Buildings/bld_town_roof_foregrounds_64.png";
 
         [Test]
-        public void DevelopmentScene_StoresSixSolidObstaclesOutsideInteractionHierarchy()
+        public void DevelopmentScene_PreservesSixFunctionalObstaclesAlongsideFourNpcHomes()
         {
             WithDevelopmentScene(scene =>
             {
@@ -35,7 +35,13 @@ namespace CozyTown.Tests.UnityEditMode
                     "Pond Obstacle"
                 };
                 var colliders = obstacles.GetComponentsInChildren<Collider2D>(true);
-                Assert.That(colliders, Has.Length.EqualTo(obstacleNames.Length));
+                Assert.That(colliders, Has.Length.EqualTo(10));
+                foreach (var collider in colliders)
+                {
+                    Assert.That(collider.enabled, Is.True);
+                    Assert.That(collider.isTrigger, Is.False);
+                    Assert.That(collider.GetComponentInParent<TownInteractionPoint2D>(), Is.Null);
+                }
 
                 foreach (var obstacleName in obstacleNames)
                 {

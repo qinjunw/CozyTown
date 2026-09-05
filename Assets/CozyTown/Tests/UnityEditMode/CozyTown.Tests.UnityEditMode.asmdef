@@ -3,6 +3,7 @@
   "rootNamespace": "CozyTown.Tests.UnityEditMode",
   "references": [
     "CozyTown.Unity",
+    "CozyTown.Unity.Editor",
     "CozyTown.Runtime",
     "Unity.RenderPipelines.Universal.2D.Runtime",
     "Unity.InputSystem",

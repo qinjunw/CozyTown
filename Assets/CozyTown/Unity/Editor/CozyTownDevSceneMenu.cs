@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using CozyTown.Runtime.Content;
 using CozyTown.Unity.Bed;
+using CozyTown.Unity.CameraView;
 using CozyTown.Unity.Coop;
 using CozyTown.Unity.Core;
 using CozyTown.Unity.Farm;
@@ -14,6 +15,7 @@ using CozyTown.Unity.Player;
 using CozyTown.Unity.Pond;
 using CozyTown.Unity.Save;
 using CozyTown.Unity.Shop;
+using CozyTown.Unity.Town;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -50,23 +52,55 @@ namespace CozyTown.Unity.Editor
                 "NPC Mina",
                 DefaultMvpIds.Npcs.Shopkeeper,
                 "npc_shopkeeper_mina_idle_down",
-                new Vector2(-4.2f, 0.35f)),
+                CozyTownTownLayout.ShopkeeperWorkPosition),
             new NpcWorldSpec(
                 "NPC Eli",
                 DefaultMvpIds.Npcs.Farmer,
                 "npc_farmer_eli_idle_down",
-                new Vector2(9.1f, -2f)),
+                CozyTownTownLayout.FarmerWorkPosition),
             new NpcWorldSpec(
                 "NPC Ren",
                 DefaultMvpIds.Npcs.Fisher,
                 "npc_fisher_ren_idle_down",
-                new Vector2(-4.2f, -3f)),
+                CozyTownTownLayout.FisherWorkPosition),
             new NpcWorldSpec(
                 "NPC Sora",
                 DefaultMvpIds.Npcs.Cook,
                 "npc_cook_sora_idle_down",
-                new Vector2(3f, 0.35f))
+                CozyTownTownLayout.CookWorkPosition)
         };
+
+        public static void UpgradeTownWorld(Scene scene)
+        {
+            if (!scene.IsValid() || !scene.isLoaded)
+            {
+                throw new ArgumentException("Town world upgrades require a loaded scene.", nameof(scene));
+            }
+
+            var world = RequireRoot(scene, "World");
+            var player = RequireRoot(scene, "Player");
+            var camera = RequireRoot(scene, "Main Camera");
+            var hud = RequireRoot(scene, "Debug HUD");
+            var bootstrap = RequireRoot(scene, "CozyTown").GetComponent<CozyTownBootstrap>()
+                ?? throw new InvalidOperationException("Development scene is missing CozyTownBootstrap.");
+            bootstrap.ConfigureContentAsset(CozyTownMvpContentAssetAuthoring.EnsureDefaultAsset());
+
+            ConfigurePixelPerfectCamera(camera);
+            GetOrAdd<CozyTownFollowCamera2D>(camera).Configure(
+                player.transform, CozyTownTownLayout.GroundBounds);
+            var playerRenderer = ConfigureProductionRenderer(player,
+                LoadSprite(PlayerPath, "chr_player_idle_down"), sortingOrder: 20);
+            ConfigureTownTilemap(world);
+            ConfigureWorldBoundaries(world, player, playerRenderer);
+            EnsureNpcWorldEntities(world, hud, bootstrap);
+            ConfigureWorldInteractionVisuals(world);
+            ConfigureNpcHomes(world);
+            CozyTownTownLayout.ConfigureMap(GetOrAdd<TownMap2D>(world));
+            CozyTownWorldCollisionSceneUpgrader.ConfigureWorld(world);
+            ConfigureFarmWorldView(scene, world);
+            ConfigureCoopWorldView(scene, world);
+            ConfigurePlayerAnimation(player, playerRenderer);
+        }
 
         [MenuItem("CozyTown/Create Development Scene")]
         public static void CreateDevelopmentScene()
@@ -93,7 +127,8 @@ namespace CozyTown.Unity.Editor
                 var playerInteractor = CreatePlayer();
                 var points = CreateWorld();
                 CreateHud(bootstrap, playerInteractor, points);
-                CreateCamera();
+                CreateCamera(playerInteractor.transform);
+                UpgradeTownWorld(scene);
 
                 EditorSceneManager.SaveScene(scene, ScenePath);
                 AssetDatabase.SaveAssets();
@@ -139,13 +174,11 @@ namespace CozyTown.Unity.Editor
                     CozyTownMvpContentAssetAuthoring.EnsureDefaultAsset());
 
                 var hud = RequireRoot(scene, "Debug HUD");
-                var world = RequireRoot(scene, "World");
-                EnsureNpcWorldEntities(world, hud, bootstrap);
-
                 var saveView = GetOrAdd<CozyTownSaveDebugView>(hud);
                 var savePresenter = GetOrAdd<CozyTownSaveDebugPresenter>(hud);
                 savePresenter.Configure(saveView);
                 bootstrap.RegisterSavePresenter(savePresenter);
+                UpgradeTownWorld(scene);
 
                 EditorSceneManager.MarkSceneDirty(scene);
                 EditorSceneManager.SaveScene(scene, ScenePath);
@@ -178,35 +211,12 @@ namespace CozyTown.Unity.Editor
 
             try
             {
-                var world = RequireRoot(scene, "World");
-                var player = RequireRoot(scene, "Player");
-                var camera = RequireRoot(scene, "Main Camera");
-                var hud = RequireRoot(scene, "Debug HUD");
-                var bootstrap = RequireRoot(scene, "CozyTown")
-                    .GetComponent<CozyTownBootstrap>()
-                    ?? throw new InvalidOperationException(
-                        "Development scene is missing CozyTownBootstrap.");
-                bootstrap.ConfigureContentAsset(
-                    CozyTownMvpContentAssetAuthoring.EnsureDefaultAsset());
-
-                ConfigurePixelPerfectCamera(camera);
-                ConfigureTownTilemap(world);
-                ConfigureWorldBoundaries(world);
-                EnsureNpcWorldEntities(world, hud, bootstrap);
-                ConfigureWorldInteractionVisuals(world);
-                CozyTownWorldCollisionSceneUpgrader.ConfigureWorld(world);
-                ConfigureFarmWorldView(scene, world);
-                ConfigureCoopWorldView(scene, world);
-                var playerRenderer = ConfigureProductionRenderer(
-                    player,
-                    LoadSprite(PlayerPath, "chr_player_idle_down"),
-                    sortingOrder: 20);
-                ConfigurePlayerAnimation(player, playerRenderer);
+                UpgradeTownWorld(scene);
 
                 EditorSceneManager.MarkSceneDirty(scene);
                 EditorSceneManager.SaveScene(scene, ScenePath);
                 AssetDatabase.SaveAssets();
-                Debug.Log($"Upgraded development scene with A1 world visuals at {ScenePath}.");
+                Debug.Log($"Upgraded development scene with the current town layout at {ScenePath}.");
             }
             finally
             {
@@ -215,6 +225,12 @@ namespace CozyTown.Unity.Editor
                     EditorSceneManager.CloseScene(scene, true);
                 }
             }
+        }
+
+        [MenuItem("CozyTown/Upgrade Development Scene for T1 Town Life")]
+        public static void UpgradeDevelopmentSceneForT1TownLife()
+        {
+            UpgradeDevelopmentSceneForA1WorldVisuals();
         }
 
         private static NewSceneMode GetSceneCreationMode(Scene previousScene)
@@ -407,7 +423,7 @@ namespace CozyTown.Unity.Editor
             bootstrap.RegisterSavePresenter(savePresenter);
         }
 
-        private static void CreateCamera()
+        private static void CreateCamera(Transform player)
         {
             var cameraObject = new GameObject("Main Camera");
             cameraObject.tag = "MainCamera";
@@ -415,9 +431,12 @@ namespace CozyTown.Unity.Editor
 
             var camera = cameraObject.AddComponent<Camera>();
             camera.orthographic = true;
-            camera.orthographicSize = 3.7f;
+            camera.orthographicSize = 180f / (2f * 16f);
             camera.clearFlags = CameraClearFlags.SolidColor;
             camera.backgroundColor = new Color(0.08f, 0.11f, 0.12f);
+            ConfigurePixelPerfectCamera(cameraObject);
+            GetOrAdd<CozyTownFollowCamera2D>(cameraObject).Configure(
+                player, CozyTownTownLayout.GroundBounds);
         }
 
         private static void CreateBoundary(
@@ -612,6 +631,7 @@ namespace CozyTown.Unity.Editor
             var camera = cameraObject.GetComponent<Camera>()
                 ?? throw new InvalidOperationException("Development scene is missing its Camera component.");
             camera.orthographic = true;
+            camera.orthographicSize = 180f / (2f * 16f);
             camera.clearFlags = CameraClearFlags.SolidColor;
             camera.backgroundColor = new Color(0.15f, 0.24f, 0.20f);
 
@@ -646,20 +666,22 @@ namespace CozyTown.Unity.Editor
             tilemapRenderer.sortingOrder = -20;
             tilemap.ClearAllTiles();
 
-            for (var y = -6; y <= 6; y++)
+            var ground = CozyTownTownLayout.GroundCells;
+            for (var y = ground.yMin; y < ground.yMax; y++)
             {
-                for (var x = -10; x <= 10; x++)
+                for (var x = ground.xMin; x < ground.xMax; x++)
                 {
                     TileBase tile;
-                    if (x == 0 && y == 0)
+                    CozyTownTownLayout.GetRoadTileAxes(x, y, out var horizontal, out var vertical);
+                    if (horizontal && vertical)
                     {
                         tile = pathCross;
                     }
-                    else if (y == 0)
+                    else if (horizontal)
                     {
                         tile = pathHorizontal;
                     }
-                    else if (x == 0)
+                    else if (vertical)
                     {
                         tile = pathVertical;
                     }
@@ -676,15 +698,43 @@ namespace CozyTown.Unity.Editor
             tilemap.CompressBounds();
         }
 
-        private static void ConfigureWorldBoundaries(GameObject world)
+        private static void ConfigureWorldBoundaries(GameObject world, GameObject player, SpriteRenderer playerRenderer)
         {
             var boundaries = world.transform.Find("Boundaries")
                 ?? throw new InvalidOperationException("Development scene is missing its Boundaries object.");
 
-            ConfigureBoundary(boundaries, "North Boundary", new Vector2(0f, 5.5f), new Vector2(20.4f, 0.4f));
-            ConfigureBoundary(boundaries, "South Boundary", new Vector2(0f, -5.5f), new Vector2(20.4f, 0.4f));
-            ConfigureBoundary(boundaries, "West Boundary", new Vector2(-10.2f, 0f), new Vector2(0.4f, 11.4f));
-            ConfigureBoundary(boundaries, "East Boundary", new Vector2(10.2f, 0f), new Vector2(0.4f, 11.4f));
+            var ground = CozyTownTownLayout.GroundBounds;
+            const float wallThickness = 0.4f;
+            const float halfWall = wallThickness * 0.5f;
+            var foot = player.GetComponent<CircleCollider2D>()
+                ?? throw new InvalidOperationException("Player is missing its circular foot collider.");
+            var radius = foot.radius * Mathf.Max(Mathf.Abs(foot.transform.lossyScale.x), Mathf.Abs(foot.transform.lossyScale.y));
+            var footOffset = (Vector2)foot.transform.TransformVector(foot.offset);
+            var frameMinimum = (Vector2)(playerRenderer.transform.TransformPoint(playerRenderer.sprite.bounds.min)
+                - player.transform.position);
+            var frameMaximum = (Vector2)(playerRenderer.transform.TransformPoint(playerRenderer.sprite.bounds.max)
+                - player.transform.position);
+            var onePixel = 1f / playerRenderer.sprite.pixelsPerUnit;
+            var innerLeft = Mathf.Max(ground.xMin + wallThickness,
+                ground.xMin + onePixel - frameMinimum.x + footOffset.x - radius);
+            var innerRight = Mathf.Min(ground.xMax - wallThickness,
+                ground.xMax - onePixel - frameMaximum.x + footOffset.x + radius);
+            var innerBottom = Mathf.Max(ground.yMin + wallThickness,
+                ground.yMin + onePixel - frameMinimum.y + footOffset.y - radius);
+            var innerTop = Mathf.Min(ground.yMax - wallThickness,
+                ground.yMax - onePixel - frameMaximum.y + footOffset.y + radius);
+            ConfigureBoundary(boundaries, "North Boundary",
+                new Vector2(ground.center.x, innerTop + halfWall),
+                new Vector2(ground.width, wallThickness));
+            ConfigureBoundary(boundaries, "South Boundary",
+                new Vector2(ground.center.x, innerBottom - halfWall),
+                new Vector2(ground.width, wallThickness));
+            ConfigureBoundary(boundaries, "West Boundary",
+                new Vector2(innerLeft - halfWall, ground.center.y),
+                new Vector2(wallThickness, ground.height));
+            ConfigureBoundary(boundaries, "East Boundary",
+                new Vector2(innerRight + halfWall, ground.center.y),
+                new Vector2(wallThickness, ground.height));
         }
 
         private static void ConfigureBoundary(
@@ -726,7 +776,7 @@ namespace CozyTown.Unity.Editor
                     case TownInteractionKind.Shop:
                         assetPath = BuildingsPath;
                         spriteName = "bld_shop";
-                        position = new Vector2(-7f, 1f);
+                        position = CozyTownTownLayout.GetLandmarkPosition(point.Kind);
                         break;
                     case TownInteractionKind.Npc:
                         var presenter = point.GetComponent<CozyTownNpcDebugPresenter>()
@@ -740,27 +790,27 @@ namespace CozyTown.Unity.Editor
                     case TownInteractionKind.Bed:
                         assetPath = BuildingsPath;
                         spriteName = "bld_home";
-                        position = new Vector2(-7f, -4f);
+                        position = CozyTownTownLayout.GetLandmarkPosition(point.Kind);
                         break;
                     case TownInteractionKind.Farm:
                         assetPath = TownFunctionsPath;
                         spriteName = "prop_farm";
-                        position = new Vector2(6f, -4f);
+                        position = CozyTownTownLayout.GetLandmarkPosition(point.Kind);
                         break;
                     case TownInteractionKind.Coop:
                         assetPath = BuildingsPath;
                         spriteName = "bld_coop";
-                        position = new Vector2(0f, 1f);
+                        position = CozyTownTownLayout.GetLandmarkPosition(point.Kind);
                         break;
                     case TownInteractionKind.Pond:
                         assetPath = TownFunctionsPath;
                         spriteName = "prop_pond";
-                        position = new Vector2(0f, -4f);
+                        position = CozyTownTownLayout.GetLandmarkPosition(point.Kind);
                         break;
                     case TownInteractionKind.Kitchen:
                         assetPath = BuildingsPath;
                         spriteName = "bld_kitchen";
-                        position = new Vector2(6.5f, 1f);
+                        position = CozyTownTownLayout.GetLandmarkPosition(point.Kind);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(point.Kind), point.Kind, null);
@@ -775,6 +825,19 @@ namespace CozyTown.Unity.Editor
                 {
                     ConfigureBuildingRoofForeground(point.gameObject, spriteName);
                 }
+            }
+        }
+
+        private static void ConfigureNpcHomes(GameObject world)
+        {
+            var homes = GetOrCreateChild(world.transform, "NPC Homes");
+            foreach (var specification in CozyTownTownLayout.Homes)
+            {
+                var home = GetOrCreateChild(homes, specification.HomeId);
+                home.position = specification.Position;
+                ConfigureProductionRenderer(home.gameObject,
+                    LoadSprite(BuildingsPath, "bld_home"), sortingOrder: 5);
+                ConfigureBuildingRoofForeground(home.gameObject, "bld_home");
             }
         }
 

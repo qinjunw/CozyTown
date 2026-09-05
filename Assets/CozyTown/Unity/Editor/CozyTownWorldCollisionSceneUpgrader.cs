@@ -111,6 +111,18 @@ namespace CozyTown.Unity.Editor
                 PondOutline);
             ConfigurePolygonTrigger(pondPoint.gameObject, PondOutline);
 
+            var homes = world.transform.Find("NPC Homes");
+            if (homes != null)
+            {
+                foreach (var specification in CozyTownTownLayout.Homes)
+                {
+                    var home = homes.Find(specification.HomeId)
+                        ?? throw new InvalidOperationException($"NPC home '{specification.HomeId}' was not found.");
+                    ConfigureStandaloneObstacle(obstacles, home,
+                        specification.HomeId + " Obstacle", CreateBuildingOutline(0.35f, 1f, 0.6f));
+                }
+            }
+
             EditorUtility.SetDirty(world);
             EditorUtility.SetDirty(obstacles.gameObject);
         }
@@ -169,9 +181,18 @@ namespace CozyTown.Unity.Editor
             string obstacleName,
             Vector2[] path)
         {
+            ConfigureStandaloneObstacle(obstacles, landmark.transform, obstacleName, path);
+        }
+
+        private static void ConfigureStandaloneObstacle(
+            Transform obstacles,
+            Transform landmark,
+            string obstacleName,
+            Vector2[] path)
+        {
             var obstacle = GetOrCreateChild(obstacles, obstacleName);
-            obstacle.position = landmark.transform.position;
-            obstacle.rotation = landmark.transform.rotation;
+            obstacle.position = landmark.position;
+            obstacle.rotation = landmark.rotation;
             obstacle.localScale = Vector3.one;
             obstacle.gameObject.layer = landmark.gameObject.layer;
 

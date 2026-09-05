@@ -50,7 +50,7 @@ namespace CozyTown.Tests.UnityEditMode
                     .GetComponentsInChildren<Collider2D>(true)
                     .Where(collider => !collider.isTrigger)
                     .ToArray();
-                Assert.That(solids, Has.Length.EqualTo(6));
+                Assert.That(solids, Has.Length.EqualTo(10));
                 Physics2D.SyncTransforms();
                 foreach (Collider2D solid in solids)
                 {
