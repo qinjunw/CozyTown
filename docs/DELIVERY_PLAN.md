@@ -18,7 +18,7 @@
 | M3 生产经济闭环 | 购买、种植、浇水、收获、喂鸡、钓鱼、烹饪和出售 UI | 从初始金币完成一次投入—生产—加工或出售—再投入 | 已完成；EditMode 108/108、PlayMode 22/22 |
 | M4 持久化与 AI | JSON 单槽存档、损坏保护、AI 代理适配、结构校验和固定回退 | 保存重载状态等价；AI 故障注入 100% 返回可显示文本 | 已完成；EditMode 151/151、PlayMode 26/26 |
 | A1 独立美术阶段 | Production 资源、正式场景接线、像素相机、动画、状态表现和 UI 皮肤 | 13 个 PNG、106 个 Sprite 通过资源门禁；Scene-01 通过场景验收 | Scene-01a/01b/01c/01d/01e/01f/01g/01h/01i 自动化已完成；人工验收待执行 |
-| T1 单镇扩建与 NPC 日常 | 扩大单镇、四户住宅、日内走时、确定性活动/返家与行走表现 | 扩大版 Scene-01 回归及 Town-01 验收；日程不改变经济资源 | T1-1 自动化完成；T1-2～T1-5 待实施；不属于 A1 美术替换 |
+| T1 单镇扩建与 NPC 日常 | 扩大单镇、四户住宅、连续时间与晨间结算、确定性活动/返家与行走表现 | 扩大版 Scene-01 回归及 Town-01 验收；日程不改变经济资源 | T1-1/T1-2/T1-2b 自动化完成；T1-3～T1-5 待实施；不属于 A1 美术替换 |
 | M5 作品集交付 | 操作引导、诊断面板、AI 评测、性能检查、构建、录屏和技术说明 | 扩大版 Scene-01 与 Town-01 已通过；Windows 构建可运行；测试与 AI 评测报告可复核 | 待开始 |
 
 ## 3. 质量门槛
@@ -77,7 +77,7 @@ M1 于 2026-08-28 完成。Unity `6000.5.5f1` 在隔离 worktree 中重新导入
 ## 7. M4 验收结果
 
 - `GameSaveCoordinator` 在同一逻辑时点捕获世界种子、时间、全部角色与商店经济状态、农田和畜牧快照，并在恢复前校验 schema、主体、资产和跨模块日期一致性；恢复中任一步失败会回滚五个状态边界。
-- `JsonFileSaveStorage` 当前写入独立 schema v2 JSON 数据包，并把 schema v1 确定迁移到默认玩家和默认商店。保存时在目标目录写入并复读验证临时文件，再原子替换正式槽位；空槽、截断或结构损坏、未来版本和无效载荷返回稳定且可区分的结果，失败不会破坏上一份有效存档。
+- `JsonFileSaveStorage` 在该阶段写入独立 schema v2 JSON 数据包，并把 schema v1 确定迁移到默认玩家和默认商店。保存时在目标目录写入并复读验证临时文件，再原子替换正式槽位；空槽、截断或结构损坏、未来版本和无效载荷返回稳定且可区分的结果，失败不会破坏上一份有效存档。当前 schema v3 变更单独记录于第 10.3 节。
 - AI 对话只接收复制出的只读 DTO，成功结果只包含 `text`、`emotion` 和 `action`。代理请求不携带仓库内模型密钥；超时、传输异常、提供者错误、空文本、结构错误和非法标签统一落入 NPC 固定回退，并保留关联 ID 与回退原因。
 - 自动化用例向 AI 文本注入赠送物品、扣除金币、推进日期、收获和喂食等指令，钱包、背包、时间、农田和畜牧快照均保持不变。
 - 正式场景复用既有 NPC 交互点并提供 4 名 NPC；右上角非模态面板提供单槽位保存和读取。批处理模式使用内存存档，常规 Editor Play 和构建使用应用持久化目录中的 `CozyTown/main.json`。
@@ -139,7 +139,7 @@ A1 场景接线按以下边界提交：
 
 ## 10. T1 扩镇与居民日常
 
-本阶段按 [T1 规划](TOWN_LIFE_PLAN.md) 的 T1-0 至 T1-5 顺序交付：确认行为与公开缝隙 → 灰盒住宅街/相机 → 日内时钟 → 单 NPC 往返、交互和读档 → 四人配置与美术 → 完整回归和人工验收。地图与规则可由不同 Agent 并行，正式场景、生成器与图集由单一集成者写入，Debugger 与 Reviewer 独立验收。
+本阶段按 [T1 规划](TOWN_LIFE_PLAN.md) 的 T1-0 至 T1-5 顺序交付：确认行为与公开缝隙 → 灰盒住宅街/相机 → T1-2 暂停时钟及 T1-2b 连续时间/睡眠 → 单 NPC 往返、交互和读档 → 四人配置与美术 → 完整回归和人工验收。地图与规则可由不同 Agent 并行，正式场景、生成器与图集由单一集成者写入，Debugger 与 Reviewer 独立验收。
 
 NPC 的位置和活动由确定性规则维护。T1 通过后，后续只读 Agent 的快照可增加住宅、实际位置、目的地和当前活动；Pi 服务、对话记忆与工具循环仍是另一实施范围，不在本阶段顺带接入。
 
@@ -162,11 +162,14 @@ A1 和 M0～M4 的完成记录保持原值；T1 的新增测试、资产和人�
 | T1-0 | [确认契约](https://github.com/qinjunw/CozyTown/issues/28) | 用户已确认，ADR-0013 Accepted |
 | T1-1 | [扩镇与相机](https://github.com/qinjunw/CozyTown/issues/29) | 代码及自动化完成，PR #35 待审阅；住宅美术仍为灰盒 |
 | T1-2 | [日内时钟与暂停](https://github.com/qinjunw/CozyTown/issues/30) | 代码及自动化完成，[PR #36](https://github.com/qinjunw/CozyTown/pull/36) 待审阅 |
-| T1-3 | [单 NPC 竖切](https://github.com/qinjunw/CozyTown/issues/31) | 依赖 T1-1 与 T1-2 |
+| T1-2b | [T1-2b: Verify continuous world time, morning settlement and sleep](https://github.com/qinjunw/CozyTown/issues/38) | EditMode 357/357、PlayMode 62/62；[实现 PR](https://github.com/qinjunw/CozyTown/pull/39) 待审阅 |
+| T1-3 | [单 NPC 竖切](https://github.com/qinjunw/CozyTown/issues/31) | 依赖 T1-1、T1-2 及 T1-2b 时间规则 |
 | T1-4 | [四人配置与美术](https://github.com/qinjunw/CozyTown/issues/32) | 依赖 T1-3 |
 | T1-5 | [回归与人工验收](https://github.com/qinjunw/CozyTown/issues/33) | 依赖 T1-4；用户实际验收后才能完成 |
 
 ### 10.2 T1-2 日内时钟与暂停
+
+以下保留原午夜封顶切片的交付记录；当前时间规则已由 [ADR-0014](adr/0014-continuous-world-time-and-morning-settlement.md) 替换，后续实施状态见第 10.3 节。
 
 2026-09-05 实现单一日内时钟协调器，通过窄端口向 Unity 提供当前时间和有效时长推进。5 秒推进 10 游戏分钟，保留分帧余量并在同日 23:59 封顶；不会从逐帧路径直接触发日结。
 
@@ -177,3 +180,15 @@ A1 和 M0～M4 的完成记录保持原值；T1 的新增测试、资产和人�
 自动化结果见 [T1-2 测试记录](TEST_PLAN.md#132-t1-2-自动化结果2026-09-05)。
 
 实现 PR [Add bounded daytime clock and composable scene pause](https://github.com/qinjunw/CozyTown/pull/36) 叠加于 T1-1 的 PR #35；保留父 PR 顺序和分支保护，不提前关闭合并审阅或人工验收任务。
+
+### 10.3 T1-2b 连续时间、晨间结算与睡眠（2026-09-06）
+
+[T1-2b: Verify continuous world time, morning settlement and sleep](https://github.com/qinjunw/CozyTown/issues/38) 按 [ADR-0014](adr/0014-continuous-world-time-and-morning-settlement.md) 实施。正常走时和睡眠共用世界分钟推进：午夜只改变日期，每日 05:00 处理未结算生产与补给；跨多个周期先完成候选演算，再统一发布。每 5 个有效现实秒推进 10 游戏分钟，模态和失焦不累计现实时间。
+
+床选择器契约为默认 8 小时、允许 1～12 个整小时，选择和取消不推进时间。当前写入 schema v3，v1/v2 先按原协议校验，再保留时刻、资产与已结算日；旧凌晨存档不在当天 05:00 重复结算。原 `SleepToNextDay` 兼容入口仍以次日 06:00 为目标，通过相同分钟入口实现，不作为床的新选择行为。
+
+最终全量 EditMode `357/357`、图形 PlayMode `62/62` 通过，均为 0 failed、0 skipped，Unity 正常退出。独立 Standards 和 Spec 复查均无待修问题；验收记录和人工步骤见 [测试计划第 13.3 节](TEST_PLAN.md#133-t1-2b-连续时间晨间结算与睡眠2026-09-06)。
+
+[Unify world time, morning settlement and selectable sleep](https://github.com/qinjunw/CozyTown/pull/39) 叠加于时间研究分支；保留父 PR 顺序和分支保护，尚未合并。场景只接入床选择器，未修改 Production 美术、包版本或 NPC 提示点。
+
+NPC 日程和快进位置结果、扩大版 Scene-01/Town-01 人工验收尚未完成。保持真实 AI 端点关闭，不以本轮后端测试替代场景人工门禁。

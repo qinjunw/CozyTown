@@ -14,6 +14,7 @@
 - [`ADR-0006：Production 美术场景接线`](adr/0006-production-art-scene-integration.md)
 - [`ADR-0010：角色与商店独立拥有资产并原子提交交易`](adr/0010-character-shop-economic-ownership-and-atomic-trade.md)
 - [`ADR-0013：确定性居民日程与派生位置`](adr/0013-deterministic-town-life-and-derived-npc-presence.md)
+- [`ADR-0014：连续世界时间与晨间结算`](adr/0014-continuous-world-time-and-morning-settlement.md)
 
 ## 2. 架构目标与约束
 
@@ -73,10 +74,10 @@ Assets/CozyTown/
 
 | 模块 | 公共入口 | 职责 | 不负责 |
 | --- | --- | --- | --- |
-| `Application` | `IDayTransitionCoordinator`、`ICharacterShopTradingCoordinator`、四个 `*GameplayCoordinator`、`INpcDialogueCoordinator`、`IGameSaveCoordinator` | 协调跨日、存档恢复事务，并向交易、生产、对话和存档表现层提供窄用例入口 | 表现、输入、数值平衡 |
+| `Application` | `IWorldTimeCoordinator`、`IDaytimeClock`、`ISleepCoordinator`、`ICharacterShopTradingCoordinator`、四个 `*GameplayCoordinator`、`INpcDialogueCoordinator`、`IGameSaveCoordinator` | 协调时间边界与存档恢复，并向表现层提供窄用例入口 | 表现、输入、数值平衡 |
 | `Content` | `DefaultMvpContent`、`MvpContentValidator` | 提供代码默认内容和启动前引用/可达性校验；Unity 作者资产加载后仍经过同一 Runtime 校验入口 | 运行时状态、UI 编辑器 |
 | `Core` | `CozyTownCompositionRoot`、`CozyTownServices` | 创建默认实现并公开类型化服务引用 | 业务规则、存档格式、场景查找 |
-| `Time` | `ITimeService` | 当前天数和跨日推进 | 决定作物、动物的具体结算规则 |
+| `Time` | `ITimeService` | 权威日期/分钟、候选时刻算术和结算凭据关系；游戏命令经应用层统一推进 | 决定作物、动物的具体结算规则 |
 | `Inventory` | `IInventory` | 物品数量查询、增加、移除和前置校验 | 价格、配方、掉落概率 |
 | `Economy` | `IEconomyStateStore`、角色背包/钱包适配器、角色与商店经济快照 | 按稳定主体 ID 保存角色背包/钱包和商店库存/钱包，并原子发布交易候选 | 静态报价、物品生产、AI 决策 |
 | `Farming` | `IFarmService` | 地块、播种、浇水、成长和收获状态 | 玩家移动、商店交易 |
@@ -93,7 +94,9 @@ Assets/CozyTown/
 
 `TownMap2D` 提供住宅、地点和共享道路的只读查询；`CozyTownTownLayout` 是铺地、地标及道路装配的共同来源。当前 NPC 仍为静态实体，地图路径查询不代表已经实现通勤。
 
-`DaytimeClockCoordinator` 封装日内残余计时，以 `IDaytimeClock.AdvanceElapsed` 接收有效经过时长，5 秒推进 10 游戏分钟，在同日 23:59 封顶。组合根通过 `DaytimeClock`、`DayTransition`、`GameSave` 三个窄端口公开同一个实例；后两者委托原有事务，仅成功睡觉或加载后清空残余计时。保存和失败操作保留残余，存档 schema v2 不增加帧计时字段。
+`DaytimeClockCoordinator` 通过 `IDaytimeClock.AdvanceElapsed` 接收有效经过时长，每 0.5 秒推进 1 游戏分钟，跨午夜不封顶。组合根的 `DaytimeClock`、`Sleep`、`DayTransition`、`GameSave` 端口引用同一适配实例，普通走时和显式睡眠都调用 `IWorldTimeCoordinator.AdvanceMinutes`。仅成功睡眠或加载清空不足一分钟的余量；保存和失败操作保留余量。余量不进入 schema v3 存档。
+
+`WorldTimeCoordinator` 隐藏结算边界、逐周期候选和提交顺序。农田、畜牧和经济模块在内部准备已校验、独立持有的状态，全部准备成功后才替换当前状态及钟面。成长和产物规则仍属于各领域，未引入公共时间基类、回调调度平台或数据库。旧 `SleepToNextDay` 端口只计算到次日 06:00 的分钟差，再走统一入口；组合根不再使用旧 `DayTransitionCoordinator` 事务。
 
 `DaytimeClockDriver` 只取得 `IDaytimeClock` 和玩家输入门控，不取得服务集合或存档写接口。它在 `LateUpdate` 过滤原始 `unscaledDeltaTime`：模态、失焦、未绑定或驱动器停用时不提交时长；真实暂停/绑定状态变化后的首样本丢弃，防止包含旧时间段的帧被补算。重复绑定同一对象不触发重置。该适配不修改全局 `Time.timeScale`。
 
@@ -174,19 +177,19 @@ Cooking UI
 
 烹饪失败不得部分消耗食材。
 
-### 7.3 跨日结算
+### 7.3 世界时间与晨间结算
 
 ```text
-Sleep interaction
-  → IDayTransitionCoordinator.SleepToNextDay()
-  → 捕获 Time / Farming / Livestock / Shop 快照
-  → 为唯一目标 Day 生成确定性商店库存候选
-  → 时间、农田和畜牧按同一个 Day 值结算一次
-  → IEconomyStateStore.CommitShop 发布目标日库存
-  → 任一步失败时恢复调用前状态
+有效现实秒数 / 显式睡眠时长
+  → 换算游戏分钟 → IWorldTimeCoordinator.AdvanceMinutes()
+  → 检查范围和日期关系，计算候选钟面
+  → 按已完成凭据找出途中尚未结算的每日 05:00
+  → 按时间顺序准备农田、畜牧、全部商店候选
+  → 全部校验成功：替换最终领域状态及钟面
+  → 任一准备失败：不发布任何候选
 ```
 
-同一天的重复通知必须可检测或无副作用，防止重复成长和重复产出。
+午夜只改变自然日期；05:00 才执行生产与库存替换。一次请求最多推进 10,080 分钟，防止输入导致无界演算；连续合法请求不受日末限制。已结算凭据防止零分钟推进、同档重复加载或旧档凌晨兼容状态重复成长/补货。普通交易守恒和库存替换算法不变。
 
 ### 7.4 NPC 对话
 
@@ -214,12 +217,13 @@ Save use case
 
 Load use case
   → ISaveStorage 区分空槽、损坏、版本和载荷错误
-  → v1 先确定迁移为 v2，随后校验主体、资产及跨模块日期
+  → 显式读取 v1/v2/v3，旧版先按原协议校验再迁移
+  → v3 校验自然日期与晨间结算进度关系
   → 恢复 WorldSeed / Time / EconomyState / Farm / Livestock
   → 任一步失败时恢复五份调用前快照
 ```
 
-当前写入 schema v2，并通过固定迁移器读取 schema v1；未知未来版本或损坏载荷不得覆盖原文件。通用规则见 [`ADR-0003`](adr/0003-save-versioning.md)，经济状态字段及迁移规则见 [`ADR-0012`](adr/0012-economic-save-schema-v2-and-v1-migration.md)。
+当前写入 schema v3，保留 v1→v2→v3 的读取迁移链；迁移读取不改原文件。旧版时刻、实际资产及已结算事实保留，不能用 v3 放宽后的日期关系接纳旧版坏档。经济字段见 [`ADR-0012`](adr/0012-economic-save-schema-v2-and-v1-migration.md)，新日期关系及过渡规则见 [`ADR-0014`](adr/0014-continuous-world-time-and-morning-settlement.md)。
 
 ## 8. 数据与配置约定
 
