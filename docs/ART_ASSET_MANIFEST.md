@@ -4,11 +4,11 @@
 
 本清单是 `Assets/CozyTown/Art/Production/` 的生产资源契约。资源只覆盖当前 MVP 已有画面：一张小镇地图、七种交互语义、10 个物理交互实体，3 种作物、3 种鱼、1 只鸡、5 个料理、18 个物品和 4 名 NPC。
 
-本轮交付采用批次级技术与可读性验收。13 个 Production PNG 作为一个批次生成；文件、切片、导入策略和小尺寸可读性全部通过后才能接入正式场景。A0 参考图只提供构图、轮廓和色彩关系；不得缩放、裁切或改名后直接作为 Production 资源。
+资源采用批次级技术与可读性验收。A1 的 13 个 Production PNG 与 T1 的 6 个 PNG 通过各自编译入口生成；文件、切片、导入策略和小尺寸可读性分别验收。A0 参考图只提供构图、轮廓和色彩关系；不得缩放、裁切或改名后直接作为 Production 资源。
 
-本清单不包含室内地图、野外、季节、天气、工具动作全集、NPC 行走日程、当前 10 个物理实体之外的新交互入口、更多内容物或宣传插画。
+本清单不包含室内地图、野外、季节、天气、工具动作全集、当前 10 个物理实体之外的新交互入口、更多内容物或宣传插画。
 
-本文件现有生产条目记录 A1 批次。新增 T1 的四户住宅、屋顶和四人 48 帧行走目标暂列于 [T1 资源规划](TOWN_LIFE_PLAN.md#7-美术批次与文件管理)，尚未生成，也不计入本表已交付数量。批准资源切片后，在本清单补充稳定路径、Sprite 名、网格及源稿对应关系，再编写相应导入验收。
+第 3～6 节记录 A1 批次。第 7 节补充 T1 四户住宅、屋顶和四人 48 帧行走契约；当前合计 19 个 PNG、162 个 Sprite。T1 资源门禁与身份回归已通过；完整证据见 `TOWN_LIFE_IMPLEMENTATION.md`，场景人工验收仍待用户执行。
 
 ## 2. 全局导入与切片约定
 
@@ -182,7 +182,7 @@ Scene-01g 另外从同一建筑源稿确定性生成 `Buildings/bld_town_roof_fo
 
 ### 4.8 世界 NPC
 
-正式场景文件：`Characters/npc_townsfolk_idle_down_24x32.png`
+A1 静态文件：`Characters/npc_townsfolk_idle_down_24x32.png`
 
 | Cell | Sprite 名 | 对应玩法对象 |
 | --- | --- | --- |
@@ -191,7 +191,7 @@ Scene-01g 另外从同一建筑源稿确定性生成 `Buildings/bld_town_roof_fo
 | r0c2 | `npc_fisher_ren_idle_down` | 渔夫 Ren 的独立世界实体 |
 | r0c3 | `npc_cook_sora_idle_down` | 厨师 Sora 的独立世界实体 |
 
-四个正式场景 Sprite 使用 `24×32` 和 BottomCenter Pivot。Mina 使用棕发与深棕围裙，Eli 使用草帽与绿衣，Ren 使用蓝帽与蓝衣，Sora 使用白厨师帽与橙发；这些特征与对应头像保持一致。四名 NPC 只保留独立静态位置，不增加移动、日程、任务或关系系统。
+四个 Sprite 使用 `24×32` 和 BottomCenter Pivot。Mina 使用棕发与深棕围裙，Eli 使用草帽与绿衣，Ren 使用蓝帽与蓝衣，Sora 使用白厨师帽与橙发；这些特征与对应头像保持一致。A1 仅提供正面站姿；T1 行走图独立输出，不覆盖这些源图或对话头像。
 
 ### 4.9 NPC 头像
 
@@ -297,12 +297,32 @@ Scene-01g 另外从同一建筑源稿确定性生成 `Buildings/bld_town_roof_fo
 | Environment Tile | 20 |
 | 边界与装饰 Sprite | 8 |
 | 建筑 Sprite | 4 |
+| 建筑屋顶前景 Sprite | 4 |
 | 农田与池塘 Sprite | 2 |
 | 农田状态 Sprite | 14 |
 | 母鸡状态 Sprite | 3 |
 | 玩家 Sprite | 12 |
-| 世界 NPC Sprite | 5（正式 4 + 兼容 1） |
+| 世界 NPC Sprite | 4 |
 | NPC 头像 Sprite | 4 |
 | 物品图标 Sprite | 18 |
 | UI Sprite | 13 |
-| **Sprite 总数** | **103** |
+| **Sprite 总数** | **106** |
+
+## 7. T1 住宅与四向行走契约
+
+本批次由独立 `CozyTownT1PixelArtBatchCompiler` 消费 `ArtSource/Generated/T1/` 源稿和 `ArtSource/Authored/T1/` 原生像素文件，预览输出到 `ArtSource/Previews/T1/`。Production 继续使用既有 Buildings、Characters 分类，不建立运行时 T1 根目录。源稿生成记录位于 `ArtSource/Generated/T1/GENERATION_LOG.md`。
+
+| Production 相对路径 | 画布 / 网格 | 单帧 / 数量 | 稳定名称 |
+| --- | --- | --- | --- |
+| `Characters/npc_shopkeeper_mina_move_24x32.png` | 72×128 / 3×4 | 24×32 / 12 | `npc_shopkeeper_mina_{pose}` |
+| `Characters/npc_farmer_eli_move_24x32.png` | 72×128 / 3×4 | 24×32 / 12 | `npc_farmer_eli_{pose}` |
+| `Characters/npc_fisher_ren_move_24x32.png` | 72×128 / 3×4 | 24×32 / 12 | `npc_fisher_ren_{pose}` |
+| `Characters/npc_cook_sora_move_24x32.png` | 72×128 / 3×4 | 24×32 / 12 | `npc_cook_sora_{pose}` |
+| `Buildings/bld_npc_homes_64.png` | 128×128 / 2×2 | 64×64 / 4 | `bld_home_{owner}` |
+| `Buildings/bld_npc_home_roofs_64.png` | 128×128 / 2×2 | 64×64 / 4 | `bld_home_{owner}_roof_foreground` |
+
+人物的行方向依次为 down、left、right、up，三列依次为 `idle_{direction}`、`walk_{direction}_00`、`walk_{direction}_01`。住宅四格按从左到右、从上到下依次对应 shopkeeper_mina、fisher_ren、cook_sora、farmer_eli，与住宅稳定 ID 的后缀一致。
+
+所有单元使用 BottomCenter、16 PPU、固定 32 色板与二值 Alpha。每个人的所有生成帧使用共同比例归一化到原生画布，不逐帧裁边后 fit。每个 Sprite 由同名 `.pixels` 单元直接编译，人物包络沿用第 4.7 节；左右主体可以整帧镜像，不能以缩小对话头像代替世界人物。
+
+每户至少两项可见差异，门口与现有浅门槽对齐。屋顶从同一份已定位建筑像素取得，底部 38 行透明，不单独缩放；在真实场景中验证人物头顶净空。T1 增加 6 PNG、56 Sprite，连同保留的 A1 共 19 PNG、162 Sprite。

@@ -1,0 +1,490 @@
+fileFormatVersion: 2
+guid: f21e05b4e2e5c94499e777ca60bf708a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1148433076224387937
+    second: npc_shopkeeper_mina_move_24x32_0
+  - first:
+      213: -374738021899129121
+    second: npc_shopkeeper_mina_move_24x32_1
+  - first:
+      213: 877627467417744193
+    second: npc_shopkeeper_mina_move_24x32_2
+  - first:
+      213: 5135443650573400461
+    second: npc_shopkeeper_mina_move_24x32_3
+  - first:
+      213: -4055824983991264274
+    second: npc_shopkeeper_mina_move_24x32_4
+  - first:
+      213: 1980429640564288417
+    second: npc_shopkeeper_mina_move_24x32_5
+  - first:
+      213: -6260116333467906346
+    second: npc_shopkeeper_mina_move_24x32_6
+  - first:
+      213: 7027801335869490167
+    second: npc_shopkeeper_mina_move_24x32_7
+  - first:
+      213: 8301298155885171181
+    second: npc_shopkeeper_mina_move_24x32_8
+  - first:
+      213: -3311977889511069414
+    second: npc_shopkeeper_mina_move_24x32_9
+  - first:
+      213: 8796417499536783478
+    second: npc_shopkeeper_mina_move_24x32_10
+  - first:
+      213: -6020530507801796961
+    second: npc_shopkeeper_mina_move_24x32_11
+  - first:
+      213: -1797794176356544083
+    second: npc_shopkeeper_mina_idle_down
+  - first:
+      213: -4123349332441257504
+    second: npc_shopkeeper_mina_walk_down_00
+  - first:
+      213: -8616434042970945797
+    second: npc_shopkeeper_mina_walk_down_01
+  - first:
+      213: 3905896536419858323
+    second: npc_shopkeeper_mina_idle_left
+  - first:
+      213: -9097629597492107531
+    second: npc_shopkeeper_mina_walk_left_00
+  - first:
+      213: -3334437412867003280
+    second: npc_shopkeeper_mina_walk_left_01
+  - first:
+      213: -6637420238524729833
+    second: npc_shopkeeper_mina_idle_right
+  - first:
+      213: -4789749134512731563
+    second: npc_shopkeeper_mina_walk_right_00
+  - first:
+      213: -7448454797999369214
+    second: npc_shopkeeper_mina_walk_right_01
+  - first:
+      213: 3081026516231828261
+    second: npc_shopkeeper_mina_idle_up
+  - first:
+      213: -4461769088028109773
+    second: npc_shopkeeper_mina_walk_up_00
+  - first:
+      213: -6138977104802319740
+    second: npc_shopkeeper_mina_walk_up_01
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: npc_shopkeeper_mina_idle_down
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da19003c8b3fc07e0800000000000000
+      internalID: -1797794176356544083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_shopkeeper_mina_walk_down_00
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 96
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e9aefae0abe6c6c0800000000000000
+      internalID: -4123349332441257504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_shopkeeper_mina_walk_down_01
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 96
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf64226c3e64c6880800000000000000
+      internalID: -8616434042970945797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_shopkeeper_mina_idle_left
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 397fbbe9438843630800000000000000
+      internalID: 3905896536419858323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_shopkeeper_mina_walk_left_00
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 64
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f62767151abeb180800000000000000
+      internalID: -9097629597492107531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_shopkeeper_mina_walk_left_01
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 64
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07c2a40f6d2b9b1d0800000000000000
+      internalID: -3334437412867003280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_shopkeeper_mina_idle_right
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 716beb9a57523e3a0800000000000000
+      internalID: -6637420238524729833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_shopkeeper_mina_walk_right_00
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 32
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55a42221a84678db0800000000000000
+      internalID: -4789749134512731563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_shopkeeper_mina_walk_right_01
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20491b723d5c1a890800000000000000
+      internalID: -7448454797999369214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_shopkeeper_mina_idle_up
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 523be83ea4102ca20800000000000000
+      internalID: 3081026516231828261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_shopkeeper_mina_walk_up_00
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 334144667ac9412c0800000000000000
+      internalID: -4461769088028109773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_shopkeeper_mina_walk_up_01
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 482700059d8fdcaa0800000000000000
+      internalID: -6138977104802319740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      npc_shopkeeper_mina_idle_down: -1797794176356544083
+      npc_shopkeeper_mina_idle_left: 3905896536419858323
+      npc_shopkeeper_mina_idle_right: -6637420238524729833
+      npc_shopkeeper_mina_idle_up: 3081026516231828261
+      npc_shopkeeper_mina_move_24x32_0: 1148433076224387937
+      npc_shopkeeper_mina_move_24x32_1: -374738021899129121
+      npc_shopkeeper_mina_move_24x32_10: 8796417499536783478
+      npc_shopkeeper_mina_move_24x32_11: -6020530507801796961
+      npc_shopkeeper_mina_move_24x32_2: 877627467417744193
+      npc_shopkeeper_mina_move_24x32_3: 5135443650573400461
+      npc_shopkeeper_mina_move_24x32_4: -4055824983991264274
+      npc_shopkeeper_mina_move_24x32_5: 1980429640564288417
+      npc_shopkeeper_mina_move_24x32_6: -6260116333467906346
+      npc_shopkeeper_mina_move_24x32_7: 7027801335869490167
+      npc_shopkeeper_mina_move_24x32_8: 8301298155885171181
+      npc_shopkeeper_mina_move_24x32_9: -3311977889511069414
+      npc_shopkeeper_mina_walk_down_00: -4123349332441257504
+      npc_shopkeeper_mina_walk_down_01: -8616434042970945797
+      npc_shopkeeper_mina_walk_left_00: -9097629597492107531
+      npc_shopkeeper_mina_walk_left_01: -3334437412867003280
+      npc_shopkeeper_mina_walk_right_00: -4789749134512731563
+      npc_shopkeeper_mina_walk_right_01: -7448454797999369214
+      npc_shopkeeper_mina_walk_up_00: -4461769088028109773
+      npc_shopkeeper_mina_walk_up_01: -6138977104802319740
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,490 @@
+fileFormatVersion: 2
+guid: 3bce476525882c54085af501dd746c09
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 617082210937022829
+    second: npc_cook_sora_move_24x32_0
+  - first:
+      213: -7239600506044600574
+    second: npc_cook_sora_move_24x32_1
+  - first:
+      213: -7725445881203243205
+    second: npc_cook_sora_move_24x32_2
+  - first:
+      213: 284881046452606667
+    second: npc_cook_sora_move_24x32_3
+  - first:
+      213: -4317938081746029838
+    second: npc_cook_sora_move_24x32_4
+  - first:
+      213: -9044570309000048926
+    second: npc_cook_sora_move_24x32_5
+  - first:
+      213: 1774060349818888356
+    second: npc_cook_sora_move_24x32_6
+  - first:
+      213: 1947526998938603767
+    second: npc_cook_sora_move_24x32_7
+  - first:
+      213: -3130105021402979152
+    second: npc_cook_sora_move_24x32_8
+  - first:
+      213: -266433460870679756
+    second: npc_cook_sora_move_24x32_9
+  - first:
+      213: 7260898827494932780
+    second: npc_cook_sora_move_24x32_10
+  - first:
+      213: 2404725172948590473
+    second: npc_cook_sora_move_24x32_11
+  - first:
+      213: -996745239010480538
+    second: npc_cook_sora_idle_down
+  - first:
+      213: -2283885659233073157
+    second: npc_cook_sora_walk_down_00
+  - first:
+      213: -3469918057805459627
+    second: npc_cook_sora_walk_down_01
+  - first:
+      213: 434695140123920062
+    second: npc_cook_sora_idle_left
+  - first:
+      213: 6811475787078172292
+    second: npc_cook_sora_walk_left_00
+  - first:
+      213: 7866271886311146043
+    second: npc_cook_sora_walk_left_01
+  - first:
+      213: 4717191249083312071
+    second: npc_cook_sora_idle_right
+  - first:
+      213: -8827418529682139887
+    second: npc_cook_sora_walk_right_00
+  - first:
+      213: 5399488076846610081
+    second: npc_cook_sora_walk_right_01
+  - first:
+      213: -2758203665525643023
+    second: npc_cook_sora_idle_up
+  - first:
+      213: -4664476776662963105
+    second: npc_cook_sora_walk_up_00
+  - first:
+      213: -1440566033935450112
+    second: npc_cook_sora_walk_up_01
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: npc_cook_sora_idle_down
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66ee7317c79da22f0800000000000000
+      internalID: -996745239010480538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_cook_sora_walk_down_00
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 96
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf7cdcde7120e40e0800000000000000
+      internalID: -2283885659233073157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_cook_sora_walk_down_01
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 96
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55fcacc29ef58dfc0800000000000000
+      internalID: -3469918057805459627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_cook_sora_idle_left
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb6cca44de8580600800000000000000
+      internalID: 434695140123920062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_cook_sora_walk_left_00
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 64
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48ef7fcb329378e50800000000000000
+      internalID: 6811475787078172292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_cook_sora_walk_left_01
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 64
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b32c7327a9c9a2d60800000000000000
+      internalID: 7866271886311146043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_cook_sora_idle_right
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c72133c274d67140800000000000000
+      internalID: 4717191249083312071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_cook_sora_walk_right_00
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 32
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 115589eed95be7580800000000000000
+      internalID: -8827418529682139887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_cook_sora_walk_right_01
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a636655cc5deea40800000000000000
+      internalID: 5399488076846610081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_cook_sora_idle_up
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f8e92a3164e8b9d0800000000000000
+      internalID: -2758203665525643023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_cook_sora_walk_up_00
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5ce1f7c513744fb0800000000000000
+      internalID: -4664476776662963105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_cook_sora_walk_up_01
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 000c8c713d4120ce0800000000000000
+      internalID: -1440566033935450112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      npc_cook_sora_idle_down: -996745239010480538
+      npc_cook_sora_idle_left: 434695140123920062
+      npc_cook_sora_idle_right: 4717191249083312071
+      npc_cook_sora_idle_up: -2758203665525643023
+      npc_cook_sora_move_24x32_0: 617082210937022829
+      npc_cook_sora_move_24x32_1: -7239600506044600574
+      npc_cook_sora_move_24x32_10: 7260898827494932780
+      npc_cook_sora_move_24x32_11: 2404725172948590473
+      npc_cook_sora_move_24x32_2: -7725445881203243205
+      npc_cook_sora_move_24x32_3: 284881046452606667
+      npc_cook_sora_move_24x32_4: -4317938081746029838
+      npc_cook_sora_move_24x32_5: -9044570309000048926
+      npc_cook_sora_move_24x32_6: 1774060349818888356
+      npc_cook_sora_move_24x32_7: 1947526998938603767
+      npc_cook_sora_move_24x32_8: -3130105021402979152
+      npc_cook_sora_move_24x32_9: -266433460870679756
+      npc_cook_sora_walk_down_00: -2283885659233073157
+      npc_cook_sora_walk_down_01: -3469918057805459627
+      npc_cook_sora_walk_left_00: 6811475787078172292
+      npc_cook_sora_walk_left_01: 7866271886311146043
+      npc_cook_sora_walk_right_00: -8827418529682139887
+      npc_cook_sora_walk_right_01: 5399488076846610081
+      npc_cook_sora_walk_up_00: -4664476776662963105
+      npc_cook_sora_walk_up_01: -1440566033935450112
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

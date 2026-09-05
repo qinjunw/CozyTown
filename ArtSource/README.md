@@ -2,7 +2,7 @@
 
 `Generated/A0`、`Generated/A1` 保存内置图像生成器产生的原始 PNG；`Authored/A1` 保存按原生网格编写的确定性像素源；`Previews/A0`、`Previews/A1` 保存 Unity Editor 工具生成的整数倍预览。这些目录不由 Unity AssetDatabase 导入，也不得被运行时代码引用。
 
-当前可复现切片是胡萝卜物品图标探针：
+A0 胡萝卜物品图标探针保留为管线验证示例：
 
 ```text
 Generated/A0/item_crop_carrot_source.png
@@ -39,4 +39,6 @@ Unity.exe -batchmode -nographics -quit `
   -executeMethod CozyTown.Unity.Editor.CozyTownA1PixelArtBatchCompiler.Build
 ```
 
-A1 编译器按 `docs/ART_ASSET_MANIFEST.md` 生成 12 个 Production PNG、99 个 Sprite 和 12 个 4× 最近邻预览。生成结果仍需通过 Production 清单测试和批次目视检查；源稿不得直接进入正式场景。
+A1 编译器按 `docs/ART_ASSET_MANIFEST.md` 生成 13 个 Production PNG、106 个 Sprite 和对应 4× 最近邻预览。生成结果仍需通过 Production 清单测试和批次目视检查；源稿不得直接进入正式场景。
+
+T1 的源稿、原生像素和预览分别进入 `Generated/T1/`、`Authored/T1/`、`Previews/T1/`。四向人物与住宅/屋顶的路径和切片契约见 `docs/ART_ASSET_MANIFEST.md` 第 7 节，生成过程记录在 `Generated/T1/GENERATION_LOG.md`。T1 使用独立批次入口，不能把候选源图直接复制进 Production。

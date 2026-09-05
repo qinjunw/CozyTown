@@ -1,0 +1,490 @@
+fileFormatVersion: 2
+guid: 01e44e39b190e2d4a87a562cb0b305d9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6174655227793056719
+    second: npc_fisher_ren_move_24x32_0
+  - first:
+      213: -6190267764730924072
+    second: npc_fisher_ren_move_24x32_1
+  - first:
+      213: -4917724357736999482
+    second: npc_fisher_ren_move_24x32_2
+  - first:
+      213: 3975603609527087374
+    second: npc_fisher_ren_move_24x32_3
+  - first:
+      213: 1702278634518414830
+    second: npc_fisher_ren_move_24x32_4
+  - first:
+      213: -1734305525650035819
+    second: npc_fisher_ren_move_24x32_5
+  - first:
+      213: -8812015010122357680
+    second: npc_fisher_ren_move_24x32_6
+  - first:
+      213: -4395764637945977940
+    second: npc_fisher_ren_move_24x32_7
+  - first:
+      213: 6420573768661866576
+    second: npc_fisher_ren_move_24x32_8
+  - first:
+      213: 2494739159375852594
+    second: npc_fisher_ren_move_24x32_9
+  - first:
+      213: -1073575687226950640
+    second: npc_fisher_ren_move_24x32_10
+  - first:
+      213: -2664086780552865578
+    second: npc_fisher_ren_move_24x32_11
+  - first:
+      213: -5273413222926941709
+    second: npc_fisher_ren_idle_down
+  - first:
+      213: -2647245743071629445
+    second: npc_fisher_ren_walk_down_00
+  - first:
+      213: 12907146962378051
+    second: npc_fisher_ren_walk_down_01
+  - first:
+      213: 1123461354026857275
+    second: npc_fisher_ren_idle_left
+  - first:
+      213: 483125067847618644
+    second: npc_fisher_ren_walk_left_00
+  - first:
+      213: -6545835100208869064
+    second: npc_fisher_ren_walk_left_01
+  - first:
+      213: -2844390906881107929
+    second: npc_fisher_ren_idle_right
+  - first:
+      213: -2739445669828363801
+    second: npc_fisher_ren_walk_right_00
+  - first:
+      213: 4231304647646653553
+    second: npc_fisher_ren_walk_right_01
+  - first:
+      213: 3319374427574340777
+    second: npc_fisher_ren_idle_up
+  - first:
+      213: -2604919618279744844
+    second: npc_fisher_ren_walk_up_00
+  - first:
+      213: 1254265951904315348
+    second: npc_fisher_ren_walk_up_01
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: npc_fisher_ren_idle_down
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f1879d0d9211d6b0800000000000000
+      internalID: -5273413222926941709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_fisher_ren_walk_down_00
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 96
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7fec0bb508134bd0800000000000000
+      internalID: -2647245743071629445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_fisher_ren_walk_down_01
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 96
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34d91c55bfadd2000800000000000000
+      internalID: 12907146962378051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_fisher_ren_idle_left
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3376ad2626579f00800000000000000
+      internalID: 1123461354026857275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_fisher_ren_walk_left_00
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 64
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 450d42380b764b600800000000000000
+      internalID: 483125067847618644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_fisher_ren_walk_left_01
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 64
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83154cd58a58825a0800000000000000
+      internalID: -6545835100208869064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_fisher_ren_idle_right
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72810095a81b688d0800000000000000
+      internalID: -2844390906881107929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_fisher_ren_walk_right_00
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 32
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e9f5607da88bf9d0800000000000000
+      internalID: -2739445669828363801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_fisher_ren_walk_right_01
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17c207b982d98ba30800000000000000
+      internalID: 4231304647646653553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_fisher_ren_idle_up
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ac85108479c01e20800000000000000
+      internalID: 3319374427574340777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_fisher_ren_walk_up_00
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ba5dfb986779dbd0800000000000000
+      internalID: -2604919618279744844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_fisher_ren_walk_up_01
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d7bf15ec3c086110800000000000000
+      internalID: 1254265951904315348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      npc_fisher_ren_idle_down: -5273413222926941709
+      npc_fisher_ren_idle_left: 1123461354026857275
+      npc_fisher_ren_idle_right: -2844390906881107929
+      npc_fisher_ren_idle_up: 3319374427574340777
+      npc_fisher_ren_move_24x32_0: -6174655227793056719
+      npc_fisher_ren_move_24x32_1: -6190267764730924072
+      npc_fisher_ren_move_24x32_10: -1073575687226950640
+      npc_fisher_ren_move_24x32_11: -2664086780552865578
+      npc_fisher_ren_move_24x32_2: -4917724357736999482
+      npc_fisher_ren_move_24x32_3: 3975603609527087374
+      npc_fisher_ren_move_24x32_4: 1702278634518414830
+      npc_fisher_ren_move_24x32_5: -1734305525650035819
+      npc_fisher_ren_move_24x32_6: -8812015010122357680
+      npc_fisher_ren_move_24x32_7: -4395764637945977940
+      npc_fisher_ren_move_24x32_8: 6420573768661866576
+      npc_fisher_ren_move_24x32_9: 2494739159375852594
+      npc_fisher_ren_walk_down_00: -2647245743071629445
+      npc_fisher_ren_walk_down_01: 12907146962378051
+      npc_fisher_ren_walk_left_00: 483125067847618644
+      npc_fisher_ren_walk_left_01: -6545835100208869064
+      npc_fisher_ren_walk_right_00: -2739445669828363801
+      npc_fisher_ren_walk_right_01: 4231304647646653553
+      npc_fisher_ren_walk_up_00: -2604919618279744844
+      npc_fisher_ren_walk_up_01: 1254265951904315348
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
