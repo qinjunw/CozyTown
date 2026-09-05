@@ -10,23 +10,20 @@ namespace CozyTown.Runtime.Application
 {
     public sealed class NpcDialogueCoordinator : INpcDialogueCoordinator
     {
-        private readonly Dictionary<string, NpcDefinition> _npcs;
+        private readonly NpcContentCatalog _npcContent;
         private readonly INpcDialogueGenerator _generator;
         private readonly Func<GameClockSnapshot> _clockSnapshotProvider;
 
         public NpcDialogueCoordinator(
-            IEnumerable<NpcDefinition> npcs,
+            NpcContentCatalog npcContent,
             INpcDialogueGenerator generator,
             Func<GameClockSnapshot> clockSnapshotProvider)
         {
-            _npcs = (npcs ?? Array.Empty<NpcDefinition>())
-                .Where(npc => npc != null && !string.IsNullOrWhiteSpace(npc.Id))
-                .GroupBy(npc => npc.Id, StringComparer.Ordinal)
-                .ToDictionary(group => group.Key, group => group.First(), StringComparer.Ordinal);
+            _npcContent = npcContent ?? throw new ArgumentNullException(nameof(npcContent));
             _generator = generator ?? throw new ArgumentNullException(nameof(generator));
             _clockSnapshotProvider = clockSnapshotProvider
                 ?? throw new ArgumentNullException(nameof(clockSnapshotProvider));
-            NpcDialogueOption[] options = _npcs.Values
+            NpcDialogueOption[] options = _npcContent.Definitions
                 .Select(npc => new NpcDialogueOption(npc.Id, npc.DisplayName))
                 .OrderBy(option => option.NpcId, StringComparer.Ordinal)
                 .ToArray();
@@ -39,28 +36,22 @@ namespace CozyTown.Runtime.Application
             string npcId,
             CancellationToken cancellationToken)
         {
-            if (string.IsNullOrWhiteSpace(npcId)
-                || !_npcs.TryGetValue(npcId, out NpcDefinition npc))
+            if (!_npcContent.TryGetDefinition(npcId, out NpcDefinition npc))
             {
                 throw new ArgumentException("NPC ID is not configured.", nameof(npcId));
             }
 
             cancellationToken.ThrowIfCancellationRequested();
             GameClockSnapshot clock = _clockSnapshotProvider();
-            var context = new NpcDialogueContext(
+            NpcDialogueContext context = _npcContent.CreateDialogueContext(
                 npc.Id,
-                npc.DisplayName,
-                npc.Persona,
                 clock.Day,
-                clock.MinuteOfDay,
-                affinity: 0,
-                recentActivities: Array.Empty<string>(),
-                memories: Array.Empty<string>());
+                clock.MinuteOfDay);
             NpcDialogueReply reply = await _generator.GenerateAsync(context, cancellationToken);
             if (reply == null)
             {
                 reply = new NpcDialogueReply(
-                    npc.FallbackDialogue,
+                    _npcContent.ResolveFallback(npc.Id),
                     "neutral",
                     "idle",
                     true,

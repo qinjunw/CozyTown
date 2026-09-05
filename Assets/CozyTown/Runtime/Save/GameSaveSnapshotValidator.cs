@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CozyTown.Runtime.Core;
+using CozyTown.Runtime.Economy;
 using CozyTown.Runtime.Farming;
 using CozyTown.Runtime.Inventory;
 using CozyTown.Runtime.Livestock;
@@ -22,16 +23,17 @@ namespace CozyTown.Runtime.Save
                 return OperationResult.Failure("save.schema_unsupported");
             }
 
-            if (snapshot.Inventory == null
-                || snapshot.Farm == null
+            CharacterEconomySnapshot[] characters = snapshot.Characters;
+            ShopEconomySnapshot[] shops = snapshot.Shops;
+            if (snapshot.Farm == null
                 || snapshot.Livestock == null
                 || snapshot.Clock.Day < 1
                 || snapshot.Clock.MinuteOfDay < 0
                 || snapshot.Clock.MinuteOfDay >= InMemoryTimeService.MinutesPerDay
-                || snapshot.Wallet.Balance < 0
                 || snapshot.Farm.LastProcessedDay != snapshot.Clock.Day
                 || snapshot.Livestock.LastProcessedDay != snapshot.Clock.Day
-                || !InventoryIsValid(snapshot.Inventory)
+                || !CharactersAreValid(characters)
+                || !ShopsAreValid(shops, snapshot.Clock.Day)
                 || !FarmIsValid(snapshot.Farm)
                 || !LivestockIsValid(snapshot.Livestock))
             {
@@ -41,8 +43,62 @@ namespace CozyTown.Runtime.Save
             return OperationResult.Success();
         }
 
+        private static bool CharactersAreValid(CharacterEconomySnapshot[] characters)
+        {
+            if (characters == null)
+            {
+                return false;
+            }
+
+            var characterIds = new HashSet<string>(StringComparer.Ordinal);
+            foreach (CharacterEconomySnapshot character in characters)
+            {
+                if (character == null
+                    || string.IsNullOrWhiteSpace(character.CharacterId)
+                    || character.Wallet.Balance < 0
+                    || !characterIds.Add(character.CharacterId)
+                    || !InventoryIsValid(character.Backpack))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static bool ShopsAreValid(ShopEconomySnapshot[] shops, int clockDay)
+        {
+            if (shops == null)
+            {
+                return false;
+            }
+
+            var shopIds = new HashSet<string>(StringComparer.Ordinal);
+            foreach (ShopEconomySnapshot shop in shops)
+            {
+                if (shop == null
+                    || string.IsNullOrWhiteSpace(shop.ShopId)
+                    || shop.Wallet.Balance < 0
+                    || shop.LastRestockedDay != clockDay
+                    || shop.RestockAlgorithmVersion
+                        != DeterministicShopStockReplacementPolicy.VersionOne
+                    || !shopIds.Add(shop.ShopId)
+                    || !InventoryIsValid(shop.Stock))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private static bool InventoryIsValid(InventorySnapshot inventory)
         {
+            if (inventory == null)
+            {
+                return false;
+            }
+
             var itemIds = new HashSet<string>(StringComparer.Ordinal);
             foreach (ItemStack item in inventory.Items)
             {

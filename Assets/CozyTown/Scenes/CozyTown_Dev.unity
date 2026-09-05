@@ -46351,6 +46351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Core.CozyTownBootstrap
   servicesFactoryBehaviour: {fileID: 0}
+  _contentAsset: {fileID: 11400000, guid: aa0c00212b4e9de4582d18def59e810d, type: 2}
   hudPresenters:
   - {fileID: 351428450}
   shopPresenters:

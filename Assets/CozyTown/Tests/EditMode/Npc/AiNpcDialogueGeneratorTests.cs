@@ -85,8 +85,7 @@ namespace CozyTown.Tests.EditMode.Npc
         public async Task GenerateAsync_InvalidCandidate_UsesCurrentNpcConfiguredFallback()
         {
             var fallback = new ConfiguredFallbackDialogueGenerator(
-                new[]
-                {
+                CreateCatalog(
                     new NpcDefinition(
                         "npc.farmer_eli",
                         "Eli",
@@ -96,9 +95,7 @@ namespace CozyTown.Tests.EditMode.Npc
                         "npc.fisher_ren",
                         "Ren",
                         "A quiet fisher.",
-                        "The pond is calm today.")
-                },
-                "It is a quiet day.");
+                        "The pond is calm today.")));
             var generator = new AiNpcDialogueGenerator(
                 new StubClient(null),
                 fallback,
@@ -122,6 +119,47 @@ namespace CozyTown.Tests.EditMode.Npc
             Assert.That(
                 reply.FallbackReason,
                 Is.EqualTo(NpcDialogueFallbackReason.EmptyResponse));
+        }
+
+        [TestCase(ConfiguredFallbackFailure.EmptyResponse, NpcDialogueFallbackReason.EmptyResponse)]
+        [TestCase(ConfiguredFallbackFailure.InvalidEmotion, NpcDialogueFallbackReason.InvalidEmotionTag)]
+        [TestCase(ConfiguredFallbackFailure.InvalidAction, NpcDialogueFallbackReason.InvalidActionTag)]
+        [TestCase(ConfiguredFallbackFailure.Transport, NpcDialogueFallbackReason.TransportFailure)]
+        [TestCase(ConfiguredFallbackFailure.InvalidStructure, NpcDialogueFallbackReason.InvalidResponseStructure)]
+        [TestCase(ConfiguredFallbackFailure.Timeout, NpcDialogueFallbackReason.Timeout)]
+        public async Task GenerateAsync_Failure_UsesCurrentNpcAuthoredFallback(
+            ConfiguredFallbackFailure failure,
+            NpcDialogueFallbackReason expectedReason)
+        {
+            NpcContentCatalog catalog = CreateCatalog(
+                new NpcDefinition(
+                    "npc.farmer_eli",
+                    "Eli",
+                    "A patient farmer.",
+                    "Keep the soil watered."),
+                new NpcDefinition(
+                    "npc.fisher_ren",
+                    "Ren",
+                    "A quiet fisher.",
+                    "The pond is calm today."));
+            var generator = new AiNpcDialogueGenerator(
+                CreateClient(failure),
+                new ConfiguredFallbackDialogueGenerator(catalog),
+                failure == ConfiguredFallbackFailure.Timeout
+                    ? TimeSpan.FromMilliseconds(25)
+                    : TimeSpan.FromSeconds(1));
+            NpcDialogueContext context = catalog.CreateDialogueContext(
+                "npc.fisher_ren",
+                day: 2,
+                minuteOfDay: 480);
+
+            NpcDialogueReply reply = await generator.GenerateAsync(
+                context,
+                CancellationToken.None);
+
+            Assert.That(reply.Text, Is.EqualTo("The pond is calm today."));
+            Assert.That(reply.IsFallback, Is.True);
+            Assert.That(reply.FallbackReason, Is.EqualTo(expectedReason));
         }
 
         [TestCase(
@@ -305,6 +343,39 @@ namespace CozyTown.Tests.EditMode.Npc
                 timeout ?? TimeSpan.FromSeconds(1));
         }
 
+        private static NpcContentCatalog CreateCatalog(params NpcDefinition[] definitions)
+        {
+            OperationResult<NpcContentCatalog> result = NpcContentCatalog.Create(
+                "It is a quiet day.",
+                definitions);
+            Assert.That(result.IsSuccess, Is.True, result.ErrorCode);
+            return result.Value;
+        }
+
+        private static IAiNpcDialogueClient CreateClient(ConfiguredFallbackFailure failure)
+        {
+            switch (failure)
+            {
+                case ConfiguredFallbackFailure.EmptyResponse:
+                    return new StubClient(null);
+                case ConfiguredFallbackFailure.InvalidEmotion:
+                    return new StubClient(
+                        new AiNpcDialogueCandidate("Hello", "unknown", "idle"));
+                case ConfiguredFallbackFailure.InvalidAction:
+                    return new StubClient(
+                        new AiNpcDialogueCandidate("Hello", "neutral", "dance"));
+                case ConfiguredFallbackFailure.Transport:
+                    return new FailingClient(AiNpcDialogueClientFailure.Transport);
+                case ConfiguredFallbackFailure.InvalidStructure:
+                    return new FailingClient(
+                        AiNpcDialogueClientFailure.InvalidResponseStructure);
+                case ConfiguredFallbackFailure.Timeout:
+                    return new NeverCompletingClient();
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(failure));
+            }
+        }
+
         private static void AssertFallback(
             NpcDialogueReply reply,
             NpcDialogueFallbackReason reason)
@@ -366,6 +437,16 @@ namespace CozyTown.Tests.EditMode.Npc
             {
                 return new TaskCompletionSource<AiNpcDialogueCandidate>().Task;
             }
+        }
+
+        public enum ConfiguredFallbackFailure
+        {
+            EmptyResponse,
+            InvalidEmotion,
+            InvalidAction,
+            Transport,
+            InvalidStructure,
+            Timeout
         }
     }
 }

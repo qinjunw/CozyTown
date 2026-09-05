@@ -16,14 +16,12 @@ namespace CozyTown.Tests.EditMode.Application
             var generator = new CapturingGenerator();
             var clock = new GameClockSnapshot(day: 4, minuteOfDay: 9 * 60);
             var coordinator = new NpcDialogueCoordinator(
-                new[]
-                {
+                CreateCatalog(
                     new NpcDefinition(
                         "npc.farmer_eli",
                         "Eli",
                         "A patient farmer.",
-                        "Keep the soil watered.")
-                },
+                        "Keep the soil watered.")),
                 generator,
                 () => clock);
 
@@ -49,7 +47,7 @@ namespace CozyTown.Tests.EditMode.Application
         {
             var generator = new CapturingGenerator();
             var coordinator = new NpcDialogueCoordinator(
-                Array.Empty<NpcDefinition>(),
+                CreateCatalog(),
                 generator,
                 () => new GameClockSnapshot(1, 360));
 
@@ -62,14 +60,12 @@ namespace CozyTown.Tests.EditMode.Application
         public async Task GenerateAsync_NullGeneratorReply_ReturnsCurrentNpcFallback()
         {
             var coordinator = new NpcDialogueCoordinator(
-                new[]
-                {
+                CreateCatalog(
                     new NpcDefinition(
                         "npc.farmer_eli",
                         "Eli",
                         "A patient farmer.",
-                        "Keep the soil watered.")
-                },
+                        "Keep the soil watered.")),
                 new NullGenerator(),
                 () => new GameClockSnapshot(1, 360));
 
@@ -82,6 +78,15 @@ namespace CozyTown.Tests.EditMode.Application
             Assert.That(
                 state.FallbackReason,
                 Is.EqualTo(NpcDialogueFallbackReason.EmptyResponse));
+        }
+
+        private static NpcContentCatalog CreateCatalog(params NpcDefinition[] definitions)
+        {
+            var result = NpcContentCatalog.Create(
+                "It is a quiet day in town.",
+                definitions);
+            Assert.That(result.IsSuccess, Is.True, result.ErrorCode);
+            return result.Value;
         }
 
         private sealed class CapturingGenerator : INpcDialogueGenerator

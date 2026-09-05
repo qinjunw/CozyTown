@@ -135,6 +135,9 @@ namespace CozyTown.Unity.Editor
                     throw new InvalidOperationException("Development scene is missing CozyTownBootstrap.");
                 }
 
+                bootstrap.ConfigureContentAsset(
+                    CozyTownMvpContentAssetAuthoring.EnsureDefaultAsset());
+
                 var hud = RequireRoot(scene, "Debug HUD");
                 var world = RequireRoot(scene, "World");
                 EnsureNpcWorldEntities(world, hud, bootstrap);
@@ -183,6 +186,8 @@ namespace CozyTown.Unity.Editor
                     .GetComponent<CozyTownBootstrap>()
                     ?? throw new InvalidOperationException(
                         "Development scene is missing CozyTownBootstrap.");
+                bootstrap.ConfigureContentAsset(
+                    CozyTownMvpContentAssetAuthoring.EnsureDefaultAsset());
 
                 ConfigurePixelPerfectCamera(camera);
                 ConfigureTownTilemap(world);
@@ -231,7 +236,10 @@ namespace CozyTown.Unity.Editor
         private static CozyTownBootstrap CreateBootstrap()
         {
             var gameRoot = new GameObject("CozyTown");
-            return gameRoot.AddComponent<CozyTownBootstrap>();
+            var bootstrap = gameRoot.AddComponent<CozyTownBootstrap>();
+            bootstrap.ConfigureContentAsset(
+                CozyTownMvpContentAssetAuthoring.EnsureDefaultAsset());
+            return bootstrap;
         }
 
         private static PlayerInteractor2D CreatePlayer()

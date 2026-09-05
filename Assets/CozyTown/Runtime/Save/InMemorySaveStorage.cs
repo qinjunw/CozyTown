@@ -52,7 +52,6 @@ namespace CozyTown.Runtime.Save
 
         private static GameSaveSnapshot Clone(GameSaveSnapshot snapshot)
         {
-            var inventory = new InventorySnapshot(snapshot.Inventory.Items.ToArray());
             var farm = new FarmSnapshot(
                 snapshot.Farm.LastProcessedDay,
                 snapshot.Farm.Plots.ToArray());
@@ -62,9 +61,10 @@ namespace CozyTown.Runtime.Save
 
             return new GameSaveSnapshot(
                 snapshot.SchemaVersion,
+                snapshot.WorldSeed,
                 snapshot.Clock,
-                inventory,
-                snapshot.Wallet,
+                snapshot.Characters,
+                snapshot.Shops,
                 farm,
                 livestock);
         }

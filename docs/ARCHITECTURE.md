@@ -12,6 +12,7 @@
 - [`ADR-0004：测试策略`](adr/0004-testing-strategy.md)
 - [`ADR-0005：Unity 适配层与窄接口注入`](adr/0005-unity-adapter-boundary.md)
 - [`ADR-0006：Production 美术场景接线`](adr/0006-production-art-scene-integration.md)
+- [`ADR-0010：角色与商店独立拥有资产并原子提交交易`](adr/0010-character-shop-economic-ownership-and-atomic-trade.md)
 
 ## 2. 架构目标与约束
 
@@ -68,17 +69,17 @@ Assets/CozyTown/
 
 | 模块 | 公共入口 | 职责 | 不负责 |
 | --- | --- | --- | --- |
-| `Application` | `IDayTransitionCoordinator`、`IShopTradingCoordinator`、四个 `*GameplayCoordinator`、`INpcDialogueCoordinator`、`IGameSaveCoordinator` | 协调跨日、存档恢复事务，并向交易、生产、对话和存档表现层提供窄用例入口 | 表现、输入、数值平衡 |
-| `Content` | `DefaultMvpContent`、`MvpContentValidator` | 提供默认稳定 ID、定义表和启动前引用/可达性校验 | 运行时状态、UI 编辑器 |
+| `Application` | `IDayTransitionCoordinator`、`ICharacterShopTradingCoordinator`、四个 `*GameplayCoordinator`、`INpcDialogueCoordinator`、`IGameSaveCoordinator` | 协调跨日、存档恢复事务，并向交易、生产、对话和存档表现层提供窄用例入口 | 表现、输入、数值平衡 |
+| `Content` | `DefaultMvpContent`、`MvpContentValidator` | 提供代码默认内容和启动前引用/可达性校验；Unity 作者资产加载后仍经过同一 Runtime 校验入口 | 运行时状态、UI 编辑器 |
 | `Core` | `CozyTownCompositionRoot`、`CozyTownServices` | 创建默认实现并公开类型化服务引用 | 业务规则、存档格式、场景查找 |
 | `Time` | `ITimeService` | 当前天数和跨日推进 | 决定作物、动物的具体结算规则 |
 | `Inventory` | `IInventory` | 物品数量查询、增加、移除和前置校验 | 价格、配方、掉落概率 |
-| `Economy` | `IWallet`、`IShopService` | 余额、报价、购买和出售的交易边界 | 物品生产、AI 决策 |
+| `Economy` | `IEconomyStateStore`、角色背包/钱包适配器、角色与商店经济快照 | 按稳定主体 ID 保存角色背包/钱包和商店库存/钱包，并原子发布交易候选 | 静态报价、物品生产、AI 决策 |
 | `Farming` | `IFarmService` | 地块、播种、浇水、成长和收获状态 | 玩家移动、商店交易 |
 | `Livestock` | `ILivestockService` | 鸡的喂食与鸡蛋产出状态 | 饲料定价、NPC 行为 |
 | `Fishing` | `IFishingService` | 固定鱼池规则和钓鱼结果 | 实时操作 UI、背包显示 |
 | `Cooking` | `ICookingService` | 配方查询、食材校验和烹饪事务 | 食材生产、料理表现 |
-| `Npc` | `INpcDialogueGenerator`、`IAiNpcDialogueClient` | 根据只读上下文校验 AI 候选并返回对话或固定回退 | 写入金币、物品、时间、生产或存档状态 |
+| `Npc` | `NpcContentCatalog`、`INpcDialogueGenerator`、`IAiNpcDialogueClient` | 校验并索引 NPC 作者内容，根据只读上下文校验 AI 候选并返回对话或固定回退 | 写入金币、物品、时间、生产或存档状态 |
 | `Save` | `ISaveStorage`、`JsonFileSaveStorage` | 版本化存档快照的单槽读写、JSON 校验和安全替换 | 收集或直接修改各模块状态 |
 | `Unity` | `CozyTownBootstrap`、输入门控、交互点、对话/存档及六组玩法 Presenter/View | 连接 Unity 生命周期、Input System、Physics2D、HTTP(S) 代理与窄接口 Presenter | 领域规则、全局服务解析、跨模块事务 |
 
@@ -106,7 +107,7 @@ CozyTownCompositionRoot 只负责创建并连接上述对象。
 依赖规则：
 
 1. 表现层依赖接口，不依赖具体内存实现。
-2. 具体实现可以依赖完成其事务所需的窄接口。例如商店可以依赖 `IWallet` 与 `IInventory`，但不能访问其内部集合。
+2. 具体实现可以依赖完成其事务所需的窄接口。例如生产模块通过默认角色的 `IWallet` 与 `IInventory` 适配器访问权威经济状态，但不能访问其内部集合。
 3. 模块不能通过 `FindObjectOfType`、静态单例或字符串路径取得其他服务。
 4. 双向依赖通过用例协调器、只读快照或领域事件解除；不得让两个模块互相持有具体实现。
 5. `Npc` 生成器没有确定性模块的写依赖。调用方只向它传递复制出的上下文数据。
@@ -115,6 +116,8 @@ CozyTownCompositionRoot 只负责创建并连接上述对象。
 ## 6. 组合根
 
 `Runtime/Core/CozyTownCompositionRoot.cs` 是默认对象图的唯一构造入口。`CreateDefault()` 创建经过校验的 MVP 对象图，`Create(configuration)` 接收显式配置，带适配器的重载接收对话生成器与存储端口，`CreateEmpty()` 保留空配置测试入口。入口都返回类型化的 `CozyTownServices`；该服务集合只在组合边界使用，不向通用 `MonoBehaviour` 或交互上下文公开。
+
+正式场景由 `CozyTownMvpContentAsset.Load()` 把唯一的作者资产转换为 `CozyTownConfiguration`。Runtime 的 `MvpContentValidator` 统一校验经济、生产、全局对话回退和四名 NPC 的稳定 ID、显示名称、人设及专属回退；失败时 Bootstrap 不创建 NPC Catalog、固定回退生成器或 AI 适配器。通过校验后，各组合边界只把经同一工厂校验的不可变 `NpcContentCatalog` 交给消费者；对话协调器与固定回退生成器只依赖 Catalog 的查询和投影方法，不接收可变的原始 NPC 集合。Bootstrap 与 Runtime 组合根可以各自从同一不可变配置创建 Catalog，不承诺跨边界实例复用。
 
 当前 `CozyTownBootstrap` 的职责限定为：
 
@@ -131,15 +134,16 @@ CozyTownCompositionRoot 只负责创建并连接上述对象。
 
 ```text
 Shop UI
-  → IShopTradingCoordinator.Buy(商品, 数量)
-  → IShopService.Buy(商品, 数量)
-  → 校验商品、数量、余额和背包接收条件
-  → 同一事务中扣除金币并增加物品
+  → ICharacterShopTradingCoordinator.Buy(商店 ID, 角色 ID, 商品, 数量)
+  → 读取角色背包/钱包与商店库存/钱包快照
+  → 校验报价、现货、资金和背包接收条件
+  → 构造角色与商店两份完整候选状态
+  → IEconomyStateStore.Commit 同时发布双方候选
   → 返回成功或稳定失败原因
-  → UI 刷新只读余额与物品数量
+  → UI 按相同稳定 ID 重新读取库存感知投影
 ```
 
-任一前置校验失败时，钱包和背包均保持调用前状态。
+任一前置校验或提交失败时，角色与商店的物品总量和金币总量均保持调用前状态。Unity Presenter 只持有交易用例与稳定 ID，不持有权威经济仓库。
 
 ### 7.2 烹饪
 
@@ -161,11 +165,11 @@ Cooking UI
 ```text
 Sleep interaction
   → IDayTransitionCoordinator.SleepToNextDay()
-  → 捕获 Time / Farming / Livestock 快照
-  → 时间推进并产生唯一目标 Day
-  → 协调器依次通知 Farming 与 Livestock
-  → 各模块按同一个 Day 值结算一次
-  → 任一步失败时恢复三份快照
+  → 捕获 Time / Farming / Livestock / Shop 快照
+  → 为唯一目标 Day 生成确定性商店库存候选
+  → 时间、农田和畜牧按同一个 Day 值结算一次
+  → IEconomyStateStore.CommitShop 发布目标日库存
+  → 任一步失败时恢复调用前状态
 ```
 
 同一天的重复通知必须可检测或无副作用，防止重复成长和重复产出。
@@ -196,12 +200,12 @@ Save use case
 
 Load use case
   → ISaveStorage 区分空槽、损坏、版本和载荷错误
-  → 协调器校验载荷数值范围，并检查 Time / Farm / Livestock 日期一致性
-  → 恢复 Time / Wallet / Inventory / Farm / Livestock
+  → v1 先确定迁移为 v2，随后校验主体、资产及跨模块日期
+  → 恢复 WorldSeed / Time / EconomyState / Farm / Livestock
   → 任一步失败时恢复五份调用前快照
 ```
 
-当前只支持 schema v1，不尝试猜测或迁移未知版本。未来版本或损坏载荷不得覆盖原文件。详细规则见 [`ADR-0003`](adr/0003-save-versioning.md)。
+当前写入 schema v2，并通过固定迁移器读取 schema v1；未知未来版本或损坏载荷不得覆盖原文件。通用规则见 [`ADR-0003`](adr/0003-save-versioning.md)，经济状态字段及迁移规则见 [`ADR-0012`](adr/0012-economic-save-schema-v2-and-v1-migration.md)。
 
 ## 8. 数据与配置约定
 
@@ -276,7 +280,7 @@ Scene-01 仍需人工确认实际画面的可读性、角色动作、屋后遮�
 4. 已完成：生成单一小镇场景，加入可见玩家、碰撞边界、交互提示、商店/NPC/床/农田浅交互点和 PlayMode 冒烟测试。
 5. 已完成：商店交易门面、购买/出售调试 UI 和统一输入门控。
 6. 已完成：接入种植、畜牧、钓鱼、跨日和烹饪，并在正式场景完成成功出售与再次投入。
-7. 已完成：实现 schema v1 单槽 JSON 文件存档、损坏保护、五模块恢复和失败回滚。
+7. 已完成：实现 schema v2 单槽 JSON 文件存档、v1 确定迁移、损坏保护、五模块恢复和失败回滚。
 8. 已完成：接入 AI HTTP(S) 代理适配器、结构校验、超时、固定回退和 4 名 NPC 场景切片。
 9. 待人工执行：A1 Scene-01 自动接线与全量回归已完成；按验收脚本检查实际画面，不改变既有玩法和 AI 权限边界。
 10. Scene-01 通过后：运行不少于 30 条 AI 离线评测，补充延迟与成本诊断，执行 Windows 构建、性能检查和演示录制。

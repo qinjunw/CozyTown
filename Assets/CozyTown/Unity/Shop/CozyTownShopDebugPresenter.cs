@@ -15,17 +15,31 @@ namespace CozyTown.Unity.Shop
         [SerializeField] private TownInteractionPoint2D shopPoint;
         [SerializeField] private MonoBehaviour viewBehaviour;
 
-        private IShopTradingCoordinator _coordinator;
+        private ICharacterShopTradingCoordinator _coordinator;
         private ICozyTownShopDebugView _view;
+        private ShopTradingViewState _currentState;
+        private string _shopId;
+        private string _characterId;
         private GameObject _actor;
         private PlayerModalInputGate2D _inputGate;
         private bool _isSubscribed;
 
         public bool IsOpen => _actor != null;
 
-        public void Bind(IShopTradingCoordinator coordinator)
+        public void Bind(
+            ICharacterShopTradingCoordinator coordinator,
+            string shopId,
+            string characterId)
         {
             _coordinator = coordinator ?? throw new ArgumentNullException(nameof(coordinator));
+            _shopId = !string.IsNullOrWhiteSpace(shopId)
+                ? shopId
+                : throw new ArgumentException("Shop ID is required.", nameof(shopId));
+            _characterId = !string.IsNullOrWhiteSpace(characterId)
+                ? characterId
+                : throw new ArgumentException(
+                    "Character ID is required.",
+                    nameof(characterId));
             TrySubscribe();
         }
 
@@ -110,7 +124,14 @@ namespace CozyTown.Unity.Shop
 
             if (_coordinator == null)
             {
-                error = $"{nameof(IShopTradingCoordinator)} must be injected before Start.";
+                error = $"{nameof(ICharacterShopTradingCoordinator)} must be injected before Start.";
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(_shopId)
+                || string.IsNullOrWhiteSpace(_characterId))
+            {
+                error = "Stable shop and character IDs must be injected before Start.";
                 return false;
             }
 
@@ -135,7 +156,7 @@ namespace CozyTown.Unity.Shop
             }
 
             _inputGate.AcquisitionRevoked += HandleInputGateRevoked;
-            _view.Show(_coordinator.GetCurrentState(), string.Empty);
+            RefreshView(string.Empty);
         }
 
         private void HandleBuyRequested(string itemId)
@@ -145,12 +166,16 @@ namespace CozyTown.Unity.Shop
                 return;
             }
 
-            OperationResult<ShopReceipt> result = _coordinator.Buy(itemId, TradeQuantity);
-            ShopViewState state = _coordinator.GetCurrentState();
+            string displayName = ResolveDisplayName(itemId);
+            OperationResult<ShopReceipt> result = _coordinator.Buy(
+                _shopId,
+                _characterId,
+                itemId,
+                TradeQuantity);
             string feedback = result.IsSuccess
-                ? BuildSuccessFeedback("Bought", result.Value, state)
+                ? BuildSuccessFeedback("Bought", result.Value, displayName)
                 : $"Buy failed: {result.ErrorCode}";
-            _view.Show(state, feedback);
+            RefreshView(feedback);
         }
 
         private void HandleSellRequested(string itemId)
@@ -160,12 +185,16 @@ namespace CozyTown.Unity.Shop
                 return;
             }
 
-            OperationResult<ShopReceipt> result = _coordinator.Sell(itemId, TradeQuantity);
-            ShopViewState state = _coordinator.GetCurrentState();
+            string displayName = ResolveDisplayName(itemId);
+            OperationResult<ShopReceipt> result = _coordinator.Sell(
+                _shopId,
+                _characterId,
+                itemId,
+                TradeQuantity);
             string feedback = result.IsSuccess
-                ? BuildSuccessFeedback("Sold", result.Value, state)
+                ? BuildSuccessFeedback("Sold", result.Value, displayName)
                 : $"Sell failed: {result.ErrorCode}";
-            _view.Show(state, feedback);
+            RefreshView(feedback);
         }
 
         private void Close()
@@ -178,6 +207,7 @@ namespace CozyTown.Unity.Shop
 
             _actor = null;
             _inputGate = null;
+            _currentState = null;
             _view?.Hide();
         }
 
@@ -190,6 +220,7 @@ namespace CozyTown.Unity.Shop
 
             _actor = null;
             _inputGate = null;
+            _currentState = null;
             _view?.Hide();
         }
 
@@ -209,19 +240,59 @@ namespace CozyTown.Unity.Shop
         private static string BuildSuccessFeedback(
             string verb,
             ShopReceipt receipt,
-            ShopViewState state)
+            string displayName)
         {
-            var displayName = receipt.ItemId;
-            foreach (var item in state.Items)
+            return $"{verb} {receipt.Quantity} x {displayName} for {receipt.TotalPrice} coins.";
+        }
+
+        private void RefreshView(string feedback)
+        {
+            OperationResult<ShopTradingViewState> result = _coordinator.GetCurrentState(
+                _shopId,
+                _characterId);
+            if (result.IsSuccess)
             {
-                if (string.Equals(item.ItemId, receipt.ItemId, StringComparison.Ordinal))
+                _currentState = result.Value;
+                _view.Show(_currentState, feedback);
+                return;
+            }
+
+            if (_currentState != null)
+            {
+                _view.Show(
+                    _currentState,
+                    $"State refresh failed: {result.ErrorCode}");
+                return;
+            }
+
+            Debug.LogError(
+                $"Shop state could not be loaded: {result.ErrorCode}",
+                this);
+            Close();
+        }
+
+        private string ResolveDisplayName(string itemId)
+        {
+            if (_currentState != null)
+            {
+                foreach (ShopTradingLineItem item in _currentState.PurchaseItems)
                 {
-                    displayName = item.DisplayName;
-                    break;
+                    if (string.Equals(item.ItemId, itemId, StringComparison.Ordinal))
+                    {
+                        return item.DisplayName;
+                    }
+                }
+
+                foreach (ShopTradingLineItem item in _currentState.SaleItems)
+                {
+                    if (string.Equals(item.ItemId, itemId, StringComparison.Ordinal))
+                    {
+                        return item.DisplayName;
+                    }
                 }
             }
 
-            return $"{verb} {receipt.Quantity} x {displayName} for {receipt.TotalPrice} coins.";
+            return itemId;
         }
 
         private void ReportConfigurationError(string error)

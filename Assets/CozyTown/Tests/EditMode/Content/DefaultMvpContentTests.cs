@@ -53,6 +53,27 @@ namespace CozyTown.Tests.EditMode.Content
                 "Every default dish must have a positive shop sell price.");
         }
 
+        [Test]
+        public void CreateConfiguration_ExposesConfirmedShopRestockRules()
+        {
+            CozyTownConfiguration configuration = DefaultMvpContent.CreateConfiguration();
+
+            CollectionAssert.AreEqual(
+                new[]
+                {
+                    "seed.potato:700:3:6",
+                    "seed.carrot:700:3:6",
+                    "seed.tomato:700:3:6",
+                    "feed.chicken:1000:6:12",
+                    "ingredient.salt:750:3:8",
+                    "ingredient.flour:750:3:8"
+                },
+                configuration.ShopRestockRules
+                    .Select(rule =>
+                        $"{rule.ItemId}:{rule.AppearancePermille}:{rule.MinQuantity}:{rule.MaxQuantity}")
+                    .ToArray());
+        }
+
         [TestCase("crop", true, "content.crop_seed_not_for_sale")]
         [TestCase("crop", false, "content.crop_seed_not_for_sale")]
         [TestCase("feed", true, "content.animal_feed_not_for_sale")]
@@ -109,6 +130,7 @@ namespace CozyTown.Tests.EditMode.Content
             FishingEntry[] fishingEntries = source.FishingEntries.ToArray();
             RecipeDefinition[] recipes = source.Recipes.ToArray();
             NpcDefinition[] npcs = source.Npcs.ToArray();
+            ShopRestockRule[] shopRestockRules = source.ShopRestockRules.ToArray();
             var configuration = new CozyTownConfiguration(
                 items,
                 shopOffers,
@@ -118,7 +140,8 @@ namespace CozyTown.Tests.EditMode.Content
                 animals,
                 fishingEntries,
                 recipes,
-                npcs: npcs);
+                npcs: npcs,
+                shopRestockRules: shopRestockRules);
 
             items[0] = null;
             shopOffers[0] = null;
@@ -129,6 +152,7 @@ namespace CozyTown.Tests.EditMode.Content
             fishingEntries[0] = null;
             recipes[0] = null;
             npcs[0] = null;
+            shopRestockRules[0] = null;
 
             Assert.That(configuration.Items[0], Is.Not.Null);
             Assert.That(configuration.ShopOffers[0], Is.Not.Null);
@@ -139,6 +163,7 @@ namespace CozyTown.Tests.EditMode.Content
             Assert.That(configuration.FishingEntries[0], Is.Not.Null);
             Assert.That(configuration.Recipes[0], Is.Not.Null);
             Assert.That(configuration.Npcs[0], Is.Not.Null);
+            Assert.That(configuration.ShopRestockRules[0], Is.Not.Null);
         }
 
         [Test]
@@ -165,15 +190,20 @@ namespace CozyTown.Tests.EditMode.Content
             string secondItemId = second.Items[0].Id;
             RecipeIngredient secondIngredient = second.Recipes[0].Ingredients[0];
             string secondNpcId = second.Npcs[0].Id;
+            string secondRestockItemId = second.ShopRestockRules[0].ItemId;
 
             first.Items[0] = null;
             first.Recipes[0].Ingredients[0] = new RecipeIngredient("item.mutated", 99);
             first.Npcs[0] = null;
+            first.ShopRestockRules[0] = null;
 
             Assert.That(second.Items[0].Id, Is.EqualTo(secondItemId));
             Assert.That(second.Recipes[0].Ingredients[0].ItemId, Is.EqualTo(secondIngredient.ItemId));
             Assert.That(second.Recipes[0].Ingredients[0].Quantity, Is.EqualTo(secondIngredient.Quantity));
             Assert.That(second.Npcs[0].Id, Is.EqualTo(secondNpcId));
+            Assert.That(
+                second.ShopRestockRules[0].ItemId,
+                Is.EqualTo(secondRestockItemId));
         }
 
         [TestCase("shop", "content.shop_offer_id_duplicate")]
@@ -238,6 +268,25 @@ namespace CozyTown.Tests.EditMode.Content
 
             Assert.That(result.IsSuccess, Is.False);
             Assert.That(result.ErrorCode, Is.EqualTo(expectedError));
+        }
+
+        [Test]
+        public void Validate_WhenCanonicalNpcIdIsReplaced_RejectsConfiguration()
+        {
+            CozyTownConfiguration source = DefaultMvpContent.CreateConfiguration();
+            NpcDefinition[] npcs = source.Npcs.ToArray();
+            NpcDefinition shopkeeper = npcs[0];
+            npcs[0] = new NpcDefinition(
+                "npc.shopkeeper_replacement",
+                shopkeeper.DisplayName,
+                shopkeeper.Persona,
+                shopkeeper.FallbackDialogue);
+            CozyTownConfiguration invalid = Copy(source, npcs: npcs);
+
+            OperationResult result = MvpContentValidator.Validate(invalid);
+
+            Assert.That(result.IsSuccess, Is.False);
+            Assert.That(result.ErrorCode, Is.EqualTo("content.npc_id_mismatch"));
         }
 
         [Test]
@@ -336,16 +385,18 @@ namespace CozyTown.Tests.EditMode.Content
             Assert.That(result.ErrorCode, Is.EqualTo(expectedError));
         }
 
-        [TestCase(0, 360, 24, 0)]
-        [TestCase(1, -1, 24, 0)]
-        [TestCase(1, 1440, 24, 0)]
-        [TestCase(1, 360, 0, 0)]
-        [TestCase(1, 360, 24, -1)]
+        [TestCase(0, 360, 24, 0, 10000)]
+        [TestCase(1, -1, 24, 0, 10000)]
+        [TestCase(1, 1440, 24, 0, 10000)]
+        [TestCase(1, 360, 0, 0, 10000)]
+        [TestCase(1, 360, 24, -1, 10000)]
+        [TestCase(1, 360, 24, 0, -1)]
         public void Create_WhenCoreStartingValueIsInvalid_RejectsBeforeServiceConstruction(
             int startingDay,
             int startingMinute,
             int capacity,
-            int balance)
+            int balance,
+            int shopBalance)
         {
             CozyTownConfiguration source = DefaultMvpContent.CreateConfiguration();
             CozyTownConfiguration invalid = Copy(
@@ -353,7 +404,8 @@ namespace CozyTown.Tests.EditMode.Content
                 startingDay: startingDay,
                 startingMinuteOfDay: startingMinute,
                 inventoryCapacitySlots: capacity,
-                startingBalance: balance);
+                startingBalance: balance,
+                startingShopBalance: shopBalance);
 
             ArgumentException exception = Assert.Throws<ArgumentException>(
                 () => CozyTownCompositionRoot.Create(invalid));
@@ -372,10 +424,13 @@ namespace CozyTown.Tests.EditMode.Content
             FishingEntry[] fishingEntries = null,
             RecipeDefinition[] recipes = null,
             NpcDefinition[] npcs = null,
+            ShopRestockRule[] shopRestockRules = null,
             int? inventoryCapacitySlots = null,
             int? startingBalance = null,
             int? startingDay = null,
-            int? startingMinuteOfDay = null)
+            int? startingMinuteOfDay = null,
+            int? startingWorldSeed = null,
+            int? startingShopBalance = null)
         {
             return new CozyTownConfiguration(
                 items ?? source.Items,
@@ -391,7 +446,10 @@ namespace CozyTown.Tests.EditMode.Content
                 startingDay ?? source.StartingDay,
                 startingMinuteOfDay ?? source.StartingMinuteOfDay,
                 source.FallbackDialogue,
-                npcs ?? source.Npcs);
+                npcs ?? source.Npcs,
+                shopRestockRules ?? source.ShopRestockRules,
+                startingWorldSeed ?? source.StartingWorldSeed,
+                startingShopBalance ?? source.StartingShopBalance);
         }
     }
 }

@@ -1,6 +1,6 @@
 # ADR-0003：单槽位存档使用版本化数据包
 
-- 状态：已接受
+- 状态：已接受；版本号与顶层字段清单已由 ADR-0012 取代
 - 日期：2026-08-28
 
 ## 背景
@@ -55,9 +55,9 @@ GameSaveSnapshot
 
 ## 当前实现
 
-M4 的 `JsonFileSaveStorage` 使用独立于运行时对象的 schema v1 JSON 数据包。写入时在目标文件同一目录生成临时文件，复读并校验后使用文件替换提交；临时写入或替换失败时，上一份有效存档保持可读。读取路径区分空槽、截断或结构损坏、未来版本和无效载荷。当前没有旧版本迁移器，非 v1 数据会被拒绝。
+`JsonFileSaveStorage` 当前写入独立于运行时对象的 schema v2 JSON 数据包，并按 ADR-0012 的固定规则把 schema v1 迁移为 v2 候选。写入时在目标文件同一目录生成临时文件，复读并校验后使用文件替换提交；临时写入或替换失败时，上一份有效存档保持可读。读取路径区分空槽、截断或结构损坏、未来版本和无效载荷。
 
-`GameSaveCoordinator` 为逻辑槽位 `main` 捕获时间、金币、背包、农田和畜牧快照。读取先校验载荷状态范围，并检查时间、农田和畜牧日期一致性，再恢复五个模块；任一步失败时回滚五份调用前快照。常规 Editor Play 与构建使用 `<Application.persistentDataPath>/CozyTown/main.json`，批处理测试注入 `InMemorySaveStorage`，避免接触玩家存档。
+`GameSaveCoordinator` 为逻辑槽位 `main` 捕获世界种子、时间、全部角色与商店经济状态、农田和畜牧快照。读取先校验载荷状态范围、稳定主体和跨模块日期，再恢复五个状态边界；任一步失败时回滚五份调用前快照。常规 Editor Play 与构建使用 `<Application.persistentDataPath>/CozyTown/main.json`，批处理测试注入 `InMemorySaveStorage`，避免接触玩家存档。
 
 ## 后果
 

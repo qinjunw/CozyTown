@@ -38,19 +38,76 @@ namespace CozyTown.Runtime.Core
                     nameof(configuration));
             }
 
+            OperationResult<NpcContentCatalog> npcContentResult =
+                NpcContentCatalog.Create(
+                    configuration.FallbackDialogue,
+                    configuration.Npcs);
+            if (!npcContentResult.IsSuccess)
+            {
+                throw new ArgumentException(
+                    $"NPC content is invalid: {npcContentResult.ErrorCode}",
+                    nameof(configuration));
+            }
+
+            NpcContentCatalog npcContent = npcContentResult.Value;
+
             var time = new InMemoryTimeService(
                 configuration.StartingDay,
                 configuration.StartingMinuteOfDay);
-            var inventory = new InMemoryInventory(
+            var worldSeed = new InMemoryWorldSeedState(configuration.StartingWorldSeed);
+            var initialInventory = new InMemoryInventory(
                 configuration.Items,
                 configuration.InventoryCapacitySlots);
-            var wallet = new InMemoryWallet(configuration.StartingBalance);
-            var shop = new InMemoryShopService(configuration.ShopOffers, wallet, inventory);
-            var shopTrading = new ShopTradingCoordinator(
+            var initialCharacter = new CharacterEconomySnapshot(
+                DefaultMvpIds.Characters.Player,
+                initialInventory.CaptureSnapshot(),
+                new WalletSnapshot(configuration.StartingBalance));
+            IShopStockReplacementPolicy restockPolicy = null;
+            ShopEconomySnapshot[] initialShops = Array.Empty<ShopEconomySnapshot>();
+            if (configuration.ShopRestockRules.Length > 0)
+            {
+                restockPolicy = new DeterministicShopStockReplacementPolicy(
+                    configuration.ShopRestockRules,
+                    minimumDistinctItems: 4);
+                var initialShop = new ShopEconomySnapshot(
+                    DefaultMvpIds.Shops.TownGeneral,
+                    new InventorySnapshot(Array.Empty<ItemStack>()),
+                    new WalletSnapshot(configuration.StartingShopBalance),
+                    configuration.StartingDay - 1,
+                    DeterministicShopStockReplacementPolicy.VersionOne);
+                OperationResult<ShopEconomySnapshot> initialRestock =
+                    restockPolicy.CreateCandidate(
+                        worldSeed.Value,
+                        initialShop,
+                        configuration.StartingDay);
+                if (!initialRestock.IsSuccess)
+                {
+                    throw new ArgumentException(
+                        $"Initial shop restock failed: {initialRestock.ErrorCode}",
+                        nameof(configuration));
+                }
+
+                initialShops = new[] { initialRestock.Value };
+            }
+
+            IEconomyStateStore economyState = new InMemoryEconomyStateStore(
+                new[] { initialCharacter },
+                initialShops,
                 configuration.Items,
-                shop,
-                wallet,
-                inventory);
+                configuration.InventoryCapacitySlots);
+            var inventory = new CharacterInventoryAdapter(
+                configuration.Items,
+                configuration.InventoryCapacitySlots,
+                DefaultMvpIds.Characters.Player,
+                economyState);
+            var wallet = new CharacterWalletAdapter(
+                DefaultMvpIds.Characters.Player,
+                economyState);
+            var shopTrading = new CharacterShopTradingCoordinator(
+                configuration.Items,
+                configuration.ShopOffers,
+                configuration.InventoryCapacitySlots,
+                economyState);
             var farm = new InMemoryFarmService(
                 configuration.FarmPlotIds,
                 configuration.Crops,
@@ -81,32 +138,36 @@ namespace CozyTown.Runtime.Core
                 configuration.Items,
                 cooking,
                 inventory);
-            npcDialogue = npcDialogue ?? (configuration.Npcs.Length == 0
-                ? (INpcDialogueGenerator)new FixedFallbackDialogueGenerator(
-                    configuration.FallbackDialogue)
-                : new ConfiguredFallbackDialogueGenerator(
-                    configuration.Npcs,
-                    configuration.FallbackDialogue));
+            IDayTransitionCoordinator dayTransition = restockPolicy == null
+                ? new DayTransitionCoordinator(time, farm, livestock)
+                : new DayTransitionCoordinator(
+                    time,
+                    farm,
+                    livestock,
+                    economyState,
+                    restockPolicy,
+                    worldSeed,
+                    DefaultMvpIds.Shops.TownGeneral);
+            npcDialogue = npcDialogue
+                ?? new ConfiguredFallbackDialogueGenerator(npcContent);
             saveStorage = saveStorage ?? new InMemorySaveStorage();
             var npcDialogueGameplay = new NpcDialogueCoordinator(
-                configuration.Npcs,
+                npcContent,
                 npcDialogue,
                 () => time.Current);
             var gameSave = new GameSaveCoordinator(
+                worldSeed,
                 time,
-                inventory,
-                wallet,
+                economyState,
                 farm,
                 livestock,
                 saveStorage);
-            var dayTransition = new DayTransitionCoordinator(time, farm, livestock);
 
             return new CozyTownServices(
                 dayTransition,
                 time,
                 inventory,
                 wallet,
-                shop,
                 shopTrading,
                 farm,
                 farmGameplay,
@@ -119,7 +180,9 @@ namespace CozyTown.Runtime.Core
                 npcDialogue,
                 npcDialogueGameplay,
                 saveStorage,
-                gameSave);
+                gameSave,
+                economyState,
+                worldSeed);
         }
 
         public static CozyTownServices CreateDefault()

@@ -25,7 +25,7 @@ namespace CozyTown.Unity.Shop
 
         public bool IsVisible { get; private set; }
 
-        public ShopViewState State { get; private set; }
+        public ShopTradingViewState State { get; private set; }
 
         public string Feedback { get; private set; } = string.Empty;
 
@@ -73,7 +73,7 @@ namespace CozyTown.Unity.Shop
             RefreshUi();
         }
 
-        public void Show(ShopViewState state, string feedback)
+        public void Show(ShopTradingViewState state, string feedback)
         {
             State = state ?? throw new ArgumentNullException(nameof(state));
             Feedback = feedback ?? string.Empty;
@@ -142,32 +142,54 @@ namespace CozyTown.Unity.Shop
             }
 
             panel.SetActive(IsVisible);
-            balanceText.text = $"Town Shop — Coins: {State.Balance}";
+            balanceText.text =
+                $"Town Shop — Your Coins: {State.CharacterBalance} · Shop Coins: {State.ShopBalance}";
             feedbackText.text = Feedback;
 
-            var visibleCount = Mathf.Min(State.Items.Count, rows.Length);
-            for (var index = 0; index < visibleCount; index++)
+            var rowIndex = 0;
+            foreach (ShopTradingLineItem item in State.PurchaseItems)
             {
-                var item = State.Items[index];
+                if (rowIndex >= rows.Length)
+                {
+                    break;
+                }
+
                 var stableItemId = item.ItemId;
-                var row = rows[index];
+                var row = rows[rowIndex++];
+                row.Clear();
                 row.SetContent(
-                    $"{item.DisplayName}  Owned: {item.OwnedQuantity}",
+                    $"{item.DisplayName}  Stock: {item.Quantity}",
                     iconCatalog.GetItemSprite(stableItemId));
                 row.SetButton(
                     0,
-                    $"Buy 1 ({item.BuyPrice})",
-                    item.BuyPrice > 0 && State.Balance >= item.BuyPrice,
+                    $"Buy 1 ({item.UnitPrice})",
+                    item.Quantity > 0 && State.CharacterBalance >= item.UnitPrice,
                     () => RequestBuy(stableItemId));
-                row.SetButton(
-                    1,
-                    $"Sell 1 ({item.SellPrice})",
-                    item.SellPrice > 0 && item.OwnedQuantity > 0,
-                    () => RequestSell(stableItemId));
-                row.HideUnusedButtons(2);
+                row.HideUnusedButtons(1);
             }
 
-            for (var index = visibleCount; index < rows.Length; index++)
+            foreach (ShopTradingLineItem item in State.SaleItems)
+            {
+                if (rowIndex >= rows.Length)
+                {
+                    break;
+                }
+
+                var stableItemId = item.ItemId;
+                var row = rows[rowIndex++];
+                row.Clear();
+                row.SetContent(
+                    $"{item.DisplayName}  Owned: {item.Quantity}",
+                    iconCatalog.GetItemSprite(stableItemId));
+                row.SetButton(
+                    0,
+                    $"Sell 1 ({item.UnitPrice})",
+                    item.Quantity > 0 && State.ShopBalance >= item.UnitPrice,
+                    () => RequestSell(stableItemId));
+                row.HideUnusedButtons(1);
+            }
+
+            for (var index = rowIndex; index < rows.Length; index++)
             {
                 rows[index].Clear();
             }

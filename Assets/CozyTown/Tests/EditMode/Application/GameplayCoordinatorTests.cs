@@ -16,7 +16,7 @@ namespace CozyTown.Tests.EditMode.Application
         {
             CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
             Assert.That(
-                services.ShopTrading.Buy(DefaultMvpIds.Items.PotatoSeed, 1).IsSuccess,
+                services.Inventory.Add(DefaultMvpIds.Items.PotatoSeed, 1).IsSuccess,
                 Is.True);
 
             FarmViewState before = services.FarmGameplay.GetCurrentState();
@@ -48,7 +48,7 @@ namespace CozyTown.Tests.EditMode.Application
         {
             CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
             Assert.That(
-                services.ShopTrading.Buy(DefaultMvpIds.Items.ChickenFeed, 1).IsSuccess,
+                services.Inventory.Add(DefaultMvpIds.Items.ChickenFeed, 1).IsSuccess,
                 Is.True);
 
             LivestockViewState state = services.LivestockGameplay.GetCurrentState();
@@ -99,7 +99,7 @@ namespace CozyTown.Tests.EditMode.Application
             CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
             Assert.That(services.Inventory.Add(DefaultMvpIds.Items.Potato, 1).IsSuccess, Is.True);
             Assert.That(
-                services.ShopTrading.Buy(DefaultMvpIds.Items.Salt, 1).IsSuccess,
+                services.Inventory.Add(DefaultMvpIds.Items.Salt, 1).IsSuccess,
                 Is.True);
 
             CookingViewState state = services.CookingGameplay.GetCurrentState();

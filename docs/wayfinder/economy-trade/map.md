@@ -1,7 +1,8 @@
 # 守恒型角色—商店经济重构
 
 - Label: `wayfinder:map`
-- Status: Open
+- Status: Closed
+- Tracker: https://github.com/qinjunw/CozyTown/issues/3
 
 ## Destination
 
@@ -19,6 +20,11 @@
 - [审计现有经济、背包、商店与存档边界](tickets/audit-current-economy-and-save-boundaries.md)：现有商店只绑定唯一全局玩家背包与钱包，没有自己的库存、资金或刷新状态；普通购买和出售不满足世界资源与货币守恒。
 - [调研成熟角色库存与商店交易模型](tickets/research-inventory-shop-ledger-patterns.md)：成熟实现会分开静态物品定义、角色资产、商店资产和交易用例；同步单机交易应只发布同时满足双方不变量的完整候选状态。
 - [调研商店状态持久化与数据库引入阈值](tickets/research-persistence-and-database-threshold.md)：当前规模继续使用内存聚合与版本化 JSON；静态内容可由代码配置或只读 ScriptableObject 提供，动态角色和商店状态进入存档。
+- [决定角色身份、背包与资金的所有权](tickets/decide-character-inventory-ownership.md)：玩家和未来 NPC 共享 `CharacterEconomyState`，以稳定 `CharacterId` 标识并拥有 `Backpack` 与 `Wallet`。
+- [决定商店聚合与资源守恒边界](tickets/decide-shop-aggregate-and-conservation-boundary.md)：角色与商店保持独立聚合，由经济 Unit of Work 一次提交双方候选状态或全部拒绝。
+- [决定每日库存刷新与确定性随机规则](tickets/decide-daily-stock-refresh.md)：每日完整替换六类基础补给的目标库存，使用确定性随机并保持同日幂等；角色售入的非补货物品在下一日清退。
+- [决定经济状态存档迁移与存储方案](tickets/decide-save-schema-and-storage.md)：schema v2 保存角色、商店和实际刷新状态；v1 迁入默认玩家并确定生成初始商店，不引入 SQLite。
+- [确认公开 TDD 缝隙与纵向迁移顺序](tickets/agree-public-tdd-seams.md)：测试绑定公开经济状态、交易、跨日与存档用例，按状态、买入、卖出、投影、刷新、跨日、迁移和 Unity 接线逐个纵向切片实施。
 
 ## Not yet specified
 

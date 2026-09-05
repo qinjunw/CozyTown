@@ -2,6 +2,16 @@ namespace CozyTown.Runtime.Content
 {
     public static class DefaultMvpIds
     {
+        public static class Characters
+        {
+            public const string Player = "character.player";
+        }
+
+        public static class Shops
+        {
+            public const string TownGeneral = "shop.town.general";
+        }
+
         public static class Items
         {
             public const string PotatoSeed = "seed.potato";

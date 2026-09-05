@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Xml;
+using CozyTown.Runtime.Content;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Economy;
 using CozyTown.Runtime.Farming;
@@ -16,11 +17,20 @@ namespace CozyTown.Runtime.Save
     public sealed class JsonFileSaveStorage : ISaveStorage
     {
         public const string MainSlotId = "main";
+        public const int LegacyV1WorldSeed = 1;
 
         private readonly string _filePath;
         private readonly string _temporaryPath;
+        private readonly IShopStockReplacementPolicy _legacyRestockPolicy;
 
         public JsonFileSaveStorage(string filePath)
+            : this(filePath, CreateDefaultLegacyRestockPolicy())
+        {
+        }
+
+        public JsonFileSaveStorage(
+            string filePath,
+            IShopStockReplacementPolicy legacyRestockPolicy)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
@@ -29,6 +39,8 @@ namespace CozyTown.Runtime.Save
 
             _filePath = Path.GetFullPath(filePath);
             _temporaryPath = _filePath + ".tmp";
+            _legacyRestockPolicy = legacyRestockPolicy
+                ?? throw new ArgumentNullException(nameof(legacyRestockPolicy));
         }
 
         public bool Exists(string slotId)
@@ -115,8 +127,8 @@ namespace CozyTown.Runtime.Save
 
         private static void WriteSnapshot(string path, GameSaveSnapshot snapshot)
         {
-            SaveFileData data = SaveFileData.FromSnapshot(snapshot);
-            var serializer = new DataContractJsonSerializer(typeof(SaveFileData));
+            V2SaveFileData data = V2SaveFileData.FromSnapshot(snapshot);
+            var serializer = new DataContractJsonSerializer(typeof(V2SaveFileData));
             using (var stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 serializer.WriteObject(stream, data);
@@ -124,15 +136,15 @@ namespace CozyTown.Runtime.Save
             }
         }
 
-        private static OperationResult<GameSaveSnapshot> ReadSnapshot(string path)
+        private OperationResult<GameSaveSnapshot> ReadSnapshot(string path)
         {
-            SaveFileData data;
+            SchemaProbe probe;
             try
             {
-                var serializer = new DataContractJsonSerializer(typeof(SaveFileData));
+                var serializer = new DataContractJsonSerializer(typeof(SchemaProbe));
                 using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
-                    data = serializer.ReadObject(stream) as SaveFileData;
+                    probe = serializer.ReadObject(stream) as SchemaProbe;
                 }
             }
             catch (Exception exception) when (IsJsonReadFailure(exception))
@@ -148,17 +160,37 @@ namespace CozyTown.Runtime.Save
                 return OperationResult<GameSaveSnapshot>.Failure("save.read_failed");
             }
 
-            if (data == null || !data.SchemaVersion.HasValue)
+            if (probe == null || !probe.SchemaVersion.HasValue)
             {
                 return OperationResult<GameSaveSnapshot>.Failure("save.payload_invalid");
             }
 
-            if (data.SchemaVersion.Value != GameSaveSnapshot.CurrentSchemaVersion)
+            OperationResult<GameSaveSnapshot> converted;
+            if (probe.SchemaVersion.Value == 1)
+            {
+                OperationResult<V1SaveFileData> data = ReadData<V1SaveFileData>(path);
+                if (!data.IsSuccess)
+                {
+                    return OperationResult<GameSaveSnapshot>.Failure(data.ErrorCode);
+                }
+
+                converted = data.Value.ToSnapshot(_legacyRestockPolicy);
+            }
+            else if (probe.SchemaVersion.Value == GameSaveSnapshot.CurrentSchemaVersion)
+            {
+                OperationResult<V2SaveFileData> data = ReadData<V2SaveFileData>(path);
+                if (!data.IsSuccess)
+                {
+                    return OperationResult<GameSaveSnapshot>.Failure(data.ErrorCode);
+                }
+
+                converted = data.Value.ToSnapshot();
+            }
+            else
             {
                 return OperationResult<GameSaveSnapshot>.Failure("save.schema_unsupported");
             }
 
-            OperationResult<GameSaveSnapshot> converted = data.ToSnapshot();
             if (!converted.IsSuccess)
             {
                 return converted;
@@ -168,6 +200,41 @@ namespace CozyTown.Runtime.Save
             return validation.IsSuccess
                 ? converted
                 : OperationResult<GameSaveSnapshot>.Failure(validation.ErrorCode);
+        }
+
+        private static OperationResult<T> ReadData<T>(string path)
+            where T : class
+        {
+            try
+            {
+                var serializer = new DataContractJsonSerializer(typeof(T));
+                using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    T data = serializer.ReadObject(stream) as T;
+                    return data == null
+                        ? OperationResult<T>.Failure("save.payload_invalid")
+                        : OperationResult<T>.Success(data);
+                }
+            }
+            catch (Exception exception) when (IsJsonReadFailure(exception))
+            {
+                return OperationResult<T>.Failure("save.json_invalid");
+            }
+            catch (IOException)
+            {
+                return OperationResult<T>.Failure("save.read_failed");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return OperationResult<T>.Failure("save.read_failed");
+            }
+        }
+
+        private static IShopStockReplacementPolicy CreateDefaultLegacyRestockPolicy()
+        {
+            return new DeterministicShopStockReplacementPolicy(
+                LegacyV1MigrationDefaults.CreateRestockRules(),
+                LegacyV1MigrationDefaults.MinimumDistinctItems);
         }
 
         private void TryDeleteTemporaryFile()
@@ -203,7 +270,14 @@ namespace CozyTown.Runtime.Save
         }
 
         [DataContract]
-        private sealed class SaveFileData
+        private sealed class SchemaProbe
+        {
+            [DataMember(Name = "schemaVersion", Order = 0, EmitDefaultValue = false)]
+            public int? SchemaVersion { get; set; }
+        }
+
+        [DataContract]
+        private sealed class V1SaveFileData
         {
             [DataMember(Name = "schemaVersion", Order = 0, EmitDefaultValue = false)]
             public int? SchemaVersion { get; set; }
@@ -223,20 +297,8 @@ namespace CozyTown.Runtime.Save
             [DataMember(Name = "livestock", Order = 5, EmitDefaultValue = false)]
             public LivestockData Livestock { get; set; }
 
-            public static SaveFileData FromSnapshot(GameSaveSnapshot snapshot)
-            {
-                return new SaveFileData
-                {
-                    SchemaVersion = snapshot.SchemaVersion,
-                    Clock = ClockData.FromSnapshot(snapshot.Clock),
-                    Inventory = InventoryData.FromSnapshot(snapshot.Inventory),
-                    Wallet = WalletData.FromSnapshot(snapshot.Wallet),
-                    Farm = FarmData.FromSnapshot(snapshot.Farm),
-                    Livestock = LivestockData.FromSnapshot(snapshot.Livestock)
-                };
-            }
-
-            public OperationResult<GameSaveSnapshot> ToSnapshot()
+            public OperationResult<GameSaveSnapshot> ToSnapshot(
+                IShopStockReplacementPolicy restockPolicy)
             {
                 if (!SchemaVersion.HasValue
                     || Clock == null
@@ -262,14 +324,249 @@ namespace CozyTown.Runtime.Save
                     return OperationResult<GameSaveSnapshot>.Failure("save.payload_invalid");
                 }
 
+                var player = new CharacterEconomySnapshot(
+                    DefaultMvpIds.Characters.Player,
+                    inventory.Value,
+                    wallet.Value);
+                var sourceShop = new ShopEconomySnapshot(
+                    DefaultMvpIds.Shops.TownGeneral,
+                    new InventorySnapshot(Array.Empty<ItemStack>()),
+                    new WalletSnapshot(LegacyV1MigrationDefaults.ShopStartingBalance),
+                    clock.Value.Day - 1,
+                    DeterministicShopStockReplacementPolicy.VersionOne);
+                OperationResult<ShopEconomySnapshot> shop =
+                    restockPolicy.CreateCandidate(
+                        LegacyV1WorldSeed,
+                        sourceShop,
+                        clock.Value.Day);
+                if (!shop.IsSuccess)
+                {
+                    return OperationResult<GameSaveSnapshot>.Failure(
+                        "save.migration_failed");
+                }
+
+                return OperationResult<GameSaveSnapshot>.Success(
+                    new GameSaveSnapshot(
+                        GameSaveSnapshot.CurrentSchemaVersion,
+                        LegacyV1WorldSeed,
+                        clock.Value,
+                        new[] { player },
+                        new[] { shop.Value },
+                        farm.Value,
+                        livestock.Value));
+            }
+        }
+
+        [DataContract]
+        private sealed class V2SaveFileData
+        {
+            [DataMember(Name = "schemaVersion", Order = 0, EmitDefaultValue = false)]
+            public int? SchemaVersion { get; set; }
+
+            [DataMember(Name = "worldSeed", Order = 1, EmitDefaultValue = false)]
+            public int? WorldSeed { get; set; }
+
+            [DataMember(Name = "clock", Order = 2, EmitDefaultValue = false)]
+            public ClockData Clock { get; set; }
+
+            [DataMember(Name = "characters", Order = 3, EmitDefaultValue = false)]
+            public CharacterData[] Characters { get; set; }
+
+            [DataMember(Name = "shops", Order = 4, EmitDefaultValue = false)]
+            public ShopData[] Shops { get; set; }
+
+            [DataMember(Name = "farm", Order = 5, EmitDefaultValue = false)]
+            public FarmData Farm { get; set; }
+
+            [DataMember(Name = "livestock", Order = 6, EmitDefaultValue = false)]
+            public LivestockData Livestock { get; set; }
+
+            public static V2SaveFileData FromSnapshot(GameSaveSnapshot snapshot)
+            {
+                CharacterEconomySnapshot[] characters = snapshot.Characters;
+                ShopEconomySnapshot[] shops = snapshot.Shops;
+                var characterData = new CharacterData[characters.Length];
+                var shopData = new ShopData[shops.Length];
+                for (int index = 0; index < characterData.Length; index++)
+                {
+                    characterData[index] = CharacterData.FromSnapshot(characters[index]);
+                }
+
+                for (int index = 0; index < shopData.Length; index++)
+                {
+                    shopData[index] = ShopData.FromSnapshot(shops[index]);
+                }
+
+                return new V2SaveFileData
+                {
+                    SchemaVersion = snapshot.SchemaVersion,
+                    WorldSeed = snapshot.WorldSeed,
+                    Clock = ClockData.FromSnapshot(snapshot.Clock),
+                    Characters = characterData,
+                    Shops = shopData,
+                    Farm = FarmData.FromSnapshot(snapshot.Farm),
+                    Livestock = LivestockData.FromSnapshot(snapshot.Livestock)
+                };
+            }
+
+            public OperationResult<GameSaveSnapshot> ToSnapshot()
+            {
+                if (!SchemaVersion.HasValue
+                    || !WorldSeed.HasValue
+                    || Clock == null
+                    || Characters == null
+                    || Shops == null
+                    || Farm == null
+                    || Livestock == null)
+                {
+                    return OperationResult<GameSaveSnapshot>.Failure(
+                        "save.payload_invalid");
+                }
+
+                OperationResult<GameClockSnapshot> clock = Clock.ToSnapshot();
+                OperationResult<FarmSnapshot> farm = Farm.ToSnapshot();
+                OperationResult<LivestockSnapshot> livestock = Livestock.ToSnapshot();
+                if (!clock.IsSuccess || !farm.IsSuccess || !livestock.IsSuccess)
+                {
+                    return OperationResult<GameSaveSnapshot>.Failure(
+                        "save.payload_invalid");
+                }
+
+                var characters = new CharacterEconomySnapshot[Characters.Length];
+                for (int index = 0; index < characters.Length; index++)
+                {
+                    if (Characters[index] == null
+                        || !Characters[index].TryToSnapshot(out characters[index]))
+                    {
+                        return OperationResult<GameSaveSnapshot>.Failure(
+                            "save.payload_invalid");
+                    }
+                }
+
+                var shops = new ShopEconomySnapshot[Shops.Length];
+                for (int index = 0; index < shops.Length; index++)
+                {
+                    if (Shops[index] == null
+                        || !Shops[index].TryToSnapshot(out shops[index]))
+                    {
+                        return OperationResult<GameSaveSnapshot>.Failure(
+                            "save.payload_invalid");
+                    }
+                }
+
                 return OperationResult<GameSaveSnapshot>.Success(
                     new GameSaveSnapshot(
                         SchemaVersion.Value,
+                        WorldSeed.Value,
                         clock.Value,
-                        inventory.Value,
-                        wallet.Value,
+                        characters,
+                        shops,
                         farm.Value,
                         livestock.Value));
+            }
+        }
+
+        [DataContract]
+        private sealed class CharacterData
+        {
+            [DataMember(Name = "characterId", Order = 0, EmitDefaultValue = false)]
+            public string CharacterId { get; set; }
+
+            [DataMember(Name = "backpack", Order = 1, EmitDefaultValue = false)]
+            public InventoryData Backpack { get; set; }
+
+            [DataMember(Name = "wallet", Order = 2, EmitDefaultValue = false)]
+            public WalletData Wallet { get; set; }
+
+            public static CharacterData FromSnapshot(CharacterEconomySnapshot snapshot)
+            {
+                return new CharacterData
+                {
+                    CharacterId = snapshot.CharacterId,
+                    Backpack = InventoryData.FromSnapshot(snapshot.Backpack),
+                    Wallet = WalletData.FromSnapshot(snapshot.Wallet)
+                };
+            }
+
+            public bool TryToSnapshot(out CharacterEconomySnapshot snapshot)
+            {
+                snapshot = null;
+                if (CharacterId == null || Backpack == null || Wallet == null)
+                {
+                    return false;
+                }
+
+                OperationResult<InventorySnapshot> backpack = Backpack.ToSnapshot();
+                OperationResult<WalletSnapshot> wallet = Wallet.ToSnapshot();
+                if (!backpack.IsSuccess || !wallet.IsSuccess)
+                {
+                    return false;
+                }
+
+                snapshot = new CharacterEconomySnapshot(
+                    CharacterId,
+                    backpack.Value,
+                    wallet.Value);
+                return true;
+            }
+        }
+
+        [DataContract]
+        private sealed class ShopData
+        {
+            [DataMember(Name = "shopId", Order = 0, EmitDefaultValue = false)]
+            public string ShopId { get; set; }
+
+            [DataMember(Name = "stock", Order = 1, EmitDefaultValue = false)]
+            public InventoryData Stock { get; set; }
+
+            [DataMember(Name = "wallet", Order = 2, EmitDefaultValue = false)]
+            public WalletData Wallet { get; set; }
+
+            [DataMember(Name = "lastRestockedDay", Order = 3, EmitDefaultValue = false)]
+            public int? LastRestockedDay { get; set; }
+
+            [DataMember(Name = "restockAlgorithmVersion", Order = 4, EmitDefaultValue = false)]
+            public int? RestockAlgorithmVersion { get; set; }
+
+            public static ShopData FromSnapshot(ShopEconomySnapshot snapshot)
+            {
+                return new ShopData
+                {
+                    ShopId = snapshot.ShopId,
+                    Stock = InventoryData.FromSnapshot(snapshot.Stock),
+                    Wallet = WalletData.FromSnapshot(snapshot.Wallet),
+                    LastRestockedDay = snapshot.LastRestockedDay,
+                    RestockAlgorithmVersion = snapshot.RestockAlgorithmVersion
+                };
+            }
+
+            public bool TryToSnapshot(out ShopEconomySnapshot snapshot)
+            {
+                snapshot = null;
+                if (ShopId == null
+                    || Stock == null
+                    || Wallet == null
+                    || !LastRestockedDay.HasValue
+                    || !RestockAlgorithmVersion.HasValue)
+                {
+                    return false;
+                }
+
+                OperationResult<InventorySnapshot> stock = Stock.ToSnapshot();
+                OperationResult<WalletSnapshot> wallet = Wallet.ToSnapshot();
+                if (!stock.IsSuccess || !wallet.IsSuccess)
+                {
+                    return false;
+                }
+
+                snapshot = new ShopEconomySnapshot(
+                    ShopId,
+                    stock.Value,
+                    wallet.Value,
+                    LastRestockedDay.Value,
+                    RestockAlgorithmVersion.Value);
+                return true;
             }
         }
 

@@ -1,11 +1,13 @@
-# 当前经济、交易与物品产出代码审计
+# 重构前经济、交易与物品产出代码审计
+
+> 状态：历史审计。本文记录 #21 接线前的代码事实；旧商店接口与实现已在替代覆盖通过后删除。当前入口见 [`ARCHITECTURE.md`](../../ARCHITECTURE.md)。
 
 ## 审计范围
 
 - 代码基线：`d6a00cf`（`fix: normalize player movement sprite frames`）。
 - 检查范围：Runtime 的 Economy、Inventory、Farming、Livestock、Fishing、Cooking、Time、Save、Application 与 Core 组合边界，以及商店和背包的 Unity 适配层与相关 EditMode/PlayMode 测试。
 - 约束来源：根 `CONTEXT.md`、ADR-0001 至 ADR-0005、ADR-0007。
-- 本文描述当前实现，不把候选重构方案记录为已接受决策。此次审计没有执行 Unity 测试，也没有修改业务代码。
+- 本文描述代码基线 `d6a00cf` 的实现，不把当时的候选重构方案记录为已接受决策。此次审计没有执行 Unity 测试，也没有修改业务代码。
 
 ## 直接结论
 
@@ -17,9 +19,9 @@
 
 证据：
 
-- `Assets/CozyTown/Runtime/Economy/IShopService.cs:6-12` 只公开报价、购买和出售。
-- `Assets/CozyTown/Runtime/Economy/InMemoryShopService.cs:11-13` 只持有报价字典、一个钱包和一个背包。
-- `Assets/CozyTown/Runtime/Application/ShopTradingCoordinator.cs:54-59` 原样委托购买和出售。
+- 重构前的 `Assets/CozyTown/Runtime/Economy/IShopService.cs:6-12` 只公开报价、购买和出售。
+- 重构前的 `Assets/CozyTown/Runtime/Economy/InMemoryShopService.cs:11-13` 只持有报价字典、一个钱包和一个背包。
+- 重构前的 `Assets/CozyTown/Runtime/Application/ShopTradingCoordinator.cs:54-59` 原样委托购买和出售。
 - `Assets/CozyTown/Unity/Shop/CozyTownShopDebugPresenter.cs:148-163` 把 UI 请求送入协调器。
 
 ### 有没有真实商店库存与资金

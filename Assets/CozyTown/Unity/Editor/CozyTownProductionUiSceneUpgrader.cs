@@ -428,6 +428,8 @@ namespace CozyTown.Unity.Editor
             inventoryPresenter.Configure(inventoryInput, inputGate, backpackView, hotbarView);
             var bootstrap = RequireRoot(scene, "CozyTown").GetComponent<CozyTownBootstrap>()
                 ?? throw new InvalidOperationException("CozyTown root is missing CozyTownBootstrap.");
+            bootstrap.ConfigureContentAsset(
+                CozyTownMvpContentAssetAuthoring.EnsureDefaultAsset());
             bootstrap.RegisterInventoryPresenter(inventoryPresenter);
         }
 

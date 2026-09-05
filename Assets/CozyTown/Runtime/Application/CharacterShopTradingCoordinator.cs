@@ -1,0 +1,410 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using CozyTown.Runtime.Core;
+using CozyTown.Runtime.Economy;
+using CozyTown.Runtime.Inventory;
+
+namespace CozyTown.Runtime.Application
+{
+    public sealed class CharacterShopTradingCoordinator : ICharacterShopTradingCoordinator
+    {
+        private readonly ItemDefinition[] _catalog;
+        private readonly IReadOnlyDictionary<string, ShopOffer> _offers;
+        private readonly int _backpackCapacitySlots;
+        private readonly IEconomyStateStore _stateStore;
+
+        public CharacterShopTradingCoordinator(
+            IEnumerable<ItemDefinition> items,
+            IEnumerable<ShopOffer> offers,
+            int backpackCapacitySlots,
+            IEconomyStateStore stateStore)
+        {
+            if (backpackCapacitySlots <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(backpackCapacitySlots));
+            }
+
+            _stateStore = stateStore ?? throw new ArgumentNullException(nameof(stateStore));
+            _catalog = BuildCatalog(items);
+            _offers = BuildOffers(offers, _catalog);
+            _backpackCapacitySlots = backpackCapacitySlots;
+        }
+
+        public OperationResult<ShopReceipt> Buy(
+            string shopId,
+            string characterId,
+            string itemId,
+            int quantity)
+        {
+            if (quantity <= 0)
+            {
+                return OperationResult<ShopReceipt>.Failure("shop.quantity_invalid");
+            }
+
+            if (!_offers.TryGetValue(itemId ?? string.Empty, out ShopOffer offer))
+            {
+                return OperationResult<ShopReceipt>.Failure("shop.offer_missing");
+            }
+
+            if (offer.BuyPrice <= 0)
+            {
+                return OperationResult<ShopReceipt>.Failure("shop.item_not_for_sale");
+            }
+
+            long calculatedTotal = (long)offer.BuyPrice * quantity;
+            if (calculatedTotal > int.MaxValue)
+            {
+                return OperationResult<ShopReceipt>.Failure("shop.total_overflow");
+            }
+
+            if (!_stateStore.TryGetCharacter(characterId, out CharacterEconomySnapshot character))
+            {
+                return OperationResult<ShopReceipt>.Failure("economy.character_unknown");
+            }
+
+            if (!_stateStore.TryGetShop(shopId, out ShopEconomySnapshot shop))
+            {
+                return OperationResult<ShopReceipt>.Failure("economy.shop_unknown");
+            }
+
+            int total = (int)calculatedTotal;
+            if (character.Wallet.Balance < total)
+            {
+                return OperationResult<ShopReceipt>.Failure("wallet.insufficient_funds");
+            }
+
+            if (shop.Wallet.Balance > int.MaxValue - total)
+            {
+                return OperationResult<ShopReceipt>.Failure("wallet.balance_overflow");
+            }
+
+            if (!TryRemove(
+                    shop.Stock,
+                    itemId,
+                    quantity,
+                    out InventorySnapshot shopStockCandidate))
+            {
+                return OperationResult<ShopReceipt>.Failure(
+                    "inventory.insufficient_quantity");
+            }
+
+            var backpackCandidate = new InMemoryInventory(
+                _catalog,
+                _backpackCapacitySlots);
+            OperationResult restore = backpackCandidate.Restore(character.Backpack);
+            if (!restore.IsSuccess)
+            {
+                return OperationResult<ShopReceipt>.Failure(restore.ErrorCode);
+            }
+
+            OperationResult add = backpackCandidate.Add(itemId, quantity);
+            if (!add.IsSuccess)
+            {
+                return OperationResult<ShopReceipt>.Failure(add.ErrorCode);
+            }
+
+            var characterCandidate = new CharacterEconomySnapshot(
+                character.CharacterId,
+                backpackCandidate.CaptureSnapshot(),
+                new WalletSnapshot(character.Wallet.Balance - total));
+            var shopCandidate = new ShopEconomySnapshot(
+                shop.ShopId,
+                shopStockCandidate,
+                new WalletSnapshot(shop.Wallet.Balance + total),
+                shop.LastRestockedDay,
+                shop.RestockAlgorithmVersion);
+            OperationResult commit = _stateStore.Commit(characterCandidate, shopCandidate);
+            if (!commit.IsSuccess)
+            {
+                return OperationResult<ShopReceipt>.Failure(commit.ErrorCode);
+            }
+
+            return OperationResult<ShopReceipt>.Success(
+                new ShopReceipt(itemId, quantity, total, true));
+        }
+
+        public OperationResult<ShopTradingViewState> GetCurrentState(
+            string shopId,
+            string characterId)
+        {
+            if (!_stateStore.TryGetCharacter(characterId, out CharacterEconomySnapshot character))
+            {
+                return OperationResult<ShopTradingViewState>.Failure(
+                    "economy.character_unknown");
+            }
+
+            if (!_stateStore.TryGetShop(shopId, out ShopEconomySnapshot shop))
+            {
+                return OperationResult<ShopTradingViewState>.Failure(
+                    "economy.shop_unknown");
+            }
+
+            var purchaseItems = new List<ShopTradingLineItem>();
+            var saleItems = new List<ShopTradingLineItem>();
+            foreach (ShopOffer offer in _offers.Values.OrderBy(
+                         value => value.ItemId,
+                         StringComparer.Ordinal))
+            {
+                ItemDefinition definition = _catalog.First(
+                    item => string.Equals(
+                        item.Id,
+                        offer.ItemId,
+                        StringComparison.Ordinal));
+                int shopQuantity = Quantity(shop.Stock, offer.ItemId);
+                if (offer.BuyPrice > 0 && shopQuantity > 0)
+                {
+                    purchaseItems.Add(
+                        new ShopTradingLineItem(
+                            offer.ItemId,
+                            definition.DisplayName,
+                            offer.BuyPrice,
+                            shopQuantity));
+                }
+
+                int characterQuantity = Quantity(character.Backpack, offer.ItemId);
+                if (offer.SellPrice > 0 && characterQuantity > 0)
+                {
+                    saleItems.Add(
+                        new ShopTradingLineItem(
+                            offer.ItemId,
+                            definition.DisplayName,
+                            offer.SellPrice,
+                            characterQuantity));
+                }
+            }
+
+            return OperationResult<ShopTradingViewState>.Success(
+                new ShopTradingViewState(
+                    character.Wallet.Balance,
+                    shop.Wallet.Balance,
+                    purchaseItems,
+                    saleItems));
+        }
+
+        public OperationResult<ShopReceipt> Sell(
+            string shopId,
+            string characterId,
+            string itemId,
+            int quantity)
+        {
+            if (quantity <= 0)
+            {
+                return OperationResult<ShopReceipt>.Failure("shop.quantity_invalid");
+            }
+
+            if (!_offers.TryGetValue(itemId ?? string.Empty, out ShopOffer offer))
+            {
+                return OperationResult<ShopReceipt>.Failure("shop.offer_missing");
+            }
+
+            if (offer.SellPrice <= 0)
+            {
+                return OperationResult<ShopReceipt>.Failure("shop.item_not_accepted");
+            }
+
+            long calculatedTotal = (long)offer.SellPrice * quantity;
+            if (calculatedTotal > int.MaxValue)
+            {
+                return OperationResult<ShopReceipt>.Failure("shop.total_overflow");
+            }
+
+            if (!_stateStore.TryGetCharacter(characterId, out CharacterEconomySnapshot character))
+            {
+                return OperationResult<ShopReceipt>.Failure("economy.character_unknown");
+            }
+
+            if (!_stateStore.TryGetShop(shopId, out ShopEconomySnapshot shop))
+            {
+                return OperationResult<ShopReceipt>.Failure("economy.shop_unknown");
+            }
+
+            int total = (int)calculatedTotal;
+            if (shop.Wallet.Balance < total)
+            {
+                return OperationResult<ShopReceipt>.Failure("wallet.insufficient_funds");
+            }
+
+            if (character.Wallet.Balance > int.MaxValue - total)
+            {
+                return OperationResult<ShopReceipt>.Failure("wallet.balance_overflow");
+            }
+
+            if (!TryRemove(
+                    character.Backpack,
+                    itemId,
+                    quantity,
+                    out InventorySnapshot backpackCandidate))
+            {
+                return OperationResult<ShopReceipt>.Failure(
+                    "inventory.insufficient_quantity");
+            }
+
+            if (!TryAdd(
+                    shop.Stock,
+                    itemId,
+                    quantity,
+                    out InventorySnapshot shopStockCandidate))
+            {
+                return OperationResult<ShopReceipt>.Failure(
+                    "inventory.quantity_overflow");
+            }
+
+            var characterCandidate = new CharacterEconomySnapshot(
+                character.CharacterId,
+                backpackCandidate,
+                new WalletSnapshot(character.Wallet.Balance + total));
+            var shopCandidate = new ShopEconomySnapshot(
+                shop.ShopId,
+                shopStockCandidate,
+                new WalletSnapshot(shop.Wallet.Balance - total),
+                shop.LastRestockedDay,
+                shop.RestockAlgorithmVersion);
+            OperationResult commit = _stateStore.Commit(characterCandidate, shopCandidate);
+            if (!commit.IsSuccess)
+            {
+                return OperationResult<ShopReceipt>.Failure(commit.ErrorCode);
+            }
+
+            return OperationResult<ShopReceipt>.Success(
+                new ShopReceipt(itemId, quantity, total, false));
+        }
+
+        private static ItemDefinition[] BuildCatalog(IEnumerable<ItemDefinition> items)
+        {
+            if (items == null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            var catalog = new List<ItemDefinition>();
+            var itemIds = new HashSet<string>(StringComparer.Ordinal);
+            foreach (ItemDefinition item in items)
+            {
+                if (item == null
+                    || string.IsNullOrWhiteSpace(item.Id)
+                    || string.IsNullOrWhiteSpace(item.DisplayName)
+                    || item.MaxStack <= 0
+                    || !itemIds.Add(item.Id))
+                {
+                    throw new ArgumentException(
+                        "Item definitions must be valid and have unique IDs.",
+                        nameof(items));
+                }
+
+                catalog.Add(item);
+            }
+
+            return catalog.ToArray();
+        }
+
+        private static IReadOnlyDictionary<string, ShopOffer> BuildOffers(
+            IEnumerable<ShopOffer> offers,
+            IEnumerable<ItemDefinition> catalog)
+        {
+            var itemIds = new HashSet<string>(StringComparer.Ordinal);
+            foreach (ItemDefinition item in catalog)
+            {
+                itemIds.Add(item.Id);
+            }
+
+            var byItemId = new Dictionary<string, ShopOffer>(StringComparer.Ordinal);
+            foreach (ShopOffer offer in offers ?? Array.Empty<ShopOffer>())
+            {
+                if (offer == null
+                    || string.IsNullOrWhiteSpace(offer.ItemId)
+                    || !itemIds.Contains(offer.ItemId)
+                    || !byItemId.TryAdd(offer.ItemId, offer))
+                {
+                    throw new ArgumentException(
+                        "Shop offers must be unique and reference item definitions.",
+                        nameof(offers));
+                }
+            }
+
+            return byItemId;
+        }
+
+        private static bool TryRemove(
+            InventorySnapshot stock,
+            string itemId,
+            int quantity,
+            out InventorySnapshot candidate)
+        {
+            var items = new List<ItemStack>();
+            bool found = false;
+            foreach (ItemStack stack in stock.Items)
+            {
+                if (!string.Equals(stack.ItemId, itemId, StringComparison.Ordinal))
+                {
+                    items.Add(stack);
+                    continue;
+                }
+
+                if (stack.Quantity < quantity)
+                {
+                    candidate = null;
+                    return false;
+                }
+
+                found = true;
+                int remainder = stack.Quantity - quantity;
+                if (remainder > 0)
+                {
+                    items.Add(new ItemStack(stack.ItemId, remainder));
+                }
+            }
+
+            candidate = found ? new InventorySnapshot(items.ToArray()) : null;
+            return found;
+        }
+
+        private static int Quantity(InventorySnapshot snapshot, string itemId)
+        {
+            foreach (ItemStack stack in snapshot.Items)
+            {
+                if (string.Equals(stack.ItemId, itemId, StringComparison.Ordinal))
+                {
+                    return stack.Quantity;
+                }
+            }
+
+            return 0;
+        }
+
+        private static bool TryAdd(
+            InventorySnapshot stock,
+            string itemId,
+            int quantity,
+            out InventorySnapshot candidate)
+        {
+            var items = new List<ItemStack>();
+            bool found = false;
+            foreach (ItemStack stack in stock.Items)
+            {
+                if (!string.Equals(stack.ItemId, itemId, StringComparison.Ordinal))
+                {
+                    items.Add(stack);
+                    continue;
+                }
+
+                if (stack.Quantity > int.MaxValue - quantity)
+                {
+                    candidate = null;
+                    return false;
+                }
+
+                found = true;
+                items.Add(new ItemStack(stack.ItemId, stack.Quantity + quantity));
+            }
+
+            if (!found)
+            {
+                items.Add(new ItemStack(itemId, quantity));
+            }
+
+            candidate = new InventorySnapshot(items.ToArray());
+            return true;
+        }
+    }
+}

@@ -19,8 +19,7 @@ namespace CozyTown.Runtime.Core
             ITimeService time,
             IInventory inventory,
             IWallet wallet,
-            IShopService shop,
-            IShopTradingCoordinator shopTrading,
+            ICharacterShopTradingCoordinator shopTrading,
             IFarmService farm,
             IFarmGameplayCoordinator farmGameplay,
             ILivestockService livestock,
@@ -32,7 +31,9 @@ namespace CozyTown.Runtime.Core
             INpcDialogueGenerator npcDialogue,
             INpcDialogueCoordinator npcDialogueGameplay,
             ISaveStorage saveStorage,
-            IGameSaveCoordinator gameSave)
+            IGameSaveCoordinator gameSave,
+            IEconomyStateStore economyState,
+            IWorldSeedState worldSeed)
         {
             DayTransition = dayTransition ?? throw new ArgumentNullException(nameof(dayTransition));
             Time = time ?? throw new ArgumentNullException(nameof(time));
@@ -42,7 +43,6 @@ namespace CozyTown.Runtime.Core
                     $"{nameof(inventory)} must implement {nameof(IInventoryProjection)}.",
                     nameof(inventory));
             Wallet = wallet ?? throw new ArgumentNullException(nameof(wallet));
-            Shop = shop ?? throw new ArgumentNullException(nameof(shop));
             ShopTrading = shopTrading ?? throw new ArgumentNullException(nameof(shopTrading));
             Farm = farm ?? throw new ArgumentNullException(nameof(farm));
             FarmGameplay = farmGameplay ?? throw new ArgumentNullException(nameof(farmGameplay));
@@ -60,6 +60,9 @@ namespace CozyTown.Runtime.Core
                 ?? throw new ArgumentNullException(nameof(npcDialogueGameplay));
             SaveStorage = saveStorage ?? throw new ArgumentNullException(nameof(saveStorage));
             GameSave = gameSave ?? throw new ArgumentNullException(nameof(gameSave));
+            EconomyState = economyState
+                ?? throw new ArgumentNullException(nameof(economyState));
+            WorldSeed = worldSeed ?? throw new ArgumentNullException(nameof(worldSeed));
         }
 
         public IDayTransitionCoordinator DayTransition { get; }
@@ -72,9 +75,7 @@ namespace CozyTown.Runtime.Core
 
         public IWallet Wallet { get; }
 
-        public IShopService Shop { get; }
-
-        public IShopTradingCoordinator ShopTrading { get; }
+        public ICharacterShopTradingCoordinator ShopTrading { get; }
 
         public IFarmService Farm { get; }
 
@@ -99,5 +100,9 @@ namespace CozyTown.Runtime.Core
         public ISaveStorage SaveStorage { get; }
 
         public IGameSaveCoordinator GameSave { get; }
+
+        public IEconomyStateStore EconomyState { get; }
+
+        public IWorldSeedState WorldSeed { get; }
     }
 }

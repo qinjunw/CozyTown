@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Inventory;
+using CozyTown.Runtime.Npc;
 
 namespace CozyTown.Runtime.Content
 {
@@ -17,12 +18,26 @@ namespace CozyTown.Runtime.Content
 
             if (configuration.InventoryCapacitySlots <= 0
                 || configuration.StartingBalance < 0
+                || configuration.StartingShopBalance < 0
                 || configuration.StartingDay <= 0
                 || configuration.StartingMinuteOfDay < 0
-                || configuration.StartingMinuteOfDay >= 24 * 60
-                || string.IsNullOrWhiteSpace(configuration.FallbackDialogue))
+                || configuration.StartingMinuteOfDay >= 24 * 60)
             {
                 return OperationResult.Failure("content.configuration_invalid");
+            }
+
+            OperationResult<NpcContentCatalog> npcContent = NpcContentCatalog.Create(
+                configuration.FallbackDialogue,
+                configuration.Npcs);
+            if (!npcContent.IsSuccess)
+            {
+                return OperationResult.Failure(npcContent.ErrorCode);
+            }
+
+            if (configuration.Npcs.Length > 0
+                && !HasCanonicalNpcIds(configuration.Npcs))
+            {
+                return OperationResult.Failure("content.npc_id_mismatch");
             }
 
             if (configuration.Items.Any(item =>
@@ -61,6 +76,28 @@ namespace CozyTown.Runtime.Content
             if (configuration.ShopOffers.Any(offer => !itemIds.Contains(offer.ItemId)))
             {
                 return OperationResult.Failure("content.shop_offer_item_missing");
+            }
+
+            if (configuration.ShopRestockRules.Any(rule =>
+                    rule == null
+                    || string.IsNullOrWhiteSpace(rule.ItemId)
+                    || rule.AppearancePermille < 0
+                    || rule.AppearancePermille > 1000
+                    || rule.MinQuantity <= 0
+                    || rule.MaxQuantity < rule.MinQuantity))
+            {
+                return OperationResult.Failure("content.shop_restock_rule_invalid");
+            }
+
+            if (HasDuplicate(configuration.ShopRestockRules.Select(rule => rule.ItemId)))
+            {
+                return OperationResult.Failure("content.shop_restock_rule_id_duplicate");
+            }
+
+            if (configuration.ShopRestockRules.Any(rule =>
+                    !itemIds.Contains(rule.ItemId)))
+            {
+                return OperationResult.Failure("content.shop_restock_rule_item_missing");
             }
 
             var purchasableItemIds = new HashSet<string>(
@@ -247,19 +284,10 @@ namespace CozyTown.Runtime.Content
                 return OperationResult.Failure("content.recipe_ingredient_unobtainable");
             }
 
-            if (configuration.Npcs.Any(npc =>
-                    npc == null
-                    || string.IsNullOrWhiteSpace(npc.Id)
-                    || string.IsNullOrWhiteSpace(npc.DisplayName)
-                    || string.IsNullOrWhiteSpace(npc.Persona)
-                    || string.IsNullOrWhiteSpace(npc.FallbackDialogue)))
+            if (configuration.ShopRestockRules.Any(rule =>
+                    !purchasableItemIds.Contains(rule.ItemId)))
             {
-                return OperationResult.Failure("content.npc_invalid");
-            }
-
-            if (HasDuplicate(configuration.Npcs.Select(npc => npc.Id)))
-            {
-                return OperationResult.Failure("content.npc_id_duplicate");
+                return OperationResult.Failure("content.shop_restock_rule_item_not_for_sale");
             }
 
             if (configuration.ShopOffers.Any(offer =>
@@ -283,6 +311,15 @@ namespace CozyTown.Runtime.Content
             }
 
             return false;
+        }
+
+        private static bool HasCanonicalNpcIds(NpcDefinition[] definitions)
+        {
+            return definitions.Length == 4
+                && definitions.Any(npc => npc.Id == DefaultMvpIds.Npcs.Shopkeeper)
+                && definitions.Any(npc => npc.Id == DefaultMvpIds.Npcs.Farmer)
+                && definitions.Any(npc => npc.Id == DefaultMvpIds.Npcs.Fisher)
+                && definitions.Any(npc => npc.Id == DefaultMvpIds.Npcs.Cook);
         }
     }
 }

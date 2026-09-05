@@ -11,7 +11,7 @@
 1. 保留 `ItemDefinition`／价格／补货规则作为静态定义，把角色背包、商店库存、双方资金和最后补货日作为运行时状态。
 2. 玩家和未来 NPC 使用同一种“角色经济状态”：稳定角色 ID、背包和钱包。Unity 场景角色只读取投影或调用用例，不直接修改集合。
 3. 商店不是全局报价表。每间商店应拥有独立库存、独立钱包、价格策略和补货状态；静态报价只说明“允许交易及如何定价”。
-4. `ShopTradingCoordinator` 继续作为买卖用例入口，但一次成交必须先计算满足不变量的双方候选状态，再通过单一提交边界发布；不能把“依次修改四份状态后尽力回滚”当作强原子性。
+4. `CharacterShopTradingCoordinator` 作为买卖用例入口；一次成交必须先计算满足不变量的双方候选状态，再通过单一提交边界发布，不能把“依次修改四份状态后尽力回滚”当作强原子性。
 5. 每日补货或清退是显式的外部资源源／汇；“全量替换目标库存”“补到目标数量”或“选择性清退”仍是待决策略。普通买卖不产生或销毁物品与货币。
 6. 当前数据规模不需要数据库。先扩展现有内存领域模型和版本化存档；只有出现大量角色／商店、交易历史查询、局部写入或多进程访问需求时，再在存档基础设施层评估 SQLite。
 
@@ -173,14 +173,14 @@ restockSeed = StableHash(worldSeed, day, shopId, restockAlgorithmVersion)
 
 ## 5. 当前代码审计与差距
 
-当前代码已将交易放在 Economy／Application 层，但状态所有权不足：
+调研基线已将交易放在 Economy／Application 层，但当时的状态所有权不足：
 
-- [`CozyTownCompositionRoot`](../../../Assets/CozyTown/Runtime/Core/CozyTownCompositionRoot.cs) 只创建一份 `InMemoryInventory` 和一份玩家 `InMemoryWallet`，再把两者注入 `InMemoryShopService`。商店没有自己的库存或钱包。
-- [`InMemoryShopService`](../../../Assets/CozyTown/Runtime/Economy/InMemoryShopService.cs) 的购买只扣玩家资金并增加玩家物品；出售只减少玩家物品并增加玩家资金。它没有执行对手方的等量变化，所以当前普通交易不满足世界守恒。
-- [`ShopTradingCoordinator`](../../../Assets/CozyTown/Runtime/Application/ShopTradingCoordinator.cs) 按静态 `Offers` 展示全部行，`OwnedQuantity` 读取的是玩家库存。它没有商店现货数量，也无法隐藏当天不存在的商品。
+- 重构前的 `CozyTownCompositionRoot` 只创建一份 `InMemoryInventory` 和一份玩家 `InMemoryWallet`，再把两者注入 `InMemoryShopService`。商店没有自己的库存或钱包。
+- 已删除的 `InMemoryShopService` 购买只扣玩家资金并增加玩家物品；出售只减少玩家物品并增加玩家资金。它没有执行对手方的等量变化，所以重构前的普通交易不满足世界守恒。
+- 已删除的 `ShopTradingCoordinator` 按静态 `Offers` 展示全部行，`OwnedQuantity` 读取玩家库存。它没有商店现货数量，也无法隐藏当天不存在的商品。
 - [`DefaultMvpContent`](../../../Assets/CozyTown/Runtime/Content/DefaultMvpContent.cs) 把种子、饲料等配置成仅可买，把鱼、收获物和料理配置成仅可卖。鱼并非真的在商店库存中，只是存在静态收购报价。
-- [`DayTransitionCoordinator`](../../../Assets/CozyTown/Runtime/Application/DayTransitionCoordinator.cs) 只推进 Time、Farm 和 Livestock，没有商店补货参与者。
-- [`GameSaveSnapshot`](../../../Assets/CozyTown/Runtime/Save/GameSaveSnapshot.cs) 在经济状态方面只有全局 Inventory 和 Wallet，没有角色 ID、商店库存、商店资金、世界 seed 或最后补货日。
+- 调研基线 `d6a00cf` 中的 [`DayTransitionCoordinator`](https://github.com/qinjunw/CozyTown/blob/d6a00cf2372f1d226b753fd6ebbca34949c2b5b3/Assets/CozyTown/Runtime/Application/DayTransitionCoordinator.cs) 只推进 Time、Farm 和 Livestock，没有商店补货参与者。
+- 调研基线 `d6a00cf` 中的 [`GameSaveSnapshot`](https://github.com/qinjunw/CozyTown/blob/d6a00cf2372f1d226b753fd6ebbca34949c2b5b3/Assets/CozyTown/Runtime/Save/GameSaveSnapshot.cs) 在经济状态方面只有全局 Inventory 和 Wallet，没有角色 ID、商店库存、商店资金、世界 seed 或最后补货日。
 
 因此买卖仍应由 Economy 领域服务与 Application 协调器完成，但 `IShopService` 应演进为交易用例，而不是继续把静态报价表当作商店本身。玩家背包也不是新增第二份与现有库存并存的数据；现有全局 `IInventory` 应迁移为 `CharacterEconomyState(playerId).Backpack`，避免双重真相。
 
@@ -213,4 +213,4 @@ SQLite 官方把单文件、跨平台、高级查询和原子事务列为应用�
 7. **日切与存档竖切**：日切先计算 Time／Farm／Livestock／Shop 的完整候选结果；任一计算或提交失败时不发布任何新状态。保存后加载能恢复玩家背包／钱包、商店库存／钱包、world seed 和最后补货日。
 8. **性质测试**：对多组数量和价格验证普通买卖的物品总量与货币总量不变，补货是唯一允许绕过该不变量的商店入口。
 
-完成这些领域测试后再改商店 UI，可以让 UI 仅消费 `ShopViewState`，避免表现层成为第二套经济规则。
+完成这些领域测试后再改商店 UI，可以让 UI 仅消费 `ShopTradingViewState`，避免表现层成为第二套经济规则。

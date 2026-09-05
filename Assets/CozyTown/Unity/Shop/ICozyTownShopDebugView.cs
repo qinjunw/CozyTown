@@ -13,7 +13,7 @@ namespace CozyTown.Unity.Shop
 
         bool IsVisible { get; }
 
-        void Show(ShopViewState state, string feedback);
+        void Show(ShopTradingViewState state, string feedback);
 
         void Hide();
     }
