@@ -85,6 +85,7 @@ Assets/CozyTown/
 | `Fishing` | `IFishingService` | 固定鱼池规则和钓鱼结果 | 实时操作 UI、背包显示 |
 | `Cooking` | `ICookingService` | 配方查询、食材校验和烹饪事务 | 食材生产、料理表现 |
 | `Npc` | `NpcContentCatalog`、`INpcDialogueGenerator`、`IAiNpcDialogueClient` | 校验并索引 NPC 作者内容，根据只读上下文校验 AI 候选并返回对话或固定回退 | 写入金币、物品、时间、生产或存档状态 |
+| `NpcLife` | `NpcDailySchedule.Query`、`Rebuild`、`MinutesUntilNextBoundary` | 按个人半开时段解析目标活动、下一边界及合法加载地点；支持跨午夜 | Unity 移动、碰撞、实际到达、经济生产 |
 | `Save` | `ISaveStorage`、`JsonFileSaveStorage` | 版本化存档快照的单槽读写、JSON 校验和安全替换 | 收集或直接修改各模块状态 |
 | `Unity` | `CozyTownBootstrap`、输入门控、交互点、对话/存档及六组玩法 Presenter/View | 连接 Unity 生命周期、Input System、Physics2D、HTTP(S) 代理与窄接口 Presenter | 领域规则、全局服务解析、跨模块事务 |
 
@@ -92,7 +93,7 @@ Assets/CozyTown/
 
 ### 4.1 T1 时钟与场景边界
 
-`TownMap2D` 提供住宅、地点和共享道路的只读查询；`CozyTownTownLayout` 是铺地、地标及道路装配的共同来源。当前 NPC 仍为静态实体，地图路径查询不代表已经实现通勤。
+`TownMap2D` 提供住宅、地点、共享道路和按距离加权的确定性路径查询；`CozyTownTownLayout` 是铺地、地标及道路装配的共同来源。`TownRouteFollower2D` 从实际位置消费距离预算并扫掠脚部碰撞，报告移动、到达或受阻；`NpcWorldResident2D` 组合个人日程与实际旅程，不以计划时刻代替到达。
 
 `DaytimeClockCoordinator` 通过 `IDaytimeClock.AdvanceElapsed` 接收有效经过时长，每 0.5 秒推进 1 游戏分钟，跨午夜不封顶。组合根的 `DaytimeClock`、`Sleep`、`DayTransition`、`GameSave` 端口引用同一适配实例，普通走时和显式睡眠都调用 `IWorldTimeCoordinator.AdvanceMinutes`。仅成功睡眠或加载清空不足一分钟的余量；保存和失败操作保留余量。余量不进入 schema v3 存档。
 
@@ -100,7 +101,9 @@ Assets/CozyTown/
 
 `DaytimeClockDriver` 只取得 `IDaytimeClock` 和玩家输入门控，不取得服务集合或存档写接口。它在 `LateUpdate` 过滤原始 `unscaledDeltaTime`：模态、失焦、未绑定或驱动器停用时不提交时长；真实暂停/绑定状态变化后的首样本丢弃，防止包含旧时间段的帧被补算。重复绑定同一对象不触发重置。该适配不修改全局 `Time.timeScale`。
 
-`CozyTownBootstrap` 负责初始及晚注册绑定；公共场景升级入口维护一个时钟驱动器及其门控引用。未来 NPC 移动必须复用同一有效时长边界，不能只读取暂停布尔值后自行补算原始帧时间；T1-2 不提前增加无人使用的事件总线或日程接口。
+`CozyTownBootstrap` 负责初始及晚注册绑定；公共场景升级入口维护一个时钟驱动器及其门控引用。`WorldTimeFlow` 在世界操作成功后发布已接受的整数分钟、分帧余量和重建版本，`CozyTownTownLifeController` 为四人准备候选，再提交位置、可见性和动画。睡眠推进途中所有日程边界；加载按个人阶段选择合法地点，不持久化 Unity 路线列表。
+
+居民控制器的订阅属于世界会话生命周期，停用其表现组件不漏掉成功睡眠或加载。`CozyTownNpcSpriteAnimator` 只消费已提交的有效时长，工作到达后按配置朝向工作对象；它不自行运行世界钟。玩家与 NPC 共用排序值 20、脚底 Pivot 和 URP Y 轴排序，建筑底图 5、屋顶前景 30 保留。当前配置、占位回退、浮点到达保护和回归结果见 [T1 实现记录](TOWN_LIFE_IMPLEMENTATION.md)。
 
 ## 5. 依赖方向
 
@@ -278,9 +281,11 @@ Load use case
 - 存档失败保留原有载荷，并向调用方返回失败结果；UI 决定如何提示和重试。
 - 当前开发场景使用 Production UGUI；M5 再定义发布构建的诊断开关和隐藏策略。
 
-## 11. A1 表现层接线边界
+## 11. A1 表现层接线边界（阶段记录）
 
 A1 使用 [`ADR-0006`](adr/0006-production-art-scene-integration.md) 约束正式场景接线。地图由 Tilemap 消费 Production Tile；建筑、功能物件、玩家、世界 NPC、农田状态和母鸡状态由 SpriteRenderer 表现。Pixel Perfect Camera 使用与资源一致的 `16 PPU` 和 `320×180` 参考分辨率。
+
+以下记录 A1 原场景的障碍数量、四户功能房与静态 NPC 排序；T1 已增加住宅、动态居民和四向图集，当前人物排序与时间边界以第 4.1 节为准。
 
 表现组件只读取现有移动方向、速度或应用层只读 ViewState。它们不能取得钱包、背包、时间、农田、畜牧、存档或 AI 的写接口。碰撞体和 `TownInteractionPoint2D` 保留在原有逻辑对象上，视觉子对象可以替换或重排，但不能改变 7 个交互种类和提示生命周期。
 

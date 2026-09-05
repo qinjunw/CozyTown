@@ -1,0 +1,490 @@
+fileFormatVersion: 2
+guid: 7e1fd5403408a9749be0caded82b0e47
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2778896814409660369
+    second: npc_farmer_eli_move_24x32_0
+  - first:
+      213: -2703490030992705567
+    second: npc_farmer_eli_move_24x32_1
+  - first:
+      213: 5782742207183629235
+    second: npc_farmer_eli_move_24x32_2
+  - first:
+      213: 4773722052808078043
+    second: npc_farmer_eli_move_24x32_3
+  - first:
+      213: 7846569229169458110
+    second: npc_farmer_eli_move_24x32_4
+  - first:
+      213: 8236793611034799515
+    second: npc_farmer_eli_move_24x32_5
+  - first:
+      213: 2000319150722453684
+    second: npc_farmer_eli_move_24x32_6
+  - first:
+      213: -5953654231678060400
+    second: npc_farmer_eli_move_24x32_7
+  - first:
+      213: -5326389910130221950
+    second: npc_farmer_eli_move_24x32_8
+  - first:
+      213: -6610182259745561257
+    second: npc_farmer_eli_move_24x32_9
+  - first:
+      213: -4362303090237594012
+    second: npc_farmer_eli_move_24x32_10
+  - first:
+      213: 2564843247994338628
+    second: npc_farmer_eli_move_24x32_11
+  - first:
+      213: 862581602810708292
+    second: npc_farmer_eli_idle_down
+  - first:
+      213: 1323298705306799474
+    second: npc_farmer_eli_walk_down_00
+  - first:
+      213: -2010803848144942733
+    second: npc_farmer_eli_walk_down_01
+  - first:
+      213: -2361924746090648890
+    second: npc_farmer_eli_idle_left
+  - first:
+      213: 5088404006495246936
+    second: npc_farmer_eli_walk_left_00
+  - first:
+      213: -5005044466126024360
+    second: npc_farmer_eli_walk_left_01
+  - first:
+      213: 8606266562557904829
+    second: npc_farmer_eli_idle_right
+  - first:
+      213: 2002244472976869602
+    second: npc_farmer_eli_walk_right_00
+  - first:
+      213: 5744792246882081806
+    second: npc_farmer_eli_walk_right_01
+  - first:
+      213: 3172995955213881282
+    second: npc_farmer_eli_idle_up
+  - first:
+      213: 7250588530419846568
+    second: npc_farmer_eli_walk_up_00
+  - first:
+      213: 3045235849451267795
+    second: npc_farmer_eli_walk_up_01
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: npc_farmer_eli_idle_down
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 441c159c56188fb00800000000000000
+      internalID: 862581602810708292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_farmer_eli_walk_down_00
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 96
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27dcb8d492d4d5210800000000000000
+      internalID: 1323298705306799474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_farmer_eli_walk_down_01
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 96
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3790556cd803814e0800000000000000
+      internalID: -2010803848144942733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_farmer_eli_idle_left
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6caef0b15f1c83fd0800000000000000
+      internalID: -2361924746090648890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_farmer_eli_walk_left_00
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 64
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85ad2d00c74ad9640800000000000000
+      internalID: 5088404006495246936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_farmer_eli_walk_left_01
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 64
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 851168f63928a8ab0800000000000000
+      internalID: -5005044466126024360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_farmer_eli_idle_right
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db7069737d99f6770800000000000000
+      internalID: 8606266562557904829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_farmer_eli_walk_right_00
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 32
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e886456db669cb10800000000000000
+      internalID: 2002244472976869602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_farmer_eli_walk_right_01
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0c13df7c1a99bf40800000000000000
+      internalID: 5744792246882081806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_farmer_eli_idle_up
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cf4640920fb80c20800000000000000
+      internalID: 3172995955213881282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_farmer_eli_walk_up_00
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ad42386ad34f9460800000000000000
+      internalID: 7250588530419846568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc_farmer_eli_walk_up_01
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 24
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d6e3d7eed9d24a20800000000000000
+      internalID: 3045235849451267795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      npc_farmer_eli_idle_down: 862581602810708292
+      npc_farmer_eli_idle_left: -2361924746090648890
+      npc_farmer_eli_idle_right: 8606266562557904829
+      npc_farmer_eli_idle_up: 3172995955213881282
+      npc_farmer_eli_move_24x32_0: 2778896814409660369
+      npc_farmer_eli_move_24x32_1: -2703490030992705567
+      npc_farmer_eli_move_24x32_10: -4362303090237594012
+      npc_farmer_eli_move_24x32_11: 2564843247994338628
+      npc_farmer_eli_move_24x32_2: 5782742207183629235
+      npc_farmer_eli_move_24x32_3: 4773722052808078043
+      npc_farmer_eli_move_24x32_4: 7846569229169458110
+      npc_farmer_eli_move_24x32_5: 8236793611034799515
+      npc_farmer_eli_move_24x32_6: 2000319150722453684
+      npc_farmer_eli_move_24x32_7: -5953654231678060400
+      npc_farmer_eli_move_24x32_8: -5326389910130221950
+      npc_farmer_eli_move_24x32_9: -6610182259745561257
+      npc_farmer_eli_walk_down_00: 1323298705306799474
+      npc_farmer_eli_walk_down_01: -2010803848144942733
+      npc_farmer_eli_walk_left_00: 5088404006495246936
+      npc_farmer_eli_walk_left_01: -5005044466126024360
+      npc_farmer_eli_walk_right_00: 2002244472976869602
+      npc_farmer_eli_walk_right_01: 5744792246882081806
+      npc_farmer_eli_walk_up_00: 7250588530419846568
+      npc_farmer_eli_walk_up_01: 3045235849451267795
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

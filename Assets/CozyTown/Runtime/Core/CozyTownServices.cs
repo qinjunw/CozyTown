@@ -36,7 +36,8 @@ namespace CozyTown.Runtime.Core
             IWorldSeedState worldSeed,
             IDaytimeClock daytimeClock,
             IWorldTimeCoordinator worldTime,
-            ISleepCoordinator sleep)
+            ISleepCoordinator sleep,
+            IWorldTimeFlow worldTimeFlow = null)
         {
             DayTransition = dayTransition ?? throw new ArgumentNullException(nameof(dayTransition));
             Time = time ?? throw new ArgumentNullException(nameof(time));
@@ -69,6 +70,7 @@ namespace CozyTown.Runtime.Core
             DaytimeClock = daytimeClock ?? throw new ArgumentNullException(nameof(daytimeClock));
             WorldTime = worldTime ?? throw new ArgumentNullException(nameof(worldTime));
             Sleep = sleep ?? throw new ArgumentNullException(nameof(sleep));
+            WorldTimeFlow = worldTimeFlow;
         }
 
         public IDayTransitionCoordinator DayTransition { get; }
@@ -80,6 +82,8 @@ namespace CozyTown.Runtime.Core
         public IWorldTimeCoordinator WorldTime { get; }
 
         public ISleepCoordinator Sleep { get; }
+
+        public IWorldTimeFlow WorldTimeFlow { get; }
 
         public IInventory Inventory { get; }
 

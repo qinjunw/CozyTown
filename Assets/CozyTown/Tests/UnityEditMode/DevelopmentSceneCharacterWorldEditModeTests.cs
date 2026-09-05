@@ -20,8 +20,6 @@ namespace CozyTown.Tests.UnityEditMode
     public sealed class DevelopmentSceneCharacterWorldEditModeTests
     {
         private const string ScenePath = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
-        private const string WorldNpcPath =
-            "Assets/CozyTown/Art/Production/Characters/npc_townsfolk_idle_down_24x32.png";
         private const string PlayerPath =
             "Assets/CozyTown/Art/Production/Characters/chr_player_move_24x32.png";
         private const string PortraitPath =
@@ -137,7 +135,8 @@ namespace CozyTown.Tests.UnityEditMode
                         ?.sprite;
                     Assert.That(worldSprite, Is.Not.Null, expectation.NpcId);
                     Assert.That(worldSprite.name, Is.EqualTo(expectation.WorldSpriteName));
-                    Assert.That(AssetDatabase.GetAssetPath(worldSprite), Is.EqualTo(WorldNpcPath));
+                    Assert.That(AssetDatabase.GetAssetPath(worldSprite), Is.EqualTo(
+                        "Assets/CozyTown/Art/Production/Characters/" + expectation.NpcId.Replace('.', '_') + "_move_24x32.png"));
                     Assert.That(worldSprite.rect.width, Is.EqualTo(24f));
                     Assert.That(worldSprite.rect.height, Is.EqualTo(32f));
 

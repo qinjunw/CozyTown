@@ -55,22 +55,7 @@ namespace CozyTown.Unity.Editor
 
             try
             {
-                var uiSprites = new UiSprites();
-                var hud = RequireRoot(scene, "Debug HUD");
-                var canvasTransform = ConfigureCanvas(hud.transform);
-                ConfigureHud(canvasTransform, uiSprites);
-                ConfigurePersistentUiShells(canvasTransform, uiSprites);
-                ConfigureModalShells(canvasTransform, uiSprites);
-                ConfigureInteractionPromptAnchors(scene);
-                var iconCatalog = ConfigureIconCatalog(canvasTransform);
-                ConfigurePersistentViewBindings(scene, hud, canvasTransform, iconCatalog);
-                ConfigureShopViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
-                ConfigureFarmViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
-                ConfigureSecondaryProductionViewBindings(hud, canvasTransform, uiSprites, iconCatalog);
-                ConfigureNpcProductionViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
-                ConfigureInteractionPanelButtonTheme(canvasTransform);
-                ConfigureEventSystem(scene);
-
+                UpgradeProductionUi(scene);
                 EditorSceneManager.MarkSceneDirty(scene);
                 EditorSceneManager.SaveScene(scene, ScenePath);
                 AssetDatabase.SaveAssets();
@@ -83,6 +68,30 @@ namespace CozyTown.Unity.Editor
                     EditorSceneManager.CloseScene(scene, true);
                 }
             }
+        }
+
+        public static void UpgradeProductionUi(Scene scene)
+        {
+            if (!scene.IsValid() || !scene.isLoaded)
+            {
+                throw new ArgumentException("Production UI upgrades require a loaded scene.", nameof(scene));
+            }
+
+            var uiSprites = new UiSprites();
+            var hud = RequireRoot(scene, "Debug HUD");
+            var canvasTransform = ConfigureCanvas(hud.transform);
+            ConfigureHud(canvasTransform, uiSprites);
+            ConfigurePersistentUiShells(canvasTransform, uiSprites);
+            ConfigureModalShells(canvasTransform, uiSprites);
+            ConfigureInteractionPromptAnchors(scene);
+            var iconCatalog = ConfigureIconCatalog(canvasTransform);
+            ConfigurePersistentViewBindings(scene, hud, canvasTransform, iconCatalog);
+            ConfigureShopViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
+            ConfigureFarmViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
+            ConfigureSecondaryProductionViewBindings(hud, canvasTransform, uiSprites, iconCatalog);
+            ConfigureNpcProductionViewBinding(hud, canvasTransform, uiSprites, iconCatalog);
+            ConfigureInteractionPanelButtonTheme(canvasTransform);
+            ConfigureEventSystem(scene);
         }
 
         private static RectTransform ConfigureCanvas(Transform hud)

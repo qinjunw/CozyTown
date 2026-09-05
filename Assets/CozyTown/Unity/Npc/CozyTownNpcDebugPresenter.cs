@@ -27,6 +27,10 @@ namespace CozyTown.Unity.Npc
             && _view != null
             && !string.IsNullOrWhiteSpace(_defaultNpcId);
 
+        protected override bool CanOpenModal => HasDependencies && _view.isActiveAndEnabled;
+
+        internal void CancelInteraction() => CloseModal();
+
         public void Configure(
             TownInteractionPoint2D point,
             CozyTownNpcDebugView view,
@@ -162,6 +166,7 @@ namespace CozyTown.Unity.Npc
                 && !cancellationToken.IsCancellationRequested
                 && IsOpen
                 && _view != null
+                && _view.isActiveAndEnabled
                 && _view.IsVisible;
         }
 

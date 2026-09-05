@@ -135,6 +135,34 @@ namespace CozyTown.Tests.PlayMode
             Destroy(_actor);
         }
 
+        [UnityTest]
+        public IEnumerator DisabledHudView_ClosesWorldPresenterAndRejectsInvisibleInteraction()
+        {
+            var point = CreatePoint();
+            _presenterObject = new GameObject("Independent HUD view");
+            var view = _presenterObject.AddComponent<CozyTownNpcDebugView>();
+            var presenter = _pointObject.AddComponent<CozyTownNpcDebugPresenter>();
+            presenter.Configure(point, view, "npc.farmer_eli");
+            var coordinator = new DeferredCoordinator();
+            presenter.Bind(coordinator);
+            CreateActor();
+            point.Interact(new InteractionContext(_actor));
+            Assert.That(presenter.IsOpen, Is.True);
+            view.enabled = false;
+            Assert.That(presenter.IsOpen, Is.False);
+            Assert.That(_actor.GetComponent<PlayerModalInputGate2D>().IsAcquired, Is.False);
+            point.Interact(new InteractionContext(_actor));
+            Assert.That(presenter.IsOpen, Is.False);
+            coordinator.Complete();
+            yield return null;
+            Assert.That(view.IsVisible, Is.False);
+            view.enabled = true;
+            point.Interact(new InteractionContext(_actor));
+            yield return null;
+            Assert.That(presenter.IsOpen, Is.True);
+            Assert.That(view.IsVisible, Is.True);
+        }
+
         private TownInteractionPoint2D CreatePoint()
         {
             _pointObject = new GameObject("NPC Point");

@@ -19,6 +19,7 @@ using CozyTown.Unity.Kitchen;
 using CozyTown.Unity.Npc;
 using CozyTown.Unity.Save;
 using CozyTown.Unity.Time;
+using CozyTown.Unity.Town;
 using NUnit.Framework;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -33,6 +34,63 @@ namespace CozyTown.Tests.PlayMode
         private const string ScenePath = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
 
         private Scene _loadedScene;
+
+        [UnityTest]
+        public IEnumerator DevelopmentScene_SmallAcceptedIntervalMovesMinaOnceAtConfiguredSpeed()
+        {
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(
+                ScenePath, new LoadSceneParameters(LoadSceneMode.Additive));
+            _loadedScene = SceneManager.GetSceneByPath(ScenePath);
+            var root = RequireRoot(_loadedScene, "CozyTown");
+            var driver = root.GetComponent<DaytimeClockDriver>();
+            driver.SetApplicationFocus(false);
+            var mina = RequireRoot(_loadedScene, "World").GetComponentsInChildren<NpcWorldResident2D>(true)
+                .Single(npc => npc.NpcId == DefaultMvpIds.Npcs.Shopkeeper);
+            Vector2 initial = mina.Position;
+            driver.SetApplicationFocus(true);
+            driver.AdvanceFrame(0);
+            driver.AdvanceFrame(0.25);
+            driver.SetApplicationFocus(false);
+            Assert.That(Vector2.Distance(initial, mina.Position), Is.EqualTo(0.5f).Within(0.001));
+        }
+
+        [UnityTest]
+        public IEnumerator DevelopmentScene_MinaTraversesActualRoadsAndReturnsHomeBeforeNextMorning()
+        {
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(
+                ScenePath, new LoadSceneParameters(LoadSceneMode.Additive));
+            _loadedScene = SceneManager.GetSceneByPath(ScenePath);
+            var driver = RequireRoot(_loadedScene, "CozyTown").GetComponent<DaytimeClockDriver>();
+            driver.SetApplicationFocus(false);
+            var world = RequireRoot(_loadedScene, "World");
+            var mina = world.GetComponentsInChildren<NpcWorldResident2D>(true)
+                .Single(npc => npc.NpcId == DefaultMvpIds.Npcs.Shopkeeper);
+            var map = world.GetComponent<TownMap2D>();
+            Assert.That(map.TryGetLocation("work.shopkeeper_mina", out var work), Is.True);
+            driver.SetApplicationFocus(true);
+            driver.AdvanceFrame(0);
+            driver.AdvanceFrame(10);
+            Assert.That(Vector2.Distance(mina.Position, work), Is.LessThan(0.001f));
+            Assert.That(mina.Status, Is.EqualTo(TownRouteStatus.Arrived));
+            driver.SetApplicationFocus(false);
+            Vector2 paused = mina.Position;
+            driver.AdvanceFrame(600);
+            Assert.That(mina.Position, Is.EqualTo(paused));
+            driver.SetApplicationFocus(true);
+            driver.AdvanceFrame(0);
+            driver.AdvanceFrame(300);
+            driver.AdvanceFrame(20);
+            Assert.That(mina.IsHome, Is.False, "17:00 starts the return journey; it is not an arrival command.");
+            driver.AdvanceFrame(30);
+            Assert.That(mina.IsHome, Is.True);
+            Assert.That(mina.GetComponentInChildren<SpriteRenderer>(true).enabled, Is.False);
+            driver.AdvanceFrame(360);
+            Assert.That(mina.IsHome, Is.False);
+            driver.AdvanceFrame(10);
+            Assert.That(Vector2.Distance(mina.Position, work), Is.LessThan(0.001f));
+            Assert.That(mina.Status, Is.EqualTo(TownRouteStatus.Arrived));
+            driver.SetApplicationFocus(false);
+        }
 
         [UnityTest]
         public IEnumerator DevelopmentScene_ClockUpdatesHudAndSystemMenuLoadUsesSameTimeline()
@@ -435,6 +493,13 @@ namespace CozyTown.Tests.PlayMode
                 shopView.State.CharacterBalance,
                 Is.EqualTo(405 - availableItem.UnitPrice));
             shopView.RequestClose();
+
+            // Visit every NPC during working hours; Sora is still at home at 06:00.
+            var routineClock = RequireRoot(_loadedScene, "CozyTown").GetComponent<DaytimeClockDriver>();
+            routineClock.SetApplicationFocus(true);
+            routineClock.AdvanceFrame(0);
+            routineClock.AdvanceFrame(75);
+            routineClock.SetApplicationFocus(false);
 
             foreach (var point in points)
             {

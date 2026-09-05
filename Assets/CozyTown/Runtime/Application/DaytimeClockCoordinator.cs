@@ -10,21 +10,24 @@ namespace CozyTown.Runtime.Application
         IDayTransitionCoordinator,
         IGameSaveCoordinator
     {
-        private const double SecondsPerMinute = 0.5;
+        private const double SecondsPerMinute = WorldTimeProgress.EffectiveSecondsPerGameMinute;
 
         // Frame-by-frame addition can round a completed minute below its boundary.
         private const double MinuteBoundaryToleranceSeconds = 1e-9;
 
         private readonly IWorldTimeCoordinator _worldTime;
         private readonly IGameSaveCoordinator _gameSave;
+        private readonly WorldTimeFlow _timeFlow;
         private double _elapsedSeconds;
 
         public DaytimeClockCoordinator(
             IWorldTimeCoordinator worldTime,
-            IGameSaveCoordinator gameSave)
+            IGameSaveCoordinator gameSave,
+            WorldTimeFlow timeFlow = null)
         {
             _worldTime = worldTime ?? throw new ArgumentNullException(nameof(worldTime));
             _gameSave = gameSave ?? throw new ArgumentNullException(nameof(gameSave));
+            _timeFlow = timeFlow;
         }
 
         public GameClockSnapshot Current => _worldTime.Current;
@@ -46,14 +49,21 @@ namespace CozyTown.Runtime.Application
                 return OperationResult<GameClockSnapshot>.Failure("time.elapsed_too_large");
             }
 
-            OperationResult<GameClockSnapshot> result =
-                _worldTime.AdvanceMinutes((int)minutes);
-            if (result.IsSuccess)
+            _timeFlow?.BeginCoordinatedAdvance();
+            try
             {
-                _elapsedSeconds = Math.Max(0, elapsed - minutes * SecondsPerMinute);
+                OperationResult<GameClockSnapshot> result = _worldTime.AdvanceMinutes((int)minutes);
+                if (result.IsSuccess)
+                {
+                    _elapsedSeconds = Math.Max(0, elapsed - minutes * SecondsPerMinute);
+                    _timeFlow?.CompleteElapsedAdvance(result.Value, _elapsedSeconds / SecondsPerMinute);
+                }
+                return result;
             }
-
-            return result;
+            finally
+            {
+                _timeFlow?.CancelCoordinatedAdvance();
+            }
         }
 
         public OperationResult<GameClockSnapshot> SleepToNextDay()
@@ -74,13 +84,21 @@ namespace CozyTown.Runtime.Application
 
         private OperationResult<GameClockSnapshot> AdvanceExplicitly(int gameMinutes)
         {
-            OperationResult<GameClockSnapshot> result = _worldTime.AdvanceMinutes(gameMinutes);
-            if (result.IsSuccess)
+            _timeFlow?.BeginCoordinatedAdvance();
+            try
             {
-                _elapsedSeconds = 0;
+                OperationResult<GameClockSnapshot> result = _worldTime.AdvanceMinutes(gameMinutes);
+                if (result.IsSuccess)
+                {
+                    _elapsedSeconds = 0;
+                    _timeFlow?.CompleteExplicitAdvance(result.Value, gameMinutes);
+                }
+                return result;
             }
-
-            return result;
+            finally
+            {
+                _timeFlow?.CancelCoordinatedAdvance();
+            }
         }
 
         public OperationResult Save() => _gameSave.Save();
@@ -91,6 +109,7 @@ namespace CozyTown.Runtime.Application
             if (result.IsSuccess)
             {
                 _elapsedSeconds = 0;
+                _timeFlow?.Publish(Current, isRebuild: true);
             }
 
             return result;

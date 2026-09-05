@@ -123,7 +123,8 @@ namespace CozyTown.Unity.Hud
         private void ShowAnchor(Transform anchor)
         {
             CurrentAnchor = anchor;
-            IsVisible = anchor != null && worldCamera != null && bubbleRect != null;
+            IsVisible = anchor != null && anchor.gameObject.activeInHierarchy
+                && worldCamera != null && bubbleRect != null;
             if (bubbleRect != null)
             {
                 bubbleRect.gameObject.SetActive(IsVisible);
@@ -134,6 +135,11 @@ namespace CozyTown.Unity.Hud
 
         private void UpdatePosition()
         {
+            if (CurrentAnchor != null && !CurrentAnchor.gameObject.activeInHierarchy)
+            {
+                ShowAnchor(null);
+                return;
+            }
             if (!IsVisible || CurrentAnchor == null)
             {
                 return;

@@ -75,40 +75,132 @@ namespace CozyTown.Unity.Town
         }
 
         public bool TryFindRoute(string fromLocationId, string toLocationId,
-            out IReadOnlyList<Vector2> waypoints)
+            out IReadOnlyList<Vector2> waypoints, Func<Vector2, Vector2, bool> canTraverse = null)
         {
             waypoints = Array.Empty<Vector2>();
-            if (!TryGetLocation(fromLocationId, out _) || !TryGetLocation(toLocationId, out _))
+            if (!TryGetLocation(fromLocationId, out var fromPosition)
+                || (canTraverse != null && !canTraverse(fromPosition, fromPosition)))
             {
                 return false;
             }
 
-            var predecessors = new Dictionary<string, string>(StringComparer.Ordinal)
+            var distances = new Dictionary<string, float>(StringComparer.Ordinal)
             {
-                [fromLocationId] = null
+                [fromLocationId] = 0f
             };
-            var frontier = new Queue<string>();
-            frontier.Enqueue(fromLocationId);
-            while (frontier.Count > 0 && !predecessors.ContainsKey(toLocationId))
+            return FindRoute(fromPosition, toLocationId, distances, canTraverse, out waypoints);
+        }
+
+        public bool TryFindRoute(Vector2 fromPosition, string toLocationId,
+            out IReadOnlyList<Vector2> waypoints, Func<Vector2, Vector2, bool> canTraverse = null)
+        {
+            var distances = new Dictionary<string, float>(StringComparer.Ordinal);
+            foreach (var location in locations)
             {
-                var current = frontier.Dequeue();
+                if (location.Position == fromPosition
+                    && (canTraverse == null || canTraverse(fromPosition, location.Position)))
+                {
+                    distances[location.Id] = 0f;
+                }
+            }
+
+            if (distances.Count == 0)
+            {
                 foreach (var road in roads)
                 {
-                    var adjacent = road.FromLocationId == current ? road.ToLocationId
-                        : road.ToLocationId == current ? road.FromLocationId : null;
-                    if (adjacent == null || predecessors.ContainsKey(adjacent))
+                    TryGetLocation(road.FromLocationId, out var from);
+                    TryGetLocation(road.ToLocationId, out var to);
+                    var delta = to - from;
+                    if (delta.sqrMagnitude == 0f)
                     {
                         continue;
                     }
 
-                    predecessors.Add(adjacent, current);
-                    frontier.Enqueue(adjacent);
+                    var progress = Vector2.Dot(fromPosition - from, delta) / delta.sqrMagnitude;
+                    if (progress < 0f || progress > 1f
+                        || Vector2.SqrMagnitude(from + progress * delta - fromPosition) > 0.00000001f)
+                    {
+                        continue;
+                    }
+
+                    if (canTraverse == null || canTraverse(fromPosition, from))
+                    {
+                        distances[road.FromLocationId] = Vector2.Distance(fromPosition, from);
+                    }
+                    if (canTraverse == null || canTraverse(fromPosition, to))
+                    {
+                        distances[road.ToLocationId] = Vector2.Distance(fromPosition, to);
+                    }
                 }
             }
 
-            if (!predecessors.ContainsKey(toLocationId))
+            return FindRoute(fromPosition, toLocationId, distances, canTraverse, out waypoints);
+        }
+
+        private bool FindRoute(Vector2 fromPosition, string toLocationId,
+            Dictionary<string, float> distances, Func<Vector2, Vector2, bool> canTraverse,
+            out IReadOnlyList<Vector2> waypoints)
+        {
+            waypoints = Array.Empty<Vector2>();
+            if (!TryGetLocation(toLocationId, out _))
             {
                 return false;
+            }
+
+            var predecessors = new Dictionary<string, string>(StringComparer.Ordinal);
+            foreach (var origin in distances.Keys)
+            {
+                predecessors[origin] = null;
+            }
+            var visited = new HashSet<string>(StringComparer.Ordinal);
+            while (true)
+            {
+                string current = null;
+                var shortestDistance = float.PositiveInfinity;
+                foreach (var location in locations)
+                {
+                    if (!visited.Contains(location.Id)
+                        && distances.TryGetValue(location.Id, out var distance)
+                        && distance < shortestDistance)
+                    {
+                        current = location.Id;
+                        shortestDistance = distance;
+                    }
+                }
+
+                if (current == null)
+                {
+                    return false;
+                }
+                if (current == toLocationId)
+                {
+                    break;
+                }
+
+                visited.Add(current);
+                TryGetLocation(current, out var currentPosition);
+                foreach (var road in roads)
+                {
+                    var adjacent = road.FromLocationId == current ? road.ToLocationId
+                        : road.ToLocationId == current ? road.FromLocationId : null;
+                    if (adjacent == null || visited.Contains(adjacent))
+                    {
+                        continue;
+                    }
+
+                    TryGetLocation(adjacent, out var adjacentPosition);
+                    if (canTraverse != null && !canTraverse(currentPosition, adjacentPosition))
+                    {
+                        continue;
+                    }
+                    var candidateDistance = shortestDistance + Vector2.Distance(currentPosition, adjacentPosition);
+                    if (!distances.TryGetValue(adjacent, out var previousDistance)
+                        || candidateDistance < previousDistance)
+                    {
+                        predecessors[adjacent] = current;
+                        distances[adjacent] = candidateDistance;
+                    }
+                }
             }
 
             var result = new List<Vector2>();
@@ -119,7 +211,15 @@ namespace CozyTown.Unity.Town
             }
 
             result.Reverse();
-            waypoints = result.AsReadOnly();
+            var continuousRoute = new List<Vector2> { fromPosition };
+            foreach (var position in result)
+            {
+                if (position != continuousRoute[continuousRoute.Count - 1])
+                {
+                    continuousRoute.Add(position);
+                }
+            }
+            waypoints = continuousRoute.AsReadOnly();
             return true;
         }
     }

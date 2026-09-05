@@ -38,7 +38,14 @@ namespace CozyTown.Tests.PlayMode
             return VerifyFirstRenderedMovementFrame(false, true);
         }
 
-        private IEnumerator VerifyFirstRenderedMovementFrame(bool restartPixelPerfect, bool restartView)
+        [UnityTest]
+        public IEnumerator InteractionBubble_HidesWhenResidentHeadAnchorIsUnavailable()
+        {
+            return VerifyFirstRenderedMovementFrame(false, false, true);
+        }
+
+        private IEnumerator VerifyFirstRenderedMovementFrame(bool restartPixelPerfect, bool restartView,
+            bool hideAnchor = false)
         {
             if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null)
             {
@@ -98,6 +105,15 @@ namespace CozyTown.Tests.PlayMode
             yield return null;
             Assert.That(interactor.CurrentPromptAnchor, Is.SameAs(anchor));
             Assert.That(view.IsVisible, Is.True);
+
+            if (hideAnchor)
+            {
+                anchor.gameObject.SetActive(false);
+                view.Refresh();
+                Assert.That(view.IsVisible, Is.False);
+                Assert.That(bubbleObject.activeSelf, Is.False);
+                yield break;
+            }
 
             if (restartPixelPerfect)
             {

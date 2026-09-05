@@ -9085,7 +9085,7 @@ Transform:
   m_GameObject: {fileID: 362242799}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.75, z: 0}
+  m_LocalPosition: {x: 0, y: 2.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14298,7 +14298,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 30
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -762693386765063349, guid: ec6c0d8f4d53123408fadd017e3683f4, type: 3}
+  m_Sprite: {fileID: 1924896248254193579, guid: 62c9765939b3c7046ace04cbe0c6d904, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -14390,7 +14390,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -8205313766578652163, guid: f88ff7597f69b7243a5b6cd2ff7c245d, type: 3}
+  m_Sprite: {fileID: -6925765294262734472, guid: 9a5d7ebd8ec38d945970c2ed2ef23e42, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -16124,7 +16124,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 30
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -762693386765063349, guid: ec6c0d8f4d53123408fadd017e3683f4, type: 3}
+  m_Sprite: {fileID: 8454822097247591451, guid: 62c9765939b3c7046ace04cbe0c6d904, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -16247,7 +16247,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 30
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -762693386765063349, guid: ec6c0d8f4d53123408fadd017e3683f4, type: 3}
+  m_Sprite: {fileID: -6087424847754825789, guid: 62c9765939b3c7046ace04cbe0c6d904, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -16433,7 +16433,7 @@ Transform:
   m_GameObject: {fileID: 630631527}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.7499999, z: 0}
+  m_LocalPosition: {x: 0, y: 2.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26544,7 +26544,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -8205313766578652163, guid: f88ff7597f69b7243a5b6cd2ff7c245d, type: 3}
+  m_Sprite: {fileID: -6852641473155945720, guid: 9a5d7ebd8ec38d945970c2ed2ef23e42, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -29064,7 +29064,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -8205313766578652163, guid: f88ff7597f69b7243a5b6cd2ff7c245d, type: 3}
+  m_Sprite: {fileID: 8910052071105960297, guid: 9a5d7ebd8ec38d945970c2ed2ef23e42, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -33841,9 +33841,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 15
+  m_SortingOrder: 20
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -996745239010480538, guid: c7fb5e3ba0609604a8d217983c5bc7b2, type: 3}
+  m_Sprite: {fileID: -996745239010480538, guid: 3bce476525882c54085af501dd746c09, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -34412,7 +34412,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -8205313766578652163, guid: f88ff7597f69b7243a5b6cd2ff7c245d, type: 3}
+  m_Sprite: {fileID: 7230853783026883091, guid: 9a5d7ebd8ec38d945970c2ed2ef23e42, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -37733,6 +37733,8 @@ GameObject:
   - component: {fileID: 1210590117}
   - component: {fileID: 1210590116}
   - component: {fileID: 1210590115}
+  - component: {fileID: 1210590119}
+  - component: {fileID: 1210590118}
   m_Layer: 0
   m_Name: NPC Sora
   m_TagString: Untagged
@@ -37833,6 +37835,58 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
+--- !u!114 &1210590118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210590113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05e4de91eb3341c9b99c8ff77b9a20e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Npc.CozyTownNpcSpriteAnimator
+  spriteRenderer: {fileID: 1052996126}
+  idleSprites:
+  - {fileID: -996745239010480538, guid: 3bce476525882c54085af501dd746c09, type: 3}
+  - {fileID: 434695140123920062, guid: 3bce476525882c54085af501dd746c09, type: 3}
+  - {fileID: 4717191249083312071, guid: 3bce476525882c54085af501dd746c09, type: 3}
+  - {fileID: -2758203665525643023, guid: 3bce476525882c54085af501dd746c09, type: 3}
+  walkSprites:
+  - {fileID: -2283885659233073157, guid: 3bce476525882c54085af501dd746c09, type: 3}
+  - {fileID: -3469918057805459627, guid: 3bce476525882c54085af501dd746c09, type: 3}
+  - {fileID: 6811475787078172292, guid: 3bce476525882c54085af501dd746c09, type: 3}
+  - {fileID: 7866271886311146043, guid: 3bce476525882c54085af501dd746c09, type: 3}
+  - {fileID: -8827418529682139887, guid: 3bce476525882c54085af501dd746c09, type: 3}
+  - {fileID: 5399488076846610081, guid: 3bce476525882c54085af501dd746c09, type: 3}
+  - {fileID: -4664476776662963105, guid: 3bce476525882c54085af501dd746c09, type: 3}
+  - {fileID: -1440566033935450112, guid: 3bce476525882c54085af501dd746c09, type: 3}
+--- !u!114 &1210590119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210590113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9434c304b1e4a67b8133bd201c0f9c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Npc.NpcWorldResident2D
+  map: {fileID: 351526448}
+  npcId: npc.cook_sora
+  homeId: home.cook_sora
+  outsideId: home.cook_sora.doorstep
+  entryId: home.cook_sora.entry
+  morningId: work.cook_sora
+  restId: rest.cook_sora
+  afternoonId: work.cook_sora
+  morningWorkFacing: {x: 1, y: 0}
+  afternoonWorkFacing: {x: 1, y: 0}
+  times: 86010000fe0100000c030000480300003804000074040000
+  unitsPerSecond: 2
+  visual: {fileID: 1052996126}
 --- !u!1 &1211646029
 GameObject:
   m_ObjectHideFlags: 0
@@ -39466,7 +39520,7 @@ Transform:
   m_GameObject: {fileID: 1253183134}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.7499999, z: 0}
+  m_LocalPosition: {x: 0, y: 2.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41502,7 +41556,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 30
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -762693386765063349, guid: ec6c0d8f4d53123408fadd017e3683f4, type: 3}
+  m_Sprite: {fileID: 8669100472712226398, guid: 62c9765939b3c7046ace04cbe0c6d904, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -43885,9 +43939,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 15
+  m_SortingOrder: 20
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 862581602810708292, guid: c7fb5e3ba0609604a8d217983c5bc7b2, type: 3}
+  m_Sprite: {fileID: 862581602810708292, guid: 7e1fd5403408a9749be0caded82b0e47, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -45812,7 +45866,7 @@ Transform:
   m_GameObject: {fileID: 1490943393}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.75, z: 0}
+  m_LocalPosition: {x: 0, y: 2.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46445,9 +46499,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 15
+  m_SortingOrder: 20
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -5273413222926941709, guid: c7fb5e3ba0609604a8d217983c5bc7b2, type: 3}
+  m_Sprite: {fileID: -5273413222926941709, guid: 01e44e39b190e2d4a87a562cb0b305d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -47062,6 +47116,8 @@ GameObject:
   - component: {fileID: 1519771518}
   - component: {fileID: 1519771517}
   - component: {fileID: 1519771516}
+  - component: {fileID: 1519771520}
+  - component: {fileID: 1519771519}
   m_Layer: 0
   m_Name: NPC Eli
   m_TagString: Untagged
@@ -47162,6 +47218,58 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
+--- !u!114 &1519771519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519771514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05e4de91eb3341c9b99c8ff77b9a20e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Npc.CozyTownNpcSpriteAnimator
+  spriteRenderer: {fileID: 1403640711}
+  idleSprites:
+  - {fileID: 862581602810708292, guid: 7e1fd5403408a9749be0caded82b0e47, type: 3}
+  - {fileID: -2361924746090648890, guid: 7e1fd5403408a9749be0caded82b0e47, type: 3}
+  - {fileID: 8606266562557904829, guid: 7e1fd5403408a9749be0caded82b0e47, type: 3}
+  - {fileID: 3172995955213881282, guid: 7e1fd5403408a9749be0caded82b0e47, type: 3}
+  walkSprites:
+  - {fileID: 1323298705306799474, guid: 7e1fd5403408a9749be0caded82b0e47, type: 3}
+  - {fileID: -2010803848144942733, guid: 7e1fd5403408a9749be0caded82b0e47, type: 3}
+  - {fileID: 5088404006495246936, guid: 7e1fd5403408a9749be0caded82b0e47, type: 3}
+  - {fileID: -5005044466126024360, guid: 7e1fd5403408a9749be0caded82b0e47, type: 3}
+  - {fileID: 2002244472976869602, guid: 7e1fd5403408a9749be0caded82b0e47, type: 3}
+  - {fileID: 5744792246882081806, guid: 7e1fd5403408a9749be0caded82b0e47, type: 3}
+  - {fileID: 7250588530419846568, guid: 7e1fd5403408a9749be0caded82b0e47, type: 3}
+  - {fileID: 3045235849451267795, guid: 7e1fd5403408a9749be0caded82b0e47, type: 3}
+--- !u!114 &1519771520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519771514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9434c304b1e4a67b8133bd201c0f9c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Npc.NpcWorldResident2D
+  map: {fileID: 351526448}
+  npcId: npc.farmer_eli
+  homeId: home.farmer_eli
+  outsideId: home.farmer_eli.doorstep
+  entryId: home.farmer_eli.entry
+  morningId: work.farmer_eli
+  restId: rest.farmer_eli
+  afternoonId: work.farmer_eli
+  morningWorkFacing: {x: -1, y: 0}
+  afternoonWorkFacing: {x: -1, y: 0}
+  times: 4a010000c2010000b2020000ee020000de0300001a040000
+  unitsPerSecond: 2
+  visual: {fileID: 1403640711}
 --- !u!1 &1521275482
 GameObject:
   m_ObjectHideFlags: 0
@@ -52363,6 +52471,7 @@ GameObject:
   - component: {fileID: 1750674607}
   - component: {fileID: 1750674606}
   - component: {fileID: 1750674608}
+  - component: {fileID: 1750674609}
   m_Layer: 0
   m_Name: CozyTown
   m_TagString: Untagged
@@ -52408,6 +52517,7 @@ MonoBehaviour:
   _inventoryPresenters:
   - {fileID: 351428469}
   _daytimeClock: {fileID: 1750674608}
+  _townLife: {fileID: 1750674609}
   _aiProxyEndpoint: 
   _aiProxyTimeoutSeconds: 8
 --- !u!4 &1750674607
@@ -52438,6 +52548,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Time.DaytimeClockDriver
   _inputGate: {fileID: 403398935}
+--- !u!114 &1750674609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750674605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba7722f9f21c4270b97d1e770f676bc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Npc.CozyTownTownLifeController
+  residents:
+  - {fileID: 2135212520}
+  - {fileID: 1519771520}
+  - {fileID: 1985942726}
+  - {fileID: 1210590119}
 --- !u!114 &1751796269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54784,9 +54911,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 15
+  m_SortingOrder: 20
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1797794176356544083, guid: c7fb5e3ba0609604a8d217983c5bc7b2, type: 3}
+  m_Sprite: {fileID: -1797794176356544083, guid: f21e05b4e2e5c94499e777ca60bf708a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -59970,6 +60097,8 @@ GameObject:
   - component: {fileID: 1985942724}
   - component: {fileID: 1985942723}
   - component: {fileID: 1985942722}
+  - component: {fileID: 1985942726}
+  - component: {fileID: 1985942725}
   m_Layer: 0
   m_Name: NPC Ren
   m_TagString: Untagged
@@ -60070,6 +60199,58 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
+--- !u!114 &1985942725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985942720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05e4de91eb3341c9b99c8ff77b9a20e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Npc.CozyTownNpcSpriteAnimator
+  spriteRenderer: {fileID: 1503537415}
+  idleSprites:
+  - {fileID: -5273413222926941709, guid: 01e44e39b190e2d4a87a562cb0b305d9, type: 3}
+  - {fileID: 1123461354026857275, guid: 01e44e39b190e2d4a87a562cb0b305d9, type: 3}
+  - {fileID: -2844390906881107929, guid: 01e44e39b190e2d4a87a562cb0b305d9, type: 3}
+  - {fileID: 3319374427574340777, guid: 01e44e39b190e2d4a87a562cb0b305d9, type: 3}
+  walkSprites:
+  - {fileID: -2647245743071629445, guid: 01e44e39b190e2d4a87a562cb0b305d9, type: 3}
+  - {fileID: 12907146962378051, guid: 01e44e39b190e2d4a87a562cb0b305d9, type: 3}
+  - {fileID: 483125067847618644, guid: 01e44e39b190e2d4a87a562cb0b305d9, type: 3}
+  - {fileID: -6545835100208869064, guid: 01e44e39b190e2d4a87a562cb0b305d9, type: 3}
+  - {fileID: -2739445669828363801, guid: 01e44e39b190e2d4a87a562cb0b305d9, type: 3}
+  - {fileID: 4231304647646653553, guid: 01e44e39b190e2d4a87a562cb0b305d9, type: 3}
+  - {fileID: -2604919618279744844, guid: 01e44e39b190e2d4a87a562cb0b305d9, type: 3}
+  - {fileID: 1254265951904315348, guid: 01e44e39b190e2d4a87a562cb0b305d9, type: 3}
+--- !u!114 &1985942726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985942720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9434c304b1e4a67b8133bd201c0f9c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Npc.NpcWorldResident2D
+  map: {fileID: 351526448}
+  npcId: npc.fisher_ren
+  homeId: home.fisher_ren
+  outsideId: home.fisher_ren.doorstep
+  entryId: home.fisher_ren.entry
+  morningId: work.fisher_ren.morning
+  restId: rest.fisher_ren
+  afternoonId: work.fisher_ren.afternoon
+  morningWorkFacing: {x: 1, y: 0}
+  afternoonWorkFacing: {x: -1, y: 0}
+  times: 59010000d1010000df0200001b0300001a04000056040000
+  unitsPerSecond: 2
+  visual: {fileID: 1503537415}
 --- !u!1 &1988403192
 GameObject:
   m_ObjectHideFlags: 0
@@ -63129,6 +63310,8 @@ GameObject:
   - component: {fileID: 2135212518}
   - component: {fileID: 2135212517}
   - component: {fileID: 2135212519}
+  - component: {fileID: 2135212520}
+  - component: {fileID: 2135212521}
   m_Layer: 0
   m_Name: NPC Mina
   m_TagString: Untagged
@@ -63229,6 +63412,58 @@ MonoBehaviour:
   _interactionPoint: {fileID: 2135212517}
   _view: {fileID: 351428468}
   _defaultNpcId: npc.shopkeeper_mina
+--- !u!114 &2135212520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135212515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9434c304b1e4a67b8133bd201c0f9c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Npc.NpcWorldResident2D
+  map: {fileID: 351526448}
+  npcId: npc.shopkeeper_mina
+  homeId: home.shopkeeper_mina
+  outsideId: home.shopkeeper_mina.doorstep
+  entryId: home.shopkeeper_mina.entry
+  morningId: work.shopkeeper_mina
+  restId: rest.shopkeeper_mina
+  afternoonId: work.shopkeeper_mina
+  morningWorkFacing: {x: -1, y: 0}
+  afternoonWorkFacing: {x: -1, y: 0}
+  times: 68010000e0010000d00200000c030000fc03000038040000
+  unitsPerSecond: 2
+  visual: {fileID: 1838921201}
+--- !u!114 &2135212521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135212515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05e4de91eb3341c9b99c8ff77b9a20e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Npc.CozyTownNpcSpriteAnimator
+  spriteRenderer: {fileID: 1838921201}
+  idleSprites:
+  - {fileID: -1797794176356544083, guid: f21e05b4e2e5c94499e777ca60bf708a, type: 3}
+  - {fileID: 3905896536419858323, guid: f21e05b4e2e5c94499e777ca60bf708a, type: 3}
+  - {fileID: -6637420238524729833, guid: f21e05b4e2e5c94499e777ca60bf708a, type: 3}
+  - {fileID: 3081026516231828261, guid: f21e05b4e2e5c94499e777ca60bf708a, type: 3}
+  walkSprites:
+  - {fileID: -4123349332441257504, guid: f21e05b4e2e5c94499e777ca60bf708a, type: 3}
+  - {fileID: -8616434042970945797, guid: f21e05b4e2e5c94499e777ca60bf708a, type: 3}
+  - {fileID: -9097629597492107531, guid: f21e05b4e2e5c94499e777ca60bf708a, type: 3}
+  - {fileID: -3334437412867003280, guid: f21e05b4e2e5c94499e777ca60bf708a, type: 3}
+  - {fileID: -4789749134512731563, guid: f21e05b4e2e5c94499e777ca60bf708a, type: 3}
+  - {fileID: -7448454797999369214, guid: f21e05b4e2e5c94499e777ca60bf708a, type: 3}
+  - {fileID: -4461769088028109773, guid: f21e05b4e2e5c94499e777ca60bf708a, type: 3}
+  - {fileID: -6138977104802319740, guid: f21e05b4e2e5c94499e777ca60bf708a, type: 3}
 --- !u!1 &2140473087
 GameObject:
   m_ObjectHideFlags: 0
