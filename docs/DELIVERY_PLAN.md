@@ -155,7 +155,7 @@ A1 和 M0～M4 的完成记录保持原值；T1 的新增测试、资产和人�
 
 全量 EditMode 287/287、开启图形渲染的 PlayMode 43/43 通过，均无失败或跳过。静态路径扫掠不代表 NPC 已能行走、遇阻重规划或按时到家；这些仍属于 T1-3。人工 Scene-01/Town-01 未通过，不启用真实 AI。
 
-远端总任务为 [Implement T1 town expansion and deterministic NPC life](https://github.com/qinjunw/CozyTown/issues/27)。实现 PR [Expand town housing and bound the pixel-perfect camera](https://github.com/qinjunw/CozyTown/pull/35) 叠加于[规划 PR #34](https://github.com/qinjunw/CozyTown/pull/34)，规划 PR 又依赖待合并的经济重构分支；按依赖顺序审阅合并，不绕过分支保护。
+远端总任务为 [Implement T1 town expansion and deterministic NPC life](https://github.com/qinjunw/CozyTown/issues/27)。[Expand town housing and bound the pixel-perfect camera](https://github.com/qinjunw/CozyTown/pull/35) 原叠加于 [Record accepted town-life plan and NPC agent readiness audit](https://github.com/qinjunw/CozyTown/pull/34)，后者原依赖经济重构分支；这些 PR 已于 2026-09-06 按依赖顺序合入受保护的主分支。
 
 | 切片 | 远端任务 | 状态与接续 |
 | --- | --- | --- |
