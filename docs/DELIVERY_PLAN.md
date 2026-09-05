@@ -155,14 +155,14 @@ A1 和 M0～M4 的完成记录保持原值；T1 的新增测试、资产和人�
 
 全量 EditMode 287/287、开启图形渲染的 PlayMode 43/43 通过，均无失败或跳过。静态路径扫掠不代表 NPC 已能行走、遇阻重规划或按时到家；这些仍属于 T1-3。人工 Scene-01/Town-01 未通过，不启用真实 AI。
 
-远端总任务为 [Implement T1 town expansion and deterministic NPC life](https://github.com/qinjunw/CozyTown/issues/27)。实现 PR [Expand town housing and bound the pixel-perfect camera](https://github.com/qinjunw/CozyTown/pull/35) 叠加于[规划 PR #34](https://github.com/qinjunw/CozyTown/pull/34)，规划 PR 又依赖待合并的经济重构分支；按依赖顺序审阅合并，不绕过分支保护。
+远端总任务为 [Implement T1 town expansion and deterministic NPC life](https://github.com/qinjunw/CozyTown/issues/27)。[Expand town housing and bound the pixel-perfect camera](https://github.com/qinjunw/CozyTown/pull/35) 原叠加于 [Record accepted town-life plan and NPC agent readiness audit](https://github.com/qinjunw/CozyTown/pull/34)，后者原依赖经济重构分支；这些 PR 已于 2026-09-06 按依赖顺序合入受保护的主分支。
 
 | 切片 | 远端任务 | 状态与接续 |
 | --- | --- | --- |
 | T1-0 | [确认契约](https://github.com/qinjunw/CozyTown/issues/28) | 用户已确认，ADR-0013 Accepted |
-| T1-1 | [扩镇与相机](https://github.com/qinjunw/CozyTown/issues/29) | 代码及自动化完成，PR #35 待审阅；住宅美术仍为灰盒 |
-| T1-2 | [日内时钟与暂停](https://github.com/qinjunw/CozyTown/issues/30) | 代码及自动化完成，[PR #36](https://github.com/qinjunw/CozyTown/pull/36) 待审阅 |
-| T1-2b | [T1-2b: Verify continuous world time, morning settlement and sleep](https://github.com/qinjunw/CozyTown/issues/38) | EditMode 357/357、PlayMode 62/62；[实现 PR](https://github.com/qinjunw/CozyTown/pull/39) 待审阅 |
+| T1-1 | [扩镇与相机](https://github.com/qinjunw/CozyTown/issues/29) | 实现已合入主分支，任务已关闭；住宅美术仍为灰盒 |
+| T1-2 | [日内时钟与暂停](https://github.com/qinjunw/CozyTown/issues/30) | 实现已合入主分支，任务已关闭；午夜封顶仅为历史行为 |
+| T1-2b | [T1-2b: Verify continuous world time, morning settlement and sleep](https://github.com/qinjunw/CozyTown/issues/38) | EditMode 357/357、PlayMode 62/62；[实现 PR](https://github.com/qinjunw/CozyTown/pull/39) 已合入主分支，任务已关闭 |
 | T1-3 | [单 NPC 竖切](https://github.com/qinjunw/CozyTown/issues/31) | 依赖 T1-1、T1-2 及 T1-2b 时间规则 |
 | T1-4 | [四人配置与美术](https://github.com/qinjunw/CozyTown/issues/32) | 依赖 T1-3 |
 | T1-5 | [回归与人工验收](https://github.com/qinjunw/CozyTown/issues/33) | 依赖 T1-4；用户实际验收后才能完成 |
@@ -189,6 +189,8 @@ A1 和 M0～M4 的完成记录保持原值；T1 的新增测试、资产和人�
 
 最终全量 EditMode `357/357`、图形 PlayMode `62/62` 通过，均为 0 failed、0 skipped，Unity 正常退出。独立 Standards 和 Spec 复查均无待修问题；验收记录和人工步骤见 [测试计划第 13.3 节](TEST_PLAN.md#133-t1-2b-连续时间晨间结算与睡眠2026-09-06)。
 
-[Unify world time, morning settlement and selectable sleep](https://github.com/qinjunw/CozyTown/pull/39) 叠加于时间研究分支；保留父 PR 顺序和分支保护，尚未合并。场景只接入床选择器，未修改 Production 美术、包版本或 NPC 提示点。
+[Unify world time, morning settlement and selectable sleep](https://github.com/qinjunw/CozyTown/pull/39) 原叠加于时间研究分支，已于 2026-09-06 按父 PR 顺序普通 squash 合入受保护的主分支；本轮复验见[测试记录](TEST_PLAN.md#134-前置切片合并复验2026-09-06)。场景只接入床选择器，未修改 Production 美术、包版本或 NPC 提示点。
+
+T1-3～T1-5 已按 [T1 当前验收](TOWN_LIFE_PLAN.md#10-t1-3t1-5-当前验收2026-09-06) 修订，依次为单 NPC 往返、四人配置与美术、联合回归和人工验收。修订未计作实现完成；人工 Scene-01 与 Town-01 仍须用户分别确认。
 
 NPC 日程和快进位置结果、扩大版 Scene-01/Town-01 人工验收尚未完成。保持真实 AI 端点关闭，不以本轮后端测试替代场景人工门禁。
