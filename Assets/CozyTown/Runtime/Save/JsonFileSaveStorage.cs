@@ -176,7 +176,7 @@ namespace CozyTown.Runtime.Save
 
                 converted = data.Value.ToSnapshot(_legacyRestockPolicy);
             }
-            else if (probe.SchemaVersion.Value == GameSaveSnapshot.CurrentSchemaVersion)
+            else if (probe.SchemaVersion.Value == 2 || probe.SchemaVersion.Value == 3)
             {
                 OperationResult<V2SaveFileData> data = ReadData<V2SaveFileData>(path);
                 if (!data.IsSuccess)
@@ -194,6 +194,27 @@ namespace CozyTown.Runtime.Save
             if (!converted.IsSuccess)
             {
                 return converted;
+            }
+
+            if (converted.Value.SchemaVersion == 2)
+            {
+                OperationResult legacyValidation =
+                    GameSaveSnapshotValidator.ValidateLegacyV2(converted.Value);
+                if (!legacyValidation.IsSuccess)
+                {
+                    return OperationResult<GameSaveSnapshot>.Failure(legacyValidation.ErrorCode);
+                }
+
+                GameSaveSnapshot legacy = converted.Value;
+                converted = OperationResult<GameSaveSnapshot>.Success(
+                    new GameSaveSnapshot(
+                        GameSaveSnapshot.CurrentSchemaVersion,
+                        legacy.WorldSeed,
+                        legacy.Clock,
+                        legacy.Characters,
+                        legacy.Shops,
+                        legacy.Farm,
+                        legacy.Livestock));
             }
 
             OperationResult validation = GameSaveSnapshotValidator.Validate(converted.Value);
@@ -347,7 +368,7 @@ namespace CozyTown.Runtime.Save
 
                 return OperationResult<GameSaveSnapshot>.Success(
                     new GameSaveSnapshot(
-                        GameSaveSnapshot.CurrentSchemaVersion,
+                        2,
                         LegacyV1WorldSeed,
                         clock.Value,
                         new[] { player },
@@ -357,6 +378,7 @@ namespace CozyTown.Runtime.Save
             }
         }
 
+        // Schemas 2 and 3 share fields; their clock/progress rules are validated separately.
         [DataContract]
         private sealed class V2SaveFileData
         {

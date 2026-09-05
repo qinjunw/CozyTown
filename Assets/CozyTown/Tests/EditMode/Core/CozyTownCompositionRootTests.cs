@@ -41,12 +41,15 @@ namespace CozyTown.Tests.EditMode.Core
         {
             var services = CozyTownCompositionRoot.CreateDefault();
             Assert.That(services.GameSave.Save().IsSuccess, Is.True);
-            services.DaytimeClock.AdvanceElapsed(4.9);
+            services.DaytimeClock.AdvanceElapsed(0.4);
+            Assert.That(services.Time.Current.MinuteOfDay, Is.EqualTo(360));
 
             Assert.That(services.GameSave.Load().IsSuccess, Is.True);
             services.DaytimeClock.AdvanceElapsed(0.1);
 
             Assert.That(services.Time.Current.MinuteOfDay, Is.EqualTo(360));
+            services.DaytimeClock.AdvanceElapsed(0.4);
+            Assert.That(services.Time.Current.MinuteOfDay, Is.EqualTo(361));
         }
 
         [Test]

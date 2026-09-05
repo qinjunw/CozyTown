@@ -9,7 +9,7 @@ namespace CozyTown.Runtime.Save
     [Serializable]
     public sealed class GameSaveSnapshot
     {
-        public const int CurrentSchemaVersion = 2;
+        public const int CurrentSchemaVersion = 3;
 
         private readonly CharacterEconomySnapshot[] _characters;
         private readonly ShopEconomySnapshot[] _shops;

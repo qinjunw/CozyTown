@@ -79,15 +79,81 @@ namespace CozyTown.Tests.PlayMode
         }
 
         [UnityTest]
+        public IEnumerator DevelopmentScene_BedButtonsSelectTwoHoursAndUpdateSharedHudClock()
+        {
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(
+                ScenePath, new LoadSceneParameters(LoadSceneMode.Additive));
+            _loadedScene = SceneManager.GetSceneByPath(ScenePath);
+            var driver = RequireRoot(_loadedScene, "CozyTown").GetComponent<DaytimeClockDriver>();
+            driver.SetApplicationFocus(false);
+            var player = RequireRoot(_loadedScene, "Player");
+            var gate = player.GetComponent<PlayerModalInputGate2D>();
+            var hud = RequireRoot(_loadedScene, "Debug HUD");
+            var view = hud.GetComponent<CozyTownBedDebugView>();
+            var clockText = hud.GetComponentsInChildren<Text>(true).Single(text => text.name == "Clock Text");
+            var panel = hud.transform.Find("Production UI/Bed Panel");
+            var hoursText = panel.GetComponentsInChildren<Text>(true).Single(text => text.name == "Sleep Hours Text");
+            Button[] buttons = panel.GetComponentsInChildren<Button>(true);
+            var decrease = buttons.Single(button => button.name == "Decrease Sleep Button");
+            var increase = buttons.Single(button => button.name == "Increase Sleep Button");
+            var confirm = buttons.Single(button => button.name == "Sleep Button");
+            var close = buttons.Single(button => button.name == "Close Button");
+            yield return null;
+            Assert.That(clockText.text, Is.EqualTo("Day 1  06:00"));
+
+            var bed = RequireRoot(_loadedScene, "World")
+                .GetComponentsInChildren<TownInteractionPoint2D>(true)
+                .Single(point => point.Kind == TownInteractionKind.Bed);
+            bed.Interact(new InteractionContext(player));
+            driver.SetApplicationFocus(true);
+            Assert.That(view.IsVisible, Is.True);
+            Assert.That(hoursText.text, Is.EqualTo("8 hours"));
+            Assert.That(gate.IsAcquired, Is.True);
+            Assert.That(driver.IsSimulationPaused, Is.True);
+
+            increase.onClick.Invoke();
+            for (int click = 0; click < 7; click++)
+            {
+                decrease.onClick.Invoke();
+            }
+            driver.AdvanceFrame(300);
+            yield return null;
+            Assert.That(hoursText.text, Is.EqualTo("2 hours"));
+            Assert.That(clockText.text, Is.EqualTo("Day 1  06:00"));
+
+            confirm.onClick.Invoke();
+            driver.AdvanceFrame(300);
+            yield return null;
+            Assert.That(view.Feedback, Is.EqualTo("Slept to Day 1 08:00."));
+            Assert.That(hoursText.text, Is.EqualTo("2 hours"));
+            Assert.That(clockText.text, Is.EqualTo("Day 1  08:00"));
+            Assert.That(gate.IsAcquired, Is.True);
+            Assert.That(player.GetComponent<PlayerMovement2D>().enabled, Is.False);
+            Assert.That(player.GetComponent<PlayerInteractor2D>().enabled, Is.False);
+
+            close.onClick.Invoke();
+            Assert.That(view.IsVisible, Is.False);
+            Assert.That(gate.IsAcquired, Is.False);
+            Assert.That(driver.IsSimulationPaused, Is.False);
+            Assert.That(player.GetComponent<PlayerMovement2D>().enabled, Is.True);
+            Assert.That(player.GetComponent<PlayerInteractor2D>().enabled, Is.True);
+            driver.SetApplicationFocus(false);
+            yield return null;
+            Assert.That(clockText.text, Is.EqualTo("Day 1  08:00"));
+        }
+
+        [UnityTest]
         public IEnumerator DevelopmentScene_StartsWalkingAndShopTradingSlice()
         {
             var loadOperation = EditorSceneManager.LoadSceneAsyncInPlayMode(
                 ScenePath,
                 new LoadSceneParameters(LoadSceneMode.Additive));
             yield return loadOperation;
+            _loadedScene = SceneManager.GetSceneByPath(ScenePath);
+            RequireRoot(_loadedScene, "CozyTown").GetComponent<DaytimeClockDriver>()
+                .SetApplicationFocus(false);
             yield return null;
 
-            _loadedScene = SceneManager.GetSceneByPath(ScenePath);
             Assert.That(_loadedScene.IsValid(), Is.True);
             Assert.That(_loadedScene.isLoaded, Is.True);
 
@@ -151,6 +217,8 @@ namespace CozyTown.Tests.PlayMode
             var shopPresenter = hud.GetComponent<CozyTownShopDebugPresenter>();
             var farmView = hud.GetComponent<CozyTownFarmDebugView>();
             var bedView = hud.GetComponent<CozyTownBedDebugView>();
+            var sleepButton = hud.GetComponentsInChildren<Button>(true)
+                .Single(button => button.name == "Sleep Button");
             var coopView = hud.GetComponent<CozyTownCoopDebugView>();
             var pondView = hud.GetComponent<CozyTownPondDebugView>();
             var pondPresenter = hud.GetComponent<CozyTownPondDebugPresenter>();
@@ -297,8 +365,10 @@ namespace CozyTown.Tests.PlayMode
             shopView.RequestClose();
 
             yield return Open(TownInteractionKind.Bed);
-            bedView.RequestSleep();
-            Assert.That(bedView.Feedback, Is.EqualTo("Slept to day 2."));
+            sleepButton.onClick.Invoke();
+            sleepButton.onClick.Invoke();
+            sleepButton.onClick.Invoke();
+            Assert.That(bedView.Feedback, Is.EqualTo("Slept to Day 2 06:00."));
             bedView.RequestClose();
             yield return Open(TownInteractionKind.Shop);
             shopView.RequestBuy(DefaultMvpIds.Items.PotatoSeed);
@@ -325,8 +395,10 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(pondView.State.Entries.Single(e => e.ItemId == DefaultMvpIds.Items.Carp).OwnedQuantity, Is.EqualTo(2));
             pondView.RequestClose();
             yield return Open(TownInteractionKind.Bed);
-            bedView.RequestSleep();
-            Assert.That(bedView.Feedback, Is.EqualTo("Slept to day 3."));
+            sleepButton.onClick.Invoke();
+            sleepButton.onClick.Invoke();
+            sleepButton.onClick.Invoke();
+            Assert.That(bedView.Feedback, Is.EqualTo("Slept to Day 3 06:00."));
             bedView.RequestClose();
             yield return Open(TownInteractionKind.Coop);
             Assert.That(henRenderer.sprite.name, Is.EqualTo("animal_hen_product_ready"));
@@ -337,8 +409,10 @@ namespace CozyTown.Tests.PlayMode
             farmView.RequestWater("plot.01");
             farmView.RequestClose();
             yield return Open(TownInteractionKind.Bed);
-            bedView.RequestSleep();
-            Assert.That(bedView.Feedback, Is.EqualTo("Slept to day 4."));
+            sleepButton.onClick.Invoke();
+            sleepButton.onClick.Invoke();
+            sleepButton.onClick.Invoke();
+            Assert.That(bedView.Feedback, Is.EqualTo("Slept to Day 4 06:00."));
             bedView.RequestClose();
             yield return Open(TownInteractionKind.Farm);
             farmView.RequestHarvest("plot.01");

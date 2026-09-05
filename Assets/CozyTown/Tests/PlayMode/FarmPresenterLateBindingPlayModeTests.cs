@@ -124,7 +124,9 @@ namespace CozyTown.Tests.PlayMode
                 defaults.GameSave,
                 defaults.EconomyState,
                 defaults.WorldSeed,
-                defaults.DaytimeClock);
+                defaults.DaytimeClock,
+                defaults.WorldTime,
+                defaults.Sleep);
         }
 
         private static void Destroy(Object target)

@@ -15,6 +15,8 @@ namespace CozyTown.Unity.Interaction
         protected abstract TownInteractionKind ExpectedKind { get; }
         protected abstract bool HasDependencies { get; }
 
+        protected virtual bool CanOpenModal => HasDependencies;
+
         protected void ConfigureInteraction(TownInteractionPoint2D point)
         {
             _interactionPoint = point != null ? point : throw new ArgumentNullException(nameof(point));
@@ -69,7 +71,7 @@ namespace CozyTown.Unity.Interaction
 
         private void HandleInteraction(InteractionContext context)
         {
-            if (IsOpen || context.Actor == null)
+            if (IsOpen || context.Actor == null || !CanOpenModal)
             {
                 return;
             }

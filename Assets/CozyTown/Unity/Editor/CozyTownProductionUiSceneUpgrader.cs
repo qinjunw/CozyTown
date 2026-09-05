@@ -571,12 +571,36 @@ namespace CozyTown.Unity.Editor
             CozyTownUiIconCatalog iconCatalog)
         {
             var bedPanel = RequireChild(canvas, "Bed Panel");
-            var sleepButton = CreateButton(
-                RequireChild(bedPanel, "Content"),
-                "Sleep Button",
-                "Sleep until tomorrow",
+            var bedContent = RequireChild(bedPanel, "Content");
+            var decreaseSleepButton = CreateButton(
+                bedContent,
+                "Decrease Sleep Button",
+                "-",
                 null,
                 Vector2.zero,
+                new Vector2(32f, 22f),
+                sprites);
+            var sleepHoursText = CreateText(
+                bedContent,
+                "Sleep Hours Text",
+                "8 hours",
+                new Vector2(40f, 0f),
+                new Vector2(192f, 22f));
+            sleepHoursText.alignment = TextAnchor.MiddleCenter;
+            var increaseSleepButton = CreateButton(
+                bedContent,
+                "Increase Sleep Button",
+                "+",
+                null,
+                new Vector2(240f, 0f),
+                new Vector2(32f, 22f),
+                sprites);
+            var sleepButton = CreateButton(
+                bedContent,
+                "Sleep Button",
+                "Sleep",
+                null,
+                new Vector2(0f, -30f),
                 new Vector2(272f, 22f),
                 sprites);
             var bed = hud.GetComponent<CozyTownBedDebugView>()
@@ -585,7 +609,10 @@ namespace CozyTown.Unity.Editor
                 bedPanel.gameObject,
                 RequireChild(bedPanel, "Feedback Text").GetComponent<Text>(),
                 RequireChild(bedPanel, "Close Button").GetComponent<Button>(),
-                sleepButton);
+                sleepButton,
+                sleepHoursText,
+                decreaseSleepButton,
+                increaseSleepButton);
 
             var coopPanel = RequireChild(canvas, "Coop Panel");
             var coopRows = ConfigureListRows(coopPanel, "Coop Rows", 1, 40f, sprites, CreateTwoButtonRow);

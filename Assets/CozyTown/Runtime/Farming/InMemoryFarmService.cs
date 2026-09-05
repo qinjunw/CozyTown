@@ -10,7 +10,7 @@ namespace CozyTown.Runtime.Farming
     {
         private readonly Dictionary<string, CropDefinition> _cropsById;
         private readonly Dictionary<string, CropDefinition> _cropsBySeedItemId;
-        private readonly Dictionary<string, PlotState> _plots;
+        private Dictionary<string, PlotState> _plots;
         private readonly IInventory _inventory;
         private int _lastProcessedDay;
 
@@ -94,33 +94,51 @@ namespace CozyTown.Runtime.Farming
 
         public OperationResult AdvanceDay(int newDay)
         {
-            if (newDay <= _lastProcessedDay)
+            OperationResult<FarmSnapshot> candidate = CreateDayCandidate(CaptureSnapshot(), newDay);
+            return candidate.IsSuccess
+                ? Restore(candidate.Value)
+                : OperationResult.Failure(candidate.ErrorCode);
+        }
+
+        internal OperationResult<FarmSnapshot> CreateDayCandidate(FarmSnapshot current, int newDay)
+        {
+            OperationResult<Action> prepared = PrepareRestore(current);
+            if (!prepared.IsSuccess)
             {
-                return OperationResult.Failure("farm.day_not_advanced");
+                return OperationResult<FarmSnapshot>.Failure(prepared.ErrorCode);
             }
 
-            if (_lastProcessedDay == int.MaxValue || newDay != _lastProcessedDay + 1)
+            if (newDay <= current.LastProcessedDay)
             {
-                return OperationResult.Failure("farm.day_not_consecutive");
+                return OperationResult<FarmSnapshot>.Failure("farm.day_not_advanced");
             }
 
-            foreach (PlotState plot in _plots.Values)
+            if (current.LastProcessedDay == int.MaxValue || newDay != current.LastProcessedDay + 1)
             {
+                return OperationResult<FarmSnapshot>.Failure("farm.day_not_consecutive");
+            }
+
+            var plots = new FarmPlotSnapshot[current.Plots.Length];
+            for (int index = 0; index < current.Plots.Length; index++)
+            {
+                FarmPlotSnapshot plot = current.Plots[index];
+                int growth = plot.GrowthProgressDays;
+                FarmPlotStatus status = plot.Status;
                 if (plot.Status == FarmPlotStatus.Growing && plot.WateredToday)
                 {
-                    plot.GrowthProgressDays++;
+                    growth++;
                     CropDefinition crop = _cropsById[plot.CropId];
-                    if (plot.GrowthProgressDays >= crop.GrowthDays)
+                    if (growth >= crop.GrowthDays)
                     {
-                        plot.Status = FarmPlotStatus.Ready;
+                        status = FarmPlotStatus.Ready;
                     }
                 }
 
-                plot.WateredToday = false;
+                plots[index] = new FarmPlotSnapshot(
+                    plot.PlotId, plot.CropId, growth, wateredToday: false, status: status);
             }
 
-            _lastProcessedDay = newDay;
-            return OperationResult.Success();
+            return OperationResult<FarmSnapshot>.Success(new FarmSnapshot(newDay, plots));
         }
 
         public OperationResult Harvest(string plotId)
@@ -169,36 +187,48 @@ namespace CozyTown.Runtime.Farming
 
         public OperationResult Restore(FarmSnapshot snapshot)
         {
-            if (snapshot == null || snapshot.LastProcessedDay < 1 || snapshot.Plots.Length != _plots.Count)
+            OperationResult<Action> prepared = PrepareRestore(snapshot);
+            if (!prepared.IsSuccess)
             {
-                return OperationResult.Failure("farm.snapshot_invalid");
+                return OperationResult.Failure(prepared.ErrorCode);
             }
 
-            var proposed = new Dictionary<string, FarmPlotSnapshot>(StringComparer.Ordinal);
+            prepared.Value();
+            return OperationResult.Success();
+        }
+
+        internal OperationResult<Action> PrepareRestore(FarmSnapshot snapshot)
+        {
+            if (snapshot == null || snapshot.LastProcessedDay < 1 || snapshot.Plots.Length != _plots.Count)
+            {
+                return OperationResult<Action>.Failure("farm.snapshot_invalid");
+            }
+
+            var proposed = new Dictionary<string, PlotState>(StringComparer.Ordinal);
             foreach (FarmPlotSnapshot plot in snapshot.Plots)
             {
                 if (!_plots.ContainsKey(plot.PlotId ?? string.Empty)
                     || proposed.ContainsKey(plot.PlotId)
                     || !IsValidPlotSnapshot(plot))
                 {
-                    return OperationResult.Failure("farm.snapshot_invalid");
+                    return OperationResult<Action>.Failure("farm.snapshot_invalid");
                 }
 
-                proposed.Add(plot.PlotId, plot);
+                proposed.Add(plot.PlotId, new PlotState(plot.PlotId)
+                {
+                    CropId = plot.CropId,
+                    GrowthProgressDays = plot.GrowthProgressDays,
+                    WateredToday = plot.WateredToday,
+                    Status = plot.Status
+                });
             }
 
-            foreach (KeyValuePair<string, FarmPlotSnapshot> pair in proposed)
+            int completedDay = snapshot.LastProcessedDay;
+            return OperationResult<Action>.Success(() =>
             {
-                PlotState target = _plots[pair.Key];
-                FarmPlotSnapshot source = pair.Value;
-                target.CropId = source.CropId;
-                target.GrowthProgressDays = source.GrowthProgressDays;
-                target.WateredToday = source.WateredToday;
-                target.Status = source.Status;
-            }
-
-            _lastProcessedDay = snapshot.LastProcessedDay;
-            return OperationResult.Success();
+                _plots = proposed;
+                _lastProcessedDay = completedDay;
+            });
         }
 
         private bool IsValidPlotSnapshot(FarmPlotSnapshot plot)

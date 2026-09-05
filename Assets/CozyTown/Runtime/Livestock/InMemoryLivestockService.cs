@@ -9,7 +9,7 @@ namespace CozyTown.Runtime.Livestock
     public sealed class InMemoryLivestockService : ILivestockService
     {
         private readonly Dictionary<string, AnimalDefinition> _species;
-        private readonly Dictionary<string, AnimalState> _animals;
+        private Dictionary<string, AnimalState> _animals;
         private readonly IInventory _inventory;
         private int _lastProcessedDay;
 
@@ -80,28 +80,36 @@ namespace CozyTown.Runtime.Livestock
 
         public OperationResult AdvanceDay(int newDay)
         {
-            if (newDay <= _lastProcessedDay)
+            OperationResult<LivestockSnapshot> candidate = CreateDayCandidate(CaptureSnapshot(), newDay);
+            return candidate.IsSuccess
+                ? Restore(candidate.Value)
+                : OperationResult.Failure(candidate.ErrorCode);
+        }
+
+        internal OperationResult<LivestockSnapshot> CreateDayCandidate(LivestockSnapshot current, int newDay)
+        {
+            OperationResult<Action> prepared = PrepareRestore(current);
+            if (!prepared.IsSuccess)
             {
-                return OperationResult.Failure("livestock.day_not_advanced");
+                return OperationResult<LivestockSnapshot>.Failure(prepared.ErrorCode);
             }
 
-            if (_lastProcessedDay == int.MaxValue || newDay != _lastProcessedDay + 1)
+            if (newDay <= current.LastProcessedDay)
             {
-                return OperationResult.Failure("livestock.day_not_consecutive");
+                return OperationResult<LivestockSnapshot>.Failure("livestock.day_not_advanced");
             }
 
-            foreach (AnimalState animal in _animals.Values)
+            if (current.LastProcessedDay == int.MaxValue || newDay != current.LastProcessedDay + 1)
             {
-                if (animal.FedToday)
-                {
-                    animal.ProductReady = true;
-                }
-
-                animal.FedToday = false;
+                return OperationResult<LivestockSnapshot>.Failure("livestock.day_not_consecutive");
             }
 
-            _lastProcessedDay = newDay;
-            return OperationResult.Success();
+            AnimalSnapshot[] animals = current.Animals.Select(animal => new AnimalSnapshot(
+                animal.AnimalId,
+                animal.SpeciesId,
+                fedToday: false,
+                productReady: animal.ProductReady || animal.FedToday)).ToArray();
+            return OperationResult<LivestockSnapshot>.Success(new LivestockSnapshot(newDay, animals));
         }
 
         public OperationResult CollectProduct(string animalId)
@@ -152,12 +160,24 @@ namespace CozyTown.Runtime.Livestock
 
         public OperationResult Restore(LivestockSnapshot snapshot)
         {
-            if (snapshot == null || snapshot.LastProcessedDay < 1 || snapshot.Animals.Length != _animals.Count)
+            OperationResult<Action> prepared = PrepareRestore(snapshot);
+            if (!prepared.IsSuccess)
             {
-                return OperationResult.Failure("livestock.snapshot_invalid");
+                return OperationResult.Failure(prepared.ErrorCode);
             }
 
-            var proposed = new Dictionary<string, AnimalSnapshot>(StringComparer.Ordinal);
+            prepared.Value();
+            return OperationResult.Success();
+        }
+
+        internal OperationResult<Action> PrepareRestore(LivestockSnapshot snapshot)
+        {
+            if (snapshot == null || snapshot.LastProcessedDay < 1 || snapshot.Animals.Length != _animals.Count)
+            {
+                return OperationResult<Action>.Failure("livestock.snapshot_invalid");
+            }
+
+            var proposed = new Dictionary<string, AnimalState>(StringComparer.Ordinal);
             foreach (AnimalSnapshot animal in snapshot.Animals)
             {
                 if (!_animals.ContainsKey(animal.AnimalId ?? string.Empty)
@@ -166,21 +186,18 @@ namespace CozyTown.Runtime.Livestock
                     || _animals[animal.AnimalId].SpeciesId != animal.SpeciesId
                     || (animal.FedToday && animal.ProductReady))
                 {
-                    return OperationResult.Failure("livestock.snapshot_invalid");
+                    return OperationResult<Action>.Failure("livestock.snapshot_invalid");
                 }
 
-                proposed.Add(animal.AnimalId, animal);
+                proposed.Add(animal.AnimalId, new AnimalState(animal));
             }
 
-            foreach (KeyValuePair<string, AnimalSnapshot> pair in proposed)
+            int completedDay = snapshot.LastProcessedDay;
+            return OperationResult<Action>.Success(() =>
             {
-                AnimalState target = _animals[pair.Key];
-                target.FedToday = pair.Value.FedToday;
-                target.ProductReady = pair.Value.ProductReady;
-            }
-
-            _lastProcessedDay = snapshot.LastProcessedDay;
-            return OperationResult.Success();
+                _animals = proposed;
+                _lastProcessedDay = completedDay;
+            });
         }
 
         private static bool IsValidDefinition(AnimalDefinition definition)

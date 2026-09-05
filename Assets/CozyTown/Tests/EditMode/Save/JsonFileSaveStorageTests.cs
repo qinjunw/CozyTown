@@ -1,9 +1,12 @@
 using System;
 using System.IO;
+using CozyTown.Runtime.Application;
 using CozyTown.Runtime.Content;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Economy;
+using CozyTown.Runtime.Farming;
 using CozyTown.Runtime.Inventory;
+using CozyTown.Runtime.Livestock;
 using CozyTown.Runtime.Save;
 using NUnit.Framework;
 
@@ -42,7 +45,7 @@ namespace CozyTown.Tests.EditMode.Save
             Assert.That(storage.Save(JsonFileSaveStorage.MainSlotId, snapshot).IsSuccess, Is.True);
 
             string json = File.ReadAllText(_savePath);
-            Assert.That(json, Does.Contain("\"schemaVersion\":2"));
+            Assert.That(json, Does.Contain("\"schemaVersion\":3"));
             Assert.That(json, Does.Contain("\"worldSeed\":"));
             Assert.That(json, Does.Contain("\"characters\":"));
             Assert.That(json, Does.Contain("\"shops\":"));
@@ -136,7 +139,7 @@ namespace CozyTown.Tests.EditMode.Save
                 storage.Save(JsonFileSaveStorage.MainSlotId, SaveTestSnapshots.Create()).IsSuccess,
                 Is.True);
             string json = File.ReadAllText(_savePath)
-                .Replace("\"schemaVersion\":2", $"\"schemaVersion\":{schemaVersion}");
+                .Replace("\"schemaVersion\":3", $"\"schemaVersion\":{schemaVersion}");
             File.WriteAllText(_savePath, json);
 
             var result = storage.Load(JsonFileSaveStorage.MainSlotId);
@@ -177,7 +180,7 @@ namespace CozyTown.Tests.EditMode.Save
                 + "  ] },\n"
                 + "  \"wallet\": { \"balance\": 425 },\n"
                 + "  \"farm\": { \"lastProcessedDay\": 3, \"plots\": [\n"
-                + "    { \"plotId\": \"plot.01\", \"cropId\": \"\", \"growthProgressDays\": 0, \"wateredToday\": false, \"status\": 0 },\n"
+                + "    { \"plotId\": \"plot.01\", \"cropId\": \"crop_definition.potato\", \"growthProgressDays\": 1, \"wateredToday\": true, \"status\": 1 },\n"
                 + "    { \"plotId\": \"plot.02\", \"cropId\": \"\", \"growthProgressDays\": 0, \"wateredToday\": false, \"status\": 0 },\n"
                 + "    { \"plotId\": \"plot.03\", \"cropId\": \"\", \"growthProgressDays\": 0, \"wateredToday\": false, \"status\": 0 },\n"
                 + "    { \"plotId\": \"plot.04\", \"cropId\": \"\", \"growthProgressDays\": 0, \"wateredToday\": false, \"status\": 0 },\n"
@@ -200,8 +203,19 @@ namespace CozyTown.Tests.EditMode.Save
 
             Assert.That(first.IsSuccess, Is.True);
             Assert.That(second.IsSuccess, Is.True);
-            Assert.That(first.Value.SchemaVersion, Is.EqualTo(2));
+            Assert.That(first.Value.SchemaVersion, Is.EqualTo(3));
             Assert.That(first.Value.WorldSeed, Is.EqualTo(JsonFileSaveStorage.LegacyV1WorldSeed));
+            Assert.That(first.Value.Clock.Day, Is.EqualTo(3));
+            Assert.That(first.Value.Clock.MinuteOfDay, Is.EqualTo(420));
+            Assert.That(first.Value.Farm.LastProcessedDay, Is.EqualTo(3));
+            Assert.That(first.Value.Farm.Plots, Has.Length.EqualTo(6));
+            Assert.That(first.Value.Farm.Plots[0], Is.EqualTo(new FarmPlotSnapshot(
+                "plot.01", DefaultMvpIds.Crops.Potato, 1, true, FarmPlotStatus.Growing)));
+            Assert.That(first.Value.Livestock.LastProcessedDay, Is.EqualTo(3));
+            Assert.That(first.Value.Livestock.Animals, Is.EqualTo(new[]
+            {
+                new AnimalSnapshot("animal.hen_01", "species.chicken", true, false)
+            }));
             Assert.That(first.Value.Characters, Has.Length.EqualTo(1));
             Assert.That(
                 first.Value.Characters[0].CharacterId,
@@ -242,6 +256,17 @@ namespace CozyTown.Tests.EditMode.Save
                 sameDay.Value.Stock.Items,
                 Is.EqualTo(first.Value.Shops[0].Stock.Items));
             SaveTestSnapshots.AssertEquivalent(first.Value, second.Value);
+            CozyTownServices restored = CozyTownCompositionRoot.CreateDefault();
+            var coordinator = new GameSaveCoordinator(
+                restored.WorldSeed,
+                restored.Time,
+                restored.EconomyState,
+                restored.Farm,
+                restored.Livestock,
+                storage);
+            OperationResult restoredResult = coordinator.Load();
+            Assert.That(restoredResult.IsSuccess, Is.True, restoredResult.ErrorCode);
+            SaveTestSnapshots.AssertEquivalent(first.Value, SaveTestSnapshots.Capture(restored));
             Assert.That(File.ReadAllBytes(_savePath), Is.EqualTo(legacyBytes));
         }
 

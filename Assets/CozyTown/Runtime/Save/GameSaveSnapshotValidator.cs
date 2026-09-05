@@ -13,12 +13,24 @@ namespace CozyTown.Runtime.Save
     {
         public static OperationResult Validate(GameSaveSnapshot snapshot)
         {
+            return Validate(snapshot, GameSaveSnapshot.CurrentSchemaVersion);
+        }
+
+        public static OperationResult ValidateLegacyV2(GameSaveSnapshot snapshot)
+        {
+            return Validate(snapshot, expectedSchemaVersion: 2);
+        }
+
+        private static OperationResult Validate(
+            GameSaveSnapshot snapshot,
+            int expectedSchemaVersion)
+        {
             if (snapshot == null)
             {
                 return OperationResult.Failure("save.payload_invalid");
             }
 
-            if (snapshot.SchemaVersion != GameSaveSnapshot.CurrentSchemaVersion)
+            if (snapshot.SchemaVersion != expectedSchemaVersion)
             {
                 return OperationResult.Failure("save.schema_unsupported");
             }
@@ -27,13 +39,14 @@ namespace CozyTown.Runtime.Save
             ShopEconomySnapshot[] shops = snapshot.Shops;
             if (snapshot.Farm == null
                 || snapshot.Livestock == null
-                || snapshot.Clock.Day < 1
-                || snapshot.Clock.MinuteOfDay < 0
-                || snapshot.Clock.MinuteOfDay >= InMemoryTimeService.MinutesPerDay
-                || snapshot.Farm.LastProcessedDay != snapshot.Clock.Day
-                || snapshot.Livestock.LastProcessedDay != snapshot.Clock.Day
+                || !DailySettlementSchedule.IsValidProgress(
+                    snapshot.Clock,
+                    snapshot.Farm.LastProcessedDay)
+                || (expectedSchemaVersion == 2
+                    && snapshot.Farm.LastProcessedDay != snapshot.Clock.Day)
+                || snapshot.Livestock.LastProcessedDay != snapshot.Farm.LastProcessedDay
                 || !CharactersAreValid(characters)
-                || !ShopsAreValid(shops, snapshot.Clock.Day)
+                || !ShopsAreValid(shops, snapshot.Farm.LastProcessedDay)
                 || !FarmIsValid(snapshot.Farm)
                 || !LivestockIsValid(snapshot.Livestock))
             {
@@ -66,7 +79,7 @@ namespace CozyTown.Runtime.Save
             return true;
         }
 
-        private static bool ShopsAreValid(ShopEconomySnapshot[] shops, int clockDay)
+        private static bool ShopsAreValid(ShopEconomySnapshot[] shops, int completedDay)
         {
             if (shops == null)
             {
@@ -79,7 +92,7 @@ namespace CozyTown.Runtime.Save
                 if (shop == null
                     || string.IsNullOrWhiteSpace(shop.ShopId)
                     || shop.Wallet.Balance < 0
-                    || shop.LastRestockedDay != clockDay
+                    || shop.LastRestockedDay != completedDay
                     || shop.RestockAlgorithmVersion
                         != DeterministicShopStockReplacementPolicy.VersionOne
                     || !shopIds.Add(shop.ShopId)

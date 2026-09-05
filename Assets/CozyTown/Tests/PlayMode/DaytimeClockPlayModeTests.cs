@@ -18,7 +18,7 @@ namespace CozyTown.Tests.PlayMode
         private GameObject _driverObject;
         private PlayerModalInputGate2D _gate;
         private DaytimeClockDriver _driver;
-        private DaytimeClockCoordinator _clock;
+        private IDaytimeClock _clock;
 
         [Test]
         public void ModalPause_StopsClockAndDiscardsFirstResumeFrame()
@@ -79,12 +79,12 @@ namespace CozyTown.Tests.PlayMode
             _driver.enabled = false;
             Assert.That(_driver.IsSimulationPaused, Is.True);
             _driver.AdvanceFrame(300);
-            Assert.That(_clock.Current, Is.EqualTo(new GameClockSnapshot(1, 360)));
+            Assert.That(_clock.Current, Is.EqualTo(new GameClockSnapshot(1, 369)));
 
             _driver.enabled = true;
             _driver.SetApplicationFocus(true);
             _driver.AdvanceFrame(300);
-            Assert.That(_clock.Current, Is.EqualTo(new GameClockSnapshot(1, 360)));
+            Assert.That(_clock.Current, Is.EqualTo(new GameClockSnapshot(1, 369)));
 
             _driver.AdvanceFrame(0.1);
             Assert.That(_clock.Current, Is.EqualTo(new GameClockSnapshot(1, 370)));
@@ -118,10 +118,10 @@ namespace CozyTown.Tests.PlayMode
             yield return null;
 
             Assert.That(_gate.IsAcquired, Is.True);
-            Assert.That(_clock.Current, Is.EqualTo(new GameClockSnapshot(1, 360)));
+            Assert.That(_clock.Current, Is.EqualTo(new GameClockSnapshot(1, 369)));
             Assert.That(_gate.Release(opener), Is.True);
 
-            for (var frame = 0; frame < 8 && _clock.Current.MinuteOfDay == 360; frame++)
+            for (var frame = 0; frame < 8 && _clock.Current.MinuteOfDay == 369; frame++)
             {
                 yield return null;
             }
@@ -142,7 +142,7 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(_gate.IsAcquired, Is.False);
             Assert.That(_driver.IsSimulationPaused, Is.False);
             _driver.AdvanceFrame(300);
-            Assert.That(_clock.Current, Is.EqualTo(new GameClockSnapshot(1, 360)));
+            Assert.That(_clock.Current, Is.EqualTo(new GameClockSnapshot(1, 369)));
 
             _driver.AdvanceFrame(0.1);
             Assert.That(_clock.Current, Is.EqualTo(new GameClockSnapshot(1, 370)));
@@ -181,7 +181,7 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(_gate.TryAcquire(owner), Is.True);
             Assert.That(_gate.Release(owner), Is.True);
             _driver.AdvanceFrame(300);
-            Assert.That(_clock.Current, Is.EqualTo(new GameClockSnapshot(1, 360)));
+            Assert.That(_clock.Current, Is.EqualTo(new GameClockSnapshot(1, 369)));
 
             _driver.AdvanceFrame(0.1);
             Assert.That(_clock.Current, Is.EqualTo(new GameClockSnapshot(1, 370)));
@@ -209,18 +209,7 @@ namespace CozyTown.Tests.PlayMode
         private void CreateFixture()
         {
             var services = CozyTownCompositionRoot.CreateEmpty();
-            var dayTransition = new DayTransitionCoordinator(
-                services.Time,
-                services.Farm,
-                services.Livestock);
-            var gameSave = new GameSaveCoordinator(
-                services.WorldSeed,
-                services.Time,
-                services.EconomyState,
-                services.Farm,
-                services.Livestock,
-                services.SaveStorage);
-            _clock = new DaytimeClockCoordinator(services.Time, dayTransition, gameSave);
+            _clock = services.DaytimeClock;
 
             _gate = CreatePlayerGate(out _player);
             _driverObject = new GameObject("Daytime Clock");

@@ -12,6 +12,56 @@ namespace CozyTown.Tests.EditMode.Application
 {
     public sealed class DaytimeClockCoordinatorTests
     {
+        [TestCase(double.MaxValue)]
+        [TestCase(5040.5)]
+        public void AdvanceElapsed_ExcessiveFiniteSeconds_RejectsAndKeepsRemainder(double seconds)
+        {
+            CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
+            Assert.That(services.DaytimeClock.AdvanceElapsed(0.4).IsSuccess, Is.True);
+            GameSaveSnapshot before = SaveTestSnapshots.Capture(services);
+
+            OperationResult<GameClockSnapshot> result = services.DaytimeClock.AdvanceElapsed(seconds);
+
+            Assert.That(result.IsSuccess, Is.False);
+            Assert.That(result.ErrorCode, Is.EqualTo("time.elapsed_too_large"));
+            SaveTestSnapshots.AssertEquivalent(before, SaveTestSnapshots.Capture(services));
+            Assert.That(services.DaytimeClock.AdvanceElapsed(0.1).IsSuccess, Is.True);
+            Assert.That(services.Time.Current, Is.EqualTo(new GameClockSnapshot(1, 361)));
+        }
+
+        [TestCase(-60)]
+        [TestCase(0)]
+        [TestCase(59)]
+        [TestCase(61)]
+        [TestCase(780)]
+        public void SleepForMinutes_OutsideOneToTwelveWholeHours_RejectsAndKeepsRemainder(
+            int minutes)
+        {
+            CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
+            Assert.That(services.DaytimeClock.AdvanceElapsed(4.9).IsSuccess, Is.True);
+            GameSaveSnapshot before = SaveTestSnapshots.Capture(services);
+
+            OperationResult<GameClockSnapshot> result = services.Sleep.SleepForMinutes(minutes);
+
+            Assert.That(result.IsSuccess, Is.False);
+            Assert.That(result.ErrorCode, Is.EqualTo("sleep.duration_invalid"));
+            SaveTestSnapshots.AssertEquivalent(before, SaveTestSnapshots.Capture(services));
+            Assert.That(services.DaytimeClock.AdvanceElapsed(0.1).IsSuccess, Is.True);
+            Assert.That(services.Time.Current, Is.EqualTo(new GameClockSnapshot(1, 370)));
+        }
+
+        [Test]
+        public void AdvanceElapsed_AfterHalfASecond_PublishesOneGameMinute()
+        {
+            CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
+
+            OperationResult<GameClockSnapshot> result = services.DaytimeClock.AdvanceElapsed(0.5);
+
+            Assert.That(result.IsSuccess, Is.True, result.ErrorCode);
+            Assert.That(result.Value, Is.EqualTo(new GameClockSnapshot(1, 361)));
+            Assert.That(services.WorldTime.Current, Is.EqualTo(result.Value));
+        }
+
         [Test]
         public void AdvanceElapsed_AfterFiveSeconds_AdvancesTenMinutes()
         {
@@ -39,7 +89,7 @@ namespace CozyTown.Tests.EditMode.Application
             {
                 Assert.That(clock.AdvanceElapsed(secondsPerFrame).IsSuccess, Is.True);
             }
-            Assert.That(clock.Current, Is.EqualTo(new GameClockSnapshot(1, 360)));
+            Assert.That(clock.Current, Is.EqualTo(new GameClockSnapshot(1, 369)));
 
             OperationResult<GameClockSnapshot> result =
                 clock.AdvanceElapsed(secondsPerFrame);
@@ -59,44 +109,37 @@ namespace CozyTown.Tests.EditMode.Application
             OperationResult<GameClockSnapshot> second = clock.AdvanceElapsed(2.5);
 
             Assert.That(first.IsSuccess, Is.True, first.ErrorCode);
-            Assert.That(first.Value, Is.EqualTo(new GameClockSnapshot(1, 380)));
+            Assert.That(first.Value, Is.EqualTo(new GameClockSnapshot(1, 385)));
             Assert.That(second.IsSuccess, Is.True, second.ErrorCode);
             Assert.That(second.Value, Is.EqualTo(new GameClockSnapshot(1, 390)));
             Assert.That(clock.Current, Is.EqualTo(second.Value));
         }
 
-        [TestCase(1, 1435, 5)]
-        [TestCase(1, 360, double.MaxValue)]
-        [TestCase(int.MaxValue, 1435, 5)]
-        public void AdvanceElapsed_AtDayEnd_StopsAt2359WithoutDailySettlement(
-            int day,
-            int startingMinute,
-            double seconds)
+        [Test]
+        public void AdvanceElapsed_AtDayEnd_CrossesMidnightWithoutDailySettlement()
         {
             CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
             Assert.That(
-                services.Time.Restore(new GameClockSnapshot(day, startingMinute)).IsSuccess,
+                services.Time.Restore(new GameClockSnapshot(1, 1435)).IsSuccess,
                 Is.True);
             IDaytimeClock clock = CreateClock(services);
             GameSaveSnapshot before = SaveTestSnapshots.Capture(services);
 
-            OperationResult<GameClockSnapshot> result = clock.AdvanceElapsed(seconds);
+            OperationResult<GameClockSnapshot> result = clock.AdvanceElapsed(5);
 
             Assert.That(result.IsSuccess, Is.True, result.ErrorCode);
-            Assert.That(result.Value, Is.EqualTo(new GameClockSnapshot(day, 1439)));
+            Assert.That(result.Value, Is.EqualTo(new GameClockSnapshot(2, 5)));
             Assert.That(clock.Current, Is.EqualTo(result.Value));
             SaveTestSnapshots.AssertEquivalent(
                 new GameSaveSnapshot(
                     before.SchemaVersion,
                     before.WorldSeed,
-                    new GameClockSnapshot(day, 1439),
+                    new GameClockSnapshot(2, 5),
                     before.Characters,
                     before.Shops,
                     before.Farm,
                     before.Livestock),
                 SaveTestSnapshots.Capture(services));
-            Assert.That(clock.AdvanceElapsed(double.MaxValue).IsSuccess, Is.True);
-            Assert.That(clock.Current, Is.EqualTo(new GameClockSnapshot(day, 1439)));
         }
 
         [TestCase(-1)]
@@ -114,7 +157,7 @@ namespace CozyTown.Tests.EditMode.Application
 
             Assert.That(result.IsSuccess, Is.False);
             Assert.That(result.ErrorCode, Is.EqualTo("time.elapsed_invalid"));
-            Assert.That(clock.Current, Is.EqualTo(new GameClockSnapshot(1, 360)));
+            Assert.That(clock.Current, Is.EqualTo(new GameClockSnapshot(1, 369)));
             Assert.That(clock.AdvanceElapsed(0.1).IsSuccess, Is.True);
             Assert.That(clock.Current, Is.EqualTo(new GameClockSnapshot(1, 370)));
         }
@@ -129,7 +172,7 @@ namespace CozyTown.Tests.EditMode.Application
             OperationResult<GameClockSnapshot> result = clock.AdvanceElapsed(0);
 
             Assert.That(result.IsSuccess, Is.True, result.ErrorCode);
-            Assert.That(result.Value, Is.EqualTo(new GameClockSnapshot(1, 360)));
+            Assert.That(result.Value, Is.EqualTo(new GameClockSnapshot(1, 369)));
             Assert.That(clock.AdvanceElapsed(0.1).IsSuccess, Is.True);
             Assert.That(clock.Current, Is.EqualTo(new GameClockSnapshot(1, 370)));
         }
@@ -140,13 +183,14 @@ namespace CozyTown.Tests.EditMode.Application
             bool settlementSucceeds)
         {
             CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
+            DaytimeClockCoordinator clock = CreateClock(services);
+            Assert.That(clock.AdvanceElapsed(4.9).IsSuccess, Is.True);
+            var validFarm = services.Farm.CaptureSnapshot();
             if (!settlementSucceeds)
             {
                 Assert.That(services.Farm.AdvanceDay(2).IsSuccess, Is.True);
             }
-            DaytimeClockCoordinator clock = CreateClock(services);
             GameSaveSnapshot before = SaveTestSnapshots.Capture(services);
-            Assert.That(clock.AdvanceElapsed(4.9).IsSuccess, Is.True);
 
             OperationResult<GameClockSnapshot> result = clock.SleepToNextDay();
 
@@ -166,8 +210,9 @@ namespace CozyTown.Tests.EditMode.Application
             }
             else
             {
-                Assert.That(result.ErrorCode, Is.EqualTo("day_transition.state_misaligned"));
+                Assert.That(result.ErrorCode, Is.EqualTo("world_time.state_misaligned"));
                 SaveTestSnapshots.AssertEquivalent(before, SaveTestSnapshots.Capture(services));
+                Assert.That(services.Farm.Restore(validFarm).IsSuccess, Is.True);
             }
 
             Assert.That(clock.AdvanceElapsed(0.1).IsSuccess, Is.True);
@@ -216,6 +261,7 @@ namespace CozyTown.Tests.EditMode.Application
                     Is.True);
             }
             Assert.That(clock.AdvanceElapsed(4.9).IsSuccess, Is.True);
+            GameSaveSnapshot beforeLoad = SaveTestSnapshots.Capture(services);
 
             OperationResult result = clock.Load();
 
@@ -224,7 +270,9 @@ namespace CozyTown.Tests.EditMode.Application
             {
                 Assert.That(result.ErrorCode, Is.EqualTo("save.restore_economy_failed"));
             }
-            SaveTestSnapshots.AssertEquivalent(before, SaveTestSnapshots.Capture(services));
+            SaveTestSnapshots.AssertEquivalent(
+                restoreSucceeds ? before : beforeLoad,
+                SaveTestSnapshots.Capture(services));
             Assert.That(clock.AdvanceElapsed(0.1).IsSuccess, Is.True);
             Assert.That(
                 clock.Current,
@@ -243,35 +291,30 @@ namespace CozyTown.Tests.EditMode.Application
         public void Save_PreservesElapsedTime(bool saveSucceeds)
         {
             CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
+            DaytimeClockCoordinator clock = CreateClock(services);
+            Assert.That(clock.AdvanceElapsed(4.9).IsSuccess, Is.True);
+            var validFarm = services.Farm.CaptureSnapshot();
             if (!saveSucceeds)
             {
                 Assert.That(services.Farm.AdvanceDay(2).IsSuccess, Is.True);
             }
-            DaytimeClockCoordinator clock = CreateClock(services);
             Assert.That(clock.HasSave, Is.False);
-            Assert.That(clock.AdvanceElapsed(4.9).IsSuccess, Is.True);
 
             OperationResult result = clock.Save();
 
             Assert.That(result.IsSuccess, Is.EqualTo(saveSucceeds), result.ErrorCode);
             Assert.That(clock.HasSave, Is.EqualTo(saveSucceeds));
-            Assert.That(clock.Current, Is.EqualTo(new GameClockSnapshot(1, 360)));
+            Assert.That(clock.Current, Is.EqualTo(new GameClockSnapshot(1, 369)));
+            if (!saveSucceeds)
+            {
+                Assert.That(services.Farm.Restore(validFarm).IsSuccess, Is.True);
+            }
             Assert.That(clock.AdvanceElapsed(0.1).IsSuccess, Is.True);
             Assert.That(clock.Current, Is.EqualTo(new GameClockSnapshot(1, 370)));
         }
 
         private static DaytimeClockCoordinator CreateClock(CozyTownServices services)
         {
-            var dayTransition = new DayTransitionCoordinator(
-                services.Time,
-                services.Farm,
-                services.Livestock,
-                services.EconomyState,
-                new DeterministicShopStockReplacementPolicy(
-                    DefaultMvpContent.CreateConfiguration().ShopRestockRules,
-                    minimumDistinctItems: 4),
-                services.WorldSeed,
-                DefaultMvpIds.Shops.TownGeneral);
             var gameSave = new GameSaveCoordinator(
                 services.WorldSeed,
                 services.Time,
@@ -279,7 +322,7 @@ namespace CozyTown.Tests.EditMode.Application
                 services.Farm,
                 services.Livestock,
                 services.SaveStorage);
-            return new DaytimeClockCoordinator(services.Time, dayTransition, gameSave);
+            return new DaytimeClockCoordinator(services.WorldTime, gameSave);
         }
     }
 }
