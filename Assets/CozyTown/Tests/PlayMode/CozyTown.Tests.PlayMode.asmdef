@@ -4,6 +4,7 @@
   "references": [
     "CozyTown.Unity",
     "CozyTown.Runtime",
+    "Unity.RenderPipelines.Universal.2D.Runtime",
     "Unity.InputSystem",
     "Unity.InputSystem.TestFramework"
   ],

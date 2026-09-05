@@ -3,6 +3,7 @@
   "rootNamespace": "CozyTown.Unity",
   "references": [
     "CozyTown.Runtime",
+    "Unity.RenderPipelines.Universal.2D.Runtime",
     "Unity.InputSystem",
     "UnityEngine.UI"
   ],

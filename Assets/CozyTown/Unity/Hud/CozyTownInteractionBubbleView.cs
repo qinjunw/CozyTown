@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using CozyTown.Unity.Interaction;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 namespace CozyTown.Unity.Hud
@@ -59,12 +61,15 @@ namespace CozyTown.Unity.Hud
 
         private void OnEnable()
         {
+            RenderPipelineManager.beginContextRendering += PrepareCameraProjection;
             TrySubscribe();
             Refresh();
         }
 
         private void OnDisable()
         {
+            RenderPipelineManager.beginContextRendering -= PrepareCameraProjection;
+            RenderPipelineManager.beginCameraRendering -= UpdatePositionBeforeRendering;
             Unsubscribe();
             ShowAnchor(null);
         }
@@ -72,6 +77,25 @@ namespace CozyTown.Unity.Hud
         private void Update()
         {
             UpdatePosition();
+        }
+
+        private void PrepareCameraProjection(ScriptableRenderContext context, List<Camera> cameras)
+        {
+            // Register after camera enable callbacks, including PixelPerfectCamera restarts,
+            // so this frame's snapped projection is used before overlay UI is drawn.
+            RenderPipelineManager.beginCameraRendering -= UpdatePositionBeforeRendering;
+            if (isActiveAndEnabled && worldCamera != null && cameras.Contains(worldCamera))
+            {
+                RenderPipelineManager.beginCameraRendering += UpdatePositionBeforeRendering;
+            }
+        }
+
+        private void UpdatePositionBeforeRendering(ScriptableRenderContext context, Camera camera)
+        {
+            if (camera == worldCamera)
+            {
+                UpdatePosition();
+            }
         }
 
         private void TrySubscribe()
