@@ -153,6 +153,8 @@ namespace CozyTown.Unity.Npc
 
         private void OnDisable()
         {
+            RequestClose();
+            Hide();
             RemoveFixedListeners();
             ClearRows();
             if (panel != null)

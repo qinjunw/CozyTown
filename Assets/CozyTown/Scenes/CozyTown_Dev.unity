@@ -39466,7 +39466,7 @@ Transform:
   m_GameObject: {fileID: 1253183134}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.7499999, z: 0}
+  m_LocalPosition: {x: 0, y: 2.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -52363,6 +52363,7 @@ GameObject:
   - component: {fileID: 1750674607}
   - component: {fileID: 1750674606}
   - component: {fileID: 1750674608}
+  - component: {fileID: 1750674609}
   m_Layer: 0
   m_Name: CozyTown
   m_TagString: Untagged
@@ -52408,6 +52409,7 @@ MonoBehaviour:
   _inventoryPresenters:
   - {fileID: 351428469}
   _daytimeClock: {fileID: 1750674608}
+  _townLife: {fileID: 1750674609}
   _aiProxyEndpoint: 
   _aiProxyTimeoutSeconds: 8
 --- !u!4 &1750674607
@@ -52438,6 +52440,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Time.DaytimeClockDriver
   _inputGate: {fileID: 403398935}
+--- !u!114 &1750674609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750674605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba7722f9f21c4270b97d1e770f676bc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Npc.CozyTownTownLifeController
+  residents:
+  - {fileID: 2135212520}
 --- !u!114 &1751796269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63129,6 +63145,7 @@ GameObject:
   - component: {fileID: 2135212518}
   - component: {fileID: 2135212517}
   - component: {fileID: 2135212519}
+  - component: {fileID: 2135212520}
   m_Layer: 0
   m_Name: NPC Mina
   m_TagString: Untagged
@@ -63229,6 +63246,29 @@ MonoBehaviour:
   _interactionPoint: {fileID: 2135212517}
   _view: {fileID: 351428468}
   _defaultNpcId: npc.shopkeeper_mina
+--- !u!114 &2135212520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135212515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9434c304b1e4a67b8133bd201c0f9c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CozyTown.Unity::CozyTown.Unity.Npc.NpcWorldResident2D
+  map: {fileID: 351526448}
+  npcId: npc.shopkeeper_mina
+  homeId: home.shopkeeper_mina
+  outsideId: home.shopkeeper_mina.doorstep
+  entryId: home.shopkeeper_mina.entry
+  morningId: work.shopkeeper_mina
+  restId: rest.shopkeeper_mina
+  afternoonId: work.shopkeeper_mina
+  times: 68010000e0010000d00200000c030000fc03000038040000
+  unitsPerSecond: 2
+  visual: {fileID: 1838921201}
 --- !u!1 &2140473087
 GameObject:
   m_ObjectHideFlags: 0

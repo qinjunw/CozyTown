@@ -17,6 +17,7 @@ namespace CozyTown.Runtime.Application
         private readonly IEconomyStateStore _economyState;
         private readonly IWorldSeedState _worldSeed;
         private readonly IShopStockReplacementPolicy _shopRestock;
+        private readonly WorldTimeFlow _timeFlow;
 
         public WorldTimeCoordinator(
             ITimeService time,
@@ -24,7 +25,8 @@ namespace CozyTown.Runtime.Application
             ILivestockService livestock,
             IEconomyStateStore economyState,
             IWorldSeedState worldSeed,
-            IShopStockReplacementPolicy shopRestock = null)
+            IShopStockReplacementPolicy shopRestock = null,
+            WorldTimeFlow timeFlow = null)
         {
             _time = time ?? throw new ArgumentNullException(nameof(time));
             _farm = farm ?? throw new ArgumentNullException(nameof(farm));
@@ -33,6 +35,7 @@ namespace CozyTown.Runtime.Application
                 ?? throw new ArgumentNullException(nameof(economyState));
             _worldSeed = worldSeed ?? throw new ArgumentNullException(nameof(worldSeed));
             _shopRestock = shopRestock;
+            _timeFlow = timeFlow;
         }
 
         public GameClockSnapshot Current => _time.Current;
@@ -130,7 +133,10 @@ namespace CozyTown.Runtime.Application
                 commitEconomy();
             }
 
+            double fraction = _timeFlow?.Current.FractionalMinute ?? 0;
+            double startMinute = ((long)Current.Day - 1) * InMemoryTimeService.MinutesPerDay + Current.MinuteOfDay + fraction;
             time.CommitPrepared(targetClock);
+            if (gameMinutes > 0) _timeFlow?.Publish(targetClock, fraction, advanceFromTotalMinutes: startMinute);
             return OperationResult<GameClockSnapshot>.Success(targetClock);
         }
 

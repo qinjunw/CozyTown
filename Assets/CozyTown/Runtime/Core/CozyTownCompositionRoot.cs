@@ -138,8 +138,9 @@ namespace CozyTown.Runtime.Core
                 configuration.Items,
                 cooking,
                 inventory);
+            var timeFlow = new WorldTimeFlow(time.Current);
             var worldTime = new WorldTimeCoordinator(
-                time, farm, livestock, economyState, worldSeed, restockPolicy);
+                time, farm, livestock, economyState, worldSeed, restockPolicy, timeFlow);
             npcDialogue = npcDialogue
                 ?? new ConfiguredFallbackDialogueGenerator(npcContent);
             saveStorage = saveStorage ?? new InMemorySaveStorage();
@@ -154,7 +155,7 @@ namespace CozyTown.Runtime.Core
                 farm,
                 livestock,
                 saveStorage);
-            var daytimeClock = new DaytimeClockCoordinator(worldTime, gameSave);
+            var daytimeClock = new DaytimeClockCoordinator(worldTime, gameSave, timeFlow);
 
             return new CozyTownServices(
                 daytimeClock,
@@ -178,7 +179,8 @@ namespace CozyTown.Runtime.Core
                 worldSeed,
                 daytimeClock,
                 worldTime,
-                daytimeClock);
+                daytimeClock,
+                timeFlow);
         }
 
         public static CozyTownServices CreateDefault()

@@ -56,6 +56,7 @@ namespace CozyTown.Unity.Core
         private CozyTownInventoryPresenter[] _inventoryPresenters =
             Array.Empty<CozyTownInventoryPresenter>();
         [SerializeField] private DaytimeClockDriver _daytimeClock;
+        [SerializeField] private CozyTownTownLifeController _townLife;
         [SerializeField]
         [Tooltip("Optional HTTP(S) proxy endpoint. Leave empty to use fixed NPC dialogue.")]
         private string _aiProxyEndpoint = string.Empty;
@@ -101,6 +102,7 @@ namespace CozyTown.Unity.Core
             BindHudPresenters();
             BindShopPresenters();
             BindGameplayPresenters();
+            if (_townLife != null) _townLife.Bind(_services.WorldTimeFlow);
             if (_daytimeClock != null)
             {
                 _daytimeClock.Bind(_services.DaytimeClock);
@@ -265,6 +267,15 @@ namespace CozyTown.Unity.Core
             {
                 driver.Bind(_services.DaytimeClock);
             }
+        }
+
+        public void RegisterTownLife(CozyTownTownLifeController controller)
+        {
+            if (controller == null) throw new ArgumentNullException(nameof(controller));
+            if (_townLife != null && _townLife != controller)
+                throw new InvalidOperationException("A town life controller is already registered.");
+            _townLife = controller;
+            if (IsInitialized) controller.Bind(_services.WorldTimeFlow);
         }
 
         private void Awake()

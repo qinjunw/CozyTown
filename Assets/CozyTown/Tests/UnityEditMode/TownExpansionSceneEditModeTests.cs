@@ -6,6 +6,7 @@ using CozyTown.Unity.Editor;
 using CozyTown.Unity.Interaction;
 using CozyTown.Unity.Town;
 using CozyTown.Unity.Time;
+using CozyTown.Unity.Npc;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -18,6 +19,37 @@ namespace CozyTown.Tests.UnityEditMode
     public sealed class TownExpansionSceneEditModeTests
     {
         private const string ScenePath = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
+
+        [Test]
+        public void TownUpgrade_ConnectsMinaToTheSharedTimeDrivenResidentModule()
+        {
+            WithDevelopmentScene(scene =>
+            {
+                CozyTownDevSceneMenu.UpgradeTownWorld(scene);
+                var world = RequireRoot(scene, "World");
+                var residents = world.GetComponentsInChildren<NpcWorldResident2D>(true);
+                Assert.That(residents, Has.Length.EqualTo(1));
+                Assert.That(residents[0].NpcId, Is.EqualTo(DefaultMvpIds.Npcs.Shopkeeper));
+                Assert.That(RequireRoot(scene, "CozyTown").GetComponent<CozyTownTownLifeController>(), Is.Not.Null);
+            });
+        }
+
+        [Test]
+        public void RenamedResident_UpgradeReusesStableIdentityWithoutDuplicatingPeople()
+        {
+            WithDevelopmentScene(scene =>
+            {
+                var world = RequireRoot(scene, "World");
+                var eli = world.GetComponentsInChildren<CozyTownNpcDebugPresenter>(true)
+                    .Single(npc => npc.NpcId == DefaultMvpIds.Npcs.Farmer);
+                eli.name = "Custom Eli object name";
+                CozyTownDevSceneMenu.UpgradeTownWorld(scene);
+                CozyTownDevSceneMenu.UpgradeTownWorld(scene);
+                var actors = world.GetComponentsInChildren<CozyTownNpcDebugPresenter>(true);
+                Assert.That(actors, Has.Length.EqualTo(4));
+                Assert.That(actors.Single(npc => npc.NpcId == DefaultMvpIds.Npcs.Farmer), Is.SameAs(eli));
+            });
+        }
 
         [Test]
         public void DevelopmentSceneAndRepeatedUpgrade_KeepOneDaytimeClockDriver()

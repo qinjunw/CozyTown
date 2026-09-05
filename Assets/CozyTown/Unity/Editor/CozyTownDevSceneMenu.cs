@@ -98,6 +98,7 @@ namespace CozyTown.Unity.Editor
             ConfigureNpcHomes(world);
             CozyTownTownLayout.ConfigureMap(GetOrAdd<TownMap2D>(world));
             CozyTownWorldCollisionSceneUpgrader.ConfigureWorld(world);
+            CozyTownTownLifeSceneUpgrader.Configure(world, bootstrap);
             ConfigureFarmWorldView(scene, world);
             ConfigureCoopWorldView(scene, world);
             ConfigurePlayerAnimation(player, playerRenderer);
@@ -549,6 +550,7 @@ namespace CozyTown.Unity.Editor
             TownInteractionPoint2D legacyNpc = Array.Find(
                 existingNpcPoints,
                 point => point.Kind == TownInteractionKind.Npc
+                    && string.IsNullOrWhiteSpace(point.GetComponent<CozyTownNpcDebugPresenter>()?.NpcId)
                     && Array.FindIndex(
                         NpcWorldSpecs,
                         spec => string.Equals(spec.ObjectName, point.name, StringComparison.Ordinal)) < 0);
@@ -557,8 +559,10 @@ namespace CozyTown.Unity.Editor
             for (var index = 0; index < NpcWorldSpecs.Length; index++)
             {
                 var spec = NpcWorldSpecs[index];
-                var pointTransform = interactionPoints.Find(spec.ObjectName);
-                TownInteractionPoint2D point = pointTransform?.GetComponent<TownInteractionPoint2D>();
+                TownInteractionPoint2D point = Array.Find(existingNpcPoints,
+                    candidate => candidate.GetComponent<CozyTownNpcDebugPresenter>()?.NpcId == spec.NpcId);
+                if (point == null)
+                    point = interactionPoints.Find(spec.ObjectName)?.GetComponent<TownInteractionPoint2D>();
                 if (point == null && index == 0 && legacyNpc != null)
                 {
                     point = legacyNpc;
@@ -577,6 +581,7 @@ namespace CozyTown.Unity.Editor
                 }
 
                 point.Configure(TownInteractionKind.Npc, "Press E to talk");
+                point.name = spec.ObjectName;
                 point.transform.position = spec.Position;
                 var trigger = point.GetComponent<BoxCollider2D>()
                     ?? point.gameObject.AddComponent<BoxCollider2D>();
