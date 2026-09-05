@@ -152,6 +152,7 @@ docs/                             产品、架构、测试和决策记录
 ## 相关文档
 
 - [`docs/PRD.md`](docs/PRD.md)：产品范围、用例和验收条件
+- [`docs/TOWN_LIFE_PLAN.md`](docs/TOWN_LIFE_PLAN.md)：T1 扩镇、四户住宅和确定性 NPC 日常规划（尚未实施）
 - [`CONTEXT.md`](CONTEXT.md)：领域词汇
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)：模块边界与依赖规则
 - [`docs/TEST_PLAN.md`](docs/TEST_PLAN.md)：测试矩阵与人工验证步骤
