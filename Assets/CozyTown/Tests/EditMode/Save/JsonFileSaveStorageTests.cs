@@ -42,7 +42,7 @@ namespace CozyTown.Tests.EditMode.Save
             Assert.That(storage.Save(JsonFileSaveStorage.MainSlotId, snapshot).IsSuccess, Is.True);
 
             string json = File.ReadAllText(_savePath);
-            Assert.That(json, Does.Contain("\"schemaVersion\":2"));
+            Assert.That(json, Does.Contain("\"schemaVersion\":3"));
             Assert.That(json, Does.Contain("\"worldSeed\":"));
             Assert.That(json, Does.Contain("\"characters\":"));
             Assert.That(json, Does.Contain("\"shops\":"));
@@ -136,7 +136,7 @@ namespace CozyTown.Tests.EditMode.Save
                 storage.Save(JsonFileSaveStorage.MainSlotId, SaveTestSnapshots.Create()).IsSuccess,
                 Is.True);
             string json = File.ReadAllText(_savePath)
-                .Replace("\"schemaVersion\":2", $"\"schemaVersion\":{schemaVersion}");
+                .Replace("\"schemaVersion\":3", $"\"schemaVersion\":{schemaVersion}");
             File.WriteAllText(_savePath, json);
 
             var result = storage.Load(JsonFileSaveStorage.MainSlotId);
@@ -200,7 +200,7 @@ namespace CozyTown.Tests.EditMode.Save
 
             Assert.That(first.IsSuccess, Is.True);
             Assert.That(second.IsSuccess, Is.True);
-            Assert.That(first.Value.SchemaVersion, Is.EqualTo(2));
+            Assert.That(first.Value.SchemaVersion, Is.EqualTo(3));
             Assert.That(first.Value.WorldSeed, Is.EqualTo(JsonFileSaveStorage.LegacyV1WorldSeed));
             Assert.That(first.Value.Characters, Has.Length.EqualTo(1));
             Assert.That(

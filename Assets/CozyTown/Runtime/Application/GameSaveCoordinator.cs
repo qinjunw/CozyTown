@@ -43,9 +43,11 @@ namespace CozyTown.Runtime.Application
             GameSaveSnapshot snapshot = CaptureSnapshot();
             if (snapshot.Farm == null
                 || snapshot.Livestock == null
-                || snapshot.Farm.LastProcessedDay != snapshot.Clock.Day
-                || snapshot.Livestock.LastProcessedDay != snapshot.Clock.Day
-                || ShopsAreMisaligned(snapshot.Shops, snapshot.Clock.Day))
+                || !DailySettlementSchedule.IsValidProgress(
+                    snapshot.Clock,
+                    snapshot.Farm.LastProcessedDay)
+                || snapshot.Livestock.LastProcessedDay != snapshot.Farm.LastProcessedDay
+                || ShopsAreMisaligned(snapshot.Shops, snapshot.Farm.LastProcessedDay))
             {
                 return OperationResult.Failure("save.state_misaligned");
             }
@@ -168,11 +170,11 @@ namespace CozyTown.Runtime.Application
 
         private static bool ShopsAreMisaligned(
             ShopEconomySnapshot[] shops,
-            int currentDay)
+            int completedDay)
         {
             foreach (ShopEconomySnapshot shop in shops)
             {
-                if (shop == null || shop.LastRestockedDay != currentDay)
+                if (shop == null || shop.LastRestockedDay != completedDay)
                 {
                     return true;
                 }
