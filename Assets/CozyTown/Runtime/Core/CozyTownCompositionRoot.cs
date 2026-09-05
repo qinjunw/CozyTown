@@ -162,9 +162,10 @@ namespace CozyTown.Runtime.Core
                 farm,
                 livestock,
                 saveStorage);
+            var daytimeClock = new DaytimeClockCoordinator(time, dayTransition, gameSave);
 
             return new CozyTownServices(
-                dayTransition,
+                daytimeClock,
                 time,
                 inventory,
                 wallet,
@@ -180,9 +181,10 @@ namespace CozyTown.Runtime.Core
                 npcDialogue,
                 npcDialogueGameplay,
                 saveStorage,
-                gameSave,
+                daytimeClock,
                 economyState,
-                worldSeed);
+                worldSeed,
+                daytimeClock);
         }
 
         public static CozyTownServices CreateDefault()
