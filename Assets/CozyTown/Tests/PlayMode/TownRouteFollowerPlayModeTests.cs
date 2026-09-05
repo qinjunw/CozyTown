@@ -113,6 +113,39 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(partitioned.FacingDirection, Is.EqualTo(whole.FacingDirection));
         }
 
+        [TestCase(20f)]
+        [TestCase(2f)]
+        public void RoundedFinalStep_ReportsArrivalAndKeepsFiniteFacingOnLaterAdvance(float routeLength)
+        {
+            var map = CreateCornerMap();
+            map.Configure(Array.Empty<TownHome>(), new[]
+            {
+                new TownLocation("start", Vector2.zero),
+                new TownLocation("destination", new Vector2(routeLength, 0f))
+            }, new[] { new TownRoad("start", "destination") });
+            var whole = new TownRouteFollower2D(
+                map, Vector2.zero, 0.3f, Vector2.zero, _world.transform);
+            whole.SetDestination("destination");
+            var partitioned = whole.Clone();
+
+            whole.Advance(routeLength);
+            for (int step = 0; step < 60; step++) partitioned.Advance(routeLength / 60f);
+            Vector2 positionAtBudget = partitioned.Position;
+            var statusAtBudget = partitioned.Status;
+            partitioned.Advance(0.1f);
+
+            Assert.That(whole.Status, Is.EqualTo(TownRouteStatus.Arrived));
+            Assert.That(whole.FacingDirection, Is.EqualTo(Vector2.right));
+            foreach (float component in new[] { partitioned.Position.x, partitioned.Position.y,
+                partitioned.FacingDirection.x, partitioned.FacingDirection.y })
+                Assert.That(float.IsNaN(component) || float.IsInfinity(component), Is.False);
+            Assert.That(positionAtBudget, Is.EqualTo(new Vector2(routeLength, 0f)));
+            Assert.That(statusAtBudget, Is.EqualTo(TownRouteStatus.Arrived));
+            Assert.That(partitioned.Position, Is.EqualTo(whole.Position));
+            Assert.That(partitioned.Status, Is.EqualTo(TownRouteStatus.Arrived));
+            Assert.That(partitioned.FacingDirection, Is.EqualTo(Vector2.right));
+        }
+
         [Test]
         public void Collision_UsesFootOffsetAndIgnoresTriggersAndMovingCharacterBodies()
         {

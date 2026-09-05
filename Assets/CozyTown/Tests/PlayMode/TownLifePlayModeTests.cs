@@ -115,6 +115,126 @@ namespace CozyTown.Tests.PlayMode
         }
 
         [Test]
+        public void LoadWithOccupiedReconstructionPoint_KeepsFeetClearAndBlocksTheScheduledTarget()
+        {
+            Assert.That(services.WorldTime.AdvanceMinutes(120).IsSuccess, Is.True);
+            Assert.That(resident.Position, Is.EqualTo(new Vector2(20, 0)));
+            Assert.That(services.GameSave.Save().IsSuccess, Is.True);
+            Assert.That(services.WorldTime.AdvanceMinutes(250).IsSuccess, Is.True);
+            Assert.That(resident.Position, Is.EqualTo(new Vector2(20, 10)));
+            Assert.That(resident.TargetLocationId, Is.EqualTo("rest"));
+
+            var obstacle = new GameObject("New wall at morning work");
+            obstacle.transform.SetParent(world.transform);
+            obstacle.transform.position = new Vector2(20, 0);
+            var wall = obstacle.AddComponent<BoxCollider2D>();
+            wall.size = new Vector2(2, 2);
+            wall.isTrigger = false;
+            Physics2D.SyncTransforms();
+
+            Vector2? loadedPosition = null;
+            for (int repeat = 0; repeat < 2; repeat++)
+            {
+                Assert.That(services.GameSave.Load().IsSuccess, Is.True);
+                Assert.That(services.Time.Current.MinuteOfDay, Is.EqualTo(480));
+                Physics2D.SyncTransforms();
+                CollectionAssert.DoesNotContain(Physics2D.OverlapCircleAll(resident.Position, 0.3f), wall,
+                    $"Loading must not place the resident's feet inside the new wall at {resident.Position}.");
+                Assert.That(resident.TargetLocationId, Is.EqualTo("work"));
+                Assert.That(resident.Status, Is.EqualTo(TownRouteStatus.Blocked));
+                Assert.That(resident.IsHome, Is.False);
+                if (loadedPosition.HasValue)
+                    Assert.That(resident.Position, Is.EqualTo(loadedPosition.Value));
+                loadedPosition = resident.Position;
+            }
+        }
+
+        [Test]
+        public void LoadWithOccupiedWorkAndDoorstep_UsesAnotherClearConfiguredLocation()
+        {
+            Assert.That(services.WorldTime.AdvanceMinutes(120).IsSuccess, Is.True);
+            Assert.That(services.GameSave.Save().IsSuccess, Is.True);
+            Assert.That(services.WorldTime.AdvanceMinutes(250).IsSuccess, Is.True);
+            Assert.That(resident.Position, Is.EqualTo(new Vector2(20, 10)));
+            var workWall = AddReconstructionWall(new Vector2(20, 0), new Vector2(2, 2));
+            var doorstepWall = AddReconstructionWall(Vector2.zero, new Vector2(0.2f, 0.2f));
+
+            Assert.That(services.GameSave.Load().IsSuccess, Is.True);
+
+            Physics2D.SyncTransforms();
+            var overlaps = Physics2D.OverlapCircleAll(resident.Position, 0.3f);
+            CollectionAssert.DoesNotContain(overlaps, workWall);
+            CollectionAssert.DoesNotContain(overlaps, doorstepWall);
+            Assert.That(resident.TargetLocationId, Is.EqualTo("work"));
+            Assert.That(resident.Status, Is.EqualTo(TownRouteStatus.Blocked));
+            Assert.That(resident.IsHome, Is.False);
+            Assert.That(resident.GetComponent<SpriteRenderer>().enabled, Is.True);
+        }
+
+        [Test]
+        public void LoadWithEveryConfiguredLocationOccupied_HidesBlockedResidentAndCanRecover()
+        {
+            Assert.That(services.WorldTime.AdvanceMinutes(120).IsSuccess, Is.True);
+            Assert.That(services.GameSave.Save().IsSuccess, Is.True);
+            Assert.That(services.WorldTime.AdvanceMinutes(250).IsSuccess, Is.True);
+            Vector2 lastPosition = resident.Position;
+            Assert.That(lastPosition, Is.EqualTo(new Vector2(20, 10)));
+            AddReconstructionWall(Vector2.zero, new Vector2(2, 2));
+            var workWall = AddReconstructionWall(new Vector2(20, 0), new Vector2(2, 2));
+            AddReconstructionWall(new Vector2(20, 10), new Vector2(2, 2));
+            int warnings = 0;
+            Application.LogCallback countWarnings = (message, trace, type) =>
+            {
+                if (type == LogType.Warning) warnings++;
+            };
+            Application.logMessageReceived += countWarnings;
+            try
+            {
+                for (int repeat = 0; repeat < 2; repeat++)
+                {
+                    Assert.That(services.GameSave.Load().IsSuccess, Is.True);
+                    Assert.That(services.Time.Current.MinuteOfDay, Is.EqualTo(480));
+                    Assert.That(resident.Position, Is.EqualTo(lastPosition));
+                    Assert.That(resident.TargetLocationId, Is.EqualTo("work"));
+                    Assert.That(resident.Status, Is.EqualTo(TownRouteStatus.Blocked));
+                    Assert.That(resident.IsHome, Is.False);
+                    Assert.That(resident.GetComponent<SpriteRenderer>().enabled, Is.False);
+                    Assert.That(resident.GetComponent<Collider2D>().enabled, Is.False);
+                    Assert.That(resident.GetComponent<TownInteractionPoint2D>()
+                        .CanInteract(new InteractionContext(world)), Is.False);
+                }
+                Assert.That(warnings, Is.EqualTo(1), "Repeated loads must not repeat the missing-location warning.");
+
+                Object.DestroyImmediate(workWall.gameObject);
+                Assert.That(services.GameSave.Load().IsSuccess, Is.True);
+                Assert.That(resident.Position, Is.EqualTo(new Vector2(20, 0)));
+                Assert.That(resident.TargetLocationId, Is.EqualTo("work"));
+                Assert.That(resident.Status, Is.EqualTo(TownRouteStatus.Arrived));
+                Assert.That(resident.IsHome, Is.False);
+                Assert.That(resident.GetComponent<SpriteRenderer>().enabled, Is.True);
+                Assert.That(resident.GetComponent<Collider2D>().enabled, Is.True);
+                Assert.That(resident.GetComponent<TownInteractionPoint2D>()
+                    .CanInteract(new InteractionContext(world)), Is.True);
+                Assert.That(warnings, Is.EqualTo(1));
+            }
+            finally
+            {
+                Application.logMessageReceived -= countWarnings;
+            }
+        }
+
+        private BoxCollider2D AddReconstructionWall(Vector2 position, Vector2 size)
+        {
+            var obstacle = new GameObject("Reconstruction obstacle");
+            obstacle.transform.SetParent(world.transform);
+            obstacle.transform.position = position;
+            var collider = obstacle.AddComponent<BoxCollider2D>();
+            collider.size = size;
+            collider.isTrigger = false;
+            return collider;
+        }
+
+        [Test]
         public void FailedTimeAndLoad_KeepActualJourneyAndFractionalProgress()
         {
             services.DaytimeClock.AdvanceElapsed(2.25);

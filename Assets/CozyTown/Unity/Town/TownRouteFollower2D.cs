@@ -14,6 +14,8 @@ namespace CozyTown.Unity.Town
     public sealed class TownRouteFollower2D
     {
         private const float CollisionClearance = 0.001f;
+        // World-unit tolerance for a collision-checked tail after consuming the requested budget.
+        private const float ArrivalTolerance = 0.00001f;
 
         private readonly TownMap2D _map;
         private readonly float _radius;
@@ -46,6 +48,15 @@ namespace CozyTown.Unity.Town
         public TownRouteStatus Status { get; private set; } = TownRouteStatus.Arrived;
         public Vector2 FacingDirection { get; private set; } = Vector2.down;
 
+        internal bool HasClearFooting
+        {
+            get
+            {
+                Physics2D.SyncTransforms();
+                return IsFootClear(Position);
+            }
+        }
+
         public void SetDestination(string locationId)
         {
             if (!_map.TryGetLocation(locationId, out _))
@@ -74,6 +85,11 @@ namespace CozyTown.Unity.Town
             {
                 var delta = _waypoints[_waypointIndex] - Position;
                 var remaining = delta.magnitude;
+                if (remaining == 0f)
+                {
+                    CompleteWaypoint();
+                    continue;
+                }
                 FacingDirection = delta / remaining;
                 var requested = Mathf.Min(distance, remaining);
                 var accepted = GetClearDistance(Position, FacingDirection, requested);
@@ -91,17 +107,24 @@ namespace CozyTown.Unity.Town
                     PlanRoute();
                     continue;
                 }
-                if (requested < remaining)
+                if (requested < remaining
+                    && (Vector2.Distance(Position, _waypoints[_waypointIndex]) > ArrivalTolerance
+                        || !CanTraverse(Position, _waypoints[_waypointIndex])))
                 {
                     break;
                 }
 
-                Position = _waypoints[_waypointIndex];
-                _waypointIndex++;
-                if (_waypointIndex == _waypoints.Count)
-                {
-                    Status = TownRouteStatus.Arrived;
-                }
+                CompleteWaypoint();
+            }
+        }
+
+        private void CompleteWaypoint()
+        {
+            Position = _waypoints[_waypointIndex];
+            _waypointIndex++;
+            if (_waypointIndex == _waypoints.Count)
+            {
+                Status = TownRouteStatus.Arrived;
             }
         }
 
@@ -115,6 +138,8 @@ namespace CozyTown.Unity.Town
         }
 
         public TownRouteFollower2D Clone() => (TownRouteFollower2D)MemberwiseClone();
+
+        internal void Block() => Status = TownRouteStatus.Blocked;
 
         private void PlanRoute()
         {

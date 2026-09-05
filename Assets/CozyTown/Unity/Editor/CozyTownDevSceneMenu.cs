@@ -41,8 +41,8 @@ namespace CozyTown.Unity.Editor
         private const string FarmStatesPath = ArtRoot + "/Props/prop_farm_states_16.png";
         private const string HenStatesPath = ArtRoot + "/Props/prop_hen_states_16.png";
         private const string PlayerPath = ArtRoot + "/Characters/chr_player_move_24x32.png";
-        private const string NpcTownsfolkPath =
-            ArtRoot + "/Characters/npc_townsfolk_idle_down_24x32.png";
+        private const string NpcHomesPath = ArtRoot + "/Buildings/bld_npc_homes_64.png";
+        private const string NpcHomeRoofsPath = ArtRoot + "/Buildings/bld_npc_home_roofs_64.png";
         private const string SceneTileFolder = "Assets/CozyTown/Art/Scene/Tiles";
         private const string UrpSpriteLitMaterialPath =
             "Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Lit-Default.mat";
@@ -102,6 +102,7 @@ namespace CozyTown.Unity.Editor
             ConfigureFarmWorldView(scene, world);
             ConfigureCoopWorldView(scene, world);
             ConfigurePlayerAnimation(player, playerRenderer);
+            ConfigureNpcAnimations(world);
             var daytimeClock = GetOrAdd<DaytimeClockDriver>(bootstrap.gameObject);
             daytimeClock.ConfigureInputGate(GetOrAdd<PlayerModalInputGate2D>(player));
             bootstrap.RegisterDaytimeClock(daytimeClock);
@@ -792,7 +793,7 @@ namespace CozyTown.Unity.Editor
                             ?? throw new InvalidOperationException(
                                 $"NPC entity '{point.name}' is missing its presenter.");
                         var npcSpec = FindNpcSpec(presenter.NpcId);
-                        assetPath = NpcTownsfolkPath;
+                        assetPath = NpcMovementPath(npcSpec.NpcId);
                         spriteName = npcSpec.SpriteName;
                         position = npcSpec.Position;
                         break;
@@ -829,7 +830,7 @@ namespace CozyTown.Unity.Editor
                 ConfigureProductionRenderer(
                     point.gameObject,
                     LoadSprite(assetPath, spriteName),
-                    sortingOrder: point.Kind == TownInteractionKind.Npc ? 15 : 5);
+                    sortingOrder: point.Kind == TownInteractionKind.Npc ? 20 : 5);
                 if (IsBuilding(point.Kind))
                 {
                     ConfigureBuildingRoofForeground(point.gameObject, spriteName);
@@ -844,9 +845,10 @@ namespace CozyTown.Unity.Editor
             {
                 var home = GetOrCreateChild(homes, specification.HomeId);
                 home.position = specification.Position;
+                string spriteName = "bld_home_" + specification.NpcId.Substring("npc.".Length);
                 ConfigureProductionRenderer(home.gameObject,
-                    LoadSprite(BuildingsPath, "bld_home"), sortingOrder: 5);
-                ConfigureBuildingRoofForeground(home.gameObject, "bld_home");
+                    LoadSprite(NpcHomesPath, spriteName), sortingOrder: 5);
+                ConfigureBuildingRoofForeground(home.gameObject, spriteName, NpcHomeRoofsPath);
             }
         }
 
@@ -858,7 +860,8 @@ namespace CozyTown.Unity.Editor
                 || kind == TownInteractionKind.Bed;
         }
 
-        private static void ConfigureBuildingRoofForeground(GameObject target, string baseSpriteName)
+        private static void ConfigureBuildingRoofForeground(GameObject target, string baseSpriteName,
+            string atlasPath = BuildingRoofForegroundsPath)
         {
             var foreground = target.transform.Find("Roof Foreground");
             if (foreground == null)
@@ -874,7 +877,7 @@ namespace CozyTown.Unity.Editor
 
             var renderer = GetOrAdd<SpriteRenderer>(foreground.gameObject);
             renderer.sprite = LoadSprite(
-                BuildingRoofForegroundsPath,
+                atlasPath,
                 baseSpriteName + "_roof_foreground");
             renderer.sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>(UrpSpriteLitMaterialPath)
                 ?? throw new FileNotFoundException(
@@ -884,6 +887,29 @@ namespace CozyTown.Unity.Editor
             renderer.drawMode = SpriteDrawMode.Simple;
             renderer.sortingOrder = 30;
             renderer.spriteSortPoint = SpriteSortPoint.Pivot;
+        }
+
+        private static string NpcMovementPath(string npcId)
+            => ArtRoot + "/Characters/" + npcId.Replace('.', '_') + "_move_24x32.png";
+
+        private static void ConfigureNpcAnimations(GameObject world)
+        {
+            string[] directions = { "down", "left", "right", "up" };
+            foreach (var presenter in world.GetComponentsInChildren<CozyTownNpcDebugPresenter>(true))
+            {
+                string prefix = presenter.NpcId.Replace('.', '_');
+                string path = NpcMovementPath(presenter.NpcId);
+                var idle = new Sprite[4];
+                var walk = new Sprite[8];
+                for (int direction = 0; direction < directions.Length; direction++)
+                {
+                    idle[direction] = LoadSprite(path, prefix + "_idle_" + directions[direction]);
+                    walk[direction * 2] = LoadSprite(path, prefix + "_walk_" + directions[direction] + "_00");
+                    walk[direction * 2 + 1] = LoadSprite(path, prefix + "_walk_" + directions[direction] + "_01");
+                }
+                GetOrAdd<CozyTownNpcSpriteAnimator>(presenter.gameObject).Configure(
+                    presenter.transform.Find("Visual").GetComponent<SpriteRenderer>(), idle, walk);
+            }
         }
 
         private static NpcWorldSpec FindNpcSpec(string npcId)

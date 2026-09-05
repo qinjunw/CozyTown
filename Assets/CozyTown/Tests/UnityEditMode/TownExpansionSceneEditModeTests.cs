@@ -21,16 +21,61 @@ namespace CozyTown.Tests.UnityEditMode
         private const string ScenePath = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
 
         [Test]
-        public void TownUpgrade_ConnectsMinaToTheSharedTimeDrivenResidentModule()
+        public void TownUpgrade_ConnectsFourIdentitiesToTheSharedTimeDrivenResidentModule()
         {
             WithDevelopmentScene(scene =>
             {
                 CozyTownDevSceneMenu.UpgradeTownWorld(scene);
                 var world = RequireRoot(scene, "World");
                 var residents = world.GetComponentsInChildren<NpcWorldResident2D>(true);
-                Assert.That(residents, Has.Length.EqualTo(1));
-                Assert.That(residents[0].NpcId, Is.EqualTo(DefaultMvpIds.Npcs.Shopkeeper));
+                Assert.That(residents, Has.Length.EqualTo(4));
+                Assert.That(residents.Select(resident => resident.NpcId), Is.EquivalentTo(new[] {
+                    DefaultMvpIds.Npcs.Shopkeeper, DefaultMvpIds.Npcs.Farmer,
+                    DefaultMvpIds.Npcs.Fisher, DefaultMvpIds.Npcs.Cook }));
                 Assert.That(RequireRoot(scene, "CozyTown").GetComponent<CozyTownTownLifeController>(), Is.Not.Null);
+            });
+        }
+
+        [Test]
+        public void TownUpgrade_UsesIdentitySpecificHomeFacadesAndMatchingRoofCuts()
+        {
+            WithDevelopmentScene(scene =>
+            {
+                CozyTownDevSceneMenu.UpgradeTownWorld(scene);
+                var homes = RequireRoot(scene, "World").transform.Find("NPC Homes");
+                foreach (Transform home in homes)
+                {
+                    string owner = home.name.Substring("home.".Length);
+                    var facade = home.Find("Visual").GetComponent<SpriteRenderer>().sprite;
+                    var roof = home.Find("Roof Foreground").GetComponent<SpriteRenderer>().sprite;
+                    Assert.That(facade.name, Is.EqualTo("bld_home_" + owner));
+                    Assert.That(roof.name, Is.EqualTo(facade.name + "_roof_foreground"));
+                    Assert.That(AssetDatabase.GetAssetPath(facade),
+                        Is.EqualTo("Assets/CozyTown/Art/Production/Buildings/bld_npc_homes_64.png"));
+                    Assert.That(AssetDatabase.GetAssetPath(roof),
+                        Is.EqualTo("Assets/CozyTown/Art/Production/Buildings/bld_npc_home_roofs_64.png"));
+                }
+            });
+        }
+
+        [Test]
+        public void TownUpgrade_BindsEveryResidentToItsOwnFourDirectionMovementSheet()
+        {
+            WithDevelopmentScene(scene =>
+            {
+                CozyTownDevSceneMenu.UpgradeTownWorld(scene);
+                var residents = RequireRoot(scene, "World").GetComponentsInChildren<NpcWorldResident2D>(true);
+                foreach (var resident in residents)
+                {
+                    string prefix = resident.NpcId.Replace('.', '_');
+                    var animation = resident.GetComponent<CozyTownNpcSpriteAnimator>();
+                    Assert.That(animation, Is.Not.Null, resident.NpcId);
+                    animation.Apply(Vector2.right, false, 0);
+                    var sprite = resident.GetComponentInChildren<SpriteRenderer>(true).sprite;
+                    Assert.That(sprite.name, Is.EqualTo(prefix + "_idle_right"));
+                    Assert.That(AssetDatabase.GetAssetPath(sprite),
+                        Is.EqualTo("Assets/CozyTown/Art/Production/Characters/" + prefix + "_move_24x32.png"));
+                }
             });
         }
 

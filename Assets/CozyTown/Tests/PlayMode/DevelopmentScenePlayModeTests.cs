@@ -494,6 +494,13 @@ namespace CozyTown.Tests.PlayMode
                 Is.EqualTo(405 - availableItem.UnitPrice));
             shopView.RequestClose();
 
+            // Visit every NPC during working hours; Sora is still at home at 06:00.
+            var routineClock = RequireRoot(_loadedScene, "CozyTown").GetComponent<DaytimeClockDriver>();
+            routineClock.SetApplicationFocus(true);
+            routineClock.AdvanceFrame(0);
+            routineClock.AdvanceFrame(75);
+            routineClock.SetApplicationFocus(false);
+
             foreach (var point in points)
             {
                 var targetPosition = (Vector2)point.transform.position;
