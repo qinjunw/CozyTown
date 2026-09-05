@@ -159,7 +159,7 @@ namespace CozyTown.Unity.Core
             Register(ref _bedPresenters, presenter);
             if (IsInitialized)
             {
-                presenter.Bind(_services.DayTransition);
+                presenter.Bind(_services.Sleep);
             }
         }
 
@@ -417,7 +417,7 @@ namespace CozyTown.Unity.Core
             {
                 if (presenter != null)
                 {
-                    presenter.Bind(_services.DayTransition);
+                    presenter.Bind(_services.Sleep);
                 }
             }
             foreach (var presenter in _coopPresenters)

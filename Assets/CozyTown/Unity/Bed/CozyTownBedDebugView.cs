@@ -11,10 +11,50 @@ namespace CozyTown.Unity.Bed
         [SerializeField] private Text feedbackText;
         [SerializeField] private Button closeButton;
         [SerializeField] private Button sleepButton;
+        [SerializeField] private Text sleepHoursText;
+        [SerializeField] private Button decreaseSleepButton;
+        [SerializeField] private Button increaseSleepButton;
 
         private bool _listenersAttached;
 
         public event Action SleepRequested;
+
+        public int SelectedSleepHours { get; private set; } = 8;
+
+        public void ConfigureUi(
+            GameObject configuredPanel,
+            Text configuredFeedbackText,
+            Button configuredCloseButton,
+            Button configuredSleepButton,
+            Text configuredSleepHoursText,
+            Button configuredDecreaseSleepButton,
+            Button configuredIncreaseSleepButton)
+        {
+            if (configuredSleepHoursText == null)
+            {
+                throw new ArgumentNullException(nameof(configuredSleepHoursText));
+            }
+            if (configuredDecreaseSleepButton == null)
+            {
+                throw new ArgumentNullException(nameof(configuredDecreaseSleepButton));
+            }
+            if (configuredIncreaseSleepButton == null)
+            {
+                throw new ArgumentNullException(nameof(configuredIncreaseSleepButton));
+            }
+
+            ConfigureUi(
+                configuredPanel,
+                configuredFeedbackText,
+                configuredCloseButton,
+                configuredSleepButton);
+            DetachListeners();
+            sleepHoursText = configuredSleepHoursText;
+            decreaseSleepButton = configuredDecreaseSleepButton;
+            increaseSleepButton = configuredIncreaseSleepButton;
+            AttachListeners();
+            RefreshUi();
+        }
 
         public void ConfigureUi(
             GameObject configuredPanel,
@@ -43,6 +83,10 @@ namespace CozyTown.Unity.Bed
 
         public void Show(string feedback)
         {
+            if (!IsVisible)
+            {
+                SelectedSleepHours = 8;
+            }
             ShowBase(feedback);
             RefreshUi();
         }
@@ -64,6 +108,24 @@ namespace CozyTown.Unity.Bed
             }
         }
 
+        public void RequestDecreaseSleepHours()
+        {
+            if (IsVisible && SelectedSleepHours > 1)
+            {
+                SelectedSleepHours--;
+                RefreshUi();
+            }
+        }
+
+        public void RequestIncreaseSleepHours()
+        {
+            if (IsVisible && SelectedSleepHours < 12)
+            {
+                SelectedSleepHours++;
+                RefreshUi();
+            }
+        }
+
         private void OnEnable()
         {
             AttachListeners();
@@ -72,11 +134,9 @@ namespace CozyTown.Unity.Bed
 
         private void OnDisable()
         {
+            RequestClose();
             DetachListeners();
-            if (panel != null)
-            {
-                panel.SetActive(false);
-            }
+            Hide();
         }
 
         private void RefreshUi()
@@ -88,6 +148,20 @@ namespace CozyTown.Unity.Bed
 
             panel.SetActive(IsVisible);
             feedbackText.text = Feedback;
+            if (sleepHoursText != null)
+            {
+                sleepHoursText.text = SelectedSleepHours == 1
+                    ? "1 hour"
+                    : $"{SelectedSleepHours} hours";
+            }
+            if (decreaseSleepButton != null)
+            {
+                decreaseSleepButton.interactable = IsVisible && SelectedSleepHours > 1;
+            }
+            if (increaseSleepButton != null)
+            {
+                increaseSleepButton.interactable = IsVisible && SelectedSleepHours < 12;
+            }
         }
 
         private void AttachListeners()
@@ -102,6 +176,14 @@ namespace CozyTown.Unity.Bed
 
             closeButton.onClick.AddListener(RequestClose);
             sleepButton.onClick.AddListener(RequestSleep);
+            if (decreaseSleepButton != null)
+            {
+                decreaseSleepButton.onClick.AddListener(RequestDecreaseSleepHours);
+            }
+            if (increaseSleepButton != null)
+            {
+                increaseSleepButton.onClick.AddListener(RequestIncreaseSleepHours);
+            }
             _listenersAttached = true;
         }
 
@@ -120,6 +202,15 @@ namespace CozyTown.Unity.Bed
             if (sleepButton != null)
             {
                 sleepButton.onClick.RemoveListener(RequestSleep);
+            }
+
+            if (decreaseSleepButton != null)
+            {
+                decreaseSleepButton.onClick.RemoveListener(RequestDecreaseSleepHours);
+            }
+            if (increaseSleepButton != null)
+            {
+                increaseSleepButton.onClick.RemoveListener(RequestIncreaseSleepHours);
             }
 
             _listenersAttached = false;
