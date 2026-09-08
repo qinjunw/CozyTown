@@ -2,6 +2,7 @@ using System;
 using CozyTown.Runtime.Application;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Economy;
+using CozyTown.Unity.Hud;
 using CozyTown.Unity.Interaction;
 using CozyTown.Unity.Player;
 using UnityEngine;
@@ -174,7 +175,7 @@ namespace CozyTown.Unity.Shop
                 TradeQuantity);
             string feedback = result.IsSuccess
                 ? BuildSuccessFeedback("Bought", result.Value, displayName)
-                : $"Buy failed: {result.ErrorCode}";
+                : CozyTownGameplayFeedback.Failure("Buy", result.ErrorCode, this);
             RefreshView(feedback);
         }
 
@@ -193,7 +194,7 @@ namespace CozyTown.Unity.Shop
                 TradeQuantity);
             string feedback = result.IsSuccess
                 ? BuildSuccessFeedback("Sold", result.Value, displayName)
-                : $"Sell failed: {result.ErrorCode}";
+                : CozyTownGameplayFeedback.Failure("Sell", result.ErrorCode, this);
             RefreshView(feedback);
         }
 

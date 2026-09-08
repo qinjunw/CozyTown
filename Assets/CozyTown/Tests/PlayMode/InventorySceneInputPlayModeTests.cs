@@ -17,15 +17,17 @@ namespace CozyTown.Tests.PlayMode
         private const string ScenePath = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
 
         private Scene _loadedScene;
-        private InputTestFixture _inputFixture;
+        private DevelopmentSceneInputTestFixture _inputFixture;
         private Keyboard _keyboard;
+        private Mouse _mouse;
 
         [SetUp]
         public void SetUp()
         {
-            _inputFixture = new InputTestFixture();
+            _inputFixture = new DevelopmentSceneInputTestFixture();
             _inputFixture.Setup();
             _keyboard = InputSystem.AddDevice<Keyboard>();
+            _mouse = InputSystem.AddDevice<Mouse>();
         }
 
         [UnityTest]
@@ -48,6 +50,12 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(presenter, Is.Not.Null);
             Assert.That(backpack, Is.Not.Null);
             Assert.That(gate, Is.Not.Null);
+            var sceneInput = player.GetComponent<PlayerInput>();
+            var hotbarAction = sceneInput.actions.FindAction("Hotbar5");
+            Assert.That(sceneInput.currentControlScheme, Is.EqualTo("Keyboard&Mouse"));
+            Assert.That(sceneInput.devices, Does.Contain(_keyboard));
+            Assert.That(sceneInput.devices, Does.Contain(_mouse));
+            Assert.That(hotbarAction.enabled, Is.True);
 
             _inputFixture.Press(_keyboard.digit5Key);
             yield return null;

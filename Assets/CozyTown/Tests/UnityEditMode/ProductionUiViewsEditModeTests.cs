@@ -39,83 +39,61 @@ namespace CozyTown.Tests.UnityEditMode
         [Test]
         public void ShopView_DisablesUnavailableTransactionsAndRoutesButtonClicks()
         {
-            _iconTexture = new Texture2D(1, 1);
-            _itemIcon = Sprite.Create(
-                _iconTexture,
-                new Rect(0f, 0f, 1f, 1f),
-                new Vector2(0.5f, 0.5f));
-
+            EnsureItemIcon();
             var catalog = _root.AddComponent<CozyTownUiIconCatalog>();
             catalog.Configure(
-                new[] { "seed.potato", "fish.carp" },
-                new[] { _itemIcon, _itemIcon },
-                System.Array.Empty<string>(),
-                System.Array.Empty<Sprite>());
-
-            var purchaseRow = CreateListRow("Purchase Row", buttonCount: 2, out var purchaseButtons);
-            var saleRow = CreateListRow("Sale Row", buttonCount: 2, out var saleButtons);
-
+                new[] { "seed.potato", "fish.carp" }, new[] { _itemIcon, _itemIcon },
+                System.Array.Empty<string>(), System.Array.Empty<Sprite>());
+            var row = CreateListRow("Trading Row", 1, out var buttons);
+            var spare = CreateListRow("Spare Row", 1, out _);
             var panel = CreateUiObject("Shop Panel");
-            var balanceText = CreateUiObject("Balance Text").AddComponent<Text>();
-            var feedbackText = CreateUiObject("Shop Feedback Text").AddComponent<Text>();
-            var closeButton = CreateUiObject("Close Button").AddComponent<Button>();
+            var balance = CreateUiObject("Balance").AddComponent<Text>();
+            var feedback = CreateUiObject("Feedback").AddComponent<Text>();
+            var close = CreateUiObject("Close").AddComponent<Button>();
+            var buy = CreateUiObject("Buy Tab").AddComponent<Button>();
+            var sell = CreateUiObject("Sell Tab").AddComponent<Button>();
+            var empty = CreateUiObject("Empty State").AddComponent<Text>();
+            var list = CreateUiObject("List").AddComponent<ScrollRect>();
+            list.viewport = (RectTransform)list.transform;
+            list.content = (RectTransform)CreateUiObject("Rows").transform;
+            var position = CreateUiObject("List Position").AddComponent<Text>();
             var view = _root.AddComponent<CozyTownShopDebugView>();
-            view.ConfigureUi(
-                panel,
-                balanceText,
-                feedbackText,
-                new[] { purchaseRow, saleRow },
-                closeButton,
-                catalog);
-
-            var boughtId = string.Empty;
-            var soldId = string.Empty;
+            view.ConfigureUi(panel, balance, feedback, new[] { row, spare }, close, catalog, buy, sell, empty, list, position);
+            string bought = null, sold = null;
             var closeCalls = 0;
-            view.BuyRequested += id => boughtId = id;
-            view.SellRequested += id => soldId = id;
+            view.BuyRequested += id => bought = id;
+            view.SellRequested += id => sold = id;
             view.CloseRequested += () => closeCalls++;
 
-            view.Show(
-                CreateShopTradingState(characterBalance: 5, shopBalance: 10000),
-                feedback: "Not enough coins.");
-
+            view.Show(CreateShopTradingState(5, 10000), "Not enough coins.");
             Assert.That(panel.activeSelf, Is.True);
-            Assert.That(balanceText.text, Is.EqualTo("Town Shop — Your Coins: 5 · Shop Coins: 10000"));
-            Assert.That(feedbackText.text, Is.EqualTo("Not enough coins."));
-            Assert.That(purchaseRow.Label.text, Is.EqualTo("Potato Seed  Stock: 3"));
-            Assert.That(purchaseRow.Icon.sprite, Is.SameAs(_itemIcon));
-            Assert.That(purchaseRow.ButtonLabels[0].text, Is.EqualTo("Buy 1 (10)"));
-            Assert.That(purchaseButtons[0].interactable, Is.False);
-            Assert.That(purchaseButtons[1].gameObject.activeSelf, Is.False);
-            Assert.That(saleRow.Label.text, Is.EqualTo("Carp  Owned: 2"));
-            Assert.That(saleRow.Icon.sprite, Is.SameAs(_itemIcon));
-            Assert.That(saleRow.ButtonLabels[0].text, Is.EqualTo("Sell 1 (6)"));
-            Assert.That(saleButtons[0].interactable, Is.True);
-            Assert.That(saleButtons[1].gameObject.activeSelf, Is.False);
+            Assert.That(balance.text, Is.EqualTo("Shop · You: 5c · Shop: 10000c"));
+            Assert.That(feedback.text, Is.EqualTo("Not enough coins."));
+            Assert.That(row.Label.text, Does.StartWith("Potato Seed\nStock: 3"));
+            Assert.That(row.Icon.sprite, Is.SameAs(_itemIcon));
+            Assert.That(row.ButtonLabels[0].text, Is.EqualTo("Buy 1 (10)"));
+            Assert.That(buttons[0].interactable, Is.False);
+            Assert.That(row.Label.text, Does.Contain("Need 10 coins"));
+            Assert.That(spare.gameObject.activeSelf, Is.False);
+            sell.onClick.Invoke();
+            Assert.That(row.Label.text, Does.StartWith("Carp\nOwned: 2"));
+            Assert.That(row.ButtonLabels[0].text, Is.EqualTo("Sell 1 (6)"));
+            Assert.That(buttons[0].interactable, Is.True);
 
-            view.Show(
-                CreateShopTradingState(characterBalance: 300, shopBalance: 5),
-                feedback: "Shop cannot afford that item.");
-
-            Assert.That(purchaseButtons[0].interactable, Is.True);
-            Assert.That(saleButtons[0].interactable, Is.False);
-
-            view.Show(
-                CreateShopTradingState(characterBalance: 300, shopBalance: 10000),
-                feedback: string.Empty);
-            purchaseButtons[0].onClick.Invoke();
-            saleButtons[0].onClick.Invoke();
-            closeButton.onClick.Invoke();
-
-            Assert.That(balanceText.text, Is.EqualTo("Town Shop — Your Coins: 300 · Shop Coins: 10000"));
-            Assert.That(purchaseButtons[0].interactable, Is.True);
-            Assert.That(saleButtons[0].interactable, Is.True);
-            Assert.That(boughtId, Is.EqualTo("seed.potato"));
-            Assert.That(soldId, Is.EqualTo("fish.carp"));
+            view.Show(CreateShopTradingState(300, 5), string.Empty);
+            Assert.That(buttons[0].interactable, Is.False);
+            Assert.That(row.Label.text, Does.Contain("Shop needs 6 coins"));
+            buy.onClick.Invoke();
+            Assert.That(buttons[0].interactable, Is.True);
+            buttons[0].onClick.Invoke();
+            view.Show(CreateShopTradingState(300, 10000), string.Empty);
+            sell.onClick.Invoke();
+            buttons[0].onClick.Invoke();
+            close.onClick.Invoke();
+            Assert.That(bought, Is.EqualTo("seed.potato"));
+            Assert.That(sold, Is.EqualTo("fish.carp"));
             Assert.That(closeCalls, Is.EqualTo(1));
-
         }
-
         [Test]
         public void FarmView_UsesInventoryStateAndRoutesVisiblePlotActions()
         {
@@ -459,6 +437,7 @@ namespace CozyTown.Tests.UnityEditMode
                         "Baked Potato",
                         1,
                         hasIngredients,
+                        canCook: hasIngredients,
                         System.Array.Empty<RecipeIngredientView>())
                 });
         }

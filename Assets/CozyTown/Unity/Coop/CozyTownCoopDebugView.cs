@@ -117,12 +117,12 @@ namespace CozyTown.Unity.Coop
                     : animal.FeedItemId;
                 var row = rows[index];
                 row.SetContent(
-                    $"{animal.AnimalId}  Feed: {animal.OwnedFeedQuantity}  Product: {animal.ProductQuantity}",
+                    BuildAnimalStatus(animal),
                     iconCatalog.GetItemSprite(iconId));
                 row.SetButton(
                     0,
                     "Feed",
-                    !animal.FedToday && animal.OwnedFeedQuantity > 0,
+                    !animal.FedToday && !animal.ProductReady && animal.OwnedFeedQuantity > 0,
                     () => RequestFeed(animalId));
                 row.SetButton(
                     1,
@@ -133,6 +133,29 @@ namespace CozyTown.Unity.Coop
             }
 
             ClearRowsFrom(visibleCount);
+        }
+
+        private static string BuildAnimalStatus(AnimalView animal)
+        {
+            string productState = animal.ProductReady ? "Ready" : "Expected";
+            string guidance;
+            if (animal.ProductReady)
+            {
+                guidance = "Collect before feeding again.";
+            }
+            else if (animal.FedToday)
+            {
+                guidance = "Fed. Production at 05:00.";
+            }
+            else
+            {
+                guidance = animal.OwnedFeedQuantity > 0
+                    ? "Feed to produce at 05:00."
+                    : $"No feed. Buy {animal.FeedDisplayName} at the shop.";
+            }
+
+            return $"{animal.AnimalId}  Feed: {animal.OwnedFeedQuantity}  "
+                + $"{productState}: {animal.ProductDisplayName} x{animal.ProductQuantity}\n{guidance}";
         }
 
         private void ClearRowsFrom(int firstUnusedIndex)

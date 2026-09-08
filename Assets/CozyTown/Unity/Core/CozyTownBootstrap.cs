@@ -152,7 +152,7 @@ namespace CozyTown.Unity.Core
             Register(ref _farmPresenters, presenter);
             if (IsInitialized)
             {
-                presenter.Bind(_services.FarmGameplay);
+                presenter.Bind(_services.FarmGameplay, _services.WorldTimeFlow);
             }
         }
 
@@ -170,7 +170,7 @@ namespace CozyTown.Unity.Core
             Register(ref _coopPresenters, presenter);
             if (IsInitialized)
             {
-                presenter.Bind(_services.LivestockGameplay);
+                presenter.Bind(_services.LivestockGameplay, _services.WorldTimeFlow);
             }
         }
 
@@ -421,7 +421,7 @@ namespace CozyTown.Unity.Core
             {
                 if (presenter != null)
                 {
-                    presenter.Bind(_services.FarmGameplay);
+                    presenter.Bind(_services.FarmGameplay, _services.WorldTimeFlow);
                 }
             }
             foreach (var presenter in _bedPresenters)
@@ -435,7 +435,7 @@ namespace CozyTown.Unity.Core
             {
                 if (presenter != null)
                 {
-                    presenter.Bind(_services.LivestockGameplay);
+                    presenter.Bind(_services.LivestockGameplay, _services.WorldTimeFlow);
                 }
             }
             foreach (var presenter in _pondPresenters)

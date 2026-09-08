@@ -13,9 +13,17 @@ namespace CozyTown.Unity.Shop
         [SerializeField] private Text feedbackText;
         [SerializeField] private CozyTownUiListRow[] rows = Array.Empty<CozyTownUiListRow>();
         [SerializeField] private Button closeButton;
+        [SerializeField] private Button buyTab;
+        [SerializeField] private Button sellTab;
+        [SerializeField] private Text emptyStateText;
+        [SerializeField] private ScrollRect itemList;
+        [SerializeField] private Text listPositionText;
         [SerializeField] private CozyTownUiIconCatalog iconCatalog;
 
         private bool _closeListenerAttached;
+        private bool _selling;
+        private bool _resetScroll;
+        private int _visibleRowCount;
 
         public event Action<string> BuyRequested;
 
@@ -35,7 +43,12 @@ namespace CozyTown.Unity.Shop
             Text configuredFeedbackText,
             CozyTownUiListRow[] configuredRows,
             Button configuredCloseButton,
-            CozyTownUiIconCatalog configuredIconCatalog)
+            CozyTownUiIconCatalog configuredIconCatalog,
+            Button configuredBuyTab,
+            Button configuredSellTab,
+            Text configuredEmptyStateText,
+            ScrollRect configuredItemList,
+            Text configuredListPositionText)
         {
             DetachCloseListener();
             panel = configuredPanel != null
@@ -53,6 +66,16 @@ namespace CozyTown.Unity.Shop
             iconCatalog = configuredIconCatalog != null
                 ? configuredIconCatalog
                 : throw new ArgumentNullException(nameof(configuredIconCatalog));
+            buyTab = configuredBuyTab != null
+                ? configuredBuyTab : throw new ArgumentNullException(nameof(configuredBuyTab));
+            sellTab = configuredSellTab != null
+                ? configuredSellTab : throw new ArgumentNullException(nameof(configuredSellTab));
+            emptyStateText = configuredEmptyStateText != null
+                ? configuredEmptyStateText : throw new ArgumentNullException(nameof(configuredEmptyStateText));
+            itemList = configuredItemList != null
+                ? configuredItemList : throw new ArgumentNullException(nameof(configuredItemList));
+            listPositionText = configuredListPositionText != null
+                ? configuredListPositionText : throw new ArgumentNullException(nameof(configuredListPositionText));
 
             if (configuredRows == null)
             {
@@ -75,6 +98,11 @@ namespace CozyTown.Unity.Shop
 
         public void Show(ShopTradingViewState state, string feedback)
         {
+            if (!IsVisible)
+            {
+                _selling = false;
+                _resetScroll = true;
+            }
             State = state ?? throw new ArgumentNullException(nameof(state));
             Feedback = feedback ?? string.Empty;
             IsVisible = true;
@@ -142,12 +170,18 @@ namespace CozyTown.Unity.Shop
             }
 
             panel.SetActive(IsVisible);
-            balanceText.text =
-                $"Town Shop — Your Coins: {State.CharacterBalance} · Shop Coins: {State.ShopBalance}";
+            balanceText.text = $"Shop · You: {State.CharacterBalance}c · Shop: {State.ShopBalance}c";
             feedbackText.text = Feedback;
+            buyTab.interactable = _selling;
+            sellTab.interactable = !_selling;
 
             var rowIndex = 0;
-            foreach (ShopTradingLineItem item in State.PurchaseItems)
+            var items = _selling ? State.SaleItems : State.PurchaseItems;
+            emptyStateText.gameObject.SetActive(items.Count == 0);
+            emptyStateText.text = _selling
+                ? "No items to sell. Bring crops, eggs, fish or meals."
+                : "No items in stock. Supplies refresh at 05:00.";
+            foreach (ShopTradingLineItem item in items)
             {
                 if (rowIndex >= rows.Length)
                 {
@@ -157,35 +191,16 @@ namespace CozyTown.Unity.Shop
                 var stableItemId = item.ItemId;
                 var row = rows[rowIndex++];
                 row.Clear();
+                string availability = DescribeAvailability(item);
                 row.SetContent(
-                    $"{item.DisplayName}  Stock: {item.Quantity}",
+                    $"{item.DisplayName}\n{(_selling ? "Owned" : "Stock")}: {item.Quantity}"
+                        + (availability.Length == 0 ? string.Empty : "\n" + availability),
                     iconCatalog.GetItemSprite(stableItemId));
                 row.SetButton(
                     0,
-                    $"Buy 1 ({item.UnitPrice})",
-                    item.Quantity > 0 && State.CharacterBalance >= item.UnitPrice,
-                    () => RequestBuy(stableItemId));
-                row.HideUnusedButtons(1);
-            }
-
-            foreach (ShopTradingLineItem item in State.SaleItems)
-            {
-                if (rowIndex >= rows.Length)
-                {
-                    break;
-                }
-
-                var stableItemId = item.ItemId;
-                var row = rows[rowIndex++];
-                row.Clear();
-                row.SetContent(
-                    $"{item.DisplayName}  Owned: {item.Quantity}",
-                    iconCatalog.GetItemSprite(stableItemId));
-                row.SetButton(
-                    0,
-                    $"Sell 1 ({item.UnitPrice})",
-                    item.Quantity > 0 && State.ShopBalance >= item.UnitPrice,
-                    () => RequestSell(stableItemId));
+                    $"{(_selling ? "Sell" : "Buy")} 1 ({item.UnitPrice})",
+                    item.Quantity > 0 && (_selling ? State.ShopBalance : State.CharacterBalance) >= item.UnitPrice,
+                    () => { if (_selling) RequestSell(stableItemId); else RequestBuy(stableItemId); });
                 row.HideUnusedButtons(1);
             }
 
@@ -193,6 +208,72 @@ namespace CozyTown.Unity.Shop
             {
                 rows[index].Clear();
             }
+            _visibleRowCount = rowIndex;
+            FitListToRows();
+        }
+
+        private string DescribeAvailability(ShopTradingLineItem item)
+        {
+            if (item.Quantity <= 0)
+            {
+                return _selling ? "None owned" : "Sold out · Restock at 05:00";
+            }
+            if ((_selling ? State.ShopBalance : State.CharacterBalance) < item.UnitPrice)
+            {
+                return _selling ? $"Shop needs {item.UnitPrice} coins" : $"Need {item.UnitPrice} coins";
+            }
+            return string.Empty;
+        }
+
+        private void FitListToRows()
+        {
+            float height = 0f;
+            if (_visibleRowCount > 0)
+            {
+                var lastRow = (RectTransform)rows[_visibleRowCount - 1].transform;
+                height = -lastRow.anchoredPosition.y + lastRow.rect.height;
+            }
+            float viewportHeight = itemList.viewport.rect.height;
+            itemList.content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Mathf.Max(viewportHeight, height));
+            itemList.StopMovement();
+            var offset = itemList.content.anchoredPosition;
+            offset.x = 0f;
+            offset.y = _resetScroll ? 0f : Mathf.Clamp(offset.y, 0f, Mathf.Max(0f, height - viewportHeight));
+            itemList.content.anchoredPosition = offset;
+            _resetScroll = false;
+            RefreshListPosition(Vector2.zero);
+        }
+
+        private void RefreshListPosition(Vector2 unused)
+        {
+            if (listPositionText == null || itemList == null) return;
+            if (_visibleRowCount == 0 || itemList.content.rect.height <= itemList.viewport.rect.height)
+            {
+                listPositionText.text = $"{_visibleRowCount} items";
+                return;
+            }
+            var firstRow = (RectTransform)rows[0].transform;
+            float spacing = rows.Length > 1
+                ? Mathf.Abs(((RectTransform)rows[1].transform).anchoredPosition.y - firstRow.anchoredPosition.y)
+                : firstRow.rect.height;
+            spacing = Mathf.Max(1f, spacing);
+            float offset = itemList.content.anchoredPosition.y;
+            int first = Mathf.Clamp(Mathf.FloorToInt(offset / spacing) + 1, 1, _visibleRowCount);
+            int last = Mathf.Clamp(Mathf.CeilToInt((offset + itemList.viewport.rect.height) / spacing), first, _visibleRowCount);
+            listPositionText.text = $"{first}–{last}/{_visibleRowCount} · Scroll";
+        }
+
+        private void SelectBuy() => SelectTab(false);
+
+        private void SelectSell() => SelectTab(true);
+
+        private void SelectTab(bool selling)
+        {
+            if (!IsVisible || _selling == selling) return;
+            _selling = selling;
+            _resetScroll = true;
+            Feedback = string.Empty;
+            RefreshUi();
         }
 
         private void ClearRows()
@@ -210,12 +291,16 @@ namespace CozyTown.Unity.Shop
 
         private void AttachCloseListener()
         {
-            if (_closeListenerAttached || closeButton == null || !isActiveAndEnabled)
+            if (_closeListenerAttached || closeButton == null || buyTab == null
+                || sellTab == null || itemList == null || !isActiveAndEnabled)
             {
                 return;
             }
 
             closeButton.onClick.AddListener(RequestClose);
+            buyTab.onClick.AddListener(SelectBuy);
+            sellTab.onClick.AddListener(SelectSell);
+            itemList.onValueChanged.AddListener(RefreshListPosition);
             _closeListenerAttached = true;
         }
 
@@ -227,6 +312,9 @@ namespace CozyTown.Unity.Shop
             }
 
             closeButton.onClick.RemoveListener(RequestClose);
+            buyTab.onClick.RemoveListener(SelectBuy);
+            sellTab.onClick.RemoveListener(SelectSell);
+            itemList.onValueChanged.RemoveListener(RefreshListPosition);
             _closeListenerAttached = false;
         }
     }

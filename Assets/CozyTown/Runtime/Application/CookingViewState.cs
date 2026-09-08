@@ -33,6 +33,7 @@ namespace CozyTown.Runtime.Application
             string outputDisplayName,
             int outputQuantity,
             bool hasIngredients,
+            bool canCook,
             IEnumerable<RecipeIngredientView> ingredients)
         {
             RecipeId = recipeId;
@@ -40,6 +41,7 @@ namespace CozyTown.Runtime.Application
             OutputDisplayName = outputDisplayName;
             OutputQuantity = outputQuantity;
             HasIngredients = hasIngredients;
+            CanCook = canCook;
             RecipeIngredientView[] copy = ingredients == null
                 ? Array.Empty<RecipeIngredientView>()
                 : new List<RecipeIngredientView>(ingredients).ToArray();
@@ -51,6 +53,7 @@ namespace CozyTown.Runtime.Application
         public string OutputDisplayName { get; }
         public int OutputQuantity { get; }
         public bool HasIngredients { get; }
+        public bool CanCook { get; }
         public IReadOnlyList<RecipeIngredientView> Ingredients { get; }
     }
 

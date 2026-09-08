@@ -1,0 +1,83 @@
+{
+  "baseline": "a3e09b0ef0181e7514b3997de70deba2f70e89ec",
+  "date": "2026-09-09",
+  "unity": "6000.5.5f1",
+  "diagnosticResolution": "640x480",
+  "probeSha256": "67E4BB6A0BF9E3BE109CACFF41443CFED646675322BB58BB16B941EAF34CE124",
+  "runs": [
+    {
+      "name": "economy-audit-existing-scene",
+      "result": "Passed",
+      "total": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "unityExitCode": null,
+      "tests": [
+        {
+          "name": "CozyTown.Tests.PlayMode.DevelopmentScenePlayModeTests.DevelopmentScene_BedButtonsSelectTwoHoursAndUpdateSharedHudClock",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.DevelopmentScenePlayModeTests.DevelopmentScene_ClockUpdatesHudAndSystemMenuLoadUsesSameTimeline",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.DevelopmentScenePlayModeTests.DevelopmentScene_DisablingProductionViewsHidesPanelsAndDisconnectsRows",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.DevelopmentScenePlayModeTests.DevelopmentScene_MinaTraversesActualRoadsAndReturnsHomeBeforeNextMorning",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.DevelopmentScenePlayModeTests.DevelopmentScene_SmallAcceptedIntervalMovesMinaOnceAtConfiguredSpeed",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.DevelopmentScenePlayModeTests.DevelopmentScene_StartsWalkingAndShopTradingSlice",
+          "result": "Passed"
+        }
+      ]
+    },
+    {
+      "name": "economy-audit-probe04",
+      "result": "Failed(Child)",
+      "total": 4,
+      "passed": 1,
+      "failed": 3,
+      "skipped": 0,
+      "unityExitCode": 2,
+      "tests": [
+        {
+          "name": "CozyTown.Tests.PlayMode.EconomyInteractionAuditPlayModeTests.ActualMouse_PurchasesPlantsWatersFeedsAndSells",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.EconomyInteractionAuditPlayModeTests.MorningSettlement_RefreshesWorldSpritesWithoutReopeningPanels",
+          "result": "Failed",
+          "message": "  Already-settled world sprites must not need a panel to be reopened.\n  Expected: <empty>\n  But was:  < \"Soil: farm_plot_soil_watered -> farm_plot_soil_dry\", \"Crop: crop_carrot_stage_00 -> crop_carrot_stage_01\", \"Hen State: animal_hen_fed -> animal_hen_product_ready\" >\n"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.EconomyInteractionAuditPlayModeTests.PendingEgg_DisablesFeedUntilCollected",
+          "result": "Failed",
+          "message": "  The visible Feed button must agree with the pending-product rule.\n  Expected: False\n  But was:  True\n"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.EconomyInteractionAuditPlayModeTests.ScrollWheel_OverProductLabelReachesShopList",
+          "result": "Failed",
+          "message": "  Scrolling over the product label must move the list.\n  Expected: greater than 0.0f\n  But was:  0.0f\n"
+        }
+      ]
+    },
+    {
+      "name": "economy-audit-editmode",
+      "result": "Passed",
+      "total": 450,
+      "passed": 450,
+      "failed": 0,
+      "skipped": 0,
+      "unityExitCode": 0
+    }
+  ]
+}
