@@ -32,6 +32,8 @@ CozyTown 是一个用于测试 AI Agent 在游戏场景中实际落地的 Unity 
 
 T1-3～T1-4 已接入四人作息、碰撞感知道路导航、四向行走帧和住宅美术。居民移动与动画使用同一世界时间，支持菜单／失焦暂停、睡眠快进及读档合法归位。全量 EditMode `450/450`、图形 PlayMode `115/115` 通过；[实现与测试记录](docs/TOWN_LIFE_IMPLEMENTATION.md)列出个人时间表、通勤实测与边界处理。扩大版 Scene-01/Town-01 人工验收仍待确认，真实 AI 端点保持关闭。
 
+2026-09-09 经济交互修补已接入商店 Buy / Sell 页签、列表滚轮与有效范围、农牧结算及读档后的画面刷新、配方材料和容量条件，以及生产失败说明。鼠标测试覆盖购买、种植、畜牧、钓鱼、烹饪、出售和保存／读取；本轮全量 EditMode `468/468`、图形 PlayMode `141/141` 通过。价格、产量、配方与存档格式沿用既有规则；[修补与验证记录](docs/audits/economy-interactions-2026-09-09/delivery.md)列出实现范围和人工验收限制。
+
 ### T1-2b 连续时间与睡眠（自动化通过）
 
 [T1-2b: Verify continuous world time, morning settlement and sleep](https://github.com/qinjunw/CozyTown/issues/38) 按 [ADR-0014](docs/adr/0014-continuous-world-time-and-morning-settlement.md) 替换原午夜封顶规则：每 5 个有效现实秒推进 10 游戏分钟，午夜只改变日期，每日 05:00 处理尚未完成的生产结算和商店库存替换。正常走时与睡眠共用世界时间推进入口；床选择器默认 8 小时，允许 1～12 个整小时，选择和取消不推进时间。

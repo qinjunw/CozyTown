@@ -1,0 +1,475 @@
+{
+  "date": "2026-09-09",
+  "baseline": "4eb795d8c9ea4367778f9ef72905564de8a5126a",
+  "codeRevision": "20cc3e0",
+  "unityVersion": "6000.5.5f1",
+  "scope": "ECO-01 through ECO-08 in implementation.md",
+  "finalChecks": [
+    {
+      "run": "economy-fix-final-edit",
+      "sourceRevision": "dbbb52a",
+      "note": "468 EditMode tests; subsequent code delta only changes PlayMode fixture isolation"
+    },
+    {
+      "run": "economy-fix-final-isolation-play",
+      "sourceRevision": "20cc3e0",
+      "note": "141 graphics PlayMode tests including mouse economy flow and keyboard hotbar/backpack"
+    }
+  ],
+  "sceneScope": {
+    "changedSerializedBlocks": 464,
+    "blocksOutsideDebugHud": 0
+  },
+  "reviews": [
+    {
+      "axis": "Standards",
+      "baseline": "4eb795d",
+      "revision": "f4eb286",
+      "hardViolations": 0,
+      "changesRequired": 0
+    },
+    {
+      "axis": "Spec",
+      "baseline": "4eb795d",
+      "revision": "f4eb286",
+      "findings": [
+        "P2: Cook enabled when ingredients exist but output cannot fit after consumption"
+      ]
+    },
+    {
+      "axis": "Standards",
+      "baseline": "f4eb286",
+      "revision": "dbbb52a",
+      "hardViolations": 0,
+      "changesRequired": 0
+    },
+    {
+      "axis": "Spec",
+      "baseline": "f4eb286",
+      "revision": "dbbb52a",
+      "priorCapacityFinding": "Resolved",
+      "remainingFindings": 0
+    },
+    {
+      "axis": "Standards",
+      "baseline": "dbbb52a",
+      "revision": "20cc3e0",
+      "hardViolations": 0,
+      "changesRequired": 0
+    },
+    {
+      "axis": "Spec",
+      "baseline": "dbbb52a",
+      "revision": "20cc3e0",
+      "remainingFindings": 0
+    }
+  ],
+  "evidenceNotes": [
+    "All counts are read from local Unity XML. Complete XML/logs remain in ignored Logs and are not included in a fresh clone.",
+    "RED runs and earlier failed GREEN attempts are historical evidence, not final status.",
+    "keyboard-state-red is a diagnostic group name; that group passed and did not reproduce the full-suite failure.",
+    "Full-suite keyboard failures had device input without action activation. Diagnostic action re-registration and later fixture isolation each passed the full suite.",
+    "Compilation-only failures came from unsupported Assert.Multiple, unavailable ScreenCapture, or an inaccessible Input System property in test code.",
+    "Graphics batch mode reported 640x480. Text bounds checks do not substitute for screenshots or human visual acceptance.",
+    "Save tests use isolated in-memory slots; interaction-point entry and some close operations use public requests rather than map walking.",
+    "Scene-01 and Town-01 human acceptance remain pending. Real AI is disabled. Economy balance and save format are unchanged."
+  ],
+  "runs": [
+    {
+      "run": "economy-fix-capacity-red",
+      "result": "Failed(Child)",
+      "total": 2,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "exitCode": 2,
+      "failedTests": [
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.KitchenView_AtBackpackCapacity_OnlyEnablesCookingWhenConsumedIngredientsMakeRoom(2,False)"
+      ]
+    },
+    {
+      "run": "economy-fix-final-edit",
+      "result": "Passed",
+      "total": 468,
+      "passed": 468,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    },
+    {
+      "run": "economy-fix-final-isolation-play",
+      "result": "Passed",
+      "total": 141,
+      "passed": 141,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    },
+    {
+      "run": "economy-fix-final-play",
+      "result": "Failed(Child)",
+      "total": 141,
+      "passed": 140,
+      "failed": 1,
+      "skipped": 0,
+      "exitCode": 2,
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.InventorySceneInputPlayModeTests.DevelopmentScene_KeyboardDrivesHotbarAndBackpack"
+      ]
+    },
+    {
+      "run": "economy-fix-full-edit",
+      "result": "Passed",
+      "total": 466,
+      "passed": 466,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    },
+    {
+      "run": "economy-fix-full-play",
+      "result": "Failed(Child)",
+      "total": 141,
+      "passed": 140,
+      "failed": 1,
+      "skipped": 0,
+      "exitCode": 2,
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.InventorySceneInputPlayModeTests.DevelopmentScene_KeyboardDrivesHotbarAndBackpack"
+      ]
+    },
+    {
+      "run": "economy-fix-green01-edit",
+      "result": "Passed",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    },
+    {
+      "run": "economy-fix-green01-play",
+      "result": "Passed",
+      "total": 3,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    },
+    {
+      "run": "economy-fix-green02-edit",
+      "result": "Failed(Child)",
+      "total": 23,
+      "passed": 22,
+      "failed": 1,
+      "skipped": 0,
+      "exitCode": 2,
+      "failedTests": [
+        "CozyTown.Tests.UnityEditMode.DevelopmentSceneEditModeTests.DevelopmentScene_UsesProductionCanvasAndCompleteUiSkin"
+      ]
+    },
+    {
+      "run": "economy-fix-green02-play",
+      "result": "Passed",
+      "total": 12,
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    },
+    {
+      "run": "economy-fix-green03-edit",
+      "result": "Passed",
+      "total": 29,
+      "passed": 29,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    },
+    {
+      "run": "economy-fix-green03-play",
+      "result": "Passed",
+      "total": 37,
+      "passed": 37,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    },
+    {
+      "run": "economy-fix-isolated-input-full-play",
+      "result": "Passed",
+      "total": 141,
+      "passed": 141,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    },
+    {
+      "run": "economy-fix-keyboard-binding-diagnostic",
+      "result": "Passed",
+      "total": 7,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    },
+    {
+      "run": "economy-fix-keyboard-cohort",
+      "result": "Passed",
+      "total": 21,
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    },
+    {
+      "run": "economy-fix-keyboard-combined-diagnostic",
+      "result": "Passed",
+      "total": 12,
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    },
+    {
+      "run": "economy-fix-keyboard-event-diagnostic",
+      "result": "Failed(Child)",
+      "total": 141,
+      "passed": 140,
+      "failed": 1,
+      "skipped": 0,
+      "exitCode": 2,
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.InventorySceneInputPlayModeTests.DevelopmentScene_KeyboardDrivesHotbarAndBackpack"
+      ]
+    },
+    {
+      "run": "economy-fix-keyboard-isolated",
+      "result": "Passed",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    },
+    {
+      "run": "economy-fix-keyboard-monitor-diagnostic",
+      "result": "Passed",
+      "total": 141,
+      "passed": 141,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    },
+    {
+      "run": "economy-fix-keyboard-phase-diagnostic",
+      "result": "Failed(Child)",
+      "total": 141,
+      "passed": 140,
+      "failed": 1,
+      "skipped": 0,
+      "exitCode": 2,
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.InventorySceneInputPlayModeTests.DevelopmentScene_KeyboardDrivesHotbarAndBackpack"
+      ]
+    },
+    {
+      "run": "economy-fix-keyboard-resident-diagnostic",
+      "result": "Passed",
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    },
+    {
+      "run": "economy-fix-keyboard-state-red",
+      "result": "Passed",
+      "total": 16,
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    },
+    {
+      "run": "economy-fix-mouse-diagnostic",
+      "result": "Failed(Child)",
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "exitCode": 2,
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.EconomyUiInteractionPlayModeTests.Mouse_CompletesProductionCookingTradeAndSaveRestore"
+      ]
+    },
+    {
+      "run": "economy-fix-red01-edit",
+      "result": "Compilation failed; no test XML",
+      "exitCode": 1
+    },
+    {
+      "run": "economy-fix-red02-edit",
+      "result": "Failed(Child)",
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "exitCode": 2,
+      "failedTests": [
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.CoopView_WithPendingProductAndSpareFeed_DisablesFeedAndEnablesCollect"
+      ]
+    },
+    {
+      "run": "economy-fix-red02-play",
+      "result": "Failed(Child)",
+      "total": 3,
+      "passed": 0,
+      "failed": 3,
+      "skipped": 0,
+      "exitCode": 2,
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.EconomyUiInteractionPlayModeTests.ScrollWheel_OverFarmLabelMovesProductionList",
+        "CozyTown.Tests.PlayMode.GameplayFeedbackPlayModeTests.CastWithoutABite_RealButtonExplainsRetryWithoutChangingCatchQuantities",
+        "CozyTown.Tests.PlayMode.ProductionWorldRefreshPlayModeTests.NaturalMorningSettlement_UpdatesProductionSpritesWithPanelsClosed"
+      ]
+    },
+    {
+      "run": "economy-fix-red03-edit",
+      "result": "Failed(Child)",
+      "total": 10,
+      "passed": 1,
+      "failed": 9,
+      "skipped": 0,
+      "exitCode": 2,
+      "failedTests": [
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.CoopView_DistinguishesExpectedAndPendingProductsWithActionGuidance(0,False,False,\"No feed. Buy Chicken Feed at the shop.\",\"Expected: Egg x1\",False,False)",
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.CoopView_DistinguishesExpectedAndPendingProductsWithActionGuidance(1,False,False,\"Feed to produce at 05:00.\",\"Expected: Egg x1\",True,False)",
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.CoopView_DistinguishesExpectedAndPendingProductsWithActionGuidance(0,True,False,\"Fed. Production at 05:00.\",\"Expected: Egg x1\",False,False)",
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.CoopView_DistinguishesExpectedAndPendingProductsWithActionGuidance(1,False,True,\"Collect before feeding again.\",\"Ready: Egg x1\",False,True)",
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.FarmView_ShowsTheNextActionForEachProductionState(Empty,False,0,\"No seeds. Buy seeds at the shop.\")",
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.FarmView_ShowsTheNextActionForEachProductionState(Empty,False,1,\"Choose a seed.\")",
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.FarmView_ShowsTheNextActionForEachProductionState(Growing,False,0,\"Needs water before 05:00.\")",
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.FarmView_ShowsTheNextActionForEachProductionState(Growing,True,0,\"Watered. Growth at 05:00.\")",
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.FarmView_ShowsTheNextActionForEachProductionState(Ready,False,0,\"Ready to harvest. No watering needed.\")"
+      ]
+    },
+    {
+      "run": "economy-fix-red03-play",
+      "result": "Failed(Child)",
+      "total": 6,
+      "passed": 3,
+      "failed": 3,
+      "skipped": 0,
+      "exitCode": 2,
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.EconomyUiInteractionPlayModeTests.SellTab_UsesVisibleMouseEntryAndUpdatesActualAssets",
+        "CozyTown.Tests.PlayMode.GameplayFeedbackPlayModeTests.CatchFish_RealButtonShowsDisplayNameAndAddsCatch",
+        "CozyTown.Tests.PlayMode.ProductionWorldRefreshPlayModeTests.SameCycleLoad_RestoresProductionSpritesWithPanelsClosed"
+      ]
+    },
+    {
+      "run": "economy-fix-red04-edit",
+      "result": "Failed(Child)",
+      "total": 29,
+      "passed": 22,
+      "failed": 7,
+      "skipped": 0,
+      "exitCode": 2,
+      "failedTests": [
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.KitchenView_AfterAddingIngredientsAndCooking_RefreshesOwnedAndMissingQuantities",
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.KitchenView_ShowsEveryDefaultRecipesIngredientRequirements(\"Baked Potato\",\"Potato: 0 owned / 1 needed (missing 1)\\nSalt: 0 owned / 1 needed (missing 1)\")",
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.KitchenView_ShowsEveryDefaultRecipesIngredientRequirements(\"Vegetable Soup\",\"Carrot: 0 owned / 1 needed (missing 1)\\nTomato: 0 owned / 1 needed (missing 1)\")",
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.KitchenView_ShowsEveryDefaultRecipesIngredientRequirements(\"Grilled Fish\",\"Carp: 0 owned / 1 needed (missing 1)\\nSalt: 0 owned / 1 needed (missing 1)\")",
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.KitchenView_ShowsEveryDefaultRecipesIngredientRequirements(\"Tomato and Egg\",\"Egg: 0 owned / 1 needed (missing 1)\\nTomato: 0 owned / 1 needed (missing 1)\")",
+        "CozyTown.Tests.UnityEditMode.ProductionActionFeedbackEditModeTests.KitchenView_ShowsEveryDefaultRecipesIngredientRequirements(\"Fish Pie\",\"Egg: 0 owned / 1 needed (missing 1)\\nTrout: 0 owned / 1 needed (missing 1)\\nFlour: 0 owned / 1 needed (missing 1)\")",
+        "CozyTown.Tests.UnityEditMode.ProductionUiViewsEditModeTests.ShopView_DisablesUnavailableTransactionsAndRoutesButtonClicks"
+      ]
+    },
+    {
+      "run": "economy-fix-red04-play",
+      "result": "Failed(Child)",
+      "total": 23,
+      "passed": 10,
+      "failed": 13,
+      "skipped": 0,
+      "exitCode": 2,
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.EconomyUiInteractionPlayModeTests.ShopList_KeepsItemsReachableAtEndAfterSalesAndWhenReopened",
+        "CozyTown.Tests.PlayMode.GameplayResourceFeedbackPlayModeTests.CatchWithFullBackpack_PublicRequestExplainsHowToMakeSpace",
+        "CozyTown.Tests.PlayMode.GameplayResourceFeedbackPlayModeTests.CollectBeforeProduction_PublicRequestExplainsTheMorningRequirement",
+        "CozyTown.Tests.PlayMode.GameplayResourceFeedbackPlayModeTests.CookRecipe_PublicRequestShowsTheFoodDisplayName",
+        "CozyTown.Tests.PlayMode.GameplayResourceFeedbackPlayModeTests.CookWithoutIngredients_PublicRequestExplainsTheMissingResources",
+        "CozyTown.Tests.PlayMode.GameplayResourceFeedbackPlayModeTests.FeedRejected_PublicRequestExplainsTheAnimalRequirement(False,\"You need chicken feed in your backpack. Buy it at the shop first.\")",
+        "CozyTown.Tests.PlayMode.GameplayResourceFeedbackPlayModeTests.FeedRejected_PublicRequestExplainsTheAnimalRequirement(True,\"Collect the waiting product before feeding this animal again.\")",
+        "CozyTown.Tests.PlayMode.GameplayResourceFeedbackPlayModeTests.PlantWithoutSeeds_PublicRequestExplainsWhereToGetSeeds",
+        "CozyTown.Tests.PlayMode.GameplayResourceFeedbackPlayModeTests.TradeRejectedByResources_PublicRequestExplainsTheNextAction(PlayerFunds,\"You need more coins to buy this item.\")",
+        "CozyTown.Tests.PlayMode.GameplayResourceFeedbackPlayModeTests.TradeRejectedByResources_PublicRequestExplainsTheNextAction(ShopStock,\"This item is sold out. Check the shop after the next morning restock.\")",
+        "CozyTown.Tests.PlayMode.GameplayResourceFeedbackPlayModeTests.TradeRejectedByResources_PublicRequestExplainsTheNextAction(BackpackSpace,\"Your backpack is full. Sell or use some items, then try again.\")",
+        "CozyTown.Tests.PlayMode.GameplayResourceFeedbackPlayModeTests.TradeRejectedByResources_PublicRequestExplainsTheNextAction(OwnedItems,\"You no longer have enough of this item to sell.\")",
+        "CozyTown.Tests.PlayMode.GameplayResourceFeedbackPlayModeTests.TradeRejectedByResources_PublicRequestExplainsTheNextAction(ShopFunds,\"The shop does not have enough coins to buy this item.\")"
+      ]
+    },
+    {
+      "run": "economy-fix-ui-final01",
+      "result": "Compilation failed; no test XML",
+      "exitCode": 1
+    },
+    {
+      "run": "economy-fix-ui-final02",
+      "result": "Failed(Child)",
+      "total": 5,
+      "passed": 3,
+      "failed": 2,
+      "skipped": 0,
+      "exitCode": 2,
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.EconomyTextReadabilityPlayModeTests.DevelopmentScene_EconomyTextFitsItsOwnRectInNormalAndFailureStates",
+        "CozyTown.Tests.PlayMode.EconomyUiInteractionPlayModeTests.Mouse_CompletesProductionCookingTradeAndSaveRestore"
+      ]
+    },
+    {
+      "run": "economy-fix-ui-final03",
+      "result": "Failed(Child)",
+      "total": 5,
+      "passed": 4,
+      "failed": 1,
+      "skipped": 0,
+      "exitCode": 2,
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.EconomyUiInteractionPlayModeTests.Mouse_CompletesProductionCookingTradeAndSaveRestore"
+      ]
+    },
+    {
+      "run": "economy-fix-ui-final04",
+      "result": "Compilation failed; no test XML",
+      "exitCode": 1
+    },
+    {
+      "run": "economy-fix-ui-final05",
+      "result": "Passed",
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "failedTests": []
+    }
+  ]
+}
