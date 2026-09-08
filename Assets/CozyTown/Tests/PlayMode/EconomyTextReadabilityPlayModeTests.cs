@@ -109,6 +109,15 @@ namespace CozyTown.Tests.PlayMode
                 feedback => kitchen.Show(services.CookingGameplay.GetCurrentState(), feedback),
                 CozyTownGameplayFeedback.Failure("Cook", "cooking.ingredients_missing", kitchen),
                 "Potato: 99 owned / 1 needed", "Flour: 99 owned / 1 needed");
+            var fullBackpack = CozyTownCompositionRoot.Create(content.Value);
+            Assert.That(fullBackpack.Inventory.Add(DefaultMvpIds.Items.Carp, 2079).IsSuccess, Is.True);
+            Assert.That(fullBackpack.Inventory.Add(DefaultMvpIds.Items.Trout, 2).IsSuccess, Is.True);
+            Assert.That(fullBackpack.Inventory.Add(DefaultMvpIds.Items.Egg, 2).IsSuccess, Is.True);
+            Assert.That(fullBackpack.Inventory.Add(DefaultMvpIds.Items.Flour, 2).IsSuccess, Is.True);
+            yield return CheckPanel("Kitchen Panel",
+                feedback => kitchen.Show(fullBackpack.CookingGameplay.GetCurrentState(), feedback),
+                CozyTownGameplayFeedback.Failure("Cook", "inventory.capacity_exceeded", kitchen),
+                "Fish Pie x1", "No room for the dish.", "Flour: 2 owned / 1 needed");
             yield return CheckPanel("Pond Panel",
                 feedback => pond.Show(services.FishingGameplay.GetCurrentState(), feedback),
                 CozyTownGameplayFeedback.Failure("Catch", "inventory.capacity_exceeded", pond),

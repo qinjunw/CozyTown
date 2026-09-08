@@ -202,6 +202,44 @@ namespace CozyTown.Tests.UnityEditMode
             Assert.That(row.Buttons[0].interactable, Is.False);
         }
 
+        [TestCase(2, false)]
+        [TestCase(1, true)]
+        public void KitchenView_AtBackpackCapacity_OnlyEnablesCookingWhenConsumedIngredientsMakeRoom(
+            int potatoes,
+            bool canCook)
+        {
+            var services = CozyTownCompositionRoot.CreateDefault();
+            Assert.That(services.Inventory.Add(DefaultMvpIds.Items.Carp, 2178).IsSuccess, Is.True);
+            Assert.That(services.Inventory.Add(DefaultMvpIds.Items.Potato, potatoes).IsSuccess, Is.True);
+            Assert.That(services.Inventory.Add(DefaultMvpIds.Items.Salt, 2).IsSuccess, Is.True);
+            var before = services.Inventory.CaptureSnapshot();
+            var view = CreateKitchenView(out var rows);
+
+            view.Show(services.CookingGameplay.GetCurrentState(), string.Empty);
+
+            var recipe = view.State.Recipes.Single(candidate => candidate.RecipeId == DefaultMvpIds.Recipes.BakedPotato);
+            var row = rows.Single(candidate => candidate.Label.text.StartsWith("Baked Potato x1"));
+            Assert.That(recipe.HasIngredients, Is.True);
+            Assert.That(row.Buttons[0].interactable, Is.EqualTo(canCook));
+            Assert.That(services.Inventory.CaptureSnapshot().Items, Is.EqualTo(before.Items),
+                "Showing cooking availability must not mutate the player's inventory.");
+            if (!canCook)
+            {
+                Assert.That(row.Label.text, Does.Contain("No room for the dish."));
+                Assert.That(row.Label.text, Does.Not.Contain("missing"));
+            }
+            else
+            {
+                Assert.That(row.Label.text, Does.Not.Contain("No room for the dish."));
+                view.CookRequested += recipeId =>
+                    Assert.That(services.CookingGameplay.Cook(recipeId).IsSuccess, Is.True);
+                row.Buttons[0].onClick.Invoke();
+                Assert.That(services.Inventory.Count(DefaultMvpIds.Items.BakedPotato), Is.EqualTo(1));
+                Assert.That(services.Inventory.Count(DefaultMvpIds.Items.Potato), Is.Zero);
+                Assert.That(services.Inventory.Count(DefaultMvpIds.Items.Salt), Is.EqualTo(1));
+            }
+        }
+
         private CozyTownKitchenDebugView CreateKitchenView(out CozyTownUiListRow[] rows)
         {
             rows = new CozyTownUiListRow[5];

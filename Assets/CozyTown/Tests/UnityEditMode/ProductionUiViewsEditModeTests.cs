@@ -437,6 +437,7 @@ namespace CozyTown.Tests.UnityEditMode
                         "Baked Potato",
                         1,
                         hasIngredients,
+                        canCook: hasIngredients,
                         System.Array.Empty<RecipeIngredientView>())
                 });
         }

@@ -110,7 +110,7 @@ namespace CozyTown.Unity.Kitchen
                 row.SetButton(
                     0,
                     "Cook",
-                    recipe.HasIngredients,
+                    recipe.CanCook,
                     () => RequestCook(recipeId));
                 row.HideUnusedButtons(1);
             }
@@ -132,6 +132,11 @@ namespace CozyTown.Unity.Kitchen
                 {
                     details += $" (missing {ingredient.RequiredQuantity - ingredient.OwnedQuantity})";
                 }
+            }
+
+            if (recipe.HasIngredients && !recipe.CanCook)
+            {
+                details += "\nNo room for the dish.";
             }
 
             return details;

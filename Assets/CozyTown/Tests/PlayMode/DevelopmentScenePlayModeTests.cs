@@ -648,6 +648,7 @@ namespace CozyTown.Tests.PlayMode
                             "Baked Potato",
                             1,
                             true,
+                            canCook: true,
                             Array.Empty<RecipeIngredientView>())
                     }),
                 string.Empty);
