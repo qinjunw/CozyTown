@@ -28,7 +28,7 @@ namespace CozyTown.Tests.PlayMode
     {
         private const string ScenePath = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
         private Scene _scene;
-        private InputTestFixture _input;
+        private DevelopmentSceneInputTestFixture _input;
         private GameObject _hud;
         private readonly List<string> _failures = new List<string>();
 
@@ -36,7 +36,7 @@ namespace CozyTown.Tests.PlayMode
         public void SetUp()
         {
             _failures.Clear();
-            _input = new InputTestFixture();
+            _input = new DevelopmentSceneInputTestFixture();
             _input.Setup();
             InputSystem.AddDevice<Keyboard>();
             InputSystem.AddDevice<Mouse>();

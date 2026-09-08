@@ -17,14 +17,14 @@ namespace CozyTown.Tests.PlayMode
         private const string ScenePath = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
 
         private Scene _loadedScene;
-        private InputTestFixture _inputFixture;
+        private DevelopmentSceneInputTestFixture _inputFixture;
         private Keyboard _keyboard;
         private Mouse _mouse;
 
         [SetUp]
         public void SetUp()
         {
-            _inputFixture = new InputTestFixture();
+            _inputFixture = new DevelopmentSceneInputTestFixture();
             _inputFixture.Setup();
             _keyboard = InputSystem.AddDevice<Keyboard>();
             _mouse = InputSystem.AddDevice<Mouse>();

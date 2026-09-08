@@ -33,13 +33,13 @@ namespace CozyTown.Tests.PlayMode
         private GameObject _hud;
         private GameObject _world;
         private GameObject _player;
-        private InputTestFixture _input;
+        private DevelopmentSceneInputTestFixture _input;
         private Mouse _mouse;
 
         [SetUp]
         public void SetUp()
         {
-            _input = new InputTestFixture();
+            _input = new DevelopmentSceneInputTestFixture();
             _input.Setup();
             _mouse = InputSystem.AddDevice<Mouse>();
             InputSystem.AddDevice<Keyboard>();
