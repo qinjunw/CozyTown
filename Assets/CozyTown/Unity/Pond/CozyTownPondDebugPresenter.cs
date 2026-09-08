@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using CozyTown.Runtime.Application;
+using CozyTown.Unity.Hud;
 using CozyTown.Unity.Interaction;
 using UnityEngine;
 
@@ -50,9 +52,12 @@ namespace CozyTown.Unity.Pond
         private void Catch()
         {
             var result = _coordinator.Catch(_rollSource.NextRoll());
+            var state = _coordinator.GetCurrentState();
             _view.Show(
-                _coordinator.GetCurrentState(),
-                result.IsSuccess ? $"Caught {result.Value.ItemId}." : $"Catch failed: {result.ErrorCode}");
+                state,
+                result.IsSuccess
+                    ? $"Caught {state.Entries.FirstOrDefault(entry => entry.ItemId == result.Value.ItemId)?.DisplayName ?? "fish"}."
+                    : CozyTownGameplayFeedback.Failure("Catch", result.ErrorCode, this));
         }
     }
 }

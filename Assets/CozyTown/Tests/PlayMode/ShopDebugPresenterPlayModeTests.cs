@@ -88,7 +88,7 @@ namespace CozyTown.Tests.PlayMode
                 Is.EqualTo(DefaultMvpIds.Characters.Player));
             Assert.That(coordinator.LastQuantity, Is.EqualTo(1));
             Assert.That(view.Feedback, Is.EqualTo(
-                "Sell failed: inventory.insufficient_quantity"));
+                "You no longer have enough of this item to sell."));
 
             view.RequestClose();
             Assert.That(presenter.IsOpen, Is.False);

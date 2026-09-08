@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using CozyTown.Runtime.Application;
+using CozyTown.Unity.Hud;
 using CozyTown.Unity.Interaction;
 using UnityEngine;
 
@@ -43,11 +45,12 @@ namespace CozyTown.Unity.Kitchen
         private void Cook(string recipeId)
         {
             var result = _coordinator.Cook(recipeId);
+            var state = _coordinator.GetCurrentState();
             _view.Show(
-                _coordinator.GetCurrentState(),
+                state,
                 result.IsSuccess
-                    ? $"Cooked {result.Value.OutputItemId} x{result.Value.OutputQuantity}."
-                    : $"Cook failed: {result.ErrorCode}");
+                    ? $"Cooked {state.Recipes.FirstOrDefault(recipe => recipe.OutputItemId == result.Value.OutputItemId)?.OutputDisplayName ?? "food"} x{result.Value.OutputQuantity}."
+                    : CozyTownGameplayFeedback.Failure("Cook", result.ErrorCode, this));
         }
     }
 }

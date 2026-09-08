@@ -105,7 +105,7 @@ namespace CozyTown.Unity.Kitchen
                 var recipeId = recipe.RecipeId;
                 var row = rows[index];
                 row.SetContent(
-                    $"{recipe.OutputDisplayName} x{recipe.OutputQuantity}",
+                    BuildRecipeDetails(recipe),
                     iconCatalog.GetItemSprite(recipe.OutputItemId));
                 row.SetButton(
                     0,
@@ -119,6 +119,22 @@ namespace CozyTown.Unity.Kitchen
             {
                 rows[index].Clear();
             }
+        }
+
+        private static string BuildRecipeDetails(RecipeView recipe)
+        {
+            string details = $"{recipe.OutputDisplayName} x{recipe.OutputQuantity}";
+            foreach (RecipeIngredientView ingredient in recipe.Ingredients)
+            {
+                details += $"\n{ingredient.DisplayName}: {ingredient.OwnedQuantity} owned / "
+                    + $"{ingredient.RequiredQuantity} needed";
+                if (ingredient.OwnedQuantity < ingredient.RequiredQuantity)
+                {
+                    details += $" (missing {ingredient.RequiredQuantity - ingredient.OwnedQuantity})";
+                }
+            }
+
+            return details;
         }
 
         private void ClearRows()

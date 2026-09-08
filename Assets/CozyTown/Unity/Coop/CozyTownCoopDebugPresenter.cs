@@ -1,6 +1,8 @@
 using System;
 using CozyTown.Runtime.Application;
 using CozyTown.Runtime.Core;
+using CozyTown.Runtime.Time;
+using CozyTown.Unity.Hud;
 using CozyTown.Unity.Interaction;
 using UnityEngine;
 
@@ -9,6 +11,9 @@ namespace CozyTown.Unity.Coop
     public sealed class CozyTownCoopDebugPresenter : CozyTownModalPresenterBase
     {
         private ILivestockGameplayCoordinator _coordinator;
+        private IWorldTimeFlow _timeFlow;
+        private int _lastSettlementDay;
+        private long _lastRebuildVersion;
         [SerializeField] private CozyTownCoopDebugView _view;
         [SerializeField] private CozyTownCoopWorldView _worldView;
 
@@ -30,12 +35,47 @@ namespace CozyTown.Unity.Coop
             }
         }
 
-        public void Bind(ILivestockGameplayCoordinator coordinator)
+        public void Bind(ILivestockGameplayCoordinator coordinator, IWorldTimeFlow timeFlow = null)
         {
             _coordinator = coordinator ?? throw new ArgumentNullException(nameof(coordinator));
+            if (_timeFlow != null)
+            {
+                _timeFlow.Changed -= RefreshWorldAfterSettlement;
+            }
+            _timeFlow = timeFlow;
+            if (_timeFlow != null)
+            {
+                _lastSettlementDay = SettlementDay(_timeFlow.Current);
+                _lastRebuildVersion = _timeFlow.Current.RebuildVersion;
+                _timeFlow.Changed += RefreshWorldAfterSettlement;
+            }
             _worldView?.Show(_coordinator.GetCurrentState());
             DependenciesChanged();
         }
+
+        // World presentation follows the bound session even while the modal presenter is disabled.
+        private void OnDestroy()
+        {
+            if (_timeFlow != null)
+            {
+                _timeFlow.Changed -= RefreshWorldAfterSettlement;
+            }
+        }
+
+        private void RefreshWorldAfterSettlement(WorldTimeProgress progress)
+        {
+            int settlementDay = SettlementDay(progress);
+            if (settlementDay == _lastSettlementDay && progress.RebuildVersion == _lastRebuildVersion)
+            {
+                return;
+            }
+            _lastSettlementDay = settlementDay;
+            _lastRebuildVersion = progress.RebuildVersion;
+            _worldView?.Show(_coordinator.GetCurrentState());
+        }
+
+        private static int SettlementDay(WorldTimeProgress progress) =>
+            progress.Clock.Day - (progress.Clock.MinuteOfDay < 5 * 60 ? 1 : 0);
 
         protected override void SubscribeView()
         {
@@ -61,7 +101,7 @@ namespace CozyTown.Unity.Coop
             var result = command();
             Present(
                 _coordinator.GetCurrentState(),
-                result.IsSuccess ? $"{action} succeeded." : $"{action} failed: {result.ErrorCode}");
+                result.IsSuccess ? $"{action} succeeded." : CozyTownGameplayFeedback.Failure(action, result.ErrorCode, this));
         }
 
         private void Present(LivestockViewState state, string feedback)

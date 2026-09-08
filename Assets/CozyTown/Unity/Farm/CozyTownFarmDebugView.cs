@@ -243,16 +243,32 @@ namespace CozyTown.Unity.Farm
             closeButton?.onClick.RemoveListener(RequestClose);
         }
 
-        private static string BuildPlotStatus(FarmPlotView plot)
+        private string BuildPlotStatus(FarmPlotView plot)
         {
             if (plot.Status == FarmPlotStatus.Empty)
             {
-                return $"{plot.PlotId} — Empty";
+                foreach (FarmSeedOption seed in State.SeedOptions)
+                {
+                    if (seed.OwnedQuantity > 0)
+                    {
+                        return $"{plot.PlotId} — Empty\nChoose a seed.";
+                    }
+                }
+
+                return $"{plot.PlotId} — Empty\nNo seeds. Buy seeds at the shop.";
             }
 
-            string watered = plot.WateredToday ? "Watered" : "Needs water";
+            if (plot.Status == FarmPlotStatus.Ready)
+            {
+                return $"{plot.PlotId} — {plot.CropDisplayName}\n"
+                    + "Ready to harvest. No watering needed.";
+            }
+
+            string guidance = plot.WateredToday
+                ? "Watered. Growth at 05:00."
+                : "Needs water before 05:00.";
             return $"{plot.PlotId} — {plot.CropDisplayName} — "
-                + $"{plot.Status} — {plot.GrowthProgressDays}/{plot.GrowthDays} days — {watered}";
+                + $"{plot.GrowthProgressDays}/{plot.GrowthDays} days\n{guidance}";
         }
     }
 }
