@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace CozyTown.Unity.Lighting
@@ -20,8 +19,6 @@ namespace CozyTown.Unity.Lighting
         [SerializeField, Range(0, 1439)] private int _lampFadeInEndMinute = 1140;
         [SerializeField, Range(0, 1439)] private int _lampFadeOutStartMinute = 300;
         [SerializeField, Range(0, 1439)] private int _lampFadeOutEndMinute = 360;
-
-        public IReadOnlyList<TownLightingKeyframe> Keyframes => _keyframes;
 
         public TownLightingSample Evaluate(double minuteOfDay)
         {

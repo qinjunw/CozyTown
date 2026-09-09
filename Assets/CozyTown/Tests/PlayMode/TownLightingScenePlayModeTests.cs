@@ -2,7 +2,6 @@
 using System.Collections;
 using System.IO;
 using System.Linq;
-using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Time;
 using CozyTown.Unity.Interaction;
 using CozyTown.Unity.Lighting;
@@ -113,12 +112,9 @@ namespace CozyTown.Tests.PlayMode
             GameObject[] roots = _scene.GetRootGameObjects();
             var driver = roots.Single(root => root.name == "CozyTown").GetComponent<DaytimeClockDriver>();
             var world = roots.Single(root => root.name == "World");
-            var controller = world.GetComponentInChildren<TownLightingController>();
             var lamps = world.GetComponentsInChildren<TownLamp2D>(true);
-            var services = CozyTownCompositionRoot.CreateDefault();
-            controller.Bind(services.WorldTimeFlow);
-            driver.Bind(services.DaytimeClock);
             driver.SetApplicationFocus(false);
+            int currentMinute = 360;
 
             var player = roots.Single(root => root.name == "Player");
             var body = player.GetComponent<Rigidbody2D>();
@@ -139,7 +135,7 @@ namespace CozyTown.Tests.PlayMode
             float unlitRoad = 0f;
             for (int index = 0; index < minutes.Length; index++)
             {
-                AdvanceToMinute(services, minutes[index]);
+                AdvanceToMinute(driver, ref currentMinute, minutes[index]);
                 Assert.That(driver.IsSimulationPaused, Is.True);
                 yield return Capture("lighting-" + names[index] + ".png");
                 imageColors[index] = MeanImageColor();
@@ -166,7 +162,7 @@ namespace CozyTown.Tests.PlayMode
                 Assert.That(Vector3.Distance(imageColors[first], imageColors[second]), Is.GreaterThan(0.01f),
                     names[first] + " and " + names[second] + " must render different town colors.");
 
-            AdvanceToMinute(services, 360);
+            AdvanceToMinute(driver, ref currentMinute, 360);
             foreach (var lamp in lamps)
             {
                 Assert.That(lamp.GetComponentInChildren<Light2D>(true).enabled, Is.False, lamp.name);
@@ -174,7 +170,7 @@ namespace CozyTown.Tests.PlayMode
                     .Single(sprite => sprite.name == "Glass Glow").enabled, Is.False, lamp.name);
             }
 
-            AdvanceToMinute(services, 120);
+            AdvanceToMinute(driver, ref currentMinute, 120);
             Assert.That(driver.IsSimulationPaused, Is.True);
             body.linearVelocity = Vector2.zero;
             body.position = new Vector2(-4f, 8.5f);
@@ -189,19 +185,10 @@ namespace CozyTown.Tests.PlayMode
             yield return Capture("lighting-0200-residential-east.png");
         }
 
-        private static void AdvanceToMinute(CozyTownServices services, int minuteOfDay)
+        private static void AdvanceToMinute(DaytimeClockDriver driver, ref int currentMinute, int minuteOfDay)
         {
-            int minutes = (minuteOfDay - services.Time.Current.MinuteOfDay + 1440) % 1440;
-            while (minutes >= 60)
-            {
-                int sleepMinutes = Mathf.Min(720, minutes / 60 * 60);
-                Assert.That(services.Sleep.SleepForMinutes(sleepMinutes).IsSuccess, Is.True);
-                minutes -= sleepMinutes;
-            }
-            if (minutes > 0)
-                Assert.That(services.DaytimeClock.AdvanceElapsed(
-                    minutes * WorldTimeProgress.EffectiveSecondsPerGameMinute).IsSuccess, Is.True);
-            Assert.That(services.Time.Current.MinuteOfDay, Is.EqualTo(minuteOfDay));
+            AdvanceMinutes(driver, (minuteOfDay - currentMinute + 1440) % 1440);
+            currentMinute = minuteOfDay;
         }
 
         private IEnumerator Capture(string fileName)
