@@ -326,3 +326,9 @@ A1 静态文件：`Characters/npc_townsfolk_idle_down_24x32.png`
 所有单元使用 BottomCenter、16 PPU、固定 32 色板与二值 Alpha。每个人的所有生成帧使用共同比例归一化到原生画布，不逐帧裁边后 fit。每个 Sprite 由同名 `.pixels` 单元直接编译，人物包络沿用第 4.7 节；左右主体可以整帧镜像，不能以缩小对话头像代替世界人物。
 
 每户至少两项可见差异，门口与现有浅门槽对齐。屋顶从同一份已定位建筑像素取得，底部 38 行透明，不单独缩放；在真实场景中验证人物头顶净空。T1 增加 6 PNG、56 Sprite，连同保留的 A1 共 19 PNG、162 Sprite。
+
+## 8. L1 路灯契约
+
+`Props/prop_town_lamp_16x32.png` 是 `32×32` 的两列图集，每格 `16×32`，依次为 `prop_town_lamp` 与 `prop_town_lamp_glow`。两格均使用 16 PPU、BottomCenter、Point、无压缩、无 Mipmap、固定 WarmRural32 和二值 Alpha。源为 `ArtSource/Authored/L1/` 下的两个同名 `.pixels` 文件，预览为 `ArtSource/Previews/L1/prop_town_lamp_16x32_4x.png`。
+
+灯柱脚底位于本地 `y=0`；发光玻璃是与灯柱共用画布和 Pivot 的叠加层，其下部保持透明，不单独裁边或缩放。灯柱使用受光材质，玻璃使用自发光材质并由路灯强度调整透明度。`CozyTown/Art/Build Town Lighting Pixel Art` 只编译这两格。L1 增加 1 PNG、2 Sprite，连同保留的 A1、T1 共 20 PNG、164 Sprite。

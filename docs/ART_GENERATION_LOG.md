@@ -131,3 +131,9 @@ A1 编译定义将参考图收敛为 `16×16 px` 的 `ui_panel`：三层木框�
 RED 记录旧图集可见高度为 `29..32`，并复现右向脚部缺失；左右 idle、walkA、walkB 的整体水平镜像轮廓交并比分别为 `0.791`、`0.639`、`0.740`，底部 8 行分别为 `0.365`、`0.221`、`0.333`。GREEN 后每帧脚底为 `y=0`、顶部为 `y=29` 或 `y=30`、水平边界位于 `x=2..21` 内、中心位于 `x=11..12`，脚底至少包含 2 个不透明像素，所有不透明像素通过四邻域连接到脚底，12 帧可见高度差不超过 1 像素；左右整体和底部 8 行轮廓交并比均为 `1.0`。
 
 Production 目标夹具 `9/9`、全量 EditMode `193/193`、PlayMode `35/35` 通过，均为 0 failed、0 skipped。连续 A1 重建前后的主角 Production PNG、4× 预览和当前场景 SHA-256 分别保持为 `6B3FDBE287AB23372CDAEBAAE41CAE645B9B4548EE2A2F15B175E7E9C1C13D90`、`1717079B2C7AE1D716959E45533788D86AFD9A508024CCE48F62DC73312E1604`、`903D7E53BCFB4D9244939F3F08EBF4C2499FB352520C06CB29AA9C2AB3BBEECC`。三档实际画面中的体型一致性、脚部完整性和动作观感仍由人工场景验收判定。
+
+## 11. L1 路灯
+
+2026-09-09 按昼夜光照需求在 `ArtSource/Authored/L1/` 编写两份原生 `16×32` `.pixels`：灯柱与同画布发光玻璃。此次没有生成式图像输入。既有 `CozyTownPixelArtBatchCompiler` 使用 WarmRural32 和 authored cell 路径编译两格，输出 `Props/prop_town_lamp_16x32.png` 与 4× 最近邻预览；导入使用 16 PPU、BottomCenter 和二值 Alpha。
+
+灯柱亮度跟随环境光；玻璃透明度与局部灯光共同跟随路灯时间窗。运行时淡入淡出不修改源像素。光照接线与图形验证见 [小镇天色与路灯](DAY_NIGHT_LIGHTING.md)。
