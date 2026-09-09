@@ -1,0 +1,147 @@
+{
+  "date": "2026-09-09",
+  "issue": "https://github.com/qinjunw/CozyTown/issues/48",
+  "baseline": "acd79350a70d41cf91e5fbfe6e08e9498ad833b1",
+  "codeRevision": "62efa333ff185a0eeefe95f19432b4332ec061a4",
+  "unityVersion": "6000.5.5f1",
+  "finalChecks": [
+    {
+      "run": "lighting-final-edit02",
+      "revision": "62efa333ff185a0eeefe95f19432b4332ec061a4",
+      "result": "Passed",
+      "total": 491,
+      "passed": 491,
+      "failed": 0,
+      "skipped": 0,
+      "unityExitCode": 0,
+      "xmlSha256": "0733536F36F1F81F6CDB6929CB16D5DBA3A21927FB54075C566D1B5460CCBF48"
+    },
+    {
+      "run": "lighting-final-play02",
+      "revision": "62efa333ff185a0eeefe95f19432b4332ec061a4",
+      "result": "Passed",
+      "total": 149,
+      "passed": 149,
+      "failed": 0,
+      "skipped": 0,
+      "unityExitCode": 0,
+      "xmlSha256": "3266677BB8B6A2B35E8F7601CE3C0EDDD1D5C916DA528A20DF4BA7E85DB9809F"
+    }
+  ],
+  "addedTests": {
+    "EditMode": 23,
+    "PlayMode": 8
+  },
+  "sceneScope": {
+    "addedLightingBlocks": 240,
+    "changedExistingBlocks": 2,
+    "unexpectedChanges": 0
+  },
+  "regeneration": {
+    "run": "lighting-scene-repeat01",
+    "unityExitCode": 0,
+    "sceneAndProfileByteIdenticalAfterRepeat": true
+  },
+  "renderedMeasurements": {
+    "width": 960,
+    "height": 540,
+    "dayMeanLuminance": 0.4663,
+    "deepNightMeanLuminance": 0.2506,
+    "sameNightRoadLampsOn": 0.3797,
+    "sameNightRoadLampsOff": 0.2527,
+    "minimumDayToDeepNightRatio": 1.25,
+    "minimumRoadLuminanceDifference": 0.025,
+    "minimumPairwiseSixPhaseMeanRgbDistance": 0.01
+  },
+  "screenshots": [
+    {
+      "path": "docs/evidence/day-night-lighting/lighting-0900-day.png",
+      "sha256": "61AB20FBB1694210729CF9D9B82C8EE2D084A8E248871630C983815D08424AF1"
+    },
+    {
+      "path": "docs/evidence/day-night-lighting/lighting-1500-afternoon.png",
+      "sha256": "0103A124C35EF744799A23FF0B2FBAD6F06AA9A31BAD21715E5CAA0BDED81A8F"
+    },
+    {
+      "path": "docs/evidence/day-night-lighting/lighting-1800-dusk.png",
+      "sha256": "922BEDDFCB4B219270325179D3EF62318AA612A51CC99BB3170A9B6BD893AFB7"
+    },
+    {
+      "path": "docs/evidence/day-night-lighting/lighting-2000-night.png",
+      "sha256": "9A65E55C1D97F0BD5F7436C2434E28475BED58B210F17BFF43634FD25DC32355"
+    },
+    {
+      "path": "docs/evidence/day-night-lighting/lighting-0200-deep-night.png",
+      "sha256": "D85C9524A84105C9A0071B7254F620A0B4EA685219B551FD09C01F75C7CC121F"
+    },
+    {
+      "path": "docs/evidence/day-night-lighting/lighting-0530-dawn.png",
+      "sha256": "AF94F2B5AAFDE210206468B320AF6F1FE6A4B7647D4B2ACB7DB6DF4F3CF39447"
+    },
+    {
+      "path": "docs/evidence/day-night-lighting/lighting-0200-deep-night-lamps-off.png",
+      "sha256": "3A50D418F320E5AB253C97C92B978DA24AF2C5629DF92B7FE0C90D4446E33661"
+    },
+    {
+      "path": "docs/evidence/day-night-lighting/lighting-0200-residential.png",
+      "sha256": "F530E028C9A4CD654A1503933AC2DF6C5ABDE2504509581A0A9D27C7A6553460"
+    },
+    {
+      "path": "docs/evidence/day-night-lighting/lighting-0200-residential-east.png",
+      "sha256": "AF9CA9F2010E282F18E90F1A3C487C4C1B91CEDBBDB5720BB7952A817B5F4577"
+    }
+  ],
+  "reviews": [
+    {
+      "axis": "Standards",
+      "revision": "3946546",
+      "findings": [
+        "Public Keyframes property exposed its mutable backing array."
+      ]
+    },
+    {
+      "axis": "Standards",
+      "revision": "62efa33",
+      "previousFinding": "Resolved by removing unused public property.",
+      "remainingFindings": 0
+    },
+    {
+      "axis": "Spec",
+      "revision": "62efa33",
+      "remainingFindings": 0
+    }
+  ],
+  "redEvidence": [
+    {
+      "run": "lighting-profile-red01",
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "result": "Failed(Child)"
+    },
+    {
+      "run": "lighting-core-red03",
+      "total": 23,
+      "passed": 22,
+      "failed": 1,
+      "result": "Failed(Child)"
+    },
+    {
+      "run": "lighting-scene-red01",
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "result": "Failed(Child)"
+    }
+  ],
+  "evidenceNotes": [
+    "Counts and measurements are read from Unity XML and logs. Complete raw runs remain in ignored Logs and are not included in a fresh clone.",
+    "RED evidence covers an initially constant profile, missing time-change subscription, and missing formal-scene lighting.",
+    "An initial scene upgrade failed on Unity native-component null handling; the corrected explicit Unity null comparison passed upgrade and byte-identical repeat.",
+    "Earlier PlayMode preparation exposed a HUD LateUpdate assertion timing issue and test storage-interface compilation errors; final checks include the fixes.",
+    "Final screenshots use the formal scene clock for lighting, NPCs and HUD. Earlier isolated-lighting screenshots were replaced.",
+    "All nine final camera images were inspected for phase colors, lamp pools, and door/road placement. Automated scene checks retain the original map, collisions and overlay HUD.",
+    "Sleep/load use isolated in-memory storage. Runtime lighting is derived from world time and adds no save fields.",
+    "Scene-01 and Town-01 full human playthrough acceptance remain pending. Real AI stays disabled."
+  ]
+}
