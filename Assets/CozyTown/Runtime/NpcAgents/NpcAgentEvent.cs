@@ -7,7 +7,9 @@ namespace CozyTown.Runtime.NpcAgents
         DayChanged,
         ActivityAccepted,
         ActivityCancelled,
-        ActivityExpired
+        ActivityExpired,
+        SocialOpportunity,
+        MeetingChanged
     }
 
     public sealed class NpcAgentEvent

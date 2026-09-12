@@ -75,11 +75,12 @@ namespace CozyTown.Unity.Core
         private INpcDecisionClient _decisionClient;
         private NpcDefinition[] _decisionProfiles;
         private NpcDecisionSettings _decisionSettings;
+        private NpcMeetingPlan[] _meetingPlans;
 
         public bool IsInitialized => _services != null;
 
         public void ConfigureDecisions(INpcDecisionClient client, IEnumerable<NpcDefinition> profiles,
-            NpcDecisionSettings settings = null)
+            NpcDecisionSettings settings = null, IEnumerable<NpcMeetingPlan> meetingPlans = null)
         {
             if (IsInitialized) throw new InvalidOperationException("Services are already initialized.");
             if (client == null) throw new ArgumentNullException(nameof(client));
@@ -87,6 +88,7 @@ namespace CozyTown.Unity.Core
             _decisionProfiles = profiles.ToArray();
             _decisionClient = client;
             _decisionSettings = settings;
+            _meetingPlans = meetingPlans?.ToArray();
         }
 
         public void SetFactory(ICozyTownServicesFactory factory)
@@ -304,7 +306,7 @@ namespace CozyTown.Unity.Core
             if (_townLife == null) return;
             _townLife.Bind(_services.WorldTimeFlow);
             if (_decisionClient != null && !_townLife.DecisionsEnabled)
-                _townLife.ConfigureDecisions(_decisionClient, _decisionProfiles, _decisionSettings);
+                _townLife.ConfigureDecisions(_decisionClient, _decisionProfiles, _decisionSettings, _meetingPlans);
         }
 
         public void RegisterTownLighting(TownLightingController controller)
@@ -377,7 +379,8 @@ namespace CozyTown.Unity.Core
                 string endpoint = Environment.GetEnvironmentVariable(AgentProxyEndpointEnvironmentVariable);
                 if (!string.IsNullOrWhiteSpace(endpoint))
                 {
-                    try { ConfigureDecisions(new ProxyNpcDecisionClient(endpoint), configuration.Npcs); }
+                    try { ConfigureDecisions(new ProxyNpcDecisionClient(endpoint), configuration.Npcs,
+                        meetingPlans: CozyTown.Runtime.Content.DefaultNpcMeetingPlans.Create()); }
                     catch (ArgumentException)
                     {
                         Debug.LogWarning("Autonomous NPC decisions remain disabled: COZYTOWN_AGENT_PROXY_ENDPOINT must be an absolute HTTP or HTTPS URI.", this);

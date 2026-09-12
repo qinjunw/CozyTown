@@ -14,6 +14,7 @@ namespace CozyTown.Runtime.NpcAgents
         private readonly Resident[] _residents;
         private readonly INpcDecisionClient _client;
         private readonly NpcDecisionSettings _settings;
+        private readonly NpcMeetingBoard _meetings;
         private readonly Queue<double> _requestStarts = new Queue<double>();
         private readonly List<NpcDecisionOutcome> _completed = new List<NpcDecisionOutcome>();
         private double _lastTick = double.NegativeInfinity;
@@ -39,11 +40,12 @@ namespace CozyTown.Runtime.NpcAgents
         }
 
         public NpcDecisionScheduler(NpcAgentWorld world, IEnumerable<NpcDefinition> profiles, INpcDecisionClient client,
-            NpcDecisionSettings settings = null)
+            NpcDecisionSettings settings = null, NpcMeetingBoard meetings = null)
         {
             _world = world ?? throw new ArgumentNullException(nameof(world));
             _client = client ?? throw new ArgumentNullException(nameof(client));
             _settings = settings ?? new NpcDecisionSettings();
+            _meetings = meetings;
             if (profiles == null) throw new ArgumentNullException(nameof(profiles));
             _residents = profiles.Select(profile => new Resident { Profile = profile }).ToArray();
             var ids = new HashSet<string>(StringComparer.Ordinal);
@@ -68,6 +70,7 @@ namespace CozyTown.Runtime.NpcAgents
             if (world == null) throw new ArgumentNullException(nameof(world));
             foreach (var resident in _residents) world.GetState(resident.Profile.Id);
             _world = world;
+            _meetings?.BindWorld(world);
         }
 
         public void Dispose()
@@ -98,6 +101,7 @@ namespace CozyTown.Runtime.NpcAgents
                 throw new ArgumentOutOfRangeException(nameof(realSeconds), "Decision time must be finite, nonnegative and monotonic.");
             _lastTick = realSeconds;
             _completed.Clear();
+            _meetings?.Observe();
             while (_requestStarts.Count > 0 && _requestStarts.Peek() <= realSeconds - 60) _requestStarts.Dequeue();
             int active = 0;
             foreach (var resident in _residents)
@@ -141,11 +145,17 @@ namespace CozyTown.Runtime.NpcAgents
                 }
                 var events = _world.TakeEvents(resident.Profile.Id);
                 state = _world.GetState(resident.Profile.Id);
-                if (!events.Any(item => item.Kind != NpcAgentEventKind.ActivityAccepted)
+                var social = _meetings?.GetContext(resident.Profile.Id);
+                if (social != null)
+                {
+                    if (events.Count == 0) continue;
+                }
+                else if (_meetings?.GetCurrent(resident.Profile.Id) != null
+                    || !events.Any(item => item.Kind != NpcAgentEventKind.ActivityAccepted && item.Kind != NpcAgentEventKind.MeetingChanged)
                     || state.ActiveActivity != null || state.Target.ExpectedActivity != NpcActivity.Resting) continue;
                 resident.Pending = new NpcDecisionRequest(resident.Profile, state, _world.TotalMinutes, events,
                     _world.GetKnownLocationIds(resident.Profile.Id), _settings.MaxCallsPerDecision,
-                    resident.LastOutcome?.WorldRunId == state.WorldRunId ? resident.LastOutcome.Code : null);
+                    resident.LastOutcome?.WorldRunId == state.WorldRunId ? resident.LastOutcome.Code : null, social);
             }
             int first = _nextResident;
             for (int offset = 0; offset < _residents.Length; offset++)
@@ -156,8 +166,11 @@ namespace CozyTown.Runtime.NpcAgents
                 if (resident.Request != null) continue;
                 if (resident.Current == null)
                 {
-                    if (resident.Pending == null || realSeconds < resident.LastStarted + _settings.ResidentCooldownSeconds) continue;
+                    if (resident.Pending == null) continue;
+                    bool socialReply = resident.Pending.Social != null && resident.Pending.Social.Kind != NpcSocialContextKind.Opportunity;
+                    if (!socialReply && realSeconds < resident.LastStarted + _settings.ResidentCooldownSeconds) continue;
                     resident.Current = resident.Pending;
+                    if (resident.Current.Social?.Kind == NpcSocialContextKind.Opportunity) _meetings.TakeOpportunity(resident.Profile.Id);
                     resident.Pending = null;
                     resident.LastStarted = realSeconds;
                     resident.Calls = 0;
@@ -197,6 +210,27 @@ namespace CozyTown.Runtime.NpcAgents
             if (reply == null)
             {
                 Finish(resident, "agent.response_invalid");
+                return;
+            }
+            if (!context.AllowedOperations.Contains(reply.Operation))
+            {
+                Finish(resident, string.IsNullOrEmpty(reply.Operation) ? "agent.response_invalid" : "agent.operation_unavailable", reply: reply);
+                return;
+            }
+            if (context.Social != null && reply.Kind != NpcDecisionKind.Wait)
+            {
+                if (reply.Kind == NpcDecisionKind.Invite)
+                {
+                    if (reply.PlanId != context.Social.PlanId) { Finish(resident, "meeting.plan_unknown", reply: reply); return; }
+                    var invited = _meetings.Invite(context.Self, reply.PlanId);
+                    Finish(resident, invited.IsSuccess ? "meeting.invited" : invited.ErrorCode, reply: reply);
+                    return;
+                }
+                if (reply.MeetingId != context.Social.MeetingId) { Finish(resident, "meeting.unknown", reply: reply); return; }
+                var result = reply.Kind == NpcDecisionKind.Speak ? _meetings.Speak(context.Self, reply.MeetingId, reply.Text)
+                    : reply.Kind == NpcDecisionKind.EndConversation ? _meetings.EndConversation(context.Self, reply.MeetingId)
+                    : _meetings.Respond(context.Self, reply.MeetingId, reply.Kind == NpcDecisionKind.AcceptInvitation);
+                Finish(resident, result.IsSuccess ? "meeting." + reply.Operation : result.ErrorCode, reply: reply);
                 return;
             }
             if (reply.Kind == NpcDecisionKind.Wait)

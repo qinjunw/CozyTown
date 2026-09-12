@@ -9,7 +9,7 @@ namespace CozyTown.Runtime.NpcAgents
     {
         internal NpcDecisionRequest(NpcDefinition profile, NpcAgentSnapshot self,
             double gameTotalMinutes, IEnumerable<NpcAgentEvent> triggers, IEnumerable<string> knownLocationIds,
-            int maxCalls, string previousResultCode)
+            int maxCalls, string previousResultCode, NpcSocialContext social = null)
         {
             NpcId = profile.Id;
             DisplayName = profile.DisplayName;
@@ -22,6 +22,7 @@ namespace CozyTown.Runtime.NpcAgents
             Step = 1;
             MaxCalls = maxCalls;
             PreviousResultCode = previousResultCode;
+            Social = social;
         }
 
         internal NpcDecisionRequest(NpcDecisionRequest previous, NpcLocationDetails details)
@@ -38,6 +39,7 @@ namespace CozyTown.Runtime.NpcAgents
             Step = previous.Step + 1;
             MaxCalls = previous.MaxCalls;
             PreviousResultCode = previous.PreviousResultCode;
+            Social = previous.Social;
         }
 
         public string NpcId { get; }
@@ -52,5 +54,11 @@ namespace CozyTown.Runtime.NpcAgents
         public int Step { get; }
         public int MaxCalls { get; }
         public string PreviousResultCode { get; }
+        public NpcSocialContext Social { get; }
+        public IReadOnlyList<string> AllowedOperations => Array.AsReadOnly(Social == null
+            ? new[] { "wait", "inspect_location", "visit" }
+            : Social.Kind == NpcSocialContextKind.Opportunity ? new[] { "invite", "wait" }
+            : Social.Kind == NpcSocialContextKind.Invitation ? new[] { "accept_invite", "decline_invite" }
+            : Social.Transcript.Count >= 2 ? new[] { "say", "end_conversation" } : new[] { "say" });
     }
 }
