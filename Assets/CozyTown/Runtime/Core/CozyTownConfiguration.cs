@@ -28,7 +28,8 @@ namespace CozyTown.Runtime.Core
             NpcDefinition[] npcs = null,
             ShopRestockRule[] shopRestockRules = null,
             int startingWorldSeed = 0,
-            int startingShopBalance = 10000)
+            int startingShopBalance = 10000,
+            CharacterEconomySnapshot[] initialNpcEconomy = null)
         {
             Items = Copy(items);
             ShopOffers = Copy(shopOffers);
@@ -47,6 +48,7 @@ namespace CozyTown.Runtime.Core
             ShopRestockRules = Copy(shopRestockRules);
             StartingWorldSeed = startingWorldSeed;
             StartingShopBalance = startingShopBalance;
+            InitialNpcEconomy = Copy(initialNpcEconomy);
         }
 
         public ItemDefinition[] Items { get; }
@@ -82,6 +84,7 @@ namespace CozyTown.Runtime.Core
         public int StartingWorldSeed { get; }
 
         public int StartingShopBalance { get; }
+        public CharacterEconomySnapshot[] InitialNpcEconomy { get; }
 
         public static CozyTownConfiguration Empty()
         {

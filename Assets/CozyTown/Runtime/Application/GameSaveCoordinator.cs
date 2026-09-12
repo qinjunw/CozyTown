@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using CozyTown.Runtime.Content;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Economy;
 using CozyTown.Runtime.Farming;
@@ -18,6 +20,7 @@ namespace CozyTown.Runtime.Application
         private readonly IFarmService _farm;
         private readonly ILivestockService _livestock;
         private readonly ISaveStorage _storage;
+        private readonly CharacterEconomySnapshot[] _legacyNpcDefaults;
 
         public GameSaveCoordinator(
             IWorldSeedState worldSeed,
@@ -25,7 +28,8 @@ namespace CozyTown.Runtime.Application
             IEconomyStateStore economyState,
             IFarmService farm,
             ILivestockService livestock,
-            ISaveStorage storage)
+            ISaveStorage storage,
+            CharacterEconomySnapshot[] legacyNpcDefaults = null)
         {
             _worldSeed = worldSeed ?? throw new ArgumentNullException(nameof(worldSeed));
             _time = time ?? throw new ArgumentNullException(nameof(time));
@@ -34,6 +38,7 @@ namespace CozyTown.Runtime.Application
             _farm = farm ?? throw new ArgumentNullException(nameof(farm));
             _livestock = livestock ?? throw new ArgumentNullException(nameof(livestock));
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
+            _legacyNpcDefaults = legacyNpcDefaults?.ToArray() ?? Array.Empty<CharacterEconomySnapshot>();
         }
 
         public bool HasSave => _storage.Exists(MainSlotId);
@@ -71,7 +76,12 @@ namespace CozyTown.Runtime.Application
             }
 
             GameSaveSnapshot before = CaptureSnapshot();
-            OperationResult restore = RestoreSnapshot(loaded.Value);
+            var candidate = loaded.Value;
+            if (_legacyNpcDefaults.Length > 0 && candidate.Characters.Length == 1
+                && candidate.Characters[0].CharacterId == DefaultMvpIds.Characters.Player)
+                candidate = new GameSaveSnapshot(candidate.SchemaVersion, candidate.WorldSeed, candidate.Clock,
+                    candidate.Characters.Concat(_legacyNpcDefaults).ToArray(), candidate.Shops, candidate.Farm, candidate.Livestock);
+            OperationResult restore = RestoreSnapshot(candidate);
             return restore.IsSuccess ? restore : RollBack(before, restore.ErrorCode);
         }
 

@@ -31,14 +31,16 @@ namespace CozyTown.Unity.Npc
             ResponsePayload payload;
             try { payload = JsonUtility.FromJson<ResponsePayload>(trimmed); }
             catch (ArgumentException exception) { throw new FormatException("Decision response contains invalid JSON.", exception); }
-            if (payload == null || (payload.schemaVersion != 1 && payload.schemaVersion != 2))
-                throw new FormatException("Decision response requires schemaVersion 1 or 2.");
-            if (payload.schemaVersion == 2)
+            if (payload == null || (payload.schemaVersion != 1 && payload.schemaVersion != 2 && payload.schemaVersion != 3))
+                throw new FormatException("Decision response requires schemaVersion 1, 2 or 3.");
+            if (payload.schemaVersion >= 2)
             {
                 if (payload.operation == "invite" && !string.IsNullOrWhiteSpace(payload.planId))
                     return new NpcDecisionReply(NpcDecisionKind.Invite, planId: payload.planId);
                 if (Guid.TryParse(payload.meetingId, out var meetingId) && meetingId != Guid.Empty)
                 {
+                    if (payload.schemaVersion == 3 && payload.operation == "deliver") return new NpcDecisionReply(NpcDecisionKind.Deliver, meetingId: meetingId);
+                    if (payload.schemaVersion == 3 && payload.operation == "cancel_exchange") return new NpcDecisionReply(NpcDecisionKind.CancelExchange, meetingId: meetingId);
                     if (payload.operation == "accept_invite") return new NpcDecisionReply(NpcDecisionKind.AcceptInvitation, meetingId: meetingId);
                     if (payload.operation == "decline_invite") return new NpcDecisionReply(NpcDecisionKind.DeclineInvitation, meetingId: meetingId);
                     if (payload.operation == "end_conversation") return new NpcDecisionReply(NpcDecisionKind.EndConversation, meetingId: meetingId);
@@ -118,7 +120,7 @@ namespace CozyTown.Unity.Npc
                 allowedOperations = request.AllowedOperations.ToArray();
                 if (request.Social != null)
                 {
-                    schemaVersion = 2;
+                    schemaVersion = request.Social.Resources == null ? 2 : 3;
                     social = new SocialPayload(request.Social);
                     allowedActivities = Array.Empty<string>();
                     knownLocationIds = Array.Empty<string>();
@@ -129,6 +131,7 @@ namespace CozyTown.Unity.Npc
         [Serializable]
         private sealed class SocialPayload
         {
+            public ResourcePayload resources;
             public string kind, planId, partnerId, placeId, locationId, meetingId;
             public double startsAtTotalMinutes, deadlineTotalMinutes;
             public int maxTurns;
@@ -137,6 +140,11 @@ namespace CozyTown.Unity.Npc
             public SocialPayload(NpcSocialContext context)
             {
                 kind = context.Kind.ToString().ToLowerInvariant();
+                if (context.Resources != null) resources = new ResourcePayload {
+                    sellerId = context.Resources.Terms.SellerId, buyerId = context.Resources.Terms.BuyerId,
+                    itemId = context.Resources.Terms.ItemId, quantity = context.Resources.Terms.Quantity,
+                    totalPrice = context.Resources.Terms.TotalPrice, ownedQuantity = context.Resources.OwnedQuantity,
+                    balance = context.Resources.Balance, deliveryResultCode = context.DeliveryResultCode };
                 planId = context.PlanId; partnerId = context.PartnerId; placeId = context.PlaceId;
                 locationId = context.LocationId;
                 meetingId = context.MeetingId == Guid.Empty ? null : context.MeetingId.ToString("N");
@@ -147,6 +155,13 @@ namespace CozyTown.Unity.Npc
                 memories = context.Memories.Select(item => new MemoryPayload { kind = item.Kind, partnerId = item.PartnerId,
                     speakerId = item.SpeakerId, text = item.Text, gameTotalMinutes = item.TotalMinutes }).ToArray();
             }
+        }
+
+        [Serializable]
+        private sealed class ResourcePayload
+        {
+            public string sellerId, buyerId, itemId, deliveryResultCode;
+            public int quantity, totalPrice, ownedQuantity, balance;
         }
 
         [Serializable]

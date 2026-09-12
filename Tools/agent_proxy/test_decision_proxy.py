@@ -11,6 +11,15 @@ from decision_proxy import DeepSeekTransport, ProxyError, ProxyService, create_s
 
 
 class ProxyServiceTests(unittest.TestCase):
+    def test_resource_candidate_preserves_only_the_accepted_meeting_identifier(self):
+        for operation in ("deliver", "cancel_exchange"):
+            with self.subTest(operation=operation):
+                candidate = {"schemaVersion": 3, "operation": operation, "meetingId": "accepted-id",
+                             "buyerId": "player", "quantity": 999, "totalPrice": 0}
+                service = ProxyService(lambda payload: {"choices": [{"message": {"content": json.dumps(candidate)}}]})
+                context = self.context() | {"schemaVersion": 3, "allowedOperations": ["deliver", "cancel_exchange"]}
+                self.assertEqual(service.decide(context), {"schemaVersion": 3, "operation": operation, "meetingId": "accepted-id"})
+
     def test_trace_and_status_count_failures_and_exclude_unrecognized_candidate_fields(self):
         trace = io.StringIO()
         service = ProxyService(lambda payload: {"choices": [{"message": {"content": json.dumps({
@@ -33,7 +42,7 @@ class ProxyServiceTests(unittest.TestCase):
                 load_cozytown_key(path)
 
     def test_invalid_context_never_reaches_the_provider(self):
-        for context in (None, [], {}, self.context() | {"schemaVersion": 3},
+        for context in (None, [], {}, self.context() | {"schemaVersion": 4},
                         self.context() | {"allowedOperations": ["give_coins"]},
                         self.context() | {"persona": "界" * 12000}):
             with self.subTest(context_type=type(context).__name__):

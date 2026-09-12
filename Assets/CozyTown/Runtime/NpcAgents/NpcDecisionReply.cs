@@ -11,7 +11,9 @@ namespace CozyTown.Runtime.NpcAgents
         AcceptInvitation,
         DeclineInvitation,
         Speak,
-        EndConversation
+        EndConversation,
+        Deliver,
+        CancelExchange
     }
 
     public sealed class NpcDecisionReply
@@ -46,6 +48,8 @@ namespace CozyTown.Runtime.NpcAgents
             NpcDecisionKind.DeclineInvitation => "decline_invite",
             NpcDecisionKind.Speak => "say",
             NpcDecisionKind.EndConversation => "end_conversation",
+            NpcDecisionKind.Deliver => "deliver",
+            NpcDecisionKind.CancelExchange => "cancel_exchange",
             _ => string.Empty
         };
     }

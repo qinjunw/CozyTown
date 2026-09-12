@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CozyTown.Runtime.Core;
+using CozyTown.Runtime.Application;
+using CozyTown.Runtime.Economy;
 using CozyTown.Runtime.Npc;
 using CozyTown.Runtime.NpcAgents;
 using CozyTown.Runtime.NpcLife;
@@ -20,6 +22,7 @@ namespace CozyTown.Unity.Npc
         private NpcAgentWorld _agents;
         private NpcDecisionScheduler _decisions;
         private NpcMeetingBoard _meetings;
+        private CharacterResourceTrading _resources;
         private NpcMeetingDialogueView _meetingView;
 
         public bool DecisionsEnabled => _decisions != null;
@@ -37,11 +40,15 @@ namespace CozyTown.Unity.Npc
             residents = (NpcWorldResident2D[])actors.Clone();
         }
 
-        public void Bind(IWorldTimeFlow timeFlow)
+        public CharacterTradeResources GetMeetingResources(string npcId) => _meetings?.GetResources(npcId);
+
+        public void Bind(IWorldTimeFlow timeFlow, CharacterResourceTrading resources = null)
         {
             if (timeFlow == null) throw new ArgumentNullException(nameof(timeFlow));
+            bool resourcesChanged = resources != null && !ReferenceEquals(_resources, resources);
+            if (resources != null) _resources = resources;
             foreach (var resident in residents) resident.ValidateConfiguration();
-            if (_hasState && ReferenceEquals(_timeFlow, timeFlow)) return;
+            if (_hasState && ReferenceEquals(_timeFlow, timeFlow) && !resourcesChanged) return;
             var schedules = new NpcDailySchedule[residents.Length];
             var actors = new Dictionary<string, NpcWorldResident2D>(StringComparer.Ordinal);
             for (int i = 0; i < residents.Length; i++)
@@ -71,7 +78,7 @@ namespace CozyTown.Unity.Npc
         {
             if (_agents == null) throw new InvalidOperationException("Bind world time before configuring decisions.");
             var profileArray = profiles.ToArray();
-            var meetings = meetingPlans == null ? null : new NpcMeetingBoard(_agents, meetingPlans, MeetingPresence);
+            var meetings = meetingPlans == null ? null : new NpcMeetingBoard(_agents, meetingPlans, MeetingPresence, _resources);
             var candidate = new NpcDecisionScheduler(_agents, profileArray, client, settings, meetings);
             var before = CaptureActivities();
             _decisions?.Dispose();
@@ -167,7 +174,7 @@ namespace CozyTown.Unity.Npc
             if (rebuild)
             {
                 _agents.Observe(progress);
-                _meetings?.BindWorld(_agents);
+                _meetings?.BindWorld(_agents, _resources);
             }
             for (int i = 0; i < residents.Length; i++)
             {

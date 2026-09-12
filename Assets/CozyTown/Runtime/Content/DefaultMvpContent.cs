@@ -54,8 +54,15 @@ namespace CozyTown.Runtime.Content
                 npcs: CreateNpcs(),
                 shopRestockRules: CreateShopRestockRules(),
                 startingWorldSeed: DefaultWorldSeed,
-                startingShopBalance: 10000);
+                startingShopBalance: 10000,
+                initialNpcEconomy: CreateNpcEconomy());
         }
+
+        private static CharacterEconomySnapshot[] CreateNpcEconomy() => new[] {
+            new CharacterEconomySnapshot(DefaultMvpIds.Npcs.Shopkeeper, new InventorySnapshot(System.Array.Empty<ItemStack>()), new WalletSnapshot(0)),
+            new CharacterEconomySnapshot(DefaultMvpIds.Npcs.Farmer, new InventorySnapshot(System.Array.Empty<ItemStack>()), new WalletSnapshot(0)),
+            new CharacterEconomySnapshot(DefaultMvpIds.Npcs.Fisher, new InventorySnapshot(new[] { new ItemStack(DefaultMvpIds.Items.Carp, 2) }), new WalletSnapshot(0)),
+            new CharacterEconomySnapshot(DefaultMvpIds.Npcs.Cook, new InventorySnapshot(new[] { new ItemStack(DefaultMvpIds.Items.Salt, 1) }), new WalletSnapshot(50)) };
 
         private static ItemDefinition[] CreateItems()
         {

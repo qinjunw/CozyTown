@@ -59,6 +59,7 @@ namespace CozyTown.Runtime.NpcAgents
             ? new[] { "wait", "inspect_location", "visit" }
             : Social.Kind == NpcSocialContextKind.Opportunity ? new[] { "invite", "wait" }
             : Social.Kind == NpcSocialContextKind.Invitation ? new[] { "accept_invite", "decline_invite" }
+            : Social.Kind == NpcSocialContextKind.Delivery ? new[] { "deliver", "cancel_exchange" }
             : Social.Transcript.Count >= 2 ? new[] { "say", "end_conversation" } : new[] { "say" });
     }
 }

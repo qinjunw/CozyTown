@@ -4,6 +4,7 @@ using System.Linq;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Inventory;
 using CozyTown.Runtime.Npc;
+using CozyTown.Runtime.Economy;
 
 namespace CozyTown.Runtime.Content
 {
@@ -58,6 +59,16 @@ namespace CozyTown.Runtime.Content
             var itemIds = new HashSet<string>(
                 configuration.Items.Select(item => item.Id),
                 StringComparer.Ordinal);
+
+            if (configuration.InitialNpcEconomy.Any(character => character == null
+                || !configuration.Npcs.Any(npc => npc.Id == character.CharacterId)))
+                return OperationResult.Failure("content.npc_economy_invalid");
+            try
+            {
+                _ = new InMemoryEconomyStateStore(configuration.InitialNpcEconomy, Array.Empty<ShopEconomySnapshot>(),
+                    configuration.Items, configuration.InventoryCapacitySlots);
+            }
+            catch (ArgumentException) { return OperationResult.Failure("content.npc_economy_invalid"); }
 
             if (configuration.ShopOffers.Any(offer =>
                     offer == null

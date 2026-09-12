@@ -1,4 +1,8 @@
 using System.Threading;
+using System.Linq;
+using CozyTown.Runtime.Application;
+using CozyTown.Runtime.Economy;
+using CozyTown.Runtime.Inventory;
 using System.Threading.Tasks;
 using CozyTown.Runtime.Npc;
 using CozyTown.Runtime.NpcAgents;
@@ -12,6 +16,41 @@ namespace CozyTown.Tests.UnityEditMode
 {
     public sealed class ProxyNpcDecisionJsonCodecTests
     {
+        [TestCase("deliver", NpcDecisionKind.Deliver)]
+        [TestCase("cancel_exchange", NpcDecisionKind.CancelExchange)]
+        public void ResourceResponse_UsesOnlyTheMeetingIdentifier(string operation, NpcDecisionKind kind)
+        {
+            var id = System.Guid.NewGuid();
+            var reply = new ProxyNpcDecisionJsonCodec().ParseResponse("{\"schemaVersion\":3,\"operation\":\"" + operation
+                + "\",\"meetingId\":\"" + id.ToString("N") + "\",\"quantity\":999,\"buyerId\":\"player\",\"totalPrice\":0}");
+            Assert.That(reply.Kind, Is.EqualTo(kind));
+            Assert.That(reply.MeetingId, Is.EqualTo(id));
+        }
+
+        [Test]
+        public void ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources()
+        {
+            NpcDailySchedule Schedule(string id) => new NpcDailySchedule(id, id + ".home", id + ".outside", id + ".entry",
+                id + ".work", id + ".rest", id + ".afternoon", 360, 480, 720, 810, 1020, 1080);
+            var world = new NpcAgentWorld(new[] { Schedule("ren"), Schedule("sora") });
+            world.Observe(new WorldTimeProgress(new GameClockSnapshot(1, 720), 0, false, 1));
+            var terms = new CharacterTradeTerms("ren", "sora", "fish", 1, 25);
+            var store = new InMemoryEconomyStateStore(new[] {
+                new CharacterEconomySnapshot("ren", new InventorySnapshot(System.Array.Empty<ItemStack>()), new WalletSnapshot(98765)),
+                new CharacterEconomySnapshot("sora", new InventorySnapshot(System.Array.Empty<ItemStack>()), new WalletSnapshot(50)) }, System.Array.Empty<ShopEconomySnapshot>());
+            var trading = new CharacterResourceTrading(store, new[] { new ItemDefinition("fish", "Fish", ItemCategory.Fish, 99) }, 2);
+            var board = new NpcMeetingBoard(world, new[] { new NpcMeetingPlan("fish", "sora", "ren", "pond", "sora.rest", "ren.rest", 720, 750, 780, resourceTerms: terms) }, resources: trading);
+            var client = new CaptureClient();
+            using var scheduler = new NpcDecisionScheduler(world, new[] { new NpcDefinition("sora", "Sora", "Cook", "Hello") }, client, meetings: board);
+            scheduler.Tick(0);
+            string json = new ProxyNpcDecisionJsonCodec().SerializeRequest(client.Requests.Single());
+            Assert.That(json, Does.Contain("\"schemaVersion\":3"));
+            Assert.That(json, Does.Contain("\"ownedQuantity\":0"));
+            Assert.That(json, Does.Contain("\"balance\":50"));
+            Assert.That(json, Does.Contain("\"totalPrice\":25"));
+            Assert.That(json, Does.Not.Contain("98765"));
+        }
+
         [Test]
         public void SocialContext_DisclosesPartnerAndTranscriptOnlyForTheCurrentPhase()
         {
@@ -64,7 +103,7 @@ namespace CozyTown.Tests.UnityEditMode
         [TestCase("[]")]
         [TestCase("{broken}")]
         [TestCase("{\"operation\":\"wait\"}")]
-        [TestCase("{\"schemaVersion\":3,\"operation\":\"wait\"}")]
+        [TestCase("{\"schemaVersion\":4,\"operation\":\"wait\"}")]
         [TestCase("{\"schemaVersion\":1,\"operation\":\"give_coins\"}")]
         [TestCase("{\"schemaVersion\":1,\"operation\":\"inspect_location\"}")]
         [TestCase("{\"schemaVersion\":1,\"operation\":\"visit\",\"locationId\":\"mina.work\",\"activity\":\"home\"}")]

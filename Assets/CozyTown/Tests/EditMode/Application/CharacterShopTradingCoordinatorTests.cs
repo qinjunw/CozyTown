@@ -407,6 +407,9 @@ namespace CozyTown.Tests.EditMode.Application
                 return _inner.CommitShop(shopCandidate);
             }
 
+            public OperationResult CommitCharacters(CharacterEconomySnapshot first, CharacterEconomySnapshot second)
+                => _inner.CommitCharacters(first, second);
+
             public OperationResult CommitCharacter(
                 CharacterEconomySnapshot characterCandidate)
             {

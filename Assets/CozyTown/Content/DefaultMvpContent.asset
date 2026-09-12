@@ -35,6 +35,23 @@ MonoBehaviour:
     _displayName: Sora
     _persona: An energetic cook who enjoys combining local ingredients.
     _fallbackDialogue: Bring good ingredients, and the recipe will do the rest.
+  _npcEconomy:
+  - _characterId: npc.shopkeeper_mina
+    _balance: 0
+    _items: []
+  - _characterId: npc.farmer_eli
+    _balance: 0
+    _items: []
+  - _characterId: npc.fisher_ren
+    _balance: 0
+    _items:
+    - _itemId: fish.carp
+      _quantity: 2
+  - _characterId: npc.cook_sora
+    _balance: 50
+    _items:
+    - _itemId: ingredient.salt
+      _quantity: 1
   _items:
   - _id: seed.potato
     _displayName: Potato Seed

@@ -304,7 +304,7 @@ namespace CozyTown.Unity.Core
         private void BindTownLife()
         {
             if (_townLife == null) return;
-            _townLife.Bind(_services.WorldTimeFlow);
+            _townLife.Bind(_services.WorldTimeFlow, _services.ResourceTrading);
             if (_decisionClient != null && !_townLife.DecisionsEnabled)
                 _townLife.ConfigureDecisions(_decisionClient, _decisionProfiles, _decisionSettings, _meetingPlans);
         }
@@ -380,7 +380,7 @@ namespace CozyTown.Unity.Core
                 if (!string.IsNullOrWhiteSpace(endpoint))
                 {
                     try { ConfigureDecisions(new ProxyNpcDecisionClient(endpoint), configuration.Npcs,
-                        meetingPlans: CozyTown.Runtime.Content.DefaultNpcMeetingPlans.Create()); }
+                        meetingPlans: CozyTown.Runtime.Content.DefaultNpcResourcePlans.Create()); }
                     catch (ArgumentException)
                     {
                         Debug.LogWarning("Autonomous NPC decisions remain disabled: COZYTOWN_AGENT_PROXY_ENDPOINT must be an absolute HTTP or HTTPS URI.", this);

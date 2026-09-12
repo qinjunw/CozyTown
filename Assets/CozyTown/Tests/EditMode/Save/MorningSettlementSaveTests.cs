@@ -277,7 +277,8 @@ namespace CozyTown.Tests.EditMode.Save
                 services.EconomyState,
                 services.Farm,
                 services.Livestock,
-                storage);
+                storage,
+                legacyNpcDefaults: DefaultMvpContent.CreateConfiguration().InitialNpcEconomy);
         }
     }
 }
