@@ -1,4 +1,5 @@
 using System;
+using CozyTown.Runtime.NpcAgents;
 using CozyTown.Runtime.NpcLife;
 using CozyTown.Runtime.Time;
 using CozyTown.Unity.Town;
@@ -24,10 +25,14 @@ namespace CozyTown.Unity.Npc
         [SerializeField] private float unitsPerSecond = 2f;
         [SerializeField] private SpriteRenderer visual;
         private NpcDailySchedule _schedule;
+        private NpcAgentWorld _agents;
         private Journey _journey;
         private bool _warnedNoLegalPosition;
 
         public string NpcId => npcId;
+        internal NpcDailySchedule Schedule => _schedule;
+        internal bool CanVisit(string locationId) => map.TryFindRoute(Position, locationId, out _);
+        internal void BindAgents(NpcAgentWorld agents) => _agents = agents;
         public Vector2 Position => transform.position;
         public string TargetLocationId { get; private set; }
         public bool IsHome { get; private set; }
@@ -121,10 +126,10 @@ namespace CozyTown.Unity.Npc
         internal Journey Advance(double fromMinute, double toMinute)
         {
             var candidate = new Journey { Follower = _journey.Follower.Clone(), Activity = _journey.Activity,
-                NoLegalPosition = _journey.NoLegalPosition };
+                NoLegalPosition = _journey.NoLegalPosition, IsWalking = _journey.IsWalking };
             if (candidate.NoLegalPosition)
             {
-                SetTarget(candidate, (int)(Math.Floor(toMinute) % 1440));
+                SetTarget(candidate, toMinute);
                 candidate.Follower.Block();
                 return candidate;
             }
@@ -132,8 +137,10 @@ namespace CozyTown.Unity.Npc
             while (cursor < toMinute)
             {
                 int minuteOfDay = (int)(Math.Floor(cursor) % 1440);
-                SetTarget(candidate, minuteOfDay);
-                double nextBoundary = Math.Floor(cursor) + _schedule.MinutesUntilNextBoundary(minuteOfDay);
+                SetTarget(candidate, cursor);
+                double nextBoundary = _agents != null
+                    ? _agents.NextBoundaryAfter(npcId, cursor)
+                    : Math.Floor(cursor) + _schedule.MinutesUntilNextBoundary(minuteOfDay);
                 double end = Math.Min(toMinute, nextBoundary);
                 double acceptedSeconds = (end - cursor) * WorldTimeProgress.EffectiveSecondsPerGameMinute;
                 candidate.Follower.Advance((float)(acceptedSeconds * unitsPerSecond));
@@ -141,13 +148,18 @@ namespace CozyTown.Unity.Npc
                 candidate.IsWalking = candidate.Follower.Status == TownRouteStatus.Travelling;
                 cursor = end;
             }
-            SetTarget(candidate, (int)(Math.Floor(toMinute) % 1440));
+            SetTarget(candidate, toMinute);
             return candidate;
         }
 
-        private void SetTarget(Journey journey, int minuteOfDay)
+        private void SetTarget(Journey journey, double totalMinutes)
         {
-            var target = _schedule.Query(minuteOfDay);
+            int minuteOfDay = (int)(Math.Floor(totalMinutes) % 1440);
+            // Explicit sleep consumes its full duration after clearing fractional time.
+            // Its first segment can start before the already accepted activity's timestamp.
+            var target = _agents != null
+                ? _agents.GetTargetAt(npcId, Math.Max(totalMinutes, _agents.TotalMinutes))
+                : _schedule.Query(minuteOfDay);
             journey.Activity = target.ExpectedActivity;
             journey.WorkFacing = WorkFacingAt(minuteOfDay);
             journey.Follower.SetDestination(target.TargetLocationId);
