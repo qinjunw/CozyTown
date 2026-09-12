@@ -1,0 +1,404 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-12",
+  "testedCommit": "78b97e3782bed9c8f9b4c90c4c06953ea9fe3ed0",
+  "baseCommit": "3c7853b3d3404fc851b28a22170bd83c2fe29b2f",
+  "branch": "codex/agent-world-bounded-decisions",
+  "canonicalTicket": "https://github.com/qinjunw/CozyTown/issues/52",
+  "unityVersion": "6000.5.5f1",
+  "realModelCalls": 0,
+  "newEditModeTests": 43,
+  "newPlayModeTests": 8,
+  "runs": [
+    {
+      "result": "Passed",
+      "total": 557,
+      "passed": 557,
+      "failed": 0,
+      "skipped": 0,
+      "report": "Logs/agent-decisions-full-editmode.xml",
+      "sha256": "262fd433c824268b00f5baf8c040097b5146f80be14a9bc5f3895b3a311244f6",
+      "workspace": "shared",
+      "platform": "EditMode"
+    },
+    {
+      "result": "Passed",
+      "total": 172,
+      "passed": 172,
+      "failed": 0,
+      "skipped": 0,
+      "report": "Logs/agent-decisions-full-playmode.xml",
+      "sha256": "8231dcc5a37f8b6ae6786fd3d1288369624d730b4f03b16a0511c2b6b413e11b",
+      "workspace": "shared",
+      "platform": "PlayMode"
+    },
+    {
+      "result": "Passed",
+      "total": 553,
+      "passed": 553,
+      "failed": 0,
+      "skipped": 0,
+      "report": "Logs/agent-decisions-publish/isolated-editmode.xml",
+      "sha256": "bf0b9327be71b0621ea5253c111105bf36a43c9b90473c103a3578cf4a290ccb",
+      "workspace": "isolated",
+      "platform": "EditMode"
+    },
+    {
+      "result": "Passed",
+      "total": 170,
+      "passed": 170,
+      "failed": 0,
+      "skipped": 0,
+      "report": "Logs/agent-decisions-publish/isolated-playmode.xml",
+      "sha256": "70a2311ef765b807d653e84b35544e77306d140010535fc984c8d55686d71c0f",
+      "workspace": "isolated",
+      "platform": "PlayMode"
+    }
+  ],
+  "redGreen": [
+    {
+      "behavior": "trigger",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-trigger-red.xml",
+        "sha256": "1a7716478b9a4e6f7de7da318b1723afeb384614cf72225436dc50ead316acd0"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-trigger-green.xml",
+        "sha256": "18a9db08ded5ee444b0ddd2492f2acb48a56d44d0dc1c4f270343b1c0bae1a38"
+      }
+    },
+    {
+      "behavior": "budget",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 2,
+        "passed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-budget-red.xml",
+        "sha256": "28720d803644c2ae7884a9aa4a010cccc2cfc85f0e37203d3b3e6f939ecfa609"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-budget-green.xml",
+        "sha256": "1dee8bc893c79da0d484264780207e12860bea0049183fe8467059e96b389421"
+      }
+    },
+    {
+      "behavior": "disclosure",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 3,
+        "passed": 2,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-disclosure-red.xml",
+        "sha256": "4d87cdbe1145901dcaac850abe29c16deab3fb1fce4d4dea523346f6e60dd985"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-disclosure-green.xml",
+        "sha256": "415a9de8e5c130ec0a0b5e5e1d4cf636c26148ca8ae3d837a2279224c837ea16"
+      }
+    },
+    {
+      "behavior": "rebuild",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 4,
+        "passed": 3,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-rebuild-red.xml",
+        "sha256": "fbe7c272e1258fb3c6f81e54657ffaaf40736d5b1cdffda2de70c1bfc58e1a93"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-rebuild-green.xml",
+        "sha256": "66f624b0053453c9479b225aec46e3bc0dc2198f1b14a62bce147fcfb3f35157"
+      }
+    },
+    {
+      "behavior": "timeout",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 5,
+        "passed": 4,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-timeout-red.xml",
+        "sha256": "3824e8ecb0e247ffe0ade0f24ce6ebbf5e3e3f1e29fec3beac54456f593c842f"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 5,
+        "passed": 5,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-timeout-green.xml",
+        "sha256": "4586ccf8aa7d67fb1f714a7ddff174669244bea8c47f9b93ee04c72aa416d6a8"
+      }
+    },
+    {
+      "behavior": "validity",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 8,
+        "passed": 5,
+        "failed": 3,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-validity-red.xml",
+        "sha256": "50f77e8d3d0d48bb92e2c8034c6b1dd29e108d0292e42dc3428f286b374445ef"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 8,
+        "passed": 8,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-validity-green.xml",
+        "sha256": "fd9cc6ea0c6413d3bf4d7df921c293c93b798606a1cd5ee86874b1df74325bd0"
+      }
+    },
+    {
+      "behavior": "dispose",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 9,
+        "passed": 8,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-dispose-red.xml",
+        "sha256": "f9903f2c57b3b13b7348fe222c18b2814be4c780e5038db12f1bbd8fbc0aac56"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 9,
+        "passed": 9,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-dispose-green.xml",
+        "sha256": "a0192ff7a3d722339bb54aa6b2bcb5923079b84103dfda8cbb18b330a85246d7"
+      }
+    },
+    {
+      "behavior": "unity",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-unity-red.xml",
+        "sha256": "7e89ce7c761e0fec6ba6d5a526c6aff9fda574f3ff1c8ed6d440819c9caa9778"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-unity-green.xml",
+        "sha256": "15236b4989defa09a9a78d04df74e57b4b88026084bf44d490d2b91057ba70f2"
+      }
+    },
+    {
+      "behavior": "protocol",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-protocol-red.xml",
+        "sha256": "6d042a74ccb72f71ae258dac56d03a42c60b80c1496f4f9791ca14bc08bd8803"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 21,
+        "passed": 21,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-protocol-green.xml",
+        "sha256": "56a0ad210d175e38b906857d9899a43fa5e86726ef5392cabf6bfff513c877e8"
+      }
+    },
+    {
+      "behavior": "response",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 2,
+        "passed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-response-red.xml",
+        "sha256": "05621ed921cc2126e08b675bdf1ead5f66fb47ea7b3cb9416a097e12cfda0b7b"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 13,
+        "passed": 13,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-response-green.xml",
+        "sha256": "5c7d2c972ddba70189c014bcb611d4dd37621a66e0f30761fa35241aff7ffbb8"
+      }
+    },
+    {
+      "behavior": "transport",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-transport-red.xml",
+        "sha256": "9ccbf3f7a8f92c3831a75796e87459406ce829a2e7365d30e83e139a82ee3d0b"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 7,
+        "passed": 7,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-transport-green.xml",
+        "sha256": "eda12c9d6dbaffab4800bbceb83866cce02f38e2f7e07052a152daa4e35b5371"
+      }
+    },
+    {
+      "behavior": "bootstrap",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 7,
+        "passed": 5,
+        "failed": 2,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-bootstrap-red.xml",
+        "sha256": "11d705ded349e976865305dcd608123466f7f78d33548749436ae63799444435"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 7,
+        "passed": 7,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-bootstrap-green.xml",
+        "sha256": "725f23ce4cfe92fe1ed6dcfe21f0525feba41574a9b90ede5a675fc395421bd5"
+      }
+    },
+    {
+      "behavior": "diagnostics",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 22,
+        "passed": 19,
+        "failed": 3,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-diagnostics-red.xml",
+        "sha256": "2c97aff1b178f137fa9efaff3b6ad5067f178b7018d3d064fb90e04ec63fc903"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 557,
+        "passed": 557,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-decisions-full-editmode.xml",
+        "sha256": "262fd433c824268b00f5baf8c040097b5146f80be14a9bc5f3895b3a311244f6"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/INpcDecisionClient.cs",
+      "gitBlob": "ec19a3a2aae5bbd18f93dfce5eb74e5ea46ce47d"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcAgentWorld.cs",
+      "gitBlob": "8396c910faddcdc4d75d43e29ab4083cbc4f8a50"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionOutcome.cs",
+      "gitBlob": "bfd14294ebe0e18189b5408c1aba935cb1cf1da0"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionReply.cs",
+      "gitBlob": "beb9f6896e93d1dac6d49357bf2cbb18c74a5ba1"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionRequest.cs",
+      "gitBlob": "2cc9932ab971d30c88d8e331ef47968992840e30"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "gitBlob": "13d70a1fe5c9a5791b569f28af695a7127eb6cfe"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionSettings.cs",
+      "gitBlob": "7b70199028b453428631e35e3204f532ec62e233"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcLocationDetails.cs",
+      "gitBlob": "cba0fce6e3d9fbb0383d56d4bc075496ee00d3ab"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcDecisionSchedulerTests.cs",
+      "gitBlob": "0012904b731d76e56b08261d2b8c5de61ea9d2e8"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcDecisionPlayModeTests.cs",
+      "gitBlob": "8baba92abdc0bb9564a8e48a89e0296c576ce916"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/UnityEditMode/ProxyNpcDecisionClientTests.cs",
+      "gitBlob": "5a525ecdc839959d7d9798d6163bae3fd1c0e99a"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/UnityEditMode/ProxyNpcDecisionJsonCodecTests.cs",
+      "gitBlob": "24114e205118eece9ccbdf1bf00fb2b0d2c01d24"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Core/CozyTownBootstrap.cs",
+      "gitBlob": "5c117887517586f84812e0a5bf9c8d73624b4444"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/CozyTownTownLifeController.cs",
+      "gitBlob": "908fff2a4257f20bf338d56b3b67b61e942031f9"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/ProxyNpcDecisionClient.cs",
+      "gitBlob": "1833188819d9f9897e6fad35e417662d1e815404"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/ProxyNpcDecisionJsonCodec.cs",
+      "gitBlob": "740eaed62e5526727cceed18d19d8909184419fb"
+    }
+  ],
+  "limits": [
+    "No model proxy server or live provider evaluation.",
+    "No social invitation, resource transaction or durable memory implementation.",
+    "Call budgets count client invocations, including failures, rather than measured provider billing."
+  ]
+}
