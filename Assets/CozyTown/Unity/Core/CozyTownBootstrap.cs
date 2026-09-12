@@ -1,8 +1,11 @@
 using System;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 using CozyTown.Runtime.Content;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Npc;
+using CozyTown.Runtime.NpcAgents;
 using CozyTown.Runtime.Save;
 using CozyTown.Unity.Content;
 using CozyTown.Unity.Bed;
@@ -24,6 +27,7 @@ namespace CozyTown.Unity.Core
     [DefaultExecutionOrder(-1000)]
     public sealed class CozyTownBootstrap : MonoBehaviour
     {
+        public const string AgentProxyEndpointEnvironmentVariable = "COZYTOWN_AGENT_PROXY_ENDPOINT";
         [SerializeField]
         [Tooltip("Optional MonoBehaviour implementing ICozyTownServicesFactory. The default MVP configuration is used when omitted.")]
         private MonoBehaviour servicesFactoryBehaviour;
@@ -68,8 +72,22 @@ namespace CozyTown.Unity.Core
 
         private ICozyTownServicesFactory _factoryOverride;
         private CozyTownServices _services;
+        private INpcDecisionClient _decisionClient;
+        private NpcDefinition[] _decisionProfiles;
+        private NpcDecisionSettings _decisionSettings;
 
         public bool IsInitialized => _services != null;
+
+        public void ConfigureDecisions(INpcDecisionClient client, IEnumerable<NpcDefinition> profiles,
+            NpcDecisionSettings settings = null)
+        {
+            if (IsInitialized) throw new InvalidOperationException("Services are already initialized.");
+            if (client == null) throw new ArgumentNullException(nameof(client));
+            if (profiles == null) throw new ArgumentNullException(nameof(profiles));
+            _decisionProfiles = profiles.ToArray();
+            _decisionClient = client;
+            _decisionSettings = settings;
+        }
 
         public void SetFactory(ICozyTownServicesFactory factory)
         {
@@ -104,7 +122,7 @@ namespace CozyTown.Unity.Core
             BindHudPresenters();
             BindShopPresenters();
             BindGameplayPresenters();
-            if (_townLife != null) _townLife.Bind(_services.WorldTimeFlow);
+            BindTownLife();
             if (_townLighting != null) _townLighting.Bind(_services.WorldTimeFlow);
             if (_daytimeClock != null)
             {
@@ -278,7 +296,15 @@ namespace CozyTown.Unity.Core
             if (_townLife != null && _townLife != controller)
                 throw new InvalidOperationException("A town life controller is already registered.");
             _townLife = controller;
-            if (IsInitialized) controller.Bind(_services.WorldTimeFlow);
+            if (IsInitialized) BindTownLife();
+        }
+
+        private void BindTownLife()
+        {
+            if (_townLife == null) return;
+            _townLife.Bind(_services.WorldTimeFlow);
+            if (_decisionClient != null && !_townLife.DecisionsEnabled)
+                _townLife.ConfigureDecisions(_decisionClient, _decisionProfiles, _decisionSettings);
         }
 
         public void RegisterTownLighting(TownLightingController controller)
@@ -346,6 +372,18 @@ namespace CozyTown.Unity.Core
             }
 
             CozyTownConfiguration configuration = content.Value;
+            if (_decisionClient == null && !Application.isBatchMode)
+            {
+                string endpoint = Environment.GetEnvironmentVariable(AgentProxyEndpointEnvironmentVariable);
+                if (!string.IsNullOrWhiteSpace(endpoint))
+                {
+                    try { ConfigureDecisions(new ProxyNpcDecisionClient(endpoint), configuration.Npcs); }
+                    catch (ArgumentException)
+                    {
+                        Debug.LogWarning("Autonomous NPC decisions remain disabled: COZYTOWN_AGENT_PROXY_ENDPOINT must be an absolute HTTP or HTTPS URI.", this);
+                    }
+                }
+            }
             OperationResult<NpcContentCatalog> npcContent = NpcContentCatalog.Create(
                 configuration.FallbackDialogue,
                 configuration.Npcs);
