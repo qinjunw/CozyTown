@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Npc;
 using CozyTown.Runtime.NpcAgents;
@@ -18,12 +19,18 @@ namespace CozyTown.Unity.Npc
         private bool _hasState;
         private NpcAgentWorld _agents;
         private NpcDecisionScheduler _decisions;
+        private NpcMeetingBoard _meetings;
+        private NpcMeetingDialogueView _meetingView;
 
         public bool DecisionsEnabled => _decisions != null;
         public long DecisionRequestsStarted => _decisions?.RequestsStarted ?? 0;
         public int DecisionRequestsInLastMinute => _decisions?.RequestsInLastMinute ?? 0;
         public int ActiveDecisionRequests => _decisions?.ActiveRequestCount ?? 0;
         public int WaitingDecisionResidents => _decisions?.WaitingResidentCount ?? 0;
+        public double GameTotalMinutes => _agents?.TotalMinutes ?? 0;
+        public NpcMeetingSnapshot GetMeeting(string npcId) => _meetings?.GetLatest(npcId);
+        public IReadOnlyList<NpcMeetingMemory> GetMeetingMemories(string npcId)
+            => _meetings?.GetMemories(npcId) ?? Array.Empty<NpcMeetingMemory>();
 
         public void Configure(params NpcWorldResident2D[] actors)
         {
@@ -60,19 +67,52 @@ namespace CozyTown.Unity.Npc
         }
 
         public void ConfigureDecisions(INpcDecisionClient client, IEnumerable<NpcDefinition> profiles,
-            NpcDecisionSettings settings = null)
+            NpcDecisionSettings settings = null, IEnumerable<NpcMeetingPlan> meetingPlans = null)
         {
             if (_agents == null) throw new InvalidOperationException("Bind world time before configuring decisions.");
-            var candidate = new NpcDecisionScheduler(_agents, profiles, client, settings);
+            var profileArray = profiles.ToArray();
+            var meetings = meetingPlans == null ? null : new NpcMeetingBoard(_agents, meetingPlans, MeetingPresence);
+            var candidate = new NpcDecisionScheduler(_agents, profileArray, client, settings, meetings);
+            var before = CaptureActivities();
             _decisions?.Dispose();
+            _meetings?.CancelAll();
             _decisions = candidate;
+            _meetings = meetings;
+            RefreshChangedActivities(before);
+            if (_meetings != null)
+            {
+                if (_meetingView == null) _meetingView = gameObject.AddComponent<NpcMeetingDialogueView>();
+                _meetingView.Configure(residents, profileArray);
+            }
+            else if (_meetingView != null) { Destroy(_meetingView); _meetingView = null; }
         }
 
         public void TickDecisions(double realSeconds)
         {
             if (_decisions == null) return;
-            foreach (var outcome in _decisions.Tick(realSeconds))
-                if (outcome.ActivityAccepted) RefreshTarget(outcome.NpcId);
+            var before = CaptureActivities();
+            _decisions.Tick(realSeconds);
+            RefreshChangedActivities(before);
+            _meetingView?.Present(_meetings, realSeconds);
+        }
+
+        private NpcActivityRequest[] CaptureActivities()
+            => residents.Select(resident => _agents.GetState(resident.NpcId).ActiveActivity).ToArray();
+
+        private void RefreshChangedActivities(NpcActivityRequest[] before)
+        {
+            for (int i = 0; i < residents.Length; i++)
+                if (!ReferenceEquals(before[i], _agents.GetState(residents[i].NpcId).ActiveActivity)) RefreshTarget(residents[i].NpcId);
+        }
+
+        private NpcMeetingPresence MeetingPresence(string npcId, string locationId)
+        {
+            var resident = residents.First(item => item.NpcId == npcId);
+            if (resident.GetComponent<CozyTownNpcDebugPresenter>()?.IsOpen == true) return NpcMeetingPresence.Busy;
+            if (!resident.isActiveAndEnabled || resident.IsHome || resident.Status == CozyTown.Unity.Town.TownRouteStatus.Blocked)
+                return NpcMeetingPresence.Blocked;
+            return resident.TargetLocationId == locationId && resident.Status == CozyTown.Unity.Town.TownRouteStatus.Arrived
+                ? NpcMeetingPresence.Arrived : NpcMeetingPresence.Travelling;
         }
 
         public NpcDecisionOutcome GetDecisionOutcome(string npcId) => _decisions?.GetLastOutcome(npcId);
@@ -124,7 +164,11 @@ namespace CozyTown.Unity.Npc
         {
             var candidates = new NpcWorldResident2D.Journey[residents.Length];
             bool rebuild = !_hasState || progress.RebuildVersion != _last.RebuildVersion;
-            if (rebuild) _agents.Observe(progress);
+            if (rebuild)
+            {
+                _agents.Observe(progress);
+                _meetings?.BindWorld(_agents);
+            }
             for (int i = 0; i < residents.Length; i++)
             {
                 candidates[i] = rebuild
@@ -140,6 +184,12 @@ namespace CozyTown.Unity.Npc
             _last = progress;
             _hasState = true;
             Physics2D.SyncTransforms();
+            if (_meetings != null)
+            {
+                var before = CaptureActivities();
+                _meetings.Observe();
+                RefreshChangedActivities(before);
+            }
         }
     }
 }

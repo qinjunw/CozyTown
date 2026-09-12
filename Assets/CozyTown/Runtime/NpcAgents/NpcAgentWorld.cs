@@ -39,6 +39,13 @@ namespace CozyTown.Runtime.NpcAgents
 
         public double TotalMinutes => _current.TotalMinutes;
 
+        internal void NotifyMeeting(string npcId, NpcAgentEventKind kind)
+        {
+            var resident = RequireResident(npcId);
+            resident.Revision++;
+            Queue(resident, kind, TotalMinutes);
+        }
+
         public void Observe(WorldTimeProgress progress)
         {
             if (progress.Clock.Day < 1 || progress.Clock.MinuteOfDay < 0 || progress.Clock.MinuteOfDay >= 1440
@@ -114,8 +121,31 @@ namespace CozyTown.Runtime.NpcAgents
 
         public OperationResult SubmitActivity(NpcActivityRequest request)
         {
+            var validation = ValidateActivity(request, out var resident);
+            if (!validation.IsSuccess) return validation;
+            CommitActivity(resident, request, TotalMinutes);
+            return OperationResult.Success();
+        }
+
+        internal OperationResult SubmitMeetingActivities(NpcActivityRequest first, NpcActivityRequest second, double startsAt)
+        {
+            var validation = ValidateActivity(first, out var initiator);
+            if (!validation.IsSuccess) return validation;
+            validation = ValidateActivity(second, out var partner);
+            if (!validation.IsSuccess) return validation;
+            if (first.NpcId == second.NpcId || double.IsNaN(startsAt) || startsAt < TotalMinutes
+                || startsAt >= first.ExpiresAtTotalMinutes || startsAt >= second.ExpiresAtTotalMinutes)
+                return OperationResult.Failure("meeting.start_invalid");
+            CommitActivity(initiator, first, startsAt);
+            CommitActivity(partner, second, startsAt);
+            return OperationResult.Success();
+        }
+
+        private OperationResult ValidateActivity(NpcActivityRequest request, out Resident resident)
+        {
+            resident = null;
             if (request == null) return OperationResult.Failure("agent.request_invalid");
-            var validation = ValidateCommand(request.NpcId, request.WorldRunId, request.ExpectedRevision, out var resident);
+            var validation = ValidateCommand(request.NpcId, request.WorldRunId, request.ExpectedRevision, out resident);
             if (!validation.IsSuccess) return validation;
             if (resident.Activity != null) return OperationResult.Failure("agent.busy");
             if (request.Activity != NpcActivity.Working && request.Activity != NpcActivity.Resting)
@@ -128,12 +158,15 @@ namespace CozyTown.Runtime.NpcAgents
                     ? _canVisit(request.NpcId, request.TargetLocationId)
                     : IsScheduledLocation(resident.Schedule, request.TargetLocationId)))
                 return OperationResult.Failure("agent.target_unavailable");
+            return OperationResult.Success();
+        }
 
+        private void CommitActivity(Resident resident, NpcActivityRequest request, double startsAt)
+        {
             resident.Activity = request;
-            resident.ActivityStart = TotalMinutes;
+            resident.ActivityStart = startsAt;
             resident.Revision++;
             Queue(resident, NpcAgentEventKind.ActivityAccepted, TotalMinutes);
-            return OperationResult.Success();
         }
 
         public OperationResult CancelActivity(string npcId, Guid worldRunId, long expectedRevision)
