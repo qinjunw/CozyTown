@@ -600,6 +600,9 @@ namespace CozyTown.Tests.EditMode.Application
                 return OperationResult.Failure("injected.shop_commit_failure");
             }
 
+            public OperationResult CommitCharacters(CharacterEconomySnapshot first, CharacterEconomySnapshot second)
+                => _inner.CommitCharacters(first, second);
+
             public OperationResult CommitCharacter(
                 CharacterEconomySnapshot characterCandidate)
             {
@@ -649,6 +652,9 @@ namespace CozyTown.Tests.EditMode.Application
                 ShopCommitCallCount++;
                 return _inner.CommitShop(shopCandidate);
             }
+
+            public OperationResult CommitCharacters(CharacterEconomySnapshot first, CharacterEconomySnapshot second)
+                => _inner.CommitCharacters(first, second);
 
             public OperationResult CommitCharacter(
                 CharacterEconomySnapshot characterCandidate)

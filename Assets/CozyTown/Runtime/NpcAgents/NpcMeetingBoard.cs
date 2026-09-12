@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CozyTown.Runtime.Core;
+using CozyTown.Runtime.Application;
+using CozyTown.Runtime.Economy;
 using CozyTown.Runtime.NpcLife;
 
 namespace CozyTown.Runtime.NpcAgents
@@ -9,6 +11,7 @@ namespace CozyTown.Runtime.NpcAgents
     public sealed class NpcMeetingBoard
     {
         private NpcAgentWorld _world;
+        private CharacterResourceTrading _resources;
         private readonly Dictionary<string, NpcMeetingPlan> _plans;
         private readonly Dictionary<string, Meeting> _current = new Dictionary<string, Meeting>(StringComparer.Ordinal);
         private readonly Dictionary<string, Meeting> _places = new Dictionary<string, Meeting>(StringComparer.Ordinal);
@@ -30,19 +33,24 @@ namespace CozyTown.Runtime.NpcAgents
             internal NpcActivityRequest InitiatorActivity;
             internal NpcActivityRequest PartnerActivity;
             internal string SpeakerId;
+            internal string DeliveryResultCode;
             internal readonly List<NpcConversationLine> Transcript = new List<NpcConversationLine>();
-            internal NpcMeetingSnapshot Snapshot => new NpcMeetingSnapshot(Id, Plan.InitiatorId, Plan.PartnerId, State, SpeakerId, Transcript);
+            internal NpcMeetingSnapshot Snapshot => new NpcMeetingSnapshot(Id, Plan.InitiatorId, Plan.PartnerId, State, SpeakerId, Transcript, Plan.ResourceTerms, DeliveryResultCode);
         }
 
         public NpcMeetingBoard(NpcAgentWorld world, IEnumerable<NpcMeetingPlan> plans,
-            Func<string, string, NpcMeetingPresence> presence = null)
+            Func<string, string, NpcMeetingPresence> presence = null, CharacterResourceTrading resources = null)
         {
+            _resources = resources;
             _world = world ?? throw new ArgumentNullException(nameof(world));
             _presence = presence ?? ((npc, location) => NpcMeetingPresence.Travelling);
             if (plans == null) throw new ArgumentNullException(nameof(plans));
             _plans = plans.ToDictionary(plan => plan.Id, StringComparer.Ordinal);
             foreach (var plan in _plans.Values)
             {
+                if (plan.ResourceTerms != null && (_resources?.Inspect(plan.ResourceTerms, plan.InitiatorId) == null
+                    || _resources.Inspect(plan.ResourceTerms, plan.PartnerId) == null))
+                    throw new ArgumentException("Resource plans require assets owned by both participants.");
                 _world.GetState(plan.InitiatorId);
                 _world.GetState(plan.PartnerId);
             }
@@ -57,6 +65,8 @@ namespace CozyTown.Runtime.NpcAgents
                 return OperationResult<NpcMeetingSnapshot>.Failure("meeting.plan_unknown");
             if (actor.NpcId != plan.InitiatorId)
                 return OperationResult<NpcMeetingSnapshot>.Failure("meeting.actor_invalid");
+            if (plan.ResourceTerms != null && !_resources.IsNeeded(plan.ResourceTerms))
+                return OperationResult<NpcMeetingSnapshot>.Failure("resource.need_satisfied");
             if (_current.ContainsKey(plan.InitiatorId) || _current.ContainsKey(plan.PartnerId))
                 return OperationResult<NpcMeetingSnapshot>.Failure("meeting.resident_reserved");
             if (_world.GetState(plan.InitiatorId).ActiveActivity != null || _world.GetState(plan.PartnerId).ActiveActivity != null)
@@ -73,11 +83,53 @@ namespace CozyTown.Runtime.NpcAgents
             return OperationResult<NpcMeetingSnapshot>.Success(meeting.Snapshot);
         }
 
+        public OperationResult Deliver(NpcAgentSnapshot actor, Guid meetingId)
+        {
+            string invalid = ValidateActor(actor);
+            if (invalid != null) return OperationResult.Failure(invalid);
+            var latest = GetLatest(actor.NpcId);
+            if (latest?.Id == meetingId && latest.ResourceTerms?.BuyerId == actor.NpcId && latest.DeliveryResultCode == "resource.delivered")
+                return OperationResult.Success();
+            invalid = ValidateSpeaker(actor, meetingId, out var meeting);
+            if (invalid != null) return OperationResult.Failure(invalid);
+            if (meeting.Plan.ResourceTerms == null || actor.NpcId != meeting.Plan.ResourceTerms.BuyerId)
+                return OperationResult.Failure("resource.actor_invalid");
+            var result = _resources.Exchange(meeting.Plan.ResourceTerms);
+            meeting.DeliveryResultCode = result.IsSuccess ? "resource.delivered" : result.ErrorCode;
+            Remember(meeting, meeting.DeliveryResultCode);
+            if (!result.IsSuccess) Remove(meeting, NpcMeetingState.Cancelled);
+            return result;
+        }
+
+        public OperationResult CancelExchange(NpcAgentSnapshot actor, Guid meetingId)
+        {
+            string invalid = ValidateActor(actor);
+            if (invalid != null) return OperationResult.Failure(invalid);
+            if (!_current.TryGetValue(actor.NpcId, out var meeting) || meeting.Id != meetingId || meeting.Plan.ResourceTerms == null)
+                return OperationResult.Failure("meeting.unknown");
+            if (meeting.DeliveryResultCode == "resource.delivered") return OperationResult.Failure("resource.already_delivered");
+            Remove(meeting, NpcMeetingState.Cancelled);
+            return OperationResult.Success();
+        }
+
         public NpcMeetingSnapshot GetCurrent(string npcId)
             => _current.TryGetValue(npcId, out var meeting) ? meeting.Snapshot : null;
 
-        public void BindWorld(NpcAgentWorld world)
+        public CharacterTradeResources GetResources(string npcId)
+            => _resources?.Inspect(GetLatest(npcId)?.ResourceTerms, npcId);
+
+        public void BindWorld(NpcAgentWorld world, CharacterResourceTrading resources = null)
         {
+            if (world == null) throw new ArgumentNullException(nameof(world));
+            if (resources != null && !ReferenceEquals(resources, _resources))
+            {
+                if (_plans.Count > 0 && world.GetState(_plans.Values.First().InitiatorId).WorldRunId == _worldRunId)
+                    throw new InvalidOperationException("Changing resource ownership requires a new world timeline.");
+                foreach (var plan in _plans.Values.Where(plan => plan.ResourceTerms != null))
+                    if (resources.Inspect(plan.ResourceTerms, plan.InitiatorId) == null || resources.Inspect(plan.ResourceTerms, plan.PartnerId) == null)
+                        throw new ArgumentException("Resource plans require assets owned by both participants.");
+                _resources = resources;
+            }
             _world = world ?? throw new ArgumentNullException(nameof(world));
             Observe();
         }
@@ -89,18 +141,23 @@ namespace CozyTown.Runtime.NpcAgents
             {
                 if (meeting.State == NpcMeetingState.Invited && npcId == meeting.Plan.PartnerId)
                     return new NpcSocialContext(NpcSocialContextKind.Invitation, meeting.Plan, npcId, meeting.Id,
-                        meeting.DayStart + meeting.Plan.MeetingStartMinute, meeting.DayStart + meeting.Plan.InviteEndMinute, meeting.Transcript, memories);
+                        meeting.DayStart + meeting.Plan.MeetingStartMinute, meeting.DayStart + meeting.Plan.InviteEndMinute, meeting.Transcript, memories,
+                        _resources?.Inspect(meeting.Plan.ResourceTerms, npcId));
                 if (meeting.State == NpcMeetingState.Talking && npcId == meeting.SpeakerId)
-                    return new NpcSocialContext(NpcSocialContextKind.Conversation, meeting.Plan, npcId, meeting.Id,
-                        meeting.StartsAt, meeting.EndsAt, meeting.Transcript, memories);
+                    return new NpcSocialContext(meeting.Plan.ResourceTerms != null && meeting.DeliveryResultCode == null
+                        ? NpcSocialContextKind.Delivery : NpcSocialContextKind.Conversation, meeting.Plan, npcId, meeting.Id,
+                        meeting.StartsAt, meeting.EndsAt, meeting.Transcript, memories,
+                        _resources?.Inspect(meeting.Plan.ResourceTerms, npcId), meeting.DeliveryResultCode);
                 return null;
             }
             if (!_opportunities.TryGetValue(npcId, out var plan)) return null;
+            if (plan.ResourceTerms != null && !_resources.IsNeeded(plan.ResourceTerms)) return null;
             double day = Math.Floor(_world.TotalMinutes / 1440) * 1440;
             if (!_offeredDays.TryGetValue(plan.Id, out double offered) || offered != day
                 || _world.TotalMinutes < day + plan.InviteStartMinute || _world.TotalMinutes >= day + plan.InviteEndMinute) return null;
             return new NpcSocialContext(NpcSocialContextKind.Opportunity, plan, npcId, Guid.Empty,
-                day + plan.MeetingStartMinute, day + plan.InviteEndMinute, Array.Empty<NpcConversationLine>(), memories);
+                day + plan.MeetingStartMinute, day + plan.InviteEndMinute, Array.Empty<NpcConversationLine>(), memories,
+                _resources?.Inspect(plan.ResourceTerms, npcId));
         }
 
         internal void TakeOpportunity(string npcId) => _opportunities.Remove(npcId);
@@ -173,6 +230,8 @@ namespace CozyTown.Runtime.NpcAgents
         {
             string invalid = ValidateSpeaker(actor, meetingId, out var meeting);
             if (invalid != null) return OperationResult.Failure(invalid);
+            if (meeting.Plan.ResourceTerms != null && meeting.DeliveryResultCode != "resource.delivered")
+                return OperationResult.Failure("resource.not_delivered");
             if (meeting.Transcript.Count < 2) return OperationResult.Failure("meeting.minimum_turns");
             Remove(meeting, NpcMeetingState.Completed);
             return OperationResult.Success();
@@ -182,6 +241,8 @@ namespace CozyTown.Runtime.NpcAgents
         {
             string invalid = ValidateSpeaker(actor, meetingId, out var meeting);
             if (invalid != null) return OperationResult.Failure(invalid);
+            if (meeting.Plan.ResourceTerms != null && meeting.DeliveryResultCode != "resource.delivered")
+                return OperationResult.Failure("resource.not_delivered");
             if (string.IsNullOrWhiteSpace(text) || text.Length > 240)
                 return OperationResult.Failure("meeting.speech_invalid");
             meeting.Transcript.Add(new NpcConversationLine(actor.NpcId, text.Trim(), _world.TotalMinutes));
@@ -278,11 +339,12 @@ namespace CozyTown.Runtime.NpcAgents
             double day = Math.Floor(_world.TotalMinutes / 1440) * 1440;
             foreach (var plan in _plans.Values)
             {
+                if (plan.ResourceTerms != null && !_resources.IsNeeded(plan.ResourceTerms)) continue;
                 if (_offeredDays.TryGetValue(plan.Id, out double offered) && offered == day) continue;
                 if (_world.TotalMinutes < day + plan.InviteStartMinute || _world.TotalMinutes >= day + plan.InviteEndMinute) continue;
                 if (_current.ContainsKey(plan.InitiatorId) || _current.ContainsKey(plan.PartnerId)) continue;
                 var initiator = _world.GetState(plan.InitiatorId);
-                if (initiator.ActiveActivity != null || initiator.Target.ExpectedActivity != NpcActivity.Resting
+                if (initiator.ActiveActivity != null || (plan.ResourceTerms == null && initiator.Target.ExpectedActivity != NpcActivity.Resting)
                     || _world.GetState(plan.PartnerId).ActiveActivity != null) continue;
                 _offeredDays[plan.Id] = day;
                 _opportunities[plan.InitiatorId] = plan;

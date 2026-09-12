@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CozyTown.Runtime.Economy;
 
 namespace CozyTown.Runtime.NpcAgents
 {
@@ -10,7 +11,7 @@ namespace CozyTown.Runtime.NpcAgents
     public sealed class NpcMeetingSnapshot
     {
         internal NpcMeetingSnapshot(Guid id, string initiatorId, string partnerId, NpcMeetingState state, string speakerId = null,
-            IEnumerable<NpcConversationLine> transcript = null)
+            IEnumerable<NpcConversationLine> transcript = null, CharacterTradeTerms resourceTerms = null, string deliveryResultCode = null)
         {
             Id = id;
             InitiatorId = initiatorId;
@@ -18,6 +19,8 @@ namespace CozyTown.Runtime.NpcAgents
             State = state;
             SpeakerId = speakerId;
             Transcript = Array.AsReadOnly(transcript?.ToArray() ?? Array.Empty<NpcConversationLine>());
+            ResourceTerms = resourceTerms;
+            DeliveryResultCode = deliveryResultCode;
         }
 
         public Guid Id { get; }
@@ -26,5 +29,7 @@ namespace CozyTown.Runtime.NpcAgents
         public NpcMeetingState State { get; }
         public string SpeakerId { get; }
         public IReadOnlyList<NpcConversationLine> Transcript { get; }
+        public CharacterTradeTerms ResourceTerms { get; }
+        public string DeliveryResultCode { get; }
     }
 }

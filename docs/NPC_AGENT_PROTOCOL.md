@@ -8,7 +8,7 @@
 
 | 字段 | 含义 |
 | --- | --- |
-| `schemaVersion` | 普通活动为 `1`，会面上下文为 `2` |
+| `schemaVersion` | 普通活动为 `1`，普通会面为 `2`，资源会面为 `3` |
 | `decisionId` | 宿主生成的决策标识，同一次按需查询续调保持不变 |
 | `npcId`、`displayName`、`persona` | 当前居民的身份与人设 |
 | `worldRunId`、`revision` | 生成上下文时的世界代次及居民修订；宿主保留原值作执行检查 |
@@ -57,7 +57,7 @@
 
 默认内容启动器在非批量运行时读取 `COZYTOWN_AGENT_PROXY_ENDPOINT`。未配置时不启用自主模型调用；配置值应是实现本协议的完整 HTTP(S) 端点。批量测试不自动读取该端点，不会因机器环境配置而启动后台模型调用。该变量独立于玩家对话代理配置。
 
-自定义服务或测试可在 `CozyTownBootstrap.Initialize` 前调用 `ConfigureDecisions(client, profiles, settings, meetingPlans)`，或在已绑定世界时间的 `CozyTownTownLifeController` 上显式配置。省略会面计划时保留普通活动模式。默认内容通过环境变量启用代理时同时加载 Ren 与 Sora 的会面计划。启动器支持人物控制器早注册和晚注册，重复注册不创建新调度器。角色配置 ID 必须与控制器注册的居民一致。
+自定义服务或测试可在 `CozyTownBootstrap.Initialize` 前调用 `ConfigureDecisions(client, profiles, settings, meetingPlans)`，或在已绑定世界时间的 `CozyTownTownLifeController` 上显式配置。省略会面计划时保留普通活动模式。默认内容通过环境变量启用代理时加载 Sora 缺鱼联系 Ren 的资源会面计划；普通散步计划仍可显式配置。启动器同时绑定角色经济服务，支持人物控制器早注册和晚注册，重复注册不创建新调度器。角色配置 ID 必须与控制器注册的居民一致。
 
 `CozyTownTownLifeController` 提供请求累计数、当前滚动窗口次数、实际在途数和等待居民数；`GetDecisionOutcome(npcId)` 返回本人最近一次决策的上下文、最终候选、结果码、调用次数和现实时间。失败或取消时可能没有候选。该记录保留在内存中，不是跨日存档或模型用量报告。
 
@@ -94,4 +94,20 @@
 
 每个 NPC 同时最多参与一项会面，同一逻辑地点在承诺期间独占。结束、拒绝、到期、路径失败、玩家交互打断或活动被替换时，宿主释放属于该会面的活动与地点，恢复当前时刻的日程，保留外部新活动。读档或换世界清空会面与记忆，不把旧请求结果写入新世界；同一调度器的现实时间预算保持不变。
 
-`GetMeeting(npcId)` 提供当前或最近结束的不可变会面快照，`GetMeetingMemories(npcId)` 提供最多 16 条本人实际事件。这里只记录邀请、接受、到场、发言和结束等宿主事件；对话里提到食谱或鱼不产生物品、金币或任务完成记录。资源协作与跨存档记忆分别属于后续迭代。
+`GetMeeting(npcId)` 提供当前或最近结束的不可变会面快照，`GetMeetingMemories(npcId)` 提供最多 16 条本人实际事件。对话里提到食谱或鱼不产生物品、金币或任务完成记录。资源会面另行记录宿主交付结果；会面记忆的持久化属于后续迭代。
+
+## 资源会面（版本 3）
+
+资源会面沿用版本 2 的身份、时间、地点、邀请和轮次字段，增加 `social.resources`：`sellerId`、`buyerId`、`itemId`、`quantity`、`totalPrice` 为宿主固定条款；`ownedQuantity` 和 `balance` 仅表示当前居民的相关物品数量和余额；`deliveryResultCode` 是宿主最近确认的本次交付结果。对方完整资产不披露。资源机会由缺料条件与配置时间窗口共同触发，可在工作期间提出未来会面，赴约仍等待约定时刻。
+
+买方发起邀请、卖方接受后形成双边承诺。实际到场后，买方收到 `social.kind: delivery`，可用操作仅为 `deliver`、`cancel_exchange`：
+
+```json
+{"schemaVersion":3,"operation":"deliver","meetingId":"<accepted-meeting-id>"}
+```
+
+```json
+{"schemaVersion":3,"operation":"cancel_exchange","meetingId":"<accepted-meeting-id>"}
+```
+
+这些候选不接受替换资产或价款的字段。宿主重新验证当前资产、期限和到达状态后，一次提交双方库存与钱包，并记录 `resource.delivered`，之后才开放交谈。失败时无部分转移，释放会面活动并回到日程。同一当前或最近会面的已交付编号重试只确认已有结果；旧世界编号被拒绝。`GetMeetingResources(npcId)` 可查看本人在当前或最近资源会面中的相关资产，`GetMeeting(npcId).DeliveryResultCode` 区分实际交付与会面结束。

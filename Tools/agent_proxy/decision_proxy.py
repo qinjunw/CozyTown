@@ -130,6 +130,12 @@ Examples: {"schemaVersion":1,"operation":"wait"};
 {"schemaVersion":1,"operation":"visit","locationId":"known-id","activity":"resting","durationGameMinutes":20}.
 Social candidate fields, when allowed: invite uses planId; accept_invite,
 decline_invite, say and end_conversation use meetingId; say also uses text.
+For resource meetings, social.resources contains fixed trade terms, only your own
+relevant quantity and balance, and deliveryResultCode from the host. Invite or accept
+only if you agree to those terms. When delivery is offered, use deliver or cancel_exchange
+with meetingId. Never supply replacement items, actors, quantities or prices.
+Only resource.delivered proves transfer. Do not claim fishing, cooking or other production
+has happened without a host result. Use gameTotalMinutes modulo 1440 for time of day.
 Copy supplied identifiers exactly. Do not include explanation outside the JSON object.
 """
 
@@ -163,8 +169,8 @@ class ProxyService:
 
     def decide(self, context):
         try:
-            operations = {"wait", "inspect_location", "visit", "invite", "accept_invite", "decline_invite", "say", "end_conversation"}
-            if not isinstance(context, dict) or type(context.get("schemaVersion")) is not int or context["schemaVersion"] not in (1, 2):
+            operations = {"wait", "inspect_location", "visit", "invite", "accept_invite", "decline_invite", "say", "end_conversation", "deliver", "cancel_exchange"}
+            if not isinstance(context, dict) or type(context.get("schemaVersion")) is not int or context["schemaVersion"] not in (1, 2, 3):
                 raise ValueError
             if not isinstance(context.get("npcId"), str) or not context["npcId"].strip():
                 raise ValueError
@@ -219,6 +225,7 @@ class ProxyService:
                     "visit": {"locationId", "activity", "durationGameMinutes"}, "invite": {"planId"},
                     "accept_invite": {"meetingId"}, "decline_invite": {"meetingId"},
                     "say": {"meetingId", "text"}, "end_conversation": {"meetingId"},
+                    "deliver": {"meetingId"}, "cancel_exchange": {"meetingId"},
                 }[candidate["operation"]]
                 candidate = {key: value for key, value in candidate.items() if key in fields}
                 record["candidate"] = candidate

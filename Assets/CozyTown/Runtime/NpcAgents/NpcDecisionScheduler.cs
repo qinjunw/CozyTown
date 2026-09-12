@@ -167,6 +167,17 @@ namespace CozyTown.Runtime.NpcAgents
                 if (resident.Current == null)
                 {
                     if (resident.Pending == null) continue;
+                    if (InvalidContext(resident.Pending, _world.GetState(resident.Profile.Id)) != null)
+                    {
+                        resident.Pending = null;
+                        continue;
+                    }
+                    if (resident.Pending.Social == null && _residents.Any(other =>
+                    {
+                        var contact = (other.Current ?? other.Pending)?.Social;
+                        return contact?.Kind == NpcSocialContextKind.Opportunity && contact.Resources != null
+                            && contact.PartnerId == resident.Profile.Id;
+                    })) continue;
                     bool socialReply = resident.Pending.Social != null && resident.Pending.Social.Kind != NpcSocialContextKind.Opportunity;
                     if (!socialReply && realSeconds < resident.LastStarted + _settings.ResidentCooldownSeconds) continue;
                     resident.Current = resident.Pending;
@@ -228,6 +239,8 @@ namespace CozyTown.Runtime.NpcAgents
                 }
                 if (reply.MeetingId != context.Social.MeetingId) { Finish(resident, "meeting.unknown", reply: reply); return; }
                 var result = reply.Kind == NpcDecisionKind.Speak ? _meetings.Speak(context.Self, reply.MeetingId, reply.Text)
+                    : reply.Kind == NpcDecisionKind.Deliver ? _meetings.Deliver(context.Self, reply.MeetingId)
+                    : reply.Kind == NpcDecisionKind.CancelExchange ? _meetings.CancelExchange(context.Self, reply.MeetingId)
                     : reply.Kind == NpcDecisionKind.EndConversation ? _meetings.EndConversation(context.Self, reply.MeetingId)
                     : _meetings.Respond(context.Self, reply.MeetingId, reply.Kind == NpcDecisionKind.AcceptInvitation);
                 Finish(resident, result.IsSuccess ? "meeting." + reply.Operation : result.ErrorCode, reply: reply);

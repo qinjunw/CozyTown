@@ -14,6 +14,8 @@ python -B Tools/agent_proxy/decision_proxy.py --credential-file '<private-creden
 
 真实场景联调需要为测试进程显式设置 `COZYTOWN_RUN_LIVE_MEETING=1` 和 `COZYTOWN_LIVE_MEETING_ENDPOINT=<loopback-decide-url>`，只运行 `NpcMeetingPlayModeTests.LiveProxy_RealProviderDrivesTheSceneMeetingWithinTheConfiguredBudget`。该测试从 12:15 开始，以正常游戏倍率推进两位居民，记录 `Logs/agent-meetings-live-scene.json`。记录已存在时拒绝再次执行；重跑前应保留旧证据并核对剩余预算。测试不直接读取密钥。
 
+资源交付联调使用独立的 `COZYTOWN_RUN_LIVE_RESOURCE=1` 和 `COZYTOWN_LIVE_RESOURCE_ENDPOINT=<loopback-decide-url>`，只运行 `NpcResourcePlayModeTests.LiveProxy_TransfersOwnedResourcesThroughTheActualScene`。启动代理时设置 `--max-calls 10`。场景记录 `Logs/agent-resources-live-scene.json`，包含到场位置、交付结果、双方相关资产及日程恢复；同样拒绝覆盖已有记录。普通游戏通过自主决策端点启用 Sora 缺鱼联系 Ren 的场景，普通散步计划仍可显式配置。
+
 每个代理进程最多尝试 `--max-calls` 次提供方请求，失败也计数，同时最多 2 个请求。没有自动重试；每次最多生成 512 Token、关闭思考模式。请求型号固定为用户选择的 `deepseek-v4-flash`。实际返回的型号、Token 用量、耗时、候选和错误码记录在本地 JSONL，密钥、完整上下文和提供方思考内容不写入记录。`GET /status` 返回本进程已尝试次数、剩余额度和在途数。
 
 记录文件必须尚不存在，避免覆盖上一次证据。重启进程会创建新的调用预算；需要控制一次联调总量时，应扣除之前已经尝试的次数。停止代理使用 Ctrl+C。调用上限耗尽后，游戏继续按宿主日程运行，待处理会面仍受游戏时间期限约束。

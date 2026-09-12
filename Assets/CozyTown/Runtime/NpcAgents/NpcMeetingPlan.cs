@@ -1,4 +1,5 @@
 using System;
+using CozyTown.Runtime.Economy;
 
 namespace CozyTown.Runtime.NpcAgents
 {
@@ -6,7 +7,8 @@ namespace CozyTown.Runtime.NpcAgents
     {
         public NpcMeetingPlan(string id, string initiatorId, string partnerId, string placeId,
             string initiatorLocationId, string partnerLocationId, int inviteStartMinute,
-            int meetingStartMinute, int inviteEndMinute, int durationGameMinutes = 150, int maxTurns = 4)
+            int meetingStartMinute, int inviteEndMinute, int durationGameMinutes = 150, int maxTurns = 4,
+            CharacterTradeTerms resourceTerms = null)
         {
             foreach (string value in new[] { id, initiatorId, partnerId, placeId, initiatorLocationId, partnerLocationId })
                 if (string.IsNullOrWhiteSpace(value)) throw new ArgumentException("Meeting plans require named residents, a place and two locations.");
@@ -26,6 +28,9 @@ namespace CozyTown.Runtime.NpcAgents
             InviteEndMinute = inviteEndMinute;
             DurationGameMinutes = durationGameMinutes;
             MaxTurns = maxTurns;
+            if (resourceTerms != null && (resourceTerms.BuyerId != initiatorId || resourceTerms.SellerId != partnerId))
+                throw new ArgumentException("A resource meeting must be initiated by the buyer and accepted by the seller.");
+            ResourceTerms = resourceTerms;
         }
 
         public string Id { get; }
@@ -39,5 +44,6 @@ namespace CozyTown.Runtime.NpcAgents
         public int InviteEndMinute { get; }
         public int DurationGameMinutes { get; }
         public int MaxTurns { get; }
+        public CharacterTradeTerms ResourceTerms { get; }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.IO;
 using CozyTown.Runtime.Application;
 using CozyTown.Runtime.Content;
@@ -263,10 +264,15 @@ namespace CozyTown.Tests.EditMode.Save
                 restored.EconomyState,
                 restored.Farm,
                 restored.Livestock,
-                storage);
+                storage,
+                legacyNpcDefaults: DefaultMvpContent.CreateConfiguration().InitialNpcEconomy);
             OperationResult restoredResult = coordinator.Load();
             Assert.That(restoredResult.IsSuccess, Is.True, restoredResult.ErrorCode);
-            SaveTestSnapshots.AssertEquivalent(first.Value, SaveTestSnapshots.Capture(restored));
+            var expected = new GameSaveSnapshot(first.Value.SchemaVersion, first.Value.WorldSeed, first.Value.Clock,
+                first.Value.Characters.Concat(DefaultMvpContent.CreateConfiguration().InitialNpcEconomy)
+                    .OrderBy(character => character.CharacterId, StringComparer.Ordinal).ToArray(),
+                first.Value.Shops, first.Value.Farm, first.Value.Livestock);
+            SaveTestSnapshots.AssertEquivalent(expected, SaveTestSnapshots.Capture(restored));
             Assert.That(File.ReadAllBytes(_savePath), Is.EqualTo(legacyBytes));
         }
 
