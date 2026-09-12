@@ -53,42 +53,54 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(reckless.trials.Count, Is.EqualTo(4));
             Assert.That(reckless.trials.Where(t => t.scenario == "seller_empty" || t.scenario == "buyer_poor")
                 .All(t => t.behavior == "host_rejected_infeasible_trade" && t.hostViolations.Count == 0), Is.True);
+            var continuation = new MatrixReport();
+            yield return RunMatrix(continuation, null, 3, false, null, 8);
+            Assert.That(continuation.trials.Select(t => t.ordinal), Is.EqualTo(new[] { 8, 9, 10, 11, 12 }));
+            Assert.That(continuation.trials.All(t => t.initialized && t.hostViolations.Count == 0 && t.recovered), Is.True);
         }
 
         [UnityTest]
         [Category("ExternalProvider")]
+        [Timeout(1500000)]
         public IEnumerator LiveProxy_RepeatsFourFreshInitialScenarios()
         {
             string endpoint = Environment.GetEnvironmentVariable("COZYTOWN_SCENARIO_ENDPOINT");
             if (Environment.GetEnvironmentVariable("COZYTOWN_RUN_LIVE_SCENARIOS") != "1" || string.IsNullOrWhiteSpace(endpoint))
                 Assert.Ignore("Requires explicit scenario-test opt-in and one proxy capped at 96 calls for the entire matrix.");
             Assert.That(Uri.TryCreate(endpoint, UriKind.Absolute, out var uri) && uri.IsLoopback, Is.True);
-            string path = Path.GetFullPath("Logs/agent-resource-scenarios-live.json");
+            string startText = Environment.GetEnvironmentVariable("COZYTOWN_SCENARIO_START_ORDINAL");
+            int first = 1;
+            if (!string.IsNullOrWhiteSpace(startText))
+                Assert.That(int.TryParse(startText, out first) && first >= 1 && first <= 12, Is.True, "Start ordinal must be between 1 and 12.");
+            string path = Path.GetFullPath(first == 1 ? "Logs/agent-resource-scenarios-live.json"
+                : "Logs/agent-resource-scenarios-live-from-" + first + ".json");
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             using (var file = new FileStream(path, FileMode.CreateNew)) { }
-            var report = new MatrixReport { mode = "live", status = "started", startedAtUtc = DateTime.UtcNow.ToString("O") };
+            var report = new MatrixReport { mode = "live", status = "started", firstOrdinal = first, startedAtUtc = DateTime.UtcNow.ToString("O") };
             Write(report, path);
             try
             {
-                yield return RunMatrix(report, endpoint, 3, false, path);
+                yield return RunMatrix(report, endpoint, 3, false, path, first);
                 report.status = report.trials.All(t => t.initialized && t.hostViolations.Count == 0 && t.recovered)
                     ? "host_checks_passed" : "host_checks_failed";
-                Assert.That(report.trials.Count, Is.EqualTo(12));
+                Assert.That(report.trials.Count, Is.EqualTo(13 - first));
                 Assert.That(report.status, Is.EqualTo("host_checks_passed"));
             }
-            finally { Write(report, path); }
+            finally { if (report.status == "started") report.status = "interrupted"; Write(report, path); }
         }
 
-        private IEnumerator RunMatrix(MatrixReport report, string endpoint, int repetitions, bool reckless, string path)
+        private IEnumerator RunMatrix(MatrixReport report, string endpoint, int repetitions, bool reckless, string path, int firstOrdinal = 1)
         {
             bool live = endpoint != null;
             var epochs = new HashSet<string>();
             for (int repeat = 0; repeat < repetitions; repeat++)
             for (int offset = 0; offset < Scenarios.Length; offset++)
             {
+                int ordinal = repeat * Scenarios.Length + offset + 1;
+                if (ordinal < firstOrdinal) continue;
                 // Rotate the order on each repetition; the provider budget is shared across all trials.
                 var scenario = Scenarios[(repeat + offset) % Scenarios.Length];
-                var trial = new Trial { scenario = scenario.Id, repetition = repeat + 1, ordinal = report.trials.Count + 1,
+                var trial = new Trial { scenario = scenario.Id, repetition = repeat + 1, ordinal = ordinal,
                     startedAtUtc = DateTime.UtcNow.ToString("O") };
                 report.trials.Add(trial);
                 Write(report, path);
@@ -319,6 +331,7 @@ namespace CozyTown.Tests.PlayMode
         {
             public string mode = "fixed", status = "started", startedAtUtc;
             public int providerCallCap = 96, perTrialCallCap = 12, trialDeadlineSeconds = 100, initialGameMinute = 735, recoveryGameMinute = 1000;
+            public int firstOrdinal = 1;
             public List<Trial> trials = new List<Trial>();
         }
         [Serializable] private sealed class Trial

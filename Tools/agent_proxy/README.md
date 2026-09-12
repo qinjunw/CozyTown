@@ -35,6 +35,8 @@ python -B Tools/agent_proxy/decision_proxy.py --credential-file '<private-creden
 
 普通测试 `FreshScenes_SeparateReasonableChoicesFromRejectedTrades` 使用固定客户端验证重置、合理拒绝及宿主拦截不可行交付的分类，不读取密钥。
 
+整个矩阵的 Unity 测试总时限为 25 分钟，覆盖 12 个单轮期限与场景加载。若基础设施中断，先保留原 JSON、XML 和代理日志，再显式设置 `COZYTOWN_SCENARIO_START_ORDINAL=<1..12>` 从指定计划序号重新初始化执行余下轮次。起始序号大于 1 时写入独立的 `agent-resource-scenarios-live-from-<ordinal>.json`，同样拒绝覆盖。补跑不会恢复旧世界或旧会面；应继续使用原代理剩余预算，并在最终报告同时统计中断尝试与补跑，不能删去未完成样本。
+
 每个代理进程最多尝试 `--max-calls` 次提供方请求，失败也计数，同时最多 2 个请求。没有自动重试；每次最多生成 512 Token、关闭思考模式。请求型号固定为用户选择的 `deepseek-v4-flash`。实际返回的型号、Token 用量、耗时、候选和错误码记录在本地 JSONL，密钥、完整上下文和提供方思考内容不写入记录。`GET /status` 返回本进程已尝试次数、剩余额度和在途数。
 
 记录文件必须尚不存在，避免覆盖上一次证据。重启进程会创建新的调用预算；需要控制一次联调总量时，应扣除之前已经尝试的次数。停止代理使用 Ctrl+C。调用上限耗尽后，游戏继续按宿主日程运行，待处理会面仍受游戏时间期限约束。
