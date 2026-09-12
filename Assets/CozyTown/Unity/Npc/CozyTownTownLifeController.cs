@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CozyTown.Runtime.Core;
+using CozyTown.Runtime.Npc;
 using CozyTown.Runtime.NpcAgents;
 using CozyTown.Runtime.NpcLife;
 using CozyTown.Runtime.Time;
@@ -16,6 +17,13 @@ namespace CozyTown.Unity.Npc
         private WorldTimeProgress _last;
         private bool _hasState;
         private NpcAgentWorld _agents;
+        private NpcDecisionScheduler _decisions;
+
+        public bool DecisionsEnabled => _decisions != null;
+        public long DecisionRequestsStarted => _decisions?.RequestsStarted ?? 0;
+        public int DecisionRequestsInLastMinute => _decisions?.RequestsInLastMinute ?? 0;
+        public int ActiveDecisionRequests => _decisions?.ActiveRequestCount ?? 0;
+        public int WaitingDecisionResidents => _decisions?.WaitingResidentCount ?? 0;
 
         public void Configure(params NpcWorldResident2D[] actors)
         {
@@ -41,6 +49,7 @@ namespace CozyTown.Unity.Npc
             _timeFlow = timeFlow;
             _hasState = false;
             Apply(_timeFlow.Current);
+            _decisions?.BindWorld(_agents);
             _timeFlow.Changed += Apply;
         }
 
@@ -49,6 +58,26 @@ namespace CozyTown.Unity.Npc
             if (_agents == null) throw new InvalidOperationException("Bind world time before querying residents.");
             return _agents.GetState(npcId);
         }
+
+        public void ConfigureDecisions(INpcDecisionClient client, IEnumerable<NpcDefinition> profiles,
+            NpcDecisionSettings settings = null)
+        {
+            if (_agents == null) throw new InvalidOperationException("Bind world time before configuring decisions.");
+            var candidate = new NpcDecisionScheduler(_agents, profiles, client, settings);
+            _decisions?.Dispose();
+            _decisions = candidate;
+        }
+
+        public void TickDecisions(double realSeconds)
+        {
+            if (_decisions == null) return;
+            foreach (var outcome in _decisions.Tick(realSeconds))
+                if (outcome.ActivityAccepted) RefreshTarget(outcome.NpcId);
+        }
+
+        public NpcDecisionOutcome GetDecisionOutcome(string npcId) => _decisions?.GetLastOutcome(npcId);
+
+        private void Update() => TickDecisions(UnityEngine.Time.realtimeSinceStartupAsDouble);
 
         public IReadOnlyList<NpcAgentEvent> TakeAgentEvents(string npcId)
         {
@@ -87,6 +116,7 @@ namespace CozyTown.Unity.Npc
         // including explicit sleep/load while the presentation is disabled.
         private void OnDestroy()
         {
+            _decisions?.Dispose();
             if (_timeFlow != null) _timeFlow.Changed -= Apply;
         }
 

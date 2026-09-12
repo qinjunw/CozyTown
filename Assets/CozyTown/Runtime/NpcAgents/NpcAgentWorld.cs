@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.NpcLife;
 using CozyTown.Runtime.Time;
@@ -8,6 +9,7 @@ namespace CozyTown.Runtime.NpcAgents
 {
     public sealed class NpcAgentWorld
     {
+        public const int MaximumActivityDurationGameMinutes = 1440;
         private const int MaxPendingEvents = 16;
         private readonly Dictionary<string, Resident> _residents = new Dictionary<string, Resident>(StringComparer.Ordinal);
         private readonly Func<string, string, bool> _canVisit;
@@ -94,6 +96,22 @@ namespace CozyTown.Runtime.NpcAgents
             return events;
         }
 
+        public IReadOnlyList<string> GetKnownLocationIds(string npcId)
+        {
+            var schedule = RequireResident(npcId).Schedule;
+            return Array.AsReadOnly(new[] { schedule.HomeOutsideLocationId, schedule.HomeEntranceLocationId,
+                schedule.MorningWorkLocationId, schedule.RestLocationId, schedule.AfternoonWorkLocationId }.Distinct().ToArray());
+        }
+
+        public OperationResult<NpcLocationDetails> InspectLocation(string npcId, string locationId)
+        {
+            var resident = RequireResident(npcId);
+            if (!IsScheduledLocation(resident.Schedule, locationId))
+                return OperationResult<NpcLocationDetails>.Failure("agent.location_unknown");
+            return OperationResult<NpcLocationDetails>.Success(new NpcLocationDetails(locationId,
+                _canVisit == null || _canVisit(npcId, locationId)));
+        }
+
         public OperationResult SubmitActivity(NpcActivityRequest request)
         {
             if (request == null) return OperationResult.Failure("agent.request_invalid");
@@ -103,7 +121,7 @@ namespace CozyTown.Runtime.NpcAgents
             if (request.Activity != NpcActivity.Working && request.Activity != NpcActivity.Resting)
                 return OperationResult.Failure("agent.activity_invalid");
             double duration = request.ExpiresAtTotalMinutes - TotalMinutes;
-            if (double.IsNaN(duration) || duration <= 0 || duration > 1440)
+            if (double.IsNaN(duration) || duration <= 0 || duration > MaximumActivityDurationGameMinutes)
                 return OperationResult.Failure("agent.deadline_invalid");
             if (string.IsNullOrWhiteSpace(request.TargetLocationId)
                 || !(_canVisit != null
