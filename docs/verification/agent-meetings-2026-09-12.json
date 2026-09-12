@@ -1,0 +1,704 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-12",
+  "testedCommit": "15d44f52b1bbb520560ebf38eb4e0f221bc6bcfa",
+  "baseCommit": "268d42a03b3758845a7a78160fb94306a82474f8",
+  "branch": "codex/agent-world-resident-meetings",
+  "canonicalTicket": "https://github.com/qinjunw/CozyTown/issues/53",
+  "unityVersion": "6000.5.5f1",
+  "newEditModeTests": 31,
+  "newOrdinaryPlayModeTests": 2,
+  "optInLivePlayModeTests": 1,
+  "runs": [
+    {
+      "result": "Passed",
+      "total": 588,
+      "passed": 588,
+      "failed": 0,
+      "skipped": 0,
+      "report": "Logs/agent-meetings-full-editmode.xml",
+      "sha256": "87156b21e35441bde0ce9e57f5305122ba35929aa96f5cc966c616389a189690",
+      "workspace": "shared",
+      "platform": "EditMode"
+    },
+    {
+      "result": "Skipped:Ignored",
+      "total": 175,
+      "passed": 174,
+      "failed": 0,
+      "skipped": 1,
+      "report": "Logs/agent-meetings-full-playmode.xml",
+      "sha256": "e361efddf86b9a81aca65b3bcd59416568fdc10c9c5bfcf9e2d61118e06e0fb8",
+      "workspace": "shared",
+      "platform": "PlayMode"
+    },
+    {
+      "result": "Passed",
+      "total": 584,
+      "passed": 584,
+      "failed": 0,
+      "skipped": 0,
+      "report": "Logs/agent-meetings-publish-editmode.xml",
+      "sha256": "258c2d14e50c35b6860b814687d93c6f1030b4c78c27ff6fa6d57243e4378c76",
+      "workspace": "isolated",
+      "platform": "EditMode"
+    },
+    {
+      "result": "Skipped:Ignored",
+      "total": 173,
+      "passed": 172,
+      "failed": 0,
+      "skipped": 1,
+      "report": "Logs/agent-meetings-publish-playmode.xml",
+      "sha256": "867db508b5045704f129d334b92278dd9d9440f8a43d55e687c683b9c5bf4b36",
+      "workspace": "isolated",
+      "platform": "PlayMode"
+    },
+    {
+      "result": "Passed",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "report": "Logs/agent-meetings-live.xml",
+      "sha256": "065ae50d16f1de3d728cbb63cfca24988288f6507159a824ac7dfb800ac91411",
+      "workspace": "shared-explicit-live",
+      "platform": "PlayMode"
+    }
+  ],
+  "pythonProxyTests": {
+    "passed": 10,
+    "failed": 0,
+    "report": "Logs/agent-meetings-proxy-full.log",
+    "sha256": "ffaa2129323cd23dc3135937003854d2e2e350bb077ace6cd54d0eafe7edd392"
+  },
+  "redGreen": [
+    {
+      "behavior": "invite",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-invite-red.xml",
+        "sha256": "583b815cb81a506deddc7ce9bd1d25da5e360bc1d925266d601573cf4a2814ba"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-invite-green.xml",
+        "sha256": "53bd2881f2ac10a599c2e475495d95365ac8be9c8469d27a5f16e8c42a385d13"
+      }
+    },
+    {
+      "behavior": "accept",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 2,
+        "passed": 1,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-accept-red.xml",
+        "sha256": "53ee7069787c96a473b3f7385272540c5f427d1aa8a5b4632ec7e8c9f01ab297"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 21,
+        "passed": 21,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-accept-green.xml",
+        "sha256": "8b2dbe8309f77a8ae52531ac53ee5cdc5cf21b344227e18f98d887063d771f99"
+      }
+    },
+    {
+      "behavior": "arrival",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 3,
+        "passed": 2,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-arrival-red.xml",
+        "sha256": "6480329ba677a75f2384f890fc376b4a2dcce723a4d04ae9e11ff8a7bf1ee960"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-arrival-green.xml",
+        "sha256": "bfdf1127bc266b49be95e3f451aa7ae23bbfbad7725cedbd30baebdedeabc274"
+      }
+    },
+    {
+      "behavior": "dialogue",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 4,
+        "passed": 3,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-dialogue-red.xml",
+        "sha256": "d47eff716fe8dbd22d73a6e7c8385af8c90a64fbe04e09453d4deb91c2ae1429"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-dialogue-green.xml",
+        "sha256": "5e67c577395abb4a4f9b0127d58fe97c0c2daa70a1ee5aec3694633769dd2093"
+      }
+    },
+    {
+      "behavior": "release",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 11,
+        "passed": 4,
+        "failed": 7,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-release-red.xml",
+        "sha256": "8ab3921f87f1563d23267fd91056e322f509db221a853e380f45f044e7d3e740"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 11,
+        "passed": 11,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-release-green.xml",
+        "sha256": "77e68368d1d9b7525ddf9fa9ef6d381a78cc2be3a1f9a0f586152caca418e0f8"
+      }
+    },
+    {
+      "behavior": "memory",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 12,
+        "passed": 11,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-memory-red.xml",
+        "sha256": "772cdf5a95950ecaaa10ddeeac7cec8625621ff1f350e9b48526c2a51626ade1"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 13,
+        "passed": 13,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-memory-green.xml",
+        "sha256": "766e5211f34adc7b36894de5dcc75f0d7f1f87042daea12a6b6fa7af8a5807d0"
+      }
+    },
+    {
+      "behavior": "scheduler",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 14,
+        "passed": 13,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-scheduler-red.xml",
+        "sha256": "012f16e6b76b2c4213e987cf6b5e998d5c45a3032d2b79876c371c525e83a98b"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 78,
+        "passed": 78,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-social-boundaries-green.xml",
+        "sha256": "85ae9ec7747b7251cb94caa64552ca95ba0eefe9c5b03b9a6dce8e7daef7b375"
+      }
+    },
+    {
+      "behavior": "social-boundaries",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 78,
+        "passed": 69,
+        "failed": 9,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-social-boundaries-red.xml",
+        "sha256": "c29e46db4148fc93edb3441ea5a9330c6e7daf5b5e9f074632866613722d9448"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 78,
+        "passed": 78,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-social-boundaries-green.xml",
+        "sha256": "85ae9ec7747b7251cb94caa64552ca95ba0eefe9c5b03b9a6dce8e7daef7b375"
+      }
+    },
+    {
+      "behavior": "interruptions",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 83,
+        "passed": 81,
+        "failed": 2,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-interruptions-red.xml",
+        "sha256": "60c991e59106154cd82a60c443d544e0f72d1dbc0acbea5b3b62ef955942a859"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 83,
+        "passed": 83,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-interruptions-green.xml",
+        "sha256": "caf10ca312e08745efb58d8ba9fedc0d0e388ca2aef8d33c9c6b0e2fc1baf847"
+      }
+    },
+    {
+      "behavior": "day-window",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 24,
+        "passed": 23,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-day-window-red.xml",
+        "sha256": "8ccb7e87e34b241d2cc246b0c26cb8f3ca12adf9e46055ab25ac8c16362aabc7"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 588,
+        "passed": 588,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-full-editmode.xml",
+        "sha256": "87156b21e35441bde0ce9e57f5305122ba35929aa96f5cc966c616389a189690"
+      }
+    },
+    {
+      "behavior": "full-editmode",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 588,
+        "passed": 587,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-full-editmode-red.xml",
+        "sha256": "0ca686b66fc93d765ddc601d4817a112b1c3ed328a9a53586298196a1265cee8"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 588,
+        "passed": 588,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-full-editmode.xml",
+        "sha256": "87156b21e35441bde0ce9e57f5305122ba35929aa96f5cc966c616389a189690"
+      }
+    },
+    {
+      "behavior": "scene",
+      "red": {
+        "result": "Failed(Child)",
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-scene-red.xml",
+        "sha256": "8bfc962abe0486a8e8d3fdeabb4ce7dc4655294a6d5574615b26e82f35842e06"
+      },
+      "green": {
+        "result": "Passed",
+        "total": 9,
+        "passed": 9,
+        "failed": 0,
+        "skipped": 0,
+        "report": "Logs/agent-meetings-scene-green.xml",
+        "sha256": "80d1aef62ce161f704b3ec4a407d6a5395f8862d03b497014c2b0af7d831b4b1"
+      }
+    }
+  ],
+  "live": {
+    "requestedModel": "deepseek-v4-flash",
+    "returnedModels": [
+      "deepseek-flash"
+    ],
+    "sessionProviderCallCap": 12,
+    "smokeProviderCalls": 1,
+    "meetingProviderCalls": 6,
+    "totalProviderCalls": 7,
+    "maxOutputTokensPerCall": 512,
+    "thinking": "disabled",
+    "meetingPromptTokens": 5024,
+    "meetingCompletionTokens": 299,
+    "meetingTotalTokens": 5323,
+    "smokeTotalTokens": 366,
+    "totalTokensIncludingSmoke": 5689,
+    "providerLatencyMilliseconds": [
+      935,
+      947,
+      941,
+      1161,
+      1026,
+      1212
+    ],
+    "providerStoppedAfterTest": true,
+    "remainingCallsAtStop": 5,
+    "proxyTrace": {
+      "report": "Logs/agent-meetings-live-proxy.jsonl",
+      "sha256": "a2f2db8ebc976644b7153824ba1a8f764ec0899a8e43e6f9a9ea46baf82c3bbc",
+      "calls": [
+        {
+          "call": 1,
+          "npcId": "npc.fisher_ren",
+          "decisionId": "88332738adaf4983a5ad4d5f8ea63d8b",
+          "step": 1,
+          "requestedModel": "deepseek-v4-flash",
+          "status": "passed",
+          "returnedModel": "deepseek-flash",
+          "promptTokens": 649,
+          "completionTokens": 22,
+          "totalTokens": 671,
+          "candidate": {
+            "schemaVersion": 2,
+            "operation": "invite",
+            "planId": "ren-sora-pond-walk"
+          },
+          "elapsedMilliseconds": 935
+        },
+        {
+          "call": 2,
+          "npcId": "npc.cook_sora",
+          "decisionId": "d35f224d655640ddbbb848313f930c4f",
+          "step": 1,
+          "requestedModel": "deepseek-v4-flash",
+          "status": "passed",
+          "returnedModel": "deepseek-flash",
+          "promptTokens": 676,
+          "completionTokens": 36,
+          "totalTokens": 712,
+          "candidate": {
+            "schemaVersion": 2,
+            "operation": "accept_invite",
+            "meetingId": "8df96dfcac9141fdafde416c75f2b281"
+          },
+          "elapsedMilliseconds": 947
+        },
+        {
+          "call": 3,
+          "npcId": "npc.fisher_ren",
+          "decisionId": "e4d9bc681d56434aab61122b1b56abfd",
+          "step": 1,
+          "requestedModel": "deepseek-v4-flash",
+          "status": "passed",
+          "returnedModel": "deepseek-flash",
+          "promptTokens": 771,
+          "completionTokens": 57,
+          "totalTokens": 828,
+          "candidate": {
+            "schemaVersion": 2,
+            "operation": "say",
+            "meetingId": "8df96dfcac9141fdafde416c75f2b281",
+            "text": "Evening, Sora. The pond's been quiet today. What are you cooking with your catch?"
+          },
+          "elapsedMilliseconds": 941
+        },
+        {
+          "call": 4,
+          "npcId": "npc.cook_sora",
+          "decisionId": "7146141776f34d129cc704efe4111807",
+          "step": 1,
+          "requestedModel": "deepseek-v4-flash",
+          "status": "passed",
+          "returnedModel": "deepseek-flash",
+          "promptTokens": 885,
+          "completionTokens": 64,
+          "totalTokens": 949,
+          "candidate": {
+            "schemaVersion": 2,
+            "operation": "say",
+            "meetingId": "8df96dfcac9141fdafde416c75f2b281",
+            "text": "Evening, Ren! I'm thinking a light pond stew—fresh herbs, a little river onion, and whatever you pulled up today."
+          },
+          "elapsedMilliseconds": 1161
+        },
+        {
+          "call": 5,
+          "npcId": "npc.fisher_ren",
+          "decisionId": "0ce2fc255da8458aa071c58c6ae3d9ae",
+          "step": 1,
+          "requestedModel": "deepseek-v4-flash",
+          "status": "passed",
+          "returnedModel": "deepseek-flash",
+          "promptTokens": 985,
+          "completionTokens": 55,
+          "totalTokens": 1040,
+          "candidate": {
+            "schemaVersion": 2,
+            "operation": "say",
+            "meetingId": "8df96dfcac9141fdafde416c75f2b281",
+            "text": "Only small perch and one calm carp today. Light and sweet—should suit a stew well."
+          },
+          "elapsedMilliseconds": 1026
+        },
+        {
+          "call": 6,
+          "npcId": "npc.cook_sora",
+          "decisionId": "c87013c91d7247879c4356dda78c72d5",
+          "step": 1,
+          "requestedModel": "deepseek-v4-flash",
+          "status": "passed",
+          "returnedModel": "deepseek-flash",
+          "promptTokens": 1058,
+          "completionTokens": 65,
+          "totalTokens": 1123,
+          "candidate": {
+            "schemaVersion": 2,
+            "operation": "say",
+            "meetingId": "8df96dfcac9141fdafde416c75f2b281",
+            "text": "Perfect—perch and calm carp it is! I'll simmer them gently with river onion and pond herbs. Save some for tomorrow's lunch?"
+          },
+          "elapsedMilliseconds": 1212
+        }
+      ]
+    },
+    "sceneTrace": {
+      "report": "Logs/agent-meetings-live-scene.json",
+      "sha256": "f4ccaf59c7ce6728f571e1aec10d45bc4e56712bbdd6406d5a4e29bf5249636b",
+      "data": {
+        "mode": "live",
+        "startedAtUtc": "2026-09-12T13:19:43.2896239Z",
+        "status": "passed",
+        "clientCalls": 6,
+        "observations": [
+          {
+            "elapsedSeconds": 3.7999999982218924e-06,
+            "gameTotalMinutes": 735.0000076,
+            "state": "None",
+            "renTarget": "rest.fisher_ren",
+            "soraTarget": "work.cook_sora",
+            "renRoute": "Travelling",
+            "soraRoute": "Arrived",
+            "renPosition": {
+              "x": -4.1999921798706055,
+              "y": -3.0
+            },
+            "soraPosition": {
+              "x": 3.0,
+              "y": 0.3499999940395355
+            },
+            "transcript": []
+          },
+          {
+            "elapsedSeconds": 1.059679599999999,
+            "gameTotalMinutes": 737.1193592,
+            "state": "Invited",
+            "renTarget": "rest.fisher_ren",
+            "soraTarget": "work.cook_sora",
+            "renRoute": "Travelling",
+            "soraRoute": "Arrived",
+            "renPosition": {
+              "x": -3.0,
+              "y": -2.080638885498047
+            },
+            "soraPosition": {
+              "x": 3.0,
+              "y": 0.3499999940395355
+            },
+            "transcript": []
+          },
+          {
+            "elapsedSeconds": 2.0203190999999983,
+            "gameTotalMinutes": 739.0406382,
+            "state": "Scheduled",
+            "renTarget": "rest.fisher_ren",
+            "soraTarget": "work.cook_sora",
+            "renRoute": "Arrived",
+            "soraRoute": "Arrived",
+            "renPosition": {
+              "x": -3.0,
+              "y": -1.399999976158142
+            },
+            "soraPosition": {
+              "x": 3.0,
+              "y": 0.3499999940395355
+            },
+            "transcript": []
+          },
+          {
+            "elapsedSeconds": 22.500012899999994,
+            "gameTotalMinutes": 780.0000258,
+            "state": "Travelling",
+            "renTarget": "rest.fisher_ren",
+            "soraTarget": "road.west_lane",
+            "renRoute": "Arrived",
+            "soraRoute": "Travelling",
+            "renPosition": {
+              "x": -3.0,
+              "y": -1.399999976158142
+            },
+            "soraPosition": {
+              "x": 3.0,
+              "y": 0.35002580285072327
+            },
+            "transcript": []
+          },
+          {
+            "elapsedSeconds": 25.525111199999998,
+            "gameTotalMinutes": 786.0502223999999,
+            "state": "Talking",
+            "renTarget": "rest.fisher_ren",
+            "soraTarget": "road.west_lane",
+            "renRoute": "Arrived",
+            "soraRoute": "Arrived",
+            "renPosition": {
+              "x": -3.0,
+              "y": -1.399999976158142
+            },
+            "soraPosition": {
+              "x": -3.0,
+              "y": 0.4000000059604645
+            },
+            "transcript": []
+          },
+          {
+            "elapsedSeconds": 26.4692929,
+            "gameTotalMinutes": 787.9385858,
+            "state": "Talking",
+            "renTarget": "rest.fisher_ren",
+            "soraTarget": "road.west_lane",
+            "renRoute": "Arrived",
+            "soraRoute": "Arrived",
+            "renPosition": {
+              "x": -3.0,
+              "y": -1.399999976158142
+            },
+            "soraPosition": {
+              "x": -3.0,
+              "y": 0.4000000059604645
+            },
+            "transcript": [
+              "npc.fisher_ren: Evening, Sora. The pond's been quiet today. What are you cooking with your catch?"
+            ]
+          },
+          {
+            "elapsedSeconds": 27.6353892,
+            "gameTotalMinutes": 790.2707784,
+            "state": "Talking",
+            "renTarget": "rest.fisher_ren",
+            "soraTarget": "road.west_lane",
+            "renRoute": "Arrived",
+            "soraRoute": "Arrived",
+            "renPosition": {
+              "x": -3.0,
+              "y": -1.399999976158142
+            },
+            "soraPosition": {
+              "x": -3.0,
+              "y": 0.4000000059604645
+            },
+            "transcript": [
+              "npc.fisher_ren: Evening, Sora. The pond's been quiet today. What are you cooking with your catch?",
+              "npc.cook_sora: Evening, Ren! I'm thinking a light pond stew—fresh herbs, a little river onion, and whatever you pulled up today."
+            ]
+          },
+          {
+            "elapsedSeconds": 28.665048799999994,
+            "gameTotalMinutes": 792.3300976,
+            "state": "Talking",
+            "renTarget": "rest.fisher_ren",
+            "soraTarget": "road.west_lane",
+            "renRoute": "Arrived",
+            "soraRoute": "Arrived",
+            "renPosition": {
+              "x": -3.0,
+              "y": -1.399999976158142
+            },
+            "soraPosition": {
+              "x": -3.0,
+              "y": 0.4000000059604645
+            },
+            "transcript": [
+              "npc.fisher_ren: Evening, Sora. The pond's been quiet today. What are you cooking with your catch?",
+              "npc.cook_sora: Evening, Ren! I'm thinking a light pond stew—fresh herbs, a little river onion, and whatever you pulled up today.",
+              "npc.fisher_ren: Only small perch and one calm carp today. Light and sweet—should suit a stew well."
+            ]
+          },
+          {
+            "elapsedSeconds": 29.881225399999998,
+            "gameTotalMinutes": 794.7624508,
+            "state": "Completed",
+            "renTarget": "rest.fisher_ren",
+            "soraTarget": "rest.cook_sora",
+            "renRoute": "Arrived",
+            "soraRoute": "Travelling",
+            "renPosition": {
+              "x": -3.0,
+              "y": -1.399999976158142
+            },
+            "soraPosition": {
+              "x": -3.0,
+              "y": 0.4000000059604645
+            },
+            "transcript": [
+              "npc.fisher_ren: Evening, Sora. The pond's been quiet today. What are you cooking with your catch?",
+              "npc.cook_sora: Evening, Ren! I'm thinking a light pond stew—fresh herbs, a little river onion, and whatever you pulled up today.",
+              "npc.fisher_ren: Only small perch and one calm carp today. Light and sweet—should suit a stew well.",
+              "npc.cook_sora: Perfect—perch and calm carp it is! I'll simmer them gently with river onion and pond herbs. Save some for tomorrow's lunch?"
+            ]
+          },
+          {
+            "elapsedSeconds": 29.893493,
+            "gameTotalMinutes": 880.7624508,
+            "state": "Completed",
+            "renTarget": "work.fisher_ren.afternoon",
+            "soraTarget": "work.cook_sora",
+            "renRoute": "Arrived",
+            "soraRoute": "Arrived",
+            "renPosition": {
+              "x": 2.9000000953674316,
+              "y": -2.0
+            },
+            "soraPosition": {
+              "x": 3.0,
+              "y": 0.3499999940395355
+            },
+            "transcript": [
+              "npc.fisher_ren: Evening, Sora. The pond's been quiet today. What are you cooking with your catch?",
+              "npc.cook_sora: Evening, Ren! I'm thinking a light pond stew—fresh herbs, a little river onion, and whatever you pulled up today.",
+              "npc.fisher_ren: Only small perch and one calm carp today. Light and sweet—should suit a stew well.",
+              "npc.cook_sora: Perfect—perch and calm carp it is! I'll simmer them gently with river onion and pond herbs. Save some for tomorrow's lunch?"
+            ]
+          }
+        ]
+      }
+    },
+    "screenshot": {
+      "report": "Logs/agent-meetings-live-conversation.png",
+      "sha256": "03574c322e07904e2c8f35a3a03747889e38bc51fe7d50a936b6ff05549c71ce"
+    },
+    "smokeEvidence": {
+      "report": "Logs/agent-meetings-key-smoke.json",
+      "sha256": "2f531e2519ef31e0db816c4fc43f1951c884069f9aa74938a05f52e5336d28f9"
+    },
+    "limitations": [
+      "Single two-resident run; no success-rate distribution, four-resident load result or long-term character evaluation.",
+      "The first two lines say Evening around 13:08-13:10 game time.",
+      "Dialogue mentions unverified catches and ingredients; no inventory or delivery event occurred.",
+      "Live scene ran in the shared worktree; screenshots include separate local art changes. Isolated tests verify the published code and scene.",
+      "Final movement back to afternoon work was verified by explicit game-time advancement after the autonomous meeting completed."
+    ]
+  },
+  "scopeLimits": [
+    "In-memory meeting events only; loading discards them.",
+    "No NPC resource delivery or persistent relationship changes."
+  ]
+}
