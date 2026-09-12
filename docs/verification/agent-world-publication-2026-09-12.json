@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-12",
+  "testedCommit": "fa170a7a75d2bacebc6b4e16db5209174b5b1042",
+  "baseCommit": "207e42c4f5962154417d7315d179bde130504a12",
+  "branch": "codex/agent-world-foundation",
+  "workspace": "Isolated detached Git worktree of the tested commit, excluding unrelated shared-workspace changes.",
+  "unityVersion": "6000.5.5f1",
+  "realModelCalls": 0,
+  "runs": [
+    {
+      "platform": "editmode",
+      "result": "Passed",
+      "total": 510,
+      "passed": 510,
+      "failed": 0,
+      "skipped": 0,
+      "report": "Logs/agent-world-publish/isolated-editmode.xml",
+      "sha256": "a1969f3f85b51033584ebd910100d2d46991c31885b23bc6cb75e615660dbf17"
+    },
+    {
+      "platform": "playmode",
+      "result": "Passed",
+      "total": 162,
+      "passed": 162,
+      "failed": 0,
+      "skipped": 0,
+      "report": "Logs/agent-world-publish/isolated-playmode.xml",
+      "sha256": "0ee5042e049a5795216c2a27f42b937c718ef8305f365b07afc8e57226c1df8e"
+    }
+  ],
+  "sources": [
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcAgentWorld.cs",
+      "gitBlob": "be4885814cae157f8a57ae6e455398ae0f1246e6"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcAgentSnapshot.cs",
+      "gitBlob": "9ff63c7628cadebe8df3e0f311472eaebeba4e55"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcAgentEvent.cs",
+      "gitBlob": "62e1789324599bedc915219e891695be37885b97"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcActivityRequest.cs",
+      "gitBlob": "5f967641d17c76cb8c00125480c57cd62e1022f3"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/CozyTownTownLifeController.cs",
+      "gitBlob": "dd9022adf2ba6aa015217e2288738e92d558d534"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/NpcWorldResident2D.cs",
+      "gitBlob": "341978f42c97de2fe32bf5a9de3a9db00c9c6024"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcAgentWorldTests.cs",
+      "gitBlob": "4ab9569dd470584188590a3028f94e20aff63f0b"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcAgentActivityPlayModeTests.cs",
+      "gitBlob": "2994b3eb40a5ba1ef24d3d4bb3e00507b6579765"
+    }
+  ]
+}

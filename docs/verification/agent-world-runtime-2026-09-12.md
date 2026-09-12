@@ -6,6 +6,8 @@
 - 环境：Unity `6000.5.5f1`，Test Framework `1.7.0`；当前共享工作区，参照提交 `207e42c4f5962154417d7315d179bde130504a12`。
 - 证据：[验证数据与文件校验值](agent-world-runtime-2026-09-12.json)。工作区包含其他未提交修改，参照提交不等于本次完整测试快照。
 
+发布前另在隔离提交检出验证，结果为 EditMode 510/510、图形 PlayMode 162/162；对应提交与范围见 [发布验证](agent-world-publication-2026-09-12.md)。下文保留共享工作区的原始测试证据。
+
 ## 已实现行为
 
 `Runtime/NpcAgents` 按 NPC ID 分别保存日程、当前临时活动、状态修订和语义事件。现有 `CozyTownTownLifeController` 绑定居民时建立此运行模块，`NpcWorldResident2D` 从中取得目标，并使用现有路线推进实际身体。
