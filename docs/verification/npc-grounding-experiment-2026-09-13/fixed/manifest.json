@@ -1,0 +1,22 @@
+{
+  "mode": "fixed",
+  "startedAtUtc": "2026-09-13T06:44:41.549485+00:00",
+  "requestedModel": "deepseek-v4-flash",
+  "maxCalls": 160,
+  "arms": {
+    "A": "unchanged production context",
+    "B": "grounding facts and guidance",
+    "C": "grounding plus own resource assessment",
+    "D": "assessment plus action filtering"
+  },
+  "retriesPerDecision": 0,
+  "plannedCalls": 160,
+  "repetitionsPerFixedCase": 5,
+  "armOrder": "rotate by zero-based repetition plus case index",
+  "corpusSha256": "bd13d491c5375977b611f4a5166c64c237d1c0af67631cddaa8f68f988999316",
+  "systemPromptSha256": "ac33dba894886b505ea03d5785fbc323e79a5f72a9ae1769d1d0a27a46465514",
+  "sourceSha256": {
+    "grounding_experiment.py": "fcbcc1727c1eeec23eb836c67fc12ef852311319d93f6fcd1aa405e187a91d48",
+    "decision_proxy.py": "5344473c59dfb6fa5d810b966cc1a70105c76564c6431fa3a42879465332afba"
+  }
+}

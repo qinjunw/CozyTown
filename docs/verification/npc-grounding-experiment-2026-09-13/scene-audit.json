@@ -1,0 +1,457 @@
+{
+  "scope": "Independent audit of the 16 Unity scene trials and recorded proxy traces; no new model calls or implementation changes.",
+  "sourceFiles": [
+    {
+      "path": "Logs/agent-scenarios-publish-check/Logs/agent-grounding-scene.json",
+      "sha256": "6e7b4442f7d8e12b56677c0dbd2eb66b92dc0e258dc1198631bfd450297c3a0e"
+    },
+    {
+      "path": "Logs/grounding-scene-20260913/contexts.jsonl",
+      "sha256": "9812bcc58562bc2e9f59b0e064cbc4bf739307e383cb6afed0a81d2dd1317426"
+    },
+    {
+      "path": "Logs/grounding-scene-20260913/proxy.jsonl",
+      "sha256": "05e6fa3b73a91903fad6f0c3a470f7e3f8a89aa094726b646a97eef03b825c6f"
+    },
+    {
+      "path": "Logs/grounding-scene-20260913/provider-responses.jsonl",
+      "sha256": "624f4163d464e60800f5f954c1ae3775badd11c4fa856e1ae4728c1943c7bbad"
+    },
+    {
+      "path": "Logs/grounding-scene-20260913/manifest.json",
+      "sha256": "66ace615b9744e8c113de7c56d651e0f1bfb5b5a2171dfe65d7beddc1e90ee1d"
+    },
+    {
+      "path": "Logs/grounding-scene-20260913/status.json",
+      "sha256": "e511cdc05c3a2e77092b79bbf619232c6916809dbf418fdcb8a229035c5fd1c2"
+    },
+    {
+      "path": "docs/verification/npc-grounding-experiment-plan-2026-09-13.md",
+      "sha256": "9815dc8233713ee9372e0e81bddc54fc10003e6c1aacca4bd1250b31495b03c8"
+    }
+  ],
+  "result": "passed",
+  "checks": {
+    "completedTrials": 16,
+    "distinctWorldRunIds": 16,
+    "fourScenariosEachCoverABCD": true,
+    "initializationPassed": 16,
+    "firstOpportunitiesWithEmptyPriorMemoryChecked": 12,
+    "retainedAssetSnapshotsChecked": 122,
+    "assetAndOtherOwnerViolations": 0,
+    "recoveryAtGameMinute1000Passed": 16,
+    "joinedProviderCalls": 57,
+    "observationMetadataAndArrivalRecomputations": 57,
+    "BcdSelfOnlyCoordinateProjections": 41,
+    "AProductionContextUnchanged": true,
+    "partnerCoordinatesAbsentFromEffectiveInputs": true,
+    "resourceAssessmentsAndFiltersUseOwnValues": true,
+    "ordinaryNoMeetingArrivalRepresentedAsUnknown": 10,
+    "actualPositionProjectionLimitation": "Observation positions and route states are independently matched across Unity and HTTP records. The observation time repeats the decision-request timestamp; the capture-time clock was not separately recorded, and a queued request can be dispatched later."
+  },
+  "armSummary": {
+    "A": {
+      "trials": 4,
+      "providerCalls": 16,
+      "behaviors": {
+        "cancelled_after_invitation": 2,
+        "delivered_and_completed": 1,
+        "need_suppressed": 1
+      },
+      "hostCodes": {
+        "agent.activity_accepted": 1,
+        "agent.decision_stale": 1,
+        "agent.decision_wait": 1,
+        "meeting.accept_invite": 3,
+        "meeting.cancel_exchange": 2,
+        "meeting.deliver": 1,
+        "meeting.invited": 3,
+        "meeting.say": 4
+      },
+      "promptTokens": 15062,
+      "completionTokens": 617,
+      "totalTokens": 15679
+    },
+    "B": {
+      "trials": 4,
+      "providerCalls": 14,
+      "behaviors": {
+        "delivered_and_completed": 1,
+        "host_rejected_infeasible_trade": 2,
+        "need_suppressed": 1
+      },
+      "hostCodes": {
+        "agent.decision_wait": 2,
+        "inventory.insufficient_quantity": 1,
+        "meeting.accept_invite": 3,
+        "meeting.deliver": 1,
+        "meeting.end_conversation": 1,
+        "meeting.invited": 3,
+        "meeting.say": 2,
+        "wallet.insufficient_funds": 1
+      },
+      "promptTokens": 18411,
+      "completionTokens": 521,
+      "totalTokens": 18932
+    },
+    "C": {
+      "trials": 4,
+      "providerCalls": 13,
+      "behaviors": {
+        "declined_missing_stock": 1,
+        "delivered_and_completed": 1,
+        "need_suppressed": 1,
+        "waited_insufficient_funds": 1
+      },
+      "hostCodes": {
+        "agent.activity_accepted": 2,
+        "agent.decision_wait": 3,
+        "meeting.accept_invite": 1,
+        "meeting.decline_invite": 1,
+        "meeting.deliver": 1,
+        "meeting.end_conversation": 1,
+        "meeting.invited": 2,
+        "meeting.say": 2
+      },
+      "promptTokens": 17069,
+      "completionTokens": 435,
+      "totalTokens": 17504
+    },
+    "D": {
+      "trials": 4,
+      "providerCalls": 14,
+      "behaviors": {
+        "declined_missing_stock": 1,
+        "delivered_and_completed": 1,
+        "need_suppressed": 1,
+        "waited_insufficient_funds": 1
+      },
+      "hostCodes": {
+        "agent.activity_accepted": 2,
+        "agent.decision_wait": 3,
+        "meeting.accept_invite": 1,
+        "meeting.decline_invite": 1,
+        "meeting.deliver": 1,
+        "meeting.end_conversation": 1,
+        "meeting.invited": 2,
+        "meeting.say": 3
+      },
+      "promptTokens": 18797,
+      "completionTokens": 534,
+      "totalTokens": 19331
+    }
+  },
+  "trials": [
+    {
+      "ordinal": 1,
+      "scenario": "available",
+      "arm": "A",
+      "worldRunId": "b16b807f-89f7-4317-80dc-9194939df09e",
+      "initialized": true,
+      "behavior": "delivered_and_completed",
+      "providerCalls": 8,
+      "terminalState": "Completed",
+      "receipt": "resource.delivered",
+      "hostViolations": [],
+      "recovered": true,
+      "recoveryGameTotalMinutes": 1000.0
+    },
+    {
+      "ordinal": 2,
+      "scenario": "seller_empty",
+      "arm": "B",
+      "worldRunId": "1692f390-945d-4099-9ebd-9509714ebb26",
+      "initialized": true,
+      "behavior": "host_rejected_infeasible_trade",
+      "providerCalls": 3,
+      "terminalState": "Cancelled",
+      "receipt": "inventory.insufficient_quantity",
+      "hostViolations": [],
+      "recovered": true,
+      "recoveryGameTotalMinutes": 1000.0
+    },
+    {
+      "ordinal": 3,
+      "scenario": "buyer_poor",
+      "arm": "C",
+      "worldRunId": "5dbcb03f-dc52-4f1a-8cee-768a98b76e03",
+      "initialized": true,
+      "behavior": "waited_insufficient_funds",
+      "providerCalls": 3,
+      "terminalState": "None",
+      "receipt": "",
+      "hostViolations": [],
+      "recovered": true,
+      "recoveryGameTotalMinutes": 1000.0
+    },
+    {
+      "ordinal": 4,
+      "scenario": "need_satisfied",
+      "arm": "D",
+      "worldRunId": "f8809c8c-f47b-47aa-8c2c-eb5e059681be",
+      "initialized": true,
+      "behavior": "need_suppressed",
+      "providerCalls": 2,
+      "terminalState": "None",
+      "receipt": "",
+      "hostViolations": [],
+      "recovered": true,
+      "recoveryGameTotalMinutes": 1000.0
+    },
+    {
+      "ordinal": 5,
+      "scenario": "seller_empty",
+      "arm": "A",
+      "worldRunId": "357bc5eb-6ffe-4e6b-b32a-d1621410307c",
+      "initialized": true,
+      "behavior": "cancelled_after_invitation",
+      "providerCalls": 3,
+      "terminalState": "Cancelled",
+      "receipt": "",
+      "hostViolations": [],
+      "recovered": true,
+      "recoveryGameTotalMinutes": 1000.0
+    },
+    {
+      "ordinal": 6,
+      "scenario": "buyer_poor",
+      "arm": "B",
+      "worldRunId": "dd5c376e-d288-484c-9cc8-811a8f5b4ec0",
+      "initialized": true,
+      "behavior": "host_rejected_infeasible_trade",
+      "providerCalls": 3,
+      "terminalState": "Cancelled",
+      "receipt": "wallet.insufficient_funds",
+      "hostViolations": [],
+      "recovered": true,
+      "recoveryGameTotalMinutes": 1000.0
+    },
+    {
+      "ordinal": 7,
+      "scenario": "need_satisfied",
+      "arm": "C",
+      "worldRunId": "8125e6de-a5d1-4883-baeb-027b1943f196",
+      "initialized": true,
+      "behavior": "need_suppressed",
+      "providerCalls": 2,
+      "terminalState": "None",
+      "receipt": "",
+      "hostViolations": [],
+      "recovered": true,
+      "recoveryGameTotalMinutes": 1000.0
+    },
+    {
+      "ordinal": 8,
+      "scenario": "available",
+      "arm": "D",
+      "worldRunId": "9aec4a89-3356-49f6-9bdd-e788dd0d63e9",
+      "initialized": true,
+      "behavior": "delivered_and_completed",
+      "providerCalls": 7,
+      "terminalState": "Completed",
+      "receipt": "resource.delivered",
+      "hostViolations": [],
+      "recovered": true,
+      "recoveryGameTotalMinutes": 1000.0
+    },
+    {
+      "ordinal": 9,
+      "scenario": "buyer_poor",
+      "arm": "A",
+      "worldRunId": "b16abef8-7b6d-471c-81b2-f1f258316306",
+      "initialized": true,
+      "behavior": "cancelled_after_invitation",
+      "providerCalls": 3,
+      "terminalState": "Cancelled",
+      "receipt": "",
+      "hostViolations": [],
+      "recovered": true,
+      "recoveryGameTotalMinutes": 1000.0
+    },
+    {
+      "ordinal": 10,
+      "scenario": "need_satisfied",
+      "arm": "B",
+      "worldRunId": "9dd3b90f-0f43-4d71-bc22-20968972a03a",
+      "initialized": true,
+      "behavior": "need_suppressed",
+      "providerCalls": 2,
+      "terminalState": "None",
+      "receipt": "",
+      "hostViolations": [],
+      "recovered": true,
+      "recoveryGameTotalMinutes": 1000.0
+    },
+    {
+      "ordinal": 11,
+      "scenario": "available",
+      "arm": "C",
+      "worldRunId": "b401d00b-7d54-4930-bae1-7e82b3e908e4",
+      "initialized": true,
+      "behavior": "delivered_and_completed",
+      "providerCalls": 6,
+      "terminalState": "Completed",
+      "receipt": "resource.delivered",
+      "hostViolations": [],
+      "recovered": true,
+      "recoveryGameTotalMinutes": 1000.0
+    },
+    {
+      "ordinal": 12,
+      "scenario": "seller_empty",
+      "arm": "D",
+      "worldRunId": "507ecd47-1552-4b82-bcae-aabad9e98e6c",
+      "initialized": true,
+      "behavior": "declined_missing_stock",
+      "providerCalls": 2,
+      "terminalState": "Declined",
+      "receipt": "",
+      "hostViolations": [],
+      "recovered": true,
+      "recoveryGameTotalMinutes": 1000.0
+    },
+    {
+      "ordinal": 13,
+      "scenario": "need_satisfied",
+      "arm": "A",
+      "worldRunId": "d7dc49f8-9c2b-422d-8da0-6494bf8ef05b",
+      "initialized": true,
+      "behavior": "need_suppressed",
+      "providerCalls": 2,
+      "terminalState": "None",
+      "receipt": "",
+      "hostViolations": [],
+      "recovered": true,
+      "recoveryGameTotalMinutes": 1000.0
+    },
+    {
+      "ordinal": 14,
+      "scenario": "available",
+      "arm": "B",
+      "worldRunId": "cfdc6078-12f7-44f1-a5cd-b39e316bd45f",
+      "initialized": true,
+      "behavior": "delivered_and_completed",
+      "providerCalls": 6,
+      "terminalState": "Completed",
+      "receipt": "resource.delivered",
+      "hostViolations": [],
+      "recovered": true,
+      "recoveryGameTotalMinutes": 1000.0
+    },
+    {
+      "ordinal": 15,
+      "scenario": "seller_empty",
+      "arm": "C",
+      "worldRunId": "64d9b1be-e75b-48b8-91e3-a19c53ffae38",
+      "initialized": true,
+      "behavior": "declined_missing_stock",
+      "providerCalls": 2,
+      "terminalState": "Declined",
+      "receipt": "",
+      "hostViolations": [],
+      "recovered": true,
+      "recoveryGameTotalMinutes": 1000.0
+    },
+    {
+      "ordinal": 16,
+      "scenario": "buyer_poor",
+      "arm": "D",
+      "worldRunId": "dc139d8d-49ac-47a2-9ddc-27fec39d56f4",
+      "initialized": true,
+      "behavior": "waited_insufficient_funds",
+      "providerCalls": 3,
+      "terminalState": "None",
+      "receipt": "",
+      "hostViolations": [],
+      "recovered": true,
+      "recoveryGameTotalMinutes": 1000.0
+    }
+  ],
+  "filteredOperations": [
+    {
+      "arm": "D",
+      "scenario": "seller_empty",
+      "decisionId": "369a8821-658f-4863-b85b-13108f9992fa",
+      "removed": [
+        "accept_invite"
+      ],
+      "retained": [
+        "decline_invite"
+      ]
+    },
+    {
+      "arm": "D",
+      "scenario": "buyer_poor",
+      "decisionId": "151657ad-101f-467a-a936-ea9cf83cd641",
+      "removed": [
+        "invite"
+      ],
+      "retained": [
+        "wait"
+      ]
+    }
+  ],
+  "candidateAndTransport": {
+    "providerStatuses": {
+      "passed": 57
+    },
+    "protocolInvalidCount": 0,
+    "protocolIssueCounts": {},
+    "hostTimeoutCount": 0,
+    "providerTimeoutCount": 0,
+    "clientErrors": {
+      "TaskCanceledException": 1
+    },
+    "exceptions": [
+      {
+        "ordinal": 1,
+        "arm": "A",
+        "scenario": "available",
+        "decisionId": "22687765-4c6e-4d20-9b94-9bc29750f52b",
+        "error": "TaskCanceledException",
+        "hostCode": "agent.decision_stale",
+        "clientElapsedMilliseconds": 126.66510000000001,
+        "providerElapsedMilliseconds": 891,
+        "candidate": {
+          "schemaVersion": 3,
+          "operation": "end_conversation",
+          "meetingId": "6c029b27a7584d55938f819f74ea7d33"
+        }
+      }
+    ]
+  },
+  "budget": {
+    "cap": 192,
+    "attempts": 57,
+    "remaining": 135,
+    "lastRecordedInflight": 0,
+    "lastRecordedRunState": "running"
+  },
+  "limitations": [
+    "Each scenario has one complete scene trial per arm; this is not a long-term reliability estimate.",
+    "need_satisfied is host-trigger suppression, not proof of model refusal or resource reasoning.",
+    "D action filtering is a host strategy effect and is not credited as improved model reasoning.",
+    "The status artifact still says running with inflight=0; these files alone do not independently prove the proxy process exited.",
+    "Initialization/recovery activity-reset flags are recorded runtime checks; the independent audit recomputes observable assets, world/request linkage, routes and retained snapshot consistency, not every unrecorded frame.",
+    "Raw local observation metadata contains partner coordinates for audit. Verified effective model contexts retain only self coordinates and shared arrival confirmation.",
+    "Ordinary requests have no active resource meeting; meetingArrivalConfirmed=null is the correct projected unknown value, while the raw helper boolean defaults to false. These ten cases are not arrival mismatches.",
+    "The observation timestamp is copied from the decision request. Some ordinary requests wait before dispatch; the trace does not separately record the actual position-capture time, so sub-minute observation freshness is not independently established."
+  ],
+  "issues": [],
+  "auditMethodCorrection": {
+    "firstPassFinding": "10 arrival_projection checks failed because the audit compared effective meetingArrivalConfirmed directly with the helper default meetingBothArrived=false for ordinary requests.",
+    "frozenPlanBasis": {
+      "path": "docs/verification/npc-grounding-experiment-plan-2026-09-13.md",
+      "section": "双方实际场景",
+      "quote": "模型仅获得本人观察及双方已到场的授权会面事实；未到场时不公开伙伴坐标。"
+    },
+    "observedBoundary": "All ten requests have empty social.kind and social.placeId, no active meeting identifier and no partner observation. The original helper default is false; the effective meeting-arrival value is null.",
+    "decision": "The frozen plan authorizes shared arrival information for an actual meeting; it does not require a Boolean arrival assertion for ordinary activity. Null is an admissible unknown/not-applicable value when there is no meeting. The first audit expectation was too broad, not an implementation defect.",
+    "retainedRequirements": [
+      "Every resource-social projected arrival value must equal the arrival predicate independently recomputed from both real route statuses, plan standing targets and coordinates.",
+      "World ID and request-time metadata must still match exactly for ordinary requests.",
+      "Ordinary requests must not contain partner observation metadata; effective inputs must not contain partner coordinates."
+    ],
+    "correctedCases": 10
+  }
+}

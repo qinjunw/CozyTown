@@ -1,0 +1,282 @@
+[
+  {
+    "id": "speech-01",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言午间池塘一直安静。"
+  },
+  {
+    "id": "speech-02",
+    "unsupportedFact": false,
+    "contradiction": false,
+    "uncertain": true,
+    "reason": "主观赞美、问题、愿望或未来意图，不判为当前资源或已完成生产事实。"
+  },
+  {
+    "id": "speech-03",
+    "unsupportedFact": false,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "主观赞美、问题、愿望或未来意图，不判为当前资源或已完成生产事实。"
+  },
+  {
+    "id": "speech-04",
+    "unsupportedFact": false,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "主观赞美、问题、愿望或未来意图，不判为当前资源或已完成生产事实。"
+  },
+  {
+    "id": "speech-05",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "将当前鱼称为新鲜的池鱼，未提供品质或来源记录。"
+  },
+  {
+    "id": "speech-06",
+    "unsupportedFact": false,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "主观赞美、问题、愿望或未来意图，不判为当前资源或已完成生产事实。"
+  },
+  {
+    "id": "speech-07",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言鱼新鲜且池塘今天安静。"
+  },
+  {
+    "id": "speech-08",
+    "unsupportedFact": false,
+    "contradiction": false,
+    "uncertain": true,
+    "reason": "主观赞美、问题、愿望或未来意图，不判为当前资源或已完成生产事实。"
+  },
+  {
+    "id": "speech-09",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言今早池塘平静。"
+  },
+  {
+    "id": "speech-10",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言池塘今天安静。"
+  },
+  {
+    "id": "speech-11",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言今天鱼咬钩良好、当前鱼新鲜。"
+  },
+  {
+    "id": "speech-12",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "声称今天正在试验菜谱，缺少活动或生产记录。"
+  },
+  {
+    "id": "speech-13",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "把拿到的鱼称为新鲜，品质未提供。"
+  },
+  {
+    "id": "speech-14",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言到手的鱼新鲜；未来加香草的意图本身不判为已完成。"
+  },
+  {
+    "id": "speech-15",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "将当前鱼明确称为新鲜。"
+  },
+  {
+    "id": "speech-16",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言池塘今天平静。"
+  },
+  {
+    "id": "speech-17",
+    "unsupportedFact": false,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "主观赞美、问题、愿望或未来意图，不判为当前资源或已完成生产事实。"
+  },
+  {
+    "id": "speech-18",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "比喻仍以今早池塘安静为事实。"
+  },
+  {
+    "id": "speech-19",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言鱼到手时非常新鲜。"
+  },
+  {
+    "id": "speech-20",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言池塘整天平静。"
+  },
+  {
+    "id": "speech-21",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "声称黎明亲眼观察到芦苇附近波纹。"
+  },
+  {
+    "id": "speech-22",
+    "unsupportedFact": false,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "主观赞美、问题、愿望或未来意图，不判为当前资源或已完成生产事实。"
+  },
+  {
+    "id": "speech-23",
+    "unsupportedFact": false,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "主观赞美、问题、愿望或未来意图，不判为当前资源或已完成生产事实。"
+  },
+  {
+    "id": "speech-24",
+    "unsupportedFact": true,
+    "contradiction": true,
+    "uncertain": false,
+    "reason": "声称今天浅滩鱼移动缓慢；已有交付凭据却再次承诺稍后送达。"
+  },
+  {
+    "id": "speech-25",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言当前鱼新鲜。"
+  },
+  {
+    "id": "speech-26",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言池塘今天平静。"
+  },
+  {
+    "id": "speech-27",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言池塘今天平静。"
+  },
+  {
+    "id": "speech-28",
+    "unsupportedFact": false,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "主观赞美、问题、愿望或未来意图，不判为当前资源或已完成生产事实。"
+  },
+  {
+    "id": "speech-29",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言池水今天安静。"
+  },
+  {
+    "id": "speech-30",
+    "unsupportedFact": false,
+    "contradiction": false,
+    "uncertain": true,
+    "reason": "主观赞美、问题、愿望或未来意图，不判为当前资源或已完成生产事实。"
+  },
+  {
+    "id": "speech-31",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言池塘今天平静。"
+  },
+  {
+    "id": "speech-32",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言池塘今天安静并观察到东岸芦苇晃动。"
+  },
+  {
+    "id": "speech-33",
+    "unsupportedFact": false,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "主观赞美、问题、愿望或未来意图，不判为当前资源或已完成生产事实。"
+  },
+  {
+    "id": "speech-34",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言池塘今天平静。"
+  },
+  {
+    "id": "speech-35",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言收到的是新鲜鲤鱼；未来料理意图不计为已完成。"
+  },
+  {
+    "id": "speech-36",
+    "unsupportedFact": false,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "主观赞美、问题、愿望或未来意图，不判为当前资源或已完成生产事实。"
+  },
+  {
+    "id": "speech-37",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言今天鱼咬钩良好且该鱼今早从池中刚钓出。"
+  },
+  {
+    "id": "speech-38",
+    "unsupportedFact": false,
+    "contradiction": false,
+    "uncertain": true,
+    "reason": "主观赞美、问题、愿望或未来意图，不判为当前资源或已完成生产事实。"
+  },
+  {
+    "id": "speech-39",
+    "unsupportedFact": true,
+    "contradiction": true,
+    "uncertain": false,
+    "reason": "断言今天鱼咬钩良好；下午称早晨。"
+  },
+  {
+    "id": "speech-40",
+    "unsupportedFact": true,
+    "contradiction": false,
+    "uncertain": false,
+    "reason": "断言池塘今天平静。"
+  }
+]

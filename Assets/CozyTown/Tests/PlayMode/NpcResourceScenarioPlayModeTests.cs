@@ -4,6 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CozyTown.Runtime.Content;
@@ -32,6 +35,7 @@ namespace CozyTown.Tests.PlayMode
         private CozyTownTownLifeController _controller;
         private CozyTownServices _services;
         private NpcWorldResident2D _ren, _sora;
+        private TownMap2D _map;
 
         private static readonly Scenario[] Scenarios = {
             new Scenario("available", 2, 0, 50), new Scenario("seller_empty", 0, 0, 50),
@@ -57,6 +61,48 @@ namespace CozyTown.Tests.PlayMode
             yield return RunMatrix(continuation, null, 3, false, null, 8);
             Assert.That(continuation.trials.Select(t => t.ordinal), Is.EqualTo(new[] { 8, 9, 10, 11, 12 }));
             Assert.That(continuation.trials.All(t => t.initialized && t.hostViolations.Count == 0 && t.recovered), Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator FreshGroundingScenes_CoverEveryArmAndCaptureActualObservationAtTheHttpBoundary()
+        {
+            var report = new MatrixReport();
+            yield return RunMatrix(report, null, 4, false, null, grounding: true);
+            Assert.That(report.trials.Count, Is.EqualTo(16));
+            Assert.That(report.trials.Select(t => t.worldRunId).Distinct().Count(), Is.EqualTo(16));
+            Assert.That(report.trials.All(t => t.initialized && t.hostViolations.Count == 0 && t.recovered), Is.True);
+            foreach (var scenario in Scenarios)
+                Assert.That(report.trials.Where(t => t.scenario == scenario.Id).Select(t => t.arm),
+                    Is.EquivalentTo(new[] { "A", "B", "C", "D" }), scenario.Id);
+            foreach (var trial in report.trials)
+            foreach (var call in trial.calls)
+            {
+                Assert.That(call.experimentObservation, Is.Not.Null);
+                Assert.That(call.sentObservation, Is.Not.Null, "The mock HTTP handler must receive the injected observation.");
+                Assert.That(JsonUtility.ToJson(call.sentObservation), Is.EqualTo(JsonUtility.ToJson(call.experimentObservation)));
+                Assert.That(call.experimentObservation.worldRunId, Is.EqualTo(Guid.Parse(trial.worldRunId).ToString("N")));
+                Assert.That(call.sentContextJson, Does.Not.Contain("\"arm\""));
+                if (call.phase == "Ordinary")
+                {
+                    Assert.That(call.experimentObservation.partner, Is.Null);
+                    Assert.That(call.sentContextJson, Does.Not.Contain("\"partner\":"));
+                }
+                if (call.phase == "Opportunity")
+                {
+                    Assert.That(call.experimentObservation.meetingBothArrived, Is.False);
+                    Assert.That(call.experimentObservation.self.targetLocationId, Is.EqualTo(trial.initial.soraTarget));
+                    Assert.That(call.experimentObservation.self.position, Is.EqualTo(trial.initial.soraPosition));
+                    Assert.That(call.experimentObservation.partner.routeStatus, Is.EqualTo("Travelling"));
+                    Assert.That(call.experimentObservation.partner.position, Is.Not.EqualTo(new Vector2(-3f, -1.4f)));
+                }
+                if (call.phase == "Delivery" || call.phase == "Conversation")
+                {
+                    Assert.That(call.experimentObservation.meetingBothArrived, Is.True);
+                    Assert.That(call.experimentObservation.self.routeStatus, Is.EqualTo("Arrived"));
+                    Assert.That(call.experimentObservation.partner.routeStatus, Is.EqualTo("Arrived"));
+                    Assert.That(call.experimentObservation.meetingPlaceId, Is.EqualTo("pond-walk"));
+                }
+            }
         }
 
         [UnityTest]
@@ -89,9 +135,36 @@ namespace CozyTown.Tests.PlayMode
             finally { if (report.status == "started") report.status = "interrupted"; Write(report, path); }
         }
 
-        private IEnumerator RunMatrix(MatrixReport report, string endpoint, int repetitions, bool reckless, string path, int firstOrdinal = 1)
+        [UnityTest]
+        [Category("ExternalProvider")]
+        [Timeout(1500000)]
+        public IEnumerator LiveProxy_ComparedGroundingArmsAcrossFreshScenarios()
         {
-            bool live = endpoint != null;
+            if (Environment.GetEnvironmentVariable("COZYTOWN_RUN_GROUNDING_EXPERIMENT") != "1")
+                Assert.Ignore("Requires explicit grounding-experiment opt-in and four loopback endpoints with a shared 192-call scene budget.");
+            Assert.That(int.TryParse(Environment.GetEnvironmentVariable("COZYTOWN_GROUNDING_BASE_PORT"), out int port)
+                && port >= 1 && port <= 65532, Is.True, "The base port must leave room for four consecutive loopback ports.");
+            string path = Path.GetFullPath("Logs/agent-grounding-scene.json");
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
+            using (var file = new FileStream(path, FileMode.CreateNew)) { }
+            var report = new MatrixReport { mode = "live_grounding", providerCallCap = 192,
+                startedAtUtc = DateTime.UtcNow.ToString("O") };
+            Write(report, path);
+            try
+            {
+                yield return RunMatrix(report, null, 4, false, path, grounding: true, groundingBasePort: port);
+                report.status = report.trials.All(t => t.initialized && t.hostViolations.Count == 0 && t.recovered)
+                    ? "host_checks_passed" : "host_checks_failed";
+                Assert.That(report.trials.Count, Is.EqualTo(16));
+                Assert.That(report.status, Is.EqualTo("host_checks_passed"));
+            }
+            finally { if (report.status == "started") report.status = "interrupted"; Write(report, path); }
+        }
+
+        private IEnumerator RunMatrix(MatrixReport report, string endpoint, int repetitions, bool reckless, string path, int firstOrdinal = 1,
+            bool grounding = false, int groundingBasePort = 0)
+        {
+            bool live = endpoint != null || groundingBasePort != 0;
             var epochs = new HashSet<string>();
             for (int repeat = 0; repeat < repetitions; repeat++)
             for (int offset = 0; offset < Scenarios.Length; offset++)
@@ -101,11 +174,24 @@ namespace CozyTown.Tests.PlayMode
                 // Rotate the order on each repetition; the provider budget is shared across all trials.
                 var scenario = Scenarios[(repeat + offset) % Scenarios.Length];
                 var trial = new Trial { scenario = scenario.Id, repetition = repeat + 1, ordinal = ordinal,
-                    startedAtUtc = DateTime.UtcNow.ToString("O") };
+                    startedAtUtc = DateTime.UtcNow.ToString("O"), arm = grounding ? ((char)('A' + offset)).ToString() : null };
                 report.trials.Add(trial);
                 Write(report, path);
                 yield return LoadFreshTown(scenario);
-                var client = new RecordingClient(live ? (INpcDecisionClient)new ProxyNpcDecisionClient(endpoint) : new RuleClient(reckless), trial);
+                INpcDecisionClient inner;
+                if (grounding)
+                {
+                    string armEndpoint = "http://127.0.0.1:" + (live ? groundingBasePort + offset : 1) + "/decide";
+                    inner = new GroundingClient(armEndpoint, request =>
+                    {
+                        var observation = CaptureGroundingObservation(request);
+                        trial.calls.Last(c => c.decisionId == request.DecisionId.ToString() && c.step == request.Step)
+                            .experimentObservation = observation;
+                        return observation;
+                    }, request => live ? (HttpMessageHandler)new HttpClientHandler() : CreateGroundingMock(request, trial, reckless));
+                }
+                else inner = live ? (INpcDecisionClient)new ProxyNpcDecisionClient(endpoint) : new RuleClient(reckless);
+                var client = new RecordingClient(inner, trial);
                 _controller.ConfigureDecisions(client, DefaultMvpContent.CreateConfiguration().Npcs.Where(n => n.Id == Ren || n.Id == Sora),
                     meetingPlans: DefaultNpcResourcePlans.Create());
                 trial.worldRunId = _controller.GetAgentState(Ren).WorldRunId.ToString();
@@ -178,6 +264,7 @@ namespace CozyTown.Tests.PlayMode
             _controller.enabled = false;
             _ren = components.OfType<NpcWorldResident2D>().Single(n => n.NpcId == Ren);
             _sora = components.OfType<NpcWorldResident2D>().Single(n => n.NpcId == Sora);
+            _map = components.OfType<TownMap2D>().Single();
             var config = DefaultMvpContent.CreateConfiguration();
             for (int i = 0; i < config.InitialNpcEconomy.Length; i++)
             {
@@ -193,6 +280,42 @@ namespace CozyTown.Tests.PlayMode
             _driver.Bind(_services.DaytimeClock);
             _controller.Bind(_services.WorldTimeFlow, _services.ResourceTrading);
             Advance(375 * WorldTimeProgress.EffectiveSecondsPerGameMinute);
+        }
+
+        private ExperimentObservation CaptureGroundingObservation(NpcDecisionRequest request)
+        {
+            var self = request.NpcId == Ren ? _ren : _sora;
+            var observation = new ExperimentObservation { worldRunId = request.Self.WorldRunId.ToString("N"),
+                gameTotalMinutes = request.GameTotalMinutes, self = Resident(self) };
+            if (request.Social?.Resources == null) return observation;
+            var partner = request.Social.PartnerId == Ren ? _ren : _sora;
+            var plan = DefaultNpcResourcePlans.Create().Single(p => p.Id == request.Social.PlanId);
+            observation.partner = Resident(partner);
+            observation.meetingPlaceId = plan.PlaceId;
+            observation.meetingBothArrived = AtMeetingLocation(_sora, plan.InitiatorLocationId)
+                && AtMeetingLocation(_ren, plan.PartnerLocationId);
+            return observation;
+        }
+
+        private bool AtMeetingLocation(NpcWorldResident2D resident, string locationId)
+            => resident.Status == TownRouteStatus.Arrived && resident.TargetLocationId == locationId
+                && _map.TryGetLocation(locationId, out var position) && Vector2.Distance(resident.Position, position) < 0.01f;
+
+        private static ResidentObservation Resident(NpcWorldResident2D resident)
+            => new ResidentObservation { npcId = resident.NpcId, position = resident.Position,
+                routeStatus = resident.Status.ToString(), targetLocationId = resident.TargetLocationId };
+
+        private static HttpMessageHandler CreateGroundingMock(NpcDecisionRequest request, Trial trial, bool reckless)
+        {
+            var reply = new RuleClient(reckless).DecideAsync(request, CancellationToken.None).GetAwaiter().GetResult();
+            string response = JsonUtility.ToJson(new MockCandidate { schemaVersion = request.Social?.Resources == null ? 1 : 3,
+                operation = reply.Operation, planId = reply.PlanId, meetingId = reply.MeetingId.ToString("N"), text = reply.Text });
+            var call = trial.calls.Last(c => c.decisionId == request.DecisionId.ToString() && c.step == request.Step);
+            return new GroundingMockHandler(response, json =>
+            {
+                call.sentContextJson = json;
+                call.sentObservation = JsonUtility.FromJson<ObservedRequest>(json).experimentObservation;
+            });
         }
 
         private void Advance(double seconds)
@@ -306,6 +429,58 @@ namespace CozyTown.Tests.PlayMode
             }
         }
 
+        private sealed class GroundingClient : INpcDecisionClient
+        {
+            private readonly string _endpoint;
+            private readonly Func<NpcDecisionRequest, ExperimentObservation> _capture;
+            private readonly Func<NpcDecisionRequest, HttpMessageHandler> _transport;
+            internal GroundingClient(string endpoint, Func<NpcDecisionRequest, ExperimentObservation> capture,
+                Func<NpcDecisionRequest, HttpMessageHandler> transport)
+            { _endpoint = endpoint; _capture = capture; _transport = transport; }
+
+            public async Task<NpcDecisionReply> DecideAsync(NpcDecisionRequest request, CancellationToken token)
+            {
+                // Capture Unity state before the HTTP client's asynchronous continuation can leave the main thread.
+                var observation = _capture(request);
+                string json = JsonUtility.ToJson(new ObservationPayload { worldRunId = observation.worldRunId,
+                    gameTotalMinutes = observation.gameTotalMinutes, self = observation.self,
+                    meetingPlaceId = observation.meetingPlaceId, meetingBothArrived = observation.meetingBothArrived });
+                if (observation.partner != null)
+                    json = json.Substring(0, json.Length - 1) + ",\"partner\":" + JsonUtility.ToJson(observation.partner) + "}";
+                using var http = new HttpClient(new GroundingObservationHandler(json, _transport(request)));
+                return await new ProxyNpcDecisionClient(_endpoint, http).DecideAsync(request, token);
+            }
+        }
+
+        private sealed class GroundingObservationHandler : DelegatingHandler
+        {
+            private readonly string _observation;
+            internal GroundingObservationHandler(string observation, HttpMessageHandler inner)
+            { _observation = observation; InnerHandler = inner; }
+            protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken token)
+            {
+                string json = (await request.Content.ReadAsStringAsync()).TrimEnd();
+                if (!json.EndsWith("}", StringComparison.Ordinal)) throw new FormatException("Expected a decision request JSON object.");
+                var original = request.Content;
+                request.Content = new StringContent(json.Substring(0, json.Length - 1)
+                    + ",\"experimentObservation\":" + _observation + "}", Encoding.UTF8, "application/json");
+                original.Dispose();
+                return await base.SendAsync(request, token);
+            }
+        }
+
+        private sealed class GroundingMockHandler : HttpMessageHandler
+        {
+            private readonly string _response;
+            private readonly Action<string> _capture;
+            internal GroundingMockHandler(string response, Action<string> capture) { _response = response; _capture = capture; }
+            protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken token)
+            {
+                _capture(await request.Content.ReadAsStringAsync());
+                return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(_response, Encoding.UTF8, "application/json") };
+            }
+        }
+
         private sealed class RuleClient : INpcDecisionClient
         {
             private readonly bool _reckless;
@@ -336,7 +511,7 @@ namespace CozyTown.Tests.PlayMode
         }
         [Serializable] private sealed class Trial
         {
-            public string scenario, startedAtUtc, worldRunId, behavior;
+            public string scenario, startedAtUtc, worldRunId, behavior, arm;
             public int repetition, ordinal, renMemories, soraMemories, worldSeed;
             public long schedulerCalls;
             public bool initialized, recovered, deliveryObserved;
@@ -348,9 +523,35 @@ namespace CozyTown.Tests.PlayMode
         }
         [Serializable] private sealed class Call
         {
-            public string npcId, decisionId, phase, contextJson, operation, text, error, hostCode;
+            public string npcId, decisionId, phase, contextJson, operation, text, error, hostCode, sentContextJson;
             public int step;
             public double elapsedMilliseconds;
+            public ExperimentObservation experimentObservation, sentObservation;
+        }
+        [Serializable] private sealed class ExperimentObservation
+        {
+            public string worldRunId, meetingPlaceId;
+            public double gameTotalMinutes;
+            public ResidentObservation self, partner;
+            public bool meetingBothArrived;
+        }
+        [Serializable] private sealed class ResidentObservation
+        {
+            public string npcId, routeStatus, targetLocationId;
+            public Vector2 position;
+        }
+        [Serializable] private sealed class ObservationPayload
+        {
+            public string worldRunId, meetingPlaceId;
+            public double gameTotalMinutes;
+            public ResidentObservation self;
+            public bool meetingBothArrived;
+        }
+        [Serializable] private sealed class ObservedRequest { public ExperimentObservation experimentObservation; }
+        [Serializable] private sealed class MockCandidate
+        {
+            public int schemaVersion;
+            public string operation, planId, meetingId, text;
         }
         [Serializable] private sealed class AssetRow { public string id; public int coins; public string[] items; }
         [Serializable] private sealed class Observation

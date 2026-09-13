@@ -1,0 +1,962 @@
+[
+  {
+    "id": "speech-01",
+    "text": "The carp is delivered, Sora. Good timing too — the pond's been quiet all midday. Anything you want to change about the next batch?",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-02",
+    "text": "Ren! The carp's here and it looks perfect. I'll get it into a stew tonight — thanks for the quick delivery!",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-03",
+    "text": "Thanks for the carp, Ren! I'll turn it into a nice pondside stew. Perfect timing for lunch.",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-04",
+    "text": "The carp's safely delivered, Ren. I'll get it into a stew tonight. Thanks for bringing it down to the west lane!",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-05",
+    "text": "Thanks for the carp, Ren! Fresh pond fish will be perfect for tonight's stew.",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-06",
+    "text": "Thanks for the carp, Ren! Payment's settled. I'll turn this into something tasty at the pond. See you around!",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-07",
+    "text": "The carp's fresh and delivered. Good timing — the pond's been quiet today. Anything you'd like cooked with it?",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-08",
+    "text": "Ren, the carp just arrived and it's beautiful! I'll get it cleaned and on the fire. Thanks for the quick delivery!",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-09",
+    "text": "Good, the carp is yours, Sora. The pond was calm this morning. What are you cooking with it?",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-10",
+    "text": "Sora, the carp is yours — payment received, and I appreciate it. The pond's been quiet today. Good cooking to you.",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-11",
+    "text": "Sora, the carp are biting well today. That one I brought is fresh — hope it serves your pot nicely.",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-12",
+    "text": "Ren! Carp delivered, payment settled — thanks. Now, any ideas for a pondside carp stew? I'm testing recipes today.",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-13",
+    "text": "Got the carp, Ren — thanks! Fresh fish is exactly what I needed. I'll get cooking soon. Want to swap ideas for a pond-side stew sometime?",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-14",
+    "text": "Ren, the carp's arrived fresh—thanks! I'll get it simmering with some local herbs. Anything else biting out by the pond today?",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-15",
+    "text": "Carp delivered and payment squared, Ren! Fresh fish like this is perfect for a pondside stew. Thanks for meeting me — let's cook together soon.",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-16",
+    "text": "Sora, good afternoon. Your carp is delivered and settled—25 coins, held as agreed. The pond's been calm today. Thank you for the trade.",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-17",
+    "text": "Thanks for the carp, Ren! Delivery confirmed. What dish should we cook with it?",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-18",
+    "text": "Sora, good to see you. The carp's already delivered, quiet as the pond this morning. Anything else you need from me?",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-19",
+    "text": "Ren, the carp arrived perfectly fresh — thanks! I'm thinking a slow-simmered pond stew. Got any tips for the broth?",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-20",
+    "text": "The carp is delivered, Sora. Pond's been calm all day. Let me know if you need more for the pot.",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-21",
+    "text": "The carp is yours, Sora. The pond's been kind today. I noticed small ripples near the reeds at dawn.",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-22",
+    "text": "Ren! The carp arrived safe and sound—payment all settled. Been craving a fresh catch. Ready to talk pond spots and a good stew?",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-23",
+    "text": "Ren, the carp's safely delivered — thank you! With fish like this I can finally try that pond-side stew I've been dreaming up.",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-24",
+    "text": "The carp were moving slow near the shallows today. Your fish is ready, Sora. I'll drop it off on my way to rest.",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-25",
+    "text": "Thanks for the carp, Ren! It's fresh and perfect for tonight's stew. See you by the pond again soon!",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-26",
+    "text": "Good, the carp is delivered and the coin received. The pond's been calm today. I'll rest here a while, Sora.",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-27",
+    "text": "Good, the carp is delivered and payment settled. The pond's been calm today. I'll head back to my spot if we're done.",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-28",
+    "text": "Ren, got the carp—thanks! Payment of 25 is settled. This will make a lovely pondside stew. Catch you next time!",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-29",
+    "text": "The carp is yours, Sora. Twenty-five coins settled it. I'll keep watching the pond — the water's been quiet today.",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-30",
+    "text": "Thanks for the carp, Ren! This is perfect for a pondside stew tonight. Got any more fresh catches coming?",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-31",
+    "text": "The carp's delivered and the pond's calm today. Sora, is there anything else you need before we head back?",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-32",
+    "text": "Sora, the carp is delivered and settled. The pond's been quiet today. I noticed the reeds shifting near the east bank. Anything you'd like cooked with the fish?",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-33",
+    "text": "Thanks for the carp, Ren! It's perfect for a fresh pond-style stew. Good doing business with you.",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-34",
+    "text": "The carp's delivered and the coins are settled. Good doing business, Sora. The pond's been calm today.",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-35",
+    "text": "Perfect, one fresh carp received! I'll simmer it with local herbs for a hearty pondside stew. Thanks, Ren — see you at the next catch!",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-36",
+    "text": "Great, the carp is delivered and payment settled. Thanks, Ren! I'll get cooking with it soon.",
+    "npcId": "npc.cook_sora",
+    "facts": {
+      "persona": "An energetic cook who enjoys combining local ingredients.",
+      "gameTotalMinutes": 787.918353,
+      "activityTargetNotActualPosition": "road.west_lane",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-37",
+    "text": "Sora, good timing. The carp are biting well today — I brought the one we agreed on. It's fresh from the pond this morning.",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-38",
+    "text": "The carp is delivered, Sora. Good to know the pond's small changes still reach your pot. Anything else you need from me?",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-39",
+    "text": "Morning, Sora. The carp are biting well today. I brought one along for you, if the terms still suit.",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  },
+  {
+    "id": "speech-40",
+    "text": "Good to see the carp went through. The pond's calm today — I'll keep an eye on the water.",
+    "npcId": "npc.fisher_ren",
+    "facts": {
+      "persona": "A quiet fisher who notices small changes around the pond.",
+      "gameTotalMinutes": 789.7021622,
+      "activityTargetNotActualPosition": "rest.fisher_ren",
+      "resources": {
+        "sellerId": "npc.fisher_ren",
+        "buyerId": "npc.cook_sora",
+        "itemId": "fish.carp",
+        "deliveryResultCode": "resource.delivered",
+        "quantity": 1,
+        "totalPrice": 25,
+        "ownedQuantity": 1,
+        "balance": 25
+      },
+      "plannedMeetingPlace": "pond-walk",
+      "transcript": [],
+      "environmentObservations": [],
+      "productionReceipts": []
+    }
+  }
+]
