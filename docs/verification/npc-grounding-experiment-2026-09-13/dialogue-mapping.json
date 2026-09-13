@@ -1,0 +1,242 @@
+[
+  {
+    "id": "speech-01",
+    "arm": "C",
+    "stage": "fixed:ren_conversation:repeat:4",
+    "decisionId": "6a64187fc37c418e882c4418b558bd00"
+  },
+  {
+    "id": "speech-02",
+    "arm": "D",
+    "stage": "fixed:sora_conversation:repeat:2",
+    "decisionId": "8b1bb782baf749a4a03dd5de382b51e3"
+  },
+  {
+    "id": "speech-03",
+    "arm": "A",
+    "stage": "fixed:sora_conversation:repeat:1",
+    "decisionId": "e682ae9d9c7e4b8f81474ca3d2e18f88"
+  },
+  {
+    "id": "speech-04",
+    "arm": "C",
+    "stage": "fixed:sora_conversation:repeat:1",
+    "decisionId": "86f5d39360c6464eb238ba405080a0d1"
+  },
+  {
+    "id": "speech-05",
+    "arm": "A",
+    "stage": "fixed:sora_conversation:repeat:2",
+    "decisionId": "0fb49e16e21049848ccf9c91180a92ff"
+  },
+  {
+    "id": "speech-06",
+    "arm": "B",
+    "stage": "fixed:sora_conversation:repeat:2",
+    "decisionId": "5e595b60be3d402589d42240eecc0654"
+  },
+  {
+    "id": "speech-07",
+    "arm": "C",
+    "stage": "fixed:ren_conversation:repeat:1",
+    "decisionId": "8f73c756bf784cf69a10cacb47c2aefc"
+  },
+  {
+    "id": "speech-08",
+    "arm": "C",
+    "stage": "fixed:sora_conversation:repeat:5",
+    "decisionId": "745bf7876fe440e584d78b76be35977b"
+  },
+  {
+    "id": "speech-09",
+    "arm": "B",
+    "stage": "fixed:ren_conversation:repeat:4",
+    "decisionId": "336e20cae90c4736919c0b8d706a4858"
+  },
+  {
+    "id": "speech-10",
+    "arm": "D",
+    "stage": "fixed:ren_conversation:repeat:4",
+    "decisionId": "551c5d9255e24f9abae8ba1ed664ff00"
+  },
+  {
+    "id": "speech-11",
+    "arm": "A",
+    "stage": "fixed:ren_conversation:repeat:5",
+    "decisionId": "b7b6acc4161748539d36ed565f0571b1"
+  },
+  {
+    "id": "speech-12",
+    "arm": "A",
+    "stage": "fixed:sora_conversation:repeat:3",
+    "decisionId": "70b10787c6e0466fbc8a44f532d4121d"
+  },
+  {
+    "id": "speech-13",
+    "arm": "C",
+    "stage": "fixed:sora_conversation:repeat:3",
+    "decisionId": "601d15c6957e44cb9c194cf7274b61a9"
+  },
+  {
+    "id": "speech-14",
+    "arm": "C",
+    "stage": "fixed:sora_conversation:repeat:2",
+    "decisionId": "94aef3b3df8340f1810d8051cf6b41d9"
+  },
+  {
+    "id": "speech-15",
+    "arm": "D",
+    "stage": "fixed:sora_conversation:repeat:5",
+    "decisionId": "91a54def3520472aad396f59ceefc3b3"
+  },
+  {
+    "id": "speech-16",
+    "arm": "B",
+    "stage": "fixed:ren_conversation:repeat:2",
+    "decisionId": "7ef560919861439f834e599657083db0"
+  },
+  {
+    "id": "speech-17",
+    "arm": "D",
+    "stage": "fixed:sora_conversation:repeat:3",
+    "decisionId": "478686e42f974a2f8f5f01febe112854"
+  },
+  {
+    "id": "speech-18",
+    "arm": "A",
+    "stage": "fixed:ren_conversation:repeat:4",
+    "decisionId": "01856f10a04b424a95d65f0049ac6d58"
+  },
+  {
+    "id": "speech-19",
+    "arm": "C",
+    "stage": "fixed:sora_conversation:repeat:4",
+    "decisionId": "e50cb0e67fef40c89b2c43a30ab68e24"
+  },
+  {
+    "id": "speech-20",
+    "arm": "B",
+    "stage": "fixed:ren_conversation:repeat:3",
+    "decisionId": "37eeaa67cbed4258b4ce4813609192dd"
+  },
+  {
+    "id": "speech-21",
+    "arm": "D",
+    "stage": "fixed:ren_conversation:repeat:2",
+    "decisionId": "9476811aeee045158cdc1d5ffa3c7586"
+  },
+  {
+    "id": "speech-22",
+    "arm": "D",
+    "stage": "fixed:sora_conversation:repeat:1",
+    "decisionId": "d0d76e58f77e4f31a4ba5d2b10f3230d"
+  },
+  {
+    "id": "speech-23",
+    "arm": "B",
+    "stage": "fixed:sora_conversation:repeat:5",
+    "decisionId": "b666c1cdfce84d00a2bd85646ebcd324"
+  },
+  {
+    "id": "speech-24",
+    "arm": "A",
+    "stage": "fixed:ren_conversation:repeat:1",
+    "decisionId": "47b439b3452f434795e7550cf0b4e002"
+  },
+  {
+    "id": "speech-25",
+    "arm": "A",
+    "stage": "fixed:sora_conversation:repeat:5",
+    "decisionId": "022cb9ce49eb45c39a810bad289a1a1a"
+  },
+  {
+    "id": "speech-26",
+    "arm": "D",
+    "stage": "fixed:ren_conversation:repeat:1",
+    "decisionId": "ce6eabe570a2439aba3d3c3f84653aa4"
+  },
+  {
+    "id": "speech-27",
+    "arm": "D",
+    "stage": "fixed:ren_conversation:repeat:3",
+    "decisionId": "566b76f4cad9450cbfec231f56e404df"
+  },
+  {
+    "id": "speech-28",
+    "arm": "B",
+    "stage": "fixed:sora_conversation:repeat:3",
+    "decisionId": "460b75cdbbb0450bbf404251697560f9"
+  },
+  {
+    "id": "speech-29",
+    "arm": "C",
+    "stage": "fixed:ren_conversation:repeat:5",
+    "decisionId": "4accf1efdc834f3f92f3ad9d9e57da6a"
+  },
+  {
+    "id": "speech-30",
+    "arm": "A",
+    "stage": "fixed:sora_conversation:repeat:4",
+    "decisionId": "1a748c9ed3b34bea8fc7b8ed0af89bdf"
+  },
+  {
+    "id": "speech-31",
+    "arm": "B",
+    "stage": "fixed:ren_conversation:repeat:5",
+    "decisionId": "15fe0d35b3fe42b29574f6900fdc5114"
+  },
+  {
+    "id": "speech-32",
+    "arm": "D",
+    "stage": "fixed:ren_conversation:repeat:5",
+    "decisionId": "e38c85feaf974fb7a43b06cff951f484"
+  },
+  {
+    "id": "speech-33",
+    "arm": "B",
+    "stage": "fixed:sora_conversation:repeat:1",
+    "decisionId": "1d180d4b7e2b4d4786b731c193d4e0aa"
+  },
+  {
+    "id": "speech-34",
+    "arm": "C",
+    "stage": "fixed:ren_conversation:repeat:3",
+    "decisionId": "1f18a0beed99475798d616b92af87ce2"
+  },
+  {
+    "id": "speech-35",
+    "arm": "D",
+    "stage": "fixed:sora_conversation:repeat:4",
+    "decisionId": "4a3765c467384e86ba91a91839d49bc8"
+  },
+  {
+    "id": "speech-36",
+    "arm": "B",
+    "stage": "fixed:sora_conversation:repeat:4",
+    "decisionId": "834eacd8285c40269472afe90ec7464b"
+  },
+  {
+    "id": "speech-37",
+    "arm": "A",
+    "stage": "fixed:ren_conversation:repeat:3",
+    "decisionId": "477a18b1714147ae98b0deac3da9fd11"
+  },
+  {
+    "id": "speech-38",
+    "arm": "C",
+    "stage": "fixed:ren_conversation:repeat:2",
+    "decisionId": "8169931ac16747bfa4bae098ba1bcdec"
+  },
+  {
+    "id": "speech-39",
+    "arm": "A",
+    "stage": "fixed:ren_conversation:repeat:2",
+    "decisionId": "4800e6b1047e4a7295f32d9496ee4543"
+  },
+  {
+    "id": "speech-40",
+    "arm": "B",
+    "stage": "fixed:ren_conversation:repeat:1",
+    "decisionId": "cdb4685646c44de5968d06ec7323f72b"
+  }
+]

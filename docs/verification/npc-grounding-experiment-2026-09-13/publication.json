@@ -1,0 +1,777 @@
+{
+  "publishedAtUtc": "2026-09-13T07:07:18.295288+00:00",
+  "experimentCodeCommit": "d40fe70b7d59f7e714156471b51fc5f19b86fa85",
+  "baselineCommit": "da1699cc80c35cb10b140a393ca2d38497ac581e",
+  "frozenRuntimeSourcesStillMatchManifestsAfterTestSupplement": true,
+  "budget": {
+    "maximum": 352,
+    "used": 217,
+    "unused": 135,
+    "automaticRetries": 0
+  },
+  "measurements": {
+    "fixed": {
+      "calls": 160,
+      "promptTokens": 175884,
+      "completionTokens": 6969,
+      "totalTokens": 182853,
+      "meanMilliseconds": 1048.525,
+      "p95NearestRankMilliseconds": 1590
+    },
+    "scene": {
+      "calls": 57,
+      "promptTokens": 69339,
+      "completionTokens": 2107,
+      "totalTokens": 71446,
+      "meanMilliseconds": 936,
+      "p95NearestRankMilliseconds": 1386
+    }
+  },
+  "sceneShutdown": {
+    "finalHttpStatus": "scene/final-status-before-stop.json",
+    "lastStatusSampleAtUtc": "2026-09-13T06:56:26.537866+00:00",
+    "method": "After Unity exited, parent checked the fresh HTTP status for zero inflight calls, verified the known proxy process executable, stopped that process, and verified its PID absent.",
+    "processExitVerifiedByParent": true,
+    "originalStatusFilePreserved": true,
+    "note": "serve mode status.json still says running because the already-idle hidden process was externally stopped; no raw evidence was relabeled as completed."
+  },
+  "validation": [
+    {
+      "name": "grounding-red",
+      "checkoutProvenance": "baseline plus intentionally failing test overlay",
+      "processExitCodeObserved": 2,
+      "testRun": {
+        "result": "Failed(Child)",
+        "total": "1",
+        "passed": "0",
+        "failed": "1",
+        "inconclusive": "0",
+        "skipped": "0",
+        "start-time": "2026-09-13 06:25:43Z",
+        "end-time": "2026-09-13 06:25:47Z",
+        "duration": "3.4379363"
+      },
+      "localEvidence": {
+        "Logs/grounding-red.xml": "cf147a6f902e9b4b153040a7c2eda75143d45a9578696f122a95016dad4b9347",
+        "Logs/grounding-red.log": "4c701420fca1a3289592969b9a617ea54298453687be84b1fa708ad2fc890a35"
+      }
+    },
+    {
+      "name": "grounding-green",
+      "checkoutProvenance": "baseline plus candidate test overlay",
+      "processExitCodeObserved": 0,
+      "testRun": {
+        "result": "Skipped:Ignored",
+        "total": "4",
+        "passed": "2",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "2",
+        "start-time": "2026-09-13 06:41:20Z",
+        "end-time": "2026-09-13 06:41:32Z",
+        "duration": "11.9797352"
+      },
+      "localEvidence": {
+        "Logs/grounding-green.xml": "321083cae1f7d0a65dd2b1366eff55d158e656011565a9e6ca5399282e0770ea",
+        "Logs/grounding-green.log": "ef7a6113f14de8a4af9233ccc344558edce42353b2a8821490ef28090d0471cd"
+      }
+    },
+    {
+      "name": "grounding-play-regression",
+      "checkoutProvenance": "da1699cc80c35cb10b140a393ca2d38497ac581e plus test file verified equal to d40fe70 candidate",
+      "processExitCodeObserved": 0,
+      "testRun": {
+        "result": "Skipped:Ignored",
+        "total": "179",
+        "passed": "175",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "4",
+        "start-time": "2026-09-13 06:44:11Z",
+        "end-time": "2026-09-13 06:44:26Z",
+        "duration": "15.2222878"
+      },
+      "localEvidence": {
+        "Logs/grounding-play-regression.xml": "cc1ef3f45a762970960b01e9ea30155add3b1b8b2ee6d442b5865853ca99827c",
+        "Logs/grounding-play-regression.log": "f1d675875a3ddbb085ff0e48ed4491f0418272de78674f95df7daea370ef4726"
+      }
+    },
+    {
+      "name": "grounding-live",
+      "checkoutProvenance": "d40fe70b7d59f7e714156471b51fc5f19b86fa85; Assets/Packages/Tools clean before run",
+      "processExitCodeObserved": 0,
+      "testRun": {
+        "result": "Passed",
+        "total": "1",
+        "passed": "1",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "start-time": "2026-09-13 06:48:10Z",
+        "end-time": "2026-09-13 06:55:15Z",
+        "duration": "425.3398986"
+      },
+      "localEvidence": {
+        "Logs/grounding-live.xml": "cb630ca4d6114aa1942d8a9920a84316d7ed8d277e49882ba2d4fbb778d8aae0",
+        "Logs/grounding-live.log": "f3967bb64f064063485524cdfcc1ccfb1c01a47c2012f3a4d3958405955c304a"
+      }
+    },
+    {
+      "name": "python-regression",
+      "passed": 22,
+      "result": "OK",
+      "localEvidence": {
+        "Logs/grounding-final-python.log": "5eb13a2476f1c7ec424f32e49594923909395172eead43a914d2f6cdc942ffa2"
+      }
+    },
+    {
+      "name": "python-boundary-supplement",
+      "passed": 24,
+      "result": "OK",
+      "timing": "After the 217 real calls and proxy shutdown; only tests added, runtime sources unchanged.",
+      "testFileSha256": "20a18d767de9383fdcfed8258aa977ecad8bc41435f4d820733ff4504823e924",
+      "localEvidence": {
+        "Logs/grounding-boundary-supplement-python.log": "d4ddf7b8fc8561584926fa366e0da6eeb470c1e569f87ba03ba3c6fa129fcb2a"
+      }
+    }
+  ],
+  "fixedPerArm": {
+    "A": {
+      "calls": 40,
+      "resourceProbes": 30,
+      "knownInsufficientProbes": 15,
+      "infeasibleOperationSelections": 7,
+      "knownFeasibleProbes": 15,
+      "progressOperationSelections": 15,
+      "validProgressSelections": 15,
+      "dialogueProbes": 10,
+      "validDialogueSelections": 10,
+      "parameterFormatErrors": 0,
+      "identifierMismatchSelections": 0,
+      "providerErrors": 0,
+      "filteredDecisions": 0,
+      "removedOperationCount": 0,
+      "perCase": {
+        "sora_available": {
+          "calls": 5,
+          "operations": {
+            "invite": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 5
+        },
+        "sora_poor": {
+          "calls": 5,
+          "operations": {
+            "invite": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 5,
+          "validProgressSelections": 0
+        },
+        "ren_available": {
+          "calls": 5,
+          "operations": {
+            "accept_invite": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 5
+        },
+        "ren_empty": {
+          "calls": 5,
+          "operations": {
+            "decline_invite": 4,
+            "accept_invite": 1
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 1,
+          "validProgressSelections": 0
+        },
+        "sora_delivery_poor": {
+          "calls": 5,
+          "operations": {
+            "deliver": 1,
+            "cancel_exchange": 4
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 1,
+          "validProgressSelections": 0
+        },
+        "ren_one_fish": {
+          "calls": 5,
+          "operations": {
+            "accept_invite": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 5
+        },
+        "sora_conversation": {
+          "calls": 5,
+          "operations": {
+            "say": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 0
+        },
+        "ren_conversation": {
+          "calls": 5,
+          "operations": {
+            "say": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 0
+        }
+      },
+      "measurements": {
+        "calls": 40,
+        "promptTokens": 32691,
+        "completionTokens": 1666,
+        "totalTokens": 34357,
+        "latencyMilliseconds": {
+          "minimum": 541,
+          "median": 965.5,
+          "mean": 983.225,
+          "p95NearestRank": 1590,
+          "maximum": 1764
+        }
+      }
+    },
+    "B": {
+      "calls": 40,
+      "resourceProbes": 30,
+      "knownInsufficientProbes": 15,
+      "infeasibleOperationSelections": 8,
+      "knownFeasibleProbes": 15,
+      "progressOperationSelections": 15,
+      "validProgressSelections": 13,
+      "dialogueProbes": 10,
+      "validDialogueSelections": 10,
+      "parameterFormatErrors": 2,
+      "identifierMismatchSelections": 0,
+      "providerErrors": 0,
+      "filteredDecisions": 0,
+      "removedOperationCount": 0,
+      "perCase": {
+        "sora_available": {
+          "calls": 5,
+          "operations": {
+            "invite": 5
+          },
+          "parameterFormatErrors": 2,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 3
+        },
+        "sora_poor": {
+          "calls": 5,
+          "operations": {
+            "invite": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 5,
+          "validProgressSelections": 0
+        },
+        "ren_available": {
+          "calls": 5,
+          "operations": {
+            "accept_invite": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 5
+        },
+        "ren_empty": {
+          "calls": 5,
+          "operations": {
+            "decline_invite": 3,
+            "accept_invite": 2
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 2,
+          "validProgressSelections": 0
+        },
+        "sora_delivery_poor": {
+          "calls": 5,
+          "operations": {
+            "cancel_exchange": 4,
+            "deliver": 1
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 1,
+          "validProgressSelections": 0
+        },
+        "ren_one_fish": {
+          "calls": 5,
+          "operations": {
+            "accept_invite": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 5
+        },
+        "sora_conversation": {
+          "calls": 5,
+          "operations": {
+            "say": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 0
+        },
+        "ren_conversation": {
+          "calls": 5,
+          "operations": {
+            "say": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 0
+        }
+      },
+      "measurements": {
+        "calls": 40,
+        "promptTokens": 46913,
+        "completionTokens": 1879,
+        "totalTokens": 48792,
+        "latencyMilliseconds": {
+          "minimum": 506,
+          "median": 990.5,
+          "mean": 1072.35,
+          "p95NearestRank": 1660,
+          "maximum": 2582
+        }
+      }
+    },
+    "C": {
+      "calls": 40,
+      "resourceProbes": 30,
+      "knownInsufficientProbes": 15,
+      "infeasibleOperationSelections": 2,
+      "knownFeasibleProbes": 15,
+      "progressOperationSelections": 15,
+      "validProgressSelections": 15,
+      "dialogueProbes": 10,
+      "validDialogueSelections": 10,
+      "parameterFormatErrors": 0,
+      "identifierMismatchSelections": 0,
+      "providerErrors": 0,
+      "filteredDecisions": 0,
+      "removedOperationCount": 0,
+      "perCase": {
+        "sora_available": {
+          "calls": 5,
+          "operations": {
+            "invite": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 5
+        },
+        "sora_poor": {
+          "calls": 5,
+          "operations": {
+            "wait": 3,
+            "invite": 2
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 2,
+          "validProgressSelections": 0
+        },
+        "ren_available": {
+          "calls": 5,
+          "operations": {
+            "accept_invite": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 5
+        },
+        "ren_empty": {
+          "calls": 5,
+          "operations": {
+            "decline_invite": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 0
+        },
+        "sora_delivery_poor": {
+          "calls": 5,
+          "operations": {
+            "cancel_exchange": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 0
+        },
+        "ren_one_fish": {
+          "calls": 5,
+          "operations": {
+            "accept_invite": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 5
+        },
+        "sora_conversation": {
+          "calls": 5,
+          "operations": {
+            "say": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 0
+        },
+        "ren_conversation": {
+          "calls": 5,
+          "operations": {
+            "say": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 0
+        }
+      },
+      "measurements": {
+        "calls": 40,
+        "promptTokens": 48208,
+        "completionTokens": 1725,
+        "totalTokens": 49933,
+        "latencyMilliseconds": {
+          "minimum": 517,
+          "median": 1040.5,
+          "mean": 1074.375,
+          "p95NearestRank": 1580,
+          "maximum": 1701
+        }
+      }
+    },
+    "D": {
+      "calls": 40,
+      "resourceProbes": 30,
+      "knownInsufficientProbes": 15,
+      "infeasibleOperationSelections": 0,
+      "knownFeasibleProbes": 15,
+      "progressOperationSelections": 15,
+      "validProgressSelections": 15,
+      "dialogueProbes": 10,
+      "validDialogueSelections": 10,
+      "parameterFormatErrors": 0,
+      "identifierMismatchSelections": 0,
+      "providerErrors": 0,
+      "filteredDecisions": 15,
+      "removedOperationCount": 15,
+      "perCase": {
+        "sora_available": {
+          "calls": 5,
+          "operations": {
+            "invite": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 5
+        },
+        "sora_poor": {
+          "calls": 5,
+          "operations": {
+            "wait": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 0
+        },
+        "ren_available": {
+          "calls": 5,
+          "operations": {
+            "accept_invite": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 5
+        },
+        "ren_empty": {
+          "calls": 5,
+          "operations": {
+            "decline_invite": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 0
+        },
+        "sora_delivery_poor": {
+          "calls": 5,
+          "operations": {
+            "cancel_exchange": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 0
+        },
+        "ren_one_fish": {
+          "calls": 5,
+          "operations": {
+            "accept_invite": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 5
+        },
+        "sora_conversation": {
+          "calls": 5,
+          "operations": {
+            "say": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 0
+        },
+        "ren_conversation": {
+          "calls": 5,
+          "operations": {
+            "say": 5
+          },
+          "parameterFormatErrors": 0,
+          "infeasibleOperationSelections": 0,
+          "validProgressSelections": 0
+        }
+      },
+      "measurements": {
+        "calls": 40,
+        "promptTokens": 48072,
+        "completionTokens": 1699,
+        "totalTokens": 49771,
+        "latencyMilliseconds": {
+          "minimum": 642,
+          "median": 1006.0,
+          "mean": 1064.15,
+          "p95NearestRank": 1538,
+          "maximum": 1843
+        }
+      }
+    }
+  },
+  "dialoguePerArm": {
+    "A": {
+      "utterances": 10,
+      "unsupportedFact": 5,
+      "contradiction": 2,
+      "uncertain": 4,
+      "noFlag": 1
+    },
+    "B": {
+      "utterances": 10,
+      "unsupportedFact": 5,
+      "contradiction": 0,
+      "uncertain": 0,
+      "noFlag": 5
+    },
+    "C": {
+      "utterances": 10,
+      "unsupportedFact": 7,
+      "contradiction": 0,
+      "uncertain": 3,
+      "noFlag": 0
+    },
+    "D": {
+      "utterances": 10,
+      "unsupportedFact": 7,
+      "contradiction": 0,
+      "uncertain": 1,
+      "noFlag": 2
+    }
+  },
+  "scenePerArm": {
+    "A": {
+      "trials": 4,
+      "providerCalls": 16,
+      "behaviors": {
+        "cancelled_after_invitation": 2,
+        "delivered_and_completed": 1,
+        "need_suppressed": 1
+      },
+      "hostCodes": {
+        "agent.activity_accepted": 1,
+        "agent.decision_stale": 1,
+        "agent.decision_wait": 1,
+        "meeting.accept_invite": 3,
+        "meeting.cancel_exchange": 2,
+        "meeting.deliver": 1,
+        "meeting.invited": 3,
+        "meeting.say": 4
+      },
+      "promptTokens": 15062,
+      "completionTokens": 617,
+      "totalTokens": 15679
+    },
+    "B": {
+      "trials": 4,
+      "providerCalls": 14,
+      "behaviors": {
+        "delivered_and_completed": 1,
+        "host_rejected_infeasible_trade": 2,
+        "need_suppressed": 1
+      },
+      "hostCodes": {
+        "agent.decision_wait": 2,
+        "inventory.insufficient_quantity": 1,
+        "meeting.accept_invite": 3,
+        "meeting.deliver": 1,
+        "meeting.end_conversation": 1,
+        "meeting.invited": 3,
+        "meeting.say": 2,
+        "wallet.insufficient_funds": 1
+      },
+      "promptTokens": 18411,
+      "completionTokens": 521,
+      "totalTokens": 18932
+    },
+    "C": {
+      "trials": 4,
+      "providerCalls": 13,
+      "behaviors": {
+        "declined_missing_stock": 1,
+        "delivered_and_completed": 1,
+        "need_suppressed": 1,
+        "waited_insufficient_funds": 1
+      },
+      "hostCodes": {
+        "agent.activity_accepted": 2,
+        "agent.decision_wait": 3,
+        "meeting.accept_invite": 1,
+        "meeting.decline_invite": 1,
+        "meeting.deliver": 1,
+        "meeting.end_conversation": 1,
+        "meeting.invited": 2,
+        "meeting.say": 2
+      },
+      "promptTokens": 17069,
+      "completionTokens": 435,
+      "totalTokens": 17504
+    },
+    "D": {
+      "trials": 4,
+      "providerCalls": 14,
+      "behaviors": {
+        "declined_missing_stock": 1,
+        "delivered_and_completed": 1,
+        "need_suppressed": 1,
+        "waited_insufficient_funds": 1
+      },
+      "hostCodes": {
+        "agent.activity_accepted": 2,
+        "agent.decision_wait": 3,
+        "meeting.accept_invite": 1,
+        "meeting.decline_invite": 1,
+        "meeting.deliver": 1,
+        "meeting.end_conversation": 1,
+        "meeting.invited": 2,
+        "meeting.say": 3
+      },
+      "promptTokens": 18797,
+      "completionTokens": 534,
+      "totalTokens": 19331
+    }
+  },
+  "evidenceFiles": {
+    "fixed/manifest.json": {
+      "source": "Logs/grounding-fixed-20260913/manifest.json",
+      "sha256": "cc6051946b44248f58494e42e71324ecfba111601b742974c5f4d24a05381ef3",
+      "bytes": 891
+    },
+    "fixed/status.json": {
+      "source": "Logs/grounding-fixed-20260913/status.json",
+      "sha256": "be400fd0f94b16f5354aed7158cfd60dfe14e4b50817ee8a923343b7766d6fc2",
+      "bytes": 149
+    },
+    "fixed/proxy.jsonl": {
+      "source": "Logs/grounding-fixed-20260913/proxy.jsonl",
+      "sha256": "ecc354d265ff45948a8c2b69035ab2ab96a22848b4b7ebc9029d48af9572e4a3",
+      "bytes": 68147
+    },
+    "fixed/contexts.jsonl": {
+      "source": "Logs/grounding-fixed-20260913/contexts.jsonl",
+      "sha256": "c3501d2c1337b8f6c0400dca6997e213edcd12add606489ca06f7bb6e0d0d8f7",
+      "bytes": 648282
+    },
+    "fixed/provider-responses.jsonl": {
+      "source": "Logs/grounding-fixed-20260913/provider-responses.jsonl",
+      "sha256": "84914181363f51c8a071579adf4885f8c1c1d1993d2077eafb52691539a7ade5",
+      "bytes": 38754
+    },
+    "scene/manifest.json": {
+      "source": "Logs/grounding-scene-20260913/manifest.json",
+      "sha256": "66ace615b9744e8c113de7c56d651e0f1bfb5b5a2171dfe65d7beddc1e90ee1d",
+      "bytes": 805
+    },
+    "scene/status.json": {
+      "source": "Logs/grounding-scene-20260913/status.json",
+      "sha256": "e511cdc05c3a2e77092b79bbf619232c6916809dbf418fdcb8a229035c5fd1c2",
+      "bytes": 148
+    },
+    "scene/proxy.jsonl": {
+      "source": "Logs/grounding-scene-20260913/proxy.jsonl",
+      "sha256": "05e6fa3b73a91903fad6f0c3a470f7e3f8a89aa094726b646a97eef03b825c6f",
+      "bytes": 23470
+    },
+    "scene/contexts.jsonl": {
+      "source": "Logs/grounding-scene-20260913/contexts.jsonl",
+      "sha256": "9812bcc58562bc2e9f59b0e064cbc4bf739307e383cb6afed0a81d2dd1317426",
+      "bytes": 290604
+    },
+    "scene/provider-responses.jsonl": {
+      "source": "Logs/grounding-scene-20260913/provider-responses.jsonl",
+      "sha256": "624f4163d464e60800f5f954c1ae3775badd11c4fa856e1ae4728c1943c7bbad",
+      "bytes": 12695
+    },
+    "scene-world-runs.json": {
+      "source": "Logs/agent-scenarios-publish-check/Logs/agent-grounding-scene.json",
+      "sha256": "6e7b4442f7d8e12b56677c0dbd2eb66b92dc0e258dc1198631bfd450297c3a0e",
+      "bytes": 411500
+    },
+    "fixed-audit.json": {
+      "source": "Logs/grounding-fixed-audit.json",
+      "sha256": "24d2952f738b75f6518680af8b45766a424ef5114fb72afa554689d9f97ffb1c",
+      "bytes": 206433
+    },
+    "scene-audit.json": {
+      "source": "Logs/grounding-scene-audit.json",
+      "sha256": "6f57b0b4ba784a6d7e9ec8f583006bbbc279aa557c09981c039cc75d67f05125",
+      "bytes": 15906
+    },
+    "dialogue-blind-input.json": {
+      "source": "Logs/grounding-blind-dialogue.json",
+      "sha256": "35a61063b650d7d1bd060b13387351c976b8c89487e932e54de506b3f86f764d",
+      "bytes": 33278
+    },
+    "dialogue-primary-review.json": {
+      "source": "Logs/grounding-root-blind-review.json",
+      "sha256": "d5a59c28c76840bfba8e2c9de0076ff4fe956b96bd5cd0806a123c39e9fde53f",
+      "bytes": 7890
+    },
+    "dialogue-independent-review.json": {
+      "source": "Logs/grounding-blind-review.json",
+      "sha256": "4e3bafc715a4f7053f6bf23f9ee546c53878ccc9d9d36273287e6f73fbbfcb8b",
+      "bytes": 9326
+    },
+    "dialogue-adjudication.json": {
+      "source": "Logs/grounding-dialogue-adjudication.json",
+      "sha256": "335746670ba663c600e76bdb3d5d78ba5be18c495b6e8e50bab0e68b9b6caa6c",
+      "bytes": 17880
+    },
+    "dialogue-mapping.json": {
+      "source": "Logs/grounding-blind-mapping.json",
+      "sha256": "4dd77c5ee30db798e2d789c484ee1e923858d52282d17900aedebe75989e5fd9",
+      "bytes": 6223
+    },
+    "scene/final-status-before-stop.json": {
+      "source": "Logs/grounding-scene-final-status.json",
+      "sha256": "72e11c4b4ad273b5ce2a1c8dff6b9b0f76548616261d8b9c269511f6ee38733a",
+      "bytes": 139
+    }
+  },
+  "scope": "Fixed probes, complete scenes and subjective speech annotations have separate denominators. Audit files retain original relative Logs input names; evidenceFiles maps them to their published byte-identical copies."
+}

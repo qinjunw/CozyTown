@@ -102,6 +102,40 @@ class GroundingExperimentTests(unittest.TestCase):
         original["social"]["resources"]["balance"] = 25
         self.assertEqual(project_context(original, "D")["allowedOperations"], original["allowedOperations"])
 
+    def test_buyer_balance_boundaries_preserve_or_filter_each_commitment(self):
+        for kind, operation in (("opportunity", "invite"), ("delivery", "deliver")):
+            for balance, eligible, missing in ((24, False, 1), (25, True, 0), (26, True, 0)):
+                for arm in ("C", "D"):
+                    with self.subTest(kind=kind, balance=balance, arm=arm):
+                        request = context()
+                        request["social"]["kind"] = kind
+                        request["social"]["resources"]["balance"] = balance
+                        request["allowedOperations"] = [operation, "wait", "cancel_exchange"]
+                        before = copy.deepcopy(request)
+                        projected = project_context(request, arm)
+                        self.assertEqual(projected["selfAssessment"]["canMeetKnownTerms"], eligible)
+                        self.assertEqual(projected["selfAssessment"]["missingCoins"], missing)
+                        expected = request["allowedOperations"] if arm == "C" or eligible else ["wait", "cancel_exchange"]
+                        self.assertEqual(projected["allowedOperations"], expected)
+                        self.assertEqual(projected["grounding"]["allowedActions"], expected)
+                        self.assertEqual(request, before)
+
+    def test_seller_stock_boundaries_do_not_depend_on_seller_wallet(self):
+        for stock, eligible, missing in ((0, False, 1), (1, True, 0), (2, True, 0)):
+            for arm in ("C", "D"):
+                with self.subTest(stock=stock, arm=arm):
+                    request = context()
+                    request["npcId"] = "ren"
+                    request["social"]["kind"] = "invitation"
+                    request["social"]["resources"].update(ownedQuantity=stock, balance=0)
+                    request["allowedOperations"] = ["accept_invite", "decline_invite"]
+                    projected = project_context(request, arm)
+                    self.assertEqual(projected["selfAssessment"]["canMeetKnownTerms"], eligible)
+                    self.assertEqual(projected["selfAssessment"]["missingQuantity"], missing)
+                    self.assertNotIn("missingCoins", projected["selfAssessment"])
+                    expected = request["allowedOperations"] if arm == "C" or eligible else ["decline_invite"]
+                    self.assertEqual(projected["allowedOperations"], expected)
+
     def test_service_preserves_control_prompt_and_records_filtered_call_separately(self):
         sent = []
         def provider(payload):
