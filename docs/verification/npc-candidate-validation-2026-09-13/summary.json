@@ -1,0 +1,207 @@
+{
+  "codeCommit": "8f5be22f3c36ccb36118e8775a4e0bfd533b84f9",
+  "matrixStatus": "host_checks_passed",
+  "trials": 12,
+  "distinctWorlds": 12,
+  "worldSeedValues": [
+    12345
+  ],
+  "initializationPasses": 12,
+  "assetCheckPasses": 12,
+  "recoveryPasses": 12,
+  "hostViolations": [],
+  "providerCalls": 47,
+  "proxyStatusCounts": {
+    "provider.candidate_invalid": 6,
+    "passed": 41
+  },
+  "returnedModelCounts": {
+    "deepseek-flash": 47
+  },
+  "promptTokens": 46789,
+  "completionTokens": 1549,
+  "totalTokens": 48338,
+  "meanProviderMilliseconds": 868.1276595744681,
+  "p95NearestRankProviderMilliseconds": 1335,
+  "injectedOmissions": 6,
+  "correctedInvitations": 6,
+  "spontaneousProxyFailures": 0,
+  "hostCodeCounts": {
+    "candidate.plan_id_required": 6,
+    "meeting.invited": 6,
+    "meeting.accept_invite": 3,
+    "meeting.deliver": 3,
+    "meeting.say": 7,
+    "meeting.end_conversation": 2,
+    "meeting.decline_invite": 3,
+    "agent.decision_wait": 12,
+    "agent.activity_accepted": 4,
+    "agent.decision_stale": 1
+  },
+  "perScenario": [
+    {
+      "scenario": "available",
+      "trials": 3,
+      "behaviors": {
+        "delivered_and_completed": 2,
+        "delivered_without_completion": 1
+      },
+      "calls": 22,
+      "tokens": 24631,
+      "initialized": 3,
+      "recovered": 3,
+      "delivered": 3
+    },
+    {
+      "scenario": "seller_empty",
+      "trials": 3,
+      "behaviors": {
+        "declined_missing_stock": 3
+      },
+      "calls": 9,
+      "tokens": 8945,
+      "initialized": 3,
+      "recovered": 3,
+      "delivered": 0
+    },
+    {
+      "scenario": "buyer_poor",
+      "trials": 3,
+      "behaviors": {
+        "waited_insufficient_funds": 3
+      },
+      "calls": 9,
+      "tokens": 8325,
+      "initialized": 3,
+      "recovered": 3,
+      "delivered": 0
+    },
+    {
+      "scenario": "need_satisfied",
+      "trials": 3,
+      "behaviors": {
+        "need_suppressed": 3
+      },
+      "calls": 7,
+      "tokens": 6437,
+      "initialized": 3,
+      "recovered": 3,
+      "delivered": 0
+    }
+  ],
+  "errors": [
+    {
+      "ordinal": 1,
+      "scenario": "available",
+      "npcId": "npc.cook_sora",
+      "step": 1,
+      "error": "NpcCandidateException",
+      "candidateErrorCode": "candidate.plan_id_required",
+      "hostCode": "candidate.plan_id_required",
+      "decisionOutcomeCode": "meeting.invited",
+      "proxyStatus": "provider.candidate_invalid",
+      "injected": true
+    },
+    {
+      "ordinal": 2,
+      "scenario": "seller_empty",
+      "npcId": "npc.cook_sora",
+      "step": 1,
+      "error": "NpcCandidateException",
+      "candidateErrorCode": "candidate.plan_id_required",
+      "hostCode": "candidate.plan_id_required",
+      "decisionOutcomeCode": "meeting.invited",
+      "proxyStatus": "provider.candidate_invalid",
+      "injected": true
+    },
+    {
+      "ordinal": 5,
+      "scenario": "seller_empty",
+      "npcId": "npc.cook_sora",
+      "step": 1,
+      "error": "NpcCandidateException",
+      "candidateErrorCode": "candidate.plan_id_required",
+      "hostCode": "candidate.plan_id_required",
+      "decisionOutcomeCode": "meeting.invited",
+      "proxyStatus": "provider.candidate_invalid",
+      "injected": true
+    },
+    {
+      "ordinal": 8,
+      "scenario": "available",
+      "npcId": "npc.cook_sora",
+      "step": 1,
+      "error": "NpcCandidateException",
+      "candidateErrorCode": "candidate.plan_id_required",
+      "hostCode": "candidate.plan_id_required",
+      "decisionOutcomeCode": "meeting.invited",
+      "proxyStatus": "provider.candidate_invalid",
+      "injected": true
+    },
+    {
+      "ordinal": 8,
+      "scenario": "available",
+      "npcId": "npc.fisher_ren",
+      "step": 1,
+      "error": "TaskCanceledException",
+      "candidateErrorCode": "",
+      "hostCode": "agent.decision_stale",
+      "decisionOutcomeCode": "agent.decision_stale",
+      "proxyStatus": "passed",
+      "injected": false
+    },
+    {
+      "ordinal": 11,
+      "scenario": "available",
+      "npcId": "npc.cook_sora",
+      "step": 1,
+      "error": "NpcCandidateException",
+      "candidateErrorCode": "candidate.plan_id_required",
+      "hostCode": "candidate.plan_id_required",
+      "decisionOutcomeCode": "meeting.invited",
+      "proxyStatus": "provider.candidate_invalid",
+      "injected": true
+    },
+    {
+      "ordinal": 12,
+      "scenario": "seller_empty",
+      "npcId": "npc.cook_sora",
+      "step": 1,
+      "error": "NpcCandidateException",
+      "candidateErrorCode": "candidate.plan_id_required",
+      "hostCode": "candidate.plan_id_required",
+      "decisionOutcomeCode": "meeting.invited",
+      "proxyStatus": "provider.candidate_invalid",
+      "injected": true
+    }
+  ],
+  "unityValidation": [
+    {
+      "name": "candidate-10-edit-final",
+      "result": "Passed",
+      "total": "692",
+      "passed": "692",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "9.0884026"
+    },
+    {
+      "name": "candidate-11-play-final",
+      "result": "Skipped:Ignored",
+      "total": "180",
+      "passed": "176",
+      "failed": "0",
+      "skipped": "4",
+      "duration": "14.9300088"
+    },
+    {
+      "name": "candidate-live",
+      "result": "Passed",
+      "total": "1",
+      "passed": "1",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "396.45492"
+    }
+  ]
+}
