@@ -15,6 +15,7 @@ namespace CozyTown.Runtime.NpcAgents
         private readonly INpcDecisionClient _client;
         private readonly NpcDecisionSettings _settings;
         private readonly NpcMeetingBoard _meetings;
+        private readonly Func<NpcDecisionRequest, NpcLocalObservation> _observe;
         private readonly Queue<double> _requestStarts = new Queue<double>();
         private readonly List<NpcDecisionOutcome> _completed = new List<NpcDecisionOutcome>();
         private double _lastTick = double.NegativeInfinity;
@@ -41,12 +42,14 @@ namespace CozyTown.Runtime.NpcAgents
         }
 
         public NpcDecisionScheduler(NpcAgentWorld world, IEnumerable<NpcDefinition> profiles, INpcDecisionClient client,
-            NpcDecisionSettings settings = null, NpcMeetingBoard meetings = null)
+            NpcDecisionSettings settings = null, NpcMeetingBoard meetings = null,
+            Func<NpcDecisionRequest, NpcLocalObservation> observe = null)
         {
             _world = world ?? throw new ArgumentNullException(nameof(world));
             _client = client ?? throw new ArgumentNullException(nameof(client));
             _settings = settings ?? new NpcDecisionSettings();
             _meetings = meetings;
+            _observe = observe;
             if (profiles == null) throw new ArgumentNullException(nameof(profiles));
             _residents = profiles.Select(profile => new Resident { Profile = profile }).ToArray();
             var ids = new HashSet<string>(StringComparer.Ordinal);
@@ -187,12 +190,32 @@ namespace CozyTown.Runtime.NpcAgents
                     })) continue;
                     bool socialReply = resident.Pending.Social != null && resident.Pending.Social.Kind != NpcSocialContextKind.Opportunity;
                     if (!socialReply && realSeconds < resident.LastStarted + _settings.ResidentCooldownSeconds) continue;
+                    if (resident.Pending.Social != null)
+                    {
+                        var social = _meetings.GetContext(resident.Profile.Id);
+                        if (social == null) { resident.Pending = null; continue; }
+                        resident.Pending = new NpcDecisionRequest(resident.Pending, social);
+                    }
                     resident.Current = resident.Pending;
-                    if (resident.Current.Social?.Kind == NpcSocialContextKind.Opportunity) _meetings.TakeOpportunity(resident.Profile.Id);
                     resident.Pending = null;
                     resident.LastStarted = realSeconds;
                     resident.Calls = 0;
                     resident.CandidateErrorCodes.Clear();
+                    if (_observe != null)
+                    {
+                        if (!TryReadObservation(resident.Current, out var observation))
+                        {
+                            Finish(resident, "agent.observation_unavailable");
+                            continue;
+                        }
+                        resident.Current = new NpcDecisionRequest(resident.Current, observation);
+                    }
+                    if (resident.Current.Social?.Kind == NpcSocialContextKind.Opportunity) _meetings.TakeOpportunity(resident.Profile.Id);
+                }
+                else if (_observe != null)
+                {
+                    string invalid = ObservationFailure(resident.Current);
+                    if (invalid != null) { Finish(resident, invalid); continue; }
                 }
                 _requestStarts.Enqueue(realSeconds);
                 RequestsStarted++;
@@ -235,6 +258,12 @@ namespace CozyTown.Runtime.NpcAgents
             if (reply == null)
             {
                 Finish(resident, "agent.response_invalid");
+                return;
+            }
+            string observationFailure = _observe == null ? null : ObservationFailure(context);
+            if (observationFailure != null)
+            {
+                Finish(resident, observationFailure, reply: reply);
                 return;
             }
             if (!context.AllowedOperations.Contains(reply.Operation))
@@ -303,6 +332,27 @@ namespace CozyTown.Runtime.NpcAgents
             if (_world.TotalMinutes >= context.GameTotalMinutes + _settings.OpportunityLifetimeGameMinutes)
                 return "agent.opportunity_expired";
             return null;
+        }
+
+        private bool TryReadObservation(NpcDecisionRequest context, out NpcLocalObservation observation)
+        {
+            observation = null;
+            try
+            {
+                observation = _observe(context);
+                return observation != null && observation.ObserverId == context.NpcId
+                    && observation.WorldRunId == context.Self.WorldRunId
+                    && observation.WorldRunId == _world.GetState(context.NpcId).WorldRunId
+                    && observation.ObservedAtTotalMinutes == _world.TotalMinutes
+                    && observation.ListenerId == context.Social?.PartnerId;
+            }
+            catch (Exception) { return false; }
+        }
+
+        private string ObservationFailure(NpcDecisionRequest context)
+        {
+            if (!TryReadObservation(context, out var current)) return "agent.observation_unavailable";
+            return context.Observation != null && context.Observation.HasSameFacts(current) ? null : "agent.observation_stale";
         }
 
         private void HandleCandidateFailure(Resident resident, NpcCandidateException exception)

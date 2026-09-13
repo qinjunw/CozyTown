@@ -141,6 +141,8 @@ namespace CozyTown.Unity.Npc
             public SocialPayload social;
             public bool hasSelfAssessment;
             public SelfAssessmentPayload selfAssessment;
+            public bool hasObservation;
+            public ObservationPayload observation;
 
             public RequestPayload(NpcDecisionRequest request)
             {
@@ -165,6 +167,8 @@ namespace CozyTown.Unity.Npc
                         isReachable = request.LocationDetails.IsReachable };
                 previousResultCode = request.PreviousResultCode;
                 allowedOperations = request.AllowedOperations.ToArray();
+                hasObservation = request.Observation != null;
+                if (hasObservation) observation = new ObservationPayload(request.Observation);
                 if (request.Social != null)
                 {
                     schemaVersion = request.Social.Resources == null ? 2 : 4;
@@ -185,6 +189,42 @@ namespace CozyTown.Unity.Npc
                     knownLocationIds = Array.Empty<string>();
                 }
             }
+        }
+
+        [Serializable]
+        private sealed class ObservationPayload
+        {
+            public int schemaVersion = 1;
+            public string observerId, worldRunId, spaceId, regionId, coverageDomain, listenerId;
+            public double observedAtGameTotalMinutes, x, y, radius;
+            public bool hasRegion, nearbyComplete;
+            public string[] nearbyEntityIds;
+            public FactPayload[] facts;
+
+            public ObservationPayload(NpcLocalObservation view)
+            {
+                observerId = view.ObserverId; worldRunId = view.WorldRunId.ToString("N");
+                observedAtGameTotalMinutes = view.ObservedAtTotalMinutes;
+                x = view.X; y = view.Y; radius = view.Radius; spaceId = view.SpaceId;
+                hasRegion = view.RegionId != null; regionId = view.RegionId ?? string.Empty;
+                coverageDomain = view.CoverageDomain; nearbyComplete = view.NearbyComplete;
+                listenerId = view.ListenerId ?? string.Empty; nearbyEntityIds = view.NearbyEntityIds.ToArray();
+                facts = view.Facts.Select(fact => new FactPayload {
+                    factId = fact.FactId, entityId = fact.EntityId, predicate = fact.Predicate,
+                    value = fact.Value ?? string.Empty, valueType = fact.ValueType, unit = fact.Unit ?? string.Empty,
+                    knowledge = fact.Knowledge, source = fact.Source, observerId = fact.ObserverId,
+                    observedAtGameTotalMinutes = fact.ObservedAtTotalMinutes, scope = fact.Scope,
+                    speakerId = fact.SpeakerId ?? string.Empty, canExpress = fact.CanExpress
+                }).ToArray();
+            }
+        }
+
+        [Serializable]
+        private sealed class FactPayload
+        {
+            public string factId, entityId, predicate, value, valueType, unit, knowledge, source, observerId, scope, speakerId;
+            public double observedAtGameTotalMinutes;
+            public bool canExpress;
         }
 
         [Serializable]

@@ -37,6 +37,8 @@ namespace CozyTown.Unity.Npc
         public string TargetLocationId { get; private set; }
         public bool IsHome { get; private set; }
         public TownRouteStatus Status { get; private set; }
+        public bool IsPresentInWorld => isActiveAndEnabled && _journey != null
+            && !_journey.NoLegalPosition && !IsHome;
         public Vector2 FacingDirection => _journey != null
             && _journey.Activity == NpcActivity.Working
             && _journey.Follower.Status == TownRouteStatus.Arrived
