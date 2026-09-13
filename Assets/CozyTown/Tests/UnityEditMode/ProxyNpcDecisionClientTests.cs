@@ -16,6 +16,67 @@ namespace CozyTown.Tests.UnityEditMode
 {
     public sealed class ProxyNpcDecisionClientTests
     {
+        [TestCase("candidate.location_id_required", true)]
+        [TestCase("candidate.schema_mismatch", false)]
+        public void CandidateFieldFailure_PreservesItsCodeWithoutCallingTheProxyAgain(string code, bool canCorrect)
+        {
+            int calls = 0;
+            using var http = new HttpClient(new Handler((message, token) =>
+            {
+                calls++;
+                return Task.FromResult(new HttpResponseMessage((HttpStatusCode)422) { Content = new StringContent(
+                    "{\"error\":\"provider.candidate_invalid\",\"candidateErrorCode\":\"" + code + "\"}") });
+            }));
+            var error = Assert.ThrowsAsync<NpcCandidateException>(async () =>
+                await new ProxyNpcDecisionClient("https://agent.invalid/decide", http).DecideAsync(Request(), CancellationToken.None));
+            Assert.That(error.Code, Is.EqualTo(code));
+            Assert.That(error.CanCorrect, Is.EqualTo(canCorrect));
+            Assert.That(calls, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void ResponseVersion_MustMatchTheActualRequest()
+        {
+            using var http = new HttpClient(new Handler((message, token) => Task.FromResult(
+                new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("{\"schemaVersion\":2,\"operation\":\"wait\"}") })));
+            var error = Assert.ThrowsAsync<NpcCandidateException>(async () =>
+                await new ProxyNpcDecisionClient("https://agent.invalid/decide", http).DecideAsync(Request(), CancellationToken.None));
+            Assert.That(error.Code, Is.EqualTo("candidate.schema_mismatch"));
+            Assert.That(error.CanCorrect, Is.False);
+        }
+
+        [TestCase("{\"schemaVersion\":1,\"operation\":\"invite\",\"planId\":\"unknown\"}", "candidate.operation_unavailable")]
+        [TestCase("{\"schemaVersion\":1,\"operation\":\"inspect_location\",\"locationId\":\"another-resident.home\"}", "candidate.location_unknown")]
+        public void CandidateOutsideTheRequest_CannotAcquireACorrection(string json, string expectedCode)
+        {
+            using var http = new HttpClient(new Handler((message, token) => Task.FromResult(
+                new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(json) })));
+            var error = Assert.ThrowsAsync<NpcCandidateException>(async () =>
+                await new ProxyNpcDecisionClient("https://agent.invalid/decide", http).DecideAsync(Request(), CancellationToken.None));
+            Assert.That(error.Code, Is.EqualTo(expectedCode));
+            Assert.That(error.CanCorrect, Is.False);
+        }
+
+        [TestCase("not-json")]
+        [TestCase("{\"error\":\"provider.candidate_invalid\",\"candidateErrorCode\":\"candidate.arbitrary\"}")]
+        [TestCase("{\"error\":\"provider.http_401\",\"candidateErrorCode\":\"candidate.plan_id_required\"}")]
+        public void UnrecognizedFailureEnvelope_RemainsAnHttpFailure(string json)
+        {
+            using var http = new HttpClient(new Handler((message, token) => Task.FromResult(
+                new HttpResponseMessage((HttpStatusCode)422) { Content = new StringContent(json) })));
+            Assert.ThrowsAsync<HttpRequestException>(async () =>
+                await new ProxyNpcDecisionClient("https://agent.invalid/decide", http).DecideAsync(Request(), CancellationToken.None));
+        }
+
+        [Test]
+        public void OversizedFailureEnvelope_DoesNotBecomeACorrectableError()
+        {
+            using var http = new HttpClient(new Handler((message, token) => Task.FromResult(
+                new HttpResponseMessage((HttpStatusCode)422) { Content = new StringContent(new string('x', 16385)) })));
+            Assert.ThrowsAsync<FormatException>(async () =>
+                await new ProxyNpcDecisionClient("https://agent.invalid/decide", http).DecideAsync(Request(), CancellationToken.None));
+        }
+
         [TestCase("file:///tmp/agent")]
         [TestCase("relative")]
         public void InvalidEndpoint_IsRejected(string endpoint)

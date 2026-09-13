@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CozyTown.Runtime.NpcAgents;
+using UnityEngine;
 
 namespace CozyTown.Unity.Npc
 {
@@ -31,7 +32,8 @@ namespace CozyTown.Unity.Npc
                 { Content = new StringContent(_codec.SerializeRequest(request), Encoding.UTF8, "application/json") };
             using var response = await _httpClient.SendAsync(message, HttpCompletionOption.ResponseHeadersRead,
                 cancellationToken).ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
+            bool candidateFailure = (int)response.StatusCode == 422;
+            if (!candidateFailure) response.EnsureSuccessStatusCode();
             if (response.Content == null) throw new FormatException("Decision proxy returned no response content.");
             int maximum = ProxyNpcDecisionJsonCodec.MaximumResponseBytes;
             if (response.Content.Headers.ContentLength > maximum)
@@ -48,7 +50,23 @@ namespace CozyTown.Unity.Npc
                 body.Write(buffer, 0, count);
             }
             cancellationToken.ThrowIfCancellationRequested();
-            return _codec.ParseResponse(Encoding.UTF8.GetString(body.ToArray()));
+            string json = Encoding.UTF8.GetString(body.ToArray());
+            if (candidateFailure)
+            {
+                CandidateFailurePayload failure = null;
+                try { failure = JsonUtility.FromJson<CandidateFailurePayload>(json); }
+                catch (ArgumentException) { }
+                if (failure?.error == "provider.candidate_invalid" && NpcCandidateException.IsKnownCode(failure.candidateErrorCode))
+                    throw new NpcCandidateException(failure.candidateErrorCode);
+                response.EnsureSuccessStatusCode();
+            }
+            return _codec.ParseResponse(json, request);
+        }
+
+        [Serializable]
+        private sealed class CandidateFailurePayload
+        {
+            public string error, candidateErrorCode;
         }
     }
 }

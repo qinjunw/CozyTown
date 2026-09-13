@@ -34,6 +34,7 @@ namespace CozyTown.Runtime.NpcAgents
             internal Task<NpcDecisionReply> Request;
             internal CancellationTokenSource Cancellation;
             internal NpcDecisionOutcome LastOutcome;
+            internal readonly List<string> CandidateErrorCodes = new List<string>();
             internal int Calls;
             internal double RequestStarted;
             internal double LastStarted = double.NegativeInfinity;
@@ -124,9 +125,15 @@ namespace CozyTown.Runtime.NpcAgents
                     if (resident.Request.IsCompleted)
                     {
                         NpcDecisionReply reply = null;
+                        bool receivedReply = false;
                         try
                         {
                             reply = resident.Request.GetAwaiter().GetResult();
+                            receivedReply = true;
+                        }
+                        catch (NpcCandidateException exception)
+                        {
+                            if (resident.Current != null) HandleCandidateFailure(resident, exception);
                         }
                         catch (FormatException)
                         {
@@ -136,7 +143,7 @@ namespace CozyTown.Runtime.NpcAgents
                         {
                             if (resident.Current != null) Finish(resident, "agent.client_failure");
                         }
-                        if (resident.Current != null) ApplyReply(resident, reply);
+                        if (resident.Current != null && receivedReply) ApplyReply(resident, reply);
                         resident.Request = null;
                         resident.Cancellation.Dispose();
                         resident.Cancellation = null;
@@ -185,15 +192,22 @@ namespace CozyTown.Runtime.NpcAgents
                     resident.Pending = null;
                     resident.LastStarted = realSeconds;
                     resident.Calls = 0;
+                    resident.CandidateErrorCodes.Clear();
                 }
                 _requestStarts.Enqueue(realSeconds);
                 RequestsStarted++;
                 resident.Calls++;
                 resident.RequestStarted = realSeconds;
                 resident.Cancellation = new CancellationTokenSource();
+                bool candidateFailure = false;
                 try
                 {
                     resident.Request = _client.DecideAsync(resident.Current, resident.Cancellation.Token);
+                }
+                catch (NpcCandidateException exception)
+                {
+                    candidateFailure = true;
+                    HandleCandidateFailure(resident, exception);
                 }
                 catch (FormatException)
                 {
@@ -205,7 +219,7 @@ namespace CozyTown.Runtime.NpcAgents
                 }
                 if (resident.Request == null)
                 {
-                    if (resident.Current != null) Finish(resident, "agent.client_failure");
+                    if (resident.Current != null && !candidateFailure) Finish(resident, "agent.client_failure");
                     resident.Cancellation.Dispose();
                     resident.Cancellation = null;
                 }
@@ -291,9 +305,18 @@ namespace CozyTown.Runtime.NpcAgents
             return null;
         }
 
+        private void HandleCandidateFailure(Resident resident, NpcCandidateException exception)
+        {
+            resident.CandidateErrorCodes.Add(exception.Code);
+            if (exception.CanCorrect && resident.CandidateErrorCodes.Count == 1 && resident.Calls < _settings.MaxCallsPerDecision)
+                resident.Current = new NpcDecisionRequest(resident.Current, resident.Current.LocationDetails, exception.Code);
+            else Finish(resident, "agent.response_invalid");
+        }
+
         private void Finish(Resident resident, string code, bool cancelRequest = false, NpcDecisionReply reply = null)
         {
-            var outcome = new NpcDecisionOutcome(resident.Current, code, resident.Calls, resident.LastStarted, _lastTick, reply);
+            var outcome = new NpcDecisionOutcome(resident.Current, code, resident.Calls, resident.LastStarted, _lastTick, reply,
+                resident.CandidateErrorCodes);
             resident.LastOutcome = outcome;
             _completed.Add(outcome);
             resident.Current = null;

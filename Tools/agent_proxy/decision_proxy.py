@@ -5,6 +5,7 @@ import threading
 import time
 import copy
 import argparse
+import uuid
 from pathlib import Path
 import urllib.error
 import urllib.request
@@ -57,7 +58,10 @@ def create_server(service, port=0):
                     raise ProxyError("proxy.request_json_invalid", 400) from None
                 self.reply(200, service.decide(context))
             except ProxyError as error:
-                self.reply(error.status, {"error": error.code})
+                body = {"error": error.code}
+                if error.candidate_error_code is not None:
+                    body["candidateErrorCode"] = error.candidate_error_code
+                self.reply(error.status, body)
             except (BrokenPipeError, ConnectionResetError):
                 pass
             except Exception:
@@ -75,10 +79,11 @@ def create_server(service, port=0):
 
 
 class ProxyError(Exception):
-    def __init__(self, code, status=502):
+    def __init__(self, code, status=502, *, candidate_error_code=None):
         super().__init__(code)
         self.code = code
         self.status = status
+        self.candidate_error_code = candidate_error_code
 
 
 class _NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -137,6 +142,9 @@ with meetingId. Never supply replacement items, actors, quantities or prices.
 Only resource.delivered proves transfer. Do not claim fishing, cooking or other production
 has happened without a host result. Use gameTotalMinutes modulo 1440 for time of day.
 Copy supplied identifiers exactly. Do not include explanation outside the JSON object.
+If candidateErrorCode is nonempty, your previous candidate was not executed.
+Return one corrected candidate with its required fields at the top level, not inside arguments.
+Keep using the supplied identifiers and the original allowedOperations.
 """
 
 
@@ -215,10 +223,9 @@ class ProxyService:
                 if not isinstance(content, str) or len(content.encode("utf-8")) > 16384 or choice.get("finish_reason") == "length":
                     raise ValueError
                 candidate = json.loads(content)
-                if not isinstance(candidate, dict) or candidate.get("schemaVersion") != context.get("schemaVersion"):
+                if not isinstance(candidate, dict):
                     raise ValueError
-                if candidate.get("operation") not in context.get("allowedOperations", []):
-                    raise ValueError
+                self._validate_candidate(candidate, context)
                 json.dumps(candidate, allow_nan=False)
                 fields = {"schemaVersion", "operation"} | {
                     "wait": set(), "inspect_location": {"locationId"},
@@ -235,6 +242,8 @@ class ProxyService:
                 raise ProxyError("provider.candidate_invalid") from None
         except ProxyError as error:
             record["status"] = error.code
+            if error.candidate_error_code is not None:
+                record["candidateErrorCode"] = error.candidate_error_code
             raise
         except Exception:
             raise ProxyError("provider.failure") from None
@@ -246,6 +255,64 @@ class ProxyService:
                 if self._trace is not None:
                     self._trace.write(json.dumps(record, ensure_ascii=False, allow_nan=False) + "\n")
                     self._trace.flush()
+
+    @staticmethod
+    def _validate_candidate(candidate, context):
+        if type(candidate.get("schemaVersion")) is not int or candidate["schemaVersion"] != context["schemaVersion"]:
+            raise ProxyError("provider.candidate_invalid", 422, candidate_error_code="candidate.schema_mismatch")
+        if candidate.get("operation") not in context["allowedOperations"]:
+            raise ProxyError("provider.candidate_invalid", 422, candidate_error_code="candidate.operation_unavailable")
+        if candidate["operation"] in ("inspect_location", "visit"):
+            location_id = candidate.get("locationId")
+            if not isinstance(location_id, str) or not location_id.strip():
+                raise ProxyError("provider.candidate_invalid", 422, candidate_error_code="candidate.location_id_required")
+            known_locations = context.get("knownLocationIds")
+            if not isinstance(known_locations, list) or location_id not in known_locations:
+                raise ProxyError("provider.candidate_invalid", 422, candidate_error_code="candidate.location_unknown")
+        if candidate["operation"] == "visit":
+            activity = candidate.get("activity")
+            allowed_activities = context.get("allowedActivities")
+            if activity not in ("working", "resting") or not isinstance(allowed_activities, list) or activity not in allowed_activities:
+                raise ProxyError("provider.candidate_invalid", 422, candidate_error_code="candidate.activity_invalid")
+            duration = candidate.get("durationGameMinutes")
+            maximum = context.get("maxActivityDurationGameMinutes")
+            if (type(duration) not in (int, float) or not 0 < duration <= 1440
+                    or type(maximum) not in (int, float) or not duration <= maximum):
+                raise ProxyError("provider.candidate_invalid", 422, candidate_error_code="candidate.duration_invalid")
+        if candidate["operation"] == "invite":
+            plan_id = candidate.get("planId")
+            if not isinstance(plan_id, str) or not plan_id.strip():
+                raise ProxyError("provider.candidate_invalid", 422, candidate_error_code="candidate.plan_id_required")
+            social = context.get("social")
+            if not isinstance(social, dict) or plan_id != social.get("planId"):
+                raise ProxyError("provider.candidate_invalid", 422, candidate_error_code="candidate.plan_id_mismatch")
+        if candidate["operation"] in ("accept_invite", "decline_invite", "say", "end_conversation", "deliver", "cancel_exchange"):
+            meeting_id = candidate.get("meetingId")
+            if not isinstance(meeting_id, str) or not meeting_id.strip():
+                raise ProxyError("provider.candidate_invalid", 422, candidate_error_code="candidate.meeting_id_required")
+            try:
+                supplied_id = uuid.UUID(meeting_id)
+                if supplied_id.int == 0:
+                    raise ValueError
+            except ValueError:
+                raise ProxyError("provider.candidate_invalid", 422, candidate_error_code="candidate.meeting_id_invalid") from None
+            social = context.get("social")
+            expected_id = social.get("meetingId") if isinstance(social, dict) else None
+            try:
+                if not isinstance(expected_id, str) or supplied_id != uuid.UUID(expected_id):
+                    raise ValueError
+            except ValueError:
+                raise ProxyError("provider.candidate_invalid", 422, candidate_error_code="candidate.meeting_id_mismatch") from None
+        if candidate["operation"] == "say":
+            speech = candidate.get("text")
+            valid_text = isinstance(speech, str) and bool(speech.strip())
+            if valid_text:
+                try:
+                    valid_text = len(speech.encode("utf-16-le")) // 2 <= 240
+                except UnicodeError:
+                    valid_text = False
+            if not valid_text:
+                raise ProxyError("provider.candidate_invalid", 422, candidate_error_code="candidate.text_invalid")
 
 
 def main():

@@ -16,6 +16,101 @@ namespace CozyTown.Tests.UnityEditMode
 {
     public sealed class ProxyNpcDecisionJsonCodecTests
     {
+        [TestCase("{\"schemaVersion\":4,\"operation\":\"invite\"}")]
+        [TestCase("{\"schemaVersion\":4,\"operation\":\"invite\",\"social\":{\"planId\":\"lunch\"}}")]
+        public void InvitationWithoutTopLevelPlanId_ReportsACorrectableFieldError(string json)
+        {
+            var error = Assert.Throws<NpcCandidateException>(() => new ProxyNpcDecisionJsonCodec().ParseResponse(json));
+            Assert.That(error.Code, Is.EqualTo("candidate.plan_id_required"));
+            Assert.That(error.CanCorrect, Is.True);
+        }
+
+        [TestCase("{\"schemaVersion\":4,\"operation\":\"accept_invite\"}", "candidate.meeting_id_required")]
+        [TestCase("{\"schemaVersion\":4,\"operation\":\"accept_invite\",\"meetingId\":\"bad\"}", "candidate.meeting_id_invalid")]
+        [TestCase("{\"schemaVersion\":4,\"operation\":\"say\",\"meetingId\":\"11111111111111111111111111111111\"}", "candidate.text_invalid")]
+        [TestCase("{\"schemaVersion\":1,\"operation\":\"inspect_location\"}", "candidate.location_id_required")]
+        [TestCase("{\"schemaVersion\":1,\"operation\":\"visit\",\"locationId\":\"work\",\"activity\":\"home\",\"durationGameMinutes\":20}", "candidate.activity_invalid")]
+        [TestCase("{\"schemaVersion\":1,\"operation\":\"visit\",\"locationId\":\"work\",\"activity\":\"working\"}", "candidate.duration_invalid")]
+        [TestCase("{\"schemaVersion\":1,\"operation\":\"visit\",\"locationId\":\"work\",\"activity\":\"working\",\"durationGameMinutes\":1441}", "candidate.duration_invalid")]
+        public void RequiredCandidateFields_ReportTheirOwnFailure(string json, string code)
+        {
+            var error = Assert.Throws<NpcCandidateException>(() => new ProxyNpcDecisionJsonCodec().ParseResponse(json));
+            Assert.That(error.Code, Is.EqualTo(code));
+            Assert.That(error.CanCorrect, Is.True);
+        }
+
+        [TestCase("{\"schemaVersion\":true,\"operation\":\"wait\"}")]
+        [TestCase("{\"schemaVersion\":1.0,\"operation\":\"wait\"}")]
+        [TestCase("{\"schemaVersion\":\"1\",\"operation\":\"wait\"}")]
+        [TestCase("{\"schemaVersion\":4,\"operation\":\"invite\",\"planId\":5}")]
+        [TestCase("{\"schemaVersion\":1,\"operation\":\"visit\",\"locationId\":\"work\",\"activity\":\"working\",\"durationGameMinutes\":\"20\"}")]
+        public void CandidateFieldTypes_AreNotCoercedIntoValidValues(string json)
+            => Assert.Catch<System.FormatException>(() => new ProxyNpcDecisionJsonCodec().ParseResponse(json));
+
+        [TestCase("{}")]
+        [TestCase("{\"schemaVersion\":true}")]
+        [TestCase("{\"schemaVersion\":1.0}")]
+        [TestCase("{\"schemaVersion\":\"1\"}")]
+        public void InvalidSchemaField_PreservesItsNoncorrectableDiagnostic(string json)
+        {
+            var error = Assert.Throws<NpcCandidateException>(() => new ProxyNpcDecisionJsonCodec().ParseResponse(json));
+            Assert.That(error.Code, Is.EqualTo("candidate.schema_mismatch"));
+            Assert.That(error.CanCorrect, Is.False);
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void SocialIdentifiers_MustBindTheCandidateToTheRequestedPlanOrMeeting(bool invitation)
+        {
+            var request = SocialRequest(invitation);
+            string json = invitation ? "{\"schemaVersion\":2,\"operation\":\"accept_invite\",\"meetingId\":\"11111111111111111111111111111111\"}"
+                : "{\"schemaVersion\":2,\"operation\":\"invite\",\"planId\":\"another-plan\"}";
+            var error = Assert.Throws<NpcCandidateException>(() => new ProxyNpcDecisionJsonCodec().ParseResponse(json, request));
+            Assert.That(error.Code, Is.EqualTo(invitation ? "candidate.meeting_id_mismatch" : "candidate.plan_id_mismatch"));
+            Assert.That(error.CanCorrect, Is.False);
+        }
+
+        [TestCase("N")]
+        [TestCase("D")]
+        public void MeetingIdentifier_UsesGuidValueWhileKeepingRequestBinding(string format)
+        {
+            var request = SocialRequest(true);
+            var reply = new ProxyNpcDecisionJsonCodec().ParseResponse("{\"schemaVersion\":2,\"operation\":\"accept_invite\",\"meetingId\":\""
+                + request.Social.MeetingId.ToString(format).ToUpperInvariant() + "\"}", request);
+            Assert.That(reply.MeetingId, Is.EqualTo(request.Social.MeetingId));
+        }
+
+        [TestCase(120, true)]
+        [TestCase(121, false)]
+        public void SpeechLength_UsesTheSameUtf16BoundaryAsTheMeetingBoard(int pairs, bool accepted)
+        {
+            string text = string.Concat(Enumerable.Repeat("\U0001F41F", pairs));
+            string json = "{\"schemaVersion\":4,\"operation\":\"say\",\"meetingId\":\"11111111111111111111111111111111\",\"text\":\"" + text + "\"}";
+            if (accepted) Assert.That(new ProxyNpcDecisionJsonCodec().ParseResponse(json).Text, Is.EqualTo(text));
+            else Assert.That(Assert.Throws<NpcCandidateException>(() => new ProxyNpcDecisionJsonCodec().ParseResponse(json)).Code,
+                Is.EqualTo("candidate.text_invalid"));
+        }
+
+        [TestCase("{\"schemaVersion\":1,\"operation\":\"wait\",\"operation\":\"visit\"}")]
+        [TestCase("{\"schemaVersion\":1,\"operation\":\"wait\"} {\"schemaVersion\":1,\"operation\":\"wait\"}")]
+        public void AmbiguousJson_IsRejectedWithoutProducingACandidate(string json)
+            => Assert.Throws<System.FormatException>(() => new ProxyNpcDecisionJsonCodec().ParseResponse(json));
+
+        private static NpcDecisionRequest SocialRequest(bool invitation)
+        {
+            NpcDailySchedule Schedule(string id) => new NpcDailySchedule(id, id + ".home", id + ".outside", id + ".entry",
+                id + ".work", id + ".rest", id + ".afternoon", 360, 480, 720, 810, 1020, 1080);
+            var world = new NpcAgentWorld(new[] { Schedule("ren"), Schedule("sora") });
+            world.Observe(new WorldTimeProgress(new GameClockSnapshot(1, 720), 0, false, 1));
+            var board = new NpcMeetingBoard(world, new[] { new NpcMeetingPlan("lunch", "sora", "ren", "pond", "sora.rest", "ren.rest", 720, 750, 780) });
+            if (invitation) Assert.That(board.Invite(world.GetState("sora"), "lunch").IsSuccess, Is.True);
+            string npc = invitation ? "ren" : "sora";
+            var client = new CaptureClient();
+            using var scheduler = new NpcDecisionScheduler(world, new[] { new NpcDefinition(npc, npc, "Resident", "Hello") }, client, meetings: board);
+            scheduler.Tick(0);
+            return client.Requests.Single();
+        }
+
         [TestCase(3, "deliver", NpcDecisionKind.Deliver)]
         [TestCase(3, "cancel_exchange", NpcDecisionKind.CancelExchange)]
         [TestCase(4, "deliver", NpcDecisionKind.Deliver)]
@@ -117,7 +212,7 @@ namespace CozyTown.Tests.UnityEditMode
         [TestCase("{\"schemaVersion\":1,\"operation\":\"inspect_location\"}")]
         [TestCase("{\"schemaVersion\":1,\"operation\":\"visit\",\"locationId\":\"mina.work\",\"activity\":\"home\"}")]
         public void InvalidResponse_IsRejected(string json)
-            => Assert.Throws<System.FormatException>(() => new ProxyNpcDecisionJsonCodec().ParseResponse(json));
+            => Assert.Catch<System.FormatException>(() => new ProxyNpcDecisionJsonCodec().ParseResponse(json));
 
         [Test]
         public void OversizedResponse_IsRejectedBeforeParsing()

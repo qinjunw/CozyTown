@@ -43,6 +43,29 @@ namespace CozyTown.Tests.PlayMode
         };
 
         [UnityTest]
+        public IEnumerator CandidateCorrection_PreservesTheRejectedAttemptAndUsesTheSameOpportunity()
+        {
+            var report = new MatrixReport();
+            yield return RunMatrix(report, null, 1, false, null, correctFirstInvitation: true);
+            Assert.That(report.trials.Count, Is.EqualTo(4));
+            Assert.That(report.trials.All(t => t.initialized && t.hostViolations.Count == 0 && t.recovered), Is.True);
+            Assert.That(report.trials.Single(t => t.scenario == "available").behavior, Is.EqualTo("delivered_and_completed"));
+            Assert.That(report.trials.Single(t => t.scenario == "seller_empty").behavior, Is.EqualTo("declined_missing_stock"));
+            foreach (var trial in report.trials.Where(t => t.scenario == "available" || t.scenario == "seller_empty"))
+            {
+                var rejected = trial.calls.Single(c => c.error == nameof(NpcCandidateException));
+                Assert.That(rejected.candidateErrorCode, Is.EqualTo("candidate.plan_id_required"));
+                Assert.That(rejected.hostCode, Is.EqualTo("candidate.plan_id_required"));
+                var corrected = trial.calls.Single(c => c.decisionId == rejected.decisionId && c.step == 2);
+                Assert.That(corrected.operation, Is.EqualTo("invite"));
+                Assert.That(corrected.hostCode, Is.EqualTo("meeting.invited"));
+                Assert.That(corrected.sentContextJson, Does.Contain("\"candidateErrorCode\":\"candidate.plan_id_required\""));
+                Assert.That(rejected.decisionOutcomeCode, Is.EqualTo("meeting.invited"));
+                Assert.That(trial.calls.Count(c => c.decisionId == rejected.decisionId), Is.EqualTo(2));
+            }
+        }
+
+        [UnityTest]
         public IEnumerator FreshScenes_SeparateReasonableChoicesFromRejectedTrades()
         {
             var report = new MatrixReport();
@@ -164,7 +187,7 @@ namespace CozyTown.Tests.PlayMode
         }
 
         private IEnumerator RunMatrix(MatrixReport report, string endpoint, int repetitions, bool reckless, string path, int firstOrdinal = 1,
-            bool grounding = false, int groundingBasePort = 0)
+            bool grounding = false, int groundingBasePort = 0, bool correctFirstInvitation = false)
         {
             bool live = endpoint != null || groundingBasePort != 0;
             var epochs = new HashSet<string>();
@@ -193,6 +216,7 @@ namespace CozyTown.Tests.PlayMode
                     }, request => live ? (HttpMessageHandler)new HttpClientHandler() : CreateGroundingMock(request, trial, reckless));
                 }
                 else inner = live ? (INpcDecisionClient)new ProxyNpcDecisionClient(endpoint) : new RuleClient(reckless);
+                if (correctFirstInvitation) inner = new CorrectionProbeClient(trial);
                 var client = new RecordingClient(inner, trial);
                 _controller.ConfigureDecisions(client, DefaultMvpContent.CreateConfiguration().Npcs.Where(n => n.Id == Ren || n.Id == Sora),
                     meetingPlans: DefaultNpcResourcePlans.Create());
@@ -386,7 +410,11 @@ namespace CozyTown.Tests.PlayMode
             {
                 var outcome = _controller.GetDecisionOutcome(id);
                 if (outcome == null) continue;
-                foreach (var call in trial.calls.Where(c => c.decisionId == outcome.DecisionId.ToString())) call.hostCode = outcome.Code;
+                foreach (var call in trial.calls.Where(c => c.decisionId == outcome.DecisionId.ToString()))
+                {
+                    call.decisionOutcomeCode = outcome.Code;
+                    call.hostCode = string.IsNullOrEmpty(call.candidateErrorCode) ? outcome.Code : call.candidateErrorCode;
+                }
             }
         }
 
@@ -429,8 +457,46 @@ namespace CozyTown.Tests.PlayMode
                     call.operation = reply.Operation; call.text = reply.Text;
                     return reply;
                 }
-                catch (Exception ex) { call.error = ex.GetType().Name; throw; }
+                catch (Exception ex)
+                {
+                    call.error = ex.GetType().Name;
+                    if (ex is NpcCandidateException candidate) call.candidateErrorCode = call.hostCode = candidate.Code;
+                    throw;
+                }
                 finally { call.elapsedMilliseconds = watch.Elapsed.TotalMilliseconds; Active--; }
+            }
+        }
+
+        private sealed class CorrectionProbeClient : INpcDecisionClient
+        {
+            private readonly Trial _trial;
+            internal CorrectionProbeClient(Trial trial) => _trial = trial;
+            public async Task<NpcDecisionReply> DecideAsync(NpcDecisionRequest request, CancellationToken token)
+            {
+                bool reject = request.Step == 1 && request.Social?.Kind == NpcSocialContextKind.Opportunity
+                    && request.AllowedOperations.Contains("invite");
+                var reply = await new RuleClient(false).DecideAsync(request, token);
+                string json = reject ? "{\"error\":\"provider.candidate_invalid\",\"candidateErrorCode\":\"candidate.plan_id_required\"}"
+                    : JsonUtility.ToJson(new MockCandidate { schemaVersion = request.Social == null ? 1 : 4,
+                        operation = reply.Operation, planId = reply.PlanId, meetingId = reply.MeetingId.ToString("N"), text = reply.Text });
+                using var http = new HttpClient(new CorrectionProbeHandler(reject, json, sent =>
+                    _trial.calls.Last(c => c.decisionId == request.DecisionId.ToString() && c.step == request.Step).sentContextJson = sent));
+                return await new ProxyNpcDecisionClient("http://127.0.0.1:1/decide", http).DecideAsync(request, token);
+            }
+        }
+
+        private sealed class CorrectionProbeHandler : HttpMessageHandler
+        {
+            private readonly bool _reject;
+            private readonly string _json;
+            private readonly Action<string> _capture;
+            internal CorrectionProbeHandler(bool reject, string json, Action<string> capture)
+            { _reject = reject; _json = json; _capture = capture; }
+            protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken token)
+            {
+                _capture(await request.Content.ReadAsStringAsync());
+                return new HttpResponseMessage(_reject ? (HttpStatusCode)422 : HttpStatusCode.OK)
+                    { Content = new StringContent(_json) };
             }
         }
 
@@ -529,6 +595,7 @@ namespace CozyTown.Tests.PlayMode
         [Serializable] private sealed class Call
         {
             public string npcId, decisionId, phase, contextJson, operation, text, error, hostCode, sentContextJson;
+            public string candidateErrorCode, decisionOutcomeCode;
             public int step;
             public double elapsedMilliseconds;
             public ExperimentObservation experimentObservation, sentObservation;

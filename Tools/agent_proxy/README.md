@@ -39,15 +39,23 @@ python -B Tools/agent_proxy/decision_proxy.py --credential-file '<private-creden
 
 整个矩阵的 Unity 测试总时限为 25 分钟，覆盖 12 个单轮期限与场景加载。若基础设施中断，先保留原 JSON、XML 和代理日志，再显式设置 `COZYTOWN_SCENARIO_START_ORDINAL=<1..12>` 从指定计划序号重新初始化执行余下轮次。起始序号大于 1 时写入独立的 `agent-resource-scenarios-live-from-<ordinal>.json`，同样拒绝覆盖。补跑不会恢复旧世界或旧会面；应继续使用原代理剩余预算，并在最终报告同时统计中断尝试与补跑，不能删去未完成样本。
 
-每个代理进程最多尝试 `--max-calls` 次提供方请求，失败也计数，同时最多 2 个请求。没有自动重试；每次最多生成 512 Token、关闭思考模式。请求型号固定为用户选择的 `deepseek-v4-flash`。实际返回的型号、Token 用量、耗时、候选和错误码记录在本地 JSONL，密钥、完整上下文和提供方思考内容不写入记录。`GET /status` 返回本进程已尝试次数、剩余额度和在途数。
+每个代理进程最多尝试 `--max-calls` 次提供方请求，失败也计数，同时最多 2 个请求。代理不自行重试；宿主可以在原决策预算内请求一次字段纠正，见下一节。每次最多生成 512 Token、关闭思考模式。请求型号固定为用户选择的 `deepseek-v4-flash`。实际返回的型号、Token 用量、耗时、候选和错误码记录在本地 JSONL，密钥、完整上下文和提供方思考内容不写入记录。`GET /status` 返回本进程已尝试次数、剩余额度和在途数。
 
 记录文件必须尚不存在，避免覆盖上一次证据。重启进程会创建新的调用预算；需要控制一次联调总量时，应扣除之前已经尝试的次数。停止代理使用 Ctrl+C。调用上限耗尽后，游戏继续按宿主日程运行，待处理会面仍受游戏时间期限约束。
+
+## 候选校验与字段纠正
+
+代理检查每项操作的必填顶层字段、字段类型和请求绑定，再筛选返回字段。缺字段时不从上下文代填，也不把嵌套参数提升到顶层。已解析候选不符合合同则返回 HTTP 422、`error: provider.candidate_invalid` 和固定 `candidateErrorCode`，痕迹中保留同一码；普通 JSON 解析失败或提供方故障沿用原失败路径。
+
+Unity 宿主仅对已知必填字段问题允许最多一次纠正，在原 `decisionId` 下增加 `step`、发送非空 `candidateErrorCode`。纠正与按需地点查询共享预算，不增加总调用上限或延长期限。有效但错误的对象 ID、未允许动作、版本不匹配及运行失效不纠正。HTTP 客户端与代理每次仍只发起一个请求，具体字段见[协议](../../docs/NPC_AGENT_PROTOCOL.md#候选字段校验与一次纠正)。
+
+场景中的 `candidateErrorCode` 与失败原文类型记录该次请求，`decisionOutcomeCode` 记录最终决策结果；纠正成功不会覆盖首次失败。`CandidateCorrection_PreservesTheRejectedAttemptAndUsesTheSameOpportunity` 使用固定 HTTP 422 响应覆盖四种初始化场景，不使用真实模型。
 
 ## 上下文对照实验
 
 `grounding_experiment.py` 是独立评测入口，复用默认代理的提供方、系统提示词和候选处理。A 保留原上下文；B 加事实范围、未知项与表达指引；C 加自方资源条件；D 再过滤自方不能承担的动作。D 仍实际调用模型，其效果单列为系统限制，不能算作模型理解改善。默认游戏代理不自动启用这些处理。
 
-复现 2026-09-13 的原 A/B/C/D 对照必须检出冻结实验提交 `d40fe70b7d59f7e714156471b51fc5f19b86fa85` 或结果提交 `49733ac4521863d55d56a6b7f3ece2dc5e39580f`。后续 v4 宿主已加入自方条件和动作过滤，实验适配器 A/B 不会撤销这些字段或恢复旧选项；在新版本上运行旧入口不能当作原对照实验的复测。v4 策略验证使用上面的独立多场景入口。
+复现 2026-09-13 的原 A/B/C/D 对照必须检出冻结实验提交 `d40fe70b7d59f7e714156471b51fc5f19b86fa85` 或结果提交 `49733ac4521863d55d56a6b7f3ece2dc5e39580f`。后续 v4 宿主已加入自方条件和动作过滤，当前代理还增加字段拒绝及纠正反馈指引；实验适配器不会撤销这些变化。在新版本上运行旧入口不能当作原对照实验的复测。当前实验入口保留代理拒绝，不会为了旧指标放行缺字段候选。v4 策略验证使用上面的独立多场景入口。
 
 ```powershell
 python -B Tools/agent_proxy/grounding_experiment.py --mode fixed --credential-file '<private-credentials.json>' --corpus Tools/agent_proxy/grounding_corpus.json --output-dir 'Logs/grounding-fixed-new' --max-calls 160

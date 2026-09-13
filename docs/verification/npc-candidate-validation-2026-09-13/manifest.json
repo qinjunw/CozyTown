@@ -1,0 +1,20 @@
+{
+  "mode": "candidate_field_fault_injection",
+  "startedAtUtc": "2026-09-13T09:18:52.747260+00:00",
+  "codeCommit": "8f5be22f3c36ccb36118e8775a4e0bfd533b84f9",
+  "requestedModel": "deepseek-v4-flash",
+  "maxCalls": 96,
+  "plannedTrials": 12,
+  "proxyAutomaticRetries": 0,
+  "maxHostCorrectionsPerDecision": 1,
+  "thinking": "disabled",
+  "maxOutputTokens": 512,
+  "providerTimeoutSeconds": 7,
+  "injection": "After preserving the raw provider response, remove only top-level planId from the first step-1 invite candidate in each eligible world. Later responses are unchanged. An injected omission is not a spontaneous model error.",
+  "systemPromptSha256": "99031226c774d00f4854debd6263d5cd09cbe9d498b341dfafec4c34b7c37f87",
+  "sourceSha256": {
+    "decision_proxy.py": "d28279781686a53aa5a5ee15d3cd5804b68407582b0cb8d5c7e88202de01dfff",
+    "grounding_experiment.py": "fcbcc1727c1eeec23eb836c67fc12ef852311319d93f6fcd1aa405e187a91d48"
+  },
+  "captureRunnerSha256": "f96f309abc7634e20aa83a5c6ef577e847e39dc9f60af1005e6553af59de0eae"
+}

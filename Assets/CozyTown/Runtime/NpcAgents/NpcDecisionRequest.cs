@@ -25,7 +25,7 @@ namespace CozyTown.Runtime.NpcAgents
             Social = social;
         }
 
-        internal NpcDecisionRequest(NpcDecisionRequest previous, NpcLocationDetails details)
+        internal NpcDecisionRequest(NpcDecisionRequest previous, NpcLocationDetails details, string candidateErrorCode = null)
         {
             NpcId = previous.NpcId;
             DisplayName = previous.DisplayName;
@@ -40,6 +40,7 @@ namespace CozyTown.Runtime.NpcAgents
             MaxCalls = previous.MaxCalls;
             PreviousResultCode = previous.PreviousResultCode;
             Social = previous.Social;
+            CandidateErrorCode = candidateErrorCode;
         }
 
         public string NpcId { get; }
@@ -54,6 +55,7 @@ namespace CozyTown.Runtime.NpcAgents
         public int Step { get; }
         public int MaxCalls { get; }
         public string PreviousResultCode { get; }
+        public string CandidateErrorCode { get; }
         public NpcSocialContext Social { get; }
         public bool HasSelfAssessment => Social?.Resources != null && Social.Kind != NpcSocialContextKind.Conversation
             && Social.DeliveryResultCode != "resource.delivered";

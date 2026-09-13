@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Xml;
 using CozyTown.Runtime.NpcAgents;
 using CozyTown.Runtime.NpcLife;
 using UnityEngine;
@@ -21,54 +25,93 @@ namespace CozyTown.Unity.Npc
             return json;
         }
 
-        public NpcDecisionReply ParseResponse(string json)
+        public NpcDecisionReply ParseResponse(string json, NpcDecisionRequest request = null)
         {
             if (string.IsNullOrWhiteSpace(json) || Encoding.UTF8.GetByteCount(json) > MaximumResponseBytes)
                 throw new FormatException("Decision response must be JSON within the 16 KiB response limit.");
             string trimmed = json.Trim();
             if (!trimmed.StartsWith("{", StringComparison.Ordinal) || !trimmed.EndsWith("}", StringComparison.Ordinal))
                 throw new FormatException("Decision response must be a JSON object.");
-            ResponsePayload payload;
-            try { payload = JsonUtility.FromJson<ResponsePayload>(trimmed); }
-            catch (ArgumentException exception) { throw new FormatException("Decision response contains invalid JSON.", exception); }
-            if (payload == null || payload.schemaVersion < 1 || payload.schemaVersion > 4)
-                throw new FormatException("Decision response requires schemaVersion 1, 2, 3 or 4.");
-            if (payload.schemaVersion >= 2)
+            var fields = ReadCandidateFields(trimmed);
+            if (!fields.TryGetValue("schemaVersion", out var version) || version.Type != "number"
+                || !int.TryParse(version.Text, NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out int schemaVersion)
+                || schemaVersion < 1 || schemaVersion > 4)
+                throw new NpcCandidateException("candidate.schema_mismatch");
+            if (request != null && schemaVersion != (request.Social == null ? 1 : request.Social.Resources == null ? 2 : 4))
+                throw new NpcCandidateException("candidate.schema_mismatch");
+            string operation = RequireString(fields, "operation", "candidate.operation_unavailable");
+            if (request != null && !request.AllowedOperations.Contains(operation))
+                throw new NpcCandidateException("candidate.operation_unavailable");
+            if (operation == "wait") return new NpcDecisionReply(NpcDecisionKind.Wait);
+            if (operation == "inspect_location" || operation == "visit")
             {
-                if (payload.operation == "invite" && !string.IsNullOrWhiteSpace(payload.planId))
-                    return new NpcDecisionReply(NpcDecisionKind.Invite, planId: payload.planId);
-                if (Guid.TryParse(payload.meetingId, out var meetingId) && meetingId != Guid.Empty)
-                {
-                    if (payload.schemaVersion >= 3 && payload.operation == "deliver") return new NpcDecisionReply(NpcDecisionKind.Deliver, meetingId: meetingId);
-                    if (payload.schemaVersion >= 3 && payload.operation == "cancel_exchange") return new NpcDecisionReply(NpcDecisionKind.CancelExchange, meetingId: meetingId);
-                    if (payload.operation == "accept_invite") return new NpcDecisionReply(NpcDecisionKind.AcceptInvitation, meetingId: meetingId);
-                    if (payload.operation == "decline_invite") return new NpcDecisionReply(NpcDecisionKind.DeclineInvitation, meetingId: meetingId);
-                    if (payload.operation == "end_conversation") return new NpcDecisionReply(NpcDecisionKind.EndConversation, meetingId: meetingId);
-                    if (payload.operation == "say" && !string.IsNullOrWhiteSpace(payload.text) && payload.text.Length <= 240)
-                        return new NpcDecisionReply(NpcDecisionKind.Speak, meetingId: meetingId, text: payload.text);
-                }
+                string location = RequireString(fields, "locationId", "candidate.location_id_required");
+                if (request != null && !request.KnownLocationIds.Contains(location))
+                    throw new NpcCandidateException("candidate.location_unknown");
+                if (operation == "inspect_location") return new NpcDecisionReply(NpcDecisionKind.InspectLocation, location);
+                string activity = RequireString(fields, "activity", "candidate.activity_invalid");
+                if (activity != "working" && activity != "resting") throw new NpcCandidateException("candidate.activity_invalid");
+                if (!fields.TryGetValue("durationGameMinutes", out var duration) || duration.Type != "number"
+                    || !double.TryParse(duration.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out double minutes)
+                    || double.IsNaN(minutes) || double.IsInfinity(minutes) || minutes <= 0 || minutes > NpcAgentWorld.MaximumActivityDurationGameMinutes)
+                    throw new NpcCandidateException("candidate.duration_invalid");
+                return new NpcDecisionReply(NpcDecisionKind.Visit, location,
+                    activity == "working" ? NpcActivity.Working : NpcActivity.Resting, minutes);
             }
-            if (payload.operation == "wait") return new NpcDecisionReply(NpcDecisionKind.Wait);
-            if (payload.operation == "inspect_location" && !string.IsNullOrWhiteSpace(payload.locationId))
-                return new NpcDecisionReply(NpcDecisionKind.InspectLocation, payload.locationId);
-            if (payload.operation == "visit" && !string.IsNullOrWhiteSpace(payload.locationId)
-                && (payload.activity == "working" || payload.activity == "resting"))
-                return new NpcDecisionReply(NpcDecisionKind.Visit, payload.locationId,
-                    payload.activity == "working" ? NpcActivity.Working : NpcActivity.Resting, payload.durationGameMinutes);
-            throw new FormatException("Decision response requires a supported operation and its candidate fields.");
+            if (schemaVersion < 2) throw new NpcCandidateException("candidate.operation_unavailable");
+            if (operation == "invite")
+            {
+                string plan = RequireString(fields, "planId", "candidate.plan_id_required");
+                if (request != null && plan != request.Social?.PlanId) throw new NpcCandidateException("candidate.plan_id_mismatch");
+                return new NpcDecisionReply(NpcDecisionKind.Invite, planId: plan);
+            }
+            NpcDecisionKind kind;
+            if (operation == "accept_invite") kind = NpcDecisionKind.AcceptInvitation;
+            else if (operation == "decline_invite") kind = NpcDecisionKind.DeclineInvitation;
+            else if (operation == "say") kind = NpcDecisionKind.Speak;
+            else if (operation == "end_conversation") kind = NpcDecisionKind.EndConversation;
+            else if (schemaVersion >= 3 && operation == "deliver") kind = NpcDecisionKind.Deliver;
+            else if (schemaVersion >= 3 && operation == "cancel_exchange") kind = NpcDecisionKind.CancelExchange;
+            else throw new NpcCandidateException("candidate.operation_unavailable");
+            string identifier = RequireString(fields, "meetingId", "candidate.meeting_id_required");
+            if (!Guid.TryParse(identifier, out var meetingId) || meetingId == Guid.Empty)
+                throw new NpcCandidateException("candidate.meeting_id_invalid");
+            if (request != null && meetingId != request.Social?.MeetingId) throw new NpcCandidateException("candidate.meeting_id_mismatch");
+            string text = kind == NpcDecisionKind.Speak ? RequireString(fields, "text", "candidate.text_invalid") : null;
+            if (text != null && text.Length > 240) throw new NpcCandidateException("candidate.text_invalid");
+            return new NpcDecisionReply(kind, meetingId: meetingId, text: text);
         }
 
-        [Serializable]
-        private sealed class ResponsePayload
+        private static string RequireString(Dictionary<string, (string Type, string Text)> fields, string name, string code)
         {
-            public int schemaVersion;
-            public string operation;
-            public string locationId;
-            public string activity;
-            public double durationGameMinutes;
-            public string planId;
-            public string meetingId;
-            public string text;
+            if (!fields.TryGetValue(name, out var field) || field.Type != "string" || string.IsNullOrWhiteSpace(field.Text))
+                throw new NpcCandidateException(code);
+            return field.Text;
+        }
+
+        private static Dictionary<string, (string Type, string Text)> ReadCandidateFields(string json)
+        {
+            try
+            {
+                using var reader = JsonReaderWriterFactory.CreateJsonReader(Encoding.UTF8.GetBytes(json),
+                    new XmlDictionaryReaderQuotas { MaxDepth = 32, MaxStringContentLength = MaximumResponseBytes });
+                reader.MoveToContent();
+                if (reader.GetAttribute("type") != "object") throw new FormatException("Decision response must be a JSON object.");
+                reader.ReadStartElement();
+                var fields = new Dictionary<string, (string Type, string Text)>(StringComparer.Ordinal);
+                while (reader.MoveToContent() == XmlNodeType.Element)
+                {
+                    string name = reader.LocalName, type = reader.GetAttribute("type"), value = null;
+                    if (type == "object" || type == "array") reader.Skip();
+                    else value = reader.ReadElementContentAsString();
+                    if (fields.ContainsKey(name)) throw new FormatException("Decision response has a duplicate field.");
+                    fields.Add(name, (type, value));
+                }
+                reader.ReadEndElement();
+                if (reader.Read()) throw new FormatException("Decision response contains trailing content.");
+                return fields;
+            }
+            catch (XmlException exception) { throw new FormatException("Decision response contains invalid JSON.", exception); }
         }
 
         [Serializable]
@@ -94,6 +137,7 @@ namespace CozyTown.Unity.Npc
             public bool hasLocationDetails;
             public LocationPayload locationDetails;
             public string previousResultCode;
+            public string candidateErrorCode;
             public SocialPayload social;
             public bool hasSelfAssessment;
             public SelfAssessmentPayload selfAssessment;
@@ -101,6 +145,7 @@ namespace CozyTown.Unity.Npc
             public RequestPayload(NpcDecisionRequest request)
             {
                 decisionId = request.DecisionId.ToString("N");
+                candidateErrorCode = request.CandidateErrorCode;
                 npcId = request.NpcId;
                 displayName = request.DisplayName;
                 persona = request.Persona;
