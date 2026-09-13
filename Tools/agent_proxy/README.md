@@ -33,7 +33,9 @@ python -B Tools/agent_proxy/decision_proxy.py --credential-file '<private-creden
 
 `Logs/agent-resource-scenarios-live.json` 保存所有轮次的初始化、完整请求上下文、候选、执行结果、资产、到场状态和台词。已有报告会阻止启动，进行中的报告随阶段变化更新。代理 JSONL 以 `decisionId` 对齐真实调用、实际模型、Token 和耗时；单次决策的多步请求还需按 `step` 区分。测试结果通过仅表示初始化、资产门禁及恢复检查通过；模型是否达成目标必须读取各轮 `behavior`，不能用测试绿色代替行为成功率。失败与超时保留在原轮次，重新运行属于另一个实验，需要新的证据目录与单独的预算记录。
 
-普通测试 `FreshScenes_SeparateReasonableChoicesFromRejectedTrades` 使用固定客户端验证重置、合理拒绝及宿主拦截不可行交付的分类，不读取密钥。
+可设置 `COZYTOWN_SCENARIO_REPORT_PATH=Logs/agent-resource-preconditions-live.json` 为新版本指定新的报告路径，仍以创建新文件的方式拒绝覆盖。v4 资源场景已有自方条件及允许动作过滤；等待、拒绝属于模型在受限集合中的选择，不能计为不受约束的资源推理能力。
+
+普通测试 `FreshScenes_SeparateReasonableChoicesFromRejectedTrades` 使用固定客户端验证重置、合理拒绝及宿主拦截的分类，不读取密钥。邀约或接受时的宿主拒绝记为 `host_rejected_resource_commitment`，交付时的资源错误记为 `host_rejected_infeasible_trade`；两者均与模型主动等待或拒绝分开。
 
 整个矩阵的 Unity 测试总时限为 25 分钟，覆盖 12 个单轮期限与场景加载。若基础设施中断，先保留原 JSON、XML 和代理日志，再显式设置 `COZYTOWN_SCENARIO_START_ORDINAL=<1..12>` 从指定计划序号重新初始化执行余下轮次。起始序号大于 1 时写入独立的 `agent-resource-scenarios-live-from-<ordinal>.json`，同样拒绝覆盖。补跑不会恢复旧世界或旧会面；应继续使用原代理剩余预算，并在最终报告同时统计中断尝试与补跑，不能删去未完成样本。
 
@@ -44,6 +46,8 @@ python -B Tools/agent_proxy/decision_proxy.py --credential-file '<private-creden
 ## 上下文对照实验
 
 `grounding_experiment.py` 是独立评测入口，复用默认代理的提供方、系统提示词和候选处理。A 保留原上下文；B 加事实范围、未知项与表达指引；C 加自方资源条件；D 再过滤自方不能承担的动作。D 仍实际调用模型，其效果单列为系统限制，不能算作模型理解改善。默认游戏代理不自动启用这些处理。
+
+复现 2026-09-13 的原 A/B/C/D 对照必须检出冻结实验提交 `d40fe70b7d59f7e714156471b51fc5f19b86fa85` 或结果提交 `49733ac4521863d55d56a6b7f3ece2dc5e39580f`。后续 v4 宿主已加入自方条件和动作过滤，实验适配器 A/B 不会撤销这些字段或恢复旧选项；在新版本上运行旧入口不能当作原对照实验的复测。v4 策略验证使用上面的独立多场景入口。
 
 ```powershell
 python -B Tools/agent_proxy/grounding_experiment.py --mode fixed --credential-file '<private-credentials.json>' --corpus Tools/agent_proxy/grounding_corpus.json --output-dir 'Logs/grounding-fixed-new' --max-calls 160

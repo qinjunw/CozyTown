@@ -29,7 +29,7 @@ namespace CozyTown.Runtime.Application
         {
             if (terms == null || (characterId != terms.SellerId && characterId != terms.BuyerId)
                 || !_store.TryGetCharacter(characterId, out var character)) return null;
-            return new CharacterTradeResources(terms, Quantity(character.Backpack, terms.ItemId), character.Wallet.Balance);
+            return new CharacterTradeResources(terms, characterId, Quantity(character.Backpack, terms.ItemId), character.Wallet.Balance);
         }
 
         public OperationResult Exchange(CharacterTradeTerms terms)

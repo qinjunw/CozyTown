@@ -56,7 +56,8 @@ namespace CozyTown.Tests.PlayMode
             yield return RunMatrix(reckless, null, 1, true, null);
             Assert.That(reckless.trials.Count, Is.EqualTo(4));
             Assert.That(reckless.trials.Where(t => t.scenario == "seller_empty" || t.scenario == "buyer_poor")
-                .All(t => t.behavior == "host_rejected_infeasible_trade" && t.hostViolations.Count == 0), Is.True);
+                .All(t => t.behavior == "host_rejected_resource_commitment" && t.hostViolations.Count == 0 && t.recovered
+                    && t.calls.Any(c => c.hostCode == "agent.operation_unavailable")), Is.True);
             var continuation = new MatrixReport();
             yield return RunMatrix(continuation, null, 3, false, null, 8);
             Assert.That(continuation.trials.Select(t => t.ordinal), Is.EqualTo(new[] { 8, 9, 10, 11, 12 }));
@@ -118,8 +119,9 @@ namespace CozyTown.Tests.PlayMode
             int first = 1;
             if (!string.IsNullOrWhiteSpace(startText))
                 Assert.That(int.TryParse(startText, out first) && first >= 1 && first <= 12, Is.True, "Start ordinal must be between 1 and 12.");
-            string path = Path.GetFullPath(first == 1 ? "Logs/agent-resource-scenarios-live.json"
-                : "Logs/agent-resource-scenarios-live-from-" + first + ".json");
+            string reportPath = Environment.GetEnvironmentVariable("COZYTOWN_SCENARIO_REPORT_PATH");
+            string path = Path.GetFullPath(!string.IsNullOrWhiteSpace(reportPath) ? reportPath
+                : first == 1 ? "Logs/agent-resource-scenarios-live.json" : "Logs/agent-resource-scenarios-live-from-" + first + ".json");
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             using (var file = new FileStream(path, FileMode.CreateNew)) { }
             var report = new MatrixReport { mode = "live", status = "started", firstOrdinal = first, startedAtUtc = DateTime.UtcNow.ToString("O") };
@@ -308,7 +310,7 @@ namespace CozyTown.Tests.PlayMode
         private static HttpMessageHandler CreateGroundingMock(NpcDecisionRequest request, Trial trial, bool reckless)
         {
             var reply = new RuleClient(reckless).DecideAsync(request, CancellationToken.None).GetAwaiter().GetResult();
-            string response = JsonUtility.ToJson(new MockCandidate { schemaVersion = request.Social?.Resources == null ? 1 : 3,
+            string response = JsonUtility.ToJson(new MockCandidate { schemaVersion = request.Social?.Resources == null ? 1 : 4,
                 operation = reply.Operation, planId = reply.PlanId, meetingId = reply.MeetingId.ToString("N"), text = reply.Text });
             var call = trial.calls.Last(c => c.decisionId == request.DecisionId.ToString() && c.step == request.Step);
             return new GroundingMockHandler(response, json =>
@@ -391,6 +393,9 @@ namespace CozyTown.Tests.PlayMode
         private static string Classify(Trial trial)
         {
             if (trial.terminal.receipt == "resource.delivered") return trial.terminal.state == "Completed" ? "delivered_and_completed" : "delivered_without_completion";
+            if (trial.calls.Any(c => (c.operation == "invite" || c.operation == "accept_invite")
+                && (c.hostCode == "agent.operation_unavailable" || c.hostCode == "wallet.insufficient_funds"
+                    || c.hostCode == "inventory.insufficient_quantity"))) return "host_rejected_resource_commitment";
             if (trial.calls.Any(c => c.operation == "deliver" && (c.hostCode == "wallet.insufficient_funds"
                 || c.hostCode == "inventory.insufficient_quantity"))) return "host_rejected_infeasible_trade";
             if (trial.scenario == "need_satisfied" && trial.calls.All(c => c.phase == "Ordinary")) return "need_suppressed";

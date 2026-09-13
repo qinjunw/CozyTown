@@ -31,16 +31,16 @@ namespace CozyTown.Unity.Npc
             ResponsePayload payload;
             try { payload = JsonUtility.FromJson<ResponsePayload>(trimmed); }
             catch (ArgumentException exception) { throw new FormatException("Decision response contains invalid JSON.", exception); }
-            if (payload == null || (payload.schemaVersion != 1 && payload.schemaVersion != 2 && payload.schemaVersion != 3))
-                throw new FormatException("Decision response requires schemaVersion 1, 2 or 3.");
+            if (payload == null || payload.schemaVersion < 1 || payload.schemaVersion > 4)
+                throw new FormatException("Decision response requires schemaVersion 1, 2, 3 or 4.");
             if (payload.schemaVersion >= 2)
             {
                 if (payload.operation == "invite" && !string.IsNullOrWhiteSpace(payload.planId))
                     return new NpcDecisionReply(NpcDecisionKind.Invite, planId: payload.planId);
                 if (Guid.TryParse(payload.meetingId, out var meetingId) && meetingId != Guid.Empty)
                 {
-                    if (payload.schemaVersion == 3 && payload.operation == "deliver") return new NpcDecisionReply(NpcDecisionKind.Deliver, meetingId: meetingId);
-                    if (payload.schemaVersion == 3 && payload.operation == "cancel_exchange") return new NpcDecisionReply(NpcDecisionKind.CancelExchange, meetingId: meetingId);
+                    if (payload.schemaVersion >= 3 && payload.operation == "deliver") return new NpcDecisionReply(NpcDecisionKind.Deliver, meetingId: meetingId);
+                    if (payload.schemaVersion >= 3 && payload.operation == "cancel_exchange") return new NpcDecisionReply(NpcDecisionKind.CancelExchange, meetingId: meetingId);
                     if (payload.operation == "accept_invite") return new NpcDecisionReply(NpcDecisionKind.AcceptInvitation, meetingId: meetingId);
                     if (payload.operation == "decline_invite") return new NpcDecisionReply(NpcDecisionKind.DeclineInvitation, meetingId: meetingId);
                     if (payload.operation == "end_conversation") return new NpcDecisionReply(NpcDecisionKind.EndConversation, meetingId: meetingId);
@@ -95,6 +95,8 @@ namespace CozyTown.Unity.Npc
             public LocationPayload locationDetails;
             public string previousResultCode;
             public SocialPayload social;
+            public bool hasSelfAssessment;
+            public SelfAssessmentPayload selfAssessment;
 
             public RequestPayload(NpcDecisionRequest request)
             {
@@ -120,12 +122,32 @@ namespace CozyTown.Unity.Npc
                 allowedOperations = request.AllowedOperations.ToArray();
                 if (request.Social != null)
                 {
-                    schemaVersion = request.Social.Resources == null ? 2 : 3;
+                    schemaVersion = request.Social.Resources == null ? 2 : 4;
                     social = new SocialPayload(request.Social);
+                    hasSelfAssessment = request.HasSelfAssessment;
+                    if (hasSelfAssessment)
+                    {
+                        var own = request.Social.Resources;
+                        selfAssessment = new SelfAssessmentPayload {
+                            role = own.Role, canMeetKnownTerms = own.CanMeetKnownTerms,
+                            missingCoins = own.MissingCoins, missingQuantity = own.MissingQuantity,
+                            reasonCode = own.MissingCoins > 0 ? "wallet.insufficient_funds"
+                                : own.MissingQuantity > 0 ? "inventory.insufficient_quantity" : null,
+                            scope = "Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked."
+                        };
+                    }
                     allowedActivities = Array.Empty<string>();
                     knownLocationIds = Array.Empty<string>();
                 }
             }
+        }
+
+        [Serializable]
+        private sealed class SelfAssessmentPayload
+        {
+            public string role, reasonCode, scope;
+            public bool canMeetKnownTerms;
+            public int missingCoins, missingQuantity;
         }
 
         [Serializable]

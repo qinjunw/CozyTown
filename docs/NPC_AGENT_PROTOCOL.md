@@ -8,7 +8,7 @@
 
 | 字段 | 含义 |
 | --- | --- |
-| `schemaVersion` | 普通活动为 `1`，普通会面为 `2`，资源会面为 `3` |
+| `schemaVersion` | 普通活动为 `1`，普通会面为 `2`，资源会面为 `4`；响应解析兼容旧资源版本 `3` |
 | `decisionId` | 宿主生成的决策标识，同一次按需查询续调保持不变 |
 | `npcId`、`displayName`、`persona` | 当前居民的身份与人设 |
 | `worldRunId`、`revision` | 生成上下文时的世界代次及居民修订；宿主保留原值作执行检查 |
@@ -96,18 +96,36 @@
 
 `GetMeeting(npcId)` 提供当前或最近结束的不可变会面快照，`GetMeetingMemories(npcId)` 提供最多 16 条本人实际事件。对话里提到食谱或鱼不产生物品、金币或任务完成记录。资源会面另行记录宿主交付结果；会面记忆的持久化属于后续迭代。
 
-## 资源会面（版本 3）
+## 资源会面（当前版本 4，兼容版本 3）
 
 资源会面沿用版本 2 的身份、时间、地点、邀请和轮次字段，增加 `social.resources`：`sellerId`、`buyerId`、`itemId`、`quantity`、`totalPrice` 为宿主固定条款；`ownedQuantity` 和 `balance` 仅表示当前居民的相关物品数量和余额；`deliveryResultCode` 是宿主最近确认的本次交付结果。对方完整资产不披露。资源机会由缺料条件与配置时间窗口共同触发，可在工作期间提出未来会面，赴约仍等待约定时刻。
 
 买方发起邀请、卖方接受后形成双边承诺。实际到场后，买方收到 `social.kind: delivery`，可用操作仅为 `deliver`、`cancel_exchange`：
 
 ```json
-{"schemaVersion":3,"operation":"deliver","meetingId":"<accepted-meeting-id>"}
+{"schemaVersion":4,"operation":"deliver","meetingId":"<accepted-meeting-id>"}
 ```
 
 ```json
-{"schemaVersion":3,"operation":"cancel_exchange","meetingId":"<accepted-meeting-id>"}
+{"schemaVersion":4,"operation":"cancel_exchange","meetingId":"<accepted-meeting-id>"}
 ```
 
 这些候选不接受替换资产或价款的字段。宿主重新验证当前资产、期限和到达状态后，一次提交双方库存与钱包，并记录 `resource.delivered`，之后才开放交谈。失败时无部分转移，释放会面活动并回到日程。同一当前或最近会面的已交付编号重试只确认已有结果；旧世界编号被拒绝。`GetMeetingResources(npcId)` 可查看本人在当前或最近资源会面中的相关资产，`GetMeeting(npcId).DeliveryResultCode` 区分实际交付与会面结束。
+
+## 自方资源条件（版本 4）
+
+版本 4 保留版本 3 的资源条款和候选参数，增加顶层 `hasSelfAssessment` 与 `selfAssessment`。仅在 `hasSelfAssessment` 为 true 时读取该对象；普通活动、纯社交及已交付对话忽略它。对象字段如下：
+
+| 字段 | 含义 |
+| --- | --- |
+| `role` | 本人为 `buyer` 或 `seller` |
+| `canMeetKnownTerms` | 本人当前付款或供货是否足够；不等同于双方可以完成交易 |
+| `missingCoins`、`missingQuantity` | 买方付款缺口或卖方供货缺口，无关义务为 0 |
+| `reasonCode` | 不足时为 `wallet.insufficient_funds` 或 `inventory.insufficient_quantity` |
+| `scope` | 只检查本人付款或库存，对方条件、容量等仍未检查 |
+
+例如买方只有 10 金币，需要支付 25 时，缺口为 15，机会阶段 `allowedOperations` 只有 `wait`。卖方缺货时邀请阶段只有 `decline_invite`，交付前买方缺钱时只有 `cancel_exchange`。足够时保留原阶段的两种操作。候选必须使用原请求中的允许集合和标识，不可改写自己或对方的资产。
+
+邀约和接受提交时重新读取本人资产；资产在模型请求期间减少不会因角色修订未变而绕过检查。交付继续验证实时双方资产、容量及到场，不依赖此前快照。交易完成后 `hasSelfAssessment` 为 false，不能因余额或库存下降而否定已交付事实。
+
+模型输出仍返回与请求一致的 `schemaVersion: 4`。本版本没有自动纠错或额外重试。等待放弃本次日内机会，稍后补足资源不会自动唤醒；被拒绝的非法接受也不等于角色主动拒绝，已有邀请由原期限释放。

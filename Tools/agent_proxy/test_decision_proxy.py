@@ -11,6 +11,33 @@ from decision_proxy import DeepSeekTransport, ProxyError, ProxyService, create_s
 
 
 class ProxyServiceTests(unittest.TestCase):
+    def test_supported_context_versions_reach_the_provider_and_return_matching_candidates(self):
+        for version in (1, 2, 3, 4):
+            with self.subTest(schemaVersion=version):
+                sent = []
+                context = self.context() | {"schemaVersion": version}
+                if version == 4:
+                    context["selfAssessment"] = {"role": "buyer", "canMeetKnownTerms": False,
+                                                 "missingCoins": 15}
+                candidate = {"schemaVersion": version, "operation": "wait"}
+
+                def provider(payload):
+                    sent.append(json.loads(payload["messages"][1]["content"]))
+                    return {"choices": [{"message": {"content": json.dumps(candidate)}}]}
+
+                self.assertEqual(ProxyService(provider).decide(context), candidate)
+                self.assertEqual(sent, [context])
+
+    def test_v4_resource_candidates_cannot_bypass_host_allowed_operations(self):
+        for operation in ("invite", "accept_invite", "deliver"):
+            with self.subTest(operation=operation):
+                candidate = {"schemaVersion": 4, "operation": operation,
+                             "planId": "proposed-plan", "meetingId": "accepted-meeting"}
+                service = ProxyService(lambda payload: {"choices": [{"message": {"content": json.dumps(candidate)}}]})
+                context = self.context() | {"schemaVersion": 4, "allowedOperations": ["wait", "decline_invite", "cancel_exchange"]}
+                with self.assertRaisesRegex(ProxyError, "provider.candidate_invalid"):
+                    service.decide(context)
+
     def test_resource_candidate_preserves_only_the_accepted_meeting_identifier(self):
         for operation in ("deliver", "cancel_exchange"):
             with self.subTest(operation=operation):
@@ -42,7 +69,7 @@ class ProxyServiceTests(unittest.TestCase):
                 load_cozytown_key(path)
 
     def test_invalid_context_never_reaches_the_provider(self):
-        for context in (None, [], {}, self.context() | {"schemaVersion": 4},
+        for context in (None, [], {}, self.context() | {"schemaVersion": 5},
                         self.context() | {"allowedOperations": ["give_coins"]},
                         self.context() | {"persona": "界" * 12000}):
             with self.subTest(context_type=type(context).__name__):
