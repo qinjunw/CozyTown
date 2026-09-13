@@ -1,0 +1,1585 @@
+{
+  "codeCommit": "1e538b84c8a0e18de50ec2a08fd1bc4515811fb2",
+  "matrixStatus": "host_checks_failed",
+  "initializationPasses": 12,
+  "assetCheckPasses": 12,
+  "recoveryPasses": 11,
+  "recoveryFailedOrdinals": [
+    6
+  ],
+  "trials": 12,
+  "distinctWorlds": 12,
+  "worldSeedValues": [
+    12345
+  ],
+  "providerCalls": 42,
+  "proxyStatusCounts": {
+    "passed": 42
+  },
+  "returnedModelCounts": {
+    "deepseek-flash": 42
+  },
+  "promptTokens": 40742,
+  "completionTokens": 1506,
+  "totalTokens": 42248,
+  "meanProviderMilliseconds": 906.9047619047619,
+  "p95NearestRankProviderMilliseconds": 1123,
+  "perScenario": [
+    {
+      "scenario": "available",
+      "trials": 3,
+      "behaviors": {
+        "delivered_and_completed": 3
+      },
+      "calls": 21,
+      "tokens": 23485,
+      "initialized": 3,
+      "recovered": 3,
+      "delivered": 3
+    },
+    {
+      "scenario": "seller_empty",
+      "trials": 3,
+      "behaviors": {
+        "declined_missing_stock": 3
+      },
+      "calls": 6,
+      "tokens": 5613,
+      "initialized": 3,
+      "recovered": 3,
+      "delivered": 0
+    },
+    {
+      "scenario": "buyer_poor",
+      "trials": 3,
+      "behaviors": {
+        "waited_insufficient_funds": 3
+      },
+      "calls": 9,
+      "tokens": 7943,
+      "initialized": 3,
+      "recovered": 2,
+      "delivered": 0
+    },
+    {
+      "scenario": "need_satisfied",
+      "trials": 3,
+      "behaviors": {
+        "need_suppressed": 3
+      },
+      "calls": 6,
+      "tokens": 5207,
+      "initialized": 3,
+      "recovered": 3,
+      "delivered": 0
+    }
+  ],
+  "errors": [
+    {
+      "ordinal": 11,
+      "scenario": "available",
+      "npcId": "npc.fisher_ren",
+      "phase": "Conversation",
+      "error": "TaskCanceledException",
+      "hostCode": "agent.decision_stale",
+      "proxyStatus": "passed"
+    }
+  ],
+  "hostCodeCounts": {
+    "meeting.invited": 6,
+    "meeting.accept_invite": 3,
+    "meeting.deliver": 3,
+    "meeting.say": 8,
+    "meeting.end_conversation": 3,
+    "meeting.decline_invite": 3,
+    "agent.decision_wait": 8,
+    "agent.activity_accepted": 7,
+    "agent.decision_stale": 1
+  },
+  "selfAssessmentRequests": [
+    {
+      "ordinal": 1,
+      "scenario": "available",
+      "phase": "Opportunity",
+      "npcId": "npc.cook_sora",
+      "canMeetKnownTerms": true,
+      "missingCoins": 0,
+      "missingQuantity": 0,
+      "allowedOperations": [
+        "invite",
+        "wait"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "invite",
+        "planId": "sora-ren-fish-supply"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "meeting.invited"
+    },
+    {
+      "ordinal": 1,
+      "scenario": "available",
+      "phase": "Invitation",
+      "npcId": "npc.fisher_ren",
+      "canMeetKnownTerms": true,
+      "missingCoins": 0,
+      "missingQuantity": 0,
+      "allowedOperations": [
+        "accept_invite",
+        "decline_invite"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "accept_invite",
+        "meetingId": "4969d8246a944c39afdb407e8ce1dce0"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "meeting.accept_invite"
+    },
+    {
+      "ordinal": 1,
+      "scenario": "available",
+      "phase": "Delivery",
+      "npcId": "npc.cook_sora",
+      "canMeetKnownTerms": true,
+      "missingCoins": 0,
+      "missingQuantity": 0,
+      "allowedOperations": [
+        "deliver",
+        "cancel_exchange"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "deliver",
+        "meetingId": "4969d8246a944c39afdb407e8ce1dce0"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "meeting.deliver"
+    },
+    {
+      "ordinal": 2,
+      "scenario": "seller_empty",
+      "phase": "Opportunity",
+      "npcId": "npc.cook_sora",
+      "canMeetKnownTerms": true,
+      "missingCoins": 0,
+      "missingQuantity": 0,
+      "allowedOperations": [
+        "invite",
+        "wait"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "invite",
+        "planId": "sora-ren-fish-supply"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "meeting.invited"
+    },
+    {
+      "ordinal": 2,
+      "scenario": "seller_empty",
+      "phase": "Invitation",
+      "npcId": "npc.fisher_ren",
+      "canMeetKnownTerms": false,
+      "missingCoins": 0,
+      "missingQuantity": 1,
+      "allowedOperations": [
+        "decline_invite"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "decline_invite",
+        "meetingId": "124080926f54431fad8940c22323f26f"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "meeting.decline_invite"
+    },
+    {
+      "ordinal": 3,
+      "scenario": "buyer_poor",
+      "phase": "Opportunity",
+      "npcId": "npc.cook_sora",
+      "canMeetKnownTerms": false,
+      "missingCoins": 15,
+      "missingQuantity": 0,
+      "allowedOperations": [
+        "wait"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "wait"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "agent.decision_wait"
+    },
+    {
+      "ordinal": 5,
+      "scenario": "seller_empty",
+      "phase": "Opportunity",
+      "npcId": "npc.cook_sora",
+      "canMeetKnownTerms": true,
+      "missingCoins": 0,
+      "missingQuantity": 0,
+      "allowedOperations": [
+        "invite",
+        "wait"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "invite",
+        "planId": "sora-ren-fish-supply"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "meeting.invited"
+    },
+    {
+      "ordinal": 5,
+      "scenario": "seller_empty",
+      "phase": "Invitation",
+      "npcId": "npc.fisher_ren",
+      "canMeetKnownTerms": false,
+      "missingCoins": 0,
+      "missingQuantity": 1,
+      "allowedOperations": [
+        "decline_invite"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "decline_invite",
+        "meetingId": "1db3cfe201564f84851c1ee460162f5f"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "meeting.decline_invite"
+    },
+    {
+      "ordinal": 6,
+      "scenario": "buyer_poor",
+      "phase": "Opportunity",
+      "npcId": "npc.cook_sora",
+      "canMeetKnownTerms": false,
+      "missingCoins": 15,
+      "missingQuantity": 0,
+      "allowedOperations": [
+        "wait"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "wait"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "agent.decision_wait"
+    },
+    {
+      "ordinal": 8,
+      "scenario": "available",
+      "phase": "Opportunity",
+      "npcId": "npc.cook_sora",
+      "canMeetKnownTerms": true,
+      "missingCoins": 0,
+      "missingQuantity": 0,
+      "allowedOperations": [
+        "invite",
+        "wait"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "invite",
+        "planId": "sora-ren-fish-supply"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "meeting.invited"
+    },
+    {
+      "ordinal": 8,
+      "scenario": "available",
+      "phase": "Invitation",
+      "npcId": "npc.fisher_ren",
+      "canMeetKnownTerms": true,
+      "missingCoins": 0,
+      "missingQuantity": 0,
+      "allowedOperations": [
+        "accept_invite",
+        "decline_invite"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "accept_invite",
+        "meetingId": "0d7db6bcae8b4b4bbf32939c0c5cda40"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "meeting.accept_invite"
+    },
+    {
+      "ordinal": 8,
+      "scenario": "available",
+      "phase": "Delivery",
+      "npcId": "npc.cook_sora",
+      "canMeetKnownTerms": true,
+      "missingCoins": 0,
+      "missingQuantity": 0,
+      "allowedOperations": [
+        "deliver",
+        "cancel_exchange"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "deliver",
+        "meetingId": "0d7db6bcae8b4b4bbf32939c0c5cda40"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "meeting.deliver"
+    },
+    {
+      "ordinal": 9,
+      "scenario": "buyer_poor",
+      "phase": "Opportunity",
+      "npcId": "npc.cook_sora",
+      "canMeetKnownTerms": false,
+      "missingCoins": 15,
+      "missingQuantity": 0,
+      "allowedOperations": [
+        "wait"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "wait"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "agent.decision_wait"
+    },
+    {
+      "ordinal": 11,
+      "scenario": "available",
+      "phase": "Opportunity",
+      "npcId": "npc.cook_sora",
+      "canMeetKnownTerms": true,
+      "missingCoins": 0,
+      "missingQuantity": 0,
+      "allowedOperations": [
+        "invite",
+        "wait"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "invite",
+        "planId": "sora-ren-fish-supply"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "meeting.invited"
+    },
+    {
+      "ordinal": 11,
+      "scenario": "available",
+      "phase": "Invitation",
+      "npcId": "npc.fisher_ren",
+      "canMeetKnownTerms": true,
+      "missingCoins": 0,
+      "missingQuantity": 0,
+      "allowedOperations": [
+        "accept_invite",
+        "decline_invite"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "accept_invite",
+        "meetingId": "2a82b7c2c83e418b9a1b6a94c3a04deb"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "meeting.accept_invite"
+    },
+    {
+      "ordinal": 11,
+      "scenario": "available",
+      "phase": "Delivery",
+      "npcId": "npc.cook_sora",
+      "canMeetKnownTerms": true,
+      "missingCoins": 0,
+      "missingQuantity": 0,
+      "allowedOperations": [
+        "deliver",
+        "cancel_exchange"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "deliver",
+        "meetingId": "2a82b7c2c83e418b9a1b6a94c3a04deb"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "meeting.deliver"
+    },
+    {
+      "ordinal": 12,
+      "scenario": "seller_empty",
+      "phase": "Opportunity",
+      "npcId": "npc.cook_sora",
+      "canMeetKnownTerms": true,
+      "missingCoins": 0,
+      "missingQuantity": 0,
+      "allowedOperations": [
+        "invite",
+        "wait"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "invite",
+        "planId": "sora-ren-fish-supply"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "meeting.invited"
+    },
+    {
+      "ordinal": 12,
+      "scenario": "seller_empty",
+      "phase": "Invitation",
+      "npcId": "npc.fisher_ren",
+      "canMeetKnownTerms": false,
+      "missingCoins": 0,
+      "missingQuantity": 1,
+      "allowedOperations": [
+        "decline_invite"
+      ],
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "decline_invite",
+        "meetingId": "76728d6f77d94054a30bf7ee466a74c4"
+      },
+      "proxyStatus": "passed",
+      "hostCode": "meeting.decline_invite"
+    }
+  ],
+  "conversationCalls": 12,
+  "trialResults": [
+    {
+      "ordinal": 1,
+      "scenario": "available",
+      "worldRunId": "8824a7e3-dd09-4409-b246-b5bd3c628a78",
+      "calls": 7,
+      "behavior": "delivered_and_completed",
+      "initial": {
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "terminal": {
+        "elapsedSeconds": 32.054507099999995,
+        "gameTotalMinutes": 799.1023846,
+        "state": "Completed",
+        "receipt": "resource.delivered",
+        "meetingId": "4969d824-6a94-4c39-afdb-407e8ce1dce0",
+        "renRoute": "Travelling",
+        "soraRoute": "Travelling",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "rest.cook_sora",
+        "renFish": 1,
+        "soraFish": 1,
+        "renCoins": 25,
+        "soraCoins": 25,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.399999976158142
+        },
+        "soraPosition": {
+          "x": -3.0,
+          "y": 0.4000000059604645
+        },
+        "transcript": [
+          "npc.cook_sora: Thanks for the carp, Ren! It's going straight into a pond-side stew. Let me know when you've got more.",
+          "npc.fisher_ren: Glad it found your pot. The pond's been generous lately — I'll bring the next one by soon.",
+          "npc.cook_sora: Perfect — I'll have the pot ready. See you at the pond, Ren!"
+        ]
+      },
+      "recovery": {
+        "elapsedSeconds": 32.0653222,
+        "gameTotalMinutes": 1000.0,
+        "state": "Completed",
+        "receipt": "resource.delivered",
+        "meetingId": "4969d824-6a94-4c39-afdb-407e8ce1dce0",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 1,
+        "soraFish": 1,
+        "renCoins": 25,
+        "soraCoins": 25,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": [
+          "npc.cook_sora: Thanks for the carp, Ren! It's going straight into a pond-side stew. Let me know when you've got more.",
+          "npc.fisher_ren: Glad it found your pot. The pond's been generous lately — I'll bring the next one by soon.",
+          "npc.cook_sora: Perfect — I'll have the pot ready. See you at the pond, Ren!"
+        ]
+      }
+    },
+    {
+      "ordinal": 2,
+      "scenario": "seller_empty",
+      "worldRunId": "146343de-9eb9-442d-89fd-631f366b073a",
+      "calls": 2,
+      "behavior": "declined_missing_stock",
+      "initial": {
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "renFish": 0,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "terminal": {
+        "elapsedSeconds": 1.7589940999999953,
+        "gameTotalMinutes": 738.5143622,
+        "state": "Declined",
+        "receipt": "",
+        "meetingId": "12408092-6f54-431f-ad89-40c22323f26f",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "renFish": 0,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.399999976158142
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "recovery": {
+        "elapsedSeconds": 1.7806349999999966,
+        "gameTotalMinutes": 1000.0,
+        "state": "Declined",
+        "receipt": "",
+        "meetingId": "12408092-6f54-431f-ad89-40c22323f26f",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 0,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      }
+    },
+    {
+      "ordinal": 3,
+      "scenario": "buyer_poor",
+      "worldRunId": "97ecbfa2-7020-42f4-ae73-e6a3634bdd5d",
+      "calls": 3,
+      "behavior": "waited_insufficient_funds",
+      "initial": {
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 10,
+        "renPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "terminal": {
+        "elapsedSeconds": 30.836183,
+        "gameTotalMinutes": 796.6719086,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "rest.cook_sora",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 10,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.399999976158142
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 5.5
+        },
+        "transcript": []
+      },
+      "recovery": {
+        "elapsedSeconds": 30.84564500000001,
+        "gameTotalMinutes": 1000.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 10,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      }
+    },
+    {
+      "ordinal": 4,
+      "scenario": "need_satisfied",
+      "worldRunId": "a6183ac6-b27f-4817-8ed4-ae3c12704f6a",
+      "calls": 2,
+      "behavior": "need_suppressed",
+      "initial": {
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "renFish": 2,
+        "soraFish": 1,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "terminal": {
+        "elapsedSeconds": 30.500483900000006,
+        "gameTotalMinutes": 796.000442,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "rest.cook_sora",
+        "renFish": 2,
+        "soraFish": 1,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -3.0,
+          "y": -0.3995581567287445
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 5.5
+        },
+        "transcript": []
+      },
+      "recovery": {
+        "elapsedSeconds": 30.509291700000006,
+        "gameTotalMinutes": 1000.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 2,
+        "soraFish": 1,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      }
+    },
+    {
+      "ordinal": 5,
+      "scenario": "seller_empty",
+      "worldRunId": "14ed6ecd-d029-4f58-9196-81b263e049dc",
+      "calls": 2,
+      "behavior": "declined_missing_stock",
+      "initial": {
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "renFish": 0,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "terminal": {
+        "elapsedSeconds": 2.2788637000000165,
+        "gameTotalMinutes": 739.5512916,
+        "state": "Declined",
+        "receipt": "",
+        "meetingId": "1db3cfe2-0156-4f84-851c-1ee460162f5f",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "renFish": 0,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.399999976158142
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "recovery": {
+        "elapsedSeconds": 2.2949681000000055,
+        "gameTotalMinutes": 1000.0,
+        "state": "Declined",
+        "receipt": "",
+        "meetingId": "1db3cfe2-0156-4f84-851c-1ee460162f5f",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 0,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      }
+    },
+    {
+      "ordinal": 6,
+      "scenario": "buyer_poor",
+      "worldRunId": "b67753ac-5c42-4c0c-9442-16876c5d29af",
+      "calls": 3,
+      "behavior": "waited_insufficient_funds",
+      "initial": {
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 10,
+        "renPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "terminal": {
+        "elapsedSeconds": 31.26776720000001,
+        "gameTotalMinutes": 797.5347226,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Travelling",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 10,
+        "renPosition": {
+          "x": -2.265277862548828,
+          "y": 0.4000000059604645
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 5.5
+        },
+        "transcript": []
+      },
+      "recovery": {
+        "elapsedSeconds": 31.275475400000005,
+        "gameTotalMinutes": 1000.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 10,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      }
+    },
+    {
+      "ordinal": 7,
+      "scenario": "need_satisfied",
+      "worldRunId": "49c4081a-73bb-4c8e-a4ed-9e7523178fd1",
+      "calls": 2,
+      "behavior": "need_suppressed",
+      "initial": {
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "renFish": 2,
+        "soraFish": 1,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "terminal": {
+        "elapsedSeconds": 30.81903349999999,
+        "gameTotalMinutes": 796.6365745999999,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "rest.cook_sora",
+        "renFish": 2,
+        "soraFish": 1,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.399999976158142
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 5.5
+        },
+        "transcript": []
+      },
+      "recovery": {
+        "elapsedSeconds": 30.826760500000006,
+        "gameTotalMinutes": 1000.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 2,
+        "soraFish": 1,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      }
+    },
+    {
+      "ordinal": 8,
+      "scenario": "available",
+      "worldRunId": "13a5445d-729e-4645-b391-633cedc793a8",
+      "calls": 6,
+      "behavior": "delivered_and_completed",
+      "initial": {
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "terminal": {
+        "elapsedSeconds": 29.484330999999997,
+        "gameTotalMinutes": 793.9588176,
+        "state": "Completed",
+        "receipt": "resource.delivered",
+        "meetingId": "0d7db6bc-ae8b-4b4b-bf32-939c0c5cda40",
+        "renRoute": "Arrived",
+        "soraRoute": "Travelling",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "rest.cook_sora",
+        "renFish": 1,
+        "soraFish": 1,
+        "renCoins": 25,
+        "soraCoins": 25,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.399999976158142
+        },
+        "soraPosition": {
+          "x": -3.0,
+          "y": 0.4000000059604645
+        },
+        "transcript": [
+          "npc.cook_sora: Thanks for the carp, Ren! This fresh catch will make a wonderful pond-side stew. See you next time!",
+          "npc.fisher_ren: Welcome. The pond's been calm today. Enjoy the stew, Sora."
+        ]
+      },
+      "recovery": {
+        "elapsedSeconds": 29.493204700000007,
+        "gameTotalMinutes": 1000.0,
+        "state": "Completed",
+        "receipt": "resource.delivered",
+        "meetingId": "0d7db6bc-ae8b-4b4b-bf32-939c0c5cda40",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 1,
+        "soraFish": 1,
+        "renCoins": 25,
+        "soraCoins": 25,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": [
+          "npc.cook_sora: Thanks for the carp, Ren! This fresh catch will make a wonderful pond-side stew. See you next time!",
+          "npc.fisher_ren: Welcome. The pond's been calm today. Enjoy the stew, Sora."
+        ]
+      }
+    },
+    {
+      "ordinal": 9,
+      "scenario": "buyer_poor",
+      "worldRunId": "9c43916c-6180-4971-b32a-b374fa1671c6",
+      "calls": 3,
+      "behavior": "waited_insufficient_funds",
+      "initial": {
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 10,
+        "renPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "terminal": {
+        "elapsedSeconds": 31.1219428,
+        "gameTotalMinutes": 797.2431866,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "rest.cook_sora",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 10,
+        "renPosition": {
+          "x": -2.556812047958374,
+          "y": 0.4000000059604645
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 5.5
+        },
+        "transcript": []
+      },
+      "recovery": {
+        "elapsedSeconds": 31.12902249999999,
+        "gameTotalMinutes": 1000.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 10,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      }
+    },
+    {
+      "ordinal": 10,
+      "scenario": "need_satisfied",
+      "worldRunId": "d8106c85-9833-412b-bb5b-0eb3d0267d79",
+      "calls": 2,
+      "behavior": "need_suppressed",
+      "initial": {
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "renFish": 2,
+        "soraFish": 1,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "terminal": {
+        "elapsedSeconds": 30.500464599999987,
+        "gameTotalMinutes": 796.0005764,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "rest.cook_sora",
+        "renFish": 2,
+        "soraFish": 1,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.399999976158142
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 5.5
+        },
+        "transcript": []
+      },
+      "recovery": {
+        "elapsedSeconds": 30.508285400000034,
+        "gameTotalMinutes": 1000.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 2,
+        "soraFish": 1,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      }
+    },
+    {
+      "ordinal": 11,
+      "scenario": "available",
+      "worldRunId": "4c85815a-ebad-4649-a699-297c2f3e3ebd",
+      "calls": 8,
+      "behavior": "delivered_and_completed",
+      "initial": {
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "terminal": {
+        "elapsedSeconds": 31.067292600000002,
+        "gameTotalMinutes": 797.1269499999999,
+        "state": "Completed",
+        "receipt": "resource.delivered",
+        "meetingId": "2a82b7c2-c83e-418b-9a1b-6a94c3a04deb",
+        "renRoute": "Travelling",
+        "soraRoute": "Travelling",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "rest.cook_sora",
+        "renFish": 1,
+        "soraFish": 1,
+        "renCoins": 25,
+        "soraCoins": 25,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.399999976158142
+        },
+        "soraPosition": {
+          "x": -3.0,
+          "y": 0.4000000059604645
+        },
+        "transcript": [
+          "npc.cook_sora: Thanks for the carp, Ren! Perfect for a fresh pond-side stew. Anything else biting today?",
+          "npc.fisher_ren: You're welcome, Sora. Just a few small ones near the reeds. The pond's been calm all morning.",
+          "npc.cook_sora: Good to know. I'll get this stew going and bring you a bowl later. Tight lines, Ren!"
+        ]
+      },
+      "recovery": {
+        "elapsedSeconds": 31.075610399999988,
+        "gameTotalMinutes": 1000.0,
+        "state": "Completed",
+        "receipt": "resource.delivered",
+        "meetingId": "2a82b7c2-c83e-418b-9a1b-6a94c3a04deb",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 1,
+        "soraFish": 1,
+        "renCoins": 25,
+        "soraCoins": 25,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": [
+          "npc.cook_sora: Thanks for the carp, Ren! Perfect for a fresh pond-side stew. Anything else biting today?",
+          "npc.fisher_ren: You're welcome, Sora. Just a few small ones near the reeds. The pond's been calm all morning.",
+          "npc.cook_sora: Good to know. I'll get this stew going and bring you a bowl later. Tight lines, Ren!"
+        ]
+      }
+    },
+    {
+      "ordinal": 12,
+      "scenario": "seller_empty",
+      "worldRunId": "7484dd7c-c017-409b-aeb8-c5c58a4709da",
+      "calls": 2,
+      "behavior": "declined_missing_stock",
+      "initial": {
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "renFish": 0,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "terminal": {
+        "elapsedSeconds": 1.5965851999999927,
+        "gameTotalMinutes": 738.1822976,
+        "state": "Declined",
+        "receipt": "",
+        "meetingId": "76728d6f-77d9-4054-a30b-f7ee466a74c4",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "renFish": 0,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.399999976158142
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "recovery": {
+        "elapsedSeconds": 1.6098696000000245,
+        "gameTotalMinutes": 1000.0,
+        "state": "Declined",
+        "receipt": "",
+        "meetingId": "76728d6f-77d9-4054-a30b-f7ee466a74c4",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 0,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      }
+    }
+  ],
+  "unityTests": [
+    {
+      "run": "ownterms-01-red",
+      "result": "Failed(Child)",
+      "total": "17",
+      "passed": "16",
+      "failed": "1",
+      "skipped": "0",
+      "duration": "0.1928709",
+      "failedTests": [
+        "CozyTown.Tests.EditMode.NpcAgents.NpcResourceMeetingTests.Invitation_RechecksCurrentBuyerFundsBeforeCreatingACommitment(24,False)"
+      ]
+    },
+    {
+      "run": "ownterms-01-green",
+      "result": "Passed",
+      "total": "17",
+      "passed": "17",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "0.1238908",
+      "failedTests": []
+    },
+    {
+      "run": "ownterms-02-red",
+      "result": "Failed(Child)",
+      "total": "20",
+      "passed": "19",
+      "failed": "1",
+      "skipped": "0",
+      "duration": "0.1361619",
+      "failedTests": [
+        "CozyTown.Tests.EditMode.NpcAgents.NpcResourceMeetingTests.Acceptance_RechecksOnlySellerStockAndReleasesAnUnfulfillableInvitation(0,False)"
+      ]
+    },
+    {
+      "run": "ownterms-02-green",
+      "result": "Passed",
+      "total": "20",
+      "passed": "20",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "0.1243412",
+      "failedTests": []
+    },
+    {
+      "run": "ownterms-03-red",
+      "result": "Failed(Child)",
+      "total": "29",
+      "passed": "26",
+      "failed": "3",
+      "skipped": "0",
+      "duration": "0.1414413",
+      "failedTests": [
+        "CozyTown.Tests.EditMode.NpcAgents.NpcResourceMeetingTests.ResourceRequest_OffersOnlyCommitmentsSupportedByTheActorsOwnTerms(\"opportunity\",24,\"wait\")",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcResourceMeetingTests.ResourceRequest_OffersOnlyCommitmentsSupportedByTheActorsOwnTerms(\"invitation\",0,\"decline_invite\")",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcResourceMeetingTests.ResourceRequest_OffersOnlyCommitmentsSupportedByTheActorsOwnTerms(\"delivery\",24,\"cancel_exchange\")"
+      ]
+    },
+    {
+      "run": "ownterms-03-green",
+      "result": "Passed",
+      "total": "29",
+      "passed": "29",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "0.1611952",
+      "failedTests": []
+    },
+    {
+      "run": "ownterms-04-red",
+      "result": "Failed(Child)",
+      "total": "27",
+      "passed": "22",
+      "failed": "5",
+      "skipped": "0",
+      "duration": "0.1110104",
+      "failedTests": [
+        "CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources(24,False,1)",
+        "CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources(25,True,0)",
+        "CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources(26,True,0)",
+        "CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceResponse_UsesOnlyTheMeetingIdentifier(4,\"deliver\",Deliver)",
+        "CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceResponse_UsesOnlyTheMeetingIdentifier(4,\"cancel_exchange\",CancelExchange)"
+      ]
+    },
+    {
+      "run": "ownterms-04-green",
+      "result": "Passed",
+      "total": "27",
+      "passed": "27",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "0.3800452",
+      "failedTests": []
+    },
+    {
+      "run": "ownterms-05-red",
+      "result": "Failed(Child)",
+      "total": "1",
+      "passed": "0",
+      "failed": "1",
+      "skipped": "0",
+      "duration": "3.1915584",
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.FreshScenes_SeparateReasonableChoicesFromRejectedTrades"
+      ]
+    },
+    {
+      "run": "ownterms-05-green",
+      "result": "Skipped:Ignored",
+      "total": "4",
+      "passed": "2",
+      "failed": "0",
+      "skipped": "2",
+      "duration": "6.9957707",
+      "failedTests": []
+    },
+    {
+      "run": "ownterms-06-edge",
+      "result": "Passed",
+      "total": "5",
+      "passed": "5",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "0.1507153",
+      "failedTests": []
+    },
+    {
+      "run": "ownterms-07-edit-full",
+      "result": "Passed",
+      "total": "638",
+      "passed": "638",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "9.6511023",
+      "failedTests": []
+    },
+    {
+      "run": "ownterms-08-play-full",
+      "result": "Skipped:Ignored",
+      "total": "179",
+      "passed": "175",
+      "failed": "0",
+      "skipped": "4",
+      "duration": "17.6384108",
+      "failedTests": []
+    },
+    {
+      "run": "ownterms-live",
+      "result": "Failed(Child)",
+      "total": "1",
+      "passed": "0",
+      "failed": "1",
+      "skipped": "0",
+      "duration": "293.7680155",
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_RepeatsFourFreshInitialScenarios"
+      ]
+    }
+  ]
+}

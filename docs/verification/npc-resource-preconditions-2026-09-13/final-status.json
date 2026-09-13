@@ -1,0 +1,6 @@
+{
+  "requestedModel": "deepseek-v4-flash",
+  "attemptedProviderCalls": 42,
+  "remainingCalls": 54,
+  "inflight": 0
+}
