@@ -1,0 +1,452 @@
+{
+  "schemaVersion": 1,
+  "task": "实现 NPC 按区域与距离的局部观察",
+  "issue": "https://github.com/qinjunw/CozyTown/issues/73",
+  "baseCommit": "cd2daae033b0311200637922156279c9224f8ca1",
+  "unityVersion": "6000.5.5f1",
+  "realModelCalls": 0,
+  "requestByteLimit": 32768,
+  "python": {
+    "tests": 45,
+    "failed": 0,
+    "exitCode": 0,
+    "command": "python -m unittest discover -s Tools/agent_proxy -p 'test_*.py' -v",
+    "localLog": "Logs/observation-python-final-green.log",
+    "logSha256": "8d95e7b5ae7fca5feb9dab3dc9be27eb464eda783bcd48d40a72460bbdc74a16"
+  },
+  "unityRuns": [
+    {
+      "platform": "EditMode",
+      "exitCode": 0,
+      "localXml": "Logs/local-observation-budget-full-editmode.xml",
+      "xmlSha256": "0be278ed29fb1675d760e32cfbeb90a32d8f829a408002da457d309c85c9f21e",
+      "result": "Passed",
+      "passed": 725,
+      "failed": 0,
+      "skipped": 0,
+      "total": 725,
+      "durationSeconds": 8.7183496,
+      "startedAtUtc": "2026-09-13 17:23:43Z",
+      "finishedAtUtc": "2026-09-13 17:23:52Z",
+      "ignoredCases": [],
+      "observationCases": [
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcLocalObservationTests.ActualRegionAndDistance_DetermineNearbyObjects",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcLocalObservationTests.Coverage_FiltersPrivateAndIndoorBodiesBeforeBoundedOrdering",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcLocalObservationTests.DecorativeObjectsAndUnmodelledFish_HaveDifferentCapabilitiesAndNoInventedQuantity",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcLocalObservationTests.DeliveryReceipt_RetainsItsTimeAfterCurrentHoldingsChange",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcLocalObservationTests.HeardStatements_KeepSpeakerAndTimeWithoutBecomingCurrentAssetsOrThirdPartyKnowledge",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcLocalObservationTests.RequiredOwnResources_AreSeparateFromOptionalObjectsAndListenerPermission",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.BodyMovementDuringGeneration_RejectsTheCandidateEvenWithoutAResidentRevision(0.25d,\"outdoors\")",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.BodyMovementDuringGeneration_RejectsTheCandidateEvenWithoutAResidentRevision(4,\"outdoors\")",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.BodyMovementDuringGeneration_RejectsTheCandidateEvenWithoutAResidentRevision(0,\"sora.home\")",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.Continuation_KeepsTheOriginalObservationAndDecisionDeadline(False)",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.Continuation_KeepsTheOriginalObservationAndDecisionDeadline(True)",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.HiddenPartnerAssetChanges_KeepTheSameProjectionOperationsAndInvitationResult(False)",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.HiddenPartnerAssetChanges_KeepTheSameProjectionOperationsAndInvitationResult(True)",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(\"null\")",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(\"throw\")",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(\"wrong_observer\")",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(\"wrong_world\")",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(\"stale_time\")",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(\"wrong_listener\")",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(\"null\")",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(\"throw\")",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(\"wrong_observer\")",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(\"wrong_world\")",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(\"stale_time\")",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(\"wrong_listener\")",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.OwnAssetsChangedDuringGeneration_RejectsTheCandidateAndRetainsItsOriginalObservation",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.PendingBudgetWait_SamplesTheCurrentTimeAndBodyOnlyWhenDispatched",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.PendingResourceDecision_RefreshesOwnTermsAndOperationsBeforeItsFirstDispatch",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.PendingResourceNeedSatisfied_DiscardsTheUnsentDecisionWithoutAnotherModelCall",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.RepeatedObservationRefresh_WithoutANewOpportunityDoesNotCallTheModel",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.WorldReload_PreservesTheEpochGateAndBudgetWithObservationsEnabled",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.BoundedTradeObservation_WithEightObjectsAndLongParticipantLinesFitsTheRequestLimit",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ObservationEnvelope_SerializesBoundFactsWithoutChangingTheActionProtocol",
+          "result": "Passed"
+        }
+      ]
+    },
+    {
+      "platform": "PlayMode",
+      "exitCode": 0,
+      "localXml": "Logs/local-observation-full-playmode.xml",
+      "xmlSha256": "b3a7c5710af447811c1bebe1e833b113e8f602d9102390f1a3b5f8c09c165bd5",
+      "result": "Skipped:Ignored",
+      "passed": 186,
+      "failed": 0,
+      "skipped": 4,
+      "total": 190,
+      "durationSeconds": 15.4833682,
+      "startedAtUtc": "2026-09-13 17:18:16Z",
+      "finishedAtUtc": "2026-09-13 17:18:31Z",
+      "ignoredCases": [
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcMeetingPlayModeTests.LiveProxy_RealProviderDrivesTheSceneMeetingWithinTheConfiguredBudget",
+          "reason": "Requires explicit live-meeting opt-in and a capped local proxy."
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcResourcePlayModeTests.LiveProxy_TransfersOwnedResourcesThroughTheActualScene",
+          "reason": "Requires explicit resource-test opt-in and a capped local proxy."
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_ComparedGroundingArmsAcrossFreshScenarios",
+          "reason": "Requires explicit grounding-experiment opt-in and four loopback endpoints with a shared 192-call scene budget."
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_RepeatsFourFreshInitialScenarios",
+          "reason": "Requires explicit scenario-test opt-in and one proxy capped at 96 calls for the entire matrix."
+        }
+      ],
+      "observationCases": [
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcLocalObservationPlayModeTests.AdvancingWorldTime_ObservesCommittedPositionBeforeReachingTheDestination",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcLocalObservationPlayModeTests.CaptureBodies_DistinguishesVisibleBlockedResidentsFromHiddenReconstructionFailures",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcLocalObservationPlayModeTests.DefaultCatalog_RefreshesChangedObjectsWithoutMutatingThePreviousObservation(False)",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcLocalObservationPlayModeTests.DefaultCatalog_RefreshesChangedObjectsWithoutMutatingThePreviousObservation(True)",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcLocalObservationPlayModeTests.LeavingHome_KeepsInteriorSpaceUntilTheBodyCrossesTheDoorway",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcLocalObservationPlayModeTests.ReviewedDevelopmentMap_ObservesPondFromBothMeetingStandingLocations(-3,-1.4d)",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcLocalObservationPlayModeTests.ReviewedDevelopmentMap_ObservesPondFromBothMeetingStandingLocations(-3,0.4d)",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcLocalObservationPlayModeTests.ScheduledDecision_ReceivesTheCommittedBodyObservationAtDispatch",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcLocalObservationPlayModeTests.UnrecognizedMap_LeavesTheRegionUnknownWithoutRegisteringDevelopmentEntities",
+          "result": "Passed"
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcLocalObservationScenePlayModeTests.DevelopmentScene_AutomaticallyObservesPondAtBothMeetingStandingLocations",
+          "result": "Passed"
+        }
+      ]
+    }
+  ],
+  "wireChecks": [
+    {
+      "sample": "OBSERVATION_REQUEST",
+      "unityUtf8Bytes": 3241,
+      "proxyUtf8Bytes": 3537,
+      "rawRequestSha256": "533b385d5856ffe7fc74de1587b57bc997f208b05589704cb8196dc3c1a40219",
+      "facts": 6,
+      "nearbyEntities": 1,
+      "nearbyComplete": true,
+      "fixedProviderCalls": 1,
+      "contextPreserved": true,
+      "inputUnchanged": true,
+      "resultOperation": "wait"
+    },
+    {
+      "sample": "BOUNDED_OBSERVATION_REQUEST",
+      "unityUtf8Bytes": 25364,
+      "proxyUtf8Bytes": 26824,
+      "rawRequestSha256": "8092f346b6061ecd21583e658a30917112c75b69bbd3d552d2d1c18d8a6df6d6",
+      "facts": 48,
+      "nearbyEntities": 8,
+      "nearbyComplete": false,
+      "fixedProviderCalls": 1,
+      "contextPreserved": true,
+      "inputUnchanged": true,
+      "resultOperation": "say"
+    }
+  ],
+  "testedOwnedInputs": [
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionRequest.cs",
+      "sha256": "a43a167ac8caa18d9200e27368d0878cec2332405dce1da6297f84250db5dedf",
+      "gitBlob": "6589807f2986abed3dd47ddc7c8749b3b8d7319b"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "sha256": "c9f7df5923012e14a0f6e3d758cbfdb542060d5683596ddb1baadb9f0e16b9cb",
+      "gitBlob": "5f31f5cf8120894ca92cff0d9f3c53e2b6284035"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcLocalObservation.cs",
+      "sha256": "d627fa72ee541c88f3e065b86a4109baca9bff4cbd58180fe015fa61855a7493",
+      "gitBlob": "39ca9f66a69abf33478b9c8e54badb0b34be022e"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcObservationBody.cs",
+      "sha256": "99e8ae0c8f8c4424785ee007a7d9d374e7530c2483e3470ae3ebb7f0fd5edcbf",
+      "gitBlob": "e9d72a650c7e0d43d4c239dbc821d02e3c3a3d9e"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcObservationEntity.cs",
+      "sha256": "d79ba9b8daa36da7a0e1e666a5fd115e03ec786c0a92c0fba860556ee5d324ab",
+      "gitBlob": "9d1de7bd86df6e64e00e5a843a5c1a57b10ecaff"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcObservationFact.cs",
+      "sha256": "54124209b67b03850e26d2457dc43fe51630058111b6da29f9c6d044add0c599",
+      "gitBlob": "d1ac56338caefa30aa8095ed6463824ce2005bc0"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcObservationRegion.cs",
+      "sha256": "1cfa05e77d5625df650448c29879b9befee5a32106349ad3100c3366a03aab1c",
+      "gitBlob": "5d5ca5a851c4d89300a7d92b7419f04ca2031d79"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcObservationScene.cs",
+      "sha256": "93fe0f2044f0d476a2f8b2b0dd9bb8e4fd5e26f3f95c7b543958b5fb7c8002c8",
+      "gitBlob": "ce1a6012895c9b096234851bc3891be4580feb9a"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/CozyTownTownLifeController.cs",
+      "sha256": "ad9ec5821c3577c3345c3aebbc28309d8888c2d3a6052c4f25a4e703e42792a1",
+      "gitBlob": "95f89fb589bd5ee0640c825550879f45b49f9f8b"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/NpcWorldResident2D.cs",
+      "sha256": "68be2ed35ca30d3b90ca566fce28d773f46bc8e4354ca98dd7d0120ae08d7daf",
+      "gitBlob": "ba7df715ebd5fd5f0625d1be5833db040326db7d"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/ProxyNpcDecisionJsonCodec.cs",
+      "sha256": "20c888e882d8b78e8e50319934f2c0d5b80f879bfaed8387293ccc061d60c2dc",
+      "gitBlob": "411a26ed32d29191092381a61f4ad633532e0c91"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/TownLocalObservation2D.cs",
+      "sha256": "98c30a416d4e85b23456c668aa4425186d4dd0daac5b0ba81c4e571435575ccf",
+      "gitBlob": "14cb66f88dcf18a2eb01f2f546397e875a6ad6a6"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcLocalObservationTests.cs",
+      "sha256": "10546efd6d678e1235fc9a63983c99ff42df80e90a0971e1dabe61ac84aed255",
+      "gitBlob": "871c2f8b2af0c0ed437565de5a4b62537abbb00c"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcObservationDecisionTests.cs",
+      "sha256": "14dd1c980f90f696cdbafbd5ebcba05d1e5172b3f341bfc1be0b4855b0d40596",
+      "gitBlob": "fa1b0411dd2d8208808e9b16259848932c4d85ea"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcLocalObservationPlayModeTests.cs",
+      "sha256": "523efc052aaeaee7c60691422a1a2f3bd59c88c7a230276d5d5e36c6bd845a49",
+      "gitBlob": "296f7ac5a1e1ec00639198f1f9b9499f0d939527"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcLocalObservationScenePlayModeTests.cs",
+      "sha256": "4091ded0cea8beed3cb55f39103f3f4b6ad28d9cf9a024d0ff80fa5be0f2f0bd",
+      "gitBlob": "7fb2419d604ddad21868632c755ae52132590509"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/UnityEditMode/ProxyNpcDecisionJsonCodecTests.cs",
+      "sha256": "23485627dcbb8a38b0a9e36918b75d60e4466367800d6acf9ed6bd8cd44eeffe",
+      "gitBlob": "a9d7b98168ed9c16f97036dccca0a422b7d62fe0"
+    },
+    {
+      "path": "Tools/agent_proxy/decision_proxy.py",
+      "sha256": "c1d32c6ea2eb13433ecb28028f6bf3007e9bcf64be6b7083dab18e4273f3394b",
+      "gitBlob": "e87c395b667489f5a969316d8e1fb3fb7605e44d"
+    },
+    {
+      "path": "Tools/agent_proxy/test_decision_proxy.py",
+      "sha256": "df213e5498472bb388027f398390f1c54df86594bce09202ff41afaa443cdabd",
+      "gitBlob": "92979e02daa1081702b5a555dc00497b80691a3e"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionRequest.cs.meta",
+      "sha256": "d4d4b4645834fb0b29666d80b937144f9424918cbf233bfd973bcb64f76d73e2",
+      "gitBlob": "3774835b0936af70001d4d682da3697f484fe352"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs.meta",
+      "sha256": "bfc9ee342dc48bb45cccd3ce4cf844244a9030cda310f1f923f5d48cdac2b242",
+      "gitBlob": "3b6adfbb487f4243a4ddf7c693bdcd5537a77123"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcLocalObservation.cs.meta",
+      "sha256": "d032f8967b79ff0c6fbaeb5e71cd444d3d8aa59512cf70cfb93784f95cd9de0b",
+      "gitBlob": "420de1a8d74305c5dc8ab847086f32dfedda7bc6"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcObservationBody.cs.meta",
+      "sha256": "9bbef533f350831f721785a900827b61f6aa5936e4cbd0af6b0ed864f8ebb561",
+      "gitBlob": "a10ef7a6d1ad16cc8b33adefaab736c67d1176fa"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcObservationEntity.cs.meta",
+      "sha256": "fad48dec0e84bd13ff7af84903a3828f271c25a1f7b72214650fe4aa9abaa18d",
+      "gitBlob": "d638ac6b6b15b6d1bbe0fd13da509a93063493c1"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcObservationFact.cs.meta",
+      "sha256": "cfc36c466b8f6b77f1a31abac616a8db735320761397841a5c98d7a55f562148",
+      "gitBlob": "9ee7cffe2a604c0b110134f674ff1e190e1c3f35"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcObservationRegion.cs.meta",
+      "sha256": "e0b73d8a927003ee6074b7f873c7db2913ce54b70c1605930da02b351b8e5b52",
+      "gitBlob": "86764369c66f7ae85d4ecd1089ad904b5d6e19f4"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcObservationScene.cs.meta",
+      "sha256": "91c7e979907d54abdf34915a3d0e4b6819fd76c60e1e9e9fa9d9fc8a1309c0f3",
+      "gitBlob": "dde6bdf8d7b450e9699d077b463128422d9782ac"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/CozyTownTownLifeController.cs.meta",
+      "sha256": "eb63ce8007319347f5b9fac15c88d54285ae30310db2b5b03f8ea06da9c6f0d4",
+      "gitBlob": "33215c283e7428ec8b3e231a6adb54b9d3894e1e"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/NpcWorldResident2D.cs.meta",
+      "sha256": "4237b6f67eb3a149101d4c529e47330213ac969b1a1c6247bd65ce8daf66f8ff",
+      "gitBlob": "b5ff66d6d298ecdeae3d1deb2afc8daeaf21b22c"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/ProxyNpcDecisionJsonCodec.cs.meta",
+      "sha256": "4d764ecc04d8f207c1499c6ab44617e0a7ae3355fd38efd68697203af3cd49c2",
+      "gitBlob": "b63232493cb379839b523ea63b49943acde26cbe"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/TownLocalObservation2D.cs.meta",
+      "sha256": "a5af27fc5ab1d9ea40b3d1b408bc8505a415ed640c481c835d08d5180cb469c3",
+      "gitBlob": "e665b75ebe8fb6327b762901dc52d18c8d5f11ec"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcLocalObservationTests.cs.meta",
+      "sha256": "e56b75afbf185f331bb366b52e85745355ba4ef2da5a6f2cb3e26eb8a8a6a293",
+      "gitBlob": "75a40810c36c31124c20b175a803cf2f257315bf"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcObservationDecisionTests.cs.meta",
+      "sha256": "f7d18b40d8473e87bdde612360089a3d38da7d3e127d07fc3e2b5d3245b8a456",
+      "gitBlob": "0e7fcf4dca26dc509f59428777f024480321d37d"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcLocalObservationPlayModeTests.cs.meta",
+      "sha256": "6cfc762c4d5dbda0830d31761f565edc6cb592cb1fe00ead18dc4a08f3401f9e",
+      "gitBlob": "83797b5e81618828808f158ba0a422c8cd0dc1ce"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcLocalObservationScenePlayModeTests.cs.meta",
+      "sha256": "87d4f90b9ea0842ac1ea49866f867c93688746400b350cf6181b4eaad2e303c9",
+      "gitBlob": "e50c19bdffe3f035be238e1d9243942560b5666c"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/UnityEditMode/ProxyNpcDecisionJsonCodecTests.cs.meta",
+      "sha256": "bd4e20f6ac9d04a83dd346ad2ed83b4a55855924c84bf25adece3677775692c9",
+      "gitBlob": "b468a7e258a1cad461b814e8d69ee4539af3571b"
+    }
+  ]
+}

@@ -16,6 +16,99 @@ namespace CozyTown.Tests.UnityEditMode
 {
     public sealed class ProxyNpcDecisionJsonCodecTests
     {
+        [Test]
+        public void BoundedTradeObservation_WithEightObjectsAndLongParticipantLinesFitsTheRequestLimit()
+        {
+            var schedules = new[] { "ren", "sora" }.Select(id => new NpcDailySchedule(id, id + ".home", id + ".outside", id + ".entry",
+                id + ".work", id + ".rest", id + ".afternoon", 360, 480, 720, 810, 1020, 1080));
+            var world = new NpcAgentWorld(schedules);
+            world.Observe(new WorldTimeProgress(new GameClockSnapshot(1, 720), 0, false, 1));
+            var store = new InMemoryEconomyStateStore(new[] {
+                new CharacterEconomySnapshot("ren", new InventorySnapshot(new[] { new ItemStack("fish", 2) }), new WalletSnapshot(0)),
+                new CharacterEconomySnapshot("sora", new InventorySnapshot(System.Array.Empty<ItemStack>()), new WalletSnapshot(50)) },
+                System.Array.Empty<ShopEconomySnapshot>());
+            var trading = new CharacterResourceTrading(store, new[] { new ItemDefinition("fish", "Fish", ItemCategory.Fish, 99) }, 2);
+            var terms = new CharacterTradeTerms("ren", "sora", "fish", 1, 25);
+            var board = new NpcMeetingBoard(world, new[] { new NpcMeetingPlan("supply", "sora", "ren", "pond", "sora.rest", "ren.rest",
+                720, 750, 780, maxTurns: 6, resourceTerms: terms) }, (npc, location) => NpcMeetingPresence.Arrived, trading);
+            var id = board.Invite(world.GetState("sora"), "supply").Value.Id;
+            board.Respond(world.GetState("ren"), id, true);
+            world.Observe(new WorldTimeProgress(new GameClockSnapshot(1, 750), 0, false, 1));
+            board.Observe();
+            Assert.That(board.Deliver(world.GetState("sora"), id).IsSuccess, Is.True);
+            for (int i = 0; i < 4; i++)
+                Assert.That(board.Speak(world.GetState(i % 2 == 0 ? "sora" : "ren"), id, new string('鱼', 240)).IsSuccess, Is.True);
+            var scene = new NpcObservationScene(new[] { new NpcObservationRegion("pond", "池塘周边", -6, -6, 6, 6) },
+                Enumerable.Range(0, 9).Select(i => new NpcObservationEntity("water-" + i, "池塘", 0, 0, "water", interactionId: "fishing", resourceItemId: "fish")));
+            var client = new CaptureClient();
+            using var scheduler = new NpcDecisionScheduler(world, new[] { new NpcDefinition("sora", "Sora", "A cook who enjoys local ingredients.", "Hello") }, client,
+                meetings: board, observe: request => scene.Read(request.NpcId, request.Self.WorldRunId, world.TotalMinutes,
+                    new[] { new NpcObservationBody("sora", 0, 0) }, request.Social, trading.Inspect(terms, "sora"), board.GetMemories("sora")));
+            scheduler.Tick(0);
+            var view = client.Request.Observation;
+            Assert.That(view.NearbyEntityIds.Count, Is.EqualTo(8));
+            Assert.That(view.NearbyComplete, Is.False);
+            Assert.That(view.Facts.Count(f => f.Knowledge == "statement"), Is.EqualTo(4));
+            Assert.That(view.Facts.Count, Is.LessThanOrEqualTo(64));
+            Assert.That(view.Facts.Single(f => f.Predicate == "owned_quantity").Value, Is.EqualTo("1"));
+            string json = new ProxyNpcDecisionJsonCodec().SerializeRequest(client.Request);
+            Assert.That(System.Text.Encoding.UTF8.GetByteCount(json), Is.LessThan(ProxyNpcDecisionJsonCodec.MaximumRequestBytes));
+            TestContext.WriteLine("BOUNDED_OBSERVATION_REQUEST=" + json);
+        }
+
+        [Test]
+        public void ObservationEnvelope_SerializesBoundFactsWithoutChangingTheActionProtocol()
+        {
+            var world = new NpcAgentWorld(new[] { new NpcDailySchedule("mina", "home", "outside", "entry", "work", "rest", "work",
+                360, 480, 720, 780, 1020, 1080) });
+            world.Observe(new WorldTimeProgress(new GameClockSnapshot(1, 720), 0, false, 1));
+            var scene = new NpcObservationScene(new[] { new NpcObservationRegion("pond", "Pond", -6, -6, 6, 6) },
+                new[] { new NpcObservationEntity("water", "池塘", -1, 0, "landmark", interactionId: "fishing", resourceItemId: "fish") });
+            var client = new CaptureClient();
+            using var scheduler = new NpcDecisionScheduler(world, new[] { new NpcDefinition("mina", "Mina", "Shopkeeper", "Hello") }, client,
+                observe: request => scene.Read(request.NpcId, request.Self.WorldRunId, 720, new[] { new NpcObservationBody("mina", -2, 0) }));
+            scheduler.Tick(0);
+            string json = new ProxyNpcDecisionJsonCodec().SerializeRequest(client.Request);
+            var payload = JsonUtility.FromJson<ObservationRequestPayload>(json);
+            Assert.That(payload.schemaVersion, Is.EqualTo(1));
+            Assert.That(payload.hasObservation, Is.True);
+            Assert.That(payload.observation.schemaVersion, Is.EqualTo(1));
+            Assert.That(payload.observation.observerId, Is.EqualTo("mina"));
+            Assert.That(payload.observation.worldRunId, Is.EqualTo(world.GetState("mina").WorldRunId.ToString("N")));
+            Assert.That(payload.observation.x, Is.EqualTo(-2));
+            Assert.That(payload.observation.observedAtGameTotalMinutes, Is.EqualTo(720));
+            Assert.That(payload.observation.nearbyComplete, Is.True);
+            Assert.That(payload.observation.facts.Single(f => f.predicate == "quantity").valueType, Is.EqualTo("unknown"));
+            Assert.That(payload.observation.facts.Single(f => f.predicate == "quantity").value, Is.Empty);
+            Assert.That(json, Does.Contain("池塘"));
+            Assert.That(System.Text.Encoding.UTF8.GetByteCount(json), Is.LessThan(ProxyNpcDecisionJsonCodec.MaximumRequestBytes));
+            TestContext.WriteLine("OBSERVATION_REQUEST=" + json);
+        }
+
+        [System.Serializable]
+        private sealed class ObservationRequestPayload
+        {
+            public int schemaVersion;
+            public bool hasObservation;
+            public ObservationPayload observation;
+        }
+
+        [System.Serializable]
+        private sealed class ObservationPayload
+        {
+            public int schemaVersion;
+            public string observerId, worldRunId;
+            public double x, observedAtGameTotalMinutes;
+            public bool nearbyComplete;
+            public ObservationFactPayload[] facts;
+        }
+
+        [System.Serializable]
+        private sealed class ObservationFactPayload
+        {
+            public string predicate, valueType, value;
+        }
+
         [TestCase("{\"schemaVersion\":4,\"operation\":\"invite\"}")]
         [TestCase("{\"schemaVersion\":4,\"operation\":\"invite\",\"social\":{\"planId\":\"lunch\"}}")]
         public void InvitationWithoutTopLevelPlanId_ReportsACorrectableFieldError(string json)

@@ -21,8 +21,35 @@
 | `hasLocationDetails`、`locationDetails` | 为 `true` 时才读取详情对象的 `locationId`、`isReachable`；为 `false` 时忽略该对象 |
 | `previousResultCode` | 同一世界内本人的上次决策结果码；没有时为空，不包含历史上下文链 |
 | `candidateErrorCode` | 非空时表示本次决策的前一个候选因字段问题未执行；本次为唯一一次纠正机会，与上次已结束决策的结果分开 |
+| `hasObservation`、`observation` | 为 `true` 时携带下述独立版本的角色观察；为 `false` 或字段缺省时沿用旧请求行为 |
 
-第一步只有地点 ID。返回 `inspect_location` 后，宿主检查地点属于本人已知范围，查询当前路线是否可达，并在下一次请求披露该地点的详情。原请求对象不变。每次续调都重新消耗请求预算；最后一次调用继续要求查询会结束为 `agent.decision_step_limit`。
+地点可达性在返回 `inspect_location` 后披露：宿主检查地点属于本人已知范围，查询当前路线是否可达，并在下一次请求提供详情。局部观察在首个请求主动提供，独立于地点查询。原请求对象不变。每次续调都重新消耗请求预算；最后一次调用继续要求查询会结束为 `agent.decision_step_limit`。
+
+## 局部观察 v1
+
+外层行动版本保持 `1/2/4`，`observation.schemaVersion` 为 `1`。Unity 在首次实际外调前读取同一轮已提交的身体和世界状态。排队请求保留原 `gameTotalMinutes`、决策标识和期限，同时重新读取当前社交条件；需求已满足的未发送机会被移出队列。观察刷新本身不产生模型调用，仍由既有日程和会面事件触发决策。
+
+| 观察字段 | 合同 |
+| --- | --- |
+| `observerId`、`worldRunId`、`listenerId` | 当前观察者、世界代次和本次社交对象；没有听众时为空字符串 |
+| `observedAtGameTotalMinutes` | 实际采样时刻，可能晚于机会时刻；首次采样和执行前复核必须对应当时世界时刻 |
+| `x`、`y`、`spaceId` | 实际身体坐标与室内／室外空间；目标和朝向不参与区域观察 |
+| `hasRegion`、`regionId`、`radius` | 是否有匹配区域、区域稳定 ID 和距离阈值；未覆盖区域的 ID 为空 |
+| `nearbyEntityIds`、`nearbyComplete` | 授权且同区域、距离内的已登记实体，最多 8 个，按 ID 排序；裁剪或未知区域时不完整 |
+| `coverageDomain` | 固定为 `registered_entities_same_region_within_radius`；完整仅指这个有限目录和范围 |
+| `facts` | 必要事实与附近实体事实；前者不受附近清单的条数裁剪影响，代理接受最多 64 条 |
+
+每条事实包含 `factId`、`entityId`、`predicate`、`value`、`valueType`、`unit`、`knowledge`、`source`、`observerId`、`observedAtGameTotalMinutes`、`scope`、`speakerId` 和 `canExpress`。数值以不受区域设置影响的字符串传输，`valueType` 区分 `number/text/boolean/unknown`。未知值编码为空字符串，不能按零处理。
+
+`knowledge` 区分 `observed`（采样事实）、`authored`（内容或条款）、`statement`（说过的原文）、`receipt`（已发生的交付）和 `unknown`。旧请求仍保留原采样时刻；当前请求不自动混入过去环境观察。参与者记录最多提供最近 4 条发言和最近一次仍在内存记录中的成功交付；发言不改写资产。当前会面的交付数量与价款只能在匹配该会面凭据时附带，旧凭据仅保留结果与时间。
+
+本人相关物品量和余额来自实时经济读取，对方私有资产不进入投影。本次交易的本人相关物品量可标为向该参与者陈述；完整钱包余额仅用于私下决策，`canExpress=false`。没有当前听众时，私人记录和资源不标为可陈述。`terms_quantity/terms_price` 表示计划的交易条款，是否收到邀请、交付或交谈由阶段和凭据分别说明。附近居民的 `present` 来自身体现状，装饰的 `interaction=none` 来自显式内容，池塘的已登记鱼种数量为未知。目录交互名不增加 `allowedOperations` 中没有的行动。
+
+首次采样失败、返回另一角色／世界／听众的数据，或没有取得当前时刻的观察时，宿主结束为 `agent.observation_unavailable`，不调用模型。执行候选或发出续调前复核同一授权视图；当前事实变化时结束为 `agent.observation_stale`，原候选与原观察保留在结果中。比较包括身体坐标、区域、可见清单、值、来源、权限和历史记录时刻；仅采样时间推进且事实不变不会失败。这个保守比较会拒绝身体移动后的候选，即使某一句台词没有依赖位置。
+
+默认开发地图的配置位于 [TownLocalObservation2D](../Assets/CozyTown/Unity/Npc/TownLocalObservation2D.cs)：6 世界单位半径、住宅几何优先、4 个户外矩形和少量池塘／路灯对象。默认目录读取时复核对象是否仍启用并处于登记位置；自定义地图通过 `Configure(scene, interiorSpaces)` 提供不可变区域与对象。`CozyTownTownLifeController.GetObservation(npcId)` 是公开读取入口。
+
+观察字段计入原 32 KiB 请求上限。代理只验证结构与身份绑定、传输事实，无法验证场景真假、当前时效或自然台词含义。后续表达对照见[专项规格](AGENT_LOCAL_OBSERVATION_SPEC.md)，本版仍返回自由 `say.text`。
 
 ## 响应
 

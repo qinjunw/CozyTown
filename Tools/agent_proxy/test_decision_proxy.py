@@ -12,6 +12,114 @@ from decision_proxy import DeepSeekTransport, ProxyError, ProxyService, create_s
 
 
 class ProxyServiceTests(unittest.TestCase):
+    def test_optional_observation_preserves_legacy_requests_and_disabled_empty_payloads(self):
+        for version in (1, 2, 3, 4):
+            for optional in ({}, {"hasObservation": False}, {"hasObservation": False, "observation": None},
+                             {"hasObservation": False, "observation": {"schemaVersion": 0, "observerId": ""}}):
+                with self.subTest(version=version, optional=optional):
+                    context = self.context() | {"schemaVersion": version} | optional
+                    sent = []
+
+                    def provider(payload):
+                        sent.append(json.loads(payload["messages"][1]["content"]))
+                        return {"choices": [{"message": {"content": json.dumps({"schemaVersion": version, "operation": "wait"})}}]}
+
+                    self.assertEqual(ProxyService(provider).decide(context), {"schemaVersion": version, "operation": "wait"})
+                    self.assertEqual(sent, [context])
+
+    def test_observation_round_trip_preserves_sample_time_provenance_permissions_and_unknowns(self):
+        original = self.observation_context()
+        fact = original["observation"]["facts"][0]
+        original["observation"].update(nearbyComplete=False, listenerId="sora", facts=[
+            fact,
+            fact | {"factId": "self.fish", "entityId": "ren", "valueType": "number", "value": "0", "knowledge": "observed"},
+            fact | {"factId": "plant.harvestable", "valueType": "boolean", "value": "false", "knowledge": "authored"},
+            fact | {"factId": "private-receipt", "knowledge": "receipt", "observedAtGameTotalMinutes": 730,
+                    "valueType": "text", "value": "private-observation-value", "canExpress": False},
+            fact | {"factId": "heard-statement", "knowledge": "statement", "speakerId": "sora",
+                    "observedAtGameTotalMinutes": 734, "valueType": "text", "value": "There are fish by the reeds."}])
+        for version in (1, 2, 3, 4):
+            with self.subTest(version=version):
+                context = original | {"schemaVersion": version}
+                before = json.loads(json.dumps(context))
+                sent = []
+                trace = io.StringIO()
+
+                def provider(payload):
+                    sent.append(json.loads(payload["messages"][1]["content"]))
+                    return {"choices": [{"message": {"content": json.dumps({"schemaVersion": version, "operation": "wait"})}}]}
+
+                service = ProxyService(provider, max_calls=1, trace=trace)
+                self.assertEqual(service.decide(context), {"schemaVersion": version, "operation": "wait"})
+                self.assertEqual(sent, [before])
+                self.assertEqual(context, before)
+                self.assertEqual(service.status["attemptedProviderCalls"], 1)
+                self.assertNotIn("private-observation-value", trace.getvalue())
+
+    def test_observation_accepts_list_limits_and_keeps_the_existing_total_utf8_budget(self):
+        context = self.observation_context()
+        fact = context["observation"]["facts"][0]
+        for entities, facts in (([], []), (["entity-" + str(index) for index in range(8)],
+                                       [fact | {"factId": str(index)} for index in range(64)])):
+            with self.subTest(entities=len(entities), facts=len(facts)):
+                request = context | {"observation": context["observation"] | {
+                    "nearbyEntityIds": entities, "facts": facts, "hasRegion": False, "regionId": "", "radius": 0}}
+                service = ProxyService(lambda payload: {"choices": [{"message": {"content": '{"schemaVersion":1,"operation":"wait"}'}}]})
+                self.assertEqual(service.decide(request), {"schemaVersion": 1, "operation": "wait"})
+        oversized = context | {"observation": context["observation"] | {"facts": [fact | {"value": "界" * 12000}]}}
+        self.assert_context_rejected_before_provider(oversized)
+
+    def test_observation_facts_keep_typed_provenance_and_the_current_observer(self):
+        original = self.observation_context()
+        fact = original["observation"]["facts"][0]
+        invalid_facts = [None, "not-a-fact"]
+        invalid_facts.extend(fact | {field: None} for field in
+            ("factId", "entityId", "predicate", "value", "unit", "source", "scope", "speakerId"))
+        invalid_facts.extend(fact | fields for fields in (
+            {"valueType": "integer"}, {"knowledge": "assumed"}, {"canExpress": 1}, {"observerId": "sora"},
+            {"observedAtGameTotalMinutes": -1}, {"observedAtGameTotalMinutes": True},
+            {"observedAtGameTotalMinutes": "737.5"}, {"observedAtGameTotalMinutes": float("inf")}))
+        for invalid in invalid_facts:
+            with self.subTest(fact=invalid):
+                self.assert_context_rejected_before_provider(original | {
+                    "observation": original["observation"] | {"facts": [invalid]}})
+
+    def test_observation_coverage_metadata_and_lists_have_bounded_shapes(self):
+        original = self.observation_context()
+        for fields in ({"spaceId": None}, {"regionId": 5}, {"listenerId": None},
+                       {"hasRegion": 1}, {"nearbyComplete": "true"},
+                       {"coverageDomain": "all_world_objects"}, {"nearbyEntityIds": None},
+                       {"nearbyEntityIds": "pond.water"}, {"nearbyEntityIds": [5]},
+                       {"nearbyEntityIds": ["entity-" + str(index) for index in range(9)]},
+                       {"facts": None}, {"facts": {}}, {"facts": original["observation"]["facts"] * 65}):
+            with self.subTest(fields=fields):
+                self.assert_context_rejected_before_provider(original | {
+                    "observation": original["observation"] | fields})
+
+    def test_observation_geometry_and_sample_time_require_finite_numbers(self):
+        original = self.observation_context()
+        for field in ("observedAtGameTotalMinutes", "x", "y", "radius"):
+            for value in (None, True, "1", float("inf"), float("nan"), 10 ** 400):
+                with self.subTest(field=field, value=value):
+                    self.assert_context_rejected_before_provider(original | {
+                        "observation": original["observation"] | {field: value}})
+        for field in ("observedAtGameTotalMinutes", "radius"):
+            with self.subTest(negative=field):
+                self.assert_context_rejected_before_provider(original | {
+                    "observation": original["observation"] | {field: -1}})
+
+    def test_enabled_observation_requires_its_version_and_current_observer_and_world(self):
+        original = self.observation_context()
+        for changes in ({"hasObservation": 1}, {"hasObservation": "true"}, {"hasObservation": None},
+                        {"observation": None}, {"observation": []},
+                        {"observation": original["observation"] | {"schemaVersion": 2}},
+                        {"observation": original["observation"] | {"schemaVersion": True}},
+                        {"observation": original["observation"] | {"schemaVersion": 1.0}},
+                        {"observation": original["observation"] | {"observerId": "sora"}},
+                        {"observation": original["observation"] | {"worldRunId": "previous-world"}}):
+            with self.subTest(changes=changes):
+                self.assert_context_rejected_before_provider(original | changes)
+
     def test_correction_is_a_separate_host_request_with_the_original_identity_and_limits(self):
         sent = []
 
@@ -387,6 +495,30 @@ class ProxyServiceTests(unittest.TestCase):
     def context():
         return {"schemaVersion": 1, "npcId": "ren", "decisionId": "decision-1",
                 "step": 1, "allowedOperations": ["wait"]}
+
+    @classmethod
+    def observation_context(cls):
+        return cls.context() | {"worldRunId": "11111111111111111111111111111111", "gameTotalMinutes": 735,
+            "hasObservation": True, "observation": {
+                "schemaVersion": 1, "observerId": "ren", "worldRunId": "11111111111111111111111111111111",
+                "observedAtGameTotalMinutes": 737.5, "x": -3.0, "y": -1.4, "spaceId": "outdoors",
+                "hasRegion": True, "regionId": "pond", "radius": 3.0, "nearbyEntityIds": ["pond.water"],
+                "nearbyComplete": True, "coverageDomain": "registered_entities_same_region_within_radius",
+                "listenerId": "", "facts": [{
+                    "factId": "pond.fish-quantity", "entityId": "pond.water", "predicate": "fish_quantity",
+                    "value": "", "valueType": "unknown", "unit": "", "knowledge": "unknown",
+                    "source": "registered-world-state", "observerId": "ren", "observedAtGameTotalMinutes": 737.5,
+                    "scope": "pond.water", "speakerId": "", "canExpress": True}]}}
+
+    def assert_context_rejected_before_provider(self, context):
+        sent = []
+        service = ProxyService(lambda payload: sent.append(payload), max_calls=1)
+        with self.assertRaisesRegex(ProxyError, "proxy.context_invalid") as caught:
+            service.decide(context)
+        self.assertEqual(caught.exception.status, 400)
+        self.assertEqual(sent, [])
+        self.assertEqual(service.status["remainingCalls"], 1)
+        self.assertEqual(service.measurements, [])
 
     def assert_candidate_error(self, candidate, context, expected_code):
         trace = io.StringIO()

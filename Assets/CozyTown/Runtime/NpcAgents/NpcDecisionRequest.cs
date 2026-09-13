@@ -26,6 +26,20 @@ namespace CozyTown.Runtime.NpcAgents
         }
 
         internal NpcDecisionRequest(NpcDecisionRequest previous, NpcLocationDetails details, string candidateErrorCode = null)
+            : this(previous)
+        {
+            LocationDetails = details;
+            Step = previous.Step + 1;
+            CandidateErrorCode = candidateErrorCode;
+        }
+
+        internal NpcDecisionRequest(NpcDecisionRequest previous, NpcLocalObservation observation) : this(previous)
+            => Observation = observation;
+
+        internal NpcDecisionRequest(NpcDecisionRequest previous, NpcSocialContext social) : this(previous)
+            => Social = social;
+
+        private NpcDecisionRequest(NpcDecisionRequest previous)
         {
             NpcId = previous.NpcId;
             DisplayName = previous.DisplayName;
@@ -35,12 +49,13 @@ namespace CozyTown.Runtime.NpcAgents
             Triggers = previous.Triggers;
             DecisionId = previous.DecisionId;
             KnownLocationIds = previous.KnownLocationIds;
-            LocationDetails = details;
-            Step = previous.Step + 1;
+            LocationDetails = previous.LocationDetails;
+            Step = previous.Step;
             MaxCalls = previous.MaxCalls;
             PreviousResultCode = previous.PreviousResultCode;
             Social = previous.Social;
-            CandidateErrorCode = candidateErrorCode;
+            CandidateErrorCode = previous.CandidateErrorCode;
+            Observation = previous.Observation;
         }
 
         public string NpcId { get; }
@@ -57,6 +72,7 @@ namespace CozyTown.Runtime.NpcAgents
         public string PreviousResultCode { get; }
         public string CandidateErrorCode { get; }
         public NpcSocialContext Social { get; }
+        public NpcLocalObservation Observation { get; }
         public bool HasSelfAssessment => Social?.Resources != null && Social.Kind != NpcSocialContextKind.Conversation
             && Social.DeliveryResultCode != "resource.delivered";
         public IReadOnlyList<string> AllowedOperations

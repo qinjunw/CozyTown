@@ -5,6 +5,7 @@ import threading
 import time
 import copy
 import argparse
+import math
 import uuid
 from pathlib import Path
 import urllib.error
@@ -145,6 +146,13 @@ Copy supplied identifiers exactly. Do not include explanation outside the JSON o
 If candidateErrorCode is nonempty, your previous candidate was not executed.
 Return one corrected candidate with its required fields at the top level, not inside arguments.
 Keep using the supplied identifiers and the original allowedOperations.
+Only when hasObservation is true, use observation as this observer's bounded snapshot at its recorded time.
+Authored facts describe configured content; statements prove only what the named speaker said;
+receipts prove the recorded past result, not current holdings. Do not treat these as interchangeable observations.
+For speech to observation.listenerId, use only facts marked canExpress; other facts remain private decision context.
+Unknown values and incomplete nearby lists do not establish zero, absence or unlimited resources.
+A complete nearby list covers only registered entities in the stated region and radius, not the whole world.
+Sampled position is not targetLocationId. A registered or decorative object does not imply usable resources.
 """
 
 
@@ -185,10 +193,11 @@ class ProxyService:
             allowed = context.get("allowedOperations")
             if not isinstance(allowed, list) or not allowed or any(not isinstance(op, str) or op not in operations for op in allowed):
                 raise ValueError
+            self._validate_observation(context)
             context_json = json.dumps(context, ensure_ascii=False, allow_nan=False)
             if len(context_json.encode("utf-8")) > 32768:
                 raise ValueError
-        except (TypeError, ValueError, UnicodeError):
+        except (TypeError, ValueError, UnicodeError, OverflowError):
             raise ProxyError("proxy.context_invalid", 400) from None
         with self._lock:
             if self._calls >= self._max_calls:
@@ -255,6 +264,54 @@ class ProxyService:
                 if self._trace is not None:
                     self._trace.write(json.dumps(record, ensure_ascii=False, allow_nan=False) + "\n")
                     self._trace.flush()
+
+    @staticmethod
+    def _validate_observation(context):
+        if "hasObservation" not in context:
+            return
+        if type(context["hasObservation"]) is not bool:
+            raise ValueError
+        if not context["hasObservation"]:
+            return
+        observation = context.get("observation")
+        if not isinstance(observation, dict) or type(observation.get("schemaVersion")) is not int or observation["schemaVersion"] != 1:
+            raise ValueError
+        if observation.get("observerId") != context["npcId"]:
+            raise ValueError
+        world_id = observation.get("worldRunId")
+        if not isinstance(world_id, str) or not world_id or world_id != context.get("worldRunId"):
+            raise ValueError
+        for field in ("observedAtGameTotalMinutes", "x", "y", "radius"):
+            value = observation.get(field)
+            if type(value) not in (int, float) or not math.isfinite(value):
+                raise ValueError
+        if observation["observedAtGameTotalMinutes"] < 0 or observation["radius"] < 0:
+            raise ValueError
+        if any(not isinstance(observation.get(field), str) for field in ("spaceId", "regionId", "listenerId")):
+            raise ValueError
+        if any(type(observation.get(field)) is not bool for field in ("hasRegion", "nearbyComplete")):
+            raise ValueError
+        if observation.get("coverageDomain") != "registered_entities_same_region_within_radius":
+            raise ValueError
+        entities = observation.get("nearbyEntityIds")
+        if not isinstance(entities, list) or len(entities) > 8 or any(not isinstance(item, str) for item in entities):
+            raise ValueError
+        facts = observation.get("facts")
+        if not isinstance(facts, list) or len(facts) > 64:
+            raise ValueError
+        for fact in facts:
+            if not isinstance(fact, dict) or any(not isinstance(fact.get(field), str) for field in
+                    ("factId", "entityId", "predicate", "value", "unit", "source", "scope", "speakerId")):
+                raise ValueError
+            if fact.get("valueType") not in ("text", "number", "boolean", "unknown"):
+                raise ValueError
+            if fact.get("knowledge") not in ("observed", "authored", "statement", "receipt", "unknown"):
+                raise ValueError
+            if type(fact.get("canExpress")) is not bool or fact.get("observerId") != context["npcId"]:
+                raise ValueError
+            observed_at = fact.get("observedAtGameTotalMinutes")
+            if type(observed_at) not in (int, float) or not math.isfinite(observed_at) or observed_at < 0:
+                raise ValueError
 
     @staticmethod
     def _validate_candidate(candidate, context):

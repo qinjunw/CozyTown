@@ -24,6 +24,7 @@ namespace CozyTown.Unity.Npc
         private NpcMeetingBoard _meetings;
         private CharacterResourceTrading _resources;
         private NpcMeetingDialogueView _meetingView;
+        private TownLocalObservation2D _observation;
 
         public bool DecisionsEnabled => _decisions != null;
         public long DecisionRequestsStarted => _decisions?.RequestsStarted ?? 0;
@@ -42,12 +43,34 @@ namespace CozyTown.Unity.Npc
 
         public CharacterTradeResources GetMeetingResources(string npcId) => _meetings?.GetResources(npcId);
 
+        public void ConfigureObservations(TownLocalObservation2D observation)
+            => _observation = observation ?? throw new ArgumentNullException(nameof(observation));
+
+        public NpcLocalObservation GetObservation(string npcId)
+            => CaptureObservation(npcId, _meetings?.GetContext(npcId));
+
+        private NpcLocalObservation CaptureObservation(string npcId, NpcSocialContext social)
+        {
+            var state = GetAgentState(npcId);
+            return _observation.Scene.Read(npcId, state.WorldRunId, _agents.TotalMinutes,
+                _observation.CaptureBodies(residents), social,
+                _resources?.Inspect(social?.Resources?.Terms ?? _meetings?.GetLatest(npcId)?.ResourceTerms, npcId),
+                _meetings?.GetMemories(npcId));
+        }
+
         public void Bind(IWorldTimeFlow timeFlow, CharacterResourceTrading resources = null)
         {
             if (timeFlow == null) throw new ArgumentNullException(nameof(timeFlow));
             bool resourcesChanged = resources != null && !ReferenceEquals(_resources, resources);
             if (resources != null) _resources = resources;
             foreach (var resident in residents) resident.ValidateConfiguration();
+            if (_observation == null)
+            {
+                _observation = GetComponent<TownLocalObservation2D>() ?? gameObject.AddComponent<TownLocalObservation2D>();
+                var map = residents.FirstOrDefault()?.GetComponentInParent<CozyTown.Unity.Town.TownMap2D>();
+                if (residents.All(resident => resident.GetComponentInParent<CozyTown.Unity.Town.TownMap2D>() == map))
+                    _observation.TryConfigureDevelopmentMap(map);
+            }
             if (_hasState && ReferenceEquals(_timeFlow, timeFlow) && !resourcesChanged) return;
             var schedules = new NpcDailySchedule[residents.Length];
             var actors = new Dictionary<string, NpcWorldResident2D>(StringComparer.Ordinal);
@@ -79,7 +102,8 @@ namespace CozyTown.Unity.Npc
             if (_agents == null) throw new InvalidOperationException("Bind world time before configuring decisions.");
             var profileArray = profiles.ToArray();
             var meetings = meetingPlans == null ? null : new NpcMeetingBoard(_agents, meetingPlans, MeetingPresence, _resources);
-            var candidate = new NpcDecisionScheduler(_agents, profileArray, client, settings, meetings);
+            var candidate = new NpcDecisionScheduler(_agents, profileArray, client, settings, meetings,
+                request => CaptureObservation(request.NpcId, request.Social));
             var before = CaptureActivities();
             _decisions?.Dispose();
             _meetings?.CancelAll();
