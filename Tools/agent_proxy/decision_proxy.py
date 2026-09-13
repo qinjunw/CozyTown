@@ -170,7 +170,7 @@ class ProxyService:
     def decide(self, context):
         try:
             operations = {"wait", "inspect_location", "visit", "invite", "accept_invite", "decline_invite", "say", "end_conversation", "deliver", "cancel_exchange"}
-            if not isinstance(context, dict) or type(context.get("schemaVersion")) is not int or context["schemaVersion"] not in (1, 2, 3):
+            if not isinstance(context, dict) or type(context.get("schemaVersion")) is not int or context["schemaVersion"] not in (1, 2, 3, 4):
                 raise ValueError
             if not isinstance(context.get("npcId"), str) or not context["npcId"].strip():
                 raise ValueError

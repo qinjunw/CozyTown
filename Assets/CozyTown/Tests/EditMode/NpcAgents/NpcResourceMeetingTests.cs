@@ -49,6 +49,29 @@ namespace CozyTown.Tests.EditMode.NpcAgents
             Assert.That(previousSora.Backpack.Items, Is.Empty);
         }
 
+        [TestCase(24, false)]
+        [TestCase(25, true)]
+        [TestCase(26, true)]
+        public void Invitation_RechecksCurrentBuyerFundsBeforeCreatingACommitment(int balance, bool permitted)
+        {
+            _board.Observe();
+            var actor = _world.GetState("sora");
+            Assert.That(_board.GetContext("sora").Resources.Balance, Is.EqualTo(50));
+            _store.CommitCharacter(Character("sora", 0, balance));
+            var result = _board.Invite(actor, "fish-supply");
+            Assert.That(result.IsSuccess, Is.EqualTo(permitted));
+            if (!permitted)
+            {
+                Assert.That(result.ErrorCode, Is.EqualTo("wallet.insufficient_funds"));
+                Assert.That(_board.GetCurrent("sora"), Is.Null);
+                Assert.That(_board.GetCurrent("ren"), Is.Null);
+                Assert.That(_board.IsPlaceReserved("pond"), Is.False);
+            }
+            AssertAssets(2, 0, 0, balance);
+            Assert.That(_world.GetState("sora").ActiveActivity, Is.Null);
+            Assert.That(_world.GetState("ren").ActiveActivity, Is.Null);
+        }
+
         [Test]
         public void DecliningTheOpportunity_ReleasesThePartnersOrdinaryDecision()
         {
@@ -60,6 +83,31 @@ namespace CozyTown.Tests.EditMode.NpcAgents
             Assert.That(client.Requests.Last().NpcId, Is.EqualTo("ren"));
             Assert.That(client.Requests.Last().Social, Is.Null);
             Assert.That(_board.GetCurrent("sora"), Is.Null);
+        }
+
+        [TestCase(0, false)]
+        [TestCase(1, true)]
+        [TestCase(2, true)]
+        public void Acceptance_RechecksOnlySellerStockAndReleasesAnUnfulfillableInvitation(int stock, bool permitted)
+        {
+            var id = _board.Invite(_world.GetState("sora"), "fish-supply").Value.Id;
+            var actor = _world.GetState("ren");
+            Assert.That(_board.GetContext("ren").Resources.OwnedQuantity, Is.EqualTo(2));
+            _store.CommitCharacter(Character("ren", stock, 0));
+            _store.CommitCharacter(Character("sora", 0, 0));
+            var result = _board.Respond(actor, id, true);
+            Assert.That(result.IsSuccess, Is.EqualTo(permitted));
+            if (!permitted)
+            {
+                Assert.That(result.ErrorCode, Is.EqualTo("inventory.insufficient_quantity"));
+                Assert.That(_board.GetLatest("ren").State, Is.EqualTo(NpcMeetingState.Cancelled));
+                Assert.That(_board.GetCurrent("ren"), Is.Null);
+                Assert.That(_board.GetCurrent("sora"), Is.Null);
+                Assert.That(_board.IsPlaceReserved("pond"), Is.False);
+                Assert.That(_world.GetState("ren").ActiveActivity, Is.Null);
+                Assert.That(_world.GetState("sora").ActiveActivity, Is.Null);
+            }
+            AssertAssets(stock, 0, 0, 0);
         }
 
         [Test]
@@ -92,6 +140,39 @@ namespace CozyTown.Tests.EditMode.NpcAgents
             Assert.That(delivery.AllowedOperations, Is.EquivalentTo(new[] { "deliver", "cancel_exchange" }));
             Assert.That(_world.GetState("ren").ActiveActivity, Is.Null);
             Assert.That(_world.GetState("sora").ActiveActivity, Is.Null);
+        }
+
+        [TestCase("opportunity", 24, "wait")]
+        [TestCase("opportunity", 25, "invite,wait")]
+        [TestCase("opportunity", 26, "invite,wait")]
+        [TestCase("invitation", 0, "decline_invite")]
+        [TestCase("invitation", 1, "accept_invite,decline_invite")]
+        [TestCase("invitation", 2, "accept_invite,decline_invite")]
+        [TestCase("delivery", 24, "cancel_exchange")]
+        [TestCase("delivery", 25, "deliver,cancel_exchange")]
+        [TestCase("delivery", 26, "deliver,cancel_exchange")]
+        public void ResourceRequest_OffersOnlyCommitmentsSupportedByTheActorsOwnTerms(string phase, int available, string operations)
+        {
+            string actor = phase == "invitation" ? "ren" : "sora";
+            if (phase == "invitation") _board.Invite(_world.GetState("sora"), "fish-supply");
+            if (phase == "delivery") AcceptAndArrive();
+            if (actor == "ren")
+            {
+                _store.CommitCharacter(Character("ren", available, 0));
+                _store.CommitCharacter(Character("sora", 0, 0));
+            }
+            else
+            {
+                _store.CommitCharacter(Character("sora", 0, available));
+                _store.CommitCharacter(Character("ren", 0, 0));
+            }
+            var client = new ResourceClient();
+            using var scheduler = new NpcDecisionScheduler(_world,
+                new[] { new NpcDefinition(actor, actor, "Resident", "Hello") }, client, meetings: _board);
+            scheduler.Tick(0);
+            var request = client.Requests.Single();
+            Assert.That(request.Social.Kind.ToString().ToLowerInvariant(), Is.EqualTo(phase));
+            Assert.That(request.AllowedOperations, Is.EqualTo(operations.Split(',')));
         }
 
         [Test]

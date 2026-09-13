@@ -67,6 +67,8 @@ namespace CozyTown.Runtime.NpcAgents
                 return OperationResult<NpcMeetingSnapshot>.Failure("meeting.actor_invalid");
             if (plan.ResourceTerms != null && !_resources.IsNeeded(plan.ResourceTerms))
                 return OperationResult<NpcMeetingSnapshot>.Failure("resource.need_satisfied");
+            if (plan.ResourceTerms != null && _resources.Inspect(plan.ResourceTerms, actor.NpcId).Balance < plan.ResourceTerms.TotalPrice)
+                return OperationResult<NpcMeetingSnapshot>.Failure("wallet.insufficient_funds");
             if (_current.ContainsKey(plan.InitiatorId) || _current.ContainsKey(plan.PartnerId))
                 return OperationResult<NpcMeetingSnapshot>.Failure("meeting.resident_reserved");
             if (_world.GetState(plan.InitiatorId).ActiveActivity != null || _world.GetState(plan.PartnerId).ActiveActivity != null)
@@ -185,6 +187,12 @@ namespace CozyTown.Runtime.NpcAgents
             {
                 Remove(meeting, NpcMeetingState.Declined);
                 return OperationResult.Success();
+            }
+            if (meeting.Plan.ResourceTerms != null
+                && _resources.Inspect(meeting.Plan.ResourceTerms, actor.NpcId).OwnedQuantity < meeting.Plan.ResourceTerms.Quantity)
+            {
+                Remove(meeting, NpcMeetingState.Cancelled);
+                return OperationResult.Failure("inventory.insufficient_quantity");
             }
             if (IsBusy(meeting))
             {

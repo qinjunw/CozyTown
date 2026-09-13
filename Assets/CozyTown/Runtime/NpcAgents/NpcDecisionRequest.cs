@@ -55,11 +55,21 @@ namespace CozyTown.Runtime.NpcAgents
         public int MaxCalls { get; }
         public string PreviousResultCode { get; }
         public NpcSocialContext Social { get; }
-        public IReadOnlyList<string> AllowedOperations => Array.AsReadOnly(Social == null
-            ? new[] { "wait", "inspect_location", "visit" }
-            : Social.Kind == NpcSocialContextKind.Opportunity ? new[] { "invite", "wait" }
-            : Social.Kind == NpcSocialContextKind.Invitation ? new[] { "accept_invite", "decline_invite" }
-            : Social.Kind == NpcSocialContextKind.Delivery ? new[] { "deliver", "cancel_exchange" }
-            : Social.Transcript.Count >= 2 ? new[] { "say", "end_conversation" } : new[] { "say" });
+        public bool HasSelfAssessment => Social?.Resources != null && Social.Kind != NpcSocialContextKind.Conversation
+            && Social.DeliveryResultCode != "resource.delivered";
+        public IReadOnlyList<string> AllowedOperations
+        {
+            get
+            {
+                if (HasSelfAssessment && !Social.Resources.CanMeetKnownTerms)
+                    return Array.AsReadOnly(Social.Kind == NpcSocialContextKind.Opportunity ? new[] { "wait" }
+                        : Social.Kind == NpcSocialContextKind.Invitation ? new[] { "decline_invite" } : new[] { "cancel_exchange" });
+                return Array.AsReadOnly(Social == null ? new[] { "wait", "inspect_location", "visit" }
+                    : Social.Kind == NpcSocialContextKind.Opportunity ? new[] { "invite", "wait" }
+                    : Social.Kind == NpcSocialContextKind.Invitation ? new[] { "accept_invite", "decline_invite" }
+                    : Social.Kind == NpcSocialContextKind.Delivery ? new[] { "deliver", "cancel_exchange" }
+                    : Social.Transcript.Count >= 2 ? new[] { "say", "end_conversation" } : new[] { "say" });
+            }
+        }
     }
 }

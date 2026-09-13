@@ -16,19 +16,23 @@ namespace CozyTown.Tests.UnityEditMode
 {
     public sealed class ProxyNpcDecisionJsonCodecTests
     {
-        [TestCase("deliver", NpcDecisionKind.Deliver)]
-        [TestCase("cancel_exchange", NpcDecisionKind.CancelExchange)]
-        public void ResourceResponse_UsesOnlyTheMeetingIdentifier(string operation, NpcDecisionKind kind)
+        [TestCase(3, "deliver", NpcDecisionKind.Deliver)]
+        [TestCase(3, "cancel_exchange", NpcDecisionKind.CancelExchange)]
+        [TestCase(4, "deliver", NpcDecisionKind.Deliver)]
+        [TestCase(4, "cancel_exchange", NpcDecisionKind.CancelExchange)]
+        public void ResourceResponse_UsesOnlyTheMeetingIdentifier(int version, string operation, NpcDecisionKind kind)
         {
             var id = System.Guid.NewGuid();
-            var reply = new ProxyNpcDecisionJsonCodec().ParseResponse("{\"schemaVersion\":3,\"operation\":\"" + operation
+            var reply = new ProxyNpcDecisionJsonCodec().ParseResponse("{\"schemaVersion\":" + version + ",\"operation\":\"" + operation
                 + "\",\"meetingId\":\"" + id.ToString("N") + "\",\"quantity\":999,\"buyerId\":\"player\",\"totalPrice\":0}");
             Assert.That(reply.Kind, Is.EqualTo(kind));
             Assert.That(reply.MeetingId, Is.EqualTo(id));
         }
 
-        [Test]
-        public void ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources()
+        [TestCase(24, false, 1)]
+        [TestCase(25, true, 0)]
+        [TestCase(26, true, 0)]
+        public void ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources(int balance, bool canPay, int missing)
         {
             NpcDailySchedule Schedule(string id) => new NpcDailySchedule(id, id + ".home", id + ".outside", id + ".entry",
                 id + ".work", id + ".rest", id + ".afternoon", 360, 480, 720, 810, 1020, 1080);
@@ -37,18 +41,23 @@ namespace CozyTown.Tests.UnityEditMode
             var terms = new CharacterTradeTerms("ren", "sora", "fish", 1, 25);
             var store = new InMemoryEconomyStateStore(new[] {
                 new CharacterEconomySnapshot("ren", new InventorySnapshot(System.Array.Empty<ItemStack>()), new WalletSnapshot(98765)),
-                new CharacterEconomySnapshot("sora", new InventorySnapshot(System.Array.Empty<ItemStack>()), new WalletSnapshot(50)) }, System.Array.Empty<ShopEconomySnapshot>());
+                new CharacterEconomySnapshot("sora", new InventorySnapshot(System.Array.Empty<ItemStack>()), new WalletSnapshot(balance)) }, System.Array.Empty<ShopEconomySnapshot>());
             var trading = new CharacterResourceTrading(store, new[] { new ItemDefinition("fish", "Fish", ItemCategory.Fish, 99) }, 2);
             var board = new NpcMeetingBoard(world, new[] { new NpcMeetingPlan("fish", "sora", "ren", "pond", "sora.rest", "ren.rest", 720, 750, 780, resourceTerms: terms) }, resources: trading);
             var client = new CaptureClient();
             using var scheduler = new NpcDecisionScheduler(world, new[] { new NpcDefinition("sora", "Sora", "Cook", "Hello") }, client, meetings: board);
             scheduler.Tick(0);
             string json = new ProxyNpcDecisionJsonCodec().SerializeRequest(client.Requests.Single());
-            Assert.That(json, Does.Contain("\"schemaVersion\":3"));
+            Assert.That(json, Does.Contain("\"schemaVersion\":4"));
             Assert.That(json, Does.Contain("\"ownedQuantity\":0"));
-            Assert.That(json, Does.Contain("\"balance\":50"));
+            Assert.That(json, Does.Contain("\"balance\":" + balance));
             Assert.That(json, Does.Contain("\"totalPrice\":25"));
             Assert.That(json, Does.Not.Contain("98765"));
+            Assert.That(json, Does.Contain("\"hasSelfAssessment\":true"));
+            Assert.That(json, Does.Contain("\"role\":\"buyer\""));
+            Assert.That(json, Does.Contain("\"canMeetKnownTerms\":" + canPay.ToString().ToLowerInvariant()));
+            Assert.That(json, Does.Contain("\"missingCoins\":" + missing));
+            if (!canPay) Assert.That(json, Does.Contain("\"reasonCode\":\"wallet.insufficient_funds\""));
         }
 
         [Test]
@@ -103,7 +112,7 @@ namespace CozyTown.Tests.UnityEditMode
         [TestCase("[]")]
         [TestCase("{broken}")]
         [TestCase("{\"operation\":\"wait\"}")]
-        [TestCase("{\"schemaVersion\":4,\"operation\":\"wait\"}")]
+        [TestCase("{\"schemaVersion\":5,\"operation\":\"wait\"}")]
         [TestCase("{\"schemaVersion\":1,\"operation\":\"give_coins\"}")]
         [TestCase("{\"schemaVersion\":1,\"operation\":\"inspect_location\"}")]
         [TestCase("{\"schemaVersion\":1,\"operation\":\"visit\",\"locationId\":\"mina.work\",\"activity\":\"home\"}")]
