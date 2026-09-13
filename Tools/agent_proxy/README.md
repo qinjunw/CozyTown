@@ -41,6 +41,23 @@ python -B Tools/agent_proxy/decision_proxy.py --credential-file '<private-creden
 
 记录文件必须尚不存在，避免覆盖上一次证据。重启进程会创建新的调用预算；需要控制一次联调总量时，应扣除之前已经尝试的次数。停止代理使用 Ctrl+C。调用上限耗尽后，游戏继续按宿主日程运行，待处理会面仍受游戏时间期限约束。
 
+## 上下文对照实验
+
+`grounding_experiment.py` 是独立评测入口，复用默认代理的提供方、系统提示词和候选处理。A 保留原上下文；B 加事实范围、未知项与表达指引；C 加自方资源条件；D 再过滤自方不能承担的动作。D 仍实际调用模型，其效果单列为系统限制，不能算作模型理解改善。默认游戏代理不自动启用这些处理。
+
+```powershell
+python -B Tools/agent_proxy/grounding_experiment.py --mode fixed --credential-file '<private-credentials.json>' --corpus Tools/agent_proxy/grounding_corpus.json --output-dir 'Logs/grounding-fixed-new' --max-calls 160
+python -B Tools/agent_proxy/grounding_experiment.py --mode serve --credential-file '<private-credentials.json>' --output-dir 'Logs/grounding-scene-new' --max-calls 192 --base-port 25700
+```
+
+两条命令分别运行，合计预算上限 352 次。固定语料包含 8 个有来源记录的请求，每个在四组各运行 5 次；组序轮转、不继承前次输出。语料中的反事实和独立发言探针不是新的 Unity 运行记录。提供方失败仍计费，不自动重试。
+
+场景服务的 A/B/C/D 分别监听从 base port 开始的四个连续回环端口，共用 192 次预算。为 Unity 测试进程设置 `COZYTOWN_RUN_GROUNDING_EXPERIMENT=1`、`COZYTOWN_GROUNDING_BASE_PORT=<base-port>`，运行 `NpcResourceScenarioPlayModeTests.LiveProxy_ComparedGroundingArmsAcrossFreshScenarios`。16 轮覆盖四种初始资源配置和四组，每轮重建世界与双方状态。实际位置、路线和双方到场由测试观察后附加，A 会移除这部分实验元数据；伙伴坐标不进入模型。报告路径为 `Logs/agent-grounding-scene.json`，已存在时拒绝启动。
+
+每个命令要求全新输出目录。`manifest.json` 保存参数和来源哈希，`status.json` 保存预算和在途数；`proxy.jsonl` 保存原代理度量，`contexts.jsonl` 保存原请求、实际模型上下文、过滤动作和参数格式诊断，`provider-responses.jsonl` 保存过滤前的候选正文，不包含密钥或提供方思考内容。以 `decisionId` 和 `step` 关联多步请求；格式诊断不代替 Unity 执行结果。停止服务前确认无在途请求，重启时扣除该实验已用预算。
+
+完整分组、指标与限制见[运行前实验方案](../../docs/verification/npc-grounding-experiment-plan-2026-09-13.md)。
+
 ## 验证
 
 ```powershell
