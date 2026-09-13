@@ -1,11 +1,13 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CozyTown.Runtime.NpcAgents
 {
     public sealed class NpcDecisionOutcome
     {
         internal NpcDecisionOutcome(NpcDecisionRequest request, string code, int calls, double startedAt, double finishedAt,
-            NpcDecisionReply reply)
+            NpcDecisionReply reply, IEnumerable<string> candidateErrorCodes)
         {
             NpcId = request.NpcId;
             DecisionId = request.DecisionId;
@@ -16,6 +18,7 @@ namespace CozyTown.Runtime.NpcAgents
             FinishedAtSeconds = finishedAt;
             Context = request;
             Reply = reply;
+            CandidateErrorCodes = Array.AsReadOnly(candidateErrorCodes.ToArray());
         }
 
         public string NpcId { get; }
@@ -28,5 +31,6 @@ namespace CozyTown.Runtime.NpcAgents
         public bool ActivityAccepted => Code == "agent.activity_accepted";
         public NpcDecisionRequest Context { get; }
         public NpcDecisionReply Reply { get; }
+        public IReadOnlyList<string> CandidateErrorCodes { get; }
     }
 }

@@ -159,23 +159,24 @@ class GroundingExperimentTests(unittest.TestCase):
         self.assertFalse(records[1]["protocolInvalid"])
         self.assertEqual(proxy.status["remainingCalls"], 0)
 
-    def test_service_diagnoses_candidate_fields_without_repair_or_retry(self):
+    def test_service_preserves_proxy_field_rejection_without_repair_or_retry(self):
         for candidate, expected_issue in (
-            ({"schemaVersion": 3, "operation": "invite"}, "planId.required"),
-            ({"schemaVersion": 3, "operation": "invite", "planId": 5}, "planId.required"),
-            ({"schemaVersion": 3, "operation": "say", "meetingId": "bad", "text": "hello"}, "meetingId.guid"),
-            ({"schemaVersion": 3, "operation": "say", "meetingId": "1" * 32, "text": "x" * 241}, "text.length"),
+            ({"schemaVersion": 3, "operation": "invite"}, "candidate.plan_id_required"),
+            ({"schemaVersion": 3, "operation": "invite", "planId": 5}, "candidate.plan_id_required"),
+            ({"schemaVersion": 3, "operation": "say", "meetingId": "bad", "text": "hello"}, "candidate.meeting_id_invalid"),
+            ({"schemaVersion": 3, "operation": "say", "meetingId": "1" * 32, "text": "x" * 241}, "candidate.text_invalid"),
         ):
             with self.subTest(candidate=candidate):
                 trace = io.StringIO()
                 proxy = ProxyService(lambda payload: {"choices": [{"message": {"content": json.dumps(candidate)}}]})
                 request = context()
                 request["allowedOperations"] = [candidate["operation"]]
-                reply = ExperimentService(proxy, "B", trace).decide(request)
-                self.assertEqual(reply, candidate)
+                with self.assertRaisesRegex(ProxyError, "provider.candidate_invalid") as failure:
+                    ExperimentService(proxy, "B", trace).decide(request)
+                self.assertEqual(failure.exception.status, 422)
                 record = json.loads(trace.getvalue())
-                self.assertTrue(record["protocolInvalid"])
-                self.assertIn(expected_issue, record["protocolIssues"])
+                self.assertEqual(record["error"]["code"], "provider.candidate_invalid")
+                self.assertEqual(proxy.measurements[0]["candidateErrorCode"], expected_issue)
                 self.assertEqual(proxy.status["attemptedProviderCalls"], 1)
 
     def test_service_preserves_provider_error_and_consumed_budget(self):

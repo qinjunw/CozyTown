@@ -20,6 +20,7 @@
 | `allowedOperations`、`allowedActivities`、`maxActivityDurationGameMinutes` | 支持的操作、活动类型和临时活动期限上限 |
 | `hasLocationDetails`、`locationDetails` | 为 `true` 时才读取详情对象的 `locationId`、`isReachable`；为 `false` 时忽略该对象 |
 | `previousResultCode` | 同一世界内本人的上次决策结果码；没有时为空，不包含历史上下文链 |
+| `candidateErrorCode` | 非空时表示本次决策的前一个候选因字段问题未执行；本次为唯一一次纠正机会，与上次已结束决策的结果分开 |
 
 第一步只有地点 ID。返回 `inspect_location` 后，宿主检查地点属于本人已知范围，查询当前路线是否可达，并在下一次请求披露该地点的详情。原请求对象不变。每次续调都重新消耗请求预算；最后一次调用继续要求查询会结束为 `agent.decision_step_limit`。
 
@@ -128,4 +129,30 @@
 
 邀约和接受提交时重新读取本人资产；资产在模型请求期间减少不会因角色修订未变而绕过检查。交付继续验证实时双方资产、容量及到场，不依赖此前快照。交易完成后 `hasSelfAssessment` 为 false，不能因余额或库存下降而否定已交付事实。
 
-模型输出仍返回与请求一致的 `schemaVersion: 4`。本版本没有自动纠错或额外重试。等待放弃本次日内机会，稍后补足资源不会自动唤醒；被拒绝的非法接受也不等于角色主动拒绝，已有邀请由原期限释放。
+模型输出仍返回与请求一致的 `schemaVersion: 4`。字段问题的有界纠正见下节。等待放弃本次日内机会，稍后补足资源不会自动唤醒；被拒绝的非法接受也不等于角色主动拒绝，已有邀请由原期限释放。
+
+## 候选字段校验与一次纠正
+
+2026-09-13 的后续实施为 v1／v2／v4 请求增加可选反馈字段 `candidateErrorCode`。非空时，前一个候选未执行，模型应返回一份新的合法候选。版本和操作必须匹配原请求；计划 ID 精确匹配，非零会面 GUID 按值匹配（支持宿主 N 格式及标准 D 格式），地点必须属于本人已知集合。必填参数位于顶层，宿主和代理均不自动代填或移动嵌套字段。
+
+代理校验失败时返回 HTTP 422，例如：
+
+```json
+{"error":"provider.candidate_invalid","candidateErrorCode":"candidate.plan_id_required"}
+```
+
+| 可纠正错误码 | 字段要求 |
+| --- | --- |
+| `candidate.plan_id_required` | `planId` 是非空字符串 |
+| `candidate.location_id_required` | `locationId` 是非空字符串 |
+| `candidate.meeting_id_required` | `meetingId` 是非空字符串 |
+| `candidate.meeting_id_invalid` | `meetingId` 能解析为非零 GUID |
+| `candidate.activity_invalid` | `activity` 为允许的工作或休息类型 |
+| `candidate.duration_invalid` | `durationGameMinutes` 为大于零、有限且不超过请求上限的 JSON 数值 |
+| `candidate.text_invalid` | `text` 是非空字符串，最多 240 个 UTF-16 代码单元 |
+
+`candidate.schema_mismatch`、`candidate.operation_unavailable`、`candidate.plan_id_mismatch`、`candidate.meeting_id_mismatch` 和 `candidate.location_unknown` 表示请求绑定或可用集合不符，不触发纠正。普通 JSON 解析失败、过大正文、未知错误包和提供方故障也不触发纠正。Unity 与代理均不把字符串期限或浮点版本强制转换为有效参数。
+
+宿主最多纠正一次：保留原 `decisionId`、世界代次、修订、机会时间及允许集合，`step` 增加 1。默认每决策总共仍是两次调用，与地点查询共用；纠正没有额外预算，也不重置总决策、机会或会面期限。HTTP 客户端和代理自身不重试。所有响应依然经过宿主实时状态检查。
+
+结果 `CandidateErrorCodes` 按发生顺序保留候选诊断，即使最终候选成功也不删除首次失败。场景记录的 `candidateErrorCode` 标明该次候选失败，`decisionOutcomeCode` 则记录整个决策的终态；不能把终态成功当成每次请求均已执行。
