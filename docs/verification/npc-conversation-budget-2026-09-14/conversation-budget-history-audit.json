@@ -1,0 +1,1459 @@
+{
+  "schemaVersion": 1,
+  "generatedAtUtc": "2026-09-14T11:56:05.864429+00:00",
+  "issue": 72,
+  "baselineCommit": "ec2082233bf64ff29d86350aaae9e0c0ac77884b",
+  "scope": "Read-only historical evidence audit: candidate-validation trial 8 and moving-observation batch 2 available F. No new model calls, Unity runs, production changes or factual-dialogue scoring.",
+  "sourceEvidence": {
+    "docs/verification/npc-candidate-validation-2026-09-13/world-runs.json": {
+      "sha256": "52bf4fc1ef2b02cf43e721b25655891a1b69cfc6a09896b3e9c0213712c4ec59",
+      "bytes": 320438
+    },
+    "docs/verification/npc-candidate-validation-2026-09-13/proxy.jsonl": {
+      "sha256": "e2a3b77eee72c40a490aa2a853dc9fc84723ee5987ff876ea82d559c1e6f84c4",
+      "bytes": 18825
+    },
+    "docs/verification/npc-candidate-validation-2026-09-13/provider-responses.jsonl": {
+      "sha256": "da89108e931cdffe2da2d592c55a26b18bd211cebf9af735f90422dbe970a424",
+      "bytes": 10268
+    },
+    "docs/verification/npc-candidate-validation-2026-09-13/injections.jsonl": {
+      "sha256": "03ed1d7341bffd8cf489109f7cea4071caed78b38c7ce0e1bdfc0c930c999de3",
+      "bytes": 2100
+    },
+    "docs/verification/npc-candidate-validation-2026-09-13/manifest.json": {
+      "sha256": "9f211f33174cab0f44ef0716aa0156950d9241800f177fb2a7d81b62eb1cde03",
+      "bytes": 1056
+    },
+    "docs/verification/npc-candidate-validation-2026-09-13/final-status.json": {
+      "sha256": "ed87713f264cadd81cd2943c9c892e9d265f592a02f569befcd148fd6890d8f6",
+      "bytes": 121
+    },
+    "docs/verification/npc-moving-observation-2026-09-14/moving-observation-live-2-2026-09-14/unity-scene.json": {
+      "sha256": "ba637008240a9f736e34d1450aae1b6771b447bd15d66e93368f385e732bea66",
+      "bytes": 717273
+    },
+    "docs/verification/npc-moving-observation-2026-09-14/moving-observation-live-2-2026-09-14/contexts.jsonl": {
+      "sha256": "34596137e0932205f9cef1bfa6911812cf6305a774e5713f6df4b0be7baf1052",
+      "bytes": 382064
+    },
+    "docs/verification/npc-moving-observation-2026-09-14/moving-observation-live-2-2026-09-14/provider-starts.jsonl": {
+      "sha256": "f14ed55f90403bbc897edbd54e8e87f47f045c81a3acacaaecc871e360224ac1",
+      "bytes": 4124
+    },
+    "docs/verification/npc-moving-observation-2026-09-14/moving-observation-live-2-2026-09-14/provider-responses.jsonl": {
+      "sha256": "294b73f91664c6e7dc4f7bb09d3e99ba38a55da1532569c8ea4d18bb5b92c972",
+      "bytes": 7131
+    },
+    "docs/verification/npc-moving-observation-2026-09-14/moving-observation-live-2-2026-09-14/proxy.jsonl": {
+      "sha256": "0ec73ca46872fb4bf63cc1af9d0f83c145c5c03bc23ea6e70631622f53f278d3",
+      "bytes": 8624
+    },
+    "docs/verification/npc-moving-observation-2026-09-14/moving-observation-live-2-2026-09-14/manifest.json": {
+      "sha256": "69deeecfc2dceeafd3b2ce9eb2d61ea3bad32d7f65f39b79e641bca2a8da01ad",
+      "bytes": 6739
+    },
+    "docs/verification/npc-moving-observation-2026-09-14/moving-observation-live-2-2026-09-14/status.json": {
+      "sha256": "3614c9b8238d406994fea8876916c1d93271f202abd6968d906536ac27ede741",
+      "bytes": 506
+    }
+  },
+  "frozenSourceContracts": [
+    {
+      "commit": "8f5be22f3c36ccb36118e8775a4e0bfd533b84f9",
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionSettings.cs",
+      "gitBlobSha256": "d6aa7ca181388106545df0b45d1689f0c3b4d8257ad52c481f9b2328bc303714",
+      "lines": "7-10",
+      "contract": "Default limits: 8 starts per rolling 60 real seconds; 2 concurrent requests; 2 calls per decision; 12-second decision deadline; 8-second request deadline; 30-game-minute opportunity lifetime."
+    },
+    {
+      "commit": "80ddc8ae734a818b49685f38e85ac3d635c167c6",
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionSettings.cs",
+      "gitBlobSha256": "d6aa7ca181388106545df0b45d1689f0c3b4d8257ad52c481f9b2328bc303714",
+      "lines": "7-10",
+      "contract": "Default limits: 8 starts per rolling 60 real seconds; 2 concurrent requests; 2 calls per decision; 12-second decision deadline; 8-second request deadline; 30-game-minute opportunity lifetime."
+    },
+    {
+      "commit": "8f5be22f3c36ccb36118e8775a4e0bfd533b84f9",
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "gitBlobSha256": "f9f68e98310ca9b2f4ec0fadd1a8557cb7e0250088193d251dd6f6e01c35a666",
+      "lines": "106,121-122,153-165,170,188-200,299-327",
+      "contract": "Every dispatched request, including correction and later cancellation, consumes a rolling-window start. Expiration removes starts at start <= tick - 60. Pending snapshots are checked for revision and opportunity age before dispatch; no per-frame Pending records are present in these evidence sets."
+    },
+    {
+      "commit": "80ddc8ae734a818b49685f38e85ac3d635c167c6",
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "gitBlobSha256": "d365e9101b4a47df08aeebace36bb0d83495e24e5cfef1da56b66eb79c66ee98",
+      "lines": "113,128-129,160-172,177,195-227,348-354",
+      "contract": "Every dispatched request, including correction and later cancellation, consumes a rolling-window start. Expiration removes starts at start <= tick - 60. Pending snapshots are checked for revision and opportunity age before dispatch; no per-frame Pending records are present in these evidence sets."
+    },
+    {
+      "commit": "8f5be22f3c36ccb36118e8775a4e0bfd533b84f9",
+      "path": "Assets/CozyTown/Runtime/Time/IWorldTimeFlow.cs",
+      "gitBlobSha256": "8547d945aecdc789eec32e8cc407585ed85f278f87021bd1afe1facc78243d2a",
+      "lines": "13",
+      "contract": "EffectiveSecondsPerGameMinute = 0.5."
+    },
+    {
+      "commit": "80ddc8ae734a818b49685f38e85ac3d635c167c6",
+      "path": "Assets/CozyTown/Runtime/Time/IWorldTimeFlow.cs",
+      "gitBlobSha256": "8547d945aecdc789eec32e8cc407585ed85f278f87021bd1afe1facc78243d2a",
+      "lines": "13",
+      "contract": "EffectiveSecondsPerGameMinute = 0.5."
+    },
+    {
+      "commit": "8f5be22f3c36ccb36118e8775a4e0bfd533b84f9",
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs",
+      "gitBlobSha256": "dee5d2e1c228d878747315df7bb90735af94f49b40b777b5adb82a044e4b0496",
+      "lines": "201-205,220-245,247-264,286-290,448-466",
+      "contract": "Fresh trial passes no decision settings override. Manual game advancement uses elapsed real delta before TickDecisions. Request snapshots and client duration are recorded; trial.startedAtUtc precedes scene loading, while elapsedSeconds starts later. Only meeting-state, receipt or transcript-count changes append observations."
+    },
+    {
+      "commit": "80ddc8ae734a818b49685f38e85ac3d635c167c6",
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs",
+      "gitBlobSha256": "27cc9a430b56c655f2cda5113f38d8bc6244c1abf7c346bba15a4c924ed31ff7",
+      "lines": "233-263",
+      "contract": "Fresh trial passes no decision settings override. Manual game advancement uses elapsed real delta before TickDecisions. Request snapshots and client duration are recorded; trial.startedAtUtc precedes scene loading, while elapsedSeconds starts later. Only meeting-state, receipt or transcript-count changes append observations."
+    },
+    {
+      "commit": "8f5be22f3c36ccb36118e8775a4e0bfd533b84f9",
+      "path": "Assets/CozyTown/Unity/Npc/CozyTownTownLifeController.cs",
+      "gitBlobSha256": "48da4b3072e338e881d47006020409fadca9b9458b051f17b8b7660dc6302a74",
+      "lines": "76-82,97-103",
+      "contract": "ConfigureDecisions forwards optional settings to a new scheduler."
+    },
+    {
+      "commit": "8f5be22f3c36ccb36118e8775a4e0bfd533b84f9",
+      "path": "Assets/CozyTown/Unity/Editor/CozyTownTownLifeSceneUpgrader.cs",
+      "gitBlobSha256": "2e38d36ceaf920e2f58a2ec74ae5f34f5dcf03c2fef43a9d05d2615a60c9f89a",
+      "lines": "29-32",
+      "contract": "Authored schedule source lists Ren boundary 795 and Sora boundary 840; this is configuration evidence, not a record of the old trial event delivery."
+    }
+  ],
+  "clockAndBudgetModel": {
+    "rollingWindowRealSeconds": 60,
+    "maxStartsPerWindow": 8,
+    "maxConcurrentRequests": 2,
+    "maxCallsPerDecision": 2,
+    "opportunityLifetimeGameMinutes": 30,
+    "requestTimeoutRealSeconds": 8,
+    "decisionTimeoutRealSeconds": 12,
+    "gameMinuteAtTrialLoopStart": 735,
+    "realSecondsPerGameMinute": 0.5,
+    "relativeClockFormula": "snapshotElapsedSeconds = (context.gameTotalMinutes - 735) * 0.5; a recorded observation verifies this conversion.",
+    "releaseFormula": "Each actual dispatch start consumes one slot until the first scheduler Tick with tick >= start + 60. Cancellation and correction do not refund a start.",
+    "requestBudgetDistinction": "context.remainingCalls is the current decision continuation budget; it is not the rolling-world budget. Proxy and per-trial caps are also separate.",
+    "utcLimitation": "Old evidence has no provider-start file and no call start UTC. Trial UTC precedes loading. New provider UTC timestamps identify provider recorder starts, not exact Unity scheduler enqueue instants.",
+    "continuationTimeLimitation": "Step 2 preserves step 1 gameTotalMinutes; it must not be treated as a second start at the same game minute."
+  },
+  "oldFailure": {
+    "directory": "docs/verification/npc-candidate-validation-2026-09-13",
+    "trialPointer": "world-runs.json:$.trials[7]",
+    "ordinal": 8,
+    "worldRunId": "982fd741-bafd-4909-b555-1bed8aeceaad",
+    "trialStartedAtUtc": "2026-09-13T09:22:22.4523101Z",
+    "trialStartedAtUtcMeaning": "Recorded before LoadFreshTown, not the UTC anchor of game minute 735 or of the first scheduler tick.",
+    "scenario": "available",
+    "arm": "",
+    "initializationPassed": true,
+    "recoveryPassed": true,
+    "deliveryObserved": true,
+    "behavior": "delivered_without_completion",
+    "schedulerCalls": 8,
+    "calls": [
+      {
+        "callOrdinal": 1,
+        "source": "world-runs.json:$.trials[7].calls[0]",
+        "contextPointer": "contextJson (decoded JSON)",
+        "decisionId": "9e4610c7-abb7-4431-937d-491b563adef6",
+        "npcId": "npc.cook_sora",
+        "phase": "Opportunity",
+        "context": {
+          "worldRunId": "982fd741bafd4909b5551bed8aeceaad",
+          "revision": 3,
+          "gameTotalMinutes": 735.000001,
+          "step": 1,
+          "remainingCalls": 1,
+          "triggers": [
+            {
+              "kind": "WorldRebuilt",
+              "gameTotalMinutes": 360.0
+            },
+            {
+              "kind": "ScheduleChanged",
+              "gameTotalMinutes": 390.0
+            },
+            {
+              "kind": "SocialOpportunity",
+              "gameTotalMinutes": 735.000001
+            }
+          ],
+          "previousResultCode": "",
+          "candidateErrorCode": "",
+          "allowedOperations": [
+            "invite",
+            "wait"
+          ]
+        },
+        "meetingId": "",
+        "meetingDeadlineGameMinute": 795.0,
+        "transcriptCountAtRequest": 0,
+        "clientElapsedMilliseconds": 643.6847,
+        "clientOperation": "",
+        "clientError": "NpcCandidateException",
+        "hostCode": "candidate.plan_id_required",
+        "decisionOutcomeCode": "meeting.invited",
+        "proxySource": "proxy.jsonl:line 25",
+        "providerSource": "provider-responses.jsonl:line 25",
+        "proxyCall": 25,
+        "proxyStatus": "provider.candidate_invalid",
+        "proxyElapsedMilliseconds": 639,
+        "providerContentSha256": "619a571627fded1af4cbc4ea1d52f0fb2331f6487bb75a81099c52814c3bcf1e",
+        "providerOperation": "invite",
+        "providerStartedAtUtc": null,
+        "providerStartSource": null,
+        "snapshotElapsedRealSecondsDerived": 4.999999987376214e-07,
+        "dispatchElapsedRealSecondsRecorded": null,
+        "startsCountAfterThisCallBeforeFirstWindowReleaseDerived": 1,
+        "rollingSlotsLeftBeforeFirstWindowReleaseDerived": 7,
+        "dispatchTimeCaveat": "Converted context creation time, not a separately recorded request-start clock. Same-tick dispatch is inferred from the frozen scheduler, empty initial queue, prior count below 8 and the recorded social opportunity."
+      },
+      {
+        "callOrdinal": 2,
+        "source": "world-runs.json:$.trials[7].calls[1]",
+        "contextPointer": "contextJson (decoded JSON)",
+        "decisionId": "9e4610c7-abb7-4431-937d-491b563adef6",
+        "npcId": "npc.cook_sora",
+        "phase": "Opportunity",
+        "context": {
+          "worldRunId": "982fd741bafd4909b5551bed8aeceaad",
+          "revision": 3,
+          "gameTotalMinutes": 735.000001,
+          "step": 2,
+          "remainingCalls": 0,
+          "triggers": [
+            {
+              "kind": "WorldRebuilt",
+              "gameTotalMinutes": 360.0
+            },
+            {
+              "kind": "ScheduleChanged",
+              "gameTotalMinutes": 390.0
+            },
+            {
+              "kind": "SocialOpportunity",
+              "gameTotalMinutes": 735.000001
+            }
+          ],
+          "previousResultCode": "",
+          "candidateErrorCode": "candidate.plan_id_required",
+          "allowedOperations": [
+            "invite",
+            "wait"
+          ]
+        },
+        "meetingId": "",
+        "meetingDeadlineGameMinute": 795.0,
+        "transcriptCountAtRequest": 0,
+        "clientElapsedMilliseconds": 871.1919,
+        "clientOperation": "invite",
+        "clientError": "",
+        "hostCode": "meeting.invited",
+        "decisionOutcomeCode": "meeting.invited",
+        "proxySource": "proxy.jsonl:line 26",
+        "providerSource": "provider-responses.jsonl:line 26",
+        "proxyCall": 26,
+        "proxyStatus": "passed",
+        "proxyElapsedMilliseconds": 868,
+        "providerContentSha256": "619a571627fded1af4cbc4ea1d52f0fb2331f6487bb75a81099c52814c3bcf1e",
+        "providerOperation": "invite",
+        "providerStartedAtUtc": null,
+        "providerStartSource": null,
+        "snapshotElapsedRealSecondsDerived": 4.999999987376214e-07,
+        "dispatchElapsedRealSecondsRecorded": null,
+        "startsCountAfterThisCallBeforeFirstWindowReleaseDerived": 2,
+        "rollingSlotsLeftBeforeFirstWindowReleaseDerived": 6,
+        "dispatchTimeCaveat": "Correction retains the original context time. The derived snapshot elapsed time is not this second dispatch time; no absolute request-start clock is recorded.",
+        "dispatchElapsedBoundsFromRecordedOrder": {
+          "minimum": 4.999999987376214e-07,
+          "maximum": 1.5166806000000008,
+          "interpretation": "Broad order bound only: correction starts after the first dispatch and before the recorded successful invitation. Serializer and frame overhead prevent an exact start estimate from client durations."
+        }
+      },
+      {
+        "callOrdinal": 3,
+        "source": "world-runs.json:$.trials[7].calls[2]",
+        "contextPointer": "contextJson (decoded JSON)",
+        "decisionId": "35f7ba68-b1d3-404e-8a6f-e13d7a2ea75c",
+        "npcId": "npc.fisher_ren",
+        "phase": "Invitation",
+        "context": {
+          "worldRunId": "982fd741bafd4909b5551bed8aeceaad",
+          "revision": 3,
+          "gameTotalMinutes": 738.0383400000001,
+          "step": 1,
+          "remainingCalls": 1,
+          "triggers": [
+            {
+              "kind": "MeetingChanged",
+              "gameTotalMinutes": 738.0333612
+            }
+          ],
+          "previousResultCode": "",
+          "candidateErrorCode": "",
+          "allowedOperations": [
+            "accept_invite",
+            "decline_invite"
+          ]
+        },
+        "meetingId": "3e849ddcc50d47f4a5794dbf57062328",
+        "meetingDeadlineGameMinute": 795.0,
+        "transcriptCountAtRequest": 0,
+        "clientElapsedMilliseconds": 925.9563,
+        "clientOperation": "accept_invite",
+        "clientError": "",
+        "hostCode": "meeting.accept_invite",
+        "decisionOutcomeCode": "meeting.accept_invite",
+        "proxySource": "proxy.jsonl:line 27",
+        "providerSource": "provider-responses.jsonl:line 27",
+        "proxyCall": 27,
+        "proxyStatus": "passed",
+        "proxyElapsedMilliseconds": 924,
+        "providerContentSha256": "89411440e53a4aebc53d06c4a86f933e835a408ed96f7af3cd9eb5375c9450a3",
+        "providerOperation": "accept_invite",
+        "providerStartedAtUtc": null,
+        "providerStartSource": null,
+        "snapshotElapsedRealSecondsDerived": 1.519170000000031,
+        "dispatchElapsedRealSecondsRecorded": null,
+        "startsCountAfterThisCallBeforeFirstWindowReleaseDerived": 3,
+        "rollingSlotsLeftBeforeFirstWindowReleaseDerived": 5,
+        "dispatchTimeCaveat": "Converted context creation time, not a separately recorded request-start clock. Same-tick dispatch is inferred from the frozen scheduler, empty initial queue, prior count below 8 and the recorded social opportunity."
+      },
+      {
+        "callOrdinal": 4,
+        "source": "world-runs.json:$.trials[7].calls[3]",
+        "contextPointer": "contextJson (decoded JSON)",
+        "decisionId": "25f361e0-6d89-42a2-b1dd-86b3f2a71eea",
+        "npcId": "npc.cook_sora",
+        "phase": "Delivery",
+        "context": {
+          "worldRunId": "982fd741bafd4909b5551bed8aeceaad",
+          "revision": 8,
+          "gameTotalMinutes": 786.0519469999999,
+          "step": 1,
+          "remainingCalls": 1,
+          "triggers": [
+            {
+              "kind": "MeetingChanged",
+              "gameTotalMinutes": 786.0519469999999
+            }
+          ],
+          "previousResultCode": "meeting.invited",
+          "candidateErrorCode": "",
+          "allowedOperations": [
+            "deliver",
+            "cancel_exchange"
+          ]
+        },
+        "meetingId": "3e849ddcc50d47f4a5794dbf57062328",
+        "meetingDeadlineGameMinute": 930.0,
+        "transcriptCountAtRequest": 0,
+        "clientElapsedMilliseconds": 923.7624000000001,
+        "clientOperation": "deliver",
+        "clientError": "",
+        "hostCode": "meeting.deliver",
+        "decisionOutcomeCode": "meeting.deliver",
+        "proxySource": "proxy.jsonl:line 28",
+        "providerSource": "provider-responses.jsonl:line 28",
+        "proxyCall": 28,
+        "proxyStatus": "passed",
+        "proxyElapsedMilliseconds": 919,
+        "providerContentSha256": "73f75e2929177891578d86519c4e6eaaaf3ee50a7f54b1979158b98cb686d1c5",
+        "providerOperation": "deliver",
+        "providerStartedAtUtc": null,
+        "providerStartSource": null,
+        "snapshotElapsedRealSecondsDerived": 25.525973499999964,
+        "dispatchElapsedRealSecondsRecorded": null,
+        "startsCountAfterThisCallBeforeFirstWindowReleaseDerived": 4,
+        "rollingSlotsLeftBeforeFirstWindowReleaseDerived": 4,
+        "dispatchTimeCaveat": "Converted context creation time, not a separately recorded request-start clock. Same-tick dispatch is inferred from the frozen scheduler, empty initial queue, prior count below 8 and the recorded social opportunity."
+      },
+      {
+        "callOrdinal": 5,
+        "source": "world-runs.json:$.trials[7].calls[4]",
+        "contextPointer": "contextJson (decoded JSON)",
+        "decisionId": "ca855522-57da-4f02-88f6-1d47347b6bcb",
+        "npcId": "npc.cook_sora",
+        "phase": "Conversation",
+        "context": {
+          "worldRunId": "982fd741bafd4909b5551bed8aeceaad",
+          "revision": 9,
+          "gameTotalMinutes": 787.9005698,
+          "step": 1,
+          "remainingCalls": 1,
+          "triggers": [
+            {
+              "kind": "MeetingChanged",
+              "gameTotalMinutes": 787.9005698
+            }
+          ],
+          "previousResultCode": "meeting.deliver",
+          "candidateErrorCode": "",
+          "allowedOperations": [
+            "say"
+          ]
+        },
+        "meetingId": "3e849ddcc50d47f4a5794dbf57062328",
+        "meetingDeadlineGameMinute": 930.0,
+        "transcriptCountAtRequest": 0,
+        "clientElapsedMilliseconds": 1492.6492,
+        "clientOperation": "say",
+        "clientError": "",
+        "hostCode": "meeting.say",
+        "decisionOutcomeCode": "meeting.say",
+        "proxySource": "proxy.jsonl:line 29",
+        "providerSource": "provider-responses.jsonl:line 29",
+        "proxyCall": 29,
+        "proxyStatus": "passed",
+        "proxyElapsedMilliseconds": 1490,
+        "providerContentSha256": "f7e9e5ac2f96df02097a6fa3b69bd744a46510c5259b41e71c335d943b8ace02",
+        "providerOperation": "say",
+        "providerStartedAtUtc": null,
+        "providerStartSource": null,
+        "snapshotElapsedRealSecondsDerived": 26.450284899999986,
+        "dispatchElapsedRealSecondsRecorded": null,
+        "startsCountAfterThisCallBeforeFirstWindowReleaseDerived": 5,
+        "rollingSlotsLeftBeforeFirstWindowReleaseDerived": 3,
+        "dispatchTimeCaveat": "Converted context creation time, not a separately recorded request-start clock. Same-tick dispatch is inferred from the frozen scheduler, empty initial queue, prior count below 8 and the recorded social opportunity."
+      },
+      {
+        "callOrdinal": 6,
+        "source": "world-runs.json:$.trials[7].calls[5]",
+        "contextPointer": "contextJson (decoded JSON)",
+        "decisionId": "c30ec2c9-eb24-4bc8-a0c5-97333df8bce4",
+        "npcId": "npc.fisher_ren",
+        "phase": "Conversation",
+        "context": {
+          "worldRunId": "982fd741bafd4909b5551bed8aeceaad",
+          "revision": 8,
+          "gameTotalMinutes": 790.8964288,
+          "step": 1,
+          "remainingCalls": 1,
+          "triggers": [
+            {
+              "kind": "MeetingChanged",
+              "gameTotalMinutes": 790.8866994
+            }
+          ],
+          "previousResultCode": "meeting.accept_invite",
+          "candidateErrorCode": "",
+          "allowedOperations": [
+            "say"
+          ]
+        },
+        "meetingId": "3e849ddcc50d47f4a5794dbf57062328",
+        "meetingDeadlineGameMinute": 930.0,
+        "transcriptCountAtRequest": 1,
+        "clientElapsedMilliseconds": 1230.1315,
+        "clientOperation": "say",
+        "clientError": "",
+        "hostCode": "meeting.say",
+        "decisionOutcomeCode": "meeting.say",
+        "proxySource": "proxy.jsonl:line 30",
+        "providerSource": "provider-responses.jsonl:line 30",
+        "proxyCall": 30,
+        "proxyStatus": "passed",
+        "proxyElapsedMilliseconds": 1227,
+        "providerContentSha256": "1e506c64844aed546f1dd0b4f466806f80e7ca15e49712610ee2bef900596a99",
+        "providerOperation": "say",
+        "providerStartedAtUtc": null,
+        "providerStartSource": null,
+        "snapshotElapsedRealSecondsDerived": 27.948214399999983,
+        "dispatchElapsedRealSecondsRecorded": null,
+        "startsCountAfterThisCallBeforeFirstWindowReleaseDerived": 6,
+        "rollingSlotsLeftBeforeFirstWindowReleaseDerived": 2,
+        "dispatchTimeCaveat": "Converted context creation time, not a separately recorded request-start clock. Same-tick dispatch is inferred from the frozen scheduler, empty initial queue, prior count below 8 and the recorded social opportunity."
+      },
+      {
+        "callOrdinal": 7,
+        "source": "world-runs.json:$.trials[7].calls[6]",
+        "contextPointer": "contextJson (decoded JSON)",
+        "decisionId": "4d181a8b-3030-48b5-b7f0-a40e9ae78c3c",
+        "npcId": "npc.cook_sora",
+        "phase": "Conversation",
+        "context": {
+          "worldRunId": "982fd741bafd4909b5551bed8aeceaad",
+          "revision": 11,
+          "gameTotalMinutes": 793.3583538,
+          "step": 1,
+          "remainingCalls": 1,
+          "triggers": [
+            {
+              "kind": "MeetingChanged",
+              "gameTotalMinutes": 793.3583538
+            }
+          ],
+          "previousResultCode": "meeting.say",
+          "candidateErrorCode": "",
+          "allowedOperations": [
+            "say",
+            "end_conversation"
+          ]
+        },
+        "meetingId": "3e849ddcc50d47f4a5794dbf57062328",
+        "meetingDeadlineGameMinute": 930.0,
+        "transcriptCountAtRequest": 2,
+        "clientElapsedMilliseconds": 730.3667,
+        "clientOperation": "say",
+        "clientError": "",
+        "hostCode": "meeting.say",
+        "decisionOutcomeCode": "meeting.say",
+        "proxySource": "proxy.jsonl:line 31",
+        "providerSource": "provider-responses.jsonl:line 31",
+        "proxyCall": 31,
+        "proxyStatus": "passed",
+        "proxyElapsedMilliseconds": 726,
+        "providerContentSha256": "584bd3ac8e4ceb2cd7eff617025c2094c2ed319f292e95ebd8d66f362e6cf05b",
+        "providerOperation": "say",
+        "providerStartedAtUtc": null,
+        "providerStartSource": null,
+        "snapshotElapsedRealSecondsDerived": 29.179176900000016,
+        "dispatchElapsedRealSecondsRecorded": null,
+        "startsCountAfterThisCallBeforeFirstWindowReleaseDerived": 7,
+        "rollingSlotsLeftBeforeFirstWindowReleaseDerived": 1,
+        "dispatchTimeCaveat": "Converted context creation time, not a separately recorded request-start clock. Same-tick dispatch is inferred from the frozen scheduler, empty initial queue, prior count below 8 and the recorded social opportunity."
+      },
+      {
+        "callOrdinal": 8,
+        "source": "world-runs.json:$.trials[7].calls[7]",
+        "contextPointer": "contextJson (decoded JSON)",
+        "decisionId": "08bd4dca-198e-4ff5-8dd6-f21fb0c89adb",
+        "npcId": "npc.fisher_ren",
+        "phase": "Conversation",
+        "context": {
+          "worldRunId": "982fd741bafd4909b5551bed8aeceaad",
+          "revision": 10,
+          "gameTotalMinutes": 794.8293758,
+          "step": 1,
+          "remainingCalls": 1,
+          "triggers": [
+            {
+              "kind": "MeetingChanged",
+              "gameTotalMinutes": 794.8207365999999
+            }
+          ],
+          "previousResultCode": "meeting.say",
+          "candidateErrorCode": "",
+          "allowedOperations": [
+            "say",
+            "end_conversation"
+          ]
+        },
+        "meetingId": "3e849ddcc50d47f4a5794dbf57062328",
+        "meetingDeadlineGameMinute": 930.0,
+        "transcriptCountAtRequest": 3,
+        "clientElapsedMilliseconds": 99.4479,
+        "clientOperation": "",
+        "clientError": "TaskCanceledException",
+        "hostCode": "agent.decision_stale",
+        "decisionOutcomeCode": "agent.decision_stale",
+        "proxySource": "proxy.jsonl:line 32",
+        "providerSource": "provider-responses.jsonl:line 32",
+        "proxyCall": 32,
+        "proxyStatus": "passed",
+        "proxyElapsedMilliseconds": 849,
+        "providerContentSha256": "f03bf77cca981686e5dff1e0a44eb548e3bf716471b7bdfd70d95a75304f00ed",
+        "providerOperation": "say",
+        "providerStartedAtUtc": null,
+        "providerStartSource": null,
+        "snapshotElapsedRealSecondsDerived": 29.91468789999999,
+        "dispatchElapsedRealSecondsRecorded": null,
+        "startsCountAfterThisCallBeforeFirstWindowReleaseDerived": 8,
+        "rollingSlotsLeftBeforeFirstWindowReleaseDerived": 0,
+        "dispatchTimeCaveat": "Converted context creation time, not a separately recorded request-start clock. Same-tick dispatch is inferred from the frozen scheduler, empty initial queue, prior count below 8 and the recorded social opportunity."
+      }
+    ],
+    "stateChanges": [
+      {
+        "source": "world-runs.json:$.trials[7].observations[0]",
+        "elapsedSeconds": 4.999999987376214e-07,
+        "gameTotalMinutes": 735.000001,
+        "state": "None",
+        "receipt": "",
+        "transcriptCount": 0
+      },
+      {
+        "source": "world-runs.json:$.trials[7].observations[1]",
+        "elapsedSeconds": 1.5166806000000008,
+        "gameTotalMinutes": 738.0333612,
+        "state": "Invited",
+        "receipt": "",
+        "transcriptCount": 0
+      },
+      {
+        "source": "world-runs.json:$.trials[7].observations[2]",
+        "elapsedSeconds": 2.4455132999999876,
+        "gameTotalMinutes": 739.8910266,
+        "state": "Scheduled",
+        "receipt": "",
+        "transcriptCount": 0
+      },
+      {
+        "source": "world-runs.json:$.trials[7].observations[3]",
+        "elapsedSeconds": 22.500396800000004,
+        "gameTotalMinutes": 780.0007936,
+        "state": "Travelling",
+        "receipt": "",
+        "transcriptCount": 0
+      },
+      {
+        "source": "world-runs.json:$.trials[7].observations[4]",
+        "elapsedSeconds": 25.525973499999992,
+        "gameTotalMinutes": 786.0519469999999,
+        "state": "Talking",
+        "receipt": "",
+        "transcriptCount": 0
+      },
+      {
+        "source": "world-runs.json:$.trials[7].observations[5]",
+        "elapsedSeconds": 26.450284899999986,
+        "gameTotalMinutes": 787.9005698,
+        "state": "Talking",
+        "receipt": "resource.delivered",
+        "transcriptCount": 0
+      },
+      {
+        "source": "world-runs.json:$.trials[7].observations[6]",
+        "elapsedSeconds": 27.9433497,
+        "gameTotalMinutes": 790.8866994,
+        "state": "Talking",
+        "receipt": "resource.delivered",
+        "transcriptCount": 1
+      },
+      {
+        "source": "world-runs.json:$.trials[7].observations[7]",
+        "elapsedSeconds": 29.179176899999987,
+        "gameTotalMinutes": 793.3583538,
+        "state": "Talking",
+        "receipt": "resource.delivered",
+        "transcriptCount": 2
+      },
+      {
+        "source": "world-runs.json:$.trials[7].observations[8]",
+        "elapsedSeconds": 29.910368299999988,
+        "gameTotalMinutes": 794.8207365999999,
+        "state": "Talking",
+        "receipt": "resource.delivered",
+        "transcriptCount": 3
+      },
+      {
+        "source": "world-runs.json:$.trials[7].observations[9]",
+        "elapsedSeconds": 97.50001880000002,
+        "gameTotalMinutes": 930.0000376,
+        "state": "Expired",
+        "receipt": "resource.delivered",
+        "transcriptCount": 3
+      }
+    ],
+    "snapshots": {
+      "initial": {
+        "source": "world-runs.json:$.trials[7].initial",
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "transcriptCount": 0
+      },
+      "terminal": {
+        "source": "world-runs.json:$.trials[7].terminal",
+        "elapsedSeconds": 97.50311290000002,
+        "gameTotalMinutes": 930.0000376,
+        "state": "Expired",
+        "receipt": "resource.delivered",
+        "renRoute": "Travelling",
+        "soraRoute": "Travelling",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "transcriptCount": 3
+      },
+      "recovery": {
+        "source": "world-runs.json:$.trials[7].recovery",
+        "elapsedSeconds": 97.50635580000005,
+        "gameTotalMinutes": 1000.0,
+        "state": "Expired",
+        "receipt": "resource.delivered",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "transcriptCount": 3
+      }
+    },
+    "hostViolations": [],
+    "perTrialCallCap": 12,
+    "trialDeadlineSeconds": 100
+  },
+  "movingControl": {
+    "directory": "docs/verification/npc-moving-observation-2026-09-14/moving-observation-live-2-2026-09-14",
+    "trialPointer": "unity-scene.json:$.trials[0]",
+    "ordinal": 1,
+    "worldRunId": "d0e2e6c4-8d9f-44ad-92cf-4b643d8465eb",
+    "trialStartedAtUtc": "2026-09-14T11:05:22.8908377Z",
+    "trialStartedAtUtcMeaning": "Recorded before LoadFreshTown, not the UTC anchor of game minute 735 or of the first scheduler tick.",
+    "scenario": "available",
+    "arm": "F",
+    "initializationPassed": true,
+    "recoveryPassed": true,
+    "deliveryObserved": true,
+    "behavior": "delivered_and_completed",
+    "schedulerCalls": 8,
+    "calls": [
+      {
+        "callOrdinal": 1,
+        "source": "unity-scene.json:$.trials[0].calls[0]",
+        "contextPointer": "contextJson (decoded JSON)",
+        "decisionId": "55a5b7ae-31c3-41bc-a95a-fd15f7386d91",
+        "npcId": "npc.cook_sora",
+        "phase": "Opportunity",
+        "context": {
+          "worldRunId": "d0e2e6c48d9f44ad92cf4b643d8465eb",
+          "revision": 3,
+          "gameTotalMinutes": 735.0000082,
+          "step": 1,
+          "remainingCalls": 1,
+          "triggers": [
+            {
+              "kind": "WorldRebuilt",
+              "gameTotalMinutes": 360.0
+            },
+            {
+              "kind": "ScheduleChanged",
+              "gameTotalMinutes": 390.0
+            },
+            {
+              "kind": "SocialOpportunity",
+              "gameTotalMinutes": 735.0000082
+            }
+          ],
+          "previousResultCode": "",
+          "candidateErrorCode": "",
+          "allowedOperations": [
+            "invite",
+            "wait"
+          ]
+        },
+        "meetingId": "",
+        "meetingDeadlineGameMinute": 795.0,
+        "transcriptCountAtRequest": 0,
+        "clientElapsedMilliseconds": 1141.6682,
+        "clientOperation": "invite",
+        "clientError": "",
+        "hostCode": "meeting.invited",
+        "decisionOutcomeCode": "meeting.invited",
+        "proxySource": "proxy.jsonl:line 1",
+        "providerSource": "provider-responses.jsonl:line 1",
+        "proxyCall": 1,
+        "proxyStatus": "passed",
+        "proxyElapsedMilliseconds": 987,
+        "providerContentSha256": "619a571627fded1af4cbc4ea1d52f0fb2331f6487bb75a81099c52814c3bcf1e",
+        "providerOperation": "invite",
+        "providerStartedAtUtc": "2026-09-14T11:05:23.314493+00:00",
+        "providerStartSource": "provider-starts.jsonl:line 1",
+        "snapshotElapsedRealSecondsDerived": 4.100000012385863e-06,
+        "dispatchElapsedRealSecondsRecorded": null,
+        "startsCountAfterThisCallBeforeFirstWindowReleaseDerived": 1,
+        "rollingSlotsLeftBeforeFirstWindowReleaseDerived": 7,
+        "dispatchTimeCaveat": "Converted context creation time, not a separately recorded request-start clock. Same-tick dispatch is inferred from the frozen scheduler, empty initial queue, prior count below 8 and the recorded social opportunity.",
+        "contextSource": "contexts.jsonl:line 1",
+        "responseStatusCode": 200,
+        "rawReplyPresent": true,
+        "executionObservationIsNull": false
+      },
+      {
+        "callOrdinal": 2,
+        "source": "unity-scene.json:$.trials[0].calls[1]",
+        "contextPointer": "contextJson (decoded JSON)",
+        "decisionId": "149667c9-1a82-4c24-b6cc-1e8ccbbedd77",
+        "npcId": "npc.fisher_ren",
+        "phase": "Invitation",
+        "context": {
+          "worldRunId": "d0e2e6c48d9f44ad92cf4b643d8465eb",
+          "revision": 3,
+          "gameTotalMinutes": 737.4333762,
+          "step": 1,
+          "remainingCalls": 1,
+          "triggers": [
+            {
+              "kind": "MeetingChanged",
+              "gameTotalMinutes": 737.3238212
+            }
+          ],
+          "previousResultCode": "",
+          "candidateErrorCode": "",
+          "allowedOperations": [
+            "accept_invite",
+            "decline_invite"
+          ]
+        },
+        "meetingId": "387e89946eb24981ab95410dc5dbb14e",
+        "meetingDeadlineGameMinute": 795.0,
+        "transcriptCountAtRequest": 0,
+        "clientElapsedMilliseconds": 1177.4286,
+        "clientOperation": "accept_invite",
+        "clientError": "",
+        "hostCode": "meeting.accept_invite",
+        "decisionOutcomeCode": "meeting.accept_invite",
+        "proxySource": "proxy.jsonl:line 2",
+        "providerSource": "provider-responses.jsonl:line 2",
+        "proxyCall": 2,
+        "proxyStatus": "passed",
+        "proxyElapsedMilliseconds": 1169,
+        "providerContentSha256": "533ce3f7ac23229a336ec38fc1a944caa424c2bdd94ff0c75a38487c26a56662",
+        "providerOperation": "accept_invite",
+        "providerStartedAtUtc": "2026-09-14T11:05:24.408509+00:00",
+        "providerStartSource": "provider-starts.jsonl:line 2",
+        "snapshotElapsedRealSecondsDerived": 1.216688099999999,
+        "dispatchElapsedRealSecondsRecorded": null,
+        "startsCountAfterThisCallBeforeFirstWindowReleaseDerived": 2,
+        "rollingSlotsLeftBeforeFirstWindowReleaseDerived": 6,
+        "dispatchTimeCaveat": "Converted context creation time, not a separately recorded request-start clock. Same-tick dispatch is inferred from the frozen scheduler, empty initial queue, prior count below 8 and the recorded social opportunity.",
+        "contextSource": "contexts.jsonl:line 2",
+        "responseStatusCode": 200,
+        "rawReplyPresent": true,
+        "executionObservationIsNull": false
+      },
+      {
+        "callOrdinal": 3,
+        "source": "unity-scene.json:$.trials[0].calls[2]",
+        "contextPointer": "contextJson (decoded JSON)",
+        "decisionId": "63ea1ada-3376-461a-b512-d86b26990c7f",
+        "npcId": "npc.cook_sora",
+        "phase": "Delivery",
+        "context": {
+          "worldRunId": "d0e2e6c48d9f44ad92cf4b643d8465eb",
+          "revision": 8,
+          "gameTotalMinutes": 786.0524836,
+          "step": 1,
+          "remainingCalls": 1,
+          "triggers": [
+            {
+              "kind": "MeetingChanged",
+              "gameTotalMinutes": 786.0524836
+            }
+          ],
+          "previousResultCode": "meeting.invited",
+          "candidateErrorCode": "",
+          "allowedOperations": [
+            "deliver",
+            "cancel_exchange"
+          ]
+        },
+        "meetingId": "387e89946eb24981ab95410dc5dbb14e",
+        "meetingDeadlineGameMinute": 930.0,
+        "transcriptCountAtRequest": 0,
+        "clientElapsedMilliseconds": 554.8528,
+        "clientOperation": "deliver",
+        "clientError": "",
+        "hostCode": "meeting.deliver",
+        "decisionOutcomeCode": "meeting.deliver",
+        "proxySource": "proxy.jsonl:line 3",
+        "providerSource": "provider-responses.jsonl:line 3",
+        "proxyCall": 3,
+        "proxyStatus": "passed",
+        "proxyElapsedMilliseconds": 549,
+        "providerContentSha256": "94be69337fe6b27d4a8058356c20b3b5a15261c057573342d883466f114dd820",
+        "providerOperation": "deliver",
+        "providerStartedAtUtc": "2026-09-14T11:05:48.714053+00:00",
+        "providerStartSource": "provider-starts.jsonl:line 3",
+        "snapshotElapsedRealSecondsDerived": 25.52624179999998,
+        "dispatchElapsedRealSecondsRecorded": null,
+        "startsCountAfterThisCallBeforeFirstWindowReleaseDerived": 3,
+        "rollingSlotsLeftBeforeFirstWindowReleaseDerived": 5,
+        "dispatchTimeCaveat": "Converted context creation time, not a separately recorded request-start clock. Same-tick dispatch is inferred from the frozen scheduler, empty initial queue, prior count below 8 and the recorded social opportunity.",
+        "contextSource": "contexts.jsonl:line 3",
+        "responseStatusCode": 200,
+        "rawReplyPresent": true,
+        "executionObservationIsNull": false
+      },
+      {
+        "callOrdinal": 4,
+        "source": "unity-scene.json:$.trials[0].calls[3]",
+        "contextPointer": "contextJson (decoded JSON)",
+        "decisionId": "8d230ea0-f8f7-4aed-8a20-b079cb8322f1",
+        "npcId": "npc.cook_sora",
+        "phase": "Conversation",
+        "context": {
+          "worldRunId": "d0e2e6c48d9f44ad92cf4b643d8465eb",
+          "revision": 9,
+          "gameTotalMinutes": 787.1638206,
+          "step": 1,
+          "remainingCalls": 1,
+          "triggers": [
+            {
+              "kind": "MeetingChanged",
+              "gameTotalMinutes": 787.1638206
+            }
+          ],
+          "previousResultCode": "meeting.deliver",
+          "candidateErrorCode": "",
+          "allowedOperations": [
+            "say"
+          ]
+        },
+        "meetingId": "387e89946eb24981ab95410dc5dbb14e",
+        "meetingDeadlineGameMinute": 930.0,
+        "transcriptCountAtRequest": 0,
+        "clientElapsedMilliseconds": 938.1342000000001,
+        "clientOperation": "say",
+        "clientError": "",
+        "hostCode": "meeting.say",
+        "decisionOutcomeCode": "meeting.say",
+        "proxySource": "proxy.jsonl:line 4",
+        "providerSource": "provider-responses.jsonl:line 4",
+        "proxyCall": 4,
+        "proxyStatus": "passed",
+        "proxyElapsedMilliseconds": 930,
+        "providerContentSha256": "58174db30457ef94c0ac1983bb0307f200dde299b0bd27263d15d1da12355eea",
+        "providerOperation": "say",
+        "providerStartedAtUtc": "2026-09-14T11:05:49.275036+00:00",
+        "providerStartSource": "provider-starts.jsonl:line 4",
+        "snapshotElapsedRealSecondsDerived": 26.081910300000004,
+        "dispatchElapsedRealSecondsRecorded": null,
+        "startsCountAfterThisCallBeforeFirstWindowReleaseDerived": 4,
+        "rollingSlotsLeftBeforeFirstWindowReleaseDerived": 4,
+        "dispatchTimeCaveat": "Converted context creation time, not a separately recorded request-start clock. Same-tick dispatch is inferred from the frozen scheduler, empty initial queue, prior count below 8 and the recorded social opportunity.",
+        "contextSource": "contexts.jsonl:line 4",
+        "responseStatusCode": 200,
+        "rawReplyPresent": true,
+        "executionObservationIsNull": false
+      },
+      {
+        "callOrdinal": 5,
+        "source": "unity-scene.json:$.trials[0].calls[4]",
+        "contextPointer": "contextJson (decoded JSON)",
+        "decisionId": "ce68661a-0059-4730-bfd1-c19e60ae58f8",
+        "npcId": "npc.fisher_ren",
+        "phase": "Conversation",
+        "context": {
+          "worldRunId": "d0e2e6c48d9f44ad92cf4b643d8465eb",
+          "revision": 8,
+          "gameTotalMinutes": 789.0665986,
+          "step": 1,
+          "remainingCalls": 1,
+          "triggers": [
+            {
+              "kind": "MeetingChanged",
+              "gameTotalMinutes": 789.0513458
+            }
+          ],
+          "previousResultCode": "meeting.accept_invite",
+          "candidateErrorCode": "",
+          "allowedOperations": [
+            "say"
+          ]
+        },
+        "meetingId": "387e89946eb24981ab95410dc5dbb14e",
+        "meetingDeadlineGameMinute": 930.0,
+        "transcriptCountAtRequest": 1,
+        "clientElapsedMilliseconds": 1186.2237,
+        "clientOperation": "say",
+        "clientError": "",
+        "hostCode": "meeting.say",
+        "decisionOutcomeCode": "meeting.say",
+        "proxySource": "proxy.jsonl:line 5",
+        "providerSource": "provider-responses.jsonl:line 5",
+        "proxyCall": 5,
+        "proxyStatus": "passed",
+        "proxyElapsedMilliseconds": 1176,
+        "providerContentSha256": "494ebfc1c9cd17333fadb31176d276d16237f976573de34ecb2526b2d0c12bf5",
+        "providerOperation": "say",
+        "providerStartedAtUtc": "2026-09-14T11:05:50.223793+00:00",
+        "providerStartSource": "provider-starts.jsonl:line 5",
+        "snapshotElapsedRealSecondsDerived": 27.03329930000001,
+        "dispatchElapsedRealSecondsRecorded": null,
+        "startsCountAfterThisCallBeforeFirstWindowReleaseDerived": 5,
+        "rollingSlotsLeftBeforeFirstWindowReleaseDerived": 3,
+        "dispatchTimeCaveat": "Converted context creation time, not a separately recorded request-start clock. Same-tick dispatch is inferred from the frozen scheduler, empty initial queue, prior count below 8 and the recorded social opportunity.",
+        "contextSource": "contexts.jsonl:line 5",
+        "responseStatusCode": 200,
+        "rawReplyPresent": true,
+        "executionObservationIsNull": false
+      },
+      {
+        "callOrdinal": 6,
+        "source": "unity-scene.json:$.trials[0].calls[5]",
+        "contextPointer": "contextJson (decoded JSON)",
+        "decisionId": "483d7195-9628-4ef9-8927-9dbfb31ba1ca",
+        "npcId": "npc.cook_sora",
+        "phase": "Conversation",
+        "context": {
+          "worldRunId": "d0e2e6c48d9f44ad92cf4b643d8465eb",
+          "revision": 11,
+          "gameTotalMinutes": 791.4414382,
+          "step": 1,
+          "remainingCalls": 1,
+          "triggers": [
+            {
+              "kind": "MeetingChanged",
+              "gameTotalMinutes": 791.4414382
+            }
+          ],
+          "previousResultCode": "meeting.say",
+          "candidateErrorCode": "",
+          "allowedOperations": [
+            "say",
+            "end_conversation"
+          ]
+        },
+        "meetingId": "387e89946eb24981ab95410dc5dbb14e",
+        "meetingDeadlineGameMinute": 930.0,
+        "transcriptCountAtRequest": 2,
+        "clientElapsedMilliseconds": 1461.4952,
+        "clientOperation": "say",
+        "clientError": "",
+        "hostCode": "meeting.say",
+        "decisionOutcomeCode": "meeting.say",
+        "proxySource": "proxy.jsonl:line 6",
+        "providerSource": "provider-responses.jsonl:line 6",
+        "proxyCall": 6,
+        "proxyStatus": "passed",
+        "proxyElapsedMilliseconds": 1447,
+        "providerContentSha256": "e125eccc88bc20bb98711ffc9bab36748c2c5f8018ef758d90147fa23858f086",
+        "providerOperation": "say",
+        "providerStartedAtUtc": "2026-09-14T11:05:51.416391+00:00",
+        "providerStartSource": "provider-starts.jsonl:line 6",
+        "snapshotElapsedRealSecondsDerived": 28.220719099999997,
+        "dispatchElapsedRealSecondsRecorded": null,
+        "startsCountAfterThisCallBeforeFirstWindowReleaseDerived": 6,
+        "rollingSlotsLeftBeforeFirstWindowReleaseDerived": 2,
+        "dispatchTimeCaveat": "Converted context creation time, not a separately recorded request-start clock. Same-tick dispatch is inferred from the frozen scheduler, empty initial queue, prior count below 8 and the recorded social opportunity.",
+        "contextSource": "contexts.jsonl:line 6",
+        "responseStatusCode": 200,
+        "rawReplyPresent": true,
+        "executionObservationIsNull": false
+      },
+      {
+        "callOrdinal": 7,
+        "source": "unity-scene.json:$.trials[0].calls[6]",
+        "contextPointer": "contextJson (decoded JSON)",
+        "decisionId": "2834dc53-d965-42ac-8760-5e060e6c234f",
+        "npcId": "npc.fisher_ren",
+        "phase": "Conversation",
+        "context": {
+          "worldRunId": "d0e2e6c48d9f44ad92cf4b643d8465eb",
+          "revision": 10,
+          "gameTotalMinutes": 794.3770724,
+          "step": 1,
+          "remainingCalls": 1,
+          "triggers": [
+            {
+              "kind": "MeetingChanged",
+              "gameTotalMinutes": 794.3663366000001
+            }
+          ],
+          "previousResultCode": "meeting.say",
+          "candidateErrorCode": "",
+          "allowedOperations": [
+            "say",
+            "end_conversation"
+          ]
+        },
+        "meetingId": "387e89946eb24981ab95410dc5dbb14e",
+        "meetingDeadlineGameMinute": 930.0,
+        "transcriptCountAtRequest": 3,
+        "clientElapsedMilliseconds": 330.11920000000003,
+        "clientOperation": "",
+        "clientError": "TaskCanceledException",
+        "hostCode": "agent.decision_stale",
+        "decisionOutcomeCode": "agent.decision_stale",
+        "proxySource": "proxy.jsonl:line 7",
+        "providerSource": "provider-responses.jsonl:line 7",
+        "proxyCall": 7,
+        "proxyStatus": "passed",
+        "proxyElapsedMilliseconds": 1019,
+        "providerContentSha256": "e58873414b8a7cc62b31751297ccb8dae35297e2561bb030df691adb147e05d2",
+        "providerOperation": "say",
+        "providerStartedAtUtc": "2026-09-14T11:05:52.877731+00:00",
+        "providerStartSource": "provider-starts.jsonl:line 7",
+        "snapshotElapsedRealSecondsDerived": 29.688536199999987,
+        "dispatchElapsedRealSecondsRecorded": null,
+        "startsCountAfterThisCallBeforeFirstWindowReleaseDerived": 7,
+        "rollingSlotsLeftBeforeFirstWindowReleaseDerived": 1,
+        "dispatchTimeCaveat": "Converted context creation time, not a separately recorded request-start clock. Same-tick dispatch is inferred from the frozen scheduler, empty initial queue, prior count below 8 and the recorded social opportunity.",
+        "contextSource": "contexts.jsonl:line 7",
+        "responseStatusCode": 0,
+        "rawReplyPresent": false,
+        "executionObservationIsNull": true
+      },
+      {
+        "callOrdinal": 8,
+        "source": "unity-scene.json:$.trials[0].calls[7]",
+        "contextPointer": "contextJson (decoded JSON)",
+        "decisionId": "d7b356cb-0bfa-48fc-80cc-35415e71906a",
+        "npcId": "npc.fisher_ren",
+        "phase": "Conversation",
+        "context": {
+          "worldRunId": "d0e2e6c48d9f44ad92cf4b643d8465eb",
+          "revision": 11,
+          "gameTotalMinutes": 795.0025594,
+          "step": 1,
+          "remainingCalls": 1,
+          "triggers": [
+            {
+              "kind": "ScheduleChanged",
+              "gameTotalMinutes": 795.0025594
+            }
+          ],
+          "previousResultCode": "agent.decision_stale",
+          "candidateErrorCode": "",
+          "allowedOperations": [
+            "say",
+            "end_conversation"
+          ]
+        },
+        "meetingId": "387e89946eb24981ab95410dc5dbb14e",
+        "meetingDeadlineGameMinute": 930.0,
+        "transcriptCountAtRequest": 3,
+        "clientElapsedMilliseconds": 1242.233,
+        "clientOperation": "say",
+        "clientError": "",
+        "hostCode": "meeting.say",
+        "decisionOutcomeCode": "meeting.say",
+        "proxySource": "proxy.jsonl:line 8",
+        "providerSource": "provider-responses.jsonl:line 8",
+        "proxyCall": 8,
+        "proxyStatus": "passed",
+        "proxyElapsedMilliseconds": 1231,
+        "providerContentSha256": "6065e9049415981e1c0c44e3fa0b119d2f4f270a395f29528d0b117dae64f8a8",
+        "providerOperation": "say",
+        "providerStartedAtUtc": "2026-09-14T11:05:53.209340+00:00",
+        "providerStartSource": "provider-starts.jsonl:line 8",
+        "snapshotElapsedRealSecondsDerived": 30.001279699999998,
+        "dispatchElapsedRealSecondsRecorded": null,
+        "startsCountAfterThisCallBeforeFirstWindowReleaseDerived": 8,
+        "rollingSlotsLeftBeforeFirstWindowReleaseDerived": 0,
+        "dispatchTimeCaveat": "Converted context creation time, not a separately recorded request-start clock. Same-tick dispatch is inferred from the frozen scheduler, empty initial queue, prior count below 8 and the recorded social opportunity.",
+        "contextSource": "contexts.jsonl:line 8",
+        "responseStatusCode": 200,
+        "rawReplyPresent": true,
+        "executionObservationIsNull": false
+      }
+    ],
+    "stateChanges": [
+      {
+        "source": "unity-scene.json:$.trials[0].observations[0]",
+        "elapsedSeconds": 4.100000001727722e-06,
+        "gameTotalMinutes": 735.0000082,
+        "state": "None",
+        "receipt": "",
+        "transcriptCount": 0
+      },
+      {
+        "source": "unity-scene.json:$.trials[0].observations[1]",
+        "elapsedSeconds": 1.1619106000000006,
+        "gameTotalMinutes": 737.3238212,
+        "state": "Invited",
+        "receipt": "",
+        "transcriptCount": 0
+      },
+      {
+        "source": "unity-scene.json:$.trials[0].observations[2]",
+        "elapsedSeconds": 2.3961827000000024,
+        "gameTotalMinutes": 739.7923654,
+        "state": "Scheduled",
+        "receipt": "",
+        "transcriptCount": 0
+      },
+      {
+        "source": "unity-scene.json:$.trials[0].observations[3]",
+        "elapsedSeconds": 22.5003607,
+        "gameTotalMinutes": 780.0007214,
+        "state": "Travelling",
+        "receipt": "",
+        "transcriptCount": 0
+      },
+      {
+        "source": "unity-scene.json:$.trials[0].observations[4]",
+        "elapsedSeconds": 25.5262418,
+        "gameTotalMinutes": 786.0524836,
+        "state": "Talking",
+        "receipt": "",
+        "transcriptCount": 0
+      },
+      {
+        "source": "unity-scene.json:$.trials[0].observations[5]",
+        "elapsedSeconds": 26.081910300000004,
+        "gameTotalMinutes": 787.1638206,
+        "state": "Talking",
+        "receipt": "resource.delivered",
+        "transcriptCount": 0
+      },
+      {
+        "source": "unity-scene.json:$.trials[0].observations[6]",
+        "elapsedSeconds": 27.025672900000004,
+        "gameTotalMinutes": 789.0513458,
+        "state": "Talking",
+        "receipt": "resource.delivered",
+        "transcriptCount": 1
+      },
+      {
+        "source": "unity-scene.json:$.trials[0].observations[7]",
+        "elapsedSeconds": 28.220719100000004,
+        "gameTotalMinutes": 791.4414382,
+        "state": "Talking",
+        "receipt": "resource.delivered",
+        "transcriptCount": 2
+      },
+      {
+        "source": "unity-scene.json:$.trials[0].observations[8]",
+        "elapsedSeconds": 29.683168300000006,
+        "gameTotalMinutes": 794.3663366000001,
+        "state": "Talking",
+        "receipt": "resource.delivered",
+        "transcriptCount": 3
+      },
+      {
+        "source": "unity-scene.json:$.trials[0].observations[9]",
+        "elapsedSeconds": 31.262471400000003,
+        "gameTotalMinutes": 797.5249428,
+        "state": "Completed",
+        "receipt": "resource.delivered",
+        "transcriptCount": 4
+      }
+    ],
+    "snapshots": {
+      "initial": {
+        "source": "unity-scene.json:$.trials[0].initial",
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "transcriptCount": 0
+      },
+      "terminal": {
+        "source": "unity-scene.json:$.trials[0].terminal",
+        "elapsedSeconds": 31.269680500000007,
+        "gameTotalMinutes": 797.5249428,
+        "state": "Completed",
+        "receipt": "resource.delivered",
+        "renRoute": "Travelling",
+        "soraRoute": "Travelling",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "rest.cook_sora",
+        "transcriptCount": 4
+      },
+      "recovery": {
+        "source": "unity-scene.json:$.trials[0].recovery",
+        "elapsedSeconds": 31.277733100000006,
+        "gameTotalMinutes": 1000.0,
+        "state": "Completed",
+        "receipt": "resource.delivered",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "transcriptCount": 4
+      }
+    },
+    "hostViolations": [],
+    "perTrialCallCap": 12,
+    "trialDeadlineSeconds": 100
+  },
+  "budgetDerivations": {
+    "oldSlotReleaseThresholds": [
+      {
+        "callOrdinal": 1,
+        "releaseElapsedSecondsDerived": 60.0000005,
+        "releaseGameMinuteDerived": 855.000001,
+        "assumption": "Context creation and request dispatch share the same scheduler tick; removal occurs at the first subsequent Tick at or after this threshold."
+      },
+      {
+        "callOrdinal": 2,
+        "releaseElapsedSecondsRange": {
+          "minimum": 60.0000005,
+          "maximum": 61.5166806
+        },
+        "releaseGameMinuteRange": {
+          "minimum": 855.000001,
+          "maximum": 858.0333612
+        },
+        "exactDispatchNotRecorded": true
+      },
+      {
+        "callOrdinal": 3,
+        "releaseElapsedSecondsDerived": 61.51917000000003,
+        "releaseGameMinuteDerived": 858.0383400000001,
+        "assumption": "Context creation and request dispatch share the same scheduler tick; removal occurs at the first subsequent Tick at or after this threshold."
+      },
+      {
+        "callOrdinal": 4,
+        "releaseElapsedSecondsDerived": 85.52597349999996,
+        "releaseGameMinuteDerived": 906.0519469999999,
+        "assumption": "Context creation and request dispatch share the same scheduler tick; removal occurs at the first subsequent Tick at or after this threshold."
+      },
+      {
+        "callOrdinal": 5,
+        "releaseElapsedSecondsDerived": 86.45028489999999,
+        "releaseGameMinuteDerived": 907.9005698,
+        "assumption": "Context creation and request dispatch share the same scheduler tick; removal occurs at the first subsequent Tick at or after this threshold."
+      },
+      {
+        "callOrdinal": 6,
+        "releaseElapsedSecondsDerived": 87.94821439999998,
+        "releaseGameMinuteDerived": 910.8964288,
+        "assumption": "Context creation and request dispatch share the same scheduler tick; removal occurs at the first subsequent Tick at or after this threshold."
+      },
+      {
+        "callOrdinal": 7,
+        "releaseElapsedSecondsDerived": 89.17917690000002,
+        "releaseGameMinuteDerived": 913.3583538,
+        "assumption": "Context creation and request dispatch share the same scheduler tick; removal occurs at the first subsequent Tick at or after this threshold."
+      },
+      {
+        "callOrdinal": 8,
+        "releaseElapsedSecondsDerived": 89.91468789999999,
+        "releaseGameMinuteDerived": 914.8293758,
+        "assumption": "Context creation and request dispatch share the same scheduler tick; removal occurs at the first subsequent Tick at or after this threshold."
+      }
+    ],
+    "movingSlotReleaseThresholds": [
+      {
+        "callOrdinal": 1,
+        "releaseElapsedSecondsDerived": 60.00000410000001,
+        "releaseGameMinuteDerived": 855.0000082,
+        "assumption": "Context creation and request dispatch share the same scheduler tick; removal occurs at the first subsequent Tick at or after this threshold."
+      },
+      {
+        "callOrdinal": 2,
+        "releaseElapsedSecondsDerived": 61.2166881,
+        "releaseGameMinuteDerived": 857.4333762,
+        "assumption": "Context creation and request dispatch share the same scheduler tick; removal occurs at the first subsequent Tick at or after this threshold."
+      },
+      {
+        "callOrdinal": 3,
+        "releaseElapsedSecondsDerived": 85.52624179999998,
+        "releaseGameMinuteDerived": 906.0524836,
+        "assumption": "Context creation and request dispatch share the same scheduler tick; removal occurs at the first subsequent Tick at or after this threshold."
+      },
+      {
+        "callOrdinal": 4,
+        "releaseElapsedSecondsDerived": 86.0819103,
+        "releaseGameMinuteDerived": 907.1638206,
+        "assumption": "Context creation and request dispatch share the same scheduler tick; removal occurs at the first subsequent Tick at or after this threshold."
+      },
+      {
+        "callOrdinal": 5,
+        "releaseElapsedSecondsDerived": 87.03329930000001,
+        "releaseGameMinuteDerived": 909.0665986,
+        "assumption": "Context creation and request dispatch share the same scheduler tick; removal occurs at the first subsequent Tick at or after this threshold."
+      },
+      {
+        "callOrdinal": 6,
+        "releaseElapsedSecondsDerived": 88.2207191,
+        "releaseGameMinuteDerived": 911.4414382,
+        "assumption": "Context creation and request dispatch share the same scheduler tick; removal occurs at the first subsequent Tick at or after this threshold."
+      },
+      {
+        "callOrdinal": 7,
+        "releaseElapsedSecondsDerived": 89.68853619999999,
+        "releaseGameMinuteDerived": 914.3770724,
+        "assumption": "Context creation and request dispatch share the same scheduler tick; removal occurs at the first subsequent Tick at or after this threshold."
+      },
+      {
+        "callOrdinal": 8,
+        "releaseElapsedSecondsDerived": 90.0012797,
+        "releaseGameMinuteDerived": 915.0025594,
+        "assumption": "Context creation and request dispatch share the same scheduler tick; removal occurs at the first subsequent Tick at or after this threshold."
+      }
+    ],
+    "oldAtCancellation": {
+      "recordedCalls": 8,
+      "derivedStartsStillIn60SecondWindow": 8,
+      "perTrialCapRemaining": 4,
+      "proxyBudgetRemainingAfterEntireMatrix": 49,
+      "firstSlotReleaseElapsedSecondsDerived": 60.0000005,
+      "firstSlotReleaseGameMinuteDerived": 855.000001,
+      "cancelReturnElapsedSecondsApprox": 30.01413579999999,
+      "cancelReturnGameMinuteApprox": 795.0282715999999,
+      "cancelClockCaveat": "Approximation adds client Stopwatch duration to context-derived tick time; serialization, in-frame time and main-thread scheduling are not recorded. The approximate result is compatible with crossing 795, but is not an observed cancellation game timestamp.",
+      "conditionalPendingExpiry": {
+        "condition": "If Ren ScheduleChanged around game minute 795 generated a Pending snapshot at that time, and no later event replaced it. This Pending was not logged.",
+        "pendingCreatedGameMinuteAssumed": 795,
+        "pendingExpiryGameMinute": 825,
+        "pendingExpiryElapsedSeconds": 45,
+        "releaseAfterAssumedExpiryRealSeconds": 15.000000499999999,
+        "releaseBeforeMeetingDeadlineRealSeconds": 37.4999995,
+        "interpretation": "The assumed Pending would expire before capacity returns; the meeting itself would still be valid for about 37.5 real seconds after capacity returns. Absence of a ninth call is recorded; Pending expiry as its cause remains unconfirmed."
+      }
+    },
+    "movingAtCancellation": {
+      "recordedCallsIncludingCancelled": 7,
+      "derivedStartsStillIn60SecondWindow": 7,
+      "rollingSlotsAvailableForSuccessor": 1,
+      "successorSnapshotGameMinute": 795.0025594,
+      "successorDerivedElapsedSeconds": 30.001279699999998,
+      "successorProviderStartedAtUtc": "2026-09-14T11:05:53.209340+00:00",
+      "providerStartGapSeconds": 0.331609,
+      "successorBeforeFirstWindowReleaseSeconds": 29.998724400000015,
+      "successorStep": 1,
+      "successorRemainingCalls": 1,
+      "successorCandidateErrorCode": "",
+      "successorPreviousResultCode": "agent.decision_stale",
+      "successorRevisionDelta": 1,
+      "successorIsNewDecision": true,
+      "interpretation": "The eighth call had one unused rolling-window slot. This control shows new-event recovery after stale cancellation, not recovery after a saturated rolling window."
+    }
+  },
+  "findings": [
+    {
+      "status": "observed",
+      "statement": "Old trial corrected an injected first invitation omission using step 2; all 8 proxy records and all 8 provider contents map to its 8 recorded calls. Last provider candidate passed but the Unity client recorded cancellation and no operation. No ninth call is recorded."
+    },
+    {
+      "status": "observed",
+      "statement": "Old state changes show three accepted transcript lines, a delivered receipt, then Expired at game 930.0000376 and work-route recovery at 1000. No Pending, queue-depth, event-delivery or per-frame revision trace was recorded after the final request."
+    },
+    {
+      "status": "source_and_timing_inference",
+      "statement": "Old default window was full after the eighth dispatch; first release is around elapsed 60 seconds / game 855. A hypothetical Pending made at 795 would hit the 30-game-minute lifetime near 825, before that release. The historical evidence alone cannot confirm the creation, replacement or disposal of that Pending."
+    },
+    {
+      "status": "observed",
+      "statement": "Moving F call 7 was cancelled with agent.decision_stale; call 8 used a new decision ID, revision 11 instead of 10, ScheduleChanged at 795.0025594, step 1 and empty candidate feedback. Its response executed as the fourth transcript line; host turn limit completed the meeting."
+    },
+    {
+      "status": "comparison_limit",
+      "statement": "Both trials recorded 8 total calls, but old failure spent an extra call on injected invitation correction and therefore cancelled at the eighth occupied slot; moving cancelled at slot 7 and used the remaining slot to recover. Different frozen sources, prompts, observation inputs, trial dates and model samples prevent a causal fix-rate claim."
+    }
+  ],
+  "uncertainties": [
+    "Old schedule-event delivery at 795 and resulting Pending cannot be observed directly from the retained file. The source-authored schedule and short cancellation duration support the hypothesis only.",
+    "No exact absolute scheduler start UTC or queue timestamp is recorded in either trial. Converted context times represent snapshot creation; delayed dispatch would shift the relevant release later.",
+    "Per-frame observations were intentionally omitted unless meeting state, receipt or transcript count changed. The long recorded gap does not prove the scheduler stopped ticking.",
+    "Recovery at 1000 is an explicit fixture advance after model dispatch stops, not evidence of further autonomous decisions.",
+    "The moving control does not exhaust all 8 starts before needing its successor; it cannot validate saturated-budget recovery."
+  ],
+  "checks": {
+    "oldCallCountMatchesScheduler": true,
+    "movingCallCountMatchesScheduler": true,
+    "oldAllCallsJoinedToProviderAndProxy": true,
+    "movingAllCallsJoinedToProviderAndProxy": true,
+    "oldTerminalExpired": true,
+    "movingTerminalCompleted": true,
+    "bothRecoveryPassed": true,
+    "oldCorrectionRetainsSameDecisionAndTime": true,
+    "movingSuccessorIsNewStep1ScheduleEvent": true,
+    "elapsedClockConversionMatchesOldObservations": true,
+    "elapsedClockConversionMatchesMovingObservations": true,
+    "originalEvidenceHashesUnchanged": true
+  },
+  "assertionsFailed": 0
+}

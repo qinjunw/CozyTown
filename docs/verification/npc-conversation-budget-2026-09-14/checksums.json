@@ -1,0 +1,21 @@
+{
+  ".gitattributes": "411084ec03a1777a150311673ce9a10197b0614fe7e21a93475290b3c2344922",
+  "conversation-budget-01-target-red.xml": "2aa94207dcc132f2278920ee7b0354423b2da11934494eaddefd046ebcd08568",
+  "conversation-budget-02-characterization.xml": "ab89ef487d32b11ed9bdf03a05078a95df88441ab2bcca3ece38e966ba22be7c",
+  "conversation-budget-03-scene-reproduction.xml": "41be002375428f55f143cd047baa51da1a76fa51019b3f59d954dc68294a0ea5",
+  "conversation-budget-04-runtime-controls.xml": "00dedc0f7d3a4ec13a21f75a6b300a62b7f8936c3efe2656843a595d249b116c",
+  "conversation-budget-05-scene-control.xml": "573833d22b1cea15a99d9e0b41a62222bd588add28f8923eb3282367b0d1b4df",
+  "conversation-budget-06-runtime-terminal.xml": "290d945739133624f18e3fe7da575ff6297381b03b9fe90e9dff78b78313f1c0",
+  "conversation-budget-07-runtime-dispatch-time.xml": "8e734d7b9de6cba13f6b1a5d32ce8809519e4611a3069e0ac60ece031acf8a24",
+  "conversation-budget-08-scene-controls.xml": "ae77558c323b9b2e9c08cae9d891aab2f98fcf3c599eb1225569cbd1113440e7",
+  "conversation-budget-09-full-edit.xml": "3fc583ac6e526d4d05aff53f326961493565f5326c7dae31c9e8adc22604bdf4",
+  "conversation-budget-10-full-play.xml": "d998aaed25f2a53e5a26206bc843eca9f127569263aa8a80eef3c72748e03b6c",
+  "conversation-budget-history-audit.json": "f77d1261cf53f70d7f8ebb62743911ed8e69ff54f99fdedee5721c4ded931e71",
+  "conversation-budget-input-audit.json": "1a7d00c610bb979db9c3404cdb941f05ddf487799c6358b2461b78fcc228824f",
+  "conversation-budget-isolated-settings.diff": "8b3a20a71676238aabc3ad109ec59e8ee6a2ea77e9c9caab9a24b879fa395e5b",
+  "conversation-budget-scene-control-first-probe.cs": "6fd5e49f204f52c9ae4ef9a2fc5fdcf31d3bdec6d0fe630475acb3c36ca546fa",
+  "conversation-budget-target-probe.cs": "adbee598ae3287b5757ab8761c62852a37862a94eda0c60c5c1af00ee84e5e1a",
+  "conversation-budget-target-sources.json": "3bf9607e082bd12594aebe379fd43cb306f4e387390576cb3ddb6e499a111e8a",
+  "independent-review.json": "e7f653c2d3cac76ee71006751413928f2d086ddfea7aa5de811d92d55ee8f2d0",
+  "manifest.json": "a17d5de5c2cec319447a6f48c43c1260be43ca9545b20d1d71a16ef16062b54a"
+}
