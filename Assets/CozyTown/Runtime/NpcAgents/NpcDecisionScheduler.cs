@@ -26,12 +26,14 @@ namespace CozyTown.Runtime.NpcAgents
         public long RequestsStarted { get; private set; }
         public int RequestsInLastMinute => _requestStarts.Count;
         public int ActiveRequestCount => _residents.Count(item => item.Request != null && !item.Request.IsCompleted);
-        public int WaitingResidentCount => _residents.Count(item => item.Pending != null || (item.Current != null && item.Request == null));
+        public int WaitingResidentCount => _residents.Count(item => item.WaitingTurn != null || item.Pending != null
+            || (item.Current != null && item.Request == null));
 
         private sealed class Resident
         {
             internal NpcDefinition Profile;
             internal NpcDecisionRequest Pending;
+            internal ConversationTurn WaitingTurn;
             internal NpcDecisionRequest Current;
             internal Task<NpcDecisionReply> Request;
             internal CancellationTokenSource Cancellation;
@@ -41,6 +43,31 @@ namespace CozyTown.Runtime.NpcAgents
             internal double RequestStarted;
             internal double LastStarted = double.NegativeInfinity;
         }
+
+        private sealed class ConversationTurn
+        {
+            internal readonly Guid WorldRunId, MeetingId;
+            internal readonly string SpeakerId;
+            internal readonly int SpokenLines;
+            internal readonly IReadOnlyList<NpcAgentEvent> Triggers;
+
+            internal ConversationTurn(NpcAgentSnapshot self, NpcSocialContext social, IReadOnlyList<NpcAgentEvent> triggers)
+            {
+                WorldRunId = self.WorldRunId;
+                MeetingId = social.MeetingId;
+                SpeakerId = self.NpcId;
+                SpokenLines = social.Transcript.Count;
+                Triggers = triggers;
+            }
+
+            internal bool Matches(NpcAgentSnapshot self, NpcSocialContext social, double gameTotalMinutes)
+                => self.WorldRunId == WorldRunId && self.NpcId == SpeakerId && IsDeliveredConversation(social)
+                    && social.MeetingId == MeetingId && social.Transcript.Count == SpokenLines
+                    && gameTotalMinutes < social.DeadlineTotalMinutes;
+        }
+
+        private static bool IsDeliveredConversation(NpcSocialContext social)
+            => social?.Kind == NpcSocialContextKind.Conversation && social.DeliveryResultCode == "resource.delivered";
 
         public NpcDecisionScheduler(NpcAgentWorld world, IEnumerable<NpcDefinition> profiles, INpcDecisionClient client,
             NpcDecisionSettings settings = null, NpcMeetingBoard meetings = null,
@@ -88,6 +115,7 @@ namespace CozyTown.Runtime.NpcAgents
             foreach (var resident in _residents)
             {
                 resident.Pending = null;
+                resident.WaitingTurn = null;
                 if (resident.Current != null) Finish(resident, "agent.decision_cancelled", cancelRequest: true);
                 var task = resident.Request;
                 var cancellation = resident.Cancellation;
@@ -160,6 +188,8 @@ namespace CozyTown.Runtime.NpcAgents
                 var events = _world.TakeEvents(resident.Profile.Id);
                 state = _world.GetState(resident.Profile.Id);
                 var social = _meetings?.GetContext(resident.Profile.Id);
+                if (resident.WaitingTurn != null && !resident.WaitingTurn.Matches(state, social, _world.TotalMinutes))
+                    resident.WaitingTurn = null;
                 if (social != null)
                 {
                     if (events.Count == 0) continue;
@@ -167,6 +197,14 @@ namespace CozyTown.Runtime.NpcAgents
                 else if (_meetings?.GetCurrent(resident.Profile.Id) != null
                     || !events.Any(item => item.Kind != NpcAgentEventKind.ActivityAccepted && item.Kind != NpcAgentEventKind.MeetingChanged)
                     || state.ActiveActivity != null || state.Target.ExpectedActivity != NpcActivity.Resting) continue;
+                if (IsDeliveredConversation(social))
+                {
+                    if (resident.Current?.Social?.MeetingId == social.MeetingId
+                        && resident.Current.Social.Transcript.Count == social.Transcript.Count) continue;
+                    resident.Pending = null;
+                    if (resident.WaitingTurn == null) resident.WaitingTurn = new ConversationTurn(state, social, events);
+                    continue;
+                }
                 resident.Pending = new NpcDecisionRequest(resident.Profile, state, _world.TotalMinutes, events,
                     _world.GetKnownLocationIds(resident.Profile.Id), _settings.MaxCallsPerDecision,
                     resident.LastOutcome?.WorldRunId == state.WorldRunId ? resident.LastOutcome.Code : null, social, _speechMode);
@@ -180,6 +218,17 @@ namespace CozyTown.Runtime.NpcAgents
                 if (resident.Request != null) continue;
                 if (resident.Current == null)
                 {
+                    if (resident.WaitingTurn != null)
+                    {
+                        var state = _world.GetState(resident.Profile.Id);
+                        var social = _meetings.GetContext(resident.Profile.Id);
+                        var turn = resident.WaitingTurn;
+                        resident.WaitingTurn = null;
+                        if (!turn.Matches(state, social, _world.TotalMinutes)) continue;
+                        resident.Pending = new NpcDecisionRequest(resident.Profile, state, _world.TotalMinutes, turn.Triggers,
+                            _world.GetKnownLocationIds(resident.Profile.Id), _settings.MaxCallsPerDecision,
+                            resident.LastOutcome?.WorldRunId == state.WorldRunId ? resident.LastOutcome.Code : null, social, _speechMode);
+                    }
                     if (resident.Pending == null) continue;
                     if (InvalidContext(resident.Pending, _world.GetState(resident.Profile.Id)) != null)
                     {

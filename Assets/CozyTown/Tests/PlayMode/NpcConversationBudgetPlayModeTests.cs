@@ -19,14 +19,21 @@ namespace CozyTown.Tests.PlayMode
     public sealed partial class NpcResourceScenarioPlayModeTests
     {
         [UnityTest]
-        public IEnumerator ConversationScheduleChange_WithEightCallBudget_DropsWaitingTurnBeforeBudgetReopens()
+        public IEnumerator ConversationScheduleChange_WithEightCallBudget_RebuildsCurrentRequestAndCompletesFourTurns()
+            => ConversationBudgetRecovery(NpcSpeechMode.FreeText);
+
+        [UnityTest]
+        public IEnumerator StructuredConversationScheduleChange_WithEightCallBudget_RebuildsCurrentRequestAndCompletesFourTurns()
+            => ConversationBudgetRecovery(NpcSpeechMode.StructuredFacts);
+
+        private IEnumerator ConversationBudgetRecovery(NpcSpeechMode mode)
         {
             yield return LoadFreshTown(Scenarios[0]);
             var trial = new Trial { initialAssets = Assets() };
             using var client = new ConversationBudgetClient(() => BudgetRealSeconds);
             _controller.ConfigureDecisions(client,
                 DefaultMvpContent.CreateConfiguration().Npcs.Where(profile => profile.Id == Ren || profile.Id == Sora),
-                meetingPlans: DefaultNpcResourcePlans.Create());
+                meetingPlans: DefaultNpcResourcePlans.Create(), speechMode: mode);
             Assert.That(_controller.GameTotalMinutes, Is.EqualTo(735).Within(0.001));
             Assert.That(_controller.GetMeetingMemories(Ren), Is.Empty);
             Assert.That(_controller.GetMeetingMemories(Sora), Is.Empty);
@@ -70,7 +77,9 @@ namespace CozyTown.Tests.PlayMode
             client.CompleteSpeech(7, "Thank you for this exchange.");
             BudgetPump(client, 8);
             var delayed = client.Calls[7];
+            string originalContext = new ProxyNpcDecisionJsonCodec().SerializeRequest(delayed.Request);
             Assert.That(delayed.Request.NpcId, Is.EqualTo(Ren));
+            Assert.That(delayed.Request.SpeechMode, Is.EqualTo(mode));
             Assert.That(delayed.Request.Social.Kind, Is.EqualTo(NpcSocialContextKind.Conversation));
             Assert.That(delayed.Request.GameTotalMinutes, Is.LessThan(794.8));
             BudgetCheckpoint("eighth_request_before_ren_schedule_boundary", client);
@@ -80,6 +89,7 @@ namespace CozyTown.Tests.PlayMode
             var deliveredAssets = Assets().Select(JsonUtility.ToJson).ToArray();
 
             BudgetAdvanceTo(795.1);
+            double boundaryObservedAt = _controller.GameTotalMinutes;
             BudgetCheckpoint("ren_revision_changed_old_request_cancelled_and_replacement_waiting", client);
             Assert.That(delayed.CancellationObserved, Is.True);
             Assert.That(_controller.GetAgentState(Ren).Revision, Is.GreaterThan(delayed.Request.Self.Revision));
@@ -90,41 +100,77 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(_controller.WaitingDecisionResidents, Is.EqualTo(1));
             Assert.That(_controller.ActiveDecisionRequests, Is.EqualTo(1));
             BudgetAdvanceTo(795.2);
-            const string discarded = "This fourth line arrived after its request was cancelled.";
-            client.CompleteSpeech(8, discarded);
+            string discarded = mode == NpcSpeechMode.StructuredFacts ? "I would like to learn about cooking."
+                : "This fourth line arrived after its request was cancelled.";
+            client.CompleteSpeech(8, discarded, new NpcSpeechFrame("express_wish", "@learn_cooking", "neutral"));
             _controller.TickDecisions(BudgetRealSeconds);
             BudgetCheckpoint("cancelled_reply_returned_without_publication", client);
             Assert.That(_controller.ActiveDecisionRequests, Is.Zero);
             Assert.That(_controller.WaitingDecisionResidents, Is.EqualTo(1));
             AssertBudgetTalkingWithThreeLines();
+            Assert.That(_controller.GetObservation(Ren).Facts.Any(fact => fact.Knowledge == "statement" && fact.Value == discarded), Is.False);
 
             BudgetAdvanceTo(824.9);
             BudgetCheckpoint("replacement_still_waiting_before_thirty_game_minutes", client);
             Assert.That(_controller.WaitingDecisionResidents, Is.EqualTo(1));
             Assert.That(_controller.DecisionRequestsInLastMinute, Is.EqualTo(8));
             BudgetAdvanceTo(825.2);
-            BudgetCheckpoint("replacement_no_longer_waiting_before_budget_reopens", client);
-            Assert.That(_controller.WaitingDecisionResidents, Is.Zero);
+            BudgetCheckpoint("turn_still_waiting_after_original_opportunity_lifetime", client);
+            Assert.That(_controller.WaitingDecisionResidents, Is.EqualTo(1));
             Assert.That(_controller.DecisionRequestsInLastMinute, Is.EqualTo(8));
             long soraRevision = _controller.GetAgentState(Sora).Revision;
             BudgetAdvanceTo(840.1);
             BudgetCheckpoint("sora_schedule_boundary_does_not_dispatch_rens_turn", client);
             Assert.That(_controller.GetAgentState(Sora).Revision, Is.GreaterThan(soraRevision));
-            Assert.That(_controller.WaitingDecisionResidents, Is.Zero);
-            BudgetAdvanceTo(855.2);
-            BudgetCheckpoint("first_three_budget_slots_reopened_without_a_ninth_request", client);
-            Assert.That(_controller.DecisionRequestsInLastMinute, Is.EqualTo(5));
+            Assert.That(_controller.WaitingDecisionResidents, Is.EqualTo(1));
             Assert.That(client.Calls.Count, Is.EqualTo(8));
-            Assert.That(_controller.DecisionRequestsStarted, Is.EqualTo(8));
+            BudgetAdvanceTo(855.2);
+            BudgetCheckpoint("budget_reopened_and_ninth_request_uses_current_dispatch_snapshot", client);
+            Assert.That(_controller.DecisionRequestsInLastMinute, Is.EqualTo(6));
+            Assert.That(client.Calls.Count, Is.EqualTo(9));
+            Assert.That(_controller.DecisionRequestsStarted, Is.EqualTo(9));
+            Assert.That(_controller.WaitingDecisionResidents, Is.Zero);
+            Assert.That(_controller.ActiveDecisionRequests, Is.EqualTo(1));
+            var replacement = client.Calls[8];
+            Assert.That(replacement.Request.NpcId, Is.EqualTo(Ren));
+            Assert.That(replacement.Request.DecisionId, Is.Not.EqualTo(delayed.Request.DecisionId));
+            Assert.That(replacement.Request.Step, Is.EqualTo(1));
+            Assert.That(replacement.Request.PreviousResultCode, Is.EqualTo("agent.decision_stale"));
+            Assert.That(replacement.Request.CandidateErrorCode, Is.Null);
+            Assert.That(replacement.Request.GameTotalMinutes, Is.EqualTo(_controller.GameTotalMinutes));
+            Assert.That(replacement.Request.Self.WorldRunId, Is.EqualTo(_controller.GetAgentState(Ren).WorldRunId));
+            Assert.That(replacement.Request.Self.Revision, Is.EqualTo(_controller.GetAgentState(Ren).Revision));
+            Assert.That(replacement.Request.Self.Target.TargetLocationId, Is.EqualTo(_controller.GetAgentState(Ren).Target.TargetLocationId));
+            Assert.That(replacement.Request.Self.ActiveActivity, Is.SameAs(_controller.GetAgentState(Ren).ActiveActivity));
+            Assert.That(SerializeExecutionObservation(replacement.Request.Observation),
+                Is.EqualTo(SerializeExecutionObservation(_controller.GetObservation(Ren))));
+            Assert.That(replacement.Request.Triggers.Any(trigger => trigger.Kind == NpcAgentEventKind.ScheduleChanged
+                && trigger.TotalMinutes >= 795 && trigger.TotalMinutes <= boundaryObservedAt), Is.True);
+            Assert.That(replacement.Request.Social.Transcript.Count, Is.EqualTo(3));
+            Assert.That(new ProxyNpcDecisionJsonCodec().SerializeRequest(delayed.Request), Is.EqualTo(originalContext));
             AssertBudgetTalkingWithThreeLines();
-
-            // Recovery advances the bound world and actual bodies after model dispatch has stopped.
-            BudgetAdvanceTo(930.01, dispatch: false);
-            BudgetCheckpoint("meeting_expired_after_dispatch_stopped", client);
-            Assert.That(_controller.GetMeeting(Ren).State, Is.EqualTo(NpcMeetingState.Expired));
-            Assert.That(_controller.GetMeeting(Ren).Transcript.Count, Is.EqualTo(3));
+            BudgetAdvanceTo(855.4);
+            Assert.That(_controller.GameTotalMinutes, Is.GreaterThan(replacement.Request.GameTotalMinutes));
+            string finalLine = mode == NpcSpeechMode.StructuredFacts ? "I am in 池塘周边."
+                : "This new decision acknowledges the completed exchange.";
+            client.CompleteSpeech(9, finalLine, new NpcSpeechFrame("report_observation", Ren + ":region_name", "neutral"));
+            _controller.TickDecisions(BudgetRealSeconds);
+            BudgetCheckpoint("delayed_ninth_reply_publishes_fourth_line_and_completes_meeting", client);
+            var meeting = _controller.GetMeeting(Ren);
+            Assert.That(meeting.State, Is.EqualTo(NpcMeetingState.Completed));
+            Assert.That(meeting.Transcript.Count, Is.EqualTo(4));
+            Assert.That(meeting.Transcript.Last().Text, Is.EqualTo(finalLine));
+            Assert.That(meeting.Transcript.Any(line => line.Text == discarded), Is.False);
+            var completed = _controller.GetDecisionOutcome(Ren);
+            Assert.That(completed.DecisionId, Is.EqualTo(replacement.Request.DecisionId));
+            Assert.That(completed.Code, Is.EqualTo("meeting.say"));
+            Assert.That(completed.ExecutionObservation.ObservedAtTotalMinutes, Is.GreaterThan(replacement.Request.Observation.ObservedAtTotalMinutes));
+            Assert.That(client.Calls.Count(call => call.Reply?.Kind == NpcDecisionKind.Deliver), Is.EqualTo(1));
+            Assert.That(client.Calls.Any(call => call.Reply?.Kind == NpcDecisionKind.EndConversation), Is.False);
+            Assert.That(_controller.ActiveDecisionRequests, Is.Zero);
             foreach (string id in new[] { Ren, Sora })
                 Assert.That(_controller.GetAgentState(id).ActiveActivity, Is.Null);
+            // Recovery advances the bound world and actual bodies after model dispatch has stopped.
             BudgetAdvanceTo(1000, dispatch: false);
             BudgetCheckpoint("default_work_schedule_recovered_without_further_dispatch", client);
             foreach (var resident in new[] { _ren, _sora })
@@ -133,26 +179,34 @@ namespace CozyTown.Tests.PlayMode
                 Assert.That(resident.TargetLocationId, Does.StartWith("work."));
                 Assert.That(_controller.GetAgentState(resident.NpcId).ActiveActivity, Is.Null);
                 var memories = _controller.GetMeetingMemories(resident.NpcId);
-                Assert.That(memories.Count(memory => memory.Kind == "meeting.spoken"), Is.EqualTo(3));
+                Assert.That(memories.Count(memory => memory.Kind == "meeting.spoken"), Is.EqualTo(4));
                 Assert.That(memories.Any(memory => memory.Text == discarded), Is.False);
             }
+            Assert.That(_controller.GetMeeting(Ren).State, Is.EqualTo(NpcMeetingState.Completed));
             CheckAssets(trial, Scenarios[0], Observe(BudgetRealSeconds));
             Assert.That(trial.hostViolations, Is.Empty);
             Assert.That(Assets().Select(JsonUtility.ToJson), Is.EqualTo(deliveredAssets));
-            Assert.That(client.Calls.Count, Is.EqualTo(8));
+            Assert.That(client.Calls.Count, Is.EqualTo(9));
             TestContext.WriteLine("conversation-budget-observation-limit: pending request identity and triggers are not exposed; checkpoints record public counters, revisions and dispatched request/outcome triggers without consuming events.");
             yield return UnloadTown();
         }
 
         [UnityTest]
         public IEnumerator ConversationScheduleChange_WithOneBudgetSlotRemaining_DispatchesNewDecisionAndCompletesFourTurns()
+            => ConversationBudgetSlotControl(NpcSpeechMode.FreeText);
+
+        [UnityTest]
+        public IEnumerator StructuredConversationScheduleChange_WithOneBudgetSlotRemaining_DispatchesNewDecisionAndCompletesFourTurns()
+            => ConversationBudgetSlotControl(NpcSpeechMode.StructuredFacts);
+
+        private IEnumerator ConversationBudgetSlotControl(NpcSpeechMode mode)
         {
             yield return LoadFreshTown(Scenarios[0]);
             var trial = new Trial { initialAssets = Assets() };
             using var client = new ConversationBudgetClient(() => BudgetRealSeconds);
             _controller.ConfigureDecisions(client,
                 DefaultMvpContent.CreateConfiguration().Npcs.Where(profile => profile.Id == Ren || profile.Id == Sora),
-                meetingPlans: DefaultNpcResourcePlans.Create());
+                meetingPlans: DefaultNpcResourcePlans.Create(), speechMode: mode);
             Assert.That(_controller.GameTotalMinutes, Is.EqualTo(735).Within(0.001));
             Assert.That(_controller.GetMeetingMemories(Ren), Is.Empty);
             Assert.That(_controller.GetMeetingMemories(Sora), Is.Empty);
@@ -183,6 +237,7 @@ namespace CozyTown.Tests.PlayMode
             BudgetPump(client, 7);
             var delayed = client.Calls[6];
             Assert.That(delayed.Request.NpcId, Is.EqualTo(Ren));
+            Assert.That(delayed.Request.SpeechMode, Is.EqualTo(mode));
             Assert.That(delayed.Request.GameTotalMinutes, Is.LessThan(794.8));
             BudgetCheckpoint("control_seventh_request_with_one_budget_slot_remaining", client);
             Assert.That(_controller.DecisionRequestsInLastMinute, Is.EqualTo(7));
@@ -202,8 +257,9 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(_controller.WaitingDecisionResidents, Is.EqualTo(1));
             Assert.That(client.Calls.Count, Is.EqualTo(7));
             BudgetAdvanceTo(795.2);
-            const string discarded = "This fourth line arrived after its request was cancelled.";
-            client.CompleteSpeech(7, discarded);
+            string discarded = mode == NpcSpeechMode.StructuredFacts ? "I would like to learn about cooking."
+                : "This fourth line arrived after its request was cancelled.";
+            client.CompleteSpeech(7, discarded, new NpcSpeechFrame("express_wish", "@learn_cooking", "neutral"));
             BudgetPump(client, 8);
             var replacement = client.Calls[7];
             BudgetCheckpoint("control_eighth_request_is_a_new_schedule_triggered_decision", client);
@@ -213,14 +269,15 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(replacement.Request.Self.Revision, Is.GreaterThan(delayed.Request.Self.Revision));
             Assert.That(replacement.Request.PreviousResultCode, Is.EqualTo("agent.decision_stale"));
             Assert.That(replacement.Request.CandidateErrorCode, Is.Null);
-            Assert.That(replacement.Request.GameTotalMinutes, Is.EqualTo(boundaryObservedAt));
+            Assert.That(replacement.Request.GameTotalMinutes, Is.EqualTo(_controller.GameTotalMinutes));
             Assert.That(replacement.Request.Triggers.Any(trigger => trigger.Kind == NpcAgentEventKind.ScheduleChanged
                 && trigger.TotalMinutes >= 795 && trigger.TotalMinutes <= boundaryObservedAt), Is.True);
             Assert.That(_controller.DecisionRequestsInLastMinute, Is.EqualTo(8));
             Assert.That(_controller.WaitingDecisionResidents, Is.Zero);
             AssertBudgetTalkingWithThreeLines();
-            const string finalLine = "This new decision acknowledges the completed exchange.";
-            client.CompleteSpeech(8, finalLine);
+            string finalLine = mode == NpcSpeechMode.StructuredFacts ? "I am in 池塘周边."
+                : "This new decision acknowledges the completed exchange.";
+            client.CompleteSpeech(8, finalLine, new NpcSpeechFrame("report_observation", Ren + ":region_name", "neutral"));
             _controller.TickDecisions(BudgetRealSeconds);
             BudgetCheckpoint("control_fourth_published_line_reaches_host_turn_limit", client);
             var meeting = _controller.GetMeeting(Ren);
@@ -255,6 +312,7 @@ namespace CozyTown.Tests.PlayMode
             yield return UnloadTown();
         }
 
+        // The controller receives controlled monotonic seconds; Advance moves the actual scene at the default time ratio.
         private double BudgetRealSeconds => (_controller.GameTotalMinutes - 735) * WorldTimeProgress.EffectiveSecondsPerGameMinute;
 
         private void BudgetAdvanceTo(double minute, bool dispatch = true)
@@ -284,6 +342,7 @@ namespace CozyTown.Tests.PlayMode
             var meeting = _controller.GetMeeting(Ren);
             var record = new ConversationBudgetCheckpoint {
                 label = label, realSeconds = BudgetRealSeconds, gameMinutes = _controller.GameTotalMinutes,
+                worldRunId = _controller.GetAgentState(Ren).WorldRunId.ToString("N"), speechMode = client.Calls.FirstOrDefault()?.Request.SpeechMode.ToString(),
                 requestsStarted = _controller.DecisionRequestsStarted, requestsInLastMinute = _controller.DecisionRequestsInLastMinute,
                 activeRequests = _controller.ActiveDecisionRequests, waitingResidents = _controller.WaitingDecisionResidents,
                 renRevision = _controller.GetAgentState(Ren).Revision, soraRevision = _controller.GetAgentState(Sora).Revision,
@@ -300,6 +359,8 @@ namespace CozyTown.Tests.PlayMode
                     triggers = BudgetEvents(call.Request), contextJson = new ProxyNpcDecisionJsonCodec().SerializeRequest(call.Request),
                     rawCandidate = call.RawCandidate, candidateErrorCode = call.CandidateErrorCode,
                     returnedOperation = call.Reply?.Operation, returnedText = call.Reply?.Text,
+                    returnedSpeechFrame = call.Reply?.SpeechFrame == null ? null : new SpeechFrameRecord {
+                        speechIntent = call.Reply.SpeechFrame.Intent, factId = call.Reply.SpeechFrame.FactId, tone = call.Reply.SpeechFrame.Tone },
                     cancellationObserved = call.CancellationObserved, responseCompleted = call.Completion.Task.IsCompleted }).ToArray()
             };
             TestContext.WriteLine("conversation-budget-checkpoint " + JsonUtility.ToJson(record));
@@ -332,8 +393,17 @@ namespace CozyTown.Tests.PlayMode
                 var request = Calls[number - 1].Request;
                 Complete(number, new RuleClient(false).DecideAsync(request, CancellationToken.None).GetAwaiter().GetResult());
             }
-            internal void CompleteSpeech(int number, string text)
-                => Complete(number, new NpcDecisionReply(NpcDecisionKind.Speak, meetingId: Calls[number - 1].Request.Social.MeetingId, text: text));
+            internal void CompleteSpeech(int number, string text, NpcSpeechFrame frame = null)
+            {
+                var request = Calls[number - 1].Request;
+                if (request.SpeechMode == NpcSpeechMode.StructuredFacts)
+                {
+                    frame ??= new NpcSpeechFrame("express_wish", "@talk", "neutral");
+                    Assert.That(NpcFactSpeech.TryRender(request.Observation, frame, out _, out var error), Is.True, error);
+                    Complete(number, new NpcDecisionReply(NpcDecisionKind.Speak, meetingId: request.Social.MeetingId, speechFrame: frame));
+                }
+                else Complete(number, new NpcDecisionReply(NpcDecisionKind.Speak, meetingId: request.Social.MeetingId, text: text));
+            }
             private void Complete(int number, NpcDecisionReply reply)
             {
                 var call = Calls[number - 1];
@@ -359,7 +429,7 @@ namespace CozyTown.Tests.PlayMode
 
         [Serializable] private sealed class ConversationBudgetCheckpoint
         {
-            public string label, meetingState, speakerId;
+            public string label, meetingState, speakerId, worldRunId, speechMode;
             public double realSeconds, gameMinutes;
             public long requestsStarted, renRevision, soraRevision;
             public int requestsInLastMinute, activeRequests, waitingResidents;
@@ -383,6 +453,7 @@ namespace CozyTown.Tests.PlayMode
             public double dispatchedAtRealSeconds, gameMinutes;
             public bool cancellationObserved, responseCompleted;
             public string[] triggers;
+            public SpeechFrameRecord returnedSpeechFrame;
         }
     }
 }
