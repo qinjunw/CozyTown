@@ -1,0 +1,722 @@
+[
+  {
+    "request": 1,
+    "arm": "F",
+    "caseId": "position_destination",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "047a872f3e9e484abaa662f2dd65479c",
+      "text": "Right now I'm at the west lane, not the pond. Glad the carp came through, Ren — that fish will make a fine stew!"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 2,
+    "arm": "S",
+    "caseId": "position_destination",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "047a872f3e9e484abaa662f2dd65479c",
+      "speechIntent": "report_observation",
+      "factId": "npc.cook_sora:region_name",
+      "tone": "warm"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 3,
+    "arm": "S",
+    "caseId": "decoration_capability",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "2ac1df5299b14193b27d63cd5074366c",
+      "speechIntent": "report_observation",
+      "factId": "decor.plant:interaction",
+      "tone": "brief"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 4,
+    "arm": "F",
+    "caseId": "decoration_capability",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "2ac1df5299b14193b27d63cd5074366c",
+      "text": "That plant is just decoration, Sora. The pond's water is where the fish come from, but I can't promise what's biting today."
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 5,
+    "arm": "F",
+    "caseId": "unknown_quantity",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "dc31667c8b4448f4bb0bc6ee510b0251",
+      "text": "No idea — the pond's carp count is unknown to me. But I've got your carp now, and I'd love to cook it up together!"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 6,
+    "arm": "S",
+    "caseId": "unknown_quantity",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "dc31667c8b4448f4bb0bc6ee510b0251",
+      "speechIntent": "acknowledge_unknown",
+      "factId": "pond.water:quantity",
+      "tone": "warm"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 7,
+    "arm": "S",
+    "caseId": "partner_private_assets",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "313ba98498714196b46243b933c76999",
+      "speechIntent": "acknowledge_unknown",
+      "factId": "@partner_assets",
+      "tone": "brief"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 8,
+    "arm": "F",
+    "caseId": "partner_private_assets",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "313ba98498714196b46243b933c76999",
+      "text": "I can't see your pack from here, Sora. I only know I handed you one carp for 25 coins."
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 9,
+    "arm": "F",
+    "caseId": "past_statement_current_stock",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "d8060e6914f6474faf9040e7d9ecacd6",
+      "text": "Good question! Counting what I actually hold right now: zero carp. Earlier I misspoke — I had two before, but that one carp was my only purchase so far."
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 10,
+    "arm": "S",
+    "caseId": "past_statement_current_stock",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "d8060e6914f6474faf9040e7d9ecacd6",
+      "speechIntent": "report_receipt",
+      "factId": "meeting:d8060e6914f6474faf9040e7d9ecacd6:delivered_quantity",
+      "tone": "neutral"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Valid historical receipt selected; does not answer current own stock of zero."
+  },
+  {
+    "request": 11,
+    "arm": "S",
+    "caseId": "truncated_local_absence",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "52827915798e4228bc88c8d37a24fffd",
+      "speechIntent": "acknowledge_unknown",
+      "factId": "@nearby_coverage",
+      "tone": "brief"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 12,
+    "arm": "F",
+    "caseId": "truncated_local_absence",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "52827915798e4228bc88c8d37a24fffd",
+      "text": "No, my list only covers what's registered nearby — a plant and some lamps. It doesn't prove nothing else is around. The carp is yours, Sora."
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 13,
+    "arm": "F",
+    "caseId": "successful_receipt",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "c9b39b3c42644a719f3b05258a5144d1",
+      "text": "The meeting receipt shows resource.delivered: 1 carp for 25 coins. That transfer is recorded as complete."
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 14,
+    "arm": "S",
+    "caseId": "successful_receipt",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "c9b39b3c42644a719f3b05258a5144d1",
+      "speechIntent": "report_receipt",
+      "factId": "meeting:c9b39b3c42644a719f3b05258a5144d1:delivery_result",
+      "tone": "warm"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 15,
+    "arm": "S",
+    "caseId": "statement_not_experience",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "ccac1641aeda4083ab77bac9b5a642ae",
+      "speechIntent": "recall_statement",
+      "factId": "statement:ccac1641aeda4083ab77bac9b5a642ae:0",
+      "tone": "neutral"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 16,
+    "arm": "F",
+    "caseId": "statement_not_experience",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "ccac1641aeda4083ab77bac9b5a642ae",
+      "text": "I only know what I saw: I delivered a carp to you earlier today. Whether you fished this morning, I have no evidence of that."
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 17,
+    "arm": "S",
+    "caseId": "position_destination",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "047a872f3e9e484abaa662f2dd65479c",
+      "speechIntent": "report_observation",
+      "factId": "npc.cook_sora:region_name",
+      "tone": "warm"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 18,
+    "arm": "F",
+    "caseId": "position_destination",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "047a872f3e9e484abaa662f2dd65479c",
+      "text": "Right now I'm at my rest spot on the West lane, Ren. The carp arrived and I've got the 25 coins ready for you."
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 19,
+    "arm": "F",
+    "caseId": "decoration_capability",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "2ac1df5299b14193b27d63cd5074366c",
+      "text": "That plant's just decoration, Sora — nothing to harvest there. The pond's where the carp live, and I've already brought you one."
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 20,
+    "arm": "S",
+    "caseId": "decoration_capability",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "2ac1df5299b14193b27d63cd5074366c",
+      "speechIntent": "report_observation",
+      "factId": "decor.plant:interaction",
+      "tone": "neutral"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 21,
+    "arm": "S",
+    "caseId": "unknown_quantity",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "dc31667c8b4448f4bb0bc6ee510b0251",
+      "speechIntent": "acknowledge_unknown",
+      "factId": "pond.water:quantity",
+      "tone": "warm"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 22,
+    "arm": "F",
+    "caseId": "unknown_quantity",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "dc31667c8b4448f4bb0bc6ee510b0251",
+      "text": "I can't count the carp, Ren—I only know I just bought one from you. But if you catch more, I'll cook us a fine pond-side stew!"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 23,
+    "arm": "F",
+    "caseId": "partner_private_assets",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "313ba98498714196b46243b933c76999",
+      "text": "I can't tell what you're carrying. I only know I handed over one carp for 25 coins."
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 24,
+    "arm": "S",
+    "caseId": "partner_private_assets",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "313ba98498714196b46243b933c76999",
+      "speechIntent": "acknowledge_unknown",
+      "factId": "@partner_assets",
+      "tone": "brief"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 25,
+    "arm": "S",
+    "caseId": "past_statement_current_stock",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "d8060e6914f6474faf9040e7d9ecacd6",
+      "speechIntent": "report_observation",
+      "factId": "npc.cook_sora:owned_quantity",
+      "tone": "brief"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 26,
+    "arm": "F",
+    "caseId": "past_statement_current_stock",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "d8060e6914f6474faf9040e7d9ecacd6",
+      "text": "Just the one carp now, Ren—the delivery came through at 25 coins. I spoke too soon before!"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 27,
+    "arm": "F",
+    "caseId": "truncated_local_absence",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "52827915798e4228bc88c8d37a24fffd",
+      "text": "No. My list is partial, not proof of absence. I only see lamps and a decorative plant nearby, and the pond at dusk."
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 28,
+    "arm": "S",
+    "caseId": "truncated_local_absence",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "52827915798e4228bc88c8d37a24fffd",
+      "speechIntent": "acknowledge_unknown",
+      "factId": "@nearby_coverage",
+      "tone": "brief"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 29,
+    "arm": "S",
+    "caseId": "successful_receipt",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "c9b39b3c42644a719f3b05258a5144d1",
+      "speechIntent": "report_receipt",
+      "factId": "meeting:c9b39b3c42644a719f3b05258a5144d1:delivery_result",
+      "tone": "warm"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 30,
+    "arm": "F",
+    "caseId": "successful_receipt",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "c9b39b3c42644a719f3b05258a5144d1",
+      "text": "The recorded result is resource.delivered: 1 fish.carp for 25 coins, at minute 750. Want to talk pond recipes next?"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 31,
+    "arm": "F",
+    "caseId": "statement_not_experience",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "ccac1641aeda4083ab77bac9b5a642ae",
+      "text": "I can only speak to what I witnessed: a carp and 25 coins changed hands at our meeting. Your catch, I cannot confirm."
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 32,
+    "arm": "S",
+    "caseId": "statement_not_experience",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "ccac1641aeda4083ab77bac9b5a642ae",
+      "speechIntent": "report_receipt",
+      "factId": "meeting:ccac1641aeda4083ab77bac9b5a642ae:delivery_result",
+      "tone": "neutral"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Valid transfer receipt selected; does not answer source of fishing statement."
+  },
+  {
+    "request": 33,
+    "arm": "F",
+    "caseId": "position_destination",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "047a872f3e9e484abaa662f2dd65479c",
+      "text": "I am right here with you on West lane, not at the pond. And thanks for the carp, Ren, it reached me fine. Want to chat cooking?"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 34,
+    "arm": "S",
+    "caseId": "position_destination",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "047a872f3e9e484abaa662f2dd65479c",
+      "speechIntent": "report_observation",
+      "factId": "npc.cook_sora:region_name",
+      "tone": "warm"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 35,
+    "arm": "S",
+    "caseId": "decoration_capability",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "2ac1df5299b14193b27d63cd5074366c",
+      "speechIntent": "report_observation",
+      "factId": "decor.plant:interaction",
+      "tone": "neutral"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 36,
+    "arm": "F",
+    "caseId": "decoration_capability",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "2ac1df5299b14193b27d63cd5074366c",
+      "text": "That plant's just decoration — nothing to gather from it. The pond's where the fish are, and I already brought the carp you ordered."
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 37,
+    "arm": "F",
+    "caseId": "unknown_quantity",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "dc31667c8b4448f4bb0bc6ee510b0251",
+      "text": "I honestly can't say how many carp are left — the pond's stock is unknown to me. But I just got my carp and paid 25 coins. Shall we cook?"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 38,
+    "arm": "S",
+    "caseId": "unknown_quantity",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "dc31667c8b4448f4bb0bc6ee510b0251",
+      "speechIntent": "acknowledge_unknown",
+      "factId": "pond.water:quantity",
+      "tone": "brief"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 39,
+    "arm": "S",
+    "caseId": "partner_private_assets",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "313ba98498714196b46243b933c76999",
+      "speechIntent": "acknowledge_unknown",
+      "factId": "@partner_assets",
+      "tone": "brief"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 40,
+    "arm": "F",
+    "caseId": "partner_private_assets",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "313ba98498714196b46243b933c76999",
+      "text": "I can't say what you're carrying, Sora. I only know the pond and my own creel: one carp, already delivered to you. The water hides the rest."
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 41,
+    "arm": "F",
+    "caseId": "past_statement_current_stock",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "d8060e6914f6474faf9040e7d9ecacd6",
+      "text": "Right now I hold zero carp — the one you delivered is sold and gone. My coin balance is 25."
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 42,
+    "arm": "S",
+    "caseId": "past_statement_current_stock",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "d8060e6914f6474faf9040e7d9ecacd6",
+      "speechIntent": "report_receipt",
+      "factId": "meeting:d8060e6914f6474faf9040e7d9ecacd6:delivered_quantity",
+      "tone": "neutral"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Valid historical receipt selected; does not answer current own stock of zero."
+  },
+  {
+    "request": 43,
+    "arm": "S",
+    "caseId": "truncated_local_absence",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "52827915798e4228bc88c8d37a24fffd",
+      "speechIntent": "acknowledge_unknown",
+      "factId": "@nearby_coverage",
+      "tone": "neutral"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 44,
+    "arm": "F",
+    "caseId": "truncated_local_absence",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "52827915798e4228bc88c8d37a24fffd",
+      "text": "No. My list wasn't complete, so it can't prove that. I only saw a plant and some lamps within six paces."
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 45,
+    "arm": "F",
+    "caseId": "successful_receipt",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "c9b39b3c42644a719f3b05258a5144d1",
+      "text": "The receipt 'resource.delivered' confirms it: 1 carp for 25 coins, recorded at our meeting. Want to chat about pond cooking?"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  },
+  {
+    "request": 46,
+    "arm": "S",
+    "caseId": "successful_receipt",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "c9b39b3c42644a719f3b05258a5144d1",
+      "speechIntent": "report_receipt",
+      "factId": "meeting:c9b39b3c42644a719f3b05258a5144d1:delivery_result",
+      "tone": "warm"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 47,
+    "arm": "S",
+    "caseId": "statement_not_experience",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "ccac1641aeda4083ab77bac9b5a642ae",
+      "speechIntent": "recall_statement",
+      "factId": "statement:ccac1641aeda4083ab77bac9b5a642ae:0",
+      "tone": "brief"
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Selected fact addresses the requested topic."
+  },
+  {
+    "request": 48,
+    "arm": "F",
+    "caseId": "statement_not_experience",
+    "candidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "ccac1641aeda4083ab77bac9b5a642ae",
+      "text": "I only know what I've seen and heard. I saw you here, and I delivered one carp to you at 750. I can't confirm your catch."
+    },
+    "actionVersionMatches": true,
+    "hostStatus": "displayed",
+    "selectionNote": "Free text scored separately in annotations."
+  }
+]

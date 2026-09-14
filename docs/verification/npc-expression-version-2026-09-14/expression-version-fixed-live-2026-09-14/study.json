@@ -1,0 +1,13 @@
+{
+  "study": "action_version_binding",
+  "issue": "https://github.com/qinjunw/CozyTown/issues/78",
+  "plannedProviderAttempts": 48,
+  "enabledStages": [
+    "fixed"
+  ],
+  "sceneStagePlanned": false,
+  "baseline": "900fe0ad1dc619dc289ffc443b2caba8bc1fed4c",
+  "plan": "docs/verification/npc-expression-version-plan-2026-09-14.md",
+  "planSha256": "9e039cec8fd33b3ca061ecb5c8b4b9bfbf624cf0f5bae8f1116e3abede22fd98",
+  "note": "The reusable runner advertises a two-stage ceiling of 96; this study registers only its capped 48-request fixed stage."
+}
