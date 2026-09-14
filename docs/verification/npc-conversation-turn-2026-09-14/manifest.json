@@ -1,0 +1,410 @@
+{
+  "schemaVersion": 1,
+  "baselineCommit": "68832af00675ecf3388085bee379d46b3fa5947d",
+  "sourceCommit": "78d91d2bb91221697946be454b3893dada1c0ae7",
+  "productionChange": "Retain event-woken post-delivery conversation turns and rebuild requests at dispatch.",
+  "unityVersion": "6000.5.5f1",
+  "sourceRecords": [
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "committedBlobSha256": "c9c089d2d3275ad7b821fcf180ec714108ecc57aafe2cb6b582ee25a163831ed",
+      "compiledSha256": "d464050bf9bebba4d3fc8ef748575b92a292b0430b885a239c1e32d8d15347a1"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcConversationBudgetTests.cs",
+      "committedBlobSha256": "9bbb221b84bc5585a6e960d8918422c53a18388239862df9d20f37c8c9a8fa98",
+      "compiledSha256": "9bbb221b84bc5585a6e960d8918422c53a18388239862df9d20f37c8c9a8fa98"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcConversationBudgetPlayModeTests.cs",
+      "committedBlobSha256": "fe49f9ecdb171e3cd58a5e5c02fc57250d6ea9c65a00c833751198a9d4760c98",
+      "compiledSha256": "fe49f9ecdb171e3cd58a5e5c02fc57250d6ea9c65a00c833751198a9d4760c98"
+    }
+  ],
+  "runs": [
+    {
+      "file": "conversation-turn-01-red.xml",
+      "counts": {
+        "result": "Failed(Child)",
+        "total": "1",
+        "passed": "0",
+        "failed": "1",
+        "skipped": "0",
+        "duration": "0.1268417"
+      },
+      "failures": [
+        {
+          "test": "CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.QueuedConversationTurn_ResumesAfterBudgetReturnsAndCompletesBeforeMeetingDeadline",
+          "message": "  Expected: 1\n  But was:  0\n"
+        }
+      ],
+      "skips": [],
+      "localConsoleLogSha256": "ed860f533c97709474a3ccdbb50de95839e892ba4a1b7d06990cae2de60adc79"
+    },
+    {
+      "file": "conversation-turn-02-green.xml",
+      "counts": {
+        "result": "Passed",
+        "total": "1",
+        "passed": "1",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "0.1483591"
+      },
+      "failures": [],
+      "skips": [],
+      "localConsoleLogSha256": "502ffdd7307a7ff5a2e62c1ae3e447c9fabea1836b5aab9d100886093b7489c3"
+    },
+    {
+      "file": "conversation-turn-03-runtime-controls.xml",
+      "counts": {
+        "result": "Passed",
+        "total": "11",
+        "passed": "11",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "0.1669739"
+      },
+      "failures": [],
+      "skips": [],
+      "localConsoleLogSha256": "b5e0fdb4220584e07c849772273e7acb2636a0154c470da96b0acda777355e94"
+    },
+    {
+      "file": "conversation-turn-04-no-retry.xml",
+      "counts": {
+        "result": "Passed",
+        "total": "7",
+        "passed": "7",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "0.1295096"
+      },
+      "failures": [],
+      "skips": [],
+      "localConsoleLogSha256": "a7ce65626a7b56fe868a996d0fa97adbfafde8830736d138da31256ab494f3fc"
+    },
+    {
+      "file": "conversation-turn-05-scene.xml",
+      "counts": {
+        "result": "Passed",
+        "total": "4",
+        "passed": "4",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "1.1576518"
+      },
+      "failures": [],
+      "skips": [],
+      "localConsoleLogSha256": "db8926bf7c9c8724ec1a0132234579956a340bcde7462be31d89a76c23c73688"
+    },
+    {
+      "file": "conversation-turn-06-lifecycle.xml",
+      "counts": {
+        "result": "Passed",
+        "total": "23",
+        "passed": "23",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "0.175146"
+      },
+      "failures": [],
+      "skips": [],
+      "localConsoleLogSha256": "1f286b8570579e044ba9f7dcc8406a4579501068e317aa4523a722f27e90cc3d"
+    },
+    {
+      "file": "conversation-turn-07-turn-change.xml",
+      "counts": {
+        "result": "Passed",
+        "total": "1",
+        "passed": "1",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "0.1879159"
+      },
+      "failures": [],
+      "skips": [],
+      "localConsoleLogSha256": "6349b0497dcefd13b67db61158c3c31dbbefd6effbdf95a832d4485ca5ab5718"
+    },
+    {
+      "file": "conversation-turn-08-full-edit.xml",
+      "counts": {
+        "result": "Skipped:Ignored",
+        "total": "853",
+        "passed": "852",
+        "failed": "0",
+        "skipped": "1",
+        "duration": "9.8699109"
+      },
+      "failures": [],
+      "skips": [
+        {
+          "test": "CozyTown.Tests.UnityEditMode.NpcExpressionExperimentTests.LiveProxy_CompareEightFactCasesWithOneCallPerSample",
+          "reason": "Set COZYTOWN_RUN_EXPRESSION_FIXED=1 to run the registered provider comparison."
+        }
+      ],
+      "localConsoleLogSha256": "483acd72270dde5541dae45054b0f0349b4cab7a0ca7ac3685cf8233fca89f11"
+    },
+    {
+      "file": "conversation-turn-09-full-play.xml",
+      "counts": {
+        "result": "Skipped:Ignored",
+        "total": "201",
+        "passed": "196",
+        "failed": "0",
+        "skipped": "5",
+        "duration": "20.5243298"
+      },
+      "failures": [],
+      "skips": [
+        {
+          "test": "CozyTown.Tests.PlayMode.NpcMeetingPlayModeTests.LiveProxy_RealProviderDrivesTheSceneMeetingWithinTheConfiguredBudget",
+          "reason": "Requires explicit live-meeting opt-in and a capped local proxy."
+        },
+        {
+          "test": "CozyTown.Tests.PlayMode.NpcResourcePlayModeTests.LiveProxy_TransfersOwnedResourcesThroughTheActualScene",
+          "reason": "Requires explicit resource-test opt-in and a capped local proxy."
+        },
+        {
+          "test": "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_ComparedExpressionModesAcrossFourFreshWorlds",
+          "reason": "Requires expression-experiment opt-in and two loopback proxies sharing a 48-call scene budget."
+        },
+        {
+          "test": "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_ComparedGroundingArmsAcrossFreshScenarios",
+          "reason": "Requires explicit grounding-experiment opt-in and four loopback endpoints with a shared 192-call scene budget."
+        },
+        {
+          "test": "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_RepeatsFourFreshInitialScenarios",
+          "reason": "Requires explicit scenario-test opt-in and one proxy capped at 96 calls for the entire matrix."
+        }
+      ],
+      "localConsoleLogSha256": "a80dcb0f7184502e0760958376beb012f075968add510489cd2e0a0e477471bd"
+    },
+    {
+      "file": "conversation-turn-live-1.xml",
+      "counts": {
+        "result": "Passed",
+        "total": "1",
+        "passed": "1",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "65.2233665"
+      },
+      "failures": [],
+      "skips": [],
+      "localConsoleLogSha256": "aebb8dd8925c2183bde1d45bf16a46b40fdde98954792ab50f05f45c174549ab"
+    }
+  ],
+  "realModel": {
+    "batches": 1,
+    "worlds": 4,
+    "providerCalls": 18,
+    "totalTokens": 78367,
+    "requestedModel": "deepseek-v4-flash",
+    "returnedModels": [
+      "deepseek-flash"
+    ],
+    "budget": 48,
+    "inflightAfterStop": 0,
+    "artificialFaultsOrDelays": false,
+    "saturatedRollingBudgetRecoveryObserved": false
+  },
+  "publishedTransforms": [
+    {
+      "file": "conversation-turn-01-red.xml",
+      "localSource": "conversation-turn-01-red.xml",
+      "originalSha256": "b6d0012d6adea7dc949a5dd94ed89dc747878c657d1b5b22165aa92925bd1100",
+      "publishedSha256": "3aeb4fb83cd0110d5a11d7b7302038eab4611927fa74ac89ffa326d71ef250a8",
+      "transform": "Replace local path prefixes and generated console-platform passcode; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-turn-02-green.xml",
+      "localSource": "conversation-turn-02-green.xml",
+      "originalSha256": "aaf93afb4f5f9cacae2a4c7e8ca140d06f795d7f6da106c3c636e203b9fe0f37",
+      "publishedSha256": "7f583a809fa81d34877912e67227a1ea4dcb8da294176ea869f4a04c40b50dfd",
+      "transform": "Replace local path prefixes and generated console-platform passcode; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-turn-03-runtime-controls.xml",
+      "localSource": "conversation-turn-03-runtime-controls.xml",
+      "originalSha256": "dcef35a76bf4c268a3ed690811b9d1be5e1a4531eccf1a4e526e658aa094e392",
+      "publishedSha256": "22a50f4e68a697a6e0998ff20d52fdbb2a3bda052fc64022c222fb4200809217",
+      "transform": "Replace local path prefixes and generated console-platform passcode; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-turn-04-no-retry.xml",
+      "localSource": "conversation-turn-04-no-retry.xml",
+      "originalSha256": "0339bcb64fc33acd545a4f0c398f191d24fec18a9c8128c3c22bfb7bbe6530c6",
+      "publishedSha256": "7e7d7359be3172d22018a79fa502e95be217f651a1ddf2fc1b93e3bf28f414ee",
+      "transform": "Replace local path prefixes and generated console-platform passcode; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-turn-05-scene.xml",
+      "localSource": "conversation-turn-05-scene.xml",
+      "originalSha256": "b53b6617b02142a7dccb2b55cac64911f5d2cac4af495ab0ba95248919c76767",
+      "publishedSha256": "822337805e20c3ff4de0aa7c09e14acd0e3556dfa66f5028ca261798d97fd9b3",
+      "transform": "Replace local path prefixes and generated console-platform passcode; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-turn-06-lifecycle.xml",
+      "localSource": "conversation-turn-06-lifecycle.xml",
+      "originalSha256": "3f44ea4b4ff398047fa1098332e6eb20c85ae0396bc21bffdc592a06bc61197e",
+      "publishedSha256": "a23e585dd4d205ddf3793b0b4aa5edb819141f9751d4cc3d854f6e07646d1a00",
+      "transform": "Replace local path prefixes and generated console-platform passcode; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-turn-07-turn-change.xml",
+      "localSource": "conversation-turn-07-turn-change.xml",
+      "originalSha256": "26a8abeff5e933ca1a214378b91b2c9ff7ce58471c25ec6524b460e68720fbc8",
+      "publishedSha256": "1cae1af74e74c34c6f81a9fb4d56d7ccd84debeaf26029ae218c30dfe7829cdf",
+      "transform": "Replace local path prefixes and generated console-platform passcode; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-turn-08-full-edit.xml",
+      "localSource": "conversation-turn-08-full-edit.xml",
+      "originalSha256": "c405a0bed6efb82e60564be4a69f8226c966d9f8f392e8fb62907827a1977d6d",
+      "publishedSha256": "20cb4a66556915c7125af5ade40a63ee0af20dbd50606f2e681360e7126cae0b",
+      "transform": "Replace local path prefixes and generated console-platform passcode; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-turn-09-full-play.xml",
+      "localSource": "conversation-turn-09-full-play.xml",
+      "originalSha256": "f82f02f213b003d71780ed1f468127a9269c21ca984a930b30131a0078863747",
+      "publishedSha256": "a09e8654bf316348b6af123b58f60b695ad8f76bf6230222543111f0184df513",
+      "transform": "Replace local path prefixes and generated console-platform passcode; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-turn-live-1.xml",
+      "localSource": "conversation-turn-live-1.xml",
+      "originalSha256": "fcc2c36d4b1371c44204e38f572f20e1cb01fa2549896ecd2e0dc72d041e25a9",
+      "publishedSha256": "a1c13d7472880a6575944cc33807c9460e772446918dd22cb6c83505688035f5",
+      "transform": "Replace local path prefixes and generated console-platform passcode; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-turn-target-red-source.cs",
+      "localSource": "conversation-turn-target-red-source.cs",
+      "originalSha256": "77b62b8368dad4b5942400c7e8f0c7667b999c6d1e9670a58fc7faf96249d5cb",
+      "publishedSha256": "77b62b8368dad4b5942400c7e8f0c7667b999c6d1e9670a58fc7faf96249d5cb",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "conversation-turn-target-red-sources.json",
+      "localSource": "conversation-turn-target-red-sources.json",
+      "originalSha256": "4e7f835fe0159ccfc493f857fc7feb07178fbe2daacf5c94b91a25fadcbb958d",
+      "publishedSha256": "4e7f835fe0159ccfc493f857fc7feb07178fbe2daacf5c94b91a25fadcbb958d",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "audit-conversation-turn-inputs.py",
+      "localSource": "audit-conversation-turn-inputs.py",
+      "originalSha256": "6fd44d50d1efbc1db1faca8eda71855c685f69c9429e3ac0fc4ff90a41c700bd",
+      "publishedSha256": "6fd44d50d1efbc1db1faca8eda71855c685f69c9429e3ac0fc4ff90a41c700bd",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "conversation-turn-compiled-source-audit-preliminary.json",
+      "localSource": "conversation-turn-compiled-source-audit-preliminary.json",
+      "originalSha256": "6cf9df8aed14bf6cb4bcea1548763471a2381a252c01d9dfca1e5e7220a01acf",
+      "publishedSha256": "3f5761c3f064f9a9833a9e908753d59c3311f626278d82b23ffef58c3ed34eaf",
+      "transform": "Replace local path prefixes and generated console-platform passcode; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-turn-compiled-source-audit-frozen.json",
+      "localSource": "conversation-turn-compiled-source-audit-frozen.json",
+      "originalSha256": "131c619804d3478751fbe738a79f5550101ef6730ac64c242478c209903f0e1e",
+      "publishedSha256": "5ce773339457f265819399915fa870657cab8fcc2fa1a03c3a1a7a7befba860a",
+      "transform": "Replace local path prefixes and generated console-platform passcode; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-turn-isolated-settings.diff",
+      "localSource": "conversation-turn-isolated-settings.diff",
+      "originalSha256": "8c0ac1ae711a8a19e550d9040cf855f43b76aa777bf70a462d52322063a57e46",
+      "publishedSha256": "530aa5e0f4b9738f93840fc0ee2492bc1dee33ec80523513a608eecf9f466581",
+      "transform": "Replace local path prefixes and generated console-platform passcode; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-turn-SceneTemplateSettings.json",
+      "localSource": "conversation-turn-SceneTemplateSettings.json",
+      "originalSha256": "bb9098b3bfcde78d93e264b96f7b77b5430e64e8c57a7aad7f5a5d9c3945e16a",
+      "publishedSha256": "bb9098b3bfcde78d93e264b96f7b77b5430e64e8c57a7aad7f5a5d9c3945e16a",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "conversation-turn-deterministic-review.json",
+      "localSource": "conversation-turn-deterministic-review.json",
+      "originalSha256": "c4c2bcc8461bee05454f0e85890fe21ed012cfd23466cf41e0850c206f36c8ed",
+      "publishedSha256": "0acb6b0ff0f2dce4d4715f22a0060545da6aedd4ea1cd43b9d80a79e276344e0",
+      "transform": "Replace local path prefixes and generated console-platform passcode; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-turn-live-review.json",
+      "localSource": "conversation-turn-live-review.json",
+      "originalSha256": "8698285d4e575a68cd239d73229b9c9daf8f24a591a19d6cada792efad808fa2",
+      "publishedSha256": "8698285d4e575a68cd239d73229b9c9daf8f24a591a19d6cada792efad808fa2",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "conversation-turn-live-1-2026-09-14/contexts.jsonl",
+      "localSource": "conversation-turn-live-1-2026-09-14/contexts.jsonl",
+      "originalSha256": "6a26d56e747229c3e27435d9d7b892fe96783888ea2cde77c077b3a7a360f49b",
+      "publishedSha256": "6a26d56e747229c3e27435d9d7b892fe96783888ea2cde77c077b3a7a360f49b",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "conversation-turn-live-1-2026-09-14/corpus.json",
+      "localSource": "conversation-turn-live-1-2026-09-14/corpus.json",
+      "originalSha256": "476aacca5a8ba948cb85a0e161cb60d6ffbf4fb6303d738af2bbb5b73590e105",
+      "publishedSha256": "476aacca5a8ba948cb85a0e161cb60d6ffbf4fb6303d738af2bbb5b73590e105",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "conversation-turn-live-1-2026-09-14/manifest.json",
+      "localSource": "conversation-turn-live-1-2026-09-14/manifest.json",
+      "originalSha256": "0d04239bd469410814761efcda430acde940df002c710511d344e6c254ffebd7",
+      "publishedSha256": "0d04239bd469410814761efcda430acde940df002c710511d344e6c254ffebd7",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "conversation-turn-live-1-2026-09-14/provider-responses.jsonl",
+      "localSource": "conversation-turn-live-1-2026-09-14/provider-responses.jsonl",
+      "originalSha256": "9ce85e8a5f06974fc0d8cbf6bb4e2da5592cc4a1c77e25f0388e2c337cdecc64",
+      "publishedSha256": "9ce85e8a5f06974fc0d8cbf6bb4e2da5592cc4a1c77e25f0388e2c337cdecc64",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "conversation-turn-live-1-2026-09-14/provider-starts.jsonl",
+      "localSource": "conversation-turn-live-1-2026-09-14/provider-starts.jsonl",
+      "originalSha256": "f522f41faea1427105c03691af8831ada931360b3141cfa4a0bc443562d5944f",
+      "publishedSha256": "f522f41faea1427105c03691af8831ada931360b3141cfa4a0bc443562d5944f",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "conversation-turn-live-1-2026-09-14/proxy.jsonl",
+      "localSource": "conversation-turn-live-1-2026-09-14/proxy.jsonl",
+      "originalSha256": "304c76791deeedac9cc91fcbfc2902ac5ad6c18b2822c3f651f2f51346ea7152",
+      "publishedSha256": "304c76791deeedac9cc91fcbfc2902ac5ad6c18b2822c3f651f2f51346ea7152",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "conversation-turn-live-1-2026-09-14/status.json",
+      "localSource": "conversation-turn-live-1-2026-09-14/status.json",
+      "originalSha256": "3ea82a3963273d5723ff7ad0acfd965182333cfdf5d813bdfa7c91253bcc5871",
+      "publishedSha256": "3ea82a3963273d5723ff7ad0acfd965182333cfdf5d813bdfa7c91253bcc5871",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "conversation-turn-live-1-2026-09-14/unity-scene.json",
+      "localSource": "conversation-turn-live-1-2026-09-14/unity-scene.json",
+      "originalSha256": "6b32df7761b905e9249562ab2bc38d6ab6d6ee937d65ab3d76f2ee7ff0f10e82",
+      "publishedSha256": "6b32df7761b905e9249562ab2bc38d6ab6d6ee937d65ab3d76f2ee7ff0f10e82",
+      "transform": "Byte-for-byte copy."
+    }
+  ],
+  "limitations": [
+    "01 is the intentionally failing pre-fix target; its source is retained separately.",
+    "Controlled clients and clocks establish the budget-recovery behavior; the real batch did not saturate the rolling budget.",
+    "Counters after dispatch stops are cached; recovery assertions concern bodies, activities, memories and assets.",
+    "Input audit documents two Unity settings exceptions; unrelated workspace edits were excluded.",
+    "Runtime public Busy/rebuild controls are not new player-click or full save/load tests.",
+    "No long-run reliability or expression-quality rate is inferred from four fresh worlds."
+  ]
+}

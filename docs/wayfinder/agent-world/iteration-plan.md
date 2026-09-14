@@ -9,7 +9,9 @@
 
 [区分行动版本与表达版本并复测结构化候选](https://github.com/qinjunw/CozyTown/issues/78)已明确候选版本来自请求外层，原校验和调用预算保持不变；新固定复测 S 24/24 版本正确且产生宿主输出，事实相关性单独评分，见[复测结果](../../verification/npc-expression-version-2026-09-14.md)。[复现移动中观察失效导致邀约答复丢弃](https://github.com/qinjunw/CozyTown/issues/79)已完成同区答复修复与执行前观察记录；8 个新世界、38 次真实调用中，4 次交付交谈、4 次拒绝均完成并恢复，候选拒绝与旧请求取消保留，见[验证报告](../../verification/npc-moving-observation-2026-09-14.md)。
 
-[复现会面对话在日程变更与预算等待后的停滞](https://github.com/qinjunw/CozyTown/issues/72)已完成：默认预算场景的等待请求先于预算释放过期，第四句没有再次派发；临界派发还会沿用原排队期限，详见[复现及验收依据](../../verification/npc-conversation-budget-2026-09-14.md)。新增 11 项 Runtime 与 2 项场景对照通过，生产行为尚未修复。下一步[保留预算等待中的会话轮次并重新采样请求](https://github.com/qinjunw/CozyTown/issues/83)，随后再扩展四人共同负载；由用户[选择 NPC 的正式事实表达方式](https://github.com/qinjunw/CozyTown/issues/75)。普通活动期限继续保留独立票据。
+[复现会面对话在日程变更与预算等待后的停滞](https://github.com/qinjunw/CozyTown/issues/72)已确定原队列期限早于预算释放的问题，历史失败与现状表征见[复现依据](../../verification/npc-conversation-budget-2026-09-14.md)。[保留预算等待中的会话轮次并重新采样请求](https://github.com/qinjunw/CozyTown/issues/83)现已完成：受控 F/S 场景在默认预算释放后重新派发并完成第四句，完整 EditMode 852、PlayMode 196 项通过。唯一四世界真实批次共 18 次调用且全部恢复，未耗尽预算；因果证据与自然流程覆盖的区别见[修复验证](../../verification/npc-conversation-turn-2026-09-14.md)。
+
+后续按 GitHub 前沿推进[明确 Agent 会话的对象装配边界](https://github.com/qinjunw/CozyTown/issues/85)，再依据依赖和用户决策扩展四人负载。[选择 NPC 的正式事实表达方式](https://github.com/qinjunw/CozyTown/issues/75)与[确定普通自主活动期限与日程恢复验收](https://github.com/qinjunw/CozyTown/issues/70)继续保留为独立讨论，不能由本次流程成功替代。
 
 ## 迭代顺序
 
