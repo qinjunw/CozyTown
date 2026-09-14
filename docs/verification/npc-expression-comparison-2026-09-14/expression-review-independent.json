@@ -1,0 +1,817 @@
+[
+  {
+    "sampleId": "E001",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "I have no evidence of your catch. I only know the receipt",
+        "label": "ambiguous",
+        "reason": "若指缺少独立核验，可以成立；若指完全没有相关材料，则忽略了 750 分钟的 Sora 陈述。保留歧义，不据此判定她没钓鱼。"
+      },
+      {
+        "text": "one carp delivered to you",
+        "label": "supported",
+        "reason": "Ren 是卖方、Sora 是买方；750 分钟成功收据记录交付 1 条鲤鱼。"
+      },
+      {
+        "text": "25 coins paid",
+        "label": "supported",
+        "reason": "成功收据的 delivered_price 为 25；这是可向参与者表达的成交价，不是私有余额。"
+      },
+      {
+        "text": "What I can vouch for is my own line in the water.",
+        "label": "unsupported",
+        "reason": "输入没有 Ren 下竿、钓线处于水中或正在钓鱼的观察/经历记录；渔夫人设和池塘可钓鱼不证明该动作已发生。"
+      }
+    ],
+    "personaNote": "钓线意象体现渔夫口吻，但加入了未经记录的具体经历。",
+    "notes": "核心应说明仅听见 Sora 的陈述；回答转向交易收据并添加自身钓线状态，不能计完整且无误的回应。此为代理初评；ambiguous 保留解释分歧，不自动等同已确认事实错误。"
+  },
+  {
+    "sampleId": "E002",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "At game minute 750, the resource transfer was recorded as complete.",
+        "label": "supported",
+        "reason": "meeting_receipt 的 delivery_result=resource.delivered，观察/记录时间为 750；回答明确指出成功记录与时间。"
+      }
+    ],
+    "personaNote": "礼貌开头可用于多种角色，未体现 Sora 的料理偏好。",
+    "notes": "已回答哪项记录确认交付；问题没有要求必须逐一复述数量和金额。未把成功交付扩展为钓鱼经历或当前持有量。"
+  },
+  {
+    "sampleId": "E003",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "I misspoke earlier",
+        "label": "source_time",
+        "reason": "750 分钟只有本人说过有两条鱼的记录；752 分钟当前为 0 不能证明先前发言在当时就是口误。"
+      },
+      {
+        "text": "I hold none now",
+        "label": "supported",
+        "reason": "本人 owned_quantity=0，时间为 752。"
+      },
+      {
+        "text": "The delivery went through",
+        "label": "supported",
+        "reason": "750 分钟有 resource.delivered 成功收据。"
+      },
+      {
+        "text": "one carp",
+        "label": "supported",
+        "reason": "该次成功交付的 delivered_quantity=1，单位 fish.carp。"
+      },
+      {
+        "text": "for 25 coins",
+        "label": "supported",
+        "reason": "该次 delivered_price=25，为可公开的成交价。"
+      },
+      {
+        "text": "my balance is 25",
+        "label": "unauthorized",
+        "reason": "数值虽与本人 balance 相同，该事实的 canExpress=false；不能因模型可读取就对听众披露。"
+      }
+    ],
+    "personaNote": "道歉与结束会面的提议没有明显人格冲突，但料理特征不突出。",
+    "notes": "当前库存答对；对历史口误的推断与未授权余额披露使 useful=false。Want to finish up here 是行动提议，未声称会面已结束。"
+  },
+  {
+    "sampleId": "E004",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E005",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E006",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E007",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "Decorative plant is registered as decoration.",
+        "label": "supported",
+        "reason": "decor.plant 的 kind=decoration，来源 semantic_catalog。"
+      }
+    ],
+    "personaNote": "以登记分类作答，缺少角色个人表达。",
+    "notes": "问题问能否从植物采集食材；仅复述 decoration 分类，没有说明 interaction=none 或不能采集。分类本身不必然排除交互，因此按完整回答核心问题的标准判 false；事实句本身正确。"
+  },
+  {
+    "sampleId": "E008",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E009",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "I couldn't say, Ren",
+        "label": "supported",
+        "reason": "问题询问池塘数量；pond.water quantity 的 knowledge=unknown。"
+      },
+      {
+        "text": "I only know I have one carp",
+        "label": "supported",
+        "reason": "按与池塘数量对照的语境理解为本人持有量已知；owned_quantity=1。"
+      },
+      {
+        "text": "The pond's stock is unmarked to me.",
+        "label": "supported",
+        "reason": "按不知道池塘存量的比喻理解，与 unmodelled_quantity/unknown 一致；未认定现实中存在某种标牌。"
+      }
+    ],
+    "personaNote": "想把鲤鱼做成炖菜的表达与厨师人设对应。",
+    "notes": "已保留池塘数量未知，且没有用自己的一条鱼推断池塘数量。But this carp will make a fine stew 是未来料理的乐观评价，不当作已煮好或品质检测事实。"
+  },
+  {
+    "sampleId": "E010",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E011",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "I currently hold 0 carp.",
+        "label": "supported",
+        "reason": "752 分钟本人 owned_quantity=0，单位 fish.carp；直接回答现在持有多少。"
+      }
+    ],
+    "personaNote": "直接报告数量，人物差异较少。",
+    "notes": "没有把旧陈述误当当前数量，也没有推断先前发言当时为假。核心问题已答完整。"
+  },
+  {
+    "sampleId": "E012",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "That plant's just decoration, Sora.",
+        "label": "supported",
+        "reason": "decor.plant kind=decoration。"
+      },
+      {
+        "text": "The pond is where the fish are",
+        "label": "unsupported",
+        "reason": "池塘仅有 fishing 交互定义，鱼量明确未知；这不足以证实现在有鱼在池塘中。若作为一般栖息地口吻仍超出给定设定，不能以未知推定有鱼或无鱼。"
+      },
+      {
+        "text": "I've already set one carp aside for you.",
+        "label": "unsupported",
+        "reason": "有过去成功交付及本人当前 1 条鱼，但没有另行留鱼或预留动作的记录；不能把持有或交付收据替换为已预留。"
+      }
+    ],
+    "personaNote": "渔夫供鱼的口吻可辨，但具体留鱼行为无来源。",
+    "notes": "正确说明装饰分类，却补入池塘有鱼和已留鱼。已交付不必然排除另留一条，因此将留鱼标为无依据而非确定矛盾。"
+  },
+  {
+    "sampleId": "E013",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "I'm right here in West lane",
+        "label": "supported",
+        "reason": "当前 body_region=west，region_name=West lane。"
+      },
+      {
+        "text": "not at the pond",
+        "label": "supported",
+        "reason": "按当前区域与目标区域的对照理解，当前区域为 west，不能以 social.placeId=pond 替换当前区域。"
+      }
+    ],
+    "personaNote": "对鲤鱼的赞赏与香草炖菜设想体现厨师口吻。",
+    "notes": "完整回答当前位置。That carp was perfect 属主观评价；thinking of a nice herb stew 属未来构想，不据此推断已烹饪、已食用、已有香草或当地存在可采香草。"
+  },
+  {
+    "sampleId": "E014",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E015",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "All I know is what I see",
+        "label": "ambiguous",
+        "reason": "可理解为只愿确认直接观察，也可被读成否认已收到的声明和收据；后者与上下文不符。"
+      },
+      {
+        "text": "the pond",
+        "label": "supported",
+        "reason": "当前附近有 pond.water，名称 Pond。"
+      },
+      {
+        "text": "you here now",
+        "label": "supported",
+        "reason": "752 分钟可观察到 Sora present=true。"
+      },
+      {
+        "text": "If you caught fish this morning, I have no way to prove or disprove it.",
+        "label": "supported",
+        "reason": "条件句未确认 Sora 钓鱼；只有她的陈述，没有独立证实或否证。"
+      }
+    ],
+    "personaNote": "谨慎简短的语气与安静渔夫相容。",
+    "notes": "没有编造已见证钓鱼，但未交代实际掌握的是 Sora 在 750 分钟的陈述。针对 What evidence do you actually have，核心来源说明缺失，因此 useful=false。"
+  },
+  {
+    "sampleId": "E016",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "I'm right here in West lane",
+        "label": "supported",
+        "reason": "当前 region_name=West lane。"
+      },
+      {
+        "text": "at my rest spot by the pond",
+        "label": "unsupported",
+        "reason": "targetLocationId 和约定 locationId 不能证明采样身体已在该休息点；当前只证实 West lane，未给出休息点及池塘的相对位置。"
+      },
+      {
+        "text": "Thanks again",
+        "label": "ambiguous",
+        "reason": "again 可能暗示此前已道谢，给定 transcript 没有该事件；也可能只是惯用致谢措辞，保留歧义。"
+      },
+      {
+        "text": "for the carp, Ren",
+        "label": "supported",
+        "reason": "作为致谢前提，Ren 曾向 Sora 交付 1 条鲤鱼有成功收据支持。"
+      }
+    ],
+    "personaNote": "感谢后提议炖菜，与厨师的食材兴趣相容。",
+    "notes": "当前位置区域答对，但具体休息点位置没有证据。it's going straight into a stew 是当前意图，不当作已经烹饪。"
+  },
+  {
+    "sampleId": "E017",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E018",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "I do not know your current inventory",
+        "label": "supported",
+        "reason": "Sora 的当前库存未向 Ren 提供；Ren 本人持有量与成交收据不能证明她现在持有多少。"
+      },
+      {
+        "text": "or coin balance.",
+        "label": "supported",
+        "reason": "输入没有 Sora 的当前余额；已知 25 金币成交价不等于对方当前余额。"
+      }
+    ],
+    "personaNote": "简短克制，角色专属措辞较少。",
+    "notes": "直接说明所问库存未知；顺带说明对方余额未知，没有披露具体私有值。"
+  },
+  {
+    "sampleId": "E019",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E020",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E021",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E022",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E023",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "I only know what I've seen.",
+        "label": "ambiguous",
+        "reason": "可作仅陈述有依据内容的口头引导；若严格指知识全部来自视觉，则与后文听闻来源不一致。后文明确区分了 said 与确认，暂不判为确定事实错误。"
+      },
+      {
+        "text": "I have one carp delivered",
+        "label": "ambiguous",
+        "reason": "按 Ren 作为卖方、已经交付一条鲤鱼理解，有 750 分钟收据支持；英语也可能被误读为自己收到或持有这条已交付的鱼，交付方向表达不清。"
+      },
+      {
+        "text": "you said you caught fish this morning",
+        "label": "supported",
+        "reason": "750 分钟 Sora 的 said 记录正是 I caught fish this morning；这里明确标为对方所说，没有转成已证实钓鱼事实。"
+      },
+      {
+        "text": "I can't confirm your catch from here.",
+        "label": "supported",
+        "reason": "现有证据只含 Sora 的陈述，不含 Ren 见证她钓鱼的记录。"
+      }
+    ],
+    "personaNote": "克制地限定可确认内容，接近渔夫的简短口吻。",
+    "notes": "按与角色及收据一致的主要读法，已完整指出听闻来源和不能确认的边界，故 useful=true；两处措辞歧义保留供复核，未把 ambiguous 自动算成确定错误。"
+  },
+  {
+    "sampleId": "E024",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "I misspoke earlier.",
+        "label": "source_time",
+        "reason": "现在库存为 0，不能据此判定 750 分钟说有两条时就是口误；历史陈述的当时真假没有确认记录。"
+      },
+      {
+        "text": "I hold none right now",
+        "label": "supported",
+        "reason": "当前本人 owned_quantity=0。"
+      }
+    ],
+    "personaNote": "礼貌纠正后提出购买条件，料理人格未明显体现。",
+    "notes": "已答当前数量，但编造了先前口误的解释。I'll pay 25 coins for 1 carp if the terms still stand 是条件性新提议，不是已付款事实，也没有直接披露私有余额；25/1 与公开原条款相同。"
+  },
+  {
+    "sampleId": "E025",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "No, my list was incomplete.",
+        "label": "supported",
+        "reason": "nearbyComplete=false，正确否认清单能证明周围不存在其他对象。"
+      },
+      {
+        "text": "I only saw a plant",
+        "label": "supported",
+        "reason": "给定附近清单含 decor.plant，且有对应本地观察事实。"
+      },
+      {
+        "text": "and seven lamps here",
+        "label": "supported",
+        "reason": "清单列出 lamp.0 至 lamp.6，共 7 个灯对象。"
+      },
+      {
+        "text": "nothing more.",
+        "label": "ambiguous",
+        "reason": "结合前句明确清单不完整，可指返回内容只有这些；若意指完整感知或实际周围只有这些，就超出截断清单。原文没有明确宣称世界不存在其他对象，保留歧义。"
+      }
+    ],
+    "personaNote": "简短地列出观察对象，符合谨慎口吻，个性信息有限。",
+    "notes": "核心上已否认从不完整清单推导不存在。按列举已返回条目的读法 useful=true；不将 nothing more 扩大为已经确认全世界或全部周边为空。"
+  },
+  {
+    "sampleId": "E026",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E027",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E028",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E029",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "I only hold zero carp right now",
+        "label": "supported",
+        "reason": "当前本人 owned_quantity=0。"
+      },
+      {
+        "text": "the one we traded",
+        "label": "supported",
+        "reason": "成功收据证明此前双方交易 1 条鲤鱼。"
+      },
+      {
+        "text": "went into tonight's pot",
+        "label": "unsupported",
+        "reason": "没有入锅、烹饪或消耗事件记录；库存为 0 不能反推出鱼的去向。went 表述已发生的处理，不是单纯愿望。"
+      }
+    ],
+    "personaNote": "锅和再买食材的说法体现厨师口吻，但已入锅情节无依据。",
+    "notes": "当前库存回答正确，但对消耗原因作出无依据断言。Care for 25 coins for one more 是新交易提议；one more 的先前交易前提已有收据，不据此认定对方当前仍有鱼。"
+  },
+  {
+    "sampleId": "E030",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "The delivery result resource.delivered confirms it",
+        "label": "supported",
+        "reason": "meeting_receipt 明确 delivery_result=resource.delivered，确认成功交付。"
+      },
+      {
+        "text": "one carp",
+        "label": "supported",
+        "reason": "该收据 delivered_quantity=1，单位 fish.carp。"
+      },
+      {
+        "text": "for 25 coins",
+        "label": "supported",
+        "reason": "该收据 delivered_price=25。"
+      },
+      {
+        "text": "recorded at 750 minutes.",
+        "label": "supported",
+        "reason": "收据 observedAtGameTotalMinutes=750。"
+      }
+    ],
+    "personaNote": "以料理愿望收尾，具有厨师特征；直接读出结果码使前半句接近系统说明。",
+    "notes": "完整指出确认交付的记录及数值时间。I'd love to cook it by the pond 是愿望，不声称已经做饭或具备该处烹饪设施。"
+  },
+  {
+    "sampleId": "E031",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "Can't say what you're carrying",
+        "label": "supported",
+        "reason": "听众 Sora 的当前库存未向 Ren 披露。"
+      },
+      {
+        "text": "I only know my own nets.",
+        "label": "ambiguous",
+        "reason": "可作渔夫式比喻，表示只知道自己的情况；若按具体财产读成拥有渔网，输入没有该装备事实。暂保留歧义，不判为已确定拥有渔网。"
+      },
+      {
+        "text": "The carp is delivered",
+        "label": "supported",
+        "reason": "750 分钟有鲤鱼交付成功收据。"
+      }
+    ],
+    "personaNote": "my own nets 带有渔夫口吻，但存在具象装备与比喻两种读法。",
+    "notes": "主要读法下已回答无法得知当前对方库存，且交付事实正确，故 useful=true。fair and square 为公平交易评价，不当作新增规则验证结果。"
+  },
+  {
+    "sampleId": "E032",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "I don't know how many carp are left in the pond.",
+        "label": "supported",
+        "reason": "pond.water quantity=unknown；没有把未知说成零或无限。"
+      },
+      {
+        "text": "I have my one carp",
+        "label": "supported",
+        "reason": "本人当前 owned_quantity=1，单位 fish.carp。"
+      }
+    ],
+    "personaNote": "希望用本地香草搭配鲤鱼，体现厨师的料理兴趣。",
+    "notes": "核心未知数量答复完整。I'd love to cook it up with some local herbs 位于愿望范围，没有声称已经拥有、找到或采到香草，也没有提供其存在位置；不计为已发生事实。"
+  },
+  {
+    "sampleId": "E033",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E034",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "I do not know your current inventory",
+        "label": "supported",
+        "reason": "Sora 的当前库存不可见；Ren 的持有量和旧成交收据均不能提供当前答案。"
+      },
+      {
+        "text": "or coin balance.",
+        "label": "supported",
+        "reason": "输入未提供 Sora 当前余额；已知成交价格不等于其余额。"
+      }
+    ],
+    "personaNote": "简短克制，未使用角色专属经历或词汇。",
+    "notes": "完整承认所问当前库存未知，没有推定为 0，也没有泄漏未授权数值。"
+  },
+  {
+    "sampleId": "E035",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "That plant's only decoration, Sora.",
+        "label": "supported",
+        "reason": "decor.plant kind=decoration。"
+      },
+      {
+        "text": "Nothing to gather from it.",
+        "label": "supported",
+        "reason": "按本游戏已登记能力理解，decor.plant interaction=none，不支持采集。"
+      },
+      {
+        "text": "The pond's where the carp are.",
+        "label": "unsupported",
+        "reason": "pond.water 只提供 fishing 交互，carp quantity 明确为 unknown；不能据此确认当前池内有鲤鱼。"
+      }
+    ],
+    "personaNote": "回答植物用途后转向鱼类，带有渔夫话题倾向。",
+    "notes": "采集问题已答清，但附加池中有鲤鱼的无依据断言，故 useful=false。不把未知数量反向认定为没有鲤鱼。"
+  },
+  {
+    "sampleId": "E036",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E037",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E038",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "The receipt for our trade shows resource.delivered",
+        "label": "supported",
+        "reason": "交易收据中的 delivery_result=resource.delivered，证明交付已成功。"
+      },
+      {
+        "text": "1 carp",
+        "label": "supported",
+        "reason": "该收据 delivered_quantity=1，单位 fish.carp。"
+      },
+      {
+        "text": "for 25 coins.",
+        "label": "supported",
+        "reason": "该收据 delivered_price=25；这里表达成交价，不是本人私有余额。"
+      }
+    ],
+    "personaNote": "炖菜设想体现厨师兴趣，结果码措辞仍接近程序记录。",
+    "notes": "已完整回答哪项记录确认交易。Perfect for a fresh pond-side stew 是料理适合性评价/设想；fresh 修饰拟议炖菜，未明确断言鲤鱼的新鲜度或已经煮汤。"
+  },
+  {
+    "sampleId": "E039",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E040",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "That plant's just decoration, Sora.",
+        "label": "supported",
+        "reason": "decor.plant kind=decoration。"
+      },
+      {
+        "text": "It has no use for cooking.",
+        "label": "supported",
+        "reason": "按问题中的当前游戏食材用途理解，登记 interaction=none，不提供采集/料理能力；不将其外推为植物在任何现实用途下均不可食。"
+      },
+      {
+        "text": "The pond is where the fish are",
+        "label": "unsupported",
+        "reason": "只知道池塘具有 fishing 交互且鱼量未知；缺少当前有鱼的确认。"
+      },
+      {
+        "text": "that's what I bring.",
+        "label": "supported",
+        "reason": "按提供鱼这一角色行为概括理解，Ren 是渔夫且已向 Sora 交付鲤鱼；没有明确宣称本轮又完成新交付。"
+      }
+    ],
+    "personaNote": "围绕自己提供鱼回应，角色职业可辨。",
+    "notes": "核心不应采集的回答与已登记能力相符，但追加的当前池中有鱼断言无依据。that's what I bring 未量化新的供货或虚构产地，按已知角色及交易概括处理。"
+  },
+  {
+    "sampleId": "E041",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "No. My list isn't complete",
+        "label": "supported",
+        "reason": "nearbyComplete=false，正确拒绝将附近清单视为穷尽列表。"
+      },
+      {
+        "text": "so it proves nothing about what else is around.",
+        "label": "supported",
+        "reason": "按 what else 指清单之外对象理解，截断清单无法据缺项证明它们存在或不存在；不是否认已列对象的证据。"
+      },
+      {
+        "text": "I just see a plant",
+        "label": "supported",
+        "reason": "附近清单和事实包含 decor.plant。"
+      },
+      {
+        "text": "and some lamps.",
+        "label": "supported",
+        "reason": "附近清单含 lamp.0 至 lamp.6；some 未声称精确总数或完整范围。"
+      }
+    ],
+    "personaNote": "克制地说明观察范围，角色特有措辞有限。",
+    "notes": "完整回答不能证明无其他对象；未把清单裁剪造成的缺项解释为世界不存在。"
+  },
+  {
+    "sampleId": "E042",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "I am right here in West lane",
+        "label": "supported",
+        "reason": "当前 region_name=West lane。"
+      },
+      {
+        "text": "at my rest spot",
+        "label": "unsupported",
+        "reason": "只提供目标/约定休息点 ID，没有该点与实际位置的匹配依据；activity=resting 也不证明身体位于目标休息点。"
+      },
+      {
+        "text": "with you.",
+        "label": "supported",
+        "reason": "当前观察有 Ren present=true，表明交谈对象在附近。"
+      }
+    ],
+    "personaNote": "邀请谈本地料理体现厨师兴趣。",
+    "notes": "当前区域答对，但从目标位置补出实际休息点。Shall we chat about the pond and some local cooking 是话题提议，未预设当前在池塘或已有料理成品。"
+  },
+  {
+    "sampleId": "E043",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "I can't say how many carp are in the pond, Ren.",
+        "label": "supported",
+        "reason": "池塘鱼量 knowledge=unknown，无法提供精确数量。"
+      },
+      {
+        "text": "I've got my one carp",
+        "label": "supported",
+        "reason": "当前本人 owned_quantity=1，单位 fish.carp。"
+      },
+      {
+        "text": "and 25 coins",
+        "label": "unauthorized",
+        "reason": "这是本人当前持有金币数量，与 balance=25 相符，但 balance 的 canExpress=false；不是在复述公开成交价格。"
+      }
+    ],
+    "personaNote": "邀请一起做饭符合活跃厨师口吻。",
+    "notes": "核心问题答对，但附带披露不可对听众表达的本人余额。愿望 cook it up together 未计为已完成料理或已获对方同意。"
+  },
+  {
+    "sampleId": "E044",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "Can't say what you're carrying, Sora.",
+        "label": "supported",
+        "reason": "当前 Sora 库存未向 Ren 提供。"
+      },
+      {
+        "text": "I know I handed you one carp",
+        "label": "supported",
+        "reason": "Ren 为卖方、Sora 为买方，750 分钟收据确认交付 1 条鲤鱼。"
+      },
+      {
+        "text": "paid me 25 coins",
+        "label": "supported",
+        "reason": "按省略主语 you 的自然读法，Sora 向 Ren 支付 25 金币，符合买卖双方和成功收据。"
+      },
+      {
+        "text": "the pond's still quiet today.",
+        "label": "unsupported",
+        "reason": "没有池塘声音、活动强度或此前安静状态的观察；still 也没有持续状态依据。渔夫人设不提供当天环境数据。"
+      }
+    ],
+    "personaNote": "安静池塘的意象契合人物主题，但成为无依据的具体环境描写。",
+    "notes": "没有从交付推断对方现在持有量；最终追加的今日持续安静使 useful=false。"
+  },
+  {
+    "sampleId": "E045",
+    "useful": false,
+    "assertions": [],
+    "personaNote": "无台词，无法评价人物口吻。",
+    "notes": "输入 text 为空，没有可评阅的事实断言，也未回答核心问题；不据此推断空输出原因，不把无断言计为成功回答。"
+  },
+  {
+    "sampleId": "E046",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "The meeting receipt shows resource.delivered",
+        "label": "supported",
+        "reason": "meeting_receipt 的 delivery_result=resource.delivered。"
+      },
+      {
+        "text": "1 carp",
+        "label": "supported",
+        "reason": "收据 delivered_quantity=1，单位 fish.carp。"
+      },
+      {
+        "text": "for 25 coins.",
+        "label": "supported",
+        "reason": "收据 delivered_price=25。"
+      },
+      {
+        "text": "So the transfer is already recorded.",
+        "label": "supported",
+        "reason": "成功交付记录在 750 分钟，而当前是 752；already 与记录时间相容。"
+      }
+    ],
+    "personaNote": "以记录码和完成状态作答，表达直接，厨师个性不明显。",
+    "notes": "完整指出成功交付凭据；最后一句重述已记录状态，没有虚构钓鱼来源或推断当前持有量。"
+  },
+  {
+    "sampleId": "E047",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "I can't see your satchel from here, Sora.",
+        "label": "unsupported",
+        "reason": "输入只说明 Sora 的资产不可知，没有 satchel 对象、视线遮挡或看不见包的观察。数据权限未知不能改写成具体物理观察原因。"
+      },
+      {
+        "text": "I only know I handed over one carp",
+        "label": "supported",
+        "reason": "Ren 是卖方，成功收据证明其已交付 1 条鲤鱼。only 按当前关于交易的已知信息理解，不扩展为所有知识的穷尽声明。"
+      },
+      {
+        "text": "for 25 coins",
+        "label": "supported",
+        "reason": "成功交付价格为 25。"
+      },
+      {
+        "text": "at the pond.",
+        "label": "supported",
+        "reason": "social.placeId=pond，相关 meeting.arrived 和 resource.delivered 记录均属于该会面，支持将此前成交定位于会面地点；未推断对方当前库存。"
+      }
+    ],
+    "personaNote": "用看不见包解释未知较口语化，但加入了未观察的具体装备和视线情境。",
+    "notes": "回答没有捏造听众持有量，但未知的物理原因没有依据，故 useful=false。该句若仅当无法查看资产的比喻可产生分歧；因明确说 satchel/from here，本次按具体观察断言处理。"
+  },
+  {
+    "sampleId": "E048",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "No. My list only covers what's registered near me",
+        "label": "supported",
+        "reason": "coverageDomain 为 registered_entities_same_region_within_radius；near me 是该局部范围的概括，未声称覆盖全部地图。"
+      },
+      {
+        "text": "it's incomplete anyway.",
+        "label": "supported",
+        "reason": "nearbyComplete=false。"
+      },
+      {
+        "text": "Quiet morning on the pond, though.",
+        "label": "source_time",
+        "reason": "没有标为早晨的池塘观察，也没有安静状态记录；当前上下文仅提供 752 分钟的局部采样。若是在回顾上午，缺少历史来源；若描述当下，也不能从当前区域事实推出早晨及安静状态。"
+      }
+    ],
+    "personaNote": "安静池塘的描写体现渔夫主题，但时间和状态没有来源。",
+    "notes": "对截断清单的核心判断正确；追加的早间环境描写缺乏来源，因此 useful=false。不据此断言那个早晨事实上一定不安静。"
+  }
+]

@@ -1,0 +1,77 @@
+{
+  "reviewer": "independent_agent",
+  "reviewStage": "初评后的分歧协调；本阶段已收到主代理的组别和统计信息，不属于新的盲评",
+  "initialReview": "expression-review-independent.json",
+  "initialReviewPreserved": true,
+  "conclusion": "没有证据令主表将 E035/E040 保留为 ambiguous 的处理不可接受；接受明确错误主表与严格当前存在读法敏感性结果并列报告。",
+  "rationale": [
+    "原句使用 are，可被读成当前池塘里确有鱼；数量 unknown 和 fishing 交互都不足以证明这个命题，因此保留原初评的 unsupported 解释。",
+    "同一句也可被读成对登记捕鱼地点的一般职业性概括。输入确实提供 pond.water interaction=fishing，不能排除这种读法。",
+    "在明确错误采用较保守标准时，可把两句标为 ambiguous 并排除出主表明确错误；这不等于标为 supported，也不证明当前池中有鱼。",
+    "有效回应按一般地点读法计入主表时，应保留依赖该读法的说明，并同时给出按当前存在读法判错的有效回应结果。"
+  ],
+  "items": [
+    {
+      "sampleId": "E035",
+      "text": "The pond's where the carp are.",
+      "initialLabel": "unsupported",
+      "initialUseful": false,
+      "reconciliationLabel": "ambiguous",
+      "mainTableUsefulUnderGenericReading": true,
+      "opinion": "植物是装饰且不可采集的核心回答完整。争议集中于附加句是否声称当前存在鲤鱼；可按双读法保留歧义。"
+    },
+    {
+      "sampleId": "E040",
+      "text": "The pond is where the fish are",
+      "initialLabel": "unsupported",
+      "initialUseful": false,
+      "reconciliationLabel": "ambiguous",
+      "mainTableUsefulUnderGenericReading": true,
+      "opinion": "核心料理用途回答按当前登记能力理解可成立；附加池塘句具有一般职业概括与当前存在两种读法。that's what I bring 可按渔夫角色及已有交付概括处理。"
+    },
+    {
+      "sampleId": "E012",
+      "reconciliationLabelForPondClause": "ambiguous",
+      "usefulRemainsFalse": true,
+      "opinion": "同类池塘表述可以保留歧义，但 already set one carp aside for you 仍缺少预留记录，因此该条有效回应结论不变。"
+    },
+    {
+      "sampleIds": [
+        "E001",
+        "E015",
+        "E016",
+        "E023"
+      ],
+      "opinion": "接受在协调记录中保留 only、亲历范围和 again 的歧义；不要把有争议的字面读法无条件计为明确事实错误。"
+    },
+    {
+      "sampleId": "E047",
+      "opinion": "过去会面地点有 social.placeId 和关联到场、交付记录支持；此处 supported 判断可保留。看不见 satchel 的具体物理原因仍无依据。"
+    },
+    {
+      "sampleId": "E048",
+      "initialLabel": "source_time",
+      "mainTableLabel": "unsupported",
+      "opinion": "接受主表归入 unsupported 并注明来源/时间缺口。这是标签归类差异，不影响其缺乏早间安静观察依据的结论；不应改成已证明现实状态相反。"
+    }
+  ],
+  "sensitivityCounts": {
+    "provenance": "以下组别统计由主代理提供；本代理未读取分组键，未独立重算组别分母。",
+    "parentReportedMainF": {
+      "problematicUtterances": 11,
+      "usefulResponses": 12,
+      "denominator": 24
+    },
+    "parentReportedCurrentExistenceReadingF": {
+      "problematicUtterances": 13,
+      "usefulResponses": 10,
+      "denominator": 24
+    },
+    "opinion": "若这两个样本是唯一改变项，该敏感性变化与每条增加一项问题、减少一条有效回应一致。"
+  },
+  "workPerformed": [
+    "依据已读隐藏样本、保留的个人初评与主代理提供的分歧说明形成协调意见。",
+    "未读取分组键、其他评阅文件、渲染器或真实日志。",
+    "未调用外部模型，未修改独立初评或产品源码。"
+  ]
+}

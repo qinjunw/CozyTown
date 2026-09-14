@@ -1,0 +1,739 @@
+[
+  {
+    "sampleId": "E001",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "no evidence of your catch",
+        "label": "supported",
+        "reason": "只有对方声明，未确认捕鱼。"
+      },
+      {
+        "text": "one carp delivered to you",
+        "label": "supported",
+        "reason": "参与者成功收据。"
+      },
+      {
+        "text": "25 coins paid",
+        "label": "supported",
+        "reason": "已交付价款。"
+      },
+      {
+        "text": "my own line in the water",
+        "label": "unsupported",
+        "reason": "没有鱼线或本人正在捕鱼的观察。"
+      }
+    ],
+    "notes": "未指出听到的声明就是已有来源；擅加本人捕鱼。"
+  },
+  {
+    "sampleId": "E002",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "resource transfer recorded complete at minute 750",
+        "label": "supported",
+        "reason": "成功收据及其时间。"
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "sampleId": "E003",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "I misspoke earlier",
+        "label": "source_time",
+        "reason": "当前零库存不能证明过去声明说错；记录只证明过去说过。"
+      },
+      {
+        "text": "I hold none now",
+        "label": "supported",
+        "reason": "本人当前鲤鱼为零。"
+      },
+      {
+        "text": "delivery went through",
+        "label": "supported",
+        "reason": "成功收据。"
+      },
+      {
+        "text": "one carp transferred",
+        "label": "supported",
+        "reason": "收据数量。"
+      },
+      {
+        "text": "25 coins paid",
+        "label": "supported",
+        "reason": "收据价款。"
+      },
+      {
+        "text": "my balance is 25",
+        "label": "unauthorized",
+        "reason": "balance canExpress=false。"
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "sampleId": "E004",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E005",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E006",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E007",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "plant registered as decoration",
+        "label": "supported",
+        "reason": "kind=decoration。"
+      }
+    ],
+    "notes": "只报类型，遗漏明确无交互能力；类型本身不蕴含无法采集。"
+  },
+  {
+    "sampleId": "E008",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E009",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "pond stock unknown to me",
+        "label": "supported",
+        "reason": "quantity knowledge=unknown。"
+      },
+      {
+        "text": "I have one carp",
+        "label": "supported",
+        "reason": "本人当前库存。"
+      }
+    ],
+    "notes": "炖鱼是未来评价，不断言已烹饪或已有草药。"
+  },
+  {
+    "sampleId": "E010",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E011",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "currently hold zero carp",
+        "label": "supported",
+        "reason": "本人当前库存。"
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "sampleId": "E012",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "plant just decoration",
+        "label": "supported",
+        "reason": "场景目录类型。"
+      },
+      {
+        "text": "pond is where the fish are",
+        "label": "ambiguous",
+        "reason": "可以理解为捕鱼地点，也可能被读成当前鱼存在；未给出精确鱼量。"
+      },
+      {
+        "text": "already set one carp aside for you",
+        "label": "unsupported",
+        "reason": "库存及收据不证明另有预留承诺。"
+      }
+    ],
+    "notes": "没有明确无交互能力，且擅加预留。"
+  },
+  {
+    "sampleId": "E013",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "in West lane now",
+        "label": "supported",
+        "reason": "实际身体区域。"
+      },
+      {
+        "text": "not at the pond",
+        "label": "supported",
+        "reason": "当前区域是 west。"
+      }
+    ],
+    "notes": "perfect 为主观评价，herb stew 是未来构想，不认定为已完成烹饪。"
+  },
+  {
+    "sampleId": "E014",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E015",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "pond currently visible",
+        "label": "supported",
+        "reason": "附近实体包含 pond.water。"
+      },
+      {
+        "text": "you currently here",
+        "label": "supported",
+        "reason": "对方 present。"
+      },
+      {
+        "text": "catch cannot be confirmed or disproved",
+        "label": "supported",
+        "reason": "只有声明，没有捕鱼凭据。"
+      }
+    ],
+    "notes": "遗漏“对方此前说过”的来源；只谈亲见内容不足以完整回答证据问题。"
+  },
+  {
+    "sampleId": "E016",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "in West lane now",
+        "label": "supported",
+        "reason": "实际区域。"
+      },
+      {
+        "text": "at my rest spot by the pond",
+        "label": "unsupported",
+        "reason": "把 targetLocationId／social.locationId 当身体已到达地点。"
+      },
+      {
+        "text": "carp received",
+        "label": "supported",
+        "reason": "谢鱼隐含的收鱼有收据。"
+      }
+    ],
+    "notes": "going into stew 是未来意图，不当作已完成。"
+  },
+  {
+    "sampleId": "E017",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E018",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "listener current inventory unknown",
+        "label": "supported",
+        "reason": "当前听众资产未披露。"
+      },
+      {
+        "text": "listener current coins unknown",
+        "label": "supported",
+        "reason": "当前听众余额未披露。"
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "sampleId": "E019",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E020",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E021",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E022",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E023",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "I have one carp delivered",
+        "label": "ambiguous",
+        "reason": "Ren 是卖方；可读作已交付一条，也可能误读作自己收到一条。"
+      },
+      {
+        "text": "you said you caught fish this morning",
+        "label": "supported",
+        "reason": "Sora 声明原文。"
+      },
+      {
+        "text": "I cannot confirm your catch",
+        "label": "supported",
+        "reason": "声明未被确认。"
+      }
+    ],
+    "notes": "保留歧义但不计明确错误；已区分来源和事实，未给绝对时间不算错误。"
+  },
+  {
+    "sampleId": "E024",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "I misspoke earlier",
+        "label": "source_time",
+        "reason": "当前库存不能反推过去声明错误。"
+      },
+      {
+        "text": "hold none now",
+        "label": "supported",
+        "reason": "本人库存零。"
+      }
+    ],
+    "notes": "再次交易是条件意愿，不直接认定为已发生。"
+  },
+  {
+    "sampleId": "E025",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "list incomplete",
+        "label": "supported",
+        "reason": "nearbyComplete=false。"
+      },
+      {
+        "text": "list saw a plant",
+        "label": "supported",
+        "reason": "清单含 decor.plant。"
+      },
+      {
+        "text": "list saw seven lamps",
+        "label": "supported",
+        "reason": "清单含 lamp.0 至 lamp.6。"
+      },
+      {
+        "text": "nothing more",
+        "label": "ambiguous",
+        "reason": "承接 incomplete 可理解为清单没有更多；若指真实附近则越界。"
+      }
+    ],
+    "notes": "采用局部清单读法，歧义独立保留。"
+  },
+  {
+    "sampleId": "E026",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E027",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E028",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E029",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "hold zero carp now",
+        "label": "supported",
+        "reason": "本人库存零。"
+      },
+      {
+        "text": "traded fish went into tonight pot",
+        "label": "unsupported",
+        "reason": "没有烹饪／消耗收据；库存零不能推出原因。"
+      }
+    ],
+    "notes": "再次购买是愿望，不是已交易。"
+  },
+  {
+    "sampleId": "E030",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "delivery marked resource.delivered",
+        "label": "supported",
+        "reason": "成功收据。"
+      },
+      {
+        "text": "one carp moved",
+        "label": "supported",
+        "reason": "收据数量。"
+      },
+      {
+        "text": "25 coins paid",
+        "label": "supported",
+        "reason": "收据价款。"
+      },
+      {
+        "text": "recorded at minute 750",
+        "label": "supported",
+        "reason": "收据时间。"
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "sampleId": "E031",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "listener inventory unknown",
+        "label": "supported",
+        "reason": "听众当前资产不可见。"
+      },
+      {
+        "text": "I only know my own nets",
+        "label": "ambiguous",
+        "reason": "可能为渔夫措辞；若指具体网具则没有来源。"
+      },
+      {
+        "text": "carp delivered",
+        "label": "supported",
+        "reason": "成功收据。"
+      }
+    ],
+    "notes": "比喻歧义不计明确事实错误。"
+  },
+  {
+    "sampleId": "E032",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "pond carp quantity unknown",
+        "label": "supported",
+        "reason": "quantity unknown。"
+      },
+      {
+        "text": "own one carp",
+        "label": "supported",
+        "reason": "当前本人资产。"
+      }
+    ],
+    "notes": "local herbs 出现在愿望中，没有断言已持有或已发现。"
+  },
+  {
+    "sampleId": "E033",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E034",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "listener current inventory unknown",
+        "label": "supported",
+        "reason": "听众资产未披露。"
+      },
+      {
+        "text": "listener current coins unknown",
+        "label": "supported",
+        "reason": "听众余额未披露。"
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "sampleId": "E035",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "plant decoration",
+        "label": "supported",
+        "reason": "目录类型。"
+      },
+      {
+        "text": "nothing supported to gather from plant",
+        "label": "supported",
+        "reason": "interaction=none；按本场景能力读法。"
+      },
+      {
+        "text": "pond where carp are",
+        "label": "ambiguous",
+        "reason": "可能是登记捕鱼用途，也可能暗示未知的当前存在。"
+      }
+    ],
+    "notes": "保留池塘表述歧义。"
+  },
+  {
+    "sampleId": "E036",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E037",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E038",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "trade receipt successful",
+        "label": "supported",
+        "reason": "成功收据。"
+      },
+      {
+        "text": "one carp moved",
+        "label": "supported",
+        "reason": "收据数量。"
+      },
+      {
+        "text": "25 coins paid",
+        "label": "supported",
+        "reason": "收据价款。"
+      }
+    ],
+    "notes": "fresh pond-side stew 是评价未来菜肴，未必是鲤鱼已获确认的新鲜度。"
+  },
+  {
+    "sampleId": "E039",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E040",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "plant decoration",
+        "label": "supported",
+        "reason": "目录类型。"
+      },
+      {
+        "text": "no supported cooking use",
+        "label": "supported",
+        "reason": "本场景 interaction=none；按已建模能力读法。"
+      },
+      {
+        "text": "pond where fish are",
+        "label": "ambiguous",
+        "reason": "捕鱼用途与当前存在有歧义。"
+      },
+      {
+        "text": "fish is what I bring",
+        "label": "ambiguous",
+        "reason": "可能承接既有交付；也可能泛指未被记录的捕鱼活动。"
+      }
+    ],
+    "notes": "无明确当前鱼量或已捕鱼主张。"
+  },
+  {
+    "sampleId": "E041",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "list incomplete",
+        "label": "supported",
+        "reason": "nearbyComplete=false。"
+      },
+      {
+        "text": "list proves no absence of other objects",
+        "label": "supported",
+        "reason": "截断不能推出不存在。"
+      },
+      {
+        "text": "see plant",
+        "label": "supported",
+        "reason": "目录包含植物。"
+      },
+      {
+        "text": "see lamps",
+        "label": "supported",
+        "reason": "目录包含路灯。"
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "sampleId": "E042",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "in West lane",
+        "label": "supported",
+        "reason": "实际区域。"
+      },
+      {
+        "text": "at my rest spot",
+        "label": "unsupported",
+        "reason": "仅给出目标，不证明已在该休息点。"
+      },
+      {
+        "text": "with listener here",
+        "label": "supported",
+        "reason": "对方 present。"
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "sampleId": "E043",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "pond quantity unknown",
+        "label": "supported",
+        "reason": "quantity unknown。"
+      },
+      {
+        "text": "own one carp",
+        "label": "supported",
+        "reason": "本人当前库存。"
+      },
+      {
+        "text": "own 25 coins",
+        "label": "unauthorized",
+        "reason": "balance canExpress=false。"
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "sampleId": "E044",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "listener inventory unknown",
+        "label": "supported",
+        "reason": "听众当前资产未披露。"
+      },
+      {
+        "text": "one carp handed over",
+        "label": "supported",
+        "reason": "成功收据。"
+      },
+      {
+        "text": "25 coins paid",
+        "label": "supported",
+        "reason": "已交付价款。"
+      },
+      {
+        "text": "pond still quiet today",
+        "label": "unsupported",
+        "reason": "没有池塘声音／活动状态的观察。"
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "sampleId": "E045",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。"
+  },
+  {
+    "sampleId": "E046",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "transfer recorded complete",
+        "label": "supported",
+        "reason": "resource.delivered。"
+      },
+      {
+        "text": "one carp",
+        "label": "supported",
+        "reason": "已交付数量。"
+      },
+      {
+        "text": "25 coins",
+        "label": "supported",
+        "reason": "已交付价款。"
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "sampleId": "E047",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "cannot see listener satchel",
+        "label": "unsupported",
+        "reason": "未建模视觉遮挡或挎包，未知资产不能解释成视线受阻。"
+      },
+      {
+        "text": "one carp handed over",
+        "label": "supported",
+        "reason": "成功收据。"
+      },
+      {
+        "text": "25 coins paid",
+        "label": "supported",
+        "reason": "已交付价款。"
+      },
+      {
+        "text": "transfer at pond",
+        "label": "ambiguous",
+        "reason": "会面地点为 pond，但此收据未独立记录历史身体位置。"
+      }
+    ],
+    "notes": ""
+  },
+  {
+    "sampleId": "E048",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "list covers registered nearby entities",
+        "label": "supported",
+        "reason": "coverageDomain。"
+      },
+      {
+        "text": "list incomplete",
+        "label": "supported",
+        "reason": "nearbyComplete=false。"
+      },
+      {
+        "text": "quiet morning on pond",
+        "label": "unsupported",
+        "reason": "缺少安静状态及早晨池塘的观察。"
+      }
+    ],
+    "notes": ""
+  }
+]

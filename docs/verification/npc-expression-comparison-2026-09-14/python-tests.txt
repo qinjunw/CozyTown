@@ -1,0 +1,80 @@
+test_candidate_schema_and_operation_must_match_the_original_request (test_decision_proxy.ProxyServiceTests.test_candidate_schema_and_operation_must_match_the_original_request) ... ok
+test_correction_is_a_separate_host_request_with_the_original_identity_and_limits (test_decision_proxy.ProxyServiceTests.test_correction_is_a_separate_host_request_with_the_original_identity_and_limits) ... ok
+test_decision_context_becomes_one_bounded_json_model_call (test_decision_proxy.ProxyServiceTests.test_decision_context_becomes_one_bounded_json_model_call) ... ok
+test_enabled_observation_requires_its_version_and_current_observer_and_world (test_decision_proxy.ProxyServiceTests.test_enabled_observation_requires_its_version_and_current_observer_and_world) ... ok
+test_explicit_expression_contract_requires_a_known_version_and_mode_before_provider (test_decision_proxy.ProxyServiceTests.test_explicit_expression_contract_requires_a_known_version_and_mode_before_provider) ... ok
+test_expression_guidance_changes_only_the_speech_contract_and_keeps_model_limits (test_decision_proxy.ProxyServiceTests.test_expression_guidance_changes_only_the_speech_contract_and_keeps_model_limits) ... ok
+test_failed_provider_attempt_consumes_the_session_call_budget (test_decision_proxy.ProxyServiceTests.test_failed_provider_attempt_consumes_the_session_call_budget) ... ok
+test_http_candidate_errors_expose_only_the_diagnostic_and_never_retry (test_decision_proxy.ProxyServiceTests.test_http_candidate_errors_expose_only_the_diagnostic_and_never_retry) ... ok
+test_inflight_limit_prevents_an_extra_provider_call (test_decision_proxy.ProxyServiceTests.test_inflight_limit_prevents_an_extra_provider_call) ... ok
+test_invalid_context_never_reaches_the_provider (test_decision_proxy.ProxyServiceTests.test_invalid_context_never_reaches_the_provider) ... ok
+test_invalid_or_unoffered_candidates_are_rejected (test_decision_proxy.ProxyServiceTests.test_invalid_or_unoffered_candidates_are_rejected) ... ok
+test_invitation_cannot_select_another_plan_or_rewrite_the_host_identifier (test_decision_proxy.ProxyServiceTests.test_invitation_cannot_select_another_plan_or_rewrite_the_host_identifier) ... ok
+test_invitation_requires_a_nonempty_top_level_plan_identifier (test_decision_proxy.ProxyServiceTests.test_invitation_requires_a_nonempty_top_level_plan_identifier) ... ok
+test_location_candidates_require_a_known_top_level_location (test_decision_proxy.ProxyServiceTests.test_location_candidates_require_a_known_top_level_location) ... ok
+test_loopback_http_endpoint_returns_the_provider_candidate (test_decision_proxy.ProxyServiceTests.test_loopback_http_endpoint_returns_the_provider_candidate) ... ok
+test_measurement_records_reported_model_and_usage_without_raw_prompt_or_reasoning (test_decision_proxy.ProxyServiceTests.test_measurement_records_reported_model_and_usage_without_raw_prompt_or_reasoning) ... ok
+test_meeting_identifiers_require_the_current_nonzero_guid_value (test_decision_proxy.ProxyServiceTests.test_meeting_identifiers_require_the_current_nonzero_guid_value) ... ok
+test_meeting_operations_require_a_nonempty_top_level_meeting_identifier (test_decision_proxy.ProxyServiceTests.test_meeting_operations_require_a_nonempty_top_level_meeting_identifier) ... ok
+test_observation_accepts_list_limits_and_keeps_the_existing_total_utf8_budget (test_decision_proxy.ProxyServiceTests.test_observation_accepts_list_limits_and_keeps_the_existing_total_utf8_budget) ... ok
+test_observation_coverage_metadata_and_lists_have_bounded_shapes (test_decision_proxy.ProxyServiceTests.test_observation_coverage_metadata_and_lists_have_bounded_shapes) ... ok
+test_observation_facts_keep_typed_provenance_and_the_current_observer (test_decision_proxy.ProxyServiceTests.test_observation_facts_keep_typed_provenance_and_the_current_observer) ... ok
+test_observation_geometry_and_sample_time_require_finite_numbers (test_decision_proxy.ProxyServiceTests.test_observation_geometry_and_sample_time_require_finite_numbers) ... ok
+test_observation_round_trip_preserves_sample_time_provenance_permissions_and_unknowns (test_decision_proxy.ProxyServiceTests.test_observation_round_trip_preserves_sample_time_provenance_permissions_and_unknowns) ... ok
+test_optional_observation_preserves_legacy_requests_and_disabled_empty_payloads (test_decision_proxy.ProxyServiceTests.test_optional_observation_preserves_legacy_requests_and_disabled_empty_payloads) ... ok
+test_private_file_selects_only_one_cozytown_credential (test_decision_proxy.ProxyServiceTests.test_private_file_selects_only_one_cozytown_credential) ... ok
+test_provider_transport_uses_the_fixed_api_and_keeps_the_key_out_of_json (test_decision_proxy.ProxyServiceTests.test_provider_transport_uses_the_fixed_api_and_keeps_the_key_out_of_json) ... ok
+test_resource_candidate_preserves_only_the_accepted_meeting_identifier (test_decision_proxy.ProxyServiceTests.test_resource_candidate_preserves_only_the_accepted_meeting_identifier) ... ok
+test_speech_candidates_cannot_cross_the_requested_expression_mode (test_decision_proxy.ProxyServiceTests.test_speech_candidates_cannot_cross_the_requested_expression_mode) ... ok
+test_speech_requires_nonempty_text_with_at_most_240_utf16_units (test_decision_proxy.ProxyServiceTests.test_speech_requires_nonempty_text_with_at_most_240_utf16_units) ... ok
+test_structured_speech_preserves_the_frame_for_host_semantic_validation (test_decision_proxy.ProxyServiceTests.test_structured_speech_preserves_the_frame_for_host_semantic_validation) ... ok
+test_structured_speech_rejects_missing_fields_unknown_enums_and_additional_claims (test_decision_proxy.ProxyServiceTests.test_structured_speech_rejects_missing_fields_unknown_enums_and_additional_claims) ... ok
+test_supported_context_versions_reach_the_provider_and_return_matching_candidates (test_decision_proxy.ProxyServiceTests.test_supported_context_versions_reach_the_provider_and_return_matching_candidates) ... ok
+test_trace_and_status_count_failures_and_exclude_unrecognized_candidate_fields (test_decision_proxy.ProxyServiceTests.test_trace_and_status_count_failures_and_exclude_unrecognized_candidate_fields) ... ok
+test_unparsed_nonobject_and_oversized_candidates_have_no_correction_code (test_decision_proxy.ProxyServiceTests.test_unparsed_nonobject_and_oversized_candidates_have_no_correction_code) ... ok
+test_v4_resource_candidates_cannot_bypass_host_allowed_operations (test_decision_proxy.ProxyServiceTests.test_v4_resource_candidates_cannot_bypass_host_allowed_operations) ... ok
+test_visit_activity_must_be_supported_and_offered_in_the_request (test_decision_proxy.ProxyServiceTests.test_visit_activity_must_be_supported_and_offered_in_the_request) ... ok
+test_visit_duration_requires_an_explicit_finite_number_within_both_limits (test_decision_proxy.ProxyServiceTests.test_visit_duration_requires_an_explicit_finite_number_within_both_limits) ... ok
+{"attemptedProviderCalls":0,"decisionRequests":0,"endpoints":{"F":"http://127.0.0.1:42833/decide","S":"http://127.0.0.1:42834/decide"},"finishedDecisionRequests":0,"inflight":0,"remainingCalls":48,"requestedModel":"deepseek-v4-flash","runState":"running","stage":"fixed","totalAttemptedProviderCalls":0,"worlds":{}}
+{"attemptedProviderCalls":0,"decisionRequests":0,"finishedDecisionRequests":0,"inflight":0,"remainingCalls":48,"requestedModel":"deepseek-v4-flash","runState":"stopped","stage":"fixed","totalAttemptedProviderCalls":0,"worlds":{}}
+test_background_server_can_stop_via_a_local_file_without_spending_unused_calls (test_expression_experiment.ExpressionExperimentTests.test_background_server_can_stop_via_a_local_file_without_spending_unused_calls) ... ok
+test_both_arms_share_the_existing_two_provider_slot_limit (test_expression_experiment.ExpressionExperimentTests.test_both_arms_share_the_existing_two_provider_slot_limit) ... ok
+{"attemptedProviderCalls":0,"decisionRequests":0,"endpoints":{"F":"http://127.0.0.1:42840/decide","S":"http://127.0.0.1:42841/decide"},"finishedDecisionRequests":0,"inflight":0,"remainingCalls":48,"requestedModel":"deepseek-v4-flash","runState":"running","stage":"fixed","totalAttemptedProviderCalls":0,"worlds":{}}
+{"attemptedProviderCalls":0,"decisionRequests":0,"finishedDecisionRequests":0,"inflight":0,"remainingCalls":48,"requestedModel":"deepseek-v4-flash","runState":"stopped","stage":"fixed","totalAttemptedProviderCalls":0,"worlds":{}}
+test_cli_freezes_repository_sources_and_stops_without_reading_credentials_when_transport_is_injected (test_expression_experiment.ExpressionExperimentTests.test_cli_freezes_repository_sources_and_stops_without_reading_credentials_when_transport_is_injected) ... ok
+test_fixed_stage_keeps_failures_and_stops_at_48_requests_without_replenishing_them (test_expression_experiment.ExpressionExperimentTests.test_fixed_stage_keeps_failures_and_stops_at_48_requests_without_replenishing_them) ... ok
+test_paired_requests_preserve_context_and_write_frozen_inputs_and_separate_responses (test_expression_experiment.ExpressionExperimentTests.test_paired_requests_preserve_context_and_write_frozen_inputs_and_separate_responses) ... ok
+test_provider_attempt_is_flushed_before_dispatch_so_interruption_does_not_hide_usage (test_expression_experiment.ExpressionExperimentTests.test_provider_attempt_is_flushed_before_dispatch_so_interruption_does_not_hide_usage) ... ok
+test_scene_requires_completed_fixed_evidence_with_matching_usage_records_and_frozen_inputs (test_expression_experiment.ExpressionExperimentTests.test_scene_requires_completed_fixed_evidence_with_matching_usage_records_and_frozen_inputs) ... ok
+test_scene_shares_48_calls_across_four_worlds_and_cannot_reuse_a_fixed_stage (test_expression_experiment.ExpressionExperimentTests.test_scene_shares_48_calls_across_four_worlds_and_cannot_reuse_a_fixed_stage) ... ok
+test_stopping_waits_for_inflight_raw_evidence_and_rejects_new_requests (test_expression_experiment.ExpressionExperimentTests.test_stopping_waits_for_inflight_raw_evidence_and_rejects_new_requests) ... ok
+test_two_loopback_ports_share_the_budget_and_keep_candidate_diagnostics (test_expression_experiment.ExpressionExperimentTests.test_two_loopback_ports_share_the_budget_and_keep_candidate_diagnostics) ... ok
+test_assessment_uses_only_own_known_terms_and_skips_completed_delivery (test_grounding_experiment.GroundingExperimentTests.test_assessment_uses_only_own_known_terms_and_skips_completed_delivery) ... ok
+test_buyer_balance_boundaries_preserve_or_filter_each_commitment (test_grounding_experiment.GroundingExperimentTests.test_buyer_balance_boundaries_preserve_or_filter_each_commitment) ... ok
+test_control_preserves_production_context_and_does_not_mutate_input (test_grounding_experiment.GroundingExperimentTests.test_control_preserves_production_context_and_does_not_mutate_input) ... ok
+test_filter_removes_only_commitments_blocked_by_known_own_resources (test_grounding_experiment.GroundingExperimentTests.test_filter_removes_only_commitments_blocked_by_known_own_resources) ... ok
+{"mode": "fixed", "plannedCalls": 160, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 0, "remainingCalls": 160, "inflight": 0}
+{"completedDecisions": 20, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 20, "remainingCalls": 140, "inflight": 0}
+{"completedDecisions": 40, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 40, "remainingCalls": 120, "inflight": 0}
+{"completedDecisions": 60, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 60, "remainingCalls": 100, "inflight": 0}
+{"completedDecisions": 80, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 80, "remainingCalls": 80, "inflight": 0}
+{"completedDecisions": 100, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 100, "remainingCalls": 60, "inflight": 0}
+{"completedDecisions": 120, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 120, "remainingCalls": 40, "inflight": 0}
+{"completedDecisions": 140, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 140, "remainingCalls": 20, "inflight": 0}
+{"completedDecisions": 160, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 160, "remainingCalls": 0, "inflight": 0}
+{"mode": "fixed", "runState": "completed", "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 160, "remainingCalls": 0, "inflight": 0}
+test_fixed_cli_writes_new_evidence_and_never_overwrites_an_existing_directory (test_grounding_experiment.GroundingExperimentTests.test_fixed_cli_writes_new_evidence_and_never_overwrites_an_existing_directory) ... experiment.startup_or_evidence_failure
+ok
+test_fixed_corpus_runs_160_fresh_paired_calls_and_retains_failures (test_grounding_experiment.GroundingExperimentTests.test_fixed_corpus_runs_160_fresh_paired_calls_and_retains_failures) ... ok
+test_four_loopback_arms_share_one_provider_budget (test_grounding_experiment.GroundingExperimentTests.test_four_loopback_arms_share_one_provider_budget) ... ok
+test_grounding_distinguishes_targets_claims_and_fresh_self_observation (test_grounding_experiment.GroundingExperimentTests.test_grounding_distinguishes_targets_claims_and_fresh_self_observation) ... ok
+test_missing_observation_keeps_arrival_unknown_and_empty_resource_payload_has_no_assessment (test_grounding_experiment.GroundingExperimentTests.test_missing_observation_keeps_arrival_unknown_and_empty_resource_payload_has_no_assessment) ... ok
+test_seller_stock_boundaries_do_not_depend_on_seller_wallet (test_grounding_experiment.GroundingExperimentTests.test_seller_stock_boundaries_do_not_depend_on_seller_wallet) ... ok
+test_service_preserves_control_prompt_and_records_filtered_call_separately (test_grounding_experiment.GroundingExperimentTests.test_service_preserves_control_prompt_and_records_filtered_call_separately) ... ok
+test_service_preserves_provider_error_and_consumed_budget (test_grounding_experiment.GroundingExperimentTests.test_service_preserves_provider_error_and_consumed_budget) ... ok
+test_service_preserves_proxy_field_rejection_without_repair_or_retry (test_grounding_experiment.GroundingExperimentTests.test_service_preserves_proxy_field_rejection_without_repair_or_retry) ... ok
+
+----------------------------------------------------------------------
+Ran 60 tests in 11.201s
+
+OK

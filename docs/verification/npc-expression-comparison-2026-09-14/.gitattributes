@@ -1,0 +1,2 @@
+# Preserve recorded evidence bytes so manifest and checksum hashes survive checkout.
+* -text

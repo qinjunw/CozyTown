@@ -1,0 +1,2304 @@
+{
+  "schemaVersion": 1,
+  "auditType": "read_only_scene_evidence_reconciliation",
+  "auditedAtUtc": "2026-09-14T07:36:48.029131+00:00",
+  "sourceCommit": "c8bf837d1a30f358970566bd06d91ebec8645a87",
+  "evidenceDirectory": "Logs/expression-scene-live-2026-09-14",
+  "verdict": "证据链与宿主约束检查一致；四世界均未进入实际交谈，不能据此判断 F/S 表达效果。",
+  "scope": {
+    "modelCallsDuringAudit": 0,
+    "unityRunsDuringAudit": 0,
+    "sourceEditsDuringAudit": 0,
+    "outputOnly": "Logs/expression-scene-audit.json",
+    "methods": [
+      "解析 8 个既有证据文件",
+      "按 decisionId、worldRunId、step、request/providerCall 联接并比较 JSON",
+      "核对当前冻结源码及 manifest 文件哈希",
+      "检查实际台词、资产、记忆、到期与恢复记录"
+    ],
+    "notPerformed": [
+      "重新运行失败世界",
+      "调用外部模型",
+      "修改生产代码或测试",
+      "读取未提交的美术场景文件"
+    ]
+  },
+  "provenance": {
+    "headMatchesManifest": true,
+    "manifestSourceDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sourceFilesChecked": 45,
+    "sourceHashMismatches": [],
+    "sourceFiles": [
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/INpcDecisionClient.cs",
+        "matchesManifest": true,
+        "expectedSha256": "919ca1255cf614acf57659c6ed8fd038fe77936d4c77577e5d495b98cbbb95ac",
+        "actualSha256": "919ca1255cf614acf57659c6ed8fd038fe77936d4c77577e5d495b98cbbb95ac"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcActivityRequest.cs",
+        "matchesManifest": true,
+        "expectedSha256": "2a5df238bc5157b08e30b2e4392cecb484bf847bbc1fbb6e34e993637448d574",
+        "actualSha256": "2a5df238bc5157b08e30b2e4392cecb484bf847bbc1fbb6e34e993637448d574"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcAgentEvent.cs",
+        "matchesManifest": true,
+        "expectedSha256": "28d8a2fdc357e6eb0006d71ad7219de994b3ffe103ee26d8dbaf66a02b1dbb0e",
+        "actualSha256": "28d8a2fdc357e6eb0006d71ad7219de994b3ffe103ee26d8dbaf66a02b1dbb0e"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcAgentSnapshot.cs",
+        "matchesManifest": true,
+        "expectedSha256": "30db589c6949d42e74e58dbeb37534ec9eeee3b789cc2ddfcfadbfaae021405c",
+        "actualSha256": "30db589c6949d42e74e58dbeb37534ec9eeee3b789cc2ddfcfadbfaae021405c"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcAgentWorld.cs",
+        "matchesManifest": true,
+        "expectedSha256": "30d3df7443127e04ac5164f9e687467ebcc159d0a0288b08314b21b3f17f83b1",
+        "actualSha256": "30d3df7443127e04ac5164f9e687467ebcc159d0a0288b08314b21b3f17f83b1"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcCandidateException.cs",
+        "matchesManifest": true,
+        "expectedSha256": "e41e9fc052e4cc3a0f4dc3878c2e0a164ddf403b63dbbdc789eaf69f1c9d74c0",
+        "actualSha256": "e41e9fc052e4cc3a0f4dc3878c2e0a164ddf403b63dbbdc789eaf69f1c9d74c0"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcConversationLine.cs",
+        "matchesManifest": true,
+        "expectedSha256": "f1e2dc8320074f9b187adfe8785e351263dce0739a4171307636871d0f39ae54",
+        "actualSha256": "f1e2dc8320074f9b187adfe8785e351263dce0739a4171307636871d0f39ae54"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionOutcome.cs",
+        "matchesManifest": true,
+        "expectedSha256": "7b6fd8d122a9f60670fa5cb430c88aa313953f1298987b4a8b2d18d68994a087",
+        "actualSha256": "7b6fd8d122a9f60670fa5cb430c88aa313953f1298987b4a8b2d18d68994a087"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionReply.cs",
+        "matchesManifest": true,
+        "expectedSha256": "b197cbea3a8e3569b4cfecfb48282eed4b4c7688c34670efd2f06fcecdb05b30",
+        "actualSha256": "b197cbea3a8e3569b4cfecfb48282eed4b4c7688c34670efd2f06fcecdb05b30"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionRequest.cs",
+        "matchesManifest": true,
+        "expectedSha256": "bec69edf730bd19dc928b57966d3fdd69dc3580e9902bd96cc0b549d37af80f1",
+        "actualSha256": "bec69edf730bd19dc928b57966d3fdd69dc3580e9902bd96cc0b549d37af80f1"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+        "matchesManifest": true,
+        "expectedSha256": "a62aa4314ec292cc293e1bc1549fc0337a1f5565d2900acb7d7a4f729598dffe",
+        "actualSha256": "a62aa4314ec292cc293e1bc1549fc0337a1f5565d2900acb7d7a4f729598dffe"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionSettings.cs",
+        "matchesManifest": true,
+        "expectedSha256": "d6aa7ca181388106545df0b45d1689f0c3b4d8257ad52c481f9b2328bc303714",
+        "actualSha256": "d6aa7ca181388106545df0b45d1689f0c3b4d8257ad52c481f9b2328bc303714"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcFactSpeech.cs",
+        "matchesManifest": true,
+        "expectedSha256": "181863a8e0e61b94c250c282330768c7f46678a5cf37e9c1bb6aeaf296d7f540",
+        "actualSha256": "181863a8e0e61b94c250c282330768c7f46678a5cf37e9c1bb6aeaf296d7f540"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcLocalObservation.cs",
+        "matchesManifest": true,
+        "expectedSha256": "d627fa72ee541c88f3e065b86a4109baca9bff4cbd58180fe015fa61855a7493",
+        "actualSha256": "d627fa72ee541c88f3e065b86a4109baca9bff4cbd58180fe015fa61855a7493"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcLocationDetails.cs",
+        "matchesManifest": true,
+        "expectedSha256": "8d1c2f4758f875fddb71e4e20157f54fb3352ddfd6066fe70de183fb3afa9a6a",
+        "actualSha256": "8d1c2f4758f875fddb71e4e20157f54fb3352ddfd6066fe70de183fb3afa9a6a"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcMeetingBoard.cs",
+        "matchesManifest": true,
+        "expectedSha256": "98d22c74796559f1de36e823826c2f64fecec9cd69edc10866abee609e2fce8b",
+        "actualSha256": "98d22c74796559f1de36e823826c2f64fecec9cd69edc10866abee609e2fce8b"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcMeetingMemory.cs",
+        "matchesManifest": true,
+        "expectedSha256": "d559365045fc48c1dd130540d569d3a78d84a60b93269e26733680c2904fc6f3",
+        "actualSha256": "d559365045fc48c1dd130540d569d3a78d84a60b93269e26733680c2904fc6f3"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcMeetingPlan.cs",
+        "matchesManifest": true,
+        "expectedSha256": "33ef651790f79059fddf956001825c623fe2a6ca1c81743ea89b5ecb1f949945",
+        "actualSha256": "33ef651790f79059fddf956001825c623fe2a6ca1c81743ea89b5ecb1f949945"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcMeetingSnapshot.cs",
+        "matchesManifest": true,
+        "expectedSha256": "8ab2100a5632e40bddaa9eedff94636b3345b8b18d30d69b8b2934a8552784b5",
+        "actualSha256": "8ab2100a5632e40bddaa9eedff94636b3345b8b18d30d69b8b2934a8552784b5"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcObservationBody.cs",
+        "matchesManifest": true,
+        "expectedSha256": "99e8ae0c8f8c4424785ee007a7d9d374e7530c2483e3470ae3ebb7f0fd5edcbf",
+        "actualSha256": "99e8ae0c8f8c4424785ee007a7d9d374e7530c2483e3470ae3ebb7f0fd5edcbf"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcObservationEntity.cs",
+        "matchesManifest": true,
+        "expectedSha256": "d79ba9b8daa36da7a0e1e666a5fd115e03ec786c0a92c0fba860556ee5d324ab",
+        "actualSha256": "d79ba9b8daa36da7a0e1e666a5fd115e03ec786c0a92c0fba860556ee5d324ab"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcObservationFact.cs",
+        "matchesManifest": true,
+        "expectedSha256": "54124209b67b03850e26d2457dc43fe51630058111b6da29f9c6d044add0c599",
+        "actualSha256": "54124209b67b03850e26d2457dc43fe51630058111b6da29f9c6d044add0c599"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcObservationRegion.cs",
+        "matchesManifest": true,
+        "expectedSha256": "1cfa05e77d5625df650448c29879b9befee5a32106349ad3100c3366a03aab1c",
+        "actualSha256": "1cfa05e77d5625df650448c29879b9befee5a32106349ad3100c3366a03aab1c"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcObservationScene.cs",
+        "matchesManifest": true,
+        "expectedSha256": "93fe0f2044f0d476a2f8b2b0dd9bb8e4fd5e26f3f95c7b543958b5fb7c8002c8",
+        "actualSha256": "93fe0f2044f0d476a2f8b2b0dd9bb8e4fd5e26f3f95c7b543958b5fb7c8002c8"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcSocialContext.cs",
+        "matchesManifest": true,
+        "expectedSha256": "7ab4596cc72dd0a8448c6efad774682be7239e18e540f9138da420a4f5e213a5",
+        "actualSha256": "7ab4596cc72dd0a8448c6efad774682be7239e18e540f9138da420a4f5e213a5"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcSpeechFrame.cs",
+        "matchesManifest": true,
+        "expectedSha256": "58907e1715410146ed556a62344a61bc9de7613a464a9f678fdae5f3a4052826",
+        "actualSha256": "58907e1715410146ed556a62344a61bc9de7613a464a9f678fdae5f3a4052826"
+      },
+      {
+        "file": "Assets/CozyTown/Runtime/NpcAgents/NpcSpeechMode.cs",
+        "matchesManifest": true,
+        "expectedSha256": "ed6c94c33003a5a56cc1d0682e695f05ea1b76e463e1066e52265973daedd821",
+        "actualSha256": "ed6c94c33003a5a56cc1d0682e695f05ea1b76e463e1066e52265973daedd821"
+      },
+      {
+        "file": "Assets/CozyTown/Tests/PlayMode/NpcResourceExpressionPlayModeTests.cs",
+        "matchesManifest": true,
+        "expectedSha256": "19c9a195f47c009d54baa7b6b176ae776ba1398716481a26c6009725e8c8a65b",
+        "actualSha256": "19c9a195f47c009d54baa7b6b176ae776ba1398716481a26c6009725e8c8a65b"
+      },
+      {
+        "file": "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs",
+        "matchesManifest": true,
+        "expectedSha256": "3799a3dff71de0acb613e58a2d96ac0f2dbd8c5691ae06e16264aa8bc6f03a54",
+        "actualSha256": "3799a3dff71de0acb613e58a2d96ac0f2dbd8c5691ae06e16264aa8bc6f03a54"
+      },
+      {
+        "file": "Assets/CozyTown/Tests/UnityEditMode/NpcExpressionExperimentTests.cs",
+        "matchesManifest": true,
+        "expectedSha256": "66a54c8f6642fb88cdab1047e6ff87ce6a9f1aa229e621226f08ff20ad2aad82",
+        "actualSha256": "66a54c8f6642fb88cdab1047e6ff87ce6a9f1aa229e621226f08ff20ad2aad82"
+      },
+      {
+        "file": "Assets/CozyTown/Unity/Npc/CozyTownNpcDebugPresenter.cs",
+        "matchesManifest": true,
+        "expectedSha256": "667dac0d56c6b8bfa2d35d815c27eca95e121d798a11efd032fdcd59cf9dcad5",
+        "actualSha256": "667dac0d56c6b8bfa2d35d815c27eca95e121d798a11efd032fdcd59cf9dcad5"
+      },
+      {
+        "file": "Assets/CozyTown/Unity/Npc/CozyTownNpcDebugView.cs",
+        "matchesManifest": true,
+        "expectedSha256": "0c08b1bb0e55448c7e0e6e79531e9aa87ccd5abca459cc110c56d98e7e21ac9e",
+        "actualSha256": "0c08b1bb0e55448c7e0e6e79531e9aa87ccd5abca459cc110c56d98e7e21ac9e"
+      },
+      {
+        "file": "Assets/CozyTown/Unity/Npc/CozyTownNpcSpriteAnimator.cs",
+        "matchesManifest": true,
+        "expectedSha256": "0eae06e107542b5d95d95363a3713d2dbc766ce986995e25bb259457513e8142",
+        "actualSha256": "0eae06e107542b5d95d95363a3713d2dbc766ce986995e25bb259457513e8142"
+      },
+      {
+        "file": "Assets/CozyTown/Unity/Npc/CozyTownTownLifeController.cs",
+        "matchesManifest": true,
+        "expectedSha256": "a562193230ca4ce15dc0c0a62dce99d8a4b8610effaa98cba5ee0facb52a267b",
+        "actualSha256": "a562193230ca4ce15dc0c0a62dce99d8a4b8610effaa98cba5ee0facb52a267b"
+      },
+      {
+        "file": "Assets/CozyTown/Unity/Npc/NpcMeetingDialogueView.cs",
+        "matchesManifest": true,
+        "expectedSha256": "cda513f49e1fba3034aafe6313deefc2198c55063f7734f7ba6c8ea8e4ab5482",
+        "actualSha256": "cda513f49e1fba3034aafe6313deefc2198c55063f7734f7ba6c8ea8e4ab5482"
+      },
+      {
+        "file": "Assets/CozyTown/Unity/Npc/NpcWorldResident2D.cs",
+        "matchesManifest": true,
+        "expectedSha256": "68be2ed35ca30d3b90ca566fce28d773f46bc8e4354ca98dd7d0120ae08d7daf",
+        "actualSha256": "68be2ed35ca30d3b90ca566fce28d773f46bc8e4354ca98dd7d0120ae08d7daf"
+      },
+      {
+        "file": "Assets/CozyTown/Unity/Npc/ProxyNpcDecisionClient.cs",
+        "matchesManifest": true,
+        "expectedSha256": "5d3b61eb43caff92d14d4d71228064951a210fcbd6ceab60c3525ad0bf828189",
+        "actualSha256": "5d3b61eb43caff92d14d4d71228064951a210fcbd6ceab60c3525ad0bf828189"
+      },
+      {
+        "file": "Assets/CozyTown/Unity/Npc/ProxyNpcDecisionJsonCodec.cs",
+        "matchesManifest": true,
+        "expectedSha256": "400f9475db5b85ebc656165654ff1fd72fe9b289f299dd4e5d29289933db62af",
+        "actualSha256": "400f9475db5b85ebc656165654ff1fd72fe9b289f299dd4e5d29289933db62af"
+      },
+      {
+        "file": "Assets/CozyTown/Unity/Npc/ProxyNpcDialogueClient.cs",
+        "matchesManifest": true,
+        "expectedSha256": "200eab55921fb21ca64e5960ccd132569be3790c4acb02538dc19640d51198c3",
+        "actualSha256": "200eab55921fb21ca64e5960ccd132569be3790c4acb02538dc19640d51198c3"
+      },
+      {
+        "file": "Assets/CozyTown/Unity/Npc/ProxyNpcDialogueJsonCodec.cs",
+        "matchesManifest": true,
+        "expectedSha256": "a52dba81003cc03b4e1d5451f7caa7b03410e0fbc4e3c70cd929c60a5510af59",
+        "actualSha256": "a52dba81003cc03b4e1d5451f7caa7b03410e0fbc4e3c70cd929c60a5510af59"
+      },
+      {
+        "file": "Assets/CozyTown/Unity/Npc/TownLocalObservation2D.cs",
+        "matchesManifest": true,
+        "expectedSha256": "98c30a416d4e85b23456c668aa4425186d4dd0daac5b0ba81c4e571435575ccf",
+        "actualSha256": "98c30a416d4e85b23456c668aa4425186d4dd0daac5b0ba81c4e571435575ccf"
+      },
+      {
+        "file": "Tools/agent_proxy/expression_cases.json",
+        "matchesManifest": true,
+        "expectedSha256": "476aacca5a8ba948cb85a0e161cb60d6ffbf4fb6303d738af2bbb5b73590e105",
+        "actualSha256": "476aacca5a8ba948cb85a0e161cb60d6ffbf4fb6303d738af2bbb5b73590e105"
+      },
+      {
+        "file": "Tools/agent_proxy/decision_proxy.py",
+        "matchesManifest": true,
+        "expectedSha256": "ad3cfc20595becdf8f0e3def61a9545ca985ef3049d3287467de46cc468d61d5",
+        "actualSha256": "ad3cfc20595becdf8f0e3def61a9545ca985ef3049d3287467de46cc468d61d5"
+      },
+      {
+        "file": "docs/verification/npc-expression-comparison-plan-2026-09-14.md",
+        "matchesManifest": true,
+        "expectedSha256": "907e8ca681573f3ff62f67bb2bc6d7e3471b8807859e9554ba385d431195ba6f",
+        "actualSha256": "907e8ca681573f3ff62f67bb2bc6d7e3471b8807859e9554ba385d431195ba6f"
+      },
+      {
+        "file": "Tools/agent_proxy/expression_experiment.py",
+        "matchesManifest": true,
+        "expectedSha256": "7ac57ce4a305a4d236750dd58c5f4a7c94191ba812b4b0ec2b2efb108d5da304",
+        "actualSha256": "7ac57ce4a305a4d236750dd58c5f4a7c94191ba812b4b0ec2b2efb108d5da304"
+      }
+    ],
+    "evidenceFileSha256": {
+      "contexts.jsonl": "f5b724503b0ae07bd934af016e23f023c777813a1df1deb918ef64b7f24cda70",
+      "corpus.json": "476aacca5a8ba948cb85a0e161cb60d6ffbf4fb6303d738af2bbb5b73590e105",
+      "manifest.json": "93ccaa3928e08f1a12edcc9302e1e65a40b219cee145d5e04414f792faf7f9a4",
+      "provider-responses.jsonl": "4f01d66f7b0f4087dfbe31a7dce7225de00544605b8550ad870ec7137a106617",
+      "provider-starts.jsonl": "bda98839024641a4a9ea8da73246c5de566162ddd9fe0a9cc921ba7c4619f2e7",
+      "proxy.jsonl": "fae65a6d40a2b6c7e3c8c0db91d36aed4909e1aced9ea7740483aeb78834b127",
+      "status.json": "04b8c9e46ac76d2b2d8c5481397bbaaefe052dfc29e2b1ba5bc8befb6031a8b5",
+      "unity-scene.json": "ac07b76d5a3581936b221dcba6719bf7efb7e1fd4c02f005eacb86801a1ccea6"
+    },
+    "corpusHashMatchesManifest": true,
+    "limitation": "manifest 对上述源文件留有哈希；不含 CozyTown_Dev.unity 场景二进制/文本哈希。本审计根据已冻结测试加载路径与输出核对实际场景运行，没有独立重放场景。"
+  },
+  "totals": {
+    "worlds": 4,
+    "uniqueWorldIds": 4,
+    "uniqueMeetingIds": 4,
+    "registeredOrder": [
+      "available:F",
+      "available:S",
+      "seller_empty:S",
+      "seller_empty:F"
+    ],
+    "schedulerCalls": 8,
+    "unityHttpCalls": 8,
+    "contextsRows": 8,
+    "proxyRows": 8,
+    "providerStartRows": 8,
+    "providerResponseRows": 8,
+    "orphanRows": 0,
+    "duplicateDecisionSteps": 0,
+    "allEightCallsReconciled": true,
+    "http200": 8,
+    "proxyValidCandidates": 8,
+    "candidateInvites": 4,
+    "candidateAccepts": 2,
+    "candidateDeclines": 2,
+    "hostInvitesApplied": 4,
+    "hostObservationStale": 4,
+    "hostAcceptsApplied": 0,
+    "hostDeclinesApplied": 0,
+    "sayCandidates": 0,
+    "structuredSpeechCandidates": 0,
+    "renderedTranscriptLines": 0,
+    "nonEmptyVisibleTextSnapshots": 0,
+    "spokenMemoryRecords": 0,
+    "participantLifecycleMemoryRecords": 16,
+    "deliveries": 0,
+    "activeConversationEnds": 0,
+    "expiredInvitations": 4,
+    "recoveredWorlds": 4,
+    "worldsWithUnchangedAllOwnerAssets": 4,
+    "hostViolations": 0,
+    "promptTokens": 26854,
+    "completionTokens": 266,
+    "totalTokens": 27120
+  },
+  "budgetAndStop": {
+    "status": {
+      "attemptedProviderCalls": 8,
+      "decisionRequests": 8,
+      "finishedDecisionRequests": 8,
+      "inflight": 0,
+      "remainingCalls": 40,
+      "requestedModel": "deepseek-v4-flash",
+      "runState": "stopped",
+      "stage": "scene",
+      "totalAttemptedProviderCalls": 56,
+      "worlds": {
+        "11adaadb197f4564afcf86c08a61cbe3": {
+          "arm": "S",
+          "decisionRequests": 2
+        },
+        "a60433701fec48599f867f9d8b02cf05": {
+          "arm": "S",
+          "decisionRequests": 2
+        },
+        "cee8d7f052fe4bbaa65820bdc821addc": {
+          "arm": "F",
+          "decisionRequests": 2
+        },
+        "fe6ebab4d03d4e28959b5d0c135e9354": {
+          "arm": "F",
+          "decisionRequests": 2
+        }
+      }
+    },
+    "sceneCalls": 8,
+    "sceneCallCap": 48,
+    "perWorldObservedCalls": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "perWorldCap": 12,
+    "trialDeadlineSeconds": 100,
+    "observedTerminalElapsedSeconds": [
+      30.002381,
+      30.0018048,
+      30.0024243,
+      30.00272120000001
+    ],
+    "allTerminatedBeforeTrialDeadline": true,
+    "providerRetriesPerRequest": 0,
+    "repeatedWorldsOrReplacementRoundsInThisEvidence": false,
+    "statement": "四个预登记世界各运行一次；全部因 meeting_expired 停止，而非耗尽 12 次请求或 100 秒预算。status 记录已 stopped、inflight=0；本审计未补跑。fixed 阶段 48 次加 scene 阶段 8 次等于 status 的总数 56；本审计未复核 fixed 阶段逐次内容。"
+  },
+  "hostChecksInterpretation": {
+    "reportedStatus": "host_checks_passed",
+    "definition": "initialized && hostViolations.Count == 0 && recovered，逐世界成立；不要求 Talking/Completed、say、交付或主动结束。",
+    "actualOutcome": "四世界状态均为 None → Invited → Expired，behavior 均为 no_expected_resolution。",
+    "assetDetails": "available 的 Ren 初始/最终均为 2 carp、0 coins；seller_empty 均为 0 carp、0 coins；Sora 四世界均为 0 carp、50 coins。玩家、其他居民、商店的全部记录资产也未变化。",
+    "memoryDetails": "每世界每位参与者仅 2 条 meeting.invited / meeting.expired，speakerId 与 text 为空；这 16 条是生命周期记忆，不是 16 句台词。",
+    "releaseBoundary": "terminalActivitiesReleased=true 表示到期时没有活动占用；邀请从未被接受，因此本批不能验证已经会面或交谈后的活动释放。recovered=true 验证分钟 1000 两人回到工作目标且 Arrived、ActiveActivity 为 null。",
+    "sourceRefs": [
+      "hostChecksMeaning",
+      "initialChecks",
+      "renderedText",
+      "recovery",
+      "participantMemories"
+    ]
+  },
+  "stalenessAnalysis": {
+    "confirmedFromEvidence": [
+      "四次 Ren 合法 accept_invite / decline_invite 候选均保留，hostCode 与 decisionOutcomeCode 同为 agent.observation_stale；没有 candidate 错误覆盖。",
+      "八条请求的 observation 事实知识类型只有 authored、observed、unknown，没有 statement 或 receipt。",
+      "四次 Sora 请求在当前位置固定为 (3, 0.349999994...) 时成功发出邀请；随后四次 Ren 输入均位于走向 rest.fisher_ren 的中途。",
+      "每世界初始化与 Invited 快照中 Ren 均为 Travelling；Invited 快照到 Ren 请求输入之间的 Y 继续变化，说明调度请求前仍发生实际身体移动。"
+    ],
+    "confirmedFromSource": [
+      "HasSameFacts 不比较顶层 ObservedAtTotalMinutes；只有 statement/receipt 事实比较事件时间戳。普通静态内容不会仅因采样时间推进而必然 stale。",
+      "TryReadObservation 要求新采样的时间等于当前 _world.TotalMinutes；这是新读值的有效性检查，不是要求它等于旧候选时间。若该检查失败，返回 observation_unavailable，不是本批 observation_stale。",
+      "HasSameFacts 对 X/Y 使用精确不等比较，也比较 region/space、半径、覆盖、听众、附近 ID 序列及事实字段。任何身体位移即使仍在同一区域、附近目录不变，也足以使候选失效。",
+      "Controller 通过 CaptureBodies 读取 resident.Position；测试循环先 Advance(delta) 推进世界与身体，再 TickDecisions 消费异步回复。世界在网络等待期间继续运行。",
+      "ApplyReply 在接受/拒绝等操作落地前统一重读观察；本批 stale 的四次候选没有进入 MeetingBoard.Respond。"
+    ],
+    "timestampOnlyInvalidation": {
+      "verdict": "排除作为本批失效解释",
+      "basis": "顶层时间戳未比较，且本批无会比较事件时间戳的 statement/receipt 事实。四条耗时非零的 Sora 邀请仍落地也与此一致。"
+    },
+    "movementExplanation": {
+      "verdict": "源码机制与记录轨迹支持的强解释，不能当作已记录的字段差异",
+      "causalChain": "Ren 在行走中采样 → 0.87–1.55 秒异步等待期间测试继续推进身体 → 回包时按当前身体重采样 → 精确 X/Y 比较可使接受或拒绝在落地前失效。",
+      "notClaimed": "没有拒绝瞬间 current observation、完整 HasSameFacts 比较结果或 changedFields 记录，不能断言四次都是 Y、附近列表或某个特定 fact 字段触发，也不能把分钟 795 的 terminal 坐标用作拒绝时坐标。"
+    },
+    "unknownFromTheseArtifacts": [
+      "拒绝发生的精确游戏分钟与 current observation 内容。",
+      "每次 HasSameFacts 首个不相等字段；是否同时存在多项变化。",
+      "若 Ren 静止后发出同一候选，本轮实际模型会如何继续。"
+    ],
+    "sourceRefs": [
+      "comparison",
+      "freshRead",
+      "applyGate",
+      "consumeReply",
+      "capture",
+      "callback",
+      "body",
+      "movement",
+      "positionCommit",
+      "worldApply",
+      "advanceThenTick",
+      "outcomeRecording"
+    ]
+  },
+  "comparisonLimits": {
+    "expressionEffectIdentified": false,
+    "reason": "四世界在邀请回复阶段全部被同一宿主观察门限拦截，没有生成或渲染任何 say；F 与 S 的语言质量、事实准确性和自然度没有可比较样本。",
+    "candidateOnlyFinding": "两个 available 世界都提出 accept_invite；两个 seller_empty 世界都提出 decline_invite。可描述为原候选选择符合库存场景，但不能记为接受/拒绝成功或交易成功，也不能推断模型内部理由。",
+    "inputBoundary": "实际场景按相同初始化条件建立独立世界；它们的 worldId、decisionId、时间、meetingId 与 Ren 采样位置不同，不是除 expression.mode 外字节相同的固定输入配对。八条请求各自的规范化哈希复算一致，不代表跨世界输入相同。",
+    "privacyBoundary": "本批没有 say 或 statement，因此没有实际执行“声明仅参与者记录”流程；生命周期记忆仅在 Ren/Sora 记录中可见，不能据此扩大为声明传播验证。"
+  },
+  "trials": [
+    {
+      "ordinal": 1,
+      "scenario": "available",
+      "arm": "F",
+      "speechMode": "free_text",
+      "worldRunId": "fe6ebab4-d03d-4e28-959b-5d0c135e9354",
+      "worldSeed": 12345,
+      "initialized": true,
+      "schedulerCalls": 2,
+      "httpRequests": 2,
+      "behavior": "no_expected_resolution",
+      "stopReason": "meeting_expired",
+      "meetingId": "1c952808-935a-4ef3-b023-9aff1174a319",
+      "stateSequence": [
+        "None",
+        "Invited",
+        "Expired"
+      ],
+      "initial": {
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "visibleText": "",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "initialAssets": [
+        {
+          "id": "character.player",
+          "coins": 300,
+          "items": []
+        },
+        {
+          "id": "npc.cook_sora",
+          "coins": 50,
+          "items": [
+            "ingredient.salt:1"
+          ]
+        },
+        {
+          "id": "npc.farmer_eli",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "npc.fisher_ren",
+          "coins": 0,
+          "items": [
+            "fish.carp:2"
+          ]
+        },
+        {
+          "id": "npc.shopkeeper_mina",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "shop.town.general",
+          "coins": 10000,
+          "items": [
+            "feed.chicken:9",
+            "ingredient.flour:6",
+            "seed.carrot:4",
+            "seed.tomato:3"
+          ]
+        }
+      ],
+      "finalAssets": [
+        {
+          "id": "character.player",
+          "coins": 300,
+          "items": []
+        },
+        {
+          "id": "npc.cook_sora",
+          "coins": 50,
+          "items": [
+            "ingredient.salt:1"
+          ]
+        },
+        {
+          "id": "npc.farmer_eli",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "npc.fisher_ren",
+          "coins": 0,
+          "items": [
+            "fish.carp:2"
+          ]
+        },
+        {
+          "id": "npc.shopkeeper_mina",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "shop.town.general",
+          "coins": 10000,
+          "items": [
+            "feed.chicken:9",
+            "ingredient.flour:6",
+            "seed.carrot:4",
+            "seed.tomato:3"
+          ]
+        }
+      ],
+      "allOwnerAssetsUnchanged": true,
+      "hostViolations": [],
+      "terminal": {
+        "elapsedSeconds": 30.002381,
+        "gameTotalMinutes": 795.000798,
+        "state": "Expired",
+        "receipt": "",
+        "meetingId": "1c952808-935a-4ef3-b023-9aff1174a319",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "rest.cook_sora",
+        "visibleText": "",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.3992019891738892
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 5.5
+        },
+        "transcript": []
+      },
+      "recovery": {
+        "elapsedSeconds": 30.010784799999996,
+        "gameTotalMinutes": 1000.0,
+        "state": "Expired",
+        "receipt": "",
+        "meetingId": "1c952808-935a-4ef3-b023-9aff1174a319",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "visibleText": "",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "recovered": true,
+      "activelyEnded": false,
+      "deadlineReleased": true,
+      "terminalActivitiesReleased": true,
+      "deliveryObserved": false,
+      "actualTranscriptLines": 0,
+      "renMemoryRecords": [
+        {
+          "meetingId": "1c952808-935a-4ef3-b023-9aff1174a319",
+          "kind": "meeting.invited",
+          "partnerId": "npc.cook_sora",
+          "speakerId": "",
+          "text": "",
+          "totalMinutes": 736.9439492
+        },
+        {
+          "meetingId": "1c952808-935a-4ef3-b023-9aff1174a319",
+          "kind": "meeting.expired",
+          "partnerId": "npc.cook_sora",
+          "speakerId": "",
+          "text": "",
+          "totalMinutes": 795.000798
+        }
+      ],
+      "soraMemoryRecords": [
+        {
+          "meetingId": "1c952808-935a-4ef3-b023-9aff1174a319",
+          "kind": "meeting.invited",
+          "partnerId": "npc.fisher_ren",
+          "speakerId": "",
+          "text": "",
+          "totalMinutes": 736.9439492
+        },
+        {
+          "meetingId": "1c952808-935a-4ef3-b023-9aff1174a319",
+          "kind": "meeting.expired",
+          "partnerId": "npc.fisher_ren",
+          "speakerId": "",
+          "text": "",
+          "totalMinutes": 795.000798
+        }
+      ],
+      "movementEvidence": {
+        "initialRoute": "Travelling",
+        "initialPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "lastLoggedStateBeforeRequest": {
+          "elapsedSeconds": 0.9719745999999976,
+          "gameTotalMinutes": 736.9439492,
+          "state": "Invited",
+          "receipt": "",
+          "meetingId": "1c952808-935a-4ef3-b023-9aff1174a319",
+          "renRoute": "Travelling",
+          "soraRoute": "Arrived",
+          "renTarget": "rest.fisher_ren",
+          "soraTarget": "work.cook_sora",
+          "visibleText": "",
+          "renFish": 2,
+          "soraFish": 0,
+          "renCoins": 0,
+          "soraCoins": 50,
+          "renPosition": {
+            "x": -3.0,
+            "y": -2.256049633026123
+          },
+          "soraPosition": {
+            "x": 3.0,
+            "y": 0.3499999940395355
+          },
+          "transcript": []
+        },
+        "requestGameTotalMinutes": 736.9546762,
+        "requestPosition": {
+          "x": -3.0,
+          "y": -2.2453227043151855
+        },
+        "renReplyElapsedMilliseconds": 1545.3928,
+        "restTargetApproximatePosition": {
+          "x": -3,
+          "y": -1.4
+        },
+        "reReadPositionAtRejection": null,
+        "limitation": "Invited 快照和请求输入显示发请求前身体仍在前进；拒绝时的身体位置与观察快照未被记录。terminal 在分钟 795 已切换下午路线，不能当作拒绝瞬间的位置。"
+      }
+    },
+    {
+      "ordinal": 2,
+      "scenario": "available",
+      "arm": "S",
+      "speechMode": "structured_facts",
+      "worldRunId": "11adaadb-197f-4564-afcf-86c08a61cbe3",
+      "worldSeed": 12345,
+      "initialized": true,
+      "schedulerCalls": 2,
+      "httpRequests": 2,
+      "behavior": "no_expected_resolution",
+      "stopReason": "meeting_expired",
+      "meetingId": "397316f6-b0ce-40dd-8fa7-4cbc5d4b48d8",
+      "stateSequence": [
+        "None",
+        "Invited",
+        "Expired"
+      ],
+      "initial": {
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "visibleText": "",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "initialAssets": [
+        {
+          "id": "character.player",
+          "coins": 300,
+          "items": []
+        },
+        {
+          "id": "npc.cook_sora",
+          "coins": 50,
+          "items": [
+            "ingredient.salt:1"
+          ]
+        },
+        {
+          "id": "npc.farmer_eli",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "npc.fisher_ren",
+          "coins": 0,
+          "items": [
+            "fish.carp:2"
+          ]
+        },
+        {
+          "id": "npc.shopkeeper_mina",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "shop.town.general",
+          "coins": 10000,
+          "items": [
+            "feed.chicken:9",
+            "ingredient.flour:6",
+            "seed.carrot:4",
+            "seed.tomato:3"
+          ]
+        }
+      ],
+      "finalAssets": [
+        {
+          "id": "character.player",
+          "coins": 300,
+          "items": []
+        },
+        {
+          "id": "npc.cook_sora",
+          "coins": 50,
+          "items": [
+            "ingredient.salt:1"
+          ]
+        },
+        {
+          "id": "npc.farmer_eli",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "npc.fisher_ren",
+          "coins": 0,
+          "items": [
+            "fish.carp:2"
+          ]
+        },
+        {
+          "id": "npc.shopkeeper_mina",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "shop.town.general",
+          "coins": 10000,
+          "items": [
+            "feed.chicken:9",
+            "ingredient.flour:6",
+            "seed.carrot:4",
+            "seed.tomato:3"
+          ]
+        }
+      ],
+      "allOwnerAssetsUnchanged": true,
+      "hostViolations": [],
+      "terminal": {
+        "elapsedSeconds": 30.0018048,
+        "gameTotalMinutes": 795.0001199999999,
+        "state": "Expired",
+        "receipt": "",
+        "meetingId": "397316f6-b0ce-40dd-8fa7-4cbc5d4b48d8",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "rest.cook_sora",
+        "visibleText": "",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.3998799324035645
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 5.5
+        },
+        "transcript": []
+      },
+      "recovery": {
+        "elapsedSeconds": 30.008868599999996,
+        "gameTotalMinutes": 1000.0,
+        "state": "Expired",
+        "receipt": "",
+        "meetingId": "397316f6-b0ce-40dd-8fa7-4cbc5d4b48d8",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "visibleText": "",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "recovered": true,
+      "activelyEnded": false,
+      "deadlineReleased": true,
+      "terminalActivitiesReleased": true,
+      "deliveryObserved": false,
+      "actualTranscriptLines": 0,
+      "renMemoryRecords": [
+        {
+          "meetingId": "397316f6-b0ce-40dd-8fa7-4cbc5d4b48d8",
+          "kind": "meeting.invited",
+          "partnerId": "npc.cook_sora",
+          "speakerId": "",
+          "text": "",
+          "totalMinutes": 737.6792399999999
+        },
+        {
+          "meetingId": "397316f6-b0ce-40dd-8fa7-4cbc5d4b48d8",
+          "kind": "meeting.expired",
+          "partnerId": "npc.cook_sora",
+          "speakerId": "",
+          "text": "",
+          "totalMinutes": 795.0001199999999
+        }
+      ],
+      "soraMemoryRecords": [
+        {
+          "meetingId": "397316f6-b0ce-40dd-8fa7-4cbc5d4b48d8",
+          "kind": "meeting.invited",
+          "partnerId": "npc.fisher_ren",
+          "speakerId": "",
+          "text": "",
+          "totalMinutes": 737.6792399999999
+        },
+        {
+          "meetingId": "397316f6-b0ce-40dd-8fa7-4cbc5d4b48d8",
+          "kind": "meeting.expired",
+          "partnerId": "npc.fisher_ren",
+          "speakerId": "",
+          "text": "",
+          "totalMinutes": 795.0001199999999
+        }
+      ],
+      "movementEvidence": {
+        "initialRoute": "Travelling",
+        "initialPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "lastLoggedStateBeforeRequest": {
+          "elapsedSeconds": 1.339619999999993,
+          "gameTotalMinutes": 737.6792399999999,
+          "state": "Invited",
+          "receipt": "",
+          "meetingId": "397316f6-b0ce-40dd-8fa7-4cbc5d4b48d8",
+          "renRoute": "Travelling",
+          "soraRoute": "Arrived",
+          "renTarget": "rest.fisher_ren",
+          "soraTarget": "work.cook_sora",
+          "visibleText": "",
+          "renFish": 2,
+          "soraFish": 0,
+          "renCoins": 0,
+          "soraCoins": 50,
+          "renPosition": {
+            "x": -3.0,
+            "y": -1.52076256275177
+          },
+          "soraPosition": {
+            "x": 3.0,
+            "y": 0.3499999940395355
+          },
+          "transcript": []
+        },
+        "requestGameTotalMinutes": 737.6832726,
+        "requestPosition": {
+          "x": -3.0,
+          "y": -1.5167299509048462
+        },
+        "renReplyElapsedMilliseconds": 951.2135000000001,
+        "restTargetApproximatePosition": {
+          "x": -3,
+          "y": -1.4
+        },
+        "reReadPositionAtRejection": null,
+        "limitation": "Invited 快照和请求输入显示发请求前身体仍在前进；拒绝时的身体位置与观察快照未被记录。terminal 在分钟 795 已切换下午路线，不能当作拒绝瞬间的位置。"
+      }
+    },
+    {
+      "ordinal": 3,
+      "scenario": "seller_empty",
+      "arm": "S",
+      "speechMode": "structured_facts",
+      "worldRunId": "a6043370-1fec-4859-9f86-7f9d8b02cf05",
+      "worldSeed": 12345,
+      "initialized": true,
+      "schedulerCalls": 2,
+      "httpRequests": 2,
+      "behavior": "no_expected_resolution",
+      "stopReason": "meeting_expired",
+      "meetingId": "3021f204-016a-4d8c-b9ad-beaa1642c2a1",
+      "stateSequence": [
+        "None",
+        "Invited",
+        "Expired"
+      ],
+      "initial": {
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "visibleText": "",
+        "renFish": 0,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "initialAssets": [
+        {
+          "id": "character.player",
+          "coins": 300,
+          "items": []
+        },
+        {
+          "id": "npc.cook_sora",
+          "coins": 50,
+          "items": [
+            "ingredient.salt:1"
+          ]
+        },
+        {
+          "id": "npc.farmer_eli",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "npc.fisher_ren",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "npc.shopkeeper_mina",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "shop.town.general",
+          "coins": 10000,
+          "items": [
+            "feed.chicken:9",
+            "ingredient.flour:6",
+            "seed.carrot:4",
+            "seed.tomato:3"
+          ]
+        }
+      ],
+      "finalAssets": [
+        {
+          "id": "character.player",
+          "coins": 300,
+          "items": []
+        },
+        {
+          "id": "npc.cook_sora",
+          "coins": 50,
+          "items": [
+            "ingredient.salt:1"
+          ]
+        },
+        {
+          "id": "npc.farmer_eli",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "npc.fisher_ren",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "npc.shopkeeper_mina",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "shop.town.general",
+          "coins": 10000,
+          "items": [
+            "feed.chicken:9",
+            "ingredient.flour:6",
+            "seed.carrot:4",
+            "seed.tomato:3"
+          ]
+        }
+      ],
+      "allOwnerAssetsUnchanged": true,
+      "hostViolations": [],
+      "terminal": {
+        "elapsedSeconds": 30.0024243,
+        "gameTotalMinutes": 795.000375,
+        "state": "Expired",
+        "receipt": "",
+        "meetingId": "3021f204-016a-4d8c-b9ad-beaa1642c2a1",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "rest.cook_sora",
+        "visibleText": "",
+        "renFish": 0,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.3996249437332153
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 5.5
+        },
+        "transcript": []
+      },
+      "recovery": {
+        "elapsedSeconds": 30.010231399999995,
+        "gameTotalMinutes": 1000.0,
+        "state": "Expired",
+        "receipt": "",
+        "meetingId": "3021f204-016a-4d8c-b9ad-beaa1642c2a1",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "visibleText": "",
+        "renFish": 0,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "recovered": true,
+      "activelyEnded": false,
+      "deadlineReleased": true,
+      "terminalActivitiesReleased": true,
+      "deliveryObserved": false,
+      "actualTranscriptLines": 0,
+      "renMemoryRecords": [
+        {
+          "meetingId": "3021f204-016a-4d8c-b9ad-beaa1642c2a1",
+          "kind": "meeting.invited",
+          "partnerId": "npc.cook_sora",
+          "speakerId": "",
+          "text": "",
+          "totalMinutes": 736.3913086
+        },
+        {
+          "meetingId": "3021f204-016a-4d8c-b9ad-beaa1642c2a1",
+          "kind": "meeting.expired",
+          "partnerId": "npc.cook_sora",
+          "speakerId": "",
+          "text": "",
+          "totalMinutes": 795.000375
+        }
+      ],
+      "soraMemoryRecords": [
+        {
+          "meetingId": "3021f204-016a-4d8c-b9ad-beaa1642c2a1",
+          "kind": "meeting.invited",
+          "partnerId": "npc.fisher_ren",
+          "speakerId": "",
+          "text": "",
+          "totalMinutes": 736.3913086
+        },
+        {
+          "meetingId": "3021f204-016a-4d8c-b9ad-beaa1642c2a1",
+          "kind": "meeting.expired",
+          "partnerId": "npc.fisher_ren",
+          "speakerId": "",
+          "text": "",
+          "totalMinutes": 795.000375
+        }
+      ],
+      "movementEvidence": {
+        "initialRoute": "Travelling",
+        "initialPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "lastLoggedStateBeforeRequest": {
+          "elapsedSeconds": 0.6956543000000011,
+          "gameTotalMinutes": 736.3913086,
+          "state": "Invited",
+          "receipt": "",
+          "meetingId": "3021f204-016a-4d8c-b9ad-beaa1642c2a1",
+          "renRoute": "Travelling",
+          "soraRoute": "Arrived",
+          "renTarget": "rest.fisher_ren",
+          "soraTarget": "work.cook_sora",
+          "visibleText": "",
+          "renFish": 0,
+          "soraFish": 0,
+          "renCoins": 0,
+          "soraCoins": 50,
+          "renPosition": {
+            "x": -3.0,
+            "y": -2.8086934089660645
+          },
+          "soraPosition": {
+            "x": 3.0,
+            "y": 0.3499999940395355
+          },
+          "transcript": []
+        },
+        "requestGameTotalMinutes": 736.3956392,
+        "requestPosition": {
+          "x": -3.0,
+          "y": -2.8043627738952637
+        },
+        "renReplyElapsedMilliseconds": 865.5959,
+        "restTargetApproximatePosition": {
+          "x": -3,
+          "y": -1.4
+        },
+        "reReadPositionAtRejection": null,
+        "limitation": "Invited 快照和请求输入显示发请求前身体仍在前进；拒绝时的身体位置与观察快照未被记录。terminal 在分钟 795 已切换下午路线，不能当作拒绝瞬间的位置。"
+      }
+    },
+    {
+      "ordinal": 4,
+      "scenario": "seller_empty",
+      "arm": "F",
+      "speechMode": "free_text",
+      "worldRunId": "cee8d7f0-52fe-4bba-a658-20bdc821addc",
+      "worldSeed": 12345,
+      "initialized": true,
+      "schedulerCalls": 2,
+      "httpRequests": 2,
+      "behavior": "no_expected_resolution",
+      "stopReason": "meeting_expired",
+      "meetingId": "ec762570-333a-4be6-8b5a-cfeb9650895f",
+      "stateSequence": [
+        "None",
+        "Invited",
+        "Expired"
+      ],
+      "initial": {
+        "elapsedSeconds": 0.0,
+        "gameTotalMinutes": 735.0,
+        "state": "None",
+        "receipt": "",
+        "meetingId": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "rest.fisher_ren",
+        "soraTarget": "work.cook_sora",
+        "visibleText": "",
+        "renFish": 0,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "initialAssets": [
+        {
+          "id": "character.player",
+          "coins": 300,
+          "items": []
+        },
+        {
+          "id": "npc.cook_sora",
+          "coins": 50,
+          "items": [
+            "ingredient.salt:1"
+          ]
+        },
+        {
+          "id": "npc.farmer_eli",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "npc.fisher_ren",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "npc.shopkeeper_mina",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "shop.town.general",
+          "coins": 10000,
+          "items": [
+            "feed.chicken:9",
+            "ingredient.flour:6",
+            "seed.carrot:4",
+            "seed.tomato:3"
+          ]
+        }
+      ],
+      "finalAssets": [
+        {
+          "id": "character.player",
+          "coins": 300,
+          "items": []
+        },
+        {
+          "id": "npc.cook_sora",
+          "coins": 50,
+          "items": [
+            "ingredient.salt:1"
+          ]
+        },
+        {
+          "id": "npc.farmer_eli",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "npc.fisher_ren",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "npc.shopkeeper_mina",
+          "coins": 0,
+          "items": []
+        },
+        {
+          "id": "shop.town.general",
+          "coins": 10000,
+          "items": [
+            "feed.chicken:9",
+            "ingredient.flour:6",
+            "seed.carrot:4",
+            "seed.tomato:3"
+          ]
+        }
+      ],
+      "allOwnerAssetsUnchanged": true,
+      "hostViolations": [],
+      "terminal": {
+        "elapsedSeconds": 30.00272120000001,
+        "gameTotalMinutes": 795.0003002000001,
+        "state": "Expired",
+        "receipt": "",
+        "meetingId": "ec762570-333a-4be6-8b5a-cfeb9650895f",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "rest.cook_sora",
+        "visibleText": "",
+        "renFish": 0,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.3996998071670532
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 5.5
+        },
+        "transcript": []
+      },
+      "recovery": {
+        "elapsedSeconds": 30.009526000000008,
+        "gameTotalMinutes": 1000.0,
+        "state": "Expired",
+        "receipt": "",
+        "meetingId": "ec762570-333a-4be6-8b5a-cfeb9650895f",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "visibleText": "",
+        "renFish": 0,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      "recovered": true,
+      "activelyEnded": false,
+      "deadlineReleased": true,
+      "terminalActivitiesReleased": true,
+      "deliveryObserved": false,
+      "actualTranscriptLines": 0,
+      "renMemoryRecords": [
+        {
+          "meetingId": "ec762570-333a-4be6-8b5a-cfeb9650895f",
+          "kind": "meeting.invited",
+          "partnerId": "npc.cook_sora",
+          "speakerId": "",
+          "text": "",
+          "totalMinutes": 737.3080428000001
+        },
+        {
+          "meetingId": "ec762570-333a-4be6-8b5a-cfeb9650895f",
+          "kind": "meeting.expired",
+          "partnerId": "npc.cook_sora",
+          "speakerId": "",
+          "text": "",
+          "totalMinutes": 795.0003002000001
+        }
+      ],
+      "soraMemoryRecords": [
+        {
+          "meetingId": "ec762570-333a-4be6-8b5a-cfeb9650895f",
+          "kind": "meeting.invited",
+          "partnerId": "npc.fisher_ren",
+          "speakerId": "",
+          "text": "",
+          "totalMinutes": 737.3080428000001
+        },
+        {
+          "meetingId": "ec762570-333a-4be6-8b5a-cfeb9650895f",
+          "kind": "meeting.expired",
+          "partnerId": "npc.fisher_ren",
+          "speakerId": "",
+          "text": "",
+          "totalMinutes": 795.0003002000001
+        }
+      ],
+      "movementEvidence": {
+        "initialRoute": "Travelling",
+        "initialPosition": {
+          "x": -4.199999809265137,
+          "y": -3.0
+        },
+        "lastLoggedStateBeforeRequest": {
+          "elapsedSeconds": 1.1540214000000049,
+          "gameTotalMinutes": 737.3080428000001,
+          "state": "Invited",
+          "receipt": "",
+          "meetingId": "ec762570-333a-4be6-8b5a-cfeb9650895f",
+          "renRoute": "Travelling",
+          "soraRoute": "Arrived",
+          "renTarget": "rest.fisher_ren",
+          "soraTarget": "work.cook_sora",
+          "visibleText": "",
+          "renFish": 0,
+          "soraFish": 0,
+          "renCoins": 0,
+          "soraCoins": 50,
+          "renPosition": {
+            "x": -3.0,
+            "y": -1.8919600248336792
+          },
+          "soraPosition": {
+            "x": 3.0,
+            "y": 0.3499999940395355
+          },
+          "transcript": []
+        },
+        "requestGameTotalMinutes": 737.3166527999999,
+        "requestPosition": {
+          "x": -3.0,
+          "y": -1.8833500146865845
+        },
+        "renReplyElapsedMilliseconds": 1319.4138,
+        "restTargetApproximatePosition": {
+          "x": -3,
+          "y": -1.4
+        },
+        "reReadPositionAtRejection": null,
+        "limitation": "Invited 快照和请求输入显示发请求前身体仍在前进；拒绝时的身体位置与观察快照未被记录。terminal 在分钟 795 已切换下午路线，不能当作拒绝瞬间的位置。"
+      }
+    }
+  ],
+  "calls": [
+    {
+      "request": 1,
+      "providerCall": 1,
+      "worldOrdinal": 1,
+      "scenario": "available",
+      "arm": "F",
+      "worldRunId": "fe6ebab4d03d4e28959b5d0c135e9354",
+      "npcId": "npc.cook_sora",
+      "decisionId": "b9d7971fb5b64c6a815e8bb2a12f2042",
+      "step": 1,
+      "phase": "Opportunity",
+      "gameTotalMinutes": 735.0000076,
+      "requestObservation": {
+        "x": 3.0,
+        "y": 0.3499999940395355,
+        "regionId": "pond-surroundings",
+        "spaceId": "outdoors",
+        "observedAtGameTotalMinutes": 735.0000076,
+        "nearbyEntityIds": [
+          "pond"
+        ],
+        "knowledgeKinds": [
+          "authored",
+          "observed",
+          "unknown"
+        ]
+      },
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "invite",
+        "planId": "sora-ren-fish-supply"
+      },
+      "providerContent": "{\n  \"schemaVersion\": 4,\n  \"operation\": \"invite\",\n  \"planId\": \"sora-ren-fish-supply\"\n}",
+      "hostCode": "meeting.invited",
+      "decisionOutcomeCode": "meeting.invited",
+      "unityElapsedMilliseconds": 953.6069,
+      "proxyElapsedMilliseconds": 804,
+      "responseStatusCode": 200,
+      "rawReplyTruncated": false,
+      "requestedModel": "deepseek-v4-flash",
+      "returnedModel": "deepseek-flash",
+      "promptTokens": 2808,
+      "completionTokens": 33,
+      "totalTokens": 2841,
+      "checks": {
+        "unityContextEqualsSentBytes": true,
+        "unityContextEqualsProxyOriginalJson": true,
+        "proxyEffectiveEqualsOriginalJson": true,
+        "candidateJsonMatchesAcrossProviderProxyContextUnity": true,
+        "operationMatchesParsedUnityReply": true,
+        "requestProviderCallProxyCallLinked": true,
+        "decisionWorldStepMatch": true,
+        "expressionArmModeMatch": true,
+        "normalizedContextHashMatches": true,
+        "proxyAndTransportPassed": true,
+        "hostOutcomeRecordedWithoutCandidateErrorOverride": true
+      },
+      "evidencePointers": {
+        "unity": "unity-scene.json#/trials/0/calls/0",
+        "contexts.jsonl": {
+          "line": 1
+        },
+        "proxy.jsonl": {
+          "line": 1
+        },
+        "provider-starts.jsonl": {
+          "line": 1
+        },
+        "provider-responses.jsonl": {
+          "line": 1
+        }
+      }
+    },
+    {
+      "request": 2,
+      "providerCall": 2,
+      "worldOrdinal": 1,
+      "scenario": "available",
+      "arm": "F",
+      "worldRunId": "fe6ebab4d03d4e28959b5d0c135e9354",
+      "npcId": "npc.fisher_ren",
+      "decisionId": "3c8a852569e44088ba21ed991c8a430e",
+      "step": 1,
+      "phase": "Invitation",
+      "gameTotalMinutes": 736.9546762,
+      "requestObservation": {
+        "x": -3.0,
+        "y": -2.2453227043151855,
+        "regionId": "pond-surroundings",
+        "spaceId": "outdoors",
+        "observedAtGameTotalMinutes": 736.9546762,
+        "nearbyEntityIds": [
+          "lamp.player_home",
+          "lamp.shop_main_road",
+          "pond"
+        ],
+        "knowledgeKinds": [
+          "authored",
+          "observed",
+          "unknown"
+        ]
+      },
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "accept_invite",
+        "meetingId": "1c952808935a4ef3b0239aff1174a319"
+      },
+      "providerContent": "{\"schemaVersion\":4,\"operation\":\"accept_invite\",\"meetingId\":\"1c952808935a4ef3b0239aff1174a319\"}",
+      "hostCode": "agent.observation_stale",
+      "decisionOutcomeCode": "agent.observation_stale",
+      "unityElapsedMilliseconds": 1545.3928,
+      "proxyElapsedMilliseconds": 1538,
+      "responseStatusCode": 200,
+      "rawReplyTruncated": false,
+      "requestedModel": "deepseek-v4-flash",
+      "returnedModel": "deepseek-flash",
+      "promptTokens": 3541,
+      "completionTokens": 35,
+      "totalTokens": 3576,
+      "checks": {
+        "unityContextEqualsSentBytes": true,
+        "unityContextEqualsProxyOriginalJson": true,
+        "proxyEffectiveEqualsOriginalJson": true,
+        "candidateJsonMatchesAcrossProviderProxyContextUnity": true,
+        "operationMatchesParsedUnityReply": true,
+        "requestProviderCallProxyCallLinked": true,
+        "decisionWorldStepMatch": true,
+        "expressionArmModeMatch": true,
+        "normalizedContextHashMatches": true,
+        "proxyAndTransportPassed": true,
+        "hostOutcomeRecordedWithoutCandidateErrorOverride": true
+      },
+      "evidencePointers": {
+        "unity": "unity-scene.json#/trials/0/calls/1",
+        "contexts.jsonl": {
+          "line": 2
+        },
+        "proxy.jsonl": {
+          "line": 2
+        },
+        "provider-starts.jsonl": {
+          "line": 2
+        },
+        "provider-responses.jsonl": {
+          "line": 2
+        }
+      }
+    },
+    {
+      "request": 3,
+      "providerCall": 3,
+      "worldOrdinal": 2,
+      "scenario": "available",
+      "arm": "S",
+      "worldRunId": "11adaadb197f4564afcf86c08a61cbe3",
+      "npcId": "npc.cook_sora",
+      "decisionId": "fa14e78bd4d247b09779a1a04746064f",
+      "step": 1,
+      "phase": "Opportunity",
+      "gameTotalMinutes": 735.000001,
+      "requestObservation": {
+        "x": 3.0,
+        "y": 0.3499999940395355,
+        "regionId": "pond-surroundings",
+        "spaceId": "outdoors",
+        "observedAtGameTotalMinutes": 735.000001,
+        "nearbyEntityIds": [
+          "pond"
+        ],
+        "knowledgeKinds": [
+          "authored",
+          "observed",
+          "unknown"
+        ]
+      },
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "invite",
+        "planId": "sora-ren-fish-supply"
+      },
+      "providerContent": "{\"schemaVersion\": 4, \"operation\": \"invite\", \"planId\": \"sora-ren-fish-supply\"}",
+      "hostCode": "meeting.invited",
+      "decisionOutcomeCode": "meeting.invited",
+      "unityElapsedMilliseconds": 1338.9289,
+      "proxyElapsedMilliseconds": 1331,
+      "responseStatusCode": 200,
+      "rawReplyTruncated": false,
+      "requestedModel": "deepseek-v4-flash",
+      "returnedModel": "deepseek-flash",
+      "promptTokens": 3146,
+      "completionTokens": 28,
+      "totalTokens": 3174,
+      "checks": {
+        "unityContextEqualsSentBytes": true,
+        "unityContextEqualsProxyOriginalJson": true,
+        "proxyEffectiveEqualsOriginalJson": true,
+        "candidateJsonMatchesAcrossProviderProxyContextUnity": true,
+        "operationMatchesParsedUnityReply": true,
+        "requestProviderCallProxyCallLinked": true,
+        "decisionWorldStepMatch": true,
+        "expressionArmModeMatch": true,
+        "normalizedContextHashMatches": true,
+        "proxyAndTransportPassed": true,
+        "hostOutcomeRecordedWithoutCandidateErrorOverride": true
+      },
+      "evidencePointers": {
+        "unity": "unity-scene.json#/trials/1/calls/0",
+        "contexts.jsonl": {
+          "line": 3
+        },
+        "proxy.jsonl": {
+          "line": 3
+        },
+        "provider-starts.jsonl": {
+          "line": 3
+        },
+        "provider-responses.jsonl": {
+          "line": 3
+        }
+      }
+    },
+    {
+      "request": 4,
+      "providerCall": 4,
+      "worldOrdinal": 2,
+      "scenario": "available",
+      "arm": "S",
+      "worldRunId": "11adaadb197f4564afcf86c08a61cbe3",
+      "npcId": "npc.fisher_ren",
+      "decisionId": "a1a3d323aa37492bb2361fe2d67dabf6",
+      "step": 1,
+      "phase": "Invitation",
+      "gameTotalMinutes": 737.6832726,
+      "requestObservation": {
+        "x": -3.0,
+        "y": -1.5167299509048462,
+        "regionId": "pond-surroundings",
+        "spaceId": "outdoors",
+        "observedAtGameTotalMinutes": 737.6832726,
+        "nearbyEntityIds": [
+          "lamp.player_home",
+          "lamp.shop_main_road",
+          "pond"
+        ],
+        "knowledgeKinds": [
+          "authored",
+          "observed",
+          "unknown"
+        ]
+      },
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "accept_invite",
+        "meetingId": "397316f6b0ce40dd8fa74cbc5d4b48d8"
+      },
+      "providerContent": "{\"schemaVersion\":4,\"operation\":\"accept_invite\",\"meetingId\":\"397316f6b0ce40dd8fa74cbc5d4b48d8\"}",
+      "hostCode": "agent.observation_stale",
+      "decisionOutcomeCode": "agent.observation_stale",
+      "unityElapsedMilliseconds": 951.2135000000001,
+      "proxyElapsedMilliseconds": 944,
+      "responseStatusCode": 200,
+      "rawReplyTruncated": false,
+      "requestedModel": "deepseek-v4-flash",
+      "returnedModel": "deepseek-flash",
+      "promptTokens": 3909,
+      "completionTokens": 39,
+      "totalTokens": 3948,
+      "checks": {
+        "unityContextEqualsSentBytes": true,
+        "unityContextEqualsProxyOriginalJson": true,
+        "proxyEffectiveEqualsOriginalJson": true,
+        "candidateJsonMatchesAcrossProviderProxyContextUnity": true,
+        "operationMatchesParsedUnityReply": true,
+        "requestProviderCallProxyCallLinked": true,
+        "decisionWorldStepMatch": true,
+        "expressionArmModeMatch": true,
+        "normalizedContextHashMatches": true,
+        "proxyAndTransportPassed": true,
+        "hostOutcomeRecordedWithoutCandidateErrorOverride": true
+      },
+      "evidencePointers": {
+        "unity": "unity-scene.json#/trials/1/calls/1",
+        "contexts.jsonl": {
+          "line": 4
+        },
+        "proxy.jsonl": {
+          "line": 4
+        },
+        "provider-starts.jsonl": {
+          "line": 4
+        },
+        "provider-responses.jsonl": {
+          "line": 4
+        }
+      }
+    },
+    {
+      "request": 5,
+      "providerCall": 5,
+      "worldOrdinal": 3,
+      "scenario": "seller_empty",
+      "arm": "S",
+      "worldRunId": "a60433701fec48599f867f9d8b02cf05",
+      "npcId": "npc.cook_sora",
+      "decisionId": "b054a95ae95c429191fdf6428e7cd045",
+      "step": 1,
+      "phase": "Opportunity",
+      "gameTotalMinutes": 735.000001,
+      "requestObservation": {
+        "x": 3.0,
+        "y": 0.3499999940395355,
+        "regionId": "pond-surroundings",
+        "spaceId": "outdoors",
+        "observedAtGameTotalMinutes": 735.000001,
+        "nearbyEntityIds": [
+          "pond"
+        ],
+        "knowledgeKinds": [
+          "authored",
+          "observed",
+          "unknown"
+        ]
+      },
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "invite",
+        "planId": "sora-ren-fish-supply"
+      },
+      "providerContent": "{\"schemaVersion\":4,\"operation\":\"invite\",\"planId\":\"sora-ren-fish-supply\"}",
+      "hostCode": "meeting.invited",
+      "decisionOutcomeCode": "meeting.invited",
+      "unityElapsedMilliseconds": 694.9194,
+      "proxyElapsedMilliseconds": 687,
+      "responseStatusCode": 200,
+      "rawReplyTruncated": false,
+      "requestedModel": "deepseek-v4-flash",
+      "returnedModel": "deepseek-flash",
+      "promptTokens": 3147,
+      "completionTokens": 23,
+      "totalTokens": 3170,
+      "checks": {
+        "unityContextEqualsSentBytes": true,
+        "unityContextEqualsProxyOriginalJson": true,
+        "proxyEffectiveEqualsOriginalJson": true,
+        "candidateJsonMatchesAcrossProviderProxyContextUnity": true,
+        "operationMatchesParsedUnityReply": true,
+        "requestProviderCallProxyCallLinked": true,
+        "decisionWorldStepMatch": true,
+        "expressionArmModeMatch": true,
+        "normalizedContextHashMatches": true,
+        "proxyAndTransportPassed": true,
+        "hostOutcomeRecordedWithoutCandidateErrorOverride": true
+      },
+      "evidencePointers": {
+        "unity": "unity-scene.json#/trials/2/calls/0",
+        "contexts.jsonl": {
+          "line": 5
+        },
+        "proxy.jsonl": {
+          "line": 5
+        },
+        "provider-starts.jsonl": {
+          "line": 5
+        },
+        "provider-responses.jsonl": {
+          "line": 5
+        }
+      }
+    },
+    {
+      "request": 6,
+      "providerCall": 6,
+      "worldOrdinal": 3,
+      "scenario": "seller_empty",
+      "arm": "S",
+      "worldRunId": "a60433701fec48599f867f9d8b02cf05",
+      "npcId": "npc.fisher_ren",
+      "decisionId": "100e3e1eb5f54fcc8f8a6958ea8350f4",
+      "step": 1,
+      "phase": "Invitation",
+      "gameTotalMinutes": 736.3956392,
+      "requestObservation": {
+        "x": -3.0,
+        "y": -2.8043627738952637,
+        "regionId": "pond-surroundings",
+        "spaceId": "outdoors",
+        "observedAtGameTotalMinutes": 736.3956392,
+        "nearbyEntityIds": [
+          "lamp.player_home",
+          "lamp.shop_main_road",
+          "pond"
+        ],
+        "knowledgeKinds": [
+          "authored",
+          "observed",
+          "unknown"
+        ]
+      },
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "decline_invite",
+        "meetingId": "3021f204016a4d8cb9adbeaa1642c2a1"
+      },
+      "providerContent": "{\"schemaVersion\": 4, \"operation\": \"decline_invite\", \"meetingId\": \"3021f204016a4d8cb9adbeaa1642c2a1\"}",
+      "hostCode": "agent.observation_stale",
+      "decisionOutcomeCode": "agent.observation_stale",
+      "unityElapsedMilliseconds": 865.5959,
+      "proxyElapsedMilliseconds": 856,
+      "responseStatusCode": 200,
+      "rawReplyTruncated": false,
+      "requestedModel": "deepseek-v4-flash",
+      "returnedModel": "deepseek-flash",
+      "promptTokens": 3910,
+      "completionTokens": 44,
+      "totalTokens": 3954,
+      "checks": {
+        "unityContextEqualsSentBytes": true,
+        "unityContextEqualsProxyOriginalJson": true,
+        "proxyEffectiveEqualsOriginalJson": true,
+        "candidateJsonMatchesAcrossProviderProxyContextUnity": true,
+        "operationMatchesParsedUnityReply": true,
+        "requestProviderCallProxyCallLinked": true,
+        "decisionWorldStepMatch": true,
+        "expressionArmModeMatch": true,
+        "normalizedContextHashMatches": true,
+        "proxyAndTransportPassed": true,
+        "hostOutcomeRecordedWithoutCandidateErrorOverride": true
+      },
+      "evidencePointers": {
+        "unity": "unity-scene.json#/trials/2/calls/1",
+        "contexts.jsonl": {
+          "line": 6
+        },
+        "proxy.jsonl": {
+          "line": 6
+        },
+        "provider-starts.jsonl": {
+          "line": 6
+        },
+        "provider-responses.jsonl": {
+          "line": 6
+        }
+      }
+    },
+    {
+      "request": 7,
+      "providerCall": 7,
+      "worldOrdinal": 4,
+      "scenario": "seller_empty",
+      "arm": "F",
+      "worldRunId": "cee8d7f052fe4bbaa65820bdc821addc",
+      "npcId": "npc.cook_sora",
+      "decisionId": "1cd0fab3714441e7a5d810b8c7a96a49",
+      "step": 1,
+      "phase": "Opportunity",
+      "gameTotalMinutes": 735.0000008,
+      "requestObservation": {
+        "x": 3.0,
+        "y": 0.3499999940395355,
+        "regionId": "pond-surroundings",
+        "spaceId": "outdoors",
+        "observedAtGameTotalMinutes": 735.0000008,
+        "nearbyEntityIds": [
+          "pond"
+        ],
+        "knowledgeKinds": [
+          "authored",
+          "observed",
+          "unknown"
+        ]
+      },
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "invite",
+        "planId": "sora-ren-fish-supply"
+      },
+      "providerContent": "{\"schemaVersion\":4,\"operation\":\"invite\",\"planId\":\"sora-ren-fish-supply\"}",
+      "hostCode": "meeting.invited",
+      "decisionOutcomeCode": "meeting.invited",
+      "unityElapsedMilliseconds": 1152.777,
+      "proxyElapsedMilliseconds": 1140,
+      "responseStatusCode": 200,
+      "rawReplyTruncated": false,
+      "requestedModel": "deepseek-v4-flash",
+      "returnedModel": "deepseek-flash",
+      "promptTokens": 2803,
+      "completionTokens": 23,
+      "totalTokens": 2826,
+      "checks": {
+        "unityContextEqualsSentBytes": true,
+        "unityContextEqualsProxyOriginalJson": true,
+        "proxyEffectiveEqualsOriginalJson": true,
+        "candidateJsonMatchesAcrossProviderProxyContextUnity": true,
+        "operationMatchesParsedUnityReply": true,
+        "requestProviderCallProxyCallLinked": true,
+        "decisionWorldStepMatch": true,
+        "expressionArmModeMatch": true,
+        "normalizedContextHashMatches": true,
+        "proxyAndTransportPassed": true,
+        "hostOutcomeRecordedWithoutCandidateErrorOverride": true
+      },
+      "evidencePointers": {
+        "unity": "unity-scene.json#/trials/3/calls/0",
+        "contexts.jsonl": {
+          "line": 7
+        },
+        "proxy.jsonl": {
+          "line": 7
+        },
+        "provider-starts.jsonl": {
+          "line": 7
+        },
+        "provider-responses.jsonl": {
+          "line": 7
+        }
+      }
+    },
+    {
+      "request": 8,
+      "providerCall": 8,
+      "worldOrdinal": 4,
+      "scenario": "seller_empty",
+      "arm": "F",
+      "worldRunId": "cee8d7f052fe4bbaa65820bdc821addc",
+      "npcId": "npc.fisher_ren",
+      "decisionId": "34f6da3e4f0e4db4992e67efa04b8e3f",
+      "step": 1,
+      "phase": "Invitation",
+      "gameTotalMinutes": 737.3166527999999,
+      "requestObservation": {
+        "x": -3.0,
+        "y": -1.8833500146865845,
+        "regionId": "pond-surroundings",
+        "spaceId": "outdoors",
+        "observedAtGameTotalMinutes": 737.3166527999999,
+        "nearbyEntityIds": [
+          "lamp.player_home",
+          "lamp.shop_main_road",
+          "pond"
+        ],
+        "knowledgeKinds": [
+          "authored",
+          "observed",
+          "unknown"
+        ]
+      },
+      "candidate": {
+        "schemaVersion": 4,
+        "operation": "decline_invite",
+        "meetingId": "ec762570333a4be68b5acfeb9650895f"
+      },
+      "providerContent": "{\"schemaVersion\": 4, \"operation\": \"decline_invite\", \"meetingId\": \"ec762570333a4be68b5acfeb9650895f\"}",
+      "hostCode": "agent.observation_stale",
+      "decisionOutcomeCode": "agent.observation_stale",
+      "unityElapsedMilliseconds": 1319.4138,
+      "proxyElapsedMilliseconds": 1312,
+      "responseStatusCode": 200,
+      "rawReplyTruncated": false,
+      "requestedModel": "deepseek-v4-flash",
+      "returnedModel": "deepseek-flash",
+      "promptTokens": 3590,
+      "completionTokens": 41,
+      "totalTokens": 3631,
+      "checks": {
+        "unityContextEqualsSentBytes": true,
+        "unityContextEqualsProxyOriginalJson": true,
+        "proxyEffectiveEqualsOriginalJson": true,
+        "candidateJsonMatchesAcrossProviderProxyContextUnity": true,
+        "operationMatchesParsedUnityReply": true,
+        "requestProviderCallProxyCallLinked": true,
+        "decisionWorldStepMatch": true,
+        "expressionArmModeMatch": true,
+        "normalizedContextHashMatches": true,
+        "proxyAndTransportPassed": true,
+        "hostOutcomeRecordedWithoutCandidateErrorOverride": true
+      },
+      "evidencePointers": {
+        "unity": "unity-scene.json#/trials/3/calls/1",
+        "contexts.jsonl": {
+          "line": 8
+        },
+        "proxy.jsonl": {
+          "line": 8
+        },
+        "provider-starts.jsonl": {
+          "line": 8
+        },
+        "provider-responses.jsonl": {
+          "line": 8
+        }
+      }
+    }
+  ],
+  "sourceReferences": {
+    "comparison": {
+      "file": "Assets/CozyTown/Runtime/NpcAgents/NpcLocalObservation.cs",
+      "lines": [
+        34,
+        47
+      ]
+    },
+    "freshRead": {
+      "file": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "lines": [
+        354,
+        372
+      ]
+    },
+    "applyGate": {
+      "file": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "lines": [
+        258,
+        311
+      ]
+    },
+    "consumeReply": {
+      "file": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "lines": [
+        117,
+        154
+      ]
+    },
+    "capture": {
+      "file": "Assets/CozyTown/Unity/Npc/CozyTownTownLifeController.cs",
+      "lines": [
+        52,
+        58
+      ]
+    },
+    "callback": {
+      "file": "Assets/CozyTown/Unity/Npc/CozyTownTownLifeController.cs",
+      "lines": [
+        99,
+        107
+      ]
+    },
+    "body": {
+      "file": "Assets/CozyTown/Unity/Npc/TownLocalObservation2D.cs",
+      "lines": [
+        43,
+        52
+      ]
+    },
+    "movement": {
+      "file": "Assets/CozyTown/Unity/Npc/NpcWorldResident2D.cs",
+      "lines": [
+        128,
+        154
+      ]
+    },
+    "positionCommit": {
+      "file": "Assets/CozyTown/Unity/Npc/NpcWorldResident2D.cs",
+      "lines": [
+        177,
+        184
+      ]
+    },
+    "worldApply": {
+      "file": "Assets/CozyTown/Unity/Npc/CozyTownTownLifeController.cs",
+      "lines": [
+        195,
+        218
+      ]
+    },
+    "trialOrder": {
+      "file": "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs",
+      "lines": [
+        193,
+        235
+      ]
+    },
+    "initialChecks": {
+      "file": "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs",
+      "lines": [
+        236,
+        249
+      ]
+    },
+    "freshWorld": {
+      "file": "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs",
+      "lines": [
+        314,
+        342
+      ]
+    },
+    "advanceThenTick": {
+      "file": "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs",
+      "lines": [
+        252,
+        268
+      ]
+    },
+    "recovery": {
+      "file": "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs",
+      "lines": [
+        270,
+        310
+      ]
+    },
+    "renderedText": {
+      "file": "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs",
+      "lines": [
+        388,
+        400
+      ]
+    },
+    "outcomeRecording": {
+      "file": "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs",
+      "lines": [
+        441,
+        451
+      ]
+    },
+    "rawRecording": {
+      "file": "Assets/CozyTown/Tests/PlayMode/NpcResourceExpressionPlayModeTests.cs",
+      "lines": [
+        266,
+        300
+      ]
+    },
+    "candidateRecording": {
+      "file": "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs",
+      "lines": [
+        480,
+        502
+      ]
+    },
+    "hostChecksMeaning": {
+      "file": "Assets/CozyTown/Tests/PlayMode/NpcResourceExpressionPlayModeTests.cs",
+      "lines": [
+        105,
+        110
+      ]
+    },
+    "resourcePlan": {
+      "file": "Assets/CozyTown/Runtime/Content/DefaultNpcResourcePlans.cs",
+      "lines": [
+        8,
+        11
+      ]
+    },
+    "expiry": {
+      "file": "Assets/CozyTown/Runtime/NpcAgents/NpcMeetingBoard.cs",
+      "lines": [
+        297,
+        304
+      ]
+    },
+    "release": {
+      "file": "Assets/CozyTown/Runtime/NpcAgents/NpcMeetingBoard.cs",
+      "lines": [
+        363,
+        381
+      ]
+    },
+    "participantMemories": {
+      "file": "Assets/CozyTown/Runtime/NpcAgents/NpcMeetingBoard.cs",
+      "lines": [
+        384,
+        395
+      ]
+    },
+    "proxyProviderLink": {
+      "file": "Tools/agent_proxy/expression_experiment.py",
+      "lines": [
+        138,
+        164
+      ]
+    },
+    "proxyContextLink": {
+      "file": "Tools/agent_proxy/expression_experiment.py",
+      "lines": [
+        166,
+        204
+      ]
+    }
+  }
+}
