@@ -16,6 +16,7 @@ namespace CozyTown.Runtime.NpcAgents
         private readonly NpcDecisionSettings _settings;
         private readonly NpcMeetingBoard _meetings;
         private readonly Func<NpcDecisionRequest, NpcLocalObservation> _observe;
+        private readonly NpcSpeechMode _speechMode;
         private readonly Queue<double> _requestStarts = new Queue<double>();
         private readonly List<NpcDecisionOutcome> _completed = new List<NpcDecisionOutcome>();
         private double _lastTick = double.NegativeInfinity;
@@ -43,13 +44,16 @@ namespace CozyTown.Runtime.NpcAgents
 
         public NpcDecisionScheduler(NpcAgentWorld world, IEnumerable<NpcDefinition> profiles, INpcDecisionClient client,
             NpcDecisionSettings settings = null, NpcMeetingBoard meetings = null,
-            Func<NpcDecisionRequest, NpcLocalObservation> observe = null)
+            Func<NpcDecisionRequest, NpcLocalObservation> observe = null, NpcSpeechMode speechMode = NpcSpeechMode.FreeText)
         {
             _world = world ?? throw new ArgumentNullException(nameof(world));
             _client = client ?? throw new ArgumentNullException(nameof(client));
             _settings = settings ?? new NpcDecisionSettings();
             _meetings = meetings;
             _observe = observe;
+            if (speechMode != NpcSpeechMode.FreeText && speechMode != NpcSpeechMode.StructuredFacts)
+                throw new ArgumentOutOfRangeException(nameof(speechMode));
+            _speechMode = speechMode;
             if (profiles == null) throw new ArgumentNullException(nameof(profiles));
             _residents = profiles.Select(profile => new Resident { Profile = profile }).ToArray();
             var ids = new HashSet<string>(StringComparer.Ordinal);
@@ -165,7 +169,7 @@ namespace CozyTown.Runtime.NpcAgents
                     || state.ActiveActivity != null || state.Target.ExpectedActivity != NpcActivity.Resting) continue;
                 resident.Pending = new NpcDecisionRequest(resident.Profile, state, _world.TotalMinutes, events,
                     _world.GetKnownLocationIds(resident.Profile.Id), _settings.MaxCallsPerDecision,
-                    resident.LastOutcome?.WorldRunId == state.WorldRunId ? resident.LastOutcome.Code : null, social);
+                    resident.LastOutcome?.WorldRunId == state.WorldRunId ? resident.LastOutcome.Code : null, social, _speechMode);
             }
             int first = _nextResident;
             for (int offset = 0; offset < _residents.Length; offset++)
@@ -281,7 +285,20 @@ namespace CozyTown.Runtime.NpcAgents
                     return;
                 }
                 if (reply.MeetingId != context.Social.MeetingId) { Finish(resident, "meeting.unknown", reply: reply); return; }
-                var result = reply.Kind == NpcDecisionKind.Speak ? _meetings.Speak(context.Self, reply.MeetingId, reply.Text)
+                if (reply.Kind == NpcDecisionKind.Speak &&
+                    (context.SpeechMode == NpcSpeechMode.FreeText ? reply.SpeechFrame != null : reply.Text != null))
+                {
+                    Finish(resident, "speech.mode_mismatch", reply: reply);
+                    return;
+                }
+                string speech = reply.Text;
+                if (reply.Kind == NpcDecisionKind.Speak && context.SpeechMode == NpcSpeechMode.StructuredFacts
+                    && !NpcFactSpeech.TryRender(context.Observation, reply.SpeechFrame, out speech, out var speechError))
+                {
+                    Finish(resident, speechError, reply: reply);
+                    return;
+                }
+                var result = reply.Kind == NpcDecisionKind.Speak ? _meetings.Speak(context.Self, reply.MeetingId, speech)
                     : reply.Kind == NpcDecisionKind.Deliver ? _meetings.Deliver(context.Self, reply.MeetingId)
                     : reply.Kind == NpcDecisionKind.CancelExchange ? _meetings.CancelExchange(context.Self, reply.MeetingId)
                     : reply.Kind == NpcDecisionKind.EndConversation ? _meetings.EndConversation(context.Self, reply.MeetingId)

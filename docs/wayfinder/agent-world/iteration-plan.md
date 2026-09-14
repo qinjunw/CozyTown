@@ -5,7 +5,7 @@
 - 需求来源：[Agent 世界 PRD](../../AGENT_WORLD_PRD.md)。
 - 用户已授权制定方案并开始迭代；本文件定义实施顺序，运行结果在各票据和验证报告记录。
 
-2026-09-14：[实现 NPC 按区域与距离的局部观察](https://github.com/qinjunw/CozyTown/issues/73)已完成区域、场景目录、权限、来源时间、首次派发采样与执行前复核，见[验证结果](../../verification/npc-local-observation-2026-09-14.md)。接下来按用户已确认的顺序执行[对照验证 NPC 自由台词与结构化事实表达](https://github.com/qinjunw/CozyTown/issues/74)，随后由用户[选择 NPC 的正式事实表达方式](https://github.com/qinjunw/CozyTown/issues/75)。会面对话停滞和普通活动期限继续保留各自票据。
+2026-09-14：[实现 NPC 按区域与距离的局部观察](https://github.com/qinjunw/CozyTown/issues/73)已完成区域、场景目录、权限、来源时间、首次派发采样与执行前复核，见[验证结果](../../verification/npc-local-observation-2026-09-14.md)。[对照验证 NPC 自由台词与结构化事实表达](https://github.com/qinjunw/CozyTown/issues/74)已完成实现及冻结实验：固定 48 次、四世界 8 次真实调用。结构化组 19/24 候选版本错误；四个世界均在邀约答复时因观察失效而未进入交谈，详见[结果与限制](../../verification/npc-expression-comparison-2026-09-14.md)。下一步由用户[选择 NPC 的正式事实表达方式](https://github.com/qinjunw/CozyTown/issues/75)，包括是否先修复暴露的问题再比较。会面对话停滞和普通活动期限继续保留各自票据。
 
 ## 迭代顺序
 

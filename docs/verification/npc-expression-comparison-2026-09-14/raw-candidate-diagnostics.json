@@ -1,0 +1,842 @@
+[
+  {
+    "request": 1,
+    "arm": "F",
+    "caseId": "position_destination",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "602318d46be644ed840119035884fd15",
+      "text": "I am right here in West lane, at my rest spot with you. Shall we chat about the pond and some local cooking?"
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "region_name"
+  },
+  {
+    "request": 2,
+    "arm": "S",
+    "caseId": "position_destination",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "602318d46be644ed840119035884fd15",
+      "speechIntent": "report_observation",
+      "factId": "npc.cook_sora:region_name",
+      "tone": "warm"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "region_name",
+    "actionVersionMatches": false,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 3,
+    "arm": "S",
+    "caseId": "decoration_capability",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "91af9e2c3f8b4ff2a10025346370bd93",
+      "speechIntent": "report_observation",
+      "factId": "decor.plant:kind",
+      "tone": "brief"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "interaction",
+    "actionVersionMatches": false,
+    "semanticReview": "selected kind instead of unsupported-interaction fact; partial answer",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 4,
+    "arm": "F",
+    "caseId": "decoration_capability",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "91af9e2c3f8b4ff2a10025346370bd93",
+      "text": "That plant's only decoration, Sora. Nothing to gather from it. The pond's where the carp are."
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "interaction"
+  },
+  {
+    "request": 5,
+    "arm": "F",
+    "caseId": "unknown_quantity",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "82d98cca19434a458dece2497bc15c64",
+      "text": "I couldn't say, Ren — I only know I have one carp. The pond's stock is unmarked to me. But this carp will make a fine stew!"
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "quantity"
+  },
+  {
+    "request": 6,
+    "arm": "S",
+    "caseId": "unknown_quantity",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "82d98cca19434a458dece2497bc15c64",
+      "speechIntent": "ask_about",
+      "factId": "@partner_assets",
+      "tone": "warm"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "quantity",
+    "actionVersionMatches": false,
+    "semanticReview": "asked about partner resources instead of unknown pond quantity; wrong topic",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 7,
+    "arm": "S",
+    "caseId": "partner_private_assets",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "10b93ee1b73d4e5c9bcabd403ba644ee",
+      "speechIntent": "acknowledge_unknown",
+      "factId": "@partner_assets",
+      "tone": "brief"
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "@partner_assets",
+    "actionVersionMatches": true,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 8,
+    "arm": "F",
+    "caseId": "partner_private_assets",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "10b93ee1b73d4e5c9bcabd403ba644ee",
+      "text": "Can't say what you're carrying — I only know my own nets. The carp is delivered, fair and square."
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "@partner_assets"
+  },
+  {
+    "request": 9,
+    "arm": "F",
+    "caseId": "past_statement_current_stock",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "7ae0e572cbac4c78bcb9e464c2cc57d2",
+      "text": "You're right, I misspoke earlier. I hold none right now — but I'll pay 25 coins for 1 carp if the terms still stand."
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "owned_quantity"
+  },
+  {
+    "request": 10,
+    "arm": "S",
+    "caseId": "past_statement_current_stock",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "7ae0e572cbac4c78bcb9e464c2cc57d2",
+      "speechIntent": "report_observation",
+      "factId": "npc.cook_sora:owned_quantity",
+      "tone": "neutral"
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "owned_quantity",
+    "actionVersionMatches": true,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 11,
+    "arm": "S",
+    "caseId": "truncated_local_absence",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "4a5a1da32a114d13b9ac5d9620532023",
+      "speechIntent": "acknowledge_unknown",
+      "factId": "@nearby_coverage",
+      "tone": "brief"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "@nearby_coverage",
+    "actionVersionMatches": false,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 12,
+    "arm": "F",
+    "caseId": "truncated_local_absence",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "4a5a1da32a114d13b9ac5d9620532023",
+      "text": "No, my list was incomplete. I only saw a plant and seven lamps here, nothing more."
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "@nearby_coverage"
+  },
+  {
+    "request": 13,
+    "arm": "F",
+    "caseId": "successful_receipt",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "b5eac1ed35a24badad33c4fd3ab31064",
+      "text": "The receipt for our trade shows resource.delivered: 1 carp for 25 coins. Perfect for a fresh pond-side stew!"
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "delivery_result"
+  },
+  {
+    "request": 14,
+    "arm": "S",
+    "caseId": "successful_receipt",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "b5eac1ed35a24badad33c4fd3ab31064",
+      "speechIntent": "report_receipt",
+      "factId": "meeting:b5eac1ed35a24badad33c4fd3ab31064:delivery_result",
+      "tone": "warm"
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "delivery_result",
+    "actionVersionMatches": true,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 15,
+    "arm": "S",
+    "caseId": "statement_not_experience",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "3d6b1b25c7bd4eef91e7c3b21709f59a",
+      "speechIntent": "report_receipt",
+      "factId": "statement:3d6b1b25c7bd4eef91e7c3b21709f59a:0",
+      "tone": "neutral"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "said",
+    "actionVersionMatches": false,
+    "semanticReview": "statement fact used as receipt; wrong knowledge type",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 16,
+    "arm": "F",
+    "caseId": "statement_not_experience",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "3d6b1b25c7bd4eef91e7c3b21709f59a",
+      "text": "I only know what I've seen. I have one carp delivered, and you said you caught fish this morning. I can't confirm your catch from here."
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "said"
+  },
+  {
+    "request": 17,
+    "arm": "S",
+    "caseId": "position_destination",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "602318d46be644ed840119035884fd15",
+      "speechIntent": "report_observation",
+      "factId": "npc.cook_sora:region_name",
+      "tone": "warm"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "region_name",
+    "actionVersionMatches": false,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 18,
+    "arm": "F",
+    "caseId": "position_destination",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "602318d46be644ed840119035884fd15",
+      "text": "I'm right here in West lane, actually — not at the pond. That carp was perfect, by the way; thinking of a nice herb stew."
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "region_name"
+  },
+  {
+    "request": 19,
+    "arm": "F",
+    "caseId": "decoration_capability",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "91af9e2c3f8b4ff2a10025346370bd93",
+      "text": "That plant's just decoration, Sora. It has no use for cooking. The pond is where the fish are, and that's what I bring."
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "interaction"
+  },
+  {
+    "request": 20,
+    "arm": "S",
+    "caseId": "decoration_capability",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "91af9e2c3f8b4ff2a10025346370bd93",
+      "speechIntent": "report_observation",
+      "factId": "decor.plant:kind",
+      "tone": "brief"
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "interaction",
+    "actionVersionMatches": true,
+    "semanticReview": "selected kind instead of unsupported-interaction fact; partial answer",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 21,
+    "arm": "S",
+    "caseId": "unknown_quantity",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "82d98cca19434a458dece2497bc15c64",
+      "speechIntent": "acknowledge_unknown",
+      "factId": "pond.water:quantity",
+      "tone": "warm"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "quantity",
+    "actionVersionMatches": false,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 22,
+    "arm": "F",
+    "caseId": "unknown_quantity",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "82d98cca19434a458dece2497bc15c64",
+      "text": "I don't know how many carp are left in the pond. But I have my one carp, and I'd love to cook it up with some local herbs!"
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "quantity"
+  },
+  {
+    "request": 23,
+    "arm": "F",
+    "caseId": "partner_private_assets",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "10b93ee1b73d4e5c9bcabd403ba644ee",
+      "text": "Can't say what you're carrying, Sora. I know I handed you one carp, paid me 25 coins, and the pond's still quiet today."
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "@partner_assets"
+  },
+  {
+    "request": 24,
+    "arm": "S",
+    "caseId": "partner_private_assets",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "10b93ee1b73d4e5c9bcabd403ba644ee",
+      "speechIntent": "acknowledge_unknown",
+      "factId": "@partner_assets",
+      "tone": "brief"
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "@partner_assets",
+    "actionVersionMatches": true,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 25,
+    "arm": "S",
+    "caseId": "past_statement_current_stock",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "7ae0e572cbac4c78bcb9e464c2cc57d2",
+      "speechIntent": "report_observation",
+      "factId": "npc.cook_sora:owned_quantity",
+      "tone": "brief"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "owned_quantity",
+    "actionVersionMatches": false,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 26,
+    "arm": "F",
+    "caseId": "past_statement_current_stock",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "7ae0e572cbac4c78bcb9e464c2cc57d2",
+      "text": "Good question! I only hold zero carp right now — the one we traded went into tonight's pot. Care for 25 coins for one more?"
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "owned_quantity"
+  },
+  {
+    "request": 27,
+    "arm": "F",
+    "caseId": "truncated_local_absence",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "4a5a1da32a114d13b9ac5d9620532023",
+      "text": "No. My list only covers what's registered near me, and it's incomplete anyway. Quiet morning on the pond, though."
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "@nearby_coverage"
+  },
+  {
+    "request": 28,
+    "arm": "S",
+    "caseId": "truncated_local_absence",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "4a5a1da32a114d13b9ac5d9620532023",
+      "speechIntent": "acknowledge_unknown",
+      "factId": "@nearby_coverage",
+      "tone": "brief"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "@nearby_coverage",
+    "actionVersionMatches": false,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 29,
+    "arm": "S",
+    "caseId": "successful_receipt",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "b5eac1ed35a24badad33c4fd3ab31064",
+      "speechIntent": "report_receipt",
+      "factId": "meeting:b5eac1ed35a24badad33c4fd3ab31064:delivery_result",
+      "tone": "warm"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "delivery_result",
+    "actionVersionMatches": false,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 30,
+    "arm": "F",
+    "caseId": "successful_receipt",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "b5eac1ed35a24badad33c4fd3ab31064",
+      "text": "The meeting receipt shows resource.delivered: 1 carp for 25 coins. So the transfer is already recorded."
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "delivery_result"
+  },
+  {
+    "request": 31,
+    "arm": "F",
+    "caseId": "statement_not_experience",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "3d6b1b25c7bd4eef91e7c3b21709f59a",
+      "text": "I have no evidence of your catch. I only know the receipt: one carp delivered to you, 25 coins paid. What I can vouch for is my own line in the water."
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "said"
+  },
+  {
+    "request": 32,
+    "arm": "S",
+    "caseId": "statement_not_experience",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "3d6b1b25c7bd4eef91e7c3b21709f59a",
+      "speechIntent": "recall_statement",
+      "factId": "statement:3d6b1b25c7bd4eef91e7c3b21709f59a:0",
+      "tone": "neutral"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "said",
+    "actionVersionMatches": false,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 33,
+    "arm": "F",
+    "caseId": "position_destination",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "602318d46be644ed840119035884fd15",
+      "text": "I'm right here in West lane, at my rest spot by the pond. Thanks again for the carp, Ren — it's going straight into a stew!"
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "region_name"
+  },
+  {
+    "request": 34,
+    "arm": "S",
+    "caseId": "position_destination",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "602318d46be644ed840119035884fd15",
+      "speechIntent": "report_observation",
+      "factId": "npc.cook_sora:region_name",
+      "tone": "warm"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "region_name",
+    "actionVersionMatches": false,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 35,
+    "arm": "S",
+    "caseId": "decoration_capability",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "91af9e2c3f8b4ff2a10025346370bd93",
+      "speechIntent": "report_observation",
+      "factId": "decor.plant:kind",
+      "tone": "neutral"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "interaction",
+    "actionVersionMatches": false,
+    "semanticReview": "selected kind instead of unsupported-interaction fact; partial answer",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 36,
+    "arm": "F",
+    "caseId": "decoration_capability",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "91af9e2c3f8b4ff2a10025346370bd93",
+      "text": "That plant's just decoration, Sora. The pond is where the fish are, and I've already set one carp aside for you."
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "interaction"
+  },
+  {
+    "request": 37,
+    "arm": "F",
+    "caseId": "unknown_quantity",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "82d98cca19434a458dece2497bc15c64",
+      "text": "I can't say how many carp are in the pond, Ren. But I've got my one carp and 25 coins, and I'd love to cook it up together!"
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "quantity"
+  },
+  {
+    "request": 38,
+    "arm": "S",
+    "caseId": "unknown_quantity",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "82d98cca19434a458dece2497bc15c64",
+      "speechIntent": "ask_about",
+      "factId": "@partner_assets",
+      "tone": "warm"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "quantity",
+    "actionVersionMatches": false,
+    "semanticReview": "asked about partner resources instead of unknown pond quantity; wrong topic",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 39,
+    "arm": "S",
+    "caseId": "partner_private_assets",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "10b93ee1b73d4e5c9bcabd403ba644ee",
+      "speechIntent": "acknowledge_unknown",
+      "factId": "@partner_assets",
+      "tone": "brief"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "@partner_assets",
+    "actionVersionMatches": false,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 40,
+    "arm": "F",
+    "caseId": "partner_private_assets",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "10b93ee1b73d4e5c9bcabd403ba644ee",
+      "text": "I can't see your satchel from here, Sora. I only know I handed over one carp for 25 coins at the pond."
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "@partner_assets"
+  },
+  {
+    "request": 41,
+    "arm": "F",
+    "caseId": "past_statement_current_stock",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "7ae0e572cbac4c78bcb9e464c2cc57d2",
+      "text": "I misspoke earlier—I hold none now. The delivery went through: one carp for 25 coins, and my balance is 25. Want to finish up here?"
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "owned_quantity"
+  },
+  {
+    "request": 42,
+    "arm": "S",
+    "caseId": "past_statement_current_stock",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "7ae0e572cbac4c78bcb9e464c2cc57d2",
+      "speechIntent": "report_observation",
+      "factId": "npc.cook_sora:owned_quantity",
+      "tone": "warm"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "owned_quantity",
+    "actionVersionMatches": false,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 43,
+    "arm": "S",
+    "caseId": "truncated_local_absence",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "4a5a1da32a114d13b9ac5d9620532023",
+      "speechIntent": "acknowledge_unknown",
+      "factId": "@nearby_coverage",
+      "tone": "brief"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "@nearby_coverage",
+    "actionVersionMatches": false,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 44,
+    "arm": "F",
+    "caseId": "truncated_local_absence",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "4a5a1da32a114d13b9ac5d9620532023",
+      "text": "No. My list isn't complete, so it proves nothing about what else is around. I just see a plant and some lamps."
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "@nearby_coverage"
+  },
+  {
+    "request": 45,
+    "arm": "F",
+    "caseId": "successful_receipt",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "b5eac1ed35a24badad33c4fd3ab31064",
+      "text": "The delivery result resource.delivered confirms it: one carp for 25 coins, recorded at 750 minutes. I'd love to cook it by the pond!"
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "delivery_result"
+  },
+  {
+    "request": 46,
+    "arm": "S",
+    "caseId": "successful_receipt",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "b5eac1ed35a24badad33c4fd3ab31064",
+      "speechIntent": "report_receipt",
+      "factId": "meeting:b5eac1ed35a24badad33c4fd3ab31064:delivery_result",
+      "tone": "warm"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "delivery_result",
+    "actionVersionMatches": false,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 47,
+    "arm": "S",
+    "caseId": "statement_not_experience",
+    "originalCandidate": {
+      "schemaVersion": 1,
+      "operation": "say",
+      "meetingId": "3d6b1b25c7bd4eef91e7c3b21709f59a",
+      "speechIntent": "recall_statement",
+      "factId": "statement:3d6b1b25c7bd4eef91e7c3b21709f59a:0",
+      "tone": "neutral"
+    },
+    "hostStatus": "proxy_rejected",
+    "hostError": "",
+    "proxyCandidateError": "candidate.schema_mismatch",
+    "expectedFact": "said",
+    "actionVersionMatches": false,
+    "semanticReview": "selected registered target for the question",
+    "counterfactualExecuted": false
+  },
+  {
+    "request": 48,
+    "arm": "F",
+    "caseId": "statement_not_experience",
+    "originalCandidate": {
+      "schemaVersion": 4,
+      "operation": "say",
+      "meetingId": "3d6b1b25c7bd4eef91e7c3b21709f59a",
+      "text": "All I know is what I see: the pond, and you here now. If you caught fish this morning, I have no way to prove or disprove it."
+    },
+    "hostStatus": "displayed",
+    "hostError": "",
+    "proxyCandidateError": null,
+    "expectedFact": "said"
+  }
+]

@@ -77,6 +77,24 @@ namespace CozyTown.Unity.Npc
             if (!Guid.TryParse(identifier, out var meetingId) || meetingId == Guid.Empty)
                 throw new NpcCandidateException("candidate.meeting_id_invalid");
             if (request != null && meetingId != request.Social?.MeetingId) throw new NpcCandidateException("candidate.meeting_id_mismatch");
+            if (kind == NpcDecisionKind.Speak)
+            {
+                bool hasFrame = fields.ContainsKey("speechIntent") || fields.ContainsKey("factId") || fields.ContainsKey("tone");
+                bool structured = request == null ? hasFrame : request.SpeechMode == NpcSpeechMode.StructuredFacts;
+                if ((structured && fields.ContainsKey("text")) || (!structured && hasFrame))
+                    throw new NpcCandidateException("candidate.expression_mode_mismatch");
+                if (structured)
+                {
+                    string intent = RequireString(fields, "speechIntent", "candidate.speech_frame_invalid");
+                    string factId = RequireString(fields, "factId", "candidate.speech_frame_invalid");
+                    string tone = RequireString(fields, "tone", "candidate.speech_frame_invalid");
+                    if (fields.Count != 6 || !new[] { "report_observation", "report_receipt", "recall_statement",
+                            "acknowledge_unknown", "ask_about", "express_wish" }.Contains(intent)
+                        || !new[] { "neutral", "warm", "brief" }.Contains(tone))
+                        throw new NpcCandidateException("candidate.speech_frame_invalid");
+                    return new NpcDecisionReply(kind, meetingId: meetingId, speechFrame: new NpcSpeechFrame(intent, factId, tone));
+                }
+            }
             string text = kind == NpcDecisionKind.Speak ? RequireString(fields, "text", "candidate.text_invalid") : null;
             if (text != null && text.Length > 240) throw new NpcCandidateException("candidate.text_invalid");
             return new NpcDecisionReply(kind, meetingId: meetingId, text: text);
@@ -143,9 +161,11 @@ namespace CozyTown.Unity.Npc
             public SelfAssessmentPayload selfAssessment;
             public bool hasObservation;
             public ObservationPayload observation;
+            public ExpressionPayload expression;
 
             public RequestPayload(NpcDecisionRequest request)
             {
+                expression = new ExpressionPayload { mode = request.SpeechMode == NpcSpeechMode.StructuredFacts ? "structured_facts" : "free_text" };
                 decisionId = request.DecisionId.ToString("N");
                 candidateErrorCode = request.CandidateErrorCode;
                 npcId = request.NpcId;
@@ -189,6 +209,13 @@ namespace CozyTown.Unity.Npc
                     knownLocationIds = Array.Empty<string>();
                 }
             }
+        }
+
+        [Serializable]
+        private sealed class ExpressionPayload
+        {
+            public int schemaVersion = 1;
+            public string mode;
         }
 
         [Serializable]

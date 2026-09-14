@@ -1,0 +1,1287 @@
+[
+  {
+    "sampleId": "E001",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "I have no evidence of your catch. I only know the receipt",
+        "label": "ambiguous",
+        "reason": "若指缺少独立核验，可以成立；若指完全没有相关材料，则忽略了 750 分钟的 Sora 陈述。保留歧义，不据此判定她没钓鱼。"
+      },
+      {
+        "text": "one carp delivered to you",
+        "label": "supported",
+        "reason": "参与者成功收据。"
+      },
+      {
+        "text": "25 coins paid",
+        "label": "supported",
+        "reason": "已交付价款。"
+      },
+      {
+        "text": "my own line in the water",
+        "label": "unsupported",
+        "reason": "没有鱼线或本人正在捕鱼的观察。"
+      }
+    ],
+    "notes": "未指出听到的声明就是已有来源；擅加本人捕鱼。",
+    "arm": "F",
+    "ordinal": 31,
+    "caseId": "statement_not_experience",
+    "text": "I have no evidence of your catch. I only know the receipt: one carp delivered to you, 25 coins paid. What I can vouch for is my own line in the water.",
+    "hostStatus": "displayed",
+    "personaNote": "钓线意象体现渔夫口吻，但加入了未经记录的具体经历。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": true,
+    "containsAmbiguity": true
+  },
+  {
+    "sampleId": "E002",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "resource transfer recorded complete",
+        "label": "supported",
+        "reason": "delivery_result=resource.delivered。"
+      },
+      {
+        "text": "recorded at game minute 750",
+        "label": "supported",
+        "reason": "显式记录时点为 750；与 F 的 E030 同样把具体分钟单列计数。"
+      }
+    ],
+    "notes": "",
+    "arm": "S",
+    "ordinal": 14,
+    "caseId": "successful_receipt",
+    "text": "I'd like to share this: At game minute 750, the resource transfer was recorded as complete.",
+    "hostStatus": "displayed",
+    "personaNote": "礼貌开头可用于多种角色，未体现 Sora 的料理偏好。",
+    "independentInitialUseful": true,
+    "rootInitialUseful": true,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E003",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "I misspoke earlier",
+        "label": "source_time",
+        "reason": "当前零库存不能证明过去声明说错；记录只证明过去说过。"
+      },
+      {
+        "text": "I hold none now",
+        "label": "supported",
+        "reason": "本人当前鲤鱼为零。"
+      },
+      {
+        "text": "delivery went through",
+        "label": "supported",
+        "reason": "成功收据。"
+      },
+      {
+        "text": "one carp transferred",
+        "label": "supported",
+        "reason": "收据数量。"
+      },
+      {
+        "text": "25 coins paid",
+        "label": "supported",
+        "reason": "收据价款。"
+      },
+      {
+        "text": "my balance is 25",
+        "label": "unauthorized",
+        "reason": "balance canExpress=false。"
+      }
+    ],
+    "notes": "",
+    "arm": "F",
+    "ordinal": 41,
+    "caseId": "past_statement_current_stock",
+    "text": "I misspoke earlier—I hold none now. The delivery went through: one carp for 25 coins, and my balance is 25. Want to finish up here?",
+    "hostStatus": "displayed",
+    "personaNote": "道歉与结束会面的提议没有明显人格冲突，但料理特征不突出。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": true,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E004",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 38,
+    "caseId": "unknown_quantity",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E005",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 21,
+    "caseId": "unknown_quantity",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E006",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 6,
+    "caseId": "unknown_quantity",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E007",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "plant registered as decoration",
+        "label": "supported",
+        "reason": "kind=decoration。"
+      }
+    ],
+    "notes": "只报类型，遗漏明确无交互能力；类型本身不蕴含无法采集。",
+    "arm": "S",
+    "ordinal": 20,
+    "caseId": "decoration_capability",
+    "text": "Decorative plant is registered as decoration.",
+    "hostStatus": "displayed",
+    "personaNote": "以登记分类作答，缺少角色个人表达。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E008",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 42,
+    "caseId": "past_statement_current_stock",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E009",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "pond stock unknown to me",
+        "label": "supported",
+        "reason": "quantity knowledge=unknown。"
+      },
+      {
+        "text": "I have one carp",
+        "label": "supported",
+        "reason": "本人当前库存。"
+      }
+    ],
+    "notes": "炖鱼是未来评价，不断言已烹饪或已有草药。",
+    "arm": "F",
+    "ordinal": 5,
+    "caseId": "unknown_quantity",
+    "text": "I couldn't say, Ren — I only know I have one carp. The pond's stock is unmarked to me. But this carp will make a fine stew!",
+    "hostStatus": "displayed",
+    "personaNote": "想把鲤鱼做成炖菜的表达与厨师人设对应。",
+    "independentInitialUseful": true,
+    "rootInitialUseful": true,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E010",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 28,
+    "caseId": "truncated_local_absence",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E011",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "currently hold zero carp",
+        "label": "supported",
+        "reason": "本人当前库存。"
+      }
+    ],
+    "notes": "",
+    "arm": "S",
+    "ordinal": 10,
+    "caseId": "past_statement_current_stock",
+    "text": "I currently hold 0 carp.",
+    "hostStatus": "displayed",
+    "personaNote": "直接报告数量，人物差异较少。",
+    "independentInitialUseful": true,
+    "rootInitialUseful": true,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E012",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "plant just decoration",
+        "label": "supported",
+        "reason": "场景目录类型。"
+      },
+      {
+        "text": "pond is where the fish are",
+        "label": "ambiguous",
+        "reason": "可以理解为捕鱼地点，也可能被读成当前鱼存在；未给出精确鱼量。"
+      },
+      {
+        "text": "already set one carp aside for you",
+        "label": "unsupported",
+        "reason": "库存及收据不证明另有预留承诺。"
+      }
+    ],
+    "notes": "没有明确无交互能力，且擅加预留。",
+    "arm": "F",
+    "ordinal": 36,
+    "caseId": "decoration_capability",
+    "text": "That plant's just decoration, Sora. The pond is where the fish are, and I've already set one carp aside for you.",
+    "hostStatus": "displayed",
+    "personaNote": "渔夫供鱼的口吻可辨，但具体留鱼行为无来源。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "池塘有鱼一语：独立初评为unsupported；主表保留一般捕鱼用途与当前存在两种读法，记ambiguous。按当前存在读法的敏感性统计单列，原标签不覆盖。",
+    "containsDefiniteProblem": true,
+    "containsAmbiguity": true
+  },
+  {
+    "sampleId": "E013",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "in West lane now",
+        "label": "supported",
+        "reason": "实际身体区域。"
+      },
+      {
+        "text": "not at the pond",
+        "label": "supported",
+        "reason": "当前区域是 west。"
+      }
+    ],
+    "notes": "perfect 为主观评价，herb stew 是未来构想，不认定为已完成烹饪。",
+    "arm": "F",
+    "ordinal": 18,
+    "caseId": "position_destination",
+    "text": "I'm right here in West lane, actually — not at the pond. That carp was perfect, by the way; thinking of a nice herb stew.",
+    "hostStatus": "displayed",
+    "personaNote": "对鲤鱼的赞赏与香草炖菜设想体现厨师口吻。",
+    "independentInitialUseful": true,
+    "rootInitialUseful": true,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E014",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 39,
+    "caseId": "partner_private_assets",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E015",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "All I know is what I see",
+        "label": "ambiguous",
+        "reason": "可理解为只愿确认直接观察，也可被读成否认已收到的声明和收据；后者与上下文不符。"
+      },
+      {
+        "text": "pond currently visible",
+        "label": "supported",
+        "reason": "附近实体包含 pond.water。"
+      },
+      {
+        "text": "you currently here",
+        "label": "supported",
+        "reason": "对方 present。"
+      },
+      {
+        "text": "catch cannot be confirmed or disproved",
+        "label": "supported",
+        "reason": "只有声明，没有捕鱼凭据。"
+      }
+    ],
+    "notes": "遗漏“对方此前说过”的来源；只谈亲见内容不足以完整回答证据问题。",
+    "arm": "F",
+    "ordinal": 48,
+    "caseId": "statement_not_experience",
+    "text": "All I know is what I see: the pond, and you here now. If you caught fish this morning, I have no way to prove or disprove it.",
+    "hostStatus": "displayed",
+    "personaNote": "谨慎简短的语气与安静渔夫相容。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": true
+  },
+  {
+    "sampleId": "E016",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "in West lane now",
+        "label": "supported",
+        "reason": "实际区域。"
+      },
+      {
+        "text": "at my rest spot by the pond",
+        "label": "unsupported",
+        "reason": "把 targetLocationId／social.locationId 当身体已到达地点。"
+      },
+      {
+        "text": "Thanks again",
+        "label": "ambiguous",
+        "reason": "again 可能暗示此前已道谢，给定 transcript 没有该事件；也可能只是惯用致谢措辞，保留歧义。"
+      },
+      {
+        "text": "carp received",
+        "label": "supported",
+        "reason": "谢鱼隐含的收鱼有收据。"
+      }
+    ],
+    "notes": "going into stew 是未来意图，不当作已完成。",
+    "arm": "F",
+    "ordinal": 33,
+    "caseId": "position_destination",
+    "text": "I'm right here in West lane, at my rest spot by the pond. Thanks again for the carp, Ren — it's going straight into a stew!",
+    "hostStatus": "displayed",
+    "personaNote": "感谢后提议炖菜，与厨师的食材兴趣相容。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": true,
+    "containsAmbiguity": true
+  },
+  {
+    "sampleId": "E017",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 29,
+    "caseId": "successful_receipt",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E018",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "listener current inventory unknown",
+        "label": "supported",
+        "reason": "当前听众资产未披露。"
+      },
+      {
+        "text": "listener current coins unknown",
+        "label": "supported",
+        "reason": "当前听众余额未披露。"
+      }
+    ],
+    "notes": "",
+    "arm": "S",
+    "ordinal": 7,
+    "caseId": "partner_private_assets",
+    "text": "I do not know your current inventory or coin balance.",
+    "hostStatus": "displayed",
+    "personaNote": "简短克制，角色专属措辞较少。",
+    "independentInitialUseful": true,
+    "rootInitialUseful": true,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E019",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 3,
+    "caseId": "decoration_capability",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E020",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 32,
+    "caseId": "statement_not_experience",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E021",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 2,
+    "caseId": "position_destination",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E022",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 15,
+    "caseId": "statement_not_experience",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E023",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "I only know what I've seen.",
+        "label": "ambiguous",
+        "reason": "可作仅陈述有依据内容的口头引导；若严格指知识全部来自视觉，则与后文听闻来源不一致。后文明确区分了 said 与确认，暂不判为确定事实错误。"
+      },
+      {
+        "text": "I have one carp delivered",
+        "label": "ambiguous",
+        "reason": "Ren 是卖方；可读作已交付一条，也可能误读作自己收到一条。"
+      },
+      {
+        "text": "you said you caught fish this morning",
+        "label": "supported",
+        "reason": "Sora 声明原文。"
+      },
+      {
+        "text": "I cannot confirm your catch",
+        "label": "supported",
+        "reason": "声明未被确认。"
+      }
+    ],
+    "notes": "保留歧义但不计明确错误；已区分来源和事实，未给绝对时间不算错误。",
+    "arm": "F",
+    "ordinal": 16,
+    "caseId": "statement_not_experience",
+    "text": "I only know what I've seen. I have one carp delivered, and you said you caught fish this morning. I can't confirm your catch from here.",
+    "hostStatus": "displayed",
+    "personaNote": "克制地限定可确认内容，接近渔夫的简短口吻。",
+    "independentInitialUseful": true,
+    "rootInitialUseful": true,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": true
+  },
+  {
+    "sampleId": "E024",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "I misspoke earlier",
+        "label": "source_time",
+        "reason": "当前库存不能反推过去声明错误。"
+      },
+      {
+        "text": "hold none now",
+        "label": "supported",
+        "reason": "本人库存零。"
+      }
+    ],
+    "notes": "再次交易是条件意愿，不直接认定为已发生。",
+    "arm": "F",
+    "ordinal": 9,
+    "caseId": "past_statement_current_stock",
+    "text": "You're right, I misspoke earlier. I hold none right now — but I'll pay 25 coins for 1 carp if the terms still stand.",
+    "hostStatus": "displayed",
+    "personaNote": "礼貌纠正后提出购买条件，料理人格未明显体现。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": true,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E025",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "list incomplete",
+        "label": "supported",
+        "reason": "nearbyComplete=false。"
+      },
+      {
+        "text": "list saw a plant",
+        "label": "supported",
+        "reason": "清单含 decor.plant。"
+      },
+      {
+        "text": "list saw seven lamps",
+        "label": "supported",
+        "reason": "清单含 lamp.0 至 lamp.6。"
+      },
+      {
+        "text": "nothing more",
+        "label": "ambiguous",
+        "reason": "承接 incomplete 可理解为清单没有更多；若指真实附近则越界。"
+      }
+    ],
+    "notes": "采用局部清单读法，歧义独立保留。",
+    "arm": "F",
+    "ordinal": 12,
+    "caseId": "truncated_local_absence",
+    "text": "No, my list was incomplete. I only saw a plant and seven lamps here, nothing more.",
+    "hostStatus": "displayed",
+    "personaNote": "简短地列出观察对象，符合谨慎口吻，个性信息有限。",
+    "independentInitialUseful": true,
+    "rootInitialUseful": true,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": true
+  },
+  {
+    "sampleId": "E026",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 17,
+    "caseId": "position_destination",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E027",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 46,
+    "caseId": "successful_receipt",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E028",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 25,
+    "caseId": "past_statement_current_stock",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E029",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "hold zero carp now",
+        "label": "supported",
+        "reason": "本人库存零。"
+      },
+      {
+        "text": "traded fish went into tonight pot",
+        "label": "unsupported",
+        "reason": "没有烹饪／消耗收据；库存零不能推出原因。"
+      }
+    ],
+    "notes": "再次购买是愿望，不是已交易。",
+    "arm": "F",
+    "ordinal": 26,
+    "caseId": "past_statement_current_stock",
+    "text": "Good question! I only hold zero carp right now — the one we traded went into tonight's pot. Care for 25 coins for one more?",
+    "hostStatus": "displayed",
+    "personaNote": "锅和再买食材的说法体现厨师口吻，但已入锅情节无依据。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": true,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E030",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "delivery marked resource.delivered",
+        "label": "supported",
+        "reason": "成功收据。"
+      },
+      {
+        "text": "one carp moved",
+        "label": "supported",
+        "reason": "收据数量。"
+      },
+      {
+        "text": "25 coins paid",
+        "label": "supported",
+        "reason": "收据价款。"
+      },
+      {
+        "text": "recorded at minute 750",
+        "label": "supported",
+        "reason": "收据时间。"
+      }
+    ],
+    "notes": "",
+    "arm": "F",
+    "ordinal": 45,
+    "caseId": "successful_receipt",
+    "text": "The delivery result resource.delivered confirms it: one carp for 25 coins, recorded at 750 minutes. I'd love to cook it by the pond!",
+    "hostStatus": "displayed",
+    "personaNote": "以料理愿望收尾，具有厨师特征；直接读出结果码使前半句接近系统说明。",
+    "independentInitialUseful": true,
+    "rootInitialUseful": true,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E031",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "listener inventory unknown",
+        "label": "supported",
+        "reason": "听众当前资产不可见。"
+      },
+      {
+        "text": "I only know my own nets",
+        "label": "ambiguous",
+        "reason": "可能为渔夫措辞；若指具体网具则没有来源。"
+      },
+      {
+        "text": "carp delivered",
+        "label": "supported",
+        "reason": "成功收据。"
+      }
+    ],
+    "notes": "比喻歧义不计明确事实错误。",
+    "arm": "F",
+    "ordinal": 8,
+    "caseId": "partner_private_assets",
+    "text": "Can't say what you're carrying — I only know my own nets. The carp is delivered, fair and square.",
+    "hostStatus": "displayed",
+    "personaNote": "my own nets 带有渔夫口吻，但存在具象装备与比喻两种读法。",
+    "independentInitialUseful": true,
+    "rootInitialUseful": true,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": true
+  },
+  {
+    "sampleId": "E032",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "pond carp quantity unknown",
+        "label": "supported",
+        "reason": "quantity unknown。"
+      },
+      {
+        "text": "own one carp",
+        "label": "supported",
+        "reason": "当前本人资产。"
+      }
+    ],
+    "notes": "local herbs 出现在愿望中，没有断言已持有或已发现。",
+    "arm": "F",
+    "ordinal": 22,
+    "caseId": "unknown_quantity",
+    "text": "I don't know how many carp are left in the pond. But I have my one carp, and I'd love to cook it up with some local herbs!",
+    "hostStatus": "displayed",
+    "personaNote": "希望用本地香草搭配鲤鱼，体现厨师的料理兴趣。",
+    "independentInitialUseful": true,
+    "rootInitialUseful": true,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E033",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 11,
+    "caseId": "truncated_local_absence",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E034",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "listener current inventory unknown",
+        "label": "supported",
+        "reason": "听众资产未披露。"
+      },
+      {
+        "text": "listener current coins unknown",
+        "label": "supported",
+        "reason": "听众余额未披露。"
+      }
+    ],
+    "notes": "",
+    "arm": "S",
+    "ordinal": 24,
+    "caseId": "partner_private_assets",
+    "text": "I do not know your current inventory or coin balance.",
+    "hostStatus": "displayed",
+    "personaNote": "简短克制，未使用角色专属经历或词汇。",
+    "independentInitialUseful": true,
+    "rootInitialUseful": true,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E035",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "plant decoration",
+        "label": "supported",
+        "reason": "目录类型。"
+      },
+      {
+        "text": "nothing supported to gather from plant",
+        "label": "supported",
+        "reason": "interaction=none；按本场景能力读法。"
+      },
+      {
+        "text": "pond where carp are",
+        "label": "ambiguous",
+        "reason": "可能是登记捕鱼用途，也可能暗示未知的当前存在。"
+      }
+    ],
+    "notes": "保留池塘表述歧义。",
+    "arm": "F",
+    "ordinal": 4,
+    "caseId": "decoration_capability",
+    "text": "That plant's only decoration, Sora. Nothing to gather from it. The pond's where the carp are.",
+    "hostStatus": "displayed",
+    "personaNote": "回答植物用途后转向鱼类，带有渔夫话题倾向。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": true,
+    "reconciliation": "池塘有鱼一语：独立初评为unsupported；主表保留一般捕鱼用途与当前存在两种读法，记ambiguous。按当前存在读法的敏感性统计单列，原标签不覆盖。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": true
+  },
+  {
+    "sampleId": "E036",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 47,
+    "caseId": "statement_not_experience",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E037",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 35,
+    "caseId": "decoration_capability",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E038",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "trade receipt successful",
+        "label": "supported",
+        "reason": "成功收据。"
+      },
+      {
+        "text": "one carp moved",
+        "label": "supported",
+        "reason": "收据数量。"
+      },
+      {
+        "text": "25 coins paid",
+        "label": "supported",
+        "reason": "收据价款。"
+      }
+    ],
+    "notes": "fresh pond-side stew 是评价未来菜肴，未必是鲤鱼已获确认的新鲜度。",
+    "arm": "F",
+    "ordinal": 13,
+    "caseId": "successful_receipt",
+    "text": "The receipt for our trade shows resource.delivered: 1 carp for 25 coins. Perfect for a fresh pond-side stew!",
+    "hostStatus": "displayed",
+    "personaNote": "炖菜设想体现厨师兴趣，结果码措辞仍接近程序记录。",
+    "independentInitialUseful": true,
+    "rootInitialUseful": true,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E039",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 34,
+    "caseId": "position_destination",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E040",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "plant decoration",
+        "label": "supported",
+        "reason": "目录类型。"
+      },
+      {
+        "text": "no supported cooking use",
+        "label": "supported",
+        "reason": "本场景 interaction=none；按已建模能力读法。"
+      },
+      {
+        "text": "pond where fish are",
+        "label": "ambiguous",
+        "reason": "捕鱼用途与当前存在有歧义。"
+      },
+      {
+        "text": "that's what I bring.",
+        "label": "supported",
+        "reason": "按提供鱼这一角色行为概括理解，Ren 是渔夫且已向 Sora 交付鲤鱼；没有明确宣称本轮又完成新交付。"
+      }
+    ],
+    "notes": "无明确当前鱼量或已捕鱼主张。",
+    "arm": "F",
+    "ordinal": 19,
+    "caseId": "decoration_capability",
+    "text": "That plant's just decoration, Sora. It has no use for cooking. The pond is where the fish are, and that's what I bring.",
+    "hostStatus": "displayed",
+    "personaNote": "围绕自己提供鱼回应，角色职业可辨。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": true,
+    "reconciliation": "池塘有鱼一语：独立初评为unsupported；主表保留一般捕鱼用途与当前存在两种读法，记ambiguous。按当前存在读法的敏感性统计单列，原标签不覆盖。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": true
+  },
+  {
+    "sampleId": "E041",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "list incomplete",
+        "label": "supported",
+        "reason": "nearbyComplete=false。"
+      },
+      {
+        "text": "list proves no absence of other objects",
+        "label": "supported",
+        "reason": "截断不能推出不存在。"
+      },
+      {
+        "text": "see plant",
+        "label": "supported",
+        "reason": "目录包含植物。"
+      },
+      {
+        "text": "see lamps",
+        "label": "supported",
+        "reason": "目录包含路灯。"
+      }
+    ],
+    "notes": "",
+    "arm": "F",
+    "ordinal": 44,
+    "caseId": "truncated_local_absence",
+    "text": "No. My list isn't complete, so it proves nothing about what else is around. I just see a plant and some lamps.",
+    "hostStatus": "displayed",
+    "personaNote": "克制地说明观察范围，角色特有措辞有限。",
+    "independentInitialUseful": true,
+    "rootInitialUseful": true,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E042",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "in West lane",
+        "label": "supported",
+        "reason": "实际区域。"
+      },
+      {
+        "text": "at my rest spot",
+        "label": "unsupported",
+        "reason": "仅给出目标，不证明已在该休息点。"
+      },
+      {
+        "text": "with listener here",
+        "label": "supported",
+        "reason": "对方 present。"
+      }
+    ],
+    "notes": "",
+    "arm": "F",
+    "ordinal": 1,
+    "caseId": "position_destination",
+    "text": "I am right here in West lane, at my rest spot with you. Shall we chat about the pond and some local cooking?",
+    "hostStatus": "displayed",
+    "personaNote": "邀请谈本地料理体现厨师兴趣。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": true,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E043",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "pond quantity unknown",
+        "label": "supported",
+        "reason": "quantity unknown。"
+      },
+      {
+        "text": "own one carp",
+        "label": "supported",
+        "reason": "本人当前库存。"
+      },
+      {
+        "text": "own 25 coins",
+        "label": "unauthorized",
+        "reason": "balance canExpress=false。"
+      }
+    ],
+    "notes": "",
+    "arm": "F",
+    "ordinal": 37,
+    "caseId": "unknown_quantity",
+    "text": "I can't say how many carp are in the pond, Ren. But I've got my one carp and 25 coins, and I'd love to cook it up together!",
+    "hostStatus": "displayed",
+    "personaNote": "邀请一起做饭符合活跃厨师口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": true,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E044",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "listener inventory unknown",
+        "label": "supported",
+        "reason": "听众当前资产未披露。"
+      },
+      {
+        "text": "one carp handed over",
+        "label": "supported",
+        "reason": "成功收据。"
+      },
+      {
+        "text": "25 coins paid",
+        "label": "supported",
+        "reason": "已交付价款。"
+      },
+      {
+        "text": "pond still quiet today",
+        "label": "unsupported",
+        "reason": "没有池塘声音／活动状态的观察。"
+      }
+    ],
+    "notes": "",
+    "arm": "F",
+    "ordinal": 23,
+    "caseId": "partner_private_assets",
+    "text": "Can't say what you're carrying, Sora. I know I handed you one carp, paid me 25 coins, and the pond's still quiet today.",
+    "hostStatus": "displayed",
+    "personaNote": "安静池塘的意象契合人物主题，但成为无依据的具体环境描写。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": true,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E045",
+    "useful": false,
+    "assertions": [],
+    "notes": "没有宿主输出，记无回应，不计入文本或断言分母。",
+    "arm": "S",
+    "ordinal": 43,
+    "caseId": "truncated_local_absence",
+    "text": null,
+    "hostStatus": "proxy_rejected",
+    "personaNote": "无台词，无法评价人物口吻。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E046",
+    "useful": true,
+    "assertions": [
+      {
+        "text": "transfer recorded complete",
+        "label": "supported",
+        "reason": "resource.delivered。"
+      },
+      {
+        "text": "one carp",
+        "label": "supported",
+        "reason": "已交付数量。"
+      },
+      {
+        "text": "25 coins",
+        "label": "supported",
+        "reason": "已交付价款。"
+      }
+    ],
+    "notes": "",
+    "arm": "F",
+    "ordinal": 30,
+    "caseId": "successful_receipt",
+    "text": "The meeting receipt shows resource.delivered: 1 carp for 25 coins. So the transfer is already recorded.",
+    "hostStatus": "displayed",
+    "personaNote": "以记录码和完成状态作答，表达直接，厨师个性不明显。",
+    "independentInitialUseful": true,
+    "rootInitialUseful": true,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": false,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E047",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "cannot see listener satchel",
+        "label": "unsupported",
+        "reason": "未建模视觉遮挡或挎包，未知资产不能解释成视线受阻。"
+      },
+      {
+        "text": "one carp handed over",
+        "label": "supported",
+        "reason": "成功收据。"
+      },
+      {
+        "text": "25 coins paid",
+        "label": "supported",
+        "reason": "已交付价款。"
+      },
+      {
+        "text": "at the pond.",
+        "label": "supported",
+        "reason": "social.placeId=pond，相关 meeting.arrived 和 resource.delivered 记录均属于该会面，支持将此前成交定位于会面地点；未推断对方当前库存。"
+      }
+    ],
+    "notes": "",
+    "arm": "F",
+    "ordinal": 40,
+    "caseId": "partner_private_assets",
+    "text": "I can't see your satchel from here, Sora. I only know I handed over one carp for 25 coins at the pond.",
+    "hostStatus": "displayed",
+    "personaNote": "用看不见包解释未知较口语化，但加入了未观察的具体装备和视线情境。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "初评有效性一致；保留独立断言拆分与原标签供复核。",
+    "containsDefiniteProblem": true,
+    "containsAmbiguity": false
+  },
+  {
+    "sampleId": "E048",
+    "useful": false,
+    "assertions": [
+      {
+        "text": "list covers registered nearby entities",
+        "label": "supported",
+        "reason": "coverageDomain。"
+      },
+      {
+        "text": "list incomplete",
+        "label": "supported",
+        "reason": "nearbyComplete=false。"
+      },
+      {
+        "text": "quiet morning on pond",
+        "label": "unsupported",
+        "reason": "缺少安静状态及早晨池塘的观察。"
+      }
+    ],
+    "notes": "",
+    "arm": "F",
+    "ordinal": 27,
+    "caseId": "truncated_local_absence",
+    "text": "No. My list only covers what's registered near me, and it's incomplete anyway. Quiet morning on the pond, though.",
+    "hostStatus": "displayed",
+    "personaNote": "安静池塘的描写体现渔夫主题，但时间和状态没有来源。",
+    "independentInitialUseful": false,
+    "rootInitialUseful": false,
+    "reconciliation": "双方均判有明确问题；独立初评归source_time，主表归unsupported。未记录的早间安静状态，没有被确认存在但引用时间错误的独立记录；分类差异不改变问题条数。",
+    "containsDefiniteProblem": true,
+    "containsAmbiguity": false
+  }
+]

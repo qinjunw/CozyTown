@@ -70,6 +70,30 @@ python -B Tools/agent_proxy/grounding_experiment.py --mode serve --credential-fi
 
 完整分组、指标与限制见[运行前实验方案](../../docs/verification/npc-grounding-experiment-plan-2026-09-13.md)。
 
+## NPC 表达对照实验
+
+`expression_experiment.py` 为 F（自由台词）与 S（结构化事实句）提供两个回环端口，复用同一个提供方预算。实验代理按端口设置表达模式，同时保留 Unity 原请求；运行后须核对原请求与实际输入一致。场景中的同一世界绑定一个组别，跨组请求会被拒绝。固定和场景阶段各限 48 次提供方尝试，失败同样计数；场景阶段另限四个世界、每世界 12 次。默认游戏仍使用自由台词。
+
+先启动固定阶段代理，在另一个终端运行已配置的 Unity 测试进程：
+
+```powershell
+python -B Tools/agent_proxy/expression_experiment.py --mode serve --stage fixed --credential-file '<private-credentials.json>' --corpus Tools/agent_proxy/expression_cases.json --output-dir 'Logs/expression-fixed-new' --base-port 25800
+```
+
+为 Unity 进程设置 `COZYTOWN_RUN_EXPRESSION_FIXED=1`、`COZYTOWN_EXPRESSION_BASE_PORT=25800`、`COZYTOWN_EXPRESSION_FIXED_REPORT_PATH=<new-report-file>`，运行 EditMode 测试 `NpcExpressionExperimentTests.LiveProxy_CompareEightFactCasesWithOneCallPerSample`。它从公开 Runtime 入口创建八个固定事实请求，每组各三次；只修改 `expression.mode`，每样本直接调用一次。固定输出经生产编解码与表达器评价，不等同于实际场景中的对话发布。48 个请求完成后代理自动退出。
+
+核查固定阶段报告后，用新的输出目录启动场景代理：
+
+```powershell
+python -B Tools/agent_proxy/expression_experiment.py --mode serve --stage scene --credential-file '<private-credentials.json>' --corpus Tools/agent_proxy/expression_cases.json --output-dir 'Logs/expression-scene-new' --fixed-evidence-dir 'Logs/expression-fixed-new' --base-port 25800 --stop-file 'Logs/expression-scene-new.stop'
+```
+
+为 Unity 进程设置 `COZYTOWN_RUN_EXPRESSION_EXPERIMENT=1`、`COZYTOWN_EXPRESSION_BASE_PORT=25800`、`COZYTOWN_EXPRESSION_REPORT_PATH=<new-report-file>`，以图形 PlayMode 运行 `NpcResourceScenarioPlayModeTests.LiveProxy_ComparedExpressionModesAcrossFourFreshWorlds`，不加 `-quit`。四个新世界固定为资源充足 F/S、卖方缺鱼 S/F；每轮先核对初始化，再让原调度器驱动模型。
+
+运行结束且没有在途请求后，创建 `--stop-file` 指定的文件或使用 Ctrl+C 正常停止代理。代理等待已开始的请求写完记录。新的输出目录及报告文件必须尚不存在；场景阶段验证固定阶段结束状态、日志用量及源码／提示词／情境哈希，并只允许领取一次剩余场景预算。不要通过重启、改路径或重置世界替换失败样本。
+
+`manifest.json` 保存代码、提示词、情境和参数；`provider-starts.jsonl` 在实际网络调用前落盘；`provider-responses.jsonl` 保留未筛选的候选正文；`proxy.jsonl` 记录提供方型号、token、耗时和协议结果；`contexts.jsonl` 记录原请求、实际输入、组别及规范化哈希。固定重复使用同一决策时，以独立请求序号关联记录。日志不包含密钥或提供方思考内容。完整分组和评分分母见[运行前方案](../../docs/verification/npc-expression-comparison-plan-2026-09-14.md)。
+
 ## 验证
 
 ```powershell

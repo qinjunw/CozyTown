@@ -20,7 +20,7 @@ namespace CozyTown.Runtime.NpcAgents
     {
         public NpcDecisionReply(NpcDecisionKind kind, string locationId = null,
             NpcActivity activity = NpcActivity.Resting, double durationGameMinutes = 0,
-            string planId = null, System.Guid meetingId = default, string text = null)
+            string planId = null, System.Guid meetingId = default, string text = null, NpcSpeechFrame speechFrame = null)
         {
             Kind = kind;
             LocationId = locationId;
@@ -29,6 +29,7 @@ namespace CozyTown.Runtime.NpcAgents
             PlanId = planId;
             MeetingId = meetingId;
             Text = text;
+            SpeechFrame = speechFrame;
         }
 
         public NpcDecisionKind Kind { get; }
@@ -38,6 +39,7 @@ namespace CozyTown.Runtime.NpcAgents
         public string PlanId { get; }
         public System.Guid MeetingId { get; }
         public string Text { get; }
+        public NpcSpeechFrame SpeechFrame { get; }
         public string Operation => Kind switch
         {
             NpcDecisionKind.Wait => "wait",

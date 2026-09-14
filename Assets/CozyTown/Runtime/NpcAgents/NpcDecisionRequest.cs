@@ -9,7 +9,8 @@ namespace CozyTown.Runtime.NpcAgents
     {
         internal NpcDecisionRequest(NpcDefinition profile, NpcAgentSnapshot self,
             double gameTotalMinutes, IEnumerable<NpcAgentEvent> triggers, IEnumerable<string> knownLocationIds,
-            int maxCalls, string previousResultCode, NpcSocialContext social = null)
+            int maxCalls, string previousResultCode, NpcSocialContext social = null,
+            NpcSpeechMode speechMode = NpcSpeechMode.FreeText)
         {
             NpcId = profile.Id;
             DisplayName = profile.DisplayName;
@@ -23,6 +24,7 @@ namespace CozyTown.Runtime.NpcAgents
             MaxCalls = maxCalls;
             PreviousResultCode = previousResultCode;
             Social = social;
+            SpeechMode = speechMode;
         }
 
         internal NpcDecisionRequest(NpcDecisionRequest previous, NpcLocationDetails details, string candidateErrorCode = null)
@@ -56,6 +58,7 @@ namespace CozyTown.Runtime.NpcAgents
             Social = previous.Social;
             CandidateErrorCode = previous.CandidateErrorCode;
             Observation = previous.Observation;
+            SpeechMode = previous.SpeechMode;
         }
 
         public string NpcId { get; }
@@ -73,6 +76,7 @@ namespace CozyTown.Runtime.NpcAgents
         public string CandidateErrorCode { get; }
         public NpcSocialContext Social { get; }
         public NpcLocalObservation Observation { get; }
+        public NpcSpeechMode SpeechMode { get; }
         public bool HasSelfAssessment => Social?.Resources != null && Social.Kind != NpcSocialContextKind.Conversation
             && Social.DeliveryResultCode != "resource.delivered";
         public IReadOnlyList<string> AllowedOperations

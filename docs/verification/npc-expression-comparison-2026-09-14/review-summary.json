@@ -1,0 +1,141 @@
+{
+  "method": "两名代理先独立初评，主代理已了解实现和部分运行结果；独立评阅者只读取隐藏组别、原候选帧与拒绝原因的随机顺序输出。不是独立人类盲评。",
+  "assertionCounting": "同一句内同义重复的事实命题合并计一次，复合数量/价款/时点分别按独立命题计数；无输出不进入断言分母。",
+  "usefulness": "完整回答核心问题且没有明确事实/权限问题；有可成立读法的歧义不直接判失败，但单列敏感性。",
+  "initialUsefulnessAgreement": {
+    "same": 46,
+    "total": 48
+  },
+  "arms": {
+    "F": {
+      "plannedSamples": 24,
+      "hostOutputs": 24,
+      "usefulResponses": 12,
+      "definiteProblemOutputs": 11,
+      "assertions": 80,
+      "problemAssertions": 12,
+      "assertionLabels": {
+        "ambiguous": 10,
+        "supported": 58,
+        "unsupported": 8,
+        "source_time": 2,
+        "unauthorized": 2
+      },
+      "outputsWithAmbiguity": 9,
+      "independentInitialUsefulResponses": 10,
+      "cases": {
+        "decoration_capability": {
+          "useful": 2,
+          "outputs": 3,
+          "planned": 3
+        },
+        "partner_private_assets": {
+          "useful": 1,
+          "outputs": 3,
+          "planned": 3
+        },
+        "past_statement_current_stock": {
+          "useful": 0,
+          "outputs": 3,
+          "planned": 3
+        },
+        "position_destination": {
+          "useful": 1,
+          "outputs": 3,
+          "planned": 3
+        },
+        "statement_not_experience": {
+          "useful": 1,
+          "outputs": 3,
+          "planned": 3
+        },
+        "successful_receipt": {
+          "useful": 3,
+          "outputs": 3,
+          "planned": 3
+        },
+        "truncated_local_absence": {
+          "useful": 2,
+          "outputs": 3,
+          "planned": 3
+        },
+        "unknown_quantity": {
+          "useful": 2,
+          "outputs": 3,
+          "planned": 3
+        }
+      }
+    },
+    "S": {
+      "plannedSamples": 24,
+      "hostOutputs": 5,
+      "usefulResponses": 4,
+      "definiteProblemOutputs": 0,
+      "assertions": 8,
+      "problemAssertions": 0,
+      "assertionLabels": {
+        "supported": 8
+      },
+      "outputsWithAmbiguity": 0,
+      "independentInitialUsefulResponses": 4,
+      "cases": {
+        "decoration_capability": {
+          "useful": 0,
+          "outputs": 1,
+          "planned": 3
+        },
+        "partner_private_assets": {
+          "useful": 2,
+          "outputs": 2,
+          "planned": 3
+        },
+        "past_statement_current_stock": {
+          "useful": 1,
+          "outputs": 1,
+          "planned": 3
+        },
+        "position_destination": {
+          "useful": 0,
+          "outputs": 0,
+          "planned": 3
+        },
+        "statement_not_experience": {
+          "useful": 0,
+          "outputs": 0,
+          "planned": 3
+        },
+        "successful_receipt": {
+          "useful": 1,
+          "outputs": 1,
+          "planned": 3
+        },
+        "truncated_local_absence": {
+          "useful": 0,
+          "outputs": 0,
+          "planned": 3
+        },
+        "unknown_quantity": {
+          "useful": 0,
+          "outputs": 0,
+          "planned": 3
+        }
+      }
+    }
+  },
+  "pondExistenceSensitivity": {
+    "samples": [
+      "E012",
+      "E035",
+      "E040"
+    ],
+    "reading": "把 where the fish/carp are 全部理解为当前有鱼，而非一般捕鱼用途。",
+    "F": {
+      "definiteProblemOutputs": 13,
+      "hostOutputs": 24,
+      "usefulResponses": 10,
+      "plannedSamples": 24,
+      "problemAssertions": 15,
+      "assertions": 80
+    }
+  }
+}
