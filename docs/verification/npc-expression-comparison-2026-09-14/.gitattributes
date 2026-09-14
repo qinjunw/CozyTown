@@ -1,2 +1,2 @@
 # Preserve recorded evidence bytes so manifest and checksum hashes survive checkout.
-* -text
+* -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
