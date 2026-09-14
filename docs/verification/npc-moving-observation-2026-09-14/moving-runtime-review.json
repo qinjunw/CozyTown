@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-09-14T11:15:06.365361+00:00",
+  "reviewBase": "5b6a29bf1b85a0514ed610f04aca52587b25b29a",
+  "recordedHead": "80ddc8ae734a818b49685f38e85ac3d635c167c6",
+  "scope": "Read-only review of invitation position tolerance and execution-observation diagnostics. No Unity, provider calls or credentials were used for this review.",
+  "sourceSha256": {
+    "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs": "90bbc24ebcd034bd236b7caecc56347338ddc40af8db82cacce95707f6cb6efc",
+    "Assets/CozyTown/Runtime/NpcAgents/NpcLocalObservation.cs": "ee5cb85d106d47b1645c303d46e8130734ef9bbe5fd106a22c403a9a9c5e59df",
+    "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionOutcome.cs": "52e7cd05ee9dc095a6cfe483add13dfcb3eca08eb77f4ca5be8fd53c93bbe6ef",
+    "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcObservationDecisionTests.cs": "36fcb3dcda4cb49abd35d0d9f76dca1ccf0612c9a59e150f65b6d9c25c3a3e49"
+  },
+  "blockingFindings": [],
+  "findings": [
+    {
+      "file": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "lines": [
+        267,
+        270
+      ],
+      "result": "Only Invitation accept_invite/decline_invite candidates request coordinate tolerance. Other actions and pre-continuation checks use the strict comparison."
+    },
+    {
+      "file": "Assets/CozyTown/Runtime/NpcAgents/NpcLocalObservation.cs",
+      "lines": [
+        34,
+        47
+      ],
+      "result": "Coordinate tolerance requires a known region and still compares space, region, radius, listener, entity list, every fact value/type/unit/source/permission field, and statement/receipt times. Public region construction rejects blank IDs; unmapped observations have null region and retain coordinate checks."
+    },
+    {
+      "file": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "lines": [
+        118,
+        127,
+        348,
+        367
+      ],
+      "result": "World epoch, resident revision, opportunity lifetime, decision timeout and request timeout gates remain before application. Execution rereads require matching observer/world/listener and the current world sample time."
+    },
+    {
+      "file": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "lines": [
+        267,
+        273,
+        389,
+        393
+      ],
+      "result": "Each ApplyReply stores its own returned observation object in the outcome; early invalidation, cancellation or null reply leaves ExecutionObservation null. The original request observation is retained."
+    },
+    {
+      "file": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "lines": [
+        170,
+        172,
+        224,
+        227,
+        381,
+        386
+      ],
+      "result": "The scheduler request, per-decision correction and rolling dispatch-budget logic is unchanged. Diagnostics do not enter NpcDecisionRequest or the explicit request codec payload."
+    }
+  ],
+  "diagnosticBoundary": "A nonnull ExecutionObservation can be a rejected observer/world/time/listener result. It records what the callback returned, not that validation passed; read it with the outcome code.",
+  "remainingBoundaries": [
+    "Movement that changes the nearby list or other facts remains stale; coordinate-only tolerance is not general movement tolerance.",
+    "Speech and other actions keep strict position checks. Rejected speech does not receive candidate-shape correction.",
+    "A later recorded world event may start a new decision within the existing rolling budget. This differs from retrying the same decision.",
+    "This static review alone does not prove real-scene recovery; the separate moving-scene audit reports the completed runtime evidence."
+  ]
+}

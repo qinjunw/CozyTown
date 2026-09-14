@@ -1,0 +1,6 @@
+test_standalone_scene_rejects_fixed_stage_and_fixed_evidence_before_creating_output (test_expression_experiment.ExpressionExperimentTests.test_standalone_scene_rejects_fixed_stage_and_fixed_evidence_before_creating_output) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.006s
+
+OK

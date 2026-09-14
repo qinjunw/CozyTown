@@ -448,6 +448,8 @@ namespace CozyTown.Tests.PlayMode
                 {
                     call.decisionOutcomeCode = outcome.Code;
                     call.hostCode = string.IsNullOrEmpty(call.candidateErrorCode) ? outcome.Code : call.candidateErrorCode;
+                    call.executionObservationJson = call.step == outcome.Context.Step
+                        ? SerializeExecutionObservation(outcome.ExecutionObservation) : "null";
                 }
             }
         }
@@ -635,6 +637,7 @@ namespace CozyTown.Tests.PlayMode
         {
             public string npcId, decisionId, phase, contextJson, operation, text, error, hostCode, sentContextJson;
             public string candidateErrorCode, decisionOutcomeCode, rawReplyJson;
+            public string executionObservationJson = "null";
             public SpeechFrameRecord speechFrame;
             public int responseStatusCode;
             public bool rawReplyTruncated;

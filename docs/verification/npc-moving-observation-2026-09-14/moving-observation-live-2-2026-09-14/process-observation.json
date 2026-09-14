@@ -1,0 +1,43 @@
+{
+  "source": "Observed process tool output when draining the completed proxy session; this is a transcription of exception type and frames, not a raw stdout/stderr byte copy.",
+  "exitCode": 0,
+  "exceptionType": "ConnectionAbortedError",
+  "winError": 10053,
+  "observedFrames": [
+    "decision_proxy.py do_POST line 60: self.reply(200, service.decide(context))",
+    "decision_proxy.py reply line 41: self.wfile.write(body)",
+    "socketserver.py write: self._sock.sendall(b)",
+    "During handling: decision_proxy.py do_POST line 69: self.reply(500, {\"error\": \"proxy.internal_error\"})",
+    "http/server.py flush_headers: self.wfile.write(b\"\".join(self._headers_buffer))"
+  ],
+  "interpretation": "The loopback response connection was aborted during a response write. Match provider evidence and Unity host outcomes separately; this observation alone does not identify the request.",
+  "finalStatus": {
+    "attemptedProviderCalls": 19,
+    "decisionRequests": 19,
+    "finishedDecisionRequests": 19,
+    "inflight": 0,
+    "remainingCalls": 29,
+    "requestedModel": "deepseek-v4-flash",
+    "runState": "stopped",
+    "stage": "scene",
+    "totalAttemptedProviderCalls": 19,
+    "worlds": {
+      "68b8f4ec41ee48ae95929561b5f23422": {
+        "arm": "S",
+        "decisionRequests": 2
+      },
+      "6bb6d918057e46d59603254214ba9f2c": {
+        "arm": "F",
+        "decisionRequests": 2
+      },
+      "d0e2e6c48d9f44ad92cf4b643d8465eb": {
+        "arm": "F",
+        "decisionRequests": 8
+      },
+      "f1aeab2663d54c9fa337d0c9744e0a3d": {
+        "arm": "S",
+        "decisionRequests": 7
+      }
+    }
+  }
+}

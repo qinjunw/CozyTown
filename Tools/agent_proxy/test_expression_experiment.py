@@ -28,6 +28,99 @@ def response(payload):
 
 
 class ExpressionExperimentTests(unittest.TestCase):
+    def test_cli_rejects_conflicting_standalone_options_as_usage_errors_before_startup(self):
+        from expression_experiment import main
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            corpus = root / "cases.json"
+            corpus.write_text(json.dumps({"cases": [{"id": str(index)} for index in range(8)]}))
+            stop = threading.Event()
+            stop.set()
+            for stage, extra in (("fixed", []), ("scene", ["--fixed-evidence-dir", str(root / "fixed")])):
+                with self.subTest(stage=stage):
+                    output = root / (stage + "-output")
+                    with self.assertRaises(SystemExit) as caught:
+                        main(["--stage", stage, "--standalone-scene", "--corpus", str(corpus),
+                              "--output-dir", str(output), "--base-port", "0", *extra],
+                             transport=response, stop_event=stop)
+                    self.assertEqual(caught.exception.code, 2)
+                    self.assertFalse(output.exists())
+
+    def test_cli_starts_an_explicit_standalone_scene_and_freezes_its_own_evidence(self):
+        from expression_experiment import main
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            corpus = root / "cases.json"
+            corpus.write_text(json.dumps({"cases": [{"id": str(index)} for index in range(8)]}))
+            stop = threading.Event()
+            stop.set()
+            main(["--stage", "scene", "--standalone-scene", "--corpus", str(corpus),
+                  "--output-dir", str(root / "scene"), "--base-port", "0"], transport=response, stop_event=stop)
+            manifest = json.loads((root / "scene" / "manifest.json").read_text())
+            self.assertTrue(manifest["standaloneScene"])
+            self.assertEqual(manifest["plannedTotalCallCeiling"], 48)
+            self.assertNotIn("fixedEvidence", manifest)
+            self.assertIn("Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs", manifest["sourceSha256"])
+            self.assertEqual(set(manifest["systemPromptSha256"]), {"F", "S"})
+            status = json.loads((root / "scene" / "status.json").read_text())
+            self.assertEqual(status["runState"], "stopped")
+            self.assertEqual(status["totalAttemptedProviderCalls"], 0)
+
+    def test_standalone_scene_rejects_fixed_stage_and_fixed_evidence_before_creating_output(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            corpus = root / "cases.json"
+            corpus.write_text(json.dumps({"cases": [{"id": str(index)} for index in range(8)]}))
+            for stage, fixed in (("fixed", None), ("scene", root / "fixed")):
+                with self.subTest(stage=stage, fixed=fixed):
+                    output = root / (stage + "-output")
+                    with self.assertRaisesRegex(ValueError, "standalone_scene requires stage scene without fixed_evidence_dir"):
+                        with ExpressionExperiment(response, output, corpus, stage=stage,
+                                                  fixed_evidence_dir=fixed, standalone_scene=True):
+                            pass
+                    self.assertFalse(output.exists())
+
+    def test_standalone_scene_records_only_its_four_world_48_call_budget_without_fixed_evidence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            corpus = root / "cases.json"
+            corpus.write_text(json.dumps({"cases": [{"id": str(index)} for index in range(8)]}))
+            output = root / "scene"
+            with ExpressionExperiment(response, output, corpus, stage="scene", standalone_scene=True) as experiment:
+                first = context()
+                experiment.decide("F", first)
+                with self.assertRaisesRegex(ProxyError, "experiment.world_arm_mismatch"):
+                    experiment.decide("S", first)
+                for _ in range(11):
+                    experiment.decide("F", first)
+                with self.assertRaisesRegex(ProxyError, "experiment.world_call_limit"):
+                    experiment.decide("F", first)
+                for world, arm in (("3" * 32, "S"), ("4" * 32, "F"), ("5" * 32, "S")):
+                    experiment.decide(arm, context() | {"worldRunId": world})
+                with self.assertRaisesRegex(ProxyError, "experiment.world_limit"):
+                    experiment.decide("F", context() | {"worldRunId": "6" * 32})
+                for world, arm in (("3" * 32, "S"), ("4" * 32, "F"), ("5" * 32, "S")):
+                    for _ in range(11):
+                        experiment.decide(arm, context() | {"worldRunId": world})
+                with self.assertRaisesRegex(ProxyError, "experiment.call_limit"):
+                    experiment.decide("F", first)
+                self.assertEqual(experiment.status["attemptedProviderCalls"], 48)
+                self.assertEqual(experiment.status["totalAttemptedProviderCalls"], 48)
+                self.assertEqual(len(experiment.status["worlds"]), 4)
+            manifest = json.loads((output / "manifest.json").read_text())
+            self.assertEqual(manifest["stage"], "scene")
+            self.assertTrue(manifest["standaloneScene"])
+            self.assertEqual(manifest["plannedTotalCallCeiling"], 48)
+            self.assertEqual(manifest["maxCalls"], 48)
+            self.assertNotIn("fixedEvidence", manifest)
+            self.assertNotIn("repetitionsPerFixedCase", manifest)
+            self.assertFalse(list(root.rglob("scene-claim.json")))
+            for name in ("provider-starts.jsonl", "provider-responses.jsonl", "proxy.jsonl"):
+                self.assertEqual(len((output / name).read_text().splitlines()), 48)
+            self.assertEqual(json.loads((output / "status.json").read_text())["runState"], "completed")
+            with self.assertRaises(FileExistsError):
+                ExpressionExperiment(response, output, corpus, stage="scene", standalone_scene=True)
+
     def test_background_server_can_stop_via_a_local_file_without_spending_unused_calls(self):
         from expression_experiment import main
         with tempfile.TemporaryDirectory() as temporary:

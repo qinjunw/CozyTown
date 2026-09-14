@@ -264,38 +264,41 @@ namespace CozyTown.Runtime.NpcAgents
                 Finish(resident, "agent.response_invalid");
                 return;
             }
-            string observationFailure = _observe == null ? null : ObservationFailure(context);
+            NpcLocalObservation executionObservation = null;
+            bool invitationReply = context.Social?.Kind == NpcSocialContextKind.Invitation
+                && (reply.Kind == NpcDecisionKind.AcceptInvitation || reply.Kind == NpcDecisionKind.DeclineInvitation);
+            string observationFailure = _observe == null ? null : ObservationFailure(context, invitationReply, out executionObservation);
             if (observationFailure != null)
             {
-                Finish(resident, observationFailure, reply: reply);
+                Finish(resident, observationFailure, reply: reply, executionObservation: executionObservation);
                 return;
             }
             if (!context.AllowedOperations.Contains(reply.Operation))
             {
-                Finish(resident, string.IsNullOrEmpty(reply.Operation) ? "agent.response_invalid" : "agent.operation_unavailable", reply: reply);
+                Finish(resident, string.IsNullOrEmpty(reply.Operation) ? "agent.response_invalid" : "agent.operation_unavailable", reply: reply, executionObservation: executionObservation);
                 return;
             }
             if (context.Social != null && reply.Kind != NpcDecisionKind.Wait)
             {
                 if (reply.Kind == NpcDecisionKind.Invite)
                 {
-                    if (reply.PlanId != context.Social.PlanId) { Finish(resident, "meeting.plan_unknown", reply: reply); return; }
+                    if (reply.PlanId != context.Social.PlanId) { Finish(resident, "meeting.plan_unknown", reply: reply, executionObservation: executionObservation); return; }
                     var invited = _meetings.Invite(context.Self, reply.PlanId);
-                    Finish(resident, invited.IsSuccess ? "meeting.invited" : invited.ErrorCode, reply: reply);
+                    Finish(resident, invited.IsSuccess ? "meeting.invited" : invited.ErrorCode, reply: reply, executionObservation: executionObservation);
                     return;
                 }
-                if (reply.MeetingId != context.Social.MeetingId) { Finish(resident, "meeting.unknown", reply: reply); return; }
+                if (reply.MeetingId != context.Social.MeetingId) { Finish(resident, "meeting.unknown", reply: reply, executionObservation: executionObservation); return; }
                 if (reply.Kind == NpcDecisionKind.Speak &&
                     (context.SpeechMode == NpcSpeechMode.FreeText ? reply.SpeechFrame != null : reply.Text != null))
                 {
-                    Finish(resident, "speech.mode_mismatch", reply: reply);
+                    Finish(resident, "speech.mode_mismatch", reply: reply, executionObservation: executionObservation);
                     return;
                 }
                 string speech = reply.Text;
                 if (reply.Kind == NpcDecisionKind.Speak && context.SpeechMode == NpcSpeechMode.StructuredFacts
                     && !NpcFactSpeech.TryRender(context.Observation, reply.SpeechFrame, out speech, out var speechError))
                 {
-                    Finish(resident, speechError, reply: reply);
+                    Finish(resident, speechError, reply: reply, executionObservation: executionObservation);
                     return;
                 }
                 var result = reply.Kind == NpcDecisionKind.Speak ? _meetings.Speak(context.Self, reply.MeetingId, speech)
@@ -303,19 +306,19 @@ namespace CozyTown.Runtime.NpcAgents
                     : reply.Kind == NpcDecisionKind.CancelExchange ? _meetings.CancelExchange(context.Self, reply.MeetingId)
                     : reply.Kind == NpcDecisionKind.EndConversation ? _meetings.EndConversation(context.Self, reply.MeetingId)
                     : _meetings.Respond(context.Self, reply.MeetingId, reply.Kind == NpcDecisionKind.AcceptInvitation);
-                Finish(resident, result.IsSuccess ? "meeting." + reply.Operation : result.ErrorCode, reply: reply);
+                Finish(resident, result.IsSuccess ? "meeting." + reply.Operation : result.ErrorCode, reply: reply, executionObservation: executionObservation);
                 return;
             }
             if (reply.Kind == NpcDecisionKind.Wait)
             {
-                Finish(resident, "agent.decision_wait", reply: reply);
+                Finish(resident, "agent.decision_wait", reply: reply, executionObservation: executionObservation);
                 return;
             }
             if (reply.Kind == NpcDecisionKind.InspectLocation)
             {
                 if (resident.Calls >= _settings.MaxCallsPerDecision)
                 {
-                    Finish(resident, "agent.decision_step_limit", reply: reply);
+                    Finish(resident, "agent.decision_step_limit", reply: reply, executionObservation: executionObservation);
                     return;
                 }
                 var details = _world.InspectLocation(resident.Profile.Id, reply.LocationId);
@@ -324,22 +327,22 @@ namespace CozyTown.Runtime.NpcAgents
                     resident.Current = new NpcDecisionRequest(context, details.Value);
                     return;
                 }
-                Finish(resident, details.ErrorCode, reply: reply);
+                Finish(resident, details.ErrorCode, reply: reply, executionObservation: executionObservation);
                 return;
             }
             if (reply.Kind == NpcDecisionKind.Visit)
             {
                 if (!context.KnownLocationIds.Contains(reply.LocationId))
                 {
-                    Finish(resident, "agent.location_unknown", reply: reply);
+                    Finish(resident, "agent.location_unknown", reply: reply, executionObservation: executionObservation);
                     return;
                 }
                 var result = _world.SubmitActivity(new NpcActivityRequest(context.NpcId, context.Self.WorldRunId, context.Self.Revision,
                     reply.LocationId, reply.Activity, _world.TotalMinutes + reply.DurationGameMinutes));
-                Finish(resident, result.IsSuccess ? "agent.activity_accepted" : result.ErrorCode, reply: reply);
+                Finish(resident, result.IsSuccess ? "agent.activity_accepted" : result.ErrorCode, reply: reply, executionObservation: executionObservation);
                 return;
             }
-            Finish(resident, "agent.response_invalid", reply: reply);
+            Finish(resident, "agent.response_invalid", reply: reply, executionObservation: executionObservation);
         }
 
         private string InvalidContext(NpcDecisionRequest context, NpcAgentSnapshot state)
@@ -367,9 +370,12 @@ namespace CozyTown.Runtime.NpcAgents
         }
 
         private string ObservationFailure(NpcDecisionRequest context)
+            => ObservationFailure(context, false, out _);
+
+        private string ObservationFailure(NpcDecisionRequest context, bool allowPositionChange, out NpcLocalObservation current)
         {
-            if (!TryReadObservation(context, out var current)) return "agent.observation_unavailable";
-            return context.Observation != null && context.Observation.HasSameFacts(current) ? null : "agent.observation_stale";
+            if (!TryReadObservation(context, out current)) return "agent.observation_unavailable";
+            return context.Observation != null && context.Observation.HasSameFacts(current, allowPositionChange) ? null : "agent.observation_stale";
         }
 
         private void HandleCandidateFailure(Resident resident, NpcCandidateException exception)
@@ -380,10 +386,11 @@ namespace CozyTown.Runtime.NpcAgents
             else Finish(resident, "agent.response_invalid");
         }
 
-        private void Finish(Resident resident, string code, bool cancelRequest = false, NpcDecisionReply reply = null)
+        private void Finish(Resident resident, string code, bool cancelRequest = false, NpcDecisionReply reply = null,
+            NpcLocalObservation executionObservation = null)
         {
             var outcome = new NpcDecisionOutcome(resident.Current, code, resident.Calls, resident.LastStarted, _lastTick, reply,
-                resident.CandidateErrorCodes);
+                resident.CandidateErrorCodes, executionObservation);
             resident.LastOutcome = outcome;
             _completed.Add(outcome);
             resident.Current = null;

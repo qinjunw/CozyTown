@@ -1,0 +1,26 @@
+test_standalone_scene_rejects_fixed_stage_and_fixed_evidence_before_creating_output (test_expression_experiment.ExpressionExperimentTests.test_standalone_scene_rejects_fixed_stage_and_fixed_evidence_before_creating_output) ... 
+  test_standalone_scene_rejects_fixed_stage_and_fixed_evidence_before_creating_output (test_expression_experiment.ExpressionExperimentTests.test_standalone_scene_rejects_fixed_stage_and_fixed_evidence_before_creating_output) (stage='fixed', fixed=None) ... FAIL
+  test_standalone_scene_rejects_fixed_stage_and_fixed_evidence_before_creating_output (test_expression_experiment.ExpressionExperimentTests.test_standalone_scene_rejects_fixed_stage_and_fixed_evidence_before_creating_output) (stage='scene', fixed=WindowsPath('<local-root>/AppData/Local/Temp/tmp_tmjufkm/fixed')) ... FAIL
+
+======================================================================
+FAIL: test_standalone_scene_rejects_fixed_stage_and_fixed_evidence_before_creating_output (test_expression_experiment.ExpressionExperimentTests.test_standalone_scene_rejects_fixed_stage_and_fixed_evidence_before_creating_output) (stage='fixed', fixed=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<local-root>\Tools\agent_proxy\test_expression_experiment.py", line 39, in test_standalone_scene_rejects_fixed_stage_and_fixed_evidence_before_creating_output
+    with self.assertRaisesRegex(ValueError, "standalone_scene requires stage scene without fixed_evidence_dir"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_standalone_scene_rejects_fixed_stage_and_fixed_evidence_before_creating_output (test_expression_experiment.ExpressionExperimentTests.test_standalone_scene_rejects_fixed_stage_and_fixed_evidence_before_creating_output) (stage='scene', fixed=WindowsPath('<local-root>/AppData/Local/Temp/tmp_tmjufkm/fixed'))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<local-root>\Tools\agent_proxy\test_expression_experiment.py", line 39, in test_standalone_scene_rejects_fixed_stage_and_fixed_evidence_before_creating_output
+    with self.assertRaisesRegex(ValueError, "standalone_scene requires stage scene without fixed_evidence_dir"):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.384s
+
+FAILED (failures=2)

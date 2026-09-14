@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "reviewedAtUtc": "2026-09-14T10:49:07.117406+00:00",
+  "baselineCommit": "5b6a29bf1b85a0514ed610f04aca52587b25b29a",
+  "ownedPaths": [
+    "Tools/agent_proxy/expression_experiment.py",
+    "Tools/agent_proxy/test_expression_experiment.py"
+  ],
+  "sourceSha256": {
+    "Tools/agent_proxy/expression_experiment.py": "a63e1b3521055b64b57d9ab6d483b8c9de76aa68c133399d6f181fd28009ff6d",
+    "Tools/agent_proxy/test_expression_experiment.py": "5bd82265d8f4f1c48303f2432554d7d46522d7d19672a61f174a3be9baec39a9"
+  },
+  "problem": "The existing scene stage requires a completed fixed run with matching frozen sources and an unused claim. A scene-only study after C# changes cannot reuse that evidence.",
+  "change": {
+    "constructor": "ExpressionExperiment(..., stage=\"scene\", standalone_scene=True)",
+    "cliOption": "--standalone-scene",
+    "acceptedCombination": "Explicit standalone scene, stage scene, no fixed_evidence_dir. Both constructor and CLI reject other standalone combinations before creating the output directory. CLI rejects them as usage errors before loading credentials.",
+    "manifest": {
+      "stage": "scene",
+      "standaloneScene": true,
+      "maxCalls": 48,
+      "plannedTotalCallCeiling": 48,
+      "fixedEvidence": "omitted",
+      "repetitionsPerFixedCase": "omitted"
+    },
+    "defaultCompatibility": "Without the new flag, fixed and scene behavior remains unchanged. Scene still requires matching completed fixed evidence and creates a single-use scene claim.",
+    "accounting": "Standalone starts totalAttemptedProviderCalls at zero. Both arms share the existing 48 admitted-request/provider-attempt ceiling; each world is bound to one arm and accepts at most 12 requests, with at most four worlds."
+  },
+  "verification": {
+    "seams": [
+      "public ExpressionExperiment constructor/decide/status and persisted evidence",
+      "public CLI main with an injected synthetic provider and loopback servers"
+    ],
+    "tddSlices": [
+      {
+        "slice": 1,
+        "red": {
+          "path": "Logs/moving-scene-runner-01-red.log",
+          "sha256": "0c18398ef40cca43aa7d4b7c74a8e4b0d4a22b57be65457a1918369c33b3a783",
+          "tests": 1,
+          "durationSeconds": 0.006,
+          "result": "errors=1"
+        },
+        "green": {
+          "path": "Logs/moving-scene-runner-01-green.log",
+          "sha256": "44fb66b11a56813540873b26ac24f5339a92503ae63a2d30b2b019bd6da78843",
+          "tests": 1,
+          "durationSeconds": 0.521,
+          "result": "OK"
+        }
+      },
+      {
+        "slice": 2,
+        "red": {
+          "path": "Logs/moving-scene-runner-02-red.log",
+          "sha256": "b48083cc893151f2c9ceead028cbf3f5f601154d783625d60fe677e5aec9ab32",
+          "tests": 1,
+          "durationSeconds": 0.384,
+          "result": "failures=2"
+        },
+        "green": {
+          "path": "Logs/moving-scene-runner-02-green.log",
+          "sha256": "7d0eeb904652a3582cc935d2bb2c2ea9f1a9f9f22d35e1b50821fbae13ae33ba",
+          "tests": 1,
+          "durationSeconds": 0.006,
+          "result": "OK"
+        }
+      },
+      {
+        "slice": 3,
+        "red": {
+          "path": "Logs/moving-scene-runner-03-red.log",
+          "sha256": "72a0b97acb53ce3f05aa5418b98944708f4fad01e410a9701974597db1ac697f",
+          "tests": 1,
+          "durationSeconds": 0.012,
+          "result": "errors=1"
+        },
+        "green": {
+          "path": "Logs/moving-scene-runner-03-green.log",
+          "sha256": "311954d46ff191f9d520a8a0ef3cf6931a163b1a9158c671787823e205b0f04e",
+          "tests": 1,
+          "durationSeconds": 1.356,
+          "result": "OK"
+        }
+      },
+      {
+        "slice": 4,
+        "red": {
+          "path": "Logs/moving-scene-runner-04-red.log",
+          "sha256": "fac7d4c82e010f7d6d2df364fee3845cd82269e0dd5fa2a194eef04185335084",
+          "tests": 1,
+          "durationSeconds": 0.012,
+          "result": "failures=2"
+        },
+        "green": {
+          "path": "Logs/moving-scene-runner-04-green.log",
+          "sha256": "6e25869d443d7244e441fcb936ed61590512f5d948bc4ebb6417cf692b0a82d2",
+          "tests": 1,
+          "durationSeconds": 0.009,
+          "result": "OK"
+        }
+      }
+    ],
+    "fullPythonRegression": {
+      "path": "Logs/moving-scene-runner-python-green.log",
+      "sha256": "bf39297dcaf00c317f0c4f2c31b1d7425a50ab75e7705ae10096dab7a5daed3d",
+      "passed": 64,
+      "failed": 0,
+      "durationSeconds": 11.746,
+      "result": "OK"
+    },
+    "unchangedAstMembers": {
+      "ExpressionExperiment.decide": true,
+      "ExpressionExperiment._record_response": true,
+      "ExpressionExperiment.status": true,
+      "ExpressionExperiment.close": true,
+      "create_experiment_servers": true
+    },
+    "gitDiffCheckPassed": true,
+    "realProviderCalls": 0,
+    "credentialReads": 0,
+    "unityRuns": 0
+  },
+  "verifiedBehaviors": [
+    "Standalone scene starts without fixed evidence, records scene-only metadata and does not write a scene claim.",
+    "Both arms retain the 48-call ceiling, four-world ceiling, 12-request world cap and same-world arm binding.",
+    "A consumed 48-request batch cannot admit another request, and an existing output directory cannot be reused.",
+    "Provider starts, original responses and proxy measurements retain all 48 synthetic calls in the standalone budget test.",
+    "Standalone with fixed stage or fixed evidence is rejected at both public construction and CLI boundaries.",
+    "CLI startup freezes repository sources and both prompt hashes; a stopped empty run records zero total provider attempts.",
+    "Existing two-provider-slot, raw-error retention, no-replacement and prior fixed/scene claim tests pass in the full regression."
+  ],
+  "operatingInstructions": {
+    "workingDirectory": "<repository-root>",
+    "commandArguments": [
+      "<python>",
+      "Tools/agent_proxy/expression_experiment.py",
+      "--stage",
+      "scene",
+      "--standalone-scene",
+      "--corpus",
+      "Tools/agent_proxy/expression_cases.json",
+      "--output-dir",
+      "Logs/<new-batch-directory>",
+      "--credential-file",
+      "<local-credential-file>",
+      "--base-port",
+      "25800",
+      "--stop-file",
+      "Logs/<batch-stop-file>",
+      "--source-file",
+      "docs/verification/npc-moving-observation-plan-2026-09-14.md"
+    ],
+    "endpoints": {
+      "F": "http://127.0.0.1:25800/decide",
+      "S": "http://127.0.0.1:25801/decide"
+    },
+    "additionalSources": "Repeat --source-file for moving-observation test files outside the default *Expression* test patterns. Runtime/NpcAgents and Unity/Npc C# files are already included.",
+    "twoBatchStudy": "Use a new output directory and a distinct absent stop-file path for each registered batch. Each batch caps at 48; the two-batch 96-call study limit is enforced by the run plan and retained batch accounting, not by a shared cross-process counter."
+  },
+  "limits": [
+    "The implementation and regression use synthetic transports; no real scene stability result is claimed.",
+    "The runner retains the eight-case corpus requirement as frozen study metadata even when fixed is not run.",
+    "Starting another standalone directory creates a new batch budget. The flag is an explicit scene-only study entry, not a global account usage limit.",
+    "Standalone does not claim that any fixed stage completed. Source freeze for the real experiment remains the parent agent responsibility."
+  ],
+  "result": "Ready for parent integration and source freeze; 64 Python tests pass. Only the two owned Python files and ignored evidence logs were written."
+}

@@ -28,9 +28,12 @@ def _sha(value):
 class ExpressionExperiment:
     """Freeze experiment inputs and retain original candidates outside production traces."""
 
-    def __init__(self, transport, output_dir, corpus_path, *, stage, source_files=(), fixed_evidence_dir=None):
+    def __init__(self, transport, output_dir, corpus_path, *, stage, source_files=(), fixed_evidence_dir=None,
+                 standalone_scene=False):
         if stage not in ("fixed", "scene"):
             raise ValueError("stage must be fixed or scene")
+        if standalone_scene and (stage != "scene" or fixed_evidence_dir is not None):
+            raise ValueError("standalone_scene requires stage scene without fixed_evidence_dir")
         corpus_bytes = Path(corpus_path).read_bytes()
         corpus = json.loads(corpus_bytes.decode("utf-8-sig"))
         cases = corpus.get("cases") if isinstance(corpus, dict) else None
@@ -57,8 +60,11 @@ class ExpressionExperiment:
             "systemPromptSha256": {arm: _sha((SYSTEM_PROMPT + EXPRESSION_PROMPTS[mode]).encode("utf-8"))
                                    for arm, mode in MODES.items()},
             "normalization": "Sorted compact UTF-8 JSON, removing only expression.mode from the effective context."}
+        if standalone_scene:
+            self.manifest.update(standaloneScene=True, plannedTotalCallCeiling=48)
+            del self.manifest["repetitionsPerFixedCase"]
         self._previous_calls = 0
-        if stage == "scene":
+        if stage == "scene" and not standalone_scene:
             if fixed_evidence_dir is None:
                 raise ValueError("Scene stage requires completed fixed-stage evidence.")
             fixed = Path(fixed_evidence_dir)
@@ -89,7 +95,7 @@ class ExpressionExperiment:
                                                "attemptedProviderCalls": self._previous_calls}
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=False)
-        if stage == "scene":
+        if stage == "scene" and not standalone_scene:
             with (Path(fixed_evidence_dir) / "scene-claim.json").open("x", encoding="utf-8") as claim:
                 claim.write(_json({"sceneOutputDirectory": Path(os.path.relpath(self.output_dir.resolve(), Path(fixed_evidence_dir).resolve())).as_posix(),
                                    "pathRelativeTo": "fixed evidence directory", "maxCalls": 48}) + "\n")
@@ -269,11 +275,14 @@ def main(argv=None, *, transport=None, stop_event=None):
     parser.add_argument("--corpus", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True, help="New evidence directory; existing paths are rejected.")
     parser.add_argument("--credential-file", type=Path)
-    parser.add_argument("--fixed-evidence-dir", type=Path, help="Completed fixed stage; required for the scene stage and usable once.")
+    parser.add_argument("--fixed-evidence-dir", type=Path, help="Completed fixed stage; required for scene unless --standalone-scene is set, and usable once.")
+    parser.add_argument("--standalone-scene", action="store_true", help="Run only a 48-call scene study without fixed evidence; requires --stage scene.")
     parser.add_argument("--stop-file", type=Path, help="Stop after in-flight evidence is saved when this local file exists.")
     parser.add_argument("--base-port", type=int, default=25800, help="F and S loopback ports start here; 0 assigns unused ports.")
     parser.add_argument("--source-file", type=Path, action="append", default=[], help="Additional source to freeze alongside NPC production code and probes.")
     args = parser.parse_args(argv)
+    if args.standalone_scene and (args.stage != "scene" or args.fixed_evidence_dir is not None):
+        parser.error("--standalone-scene requires --stage scene without --fixed-evidence-dir.")
     if not 0 <= args.base_port <= 65534 or (transport is None and args.credential_file is None):
         parser.error("Use a base port from 0 to 65534 and supply --credential-file for the real transport.")
     repository = Path(__file__).resolve().parents[2]
@@ -287,7 +296,8 @@ def main(argv=None, *, transport=None, stop_event=None):
     try:
         effective_transport = transport if transport is not None else DeepSeekTransport(load_cozytown_key(args.credential_file))
         with ExpressionExperiment(effective_transport, args.output_dir, args.corpus, stage=args.stage,
-                                  source_files=sources, fixed_evidence_dir=args.fixed_evidence_dir) as experiment:
+                                  source_files=sources, fixed_evidence_dir=args.fixed_evidence_dir,
+                                  standalone_scene=args.standalone_scene) as experiment:
             servers = create_experiment_servers(experiment, args.base_port)
             workers = [threading.Thread(target=server.serve_forever, daemon=True) for server in servers]
             try:

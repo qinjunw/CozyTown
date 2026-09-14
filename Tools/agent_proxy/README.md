@@ -94,6 +94,14 @@ python -B Tools/agent_proxy/expression_experiment.py --mode serve --stage scene 
 
 `manifest.json` 保存代码、提示词、情境和参数；`provider-starts.jsonl` 在实际网络调用前落盘；`provider-responses.jsonl` 保留未筛选的候选正文；`proxy.jsonl` 记录提供方型号、token、耗时和协议结果；`contexts.jsonl` 记录原请求、实际输入、组别及规范化哈希。固定重复使用同一决策时，以独立请求序号关联记录。日志不包含密钥或提供方思考内容。完整分组和评分分母见[运行前方案](../../docs/verification/npc-expression-comparison-plan-2026-09-14.md)。
 
+只验证场景接线时，可以显式使用 `--stage scene --standalone-scene` 并省略 `--fixed-evidence-dir`。该入口记录 `standaloneScene: true`，每批仍限四个世界、每世界 12 次、合计 48 次；它不证明 fixed 阶段已完成。先登记批数和研究总预算，再为每批使用新的目录和停止文件。跨进程总预算由方案与证据核账，runner 只限制单批。完整示例：
+
+```powershell
+python -B Tools/agent_proxy/expression_experiment.py --stage scene --standalone-scene --credential-file '<private-credentials.json>' --corpus Tools/agent_proxy/expression_cases.json --output-dir 'Logs/expression-standalone-new' --base-port 25800 --stop-file 'Logs/expression-standalone-new.stop' --source-file '<registered-study-plan>'
+```
+
+Unity 入口及环境变量同上述场景阶段。默认冻结范围之外的测试文件通过重复 `--source-file` 加入；本轮两批登记及范围见[移动中答复方案](../../docs/verification/npc-moving-observation-plan-2026-09-14.md)。场景调用记录的 `executionObservationJson` 保存本次宿主执行前重读，提前取消时为 `null`；它与原 `contextJson` 分开，不替换模型已收到的事实。
+
 ## 验证
 
 ```powershell

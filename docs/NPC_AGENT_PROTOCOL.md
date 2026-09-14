@@ -45,7 +45,11 @@
 
 本人相关物品量和余额来自实时经济读取，对方私有资产不进入投影。本次交易的本人相关物品量可标为向该参与者陈述；完整钱包余额仅用于私下决策，`canExpress=false`。没有当前听众时，私人记录和资源不标为可陈述。`terms_quantity/terms_price` 表示计划的交易条款，是否收到邀请、交付或交谈由阶段和凭据分别说明。附近居民的 `present` 来自身体现状，装饰的 `interaction=none` 来自显式内容，池塘的已登记鱼种数量为未知。目录交互名不增加 `allowedOperations` 中没有的行动。
 
-首次采样失败、返回另一角色／世界／听众的数据，或没有取得当前时刻的观察时，宿主结束为 `agent.observation_unavailable`，不调用模型。执行候选或发出续调前复核同一授权视图；当前事实变化时结束为 `agent.observation_stale`，原候选与原观察保留在结果中。比较包括身体坐标、区域、可见清单、值、来源、权限和历史记录时刻；仅采样时间推进且事实不变不会失败。这个保守比较会拒绝身体移动后的候选，即使某一句台词没有依赖位置。
+首次采样失败、返回另一角色／世界／听众的数据，或没有取得当前时刻的观察时，宿主结束为 `agent.observation_unavailable`，不调用模型。执行候选或发出续调前复核同一授权视图；当前事实变化时结束为 `agent.observation_stale`，原候选与原观察保留在结果中。比较包括身体坐标、区域、可见清单、值、来源、权限和历史记录时刻；仅采样时间推进且事实不变不会失败。
+
+只有 Invitation 阶段的 `accept_invite`／`decline_invite` 在已知同区域、同空间且其余观察相同时允许 X/Y 改变；两个未知区域仍严格比较坐标。跨区域、对象集合／能力、本人资产或其他已知事实变化继续拒绝。答复仍绑定原会面，并通过原角色修订、期限、库存、日程及占用检查；接受不表示实际到场或已经交付。`invite`、发言、地点行动及续调继续完整比较，身体移动后的旧台词仍会被拒绝。
+
+`NpcDecisionOutcome.ExecutionObservation` 保存处理该候选时实际重读的快照；`Context.Observation` 始终保留模型看到的原快照。世界／修订／期限等提前门禁拦截时未执行重读，该字段为空；观察源失败时可为空或保留被拒绝的源数据。它仅供宿主诊断，不加入模型请求或其他居民记忆。
 
 默认开发地图的配置位于 [TownLocalObservation2D](../Assets/CozyTown/Unity/Npc/TownLocalObservation2D.cs)：6 世界单位半径、住宅几何优先、4 个户外矩形和少量池塘／路灯对象。默认目录读取时复核对象是否仍启用并处于登记位置；自定义地图通过 `Configure(scene, interiorSpaces)` 提供不可变区域与对象。`CozyTownTownLifeController.GetObservation(npcId)` 是公开读取入口。
 

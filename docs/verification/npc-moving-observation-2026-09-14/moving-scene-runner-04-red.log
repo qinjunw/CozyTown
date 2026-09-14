@@ -1,0 +1,28 @@
+test_cli_rejects_conflicting_standalone_options_as_usage_errors_before_startup (test_expression_experiment.ExpressionExperimentTests.test_cli_rejects_conflicting_standalone_options_as_usage_errors_before_startup) ... experiment.startup_or_evidence_failure
+
+  test_cli_rejects_conflicting_standalone_options_as_usage_errors_before_startup (test_expression_experiment.ExpressionExperimentTests.test_cli_rejects_conflicting_standalone_options_as_usage_errors_before_startup) (stage='fixed') ... FAIL
+experiment.startup_or_evidence_failure
+  test_cli_rejects_conflicting_standalone_options_as_usage_errors_before_startup (test_expression_experiment.ExpressionExperimentTests.test_cli_rejects_conflicting_standalone_options_as_usage_errors_before_startup) (stage='scene') ... FAIL
+
+======================================================================
+FAIL: test_cli_rejects_conflicting_standalone_options_as_usage_errors_before_startup (test_expression_experiment.ExpressionExperimentTests.test_cli_rejects_conflicting_standalone_options_as_usage_errors_before_startup) (stage='fixed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<local-root>\Tools\agent_proxy\test_expression_experiment.py", line 46, in test_cli_rejects_conflicting_standalone_options_as_usage_errors_before_startup
+    self.assertEqual(caught.exception.code, 2)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 2
+
+======================================================================
+FAIL: test_cli_rejects_conflicting_standalone_options_as_usage_errors_before_startup (test_expression_experiment.ExpressionExperimentTests.test_cli_rejects_conflicting_standalone_options_as_usage_errors_before_startup) (stage='scene')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<local-root>\Tools\agent_proxy\test_expression_experiment.py", line 46, in test_cli_rejects_conflicting_standalone_options_as_usage_errors_before_startup
+    self.assertEqual(caught.exception.code, 2)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 2
+
+----------------------------------------------------------------------
+Ran 1 test in 0.012s
+
+FAILED (failures=2)
