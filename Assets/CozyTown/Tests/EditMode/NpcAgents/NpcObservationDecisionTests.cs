@@ -40,6 +40,216 @@ namespace CozyTown.Tests.EditMode.NpcAgents
             _bodies = new[] { new NpcObservationBody("sora", 0, 0), new NpcObservationBody("ren", 2, 0) };
         }
 
+        [TestCase(true, NpcSpeechMode.FreeText)]
+        [TestCase(false, NpcSpeechMode.FreeText)]
+        [TestCase(true, NpcSpeechMode.StructuredFacts)]
+        [TestCase(false, NpcSpeechMode.StructuredFacts)]
+        public void InvitationReply_SameRegionMovementPreservesTheAnswerWithoutAnotherCall(bool accept, NpcSpeechMode mode)
+        {
+            Assert.That(_board.Invite(_world.GetState("sora"), "fish-supply").IsSuccess, Is.True);
+            var client = new ControlledClient();
+            var views = new List<NpcLocalObservation>();
+            using var scheduler = new NpcDecisionScheduler(_world, new[] { Profile("ren") }, client,
+                meetings: _board, speechMode: mode,
+                observe: request => { var view = Observe(request); views.Add(view); return view; });
+            scheduler.Tick(0);
+            var request = client.Requests.Single();
+            Assert.That(request.Social.Kind, Is.EqualTo(NpcSocialContextKind.Invitation));
+            _bodies[1] = new NpcObservationBody("ren", 2.25, 0.25);
+            _world.Observe(Time(720));
+            var candidate = new NpcDecisionReply(accept ? NpcDecisionKind.AcceptInvitation : NpcDecisionKind.DeclineInvitation,
+                meetingId: request.Social.MeetingId);
+            client.Replies.Single().SetResult(candidate);
+
+            scheduler.Tick(1);
+
+            Assert.That(views.Count, Is.EqualTo(2));
+            TestContext.Out.WriteLine("Dispatch: time={0}, x={1}, y={2}, region={3}; execution: time={4}, x={5}, y={6}, region={7}",
+                views[0].ObservedAtTotalMinutes, views[0].X, views[0].Y, views[0].RegionId,
+                views[1].ObservedAtTotalMinutes, views[1].X, views[1].Y, views[1].RegionId);
+            Assert.That(views[1].Facts.Select(FactProjection), Is.EqualTo(views[0].Facts.Select(FactProjection)),
+                "The registered facts must be unchanged in this coordinate-only reproduction.");
+            CollectionAssert.AreEqual(views[0].NearbyEntityIds, views[1].NearbyEntityIds);
+            Assert.That(scheduler.GetLastOutcome("ren").Code, Is.EqualTo(accept ? "meeting.accept_invite" : "meeting.decline_invite"));
+            Assert.That(scheduler.GetLastOutcome("ren").Context.Observation, Is.SameAs(request.Observation));
+            Assert.That(scheduler.GetLastOutcome("ren").ExecutionObservation, Is.SameAs(views[1]));
+            Assert.That(_board.GetLatest("ren").State, Is.EqualTo(accept ? NpcMeetingState.Scheduled : NpcMeetingState.Declined));
+            Assert.That(client.Requests.Count, Is.EqualTo(1));
+            AssertAssets(2, 0, 0, 50);
+        }
+
+        [TestCase("region", true)]
+        [TestCase("region", false)]
+        [TestCase("space", true)]
+        [TestCase("space", false)]
+        [TestCase("nearby", true)]
+        [TestCase("nearby", false)]
+        [TestCase("capability", true)]
+        [TestCase("capability", false)]
+        [TestCase("quantity", true)]
+        [TestCase("quantity", false)]
+        [TestCase("balance", true)]
+        [TestCase("balance", false)]
+        [TestCase("unknown_region", true)]
+        [TestCase("unknown_region", false)]
+        public void InvitationReply_ChangedFactsStillRejectBothAnswers(string change, bool accept)
+        {
+            if (change == "unknown_region") _bodies[1] = new NpcObservationBody("ren", 20, 0);
+            Assert.That(_board.Invite(_world.GetState("sora"), "fish-supply").IsSuccess, Is.True);
+            var client = new ControlledClient();
+            using var scheduler = new NpcDecisionScheduler(_world, new[] { Profile("ren") }, client,
+                meetings: _board, observe: Observe);
+            scheduler.Tick(0);
+            var request = client.Requests.Single();
+            switch (change)
+            {
+                case "region": _bodies[1] = new NpcObservationBody("ren", 12, 0); break;
+                case "space": _bodies[1] = new NpcObservationBody("ren", 2, 0, "ren.home"); break;
+                case "nearby": _bodies[1] = new NpcObservationBody("ren", 9, 0); break;
+                case "quantity": _store.CommitCharacter(Character("ren", 0, 0)); break;
+                case "balance": _store.CommitCharacter(Character("ren", 2, 5)); break;
+                case "unknown_region": _bodies[1] = new NpcObservationBody("ren", 21, 0); break;
+                case "capability":
+                    _scene = new NpcObservationScene(new[] { new NpcObservationRegion("pond", "Pond walk", -10, -10, 10, 10) },
+                        new[] { new NpcObservationEntity("water", "Pond", 1, 0, "landmark", resourceItemId: "fish") });
+                    break;
+            }
+            _world.Observe(Time(721));
+            Assert.That(_world.GetState("ren").Revision, Is.EqualTo(request.Self.Revision));
+            var beforeAssets = new[] { "ren", "sora" }.Select(id => _trading.Inspect(request.Social.Resources.Terms, id))
+                .Select(state => new { state.OwnedQuantity, state.Balance }).ToArray();
+            client.Replies.Single().SetResult(new NpcDecisionReply(accept ? NpcDecisionKind.AcceptInvitation : NpcDecisionKind.DeclineInvitation,
+                meetingId: request.Social.MeetingId));
+            scheduler.Tick(1);
+
+            var outcome = scheduler.GetLastOutcome("ren");
+            Assert.That(outcome.Code, Is.EqualTo("agent.observation_stale"));
+            Assert.That(outcome.Context.Observation, Is.SameAs(request.Observation));
+            Assert.That(outcome.ExecutionObservation, Is.Not.Null);
+            Assert.That(_board.GetCurrent("ren").State, Is.EqualTo(NpcMeetingState.Invited));
+            Assert.That(_board.GetCurrent("ren").Transcript, Is.Empty);
+            Assert.That(_board.IsPlaceReserved("pond"), Is.False);
+            Assert.That(client.Requests.Count, Is.EqualTo(1));
+            Assert.That(new[] { "ren", "sora" }.Select(id => _trading.Inspect(request.Social.Resources.Terms, id))
+                .Select(state => new { state.OwnedQuantity, state.Balance }), Is.EqualTo(beforeAssets));
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void InvitationReply_OnlySamplingTimeChanges_StillApplies(bool accept)
+        {
+            Assert.That(_board.Invite(_world.GetState("sora"), "fish-supply").IsSuccess, Is.True);
+            var client = new ControlledClient();
+            using var scheduler = new NpcDecisionScheduler(_world, new[] { Profile("ren") }, client,
+                meetings: _board, observe: Observe);
+            scheduler.Tick(0);
+            var request = client.Requests.Single();
+            _world.Observe(Time(721));
+            client.Replies.Single().SetResult(new NpcDecisionReply(accept ? NpcDecisionKind.AcceptInvitation : NpcDecisionKind.DeclineInvitation,
+                meetingId: request.Social.MeetingId));
+            scheduler.Tick(1);
+            var outcome = scheduler.GetLastOutcome("ren");
+            Assert.That(outcome.Code, Is.EqualTo(accept ? "meeting.accept_invite" : "meeting.decline_invite"));
+            Assert.That(outcome.ExecutionObservation.ObservedAtTotalMinutes, Is.EqualTo(721));
+            Assert.That(outcome.Context.Observation.ObservedAtTotalMinutes, Is.EqualTo(720));
+            Assert.That(outcome.Calls, Is.EqualTo(1));
+        }
+
+        [TestCase(NpcSpeechMode.FreeText)]
+        [TestCase(NpcSpeechMode.StructuredFacts)]
+        public void SpeechAfterSameRegionMovement_RemainsRejectedWithoutPublishingOrRemembering(NpcSpeechMode mode)
+        {
+            _board = new NpcMeetingBoard(_world, new[] { new NpcMeetingPlan("lunch", "sora", "ren", "pond",
+                "sora.rest", "ren.rest", 720, 750, 780) }, (npc, location) => NpcMeetingPresence.Arrived);
+            var meeting = _board.Invite(_world.GetState("sora"), "lunch").Value;
+            Assert.That(_board.Respond(_world.GetState("ren"), meeting.Id, true).IsSuccess, Is.True);
+            _world.Observe(Time(750));
+            _board.Observe();
+            var client = new ControlledClient();
+            using var scheduler = new NpcDecisionScheduler(_world, new[] { Profile("sora") }, client,
+                meetings: _board, observe: Observe, speechMode: mode);
+            scheduler.Tick(0);
+            var request = client.Requests.Single();
+            Assert.That(request.Social.Kind, Is.EqualTo(NpcSocialContextKind.Conversation));
+            var memories = _board.GetMemories("sora").ToArray();
+            _bodies[0] = new NpcObservationBody("sora", 0.25, 0);
+            client.Replies.Single().SetResult(new NpcDecisionReply(NpcDecisionKind.Speak, meetingId: meeting.Id,
+                text: mode == NpcSpeechMode.FreeText ? "I am beside the pond." : null,
+                speechFrame: mode == NpcSpeechMode.StructuredFacts ? new NpcSpeechFrame("report_observation", "sora:region_name", "neutral") : null));
+            scheduler.Tick(1);
+            Assert.That(scheduler.GetLastOutcome("sora").Code, Is.EqualTo("agent.observation_stale"));
+            Assert.That(_board.GetCurrent("sora").Transcript, Is.Empty);
+            CollectionAssert.AreEqual(memories, _board.GetMemories("sora"));
+            Assert.That(_board.GetMemories("ren").Any(item => item.Kind == "meeting.spoken"), Is.False);
+            Assert.That(client.Requests.Count, Is.EqualTo(1));
+            AssertAssets(2, 0, 0, 50);
+        }
+
+        [TestCase("reload", "agent.world_stale")]
+        [TestCase("opportunity_deadline", "agent.opportunity_expired")]
+        [TestCase("invitation_deadline", "agent.decision_stale")]
+        [TestCase("timeout", "agent.request_timeout")]
+        public void InvitationReply_PreExecutionGatesCancelTheOldAnswer(string change, string expected)
+        {
+            Assert.That(_board.Invite(_world.GetState("sora"), "fish-supply").IsSuccess, Is.True);
+            var client = new ControlledClient();
+            using var scheduler = new NpcDecisionScheduler(_world, new[] { Profile("ren") }, client,
+                new NpcDecisionSettings(maxRequestsPerMinute: 1), meetings: _board, observe: Observe);
+            scheduler.Tick(0);
+            var request = client.Requests.Single();
+            _bodies[1] = new NpcObservationBody("ren", 2.25, 0);
+            if (change == "reload") _world.Observe(Time(720, rebuild: 2));
+            if (change == "opportunity_deadline") _world.Observe(Time(750));
+            if (change == "invitation_deadline") _world.Observe(Time(780));
+            scheduler.Tick(change == "timeout" ? 8 : 1);
+            Assert.That(scheduler.GetLastOutcome("ren").Code, Is.EqualTo(expected));
+            Assert.That(scheduler.GetLastOutcome("ren").ExecutionObservation, Is.Null,
+                "A cancelled response must not be reported as having passed execution-time observation checks.");
+            Assert.That(client.Tokens.Single().IsCancellationRequested, Is.True);
+            client.Replies.Single().SetResult(new NpcDecisionReply(NpcDecisionKind.AcceptInvitation,
+                meetingId: request.Social.MeetingId));
+            scheduler.Tick(9);
+            Assert.That(_board.IsPlaceReserved("pond"), Is.False);
+            Assert.That(_world.GetState("ren").ActiveActivity, Is.Null);
+            Assert.That(_world.GetState("sora").ActiveActivity, Is.Null);
+            Assert.That(client.Requests.Count, Is.EqualTo(1));
+            AssertAssets(2, 0, 0, 50);
+        }
+
+        [Test]
+        public void StaleInvitationReply_DoesNotRetryAndANewWorldEventCanStartANewDecision()
+        {
+            Assert.That(_board.Invite(_world.GetState("sora"), "fish-supply").IsSuccess, Is.True);
+            var client = new ControlledClient();
+            using var scheduler = new NpcDecisionScheduler(_world, new[] { Profile("ren") }, client,
+                new NpcDecisionSettings(maxRequestsPerMinute: 1), meetings: _board, observe: Observe);
+            scheduler.Tick(0);
+            var old = client.Requests.Single();
+            _bodies[1] = new NpcObservationBody("ren", 9, 0);
+            client.Replies.Single().SetResult(new NpcDecisionReply(NpcDecisionKind.AcceptInvitation, meetingId: old.Social.MeetingId));
+            scheduler.Tick(1);
+            scheduler.Tick(10);
+            Assert.That(client.Requests.Count, Is.EqualTo(1), "Observation changes alone do not mint another decision or call.");
+            _world.Observe(Time(780));
+            scheduler.Tick(11);
+            Assert.That(_board.GetLatest("ren").State, Is.EqualTo(NpcMeetingState.Expired));
+            Assert.That(_board.IsPlaceReserved("pond"), Is.False);
+            _world.Observe(Time(720, rebuild: 2));
+            scheduler.Tick(59);
+            Assert.That(client.Requests.Count, Is.EqualTo(1), "The world event does not reset the rolling call budget.");
+            scheduler.Tick(60);
+            var fresh = client.Requests.Last();
+            Assert.That(client.Requests.Count, Is.EqualTo(2));
+            Assert.That(fresh.DecisionId, Is.Not.EqualTo(old.DecisionId));
+            Assert.That(fresh.Self.WorldRunId, Is.Not.EqualTo(old.Self.WorldRunId));
+            Assert.That(fresh.Observation.X, Is.EqualTo(9));
+            Assert.That(fresh.PreviousResultCode, Is.Null);
+            client.Replies.Last().SetResult(new NpcDecisionReply(NpcDecisionKind.Wait));
+            scheduler.Tick(61);
+            Assert.That(scheduler.GetLastOutcome("ren").Code, Is.EqualTo("agent.decision_wait"));
+            AssertAssets(2, 0, 0, 50);
+        }
+
         [Test]
         public void OwnAssetsChangedDuringGeneration_RejectsTheCandidateAndRetainsItsOriginalObservation()
         {

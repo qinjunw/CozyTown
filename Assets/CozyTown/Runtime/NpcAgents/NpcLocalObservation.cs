@@ -31,10 +31,11 @@ namespace CozyTown.Runtime.NpcAgents
         public string CoverageDomain => "registered_entities_same_region_within_radius";
         public string ListenerId { get; }
 
-        internal bool HasSameFacts(NpcLocalObservation current)
+        internal bool HasSameFacts(NpcLocalObservation current, bool allowPositionChange = false)
         {
             if (current == null || ObserverId != current.ObserverId || WorldRunId != current.WorldRunId
-                || X != current.X || Y != current.Y || SpaceId != current.SpaceId || RegionId != current.RegionId
+                || ((!allowPositionChange || RegionId == null) && (X != current.X || Y != current.Y))
+                || SpaceId != current.SpaceId || RegionId != current.RegionId
                 || Radius != current.Radius || NearbyComplete != current.NearbyComplete || ListenerId != current.ListenerId
                 || !NearbyEntityIds.SequenceEqual(current.NearbyEntityIds) || Facts.Count != current.Facts.Count) return false;
             for (int i = 0; i < Facts.Count; i++)
