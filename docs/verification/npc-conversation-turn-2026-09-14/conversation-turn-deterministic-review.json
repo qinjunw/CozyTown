@@ -1,0 +1,1350 @@
+{
+  "schemaVersion": 1,
+  "auditedAtUtc": "2026-09-14T13:31:05.532849+00:00",
+  "scope": "只读核验固定XML、公开检查点与冻结源码；未运行Unity或模型；不含真实批次。",
+  "freeze": "78d91d2bb91221697946be454b3893dada1c0ae7",
+  "status": "verified_with_evidence_limits",
+  "blockingBehaviorFindings": [],
+  "xmlResults": [
+    {
+      "path": "Logs/conversation-turn-01-red.xml",
+      "sha256": "b6d0012d6adea7dc949a5dd94ed89dc747878c657d1b5b22165aa92925bd1100",
+      "rawResult": "Failed(Child)",
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "failedCases": [
+        {
+          "name": "QueuedConversationTurn_ResumesAfterBudgetReturnsAndCompletesBeforeMeetingDeadline",
+          "message": "  Expected: 1\n  But was:  0\n",
+          "stackTrace": "at CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.QueuedConversationTurn_ResumesAfterBudgetReturnsAndCompletesBeforeMeetingDeadline () [0x001b0] in <isolated-project>\\Assets\\CozyTown\\Tests\\EditMode\\NpcAgents\\NpcConversationBudgetTests.cs:65\n"
+        }
+      ]
+    },
+    {
+      "path": "Logs/conversation-turn-02-green.xml",
+      "sha256": "aaf93afb4f5f9cacae2a4c7e8ca140d06f795d7f6da106c3c636e203b9fe0f37",
+      "rawResult": "Passed",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "failedCases": []
+    },
+    {
+      "path": "Logs/conversation-turn-03-runtime-controls.xml",
+      "sha256": "dcef35a76bf4c268a3ed690811b9d1be5e1a4531eccf1a4e526e658aa094e392",
+      "rawResult": "Passed",
+      "total": 11,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "failedCases": []
+    },
+    {
+      "path": "Logs/conversation-turn-04-no-retry.xml",
+      "sha256": "0339bcb64fc33acd545a4f0c398f191d24fec18a9c8128c3c22bfb7bbe6530c6",
+      "rawResult": "Passed",
+      "total": 7,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "failedCases": []
+    },
+    {
+      "path": "Logs/conversation-turn-05-scene.xml",
+      "sha256": "b53b6617b02142a7dccb2b55cac64911f5d2cac4af495ab0ba95248919c76767",
+      "rawResult": "Passed",
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "failedCases": []
+    },
+    {
+      "path": "Logs/conversation-turn-06-lifecycle.xml",
+      "sha256": "3f44ea4b4ff398047fa1098332e6eb20c85ae0396bc21bffdc592a06bc61197e",
+      "rawResult": "Passed",
+      "total": 23,
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0,
+      "failedCases": []
+    },
+    {
+      "path": "Logs/conversation-turn-07-turn-change.xml",
+      "sha256": "26a8abeff5e933ca1a214378b91b2c9ff7ce58471c25ec6524b460e68720fbc8",
+      "rawResult": "Passed",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "failedCases": []
+    },
+    {
+      "path": "Logs/conversation-turn-08-full-edit.xml",
+      "sha256": "c405a0bed6efb82e60564be4a69f8226c966d9f8f392e8fb62907827a1977d6d",
+      "rawResult": "Skipped:Ignored",
+      "total": 853,
+      "passed": 852,
+      "failed": 0,
+      "skipped": 1,
+      "failedCases": []
+    },
+    {
+      "path": "Logs/conversation-turn-09-full-play.xml",
+      "sha256": "f82f02f213b003d71780ed1f468127a9269c21ca984a930b30131a0078863747",
+      "rawResult": "Skipped:Ignored",
+      "total": 201,
+      "passed": 196,
+      "failed": 0,
+      "skipped": 5,
+      "failedCases": []
+    }
+  ],
+  "runtimeRedGreen": {
+    "testName": "QueuedConversationTurn_ResumesAfterBudgetReturnsAndCompletesBeforeMeetingDeadline",
+    "redTrace": [
+      {
+        "point": "old-request",
+        "realSeconds": 0,
+        "gameMinutes": 794.8,
+        "renRevision": 9,
+        "soraRevision": 9,
+        "requests": 1,
+        "rolling": 1,
+        "active": 1,
+        "waiting": 0,
+        "meeting": "Talking",
+        "speaker": "ren",
+        "lines": 3,
+        "renOutcome": "",
+        "finishedThisTick": 0
+      },
+      {
+        "point": "schedule-cancel",
+        "realSeconds": 0.1,
+        "gameMinutes": 795,
+        "renRevision": 10,
+        "soraRevision": 9,
+        "requests": 1,
+        "rolling": 1,
+        "active": 1,
+        "waiting": 1,
+        "meeting": "Talking",
+        "speaker": "ren",
+        "lines": 3,
+        "renOutcome": "agent.decision_stale",
+        "finishedThisTick": 1
+      },
+      {
+        "point": "late-reply-drained",
+        "realSeconds": 0.2,
+        "gameMinutes": 795.2,
+        "renRevision": 10,
+        "soraRevision": 9,
+        "requests": 1,
+        "rolling": 1,
+        "active": 0,
+        "waiting": 1,
+        "meeting": "Talking",
+        "speaker": "ren",
+        "lines": 3,
+        "renOutcome": "agent.decision_stale",
+        "finishedThisTick": 0
+      },
+      {
+        "point": "before-opportunity-expiry",
+        "realSeconds": 15,
+        "gameMinutes": 824.8,
+        "renRevision": 10,
+        "soraRevision": 9,
+        "requests": 1,
+        "rolling": 1,
+        "active": 0,
+        "waiting": 1,
+        "meeting": "Talking",
+        "speaker": "ren",
+        "lines": 3,
+        "renOutcome": "agent.decision_stale",
+        "finishedThisTick": 0
+      },
+      {
+        "point": "opportunity-expired",
+        "realSeconds": 15.1,
+        "gameMinutes": 825,
+        "renRevision": 10,
+        "soraRevision": 9,
+        "requests": 1,
+        "rolling": 1,
+        "active": 0,
+        "waiting": 0,
+        "meeting": "Talking",
+        "speaker": "ren",
+        "lines": 3,
+        "renOutcome": "agent.decision_stale",
+        "finishedThisTick": 0
+      }
+    ],
+    "greenTrace": [
+      {
+        "point": "old-request",
+        "realSeconds": 0,
+        "gameMinutes": 794.8,
+        "renRevision": 9,
+        "soraRevision": 9,
+        "requests": 1,
+        "rolling": 1,
+        "active": 1,
+        "waiting": 0,
+        "meeting": "Talking",
+        "speaker": "ren",
+        "lines": 3,
+        "renOutcome": "",
+        "finishedThisTick": 0
+      },
+      {
+        "point": "schedule-cancel",
+        "realSeconds": 0.1,
+        "gameMinutes": 795,
+        "renRevision": 10,
+        "soraRevision": 9,
+        "requests": 1,
+        "rolling": 1,
+        "active": 1,
+        "waiting": 1,
+        "meeting": "Talking",
+        "speaker": "ren",
+        "lines": 3,
+        "renOutcome": "agent.decision_stale",
+        "finishedThisTick": 1
+      },
+      {
+        "point": "late-reply-drained",
+        "realSeconds": 0.2,
+        "gameMinutes": 795.2,
+        "renRevision": 10,
+        "soraRevision": 9,
+        "requests": 1,
+        "rolling": 1,
+        "active": 0,
+        "waiting": 1,
+        "meeting": "Talking",
+        "speaker": "ren",
+        "lines": 3,
+        "renOutcome": "agent.decision_stale",
+        "finishedThisTick": 0
+      },
+      {
+        "point": "before-opportunity-expiry",
+        "realSeconds": 15,
+        "gameMinutes": 824.8,
+        "renRevision": 10,
+        "soraRevision": 9,
+        "requests": 1,
+        "rolling": 1,
+        "active": 0,
+        "waiting": 1,
+        "meeting": "Talking",
+        "speaker": "ren",
+        "lines": 3,
+        "renOutcome": "agent.decision_stale",
+        "finishedThisTick": 0
+      },
+      {
+        "point": "opportunity-expired",
+        "realSeconds": 15.1,
+        "gameMinutes": 825,
+        "renRevision": 10,
+        "soraRevision": 9,
+        "requests": 1,
+        "rolling": 1,
+        "active": 0,
+        "waiting": 1,
+        "meeting": "Talking",
+        "speaker": "ren",
+        "lines": 3,
+        "renOutcome": "agent.decision_stale",
+        "finishedThisTick": 0
+      },
+      {
+        "point": "other-participant-schedule",
+        "realSeconds": 22.6,
+        "gameMinutes": 840,
+        "renRevision": 10,
+        "soraRevision": 10,
+        "requests": 1,
+        "rolling": 1,
+        "active": 0,
+        "waiting": 1,
+        "meeting": "Talking",
+        "speaker": "ren",
+        "lines": 3,
+        "renOutcome": "agent.decision_stale",
+        "finishedThisTick": 0
+      },
+      {
+        "point": "rolling-budget-open",
+        "realSeconds": 60,
+        "gameMinutes": 914.8,
+        "renRevision": 10,
+        "soraRevision": 10,
+        "requests": 2,
+        "rolling": 1,
+        "active": 1,
+        "waiting": 0,
+        "meeting": "Talking",
+        "speaker": "ren",
+        "lines": 3,
+        "renOutcome": "agent.decision_stale",
+        "finishedThisTick": 0
+      },
+      {
+        "point": "fresh-fourth-published",
+        "realSeconds": 60.1,
+        "gameMinutes": 915,
+        "renRevision": 13,
+        "soraRevision": 13,
+        "requests": 2,
+        "rolling": 1,
+        "active": 0,
+        "waiting": 0,
+        "meeting": "Completed",
+        "speaker": "",
+        "lines": 4,
+        "renOutcome": "meeting.say",
+        "finishedThisTick": 1
+      },
+      {
+        "point": "meeting-deadline",
+        "realSeconds": 67.6,
+        "gameMinutes": 930,
+        "renRevision": 13,
+        "soraRevision": 13,
+        "requests": 2,
+        "rolling": 1,
+        "active": 0,
+        "waiting": 0,
+        "meeting": "Completed",
+        "speaker": "",
+        "lines": 4,
+        "renOutcome": "meeting.say",
+        "finishedThisTick": 0
+      }
+    ],
+    "causalBoundary": "同一目标用例在旧调度器game825等待人数由1变0，目标断言失败；新调度器同点仍为1，game914.8/real60派发新request，game915完成第四句。该最小Runtime用例覆盖量限制为1/60秒，不是默认8次场景。",
+    "redLimit": "红测在game825断言停止，不包含红版之后预算开放或恢复检查点。当前文件哈希核验不能独立重建历史红测DLL来源。"
+  },
+  "sceneResults": [
+    {
+      "testName": "ConversationScheduleChange_WithEightCallBudget_RebuildsCurrentRequestAndCompletesFourTurns",
+      "result": "Passed",
+      "worldRunId": "ec84cfcd4be44968ba6eee4196577576",
+      "speechMode": "FreeText",
+      "requestCount": 9,
+      "oldDecision": {
+        "decisionId": "2e2b011a8f8e4363a2fd610c675d4555",
+        "step": 1,
+        "revision": 10,
+        "gameMinutes": 794.7,
+        "triggers": [
+          "MeetingChanged@794.7"
+        ],
+        "cancellationObserved": true,
+        "returnedSpeechFrame": {
+          "speechIntent": "",
+          "factId": "",
+          "tone": ""
+        }
+      },
+      "newDecision": {
+        "decisionId": "badb1e3f778c42b4a8c5d0ac0c730fd7",
+        "step": 1,
+        "revision": 11,
+        "gameMinutes": 855.2,
+        "triggers": [
+          "ScheduleChanged@795.1"
+        ],
+        "dispatchedAtRealSeconds": 60.10000000000002
+      },
+      "newIdentityDifferent": true,
+      "newObservationAt": 855.2,
+      "executionObservationAt": 855.4,
+      "requestToExecutionFactsMatchUnderRuntimeTimeAndSerializationRules": true,
+      "executionFactCount": 29,
+      "executionUnknownValuesPreserveNull": true,
+      "originalContextsUnchanged": true,
+      "deliverCandidates": 1,
+      "endConversationCandidates": 0,
+      "cancelledTextPublished": false,
+      "cancelledTextInPrePublicationStatementFacts": false,
+      "finalTranscript": [
+        "npc.cook_sora: The agreed carp has been delivered.",
+        "npc.fisher_ren: I received the agreed payment.",
+        "npc.cook_sora: Thank you for this exchange.",
+        "npc.fisher_ren: This new decision acknowledges the completed exchange."
+      ],
+      "postDeliveryAssetsUnchangedAcrossRecordedCheckpoints": true,
+      "checkpoints": [
+        {
+          "label": "accepted_before_future_meeting",
+          "realSeconds": 0.0,
+          "gameMinutes": 735.0,
+          "requestsStarted": 3,
+          "requestsInLastMinute": 3,
+          "activeRequests": 0,
+          "waitingResidents": 0,
+          "renRevision": 5,
+          "soraRevision": 6,
+          "meetingState": "Scheduled",
+          "speakerId": "",
+          "lineCount": 0
+        },
+        {
+          "label": "meeting_started_with_body_still_travelling",
+          "realSeconds": 22.5,
+          "gameMinutes": 780.0,
+          "requestsStarted": 3,
+          "requestsInLastMinute": 3,
+          "activeRequests": 0,
+          "waitingResidents": 0,
+          "renRevision": 5,
+          "soraRevision": 7,
+          "meetingState": "Travelling",
+          "speakerId": "",
+          "lineCount": 0
+        },
+        {
+          "label": "eighth_request_before_ren_schedule_boundary",
+          "realSeconds": 29.850000000000023,
+          "gameMinutes": 794.7,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 1,
+          "waitingResidents": 0,
+          "renRevision": 10,
+          "soraRevision": 12,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "ren_revision_changed_old_request_cancelled_and_replacement_waiting",
+          "realSeconds": 30.05000000000001,
+          "gameMinutes": 795.1,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 1,
+          "waitingResidents": 1,
+          "renRevision": 11,
+          "soraRevision": 12,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "cancelled_reply_returned_without_publication",
+          "realSeconds": 30.100000000000023,
+          "gameMinutes": 795.2,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 0,
+          "waitingResidents": 1,
+          "renRevision": 11,
+          "soraRevision": 12,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "replacement_still_waiting_before_thirty_game_minutes",
+          "realSeconds": 44.94999999999999,
+          "gameMinutes": 824.9,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 0,
+          "waitingResidents": 1,
+          "renRevision": 11,
+          "soraRevision": 12,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "turn_still_waiting_after_original_opportunity_lifetime",
+          "realSeconds": 45.10000000000002,
+          "gameMinutes": 825.2,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 0,
+          "waitingResidents": 1,
+          "renRevision": 11,
+          "soraRevision": 12,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "sora_schedule_boundary_does_not_dispatch_rens_turn",
+          "realSeconds": 52.55000000000001,
+          "gameMinutes": 840.1,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 0,
+          "waitingResidents": 1,
+          "renRevision": 11,
+          "soraRevision": 13,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "budget_reopened_and_ninth_request_uses_current_dispatch_snapshot",
+          "realSeconds": 60.10000000000002,
+          "gameMinutes": 855.2,
+          "requestsStarted": 9,
+          "requestsInLastMinute": 6,
+          "activeRequests": 1,
+          "waitingResidents": 0,
+          "renRevision": 11,
+          "soraRevision": 13,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "delayed_ninth_reply_publishes_fourth_line_and_completes_meeting",
+          "realSeconds": 60.19999999999999,
+          "gameMinutes": 855.4,
+          "requestsStarted": 9,
+          "requestsInLastMinute": 6,
+          "activeRequests": 0,
+          "waitingResidents": 0,
+          "renRevision": 14,
+          "soraRevision": 16,
+          "meetingState": "Completed",
+          "speakerId": "",
+          "lineCount": 4
+        },
+        {
+          "label": "default_work_schedule_recovered_without_further_dispatch",
+          "realSeconds": 132.5,
+          "gameMinutes": 1000.0,
+          "requestsStarted": 9,
+          "requestsInLastMinute": 6,
+          "activeRequests": 0,
+          "waitingResidents": 0,
+          "renRevision": 14,
+          "soraRevision": 16,
+          "meetingState": "Completed",
+          "speakerId": "",
+          "lineCount": 4
+        }
+      ],
+      "recovery": {
+        "gameTotalMinutes": 1000.0,
+        "state": "Completed",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 1,
+        "soraFish": 1,
+        "renCoins": 25,
+        "soraCoins": 25
+      }
+    },
+    {
+      "testName": "ConversationScheduleChange_WithOneBudgetSlotRemaining_DispatchesNewDecisionAndCompletesFourTurns",
+      "result": "Passed",
+      "worldRunId": "79c65653de8e4f98b503f5936c4742ca",
+      "speechMode": "FreeText",
+      "requestCount": 8,
+      "oldDecision": {
+        "decisionId": "bf1eb832008042bc90cbbadad39512a1",
+        "step": 1,
+        "revision": 10,
+        "gameMinutes": 794.7,
+        "triggers": [
+          "MeetingChanged@794.7"
+        ],
+        "cancellationObserved": true,
+        "returnedSpeechFrame": {
+          "speechIntent": "",
+          "factId": "",
+          "tone": ""
+        }
+      },
+      "newDecision": {
+        "decisionId": "4711d41cbca64a39a2dfe8975d8e7267",
+        "step": 1,
+        "revision": 11,
+        "gameMinutes": 795.2,
+        "triggers": [
+          "ScheduleChanged@795.1"
+        ],
+        "dispatchedAtRealSeconds": 30.100000000000023
+      },
+      "newIdentityDifferent": true,
+      "newObservationAt": 795.2,
+      "executionObservationAt": 795.2,
+      "requestToExecutionFactsMatchUnderRuntimeTimeAndSerializationRules": true,
+      "executionFactCount": 29,
+      "executionUnknownValuesPreserveNull": true,
+      "originalContextsUnchanged": true,
+      "deliverCandidates": 1,
+      "endConversationCandidates": 0,
+      "cancelledTextPublished": false,
+      "cancelledTextInPrePublicationStatementFacts": false,
+      "finalTranscript": [
+        "npc.cook_sora: The agreed carp has been delivered.",
+        "npc.fisher_ren: I received the agreed payment.",
+        "npc.cook_sora: Thank you for this exchange.",
+        "npc.fisher_ren: This new decision acknowledges the completed exchange."
+      ],
+      "postDeliveryAssetsUnchangedAcrossRecordedCheckpoints": true,
+      "checkpoints": [
+        {
+          "label": "control_seventh_request_with_one_budget_slot_remaining",
+          "realSeconds": 29.850000000000023,
+          "gameMinutes": 794.7,
+          "requestsStarted": 7,
+          "requestsInLastMinute": 7,
+          "activeRequests": 1,
+          "waitingResidents": 0,
+          "renRevision": 10,
+          "soraRevision": 12,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "control_cancelled_request_keeps_replacement_waiting_until_response_returns",
+          "realSeconds": 30.05000000000001,
+          "gameMinutes": 795.1,
+          "requestsStarted": 7,
+          "requestsInLastMinute": 7,
+          "activeRequests": 1,
+          "waitingResidents": 1,
+          "renRevision": 11,
+          "soraRevision": 12,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "control_eighth_request_is_a_new_schedule_triggered_decision",
+          "realSeconds": 30.100000000000023,
+          "gameMinutes": 795.2,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 1,
+          "waitingResidents": 0,
+          "renRevision": 11,
+          "soraRevision": 12,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "control_fourth_published_line_reaches_host_turn_limit",
+          "realSeconds": 30.100000000000023,
+          "gameMinutes": 795.2,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 0,
+          "waitingResidents": 1,
+          "renRevision": 14,
+          "soraRevision": 15,
+          "meetingState": "Completed",
+          "speakerId": "",
+          "lineCount": 4
+        },
+        {
+          "label": "control_default_work_schedule_recovered_after_dispatch_stopped",
+          "realSeconds": 132.5,
+          "gameMinutes": 1000.0,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 0,
+          "waitingResidents": 1,
+          "renRevision": 14,
+          "soraRevision": 16,
+          "meetingState": "Completed",
+          "speakerId": "",
+          "lineCount": 4
+        }
+      ],
+      "recovery": {
+        "gameTotalMinutes": 1000.0,
+        "state": "Completed",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 1,
+        "soraFish": 1,
+        "renCoins": 25,
+        "soraCoins": 25
+      }
+    },
+    {
+      "testName": "StructuredConversationScheduleChange_WithEightCallBudget_RebuildsCurrentRequestAndCompletesFourTurns",
+      "result": "Passed",
+      "worldRunId": "589b167fbf1b4b71bde771738e30950b",
+      "speechMode": "StructuredFacts",
+      "requestCount": 9,
+      "oldDecision": {
+        "decisionId": "7933875946ee48f58958d64a62490bf1",
+        "step": 1,
+        "revision": 10,
+        "gameMinutes": 794.7,
+        "triggers": [
+          "MeetingChanged@794.7"
+        ],
+        "cancellationObserved": true,
+        "returnedSpeechFrame": {
+          "speechIntent": "express_wish",
+          "factId": "@learn_cooking",
+          "tone": "neutral"
+        }
+      },
+      "newDecision": {
+        "decisionId": "6ddac8b629f048478fe3447646718127",
+        "step": 1,
+        "revision": 11,
+        "gameMinutes": 855.2,
+        "triggers": [
+          "ScheduleChanged@795.1"
+        ],
+        "dispatchedAtRealSeconds": 60.10000000000002
+      },
+      "newIdentityDifferent": true,
+      "newObservationAt": 855.2,
+      "executionObservationAt": 855.4,
+      "requestToExecutionFactsMatchUnderRuntimeTimeAndSerializationRules": true,
+      "executionFactCount": 29,
+      "executionUnknownValuesPreserveNull": true,
+      "originalContextsUnchanged": true,
+      "deliverCandidates": 1,
+      "endConversationCandidates": 0,
+      "cancelledTextPublished": false,
+      "cancelledTextInPrePublicationStatementFacts": false,
+      "finalTranscript": [
+        "npc.cook_sora: I would like to talk with you.",
+        "npc.fisher_ren: I would like to talk with you.",
+        "npc.cook_sora: I would like to talk with you.",
+        "npc.fisher_ren: I am in 池塘周边."
+      ],
+      "postDeliveryAssetsUnchangedAcrossRecordedCheckpoints": true,
+      "checkpoints": [
+        {
+          "label": "accepted_before_future_meeting",
+          "realSeconds": 0.0,
+          "gameMinutes": 735.0,
+          "requestsStarted": 3,
+          "requestsInLastMinute": 3,
+          "activeRequests": 0,
+          "waitingResidents": 0,
+          "renRevision": 5,
+          "soraRevision": 6,
+          "meetingState": "Scheduled",
+          "speakerId": "",
+          "lineCount": 0
+        },
+        {
+          "label": "meeting_started_with_body_still_travelling",
+          "realSeconds": 22.5,
+          "gameMinutes": 780.0,
+          "requestsStarted": 3,
+          "requestsInLastMinute": 3,
+          "activeRequests": 0,
+          "waitingResidents": 0,
+          "renRevision": 5,
+          "soraRevision": 7,
+          "meetingState": "Travelling",
+          "speakerId": "",
+          "lineCount": 0
+        },
+        {
+          "label": "eighth_request_before_ren_schedule_boundary",
+          "realSeconds": 29.850000000000023,
+          "gameMinutes": 794.7,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 1,
+          "waitingResidents": 0,
+          "renRevision": 10,
+          "soraRevision": 12,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "ren_revision_changed_old_request_cancelled_and_replacement_waiting",
+          "realSeconds": 30.05000000000001,
+          "gameMinutes": 795.1,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 1,
+          "waitingResidents": 1,
+          "renRevision": 11,
+          "soraRevision": 12,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "cancelled_reply_returned_without_publication",
+          "realSeconds": 30.100000000000023,
+          "gameMinutes": 795.2,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 0,
+          "waitingResidents": 1,
+          "renRevision": 11,
+          "soraRevision": 12,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "replacement_still_waiting_before_thirty_game_minutes",
+          "realSeconds": 44.94999999999999,
+          "gameMinutes": 824.9,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 0,
+          "waitingResidents": 1,
+          "renRevision": 11,
+          "soraRevision": 12,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "turn_still_waiting_after_original_opportunity_lifetime",
+          "realSeconds": 45.10000000000002,
+          "gameMinutes": 825.2,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 0,
+          "waitingResidents": 1,
+          "renRevision": 11,
+          "soraRevision": 12,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "sora_schedule_boundary_does_not_dispatch_rens_turn",
+          "realSeconds": 52.55000000000001,
+          "gameMinutes": 840.1,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 0,
+          "waitingResidents": 1,
+          "renRevision": 11,
+          "soraRevision": 13,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "budget_reopened_and_ninth_request_uses_current_dispatch_snapshot",
+          "realSeconds": 60.10000000000002,
+          "gameMinutes": 855.2,
+          "requestsStarted": 9,
+          "requestsInLastMinute": 6,
+          "activeRequests": 1,
+          "waitingResidents": 0,
+          "renRevision": 11,
+          "soraRevision": 13,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "delayed_ninth_reply_publishes_fourth_line_and_completes_meeting",
+          "realSeconds": 60.19999999999999,
+          "gameMinutes": 855.4,
+          "requestsStarted": 9,
+          "requestsInLastMinute": 6,
+          "activeRequests": 0,
+          "waitingResidents": 0,
+          "renRevision": 14,
+          "soraRevision": 16,
+          "meetingState": "Completed",
+          "speakerId": "",
+          "lineCount": 4
+        },
+        {
+          "label": "default_work_schedule_recovered_without_further_dispatch",
+          "realSeconds": 132.5,
+          "gameMinutes": 1000.0,
+          "requestsStarted": 9,
+          "requestsInLastMinute": 6,
+          "activeRequests": 0,
+          "waitingResidents": 0,
+          "renRevision": 14,
+          "soraRevision": 16,
+          "meetingState": "Completed",
+          "speakerId": "",
+          "lineCount": 4
+        }
+      ],
+      "recovery": {
+        "gameTotalMinutes": 1000.0,
+        "state": "Completed",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 1,
+        "soraFish": 1,
+        "renCoins": 25,
+        "soraCoins": 25
+      }
+    },
+    {
+      "testName": "StructuredConversationScheduleChange_WithOneBudgetSlotRemaining_DispatchesNewDecisionAndCompletesFourTurns",
+      "result": "Passed",
+      "worldRunId": "c3b632668e2b457fb1d56bd777b92a3a",
+      "speechMode": "StructuredFacts",
+      "requestCount": 8,
+      "oldDecision": {
+        "decisionId": "9cba4d70505249a888c79763ffd6c6f5",
+        "step": 1,
+        "revision": 10,
+        "gameMinutes": 794.7,
+        "triggers": [
+          "MeetingChanged@794.7"
+        ],
+        "cancellationObserved": true,
+        "returnedSpeechFrame": {
+          "speechIntent": "express_wish",
+          "factId": "@learn_cooking",
+          "tone": "neutral"
+        }
+      },
+      "newDecision": {
+        "decisionId": "40d61782cf61408e9a5a3694f12d07e1",
+        "step": 1,
+        "revision": 11,
+        "gameMinutes": 795.2,
+        "triggers": [
+          "ScheduleChanged@795.1"
+        ],
+        "dispatchedAtRealSeconds": 30.100000000000023
+      },
+      "newIdentityDifferent": true,
+      "newObservationAt": 795.2,
+      "executionObservationAt": 795.2,
+      "requestToExecutionFactsMatchUnderRuntimeTimeAndSerializationRules": true,
+      "executionFactCount": 29,
+      "executionUnknownValuesPreserveNull": true,
+      "originalContextsUnchanged": true,
+      "deliverCandidates": 1,
+      "endConversationCandidates": 0,
+      "cancelledTextPublished": false,
+      "cancelledTextInPrePublicationStatementFacts": false,
+      "finalTranscript": [
+        "npc.cook_sora: I would like to talk with you.",
+        "npc.fisher_ren: I would like to talk with you.",
+        "npc.cook_sora: I would like to talk with you.",
+        "npc.fisher_ren: I am in 池塘周边."
+      ],
+      "postDeliveryAssetsUnchangedAcrossRecordedCheckpoints": true,
+      "checkpoints": [
+        {
+          "label": "control_seventh_request_with_one_budget_slot_remaining",
+          "realSeconds": 29.850000000000023,
+          "gameMinutes": 794.7,
+          "requestsStarted": 7,
+          "requestsInLastMinute": 7,
+          "activeRequests": 1,
+          "waitingResidents": 0,
+          "renRevision": 10,
+          "soraRevision": 12,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "control_cancelled_request_keeps_replacement_waiting_until_response_returns",
+          "realSeconds": 30.05000000000001,
+          "gameMinutes": 795.1,
+          "requestsStarted": 7,
+          "requestsInLastMinute": 7,
+          "activeRequests": 1,
+          "waitingResidents": 1,
+          "renRevision": 11,
+          "soraRevision": 12,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "control_eighth_request_is_a_new_schedule_triggered_decision",
+          "realSeconds": 30.100000000000023,
+          "gameMinutes": 795.2,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 1,
+          "waitingResidents": 0,
+          "renRevision": 11,
+          "soraRevision": 12,
+          "meetingState": "Talking",
+          "speakerId": "npc.fisher_ren",
+          "lineCount": 3
+        },
+        {
+          "label": "control_fourth_published_line_reaches_host_turn_limit",
+          "realSeconds": 30.100000000000023,
+          "gameMinutes": 795.2,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 0,
+          "waitingResidents": 1,
+          "renRevision": 14,
+          "soraRevision": 15,
+          "meetingState": "Completed",
+          "speakerId": "",
+          "lineCount": 4
+        },
+        {
+          "label": "control_default_work_schedule_recovered_after_dispatch_stopped",
+          "realSeconds": 132.5,
+          "gameMinutes": 1000.0,
+          "requestsStarted": 8,
+          "requestsInLastMinute": 8,
+          "activeRequests": 0,
+          "waitingResidents": 1,
+          "renRevision": 14,
+          "soraRevision": 16,
+          "meetingState": "Completed",
+          "speakerId": "",
+          "lineCount": 4
+        }
+      ],
+      "recovery": {
+        "gameTotalMinutes": 1000.0,
+        "state": "Completed",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renTarget": "work.fisher_ren.afternoon",
+        "soraTarget": "work.cook_sora",
+        "renFish": 1,
+        "soraFish": 1,
+        "renCoins": 25,
+        "soraCoins": 25
+      }
+    }
+  ],
+  "distinctSceneWorlds": 4,
+  "ordinaryQueue": {
+    "testName": "CompletedConversation_PreservesOtherResidentsOrdinaryQueue",
+    "trace": [
+      {
+        "point": "old-request",
+        "realSeconds": 0,
+        "gameMinutes": 794.8,
+        "renRevision": 9,
+        "soraRevision": 9,
+        "requests": 1,
+        "rolling": 1,
+        "active": 1,
+        "waiting": 0,
+        "meeting": "Talking",
+        "speaker": "ren",
+        "lines": 3,
+        "renOutcome": "",
+        "finishedThisTick": 0
+      },
+      {
+        "point": "schedule-cancel",
+        "realSeconds": 0.1,
+        "gameMinutes": 795,
+        "renRevision": 10,
+        "soraRevision": 9,
+        "requests": 1,
+        "rolling": 1,
+        "active": 1,
+        "waiting": 1,
+        "meeting": "Talking",
+        "speaker": "ren",
+        "lines": 3,
+        "renOutcome": "agent.decision_stale",
+        "finishedThisTick": 1
+      },
+      {
+        "point": "old-reply-drained",
+        "realSeconds": 0.2,
+        "gameMinutes": 795.2,
+        "renRevision": 10,
+        "soraRevision": 9,
+        "requests": 1,
+        "rolling": 1,
+        "active": 0,
+        "waiting": 1,
+        "meeting": "Talking",
+        "speaker": "ren",
+        "lines": 3,
+        "renOutcome": "agent.decision_stale",
+        "finishedThisTick": 0
+      },
+      {
+        "point": "conversation-dispatched",
+        "realSeconds": 60,
+        "gameMinutes": 824.9,
+        "renRevision": 10,
+        "soraRevision": 9,
+        "requests": 2,
+        "rolling": 1,
+        "active": 1,
+        "waiting": 0,
+        "meeting": "Talking",
+        "speaker": "ren",
+        "lines": 3,
+        "renOutcome": "agent.decision_stale",
+        "finishedThisTick": 0
+      },
+      {
+        "point": "completed-with-sora-resting",
+        "realSeconds": 60.1,
+        "gameMinutes": 825,
+        "renRevision": 13,
+        "soraRevision": 12,
+        "requests": 2,
+        "rolling": 1,
+        "active": 0,
+        "waiting": 1,
+        "meeting": "Completed",
+        "speaker": "",
+        "lines": 4,
+        "renOutcome": "meeting.say",
+        "finishedThisTick": 1
+      },
+      {
+        "point": "ordinary-budget-open",
+        "realSeconds": 120,
+        "gameMinutes": 825,
+        "renRevision": 13,
+        "soraRevision": 12,
+        "requests": 3,
+        "rolling": 1,
+        "active": 1,
+        "waiting": 0,
+        "meeting": "Completed",
+        "speaker": "",
+        "lines": 4,
+        "renOutcome": "meeting.say",
+        "finishedThisTick": 0
+      },
+      {
+        "point": "ordinary-wait-completed",
+        "realSeconds": 120.1,
+        "gameMinutes": 825,
+        "renRevision": 13,
+        "soraRevision": 12,
+        "requests": 3,
+        "rolling": 1,
+        "active": 0,
+        "waiting": 0,
+        "meeting": "Completed",
+        "speaker": "",
+        "lines": 4,
+        "renOutcome": "meeting.say",
+        "finishedThisTick": 1
+      }
+    ],
+    "requests": [
+      {
+        "ordinal": 1,
+        "npcId": "ren",
+        "decisionId": "da0df6f0-b42a-4873-84e6-55ea27c46ae4",
+        "step": 1,
+        "gameMinutes": 794.8,
+        "revision": 9,
+        "phase": "Conversation",
+        "triggers": "WorldRebuilt,ActivityAccepted,MeetingChanged",
+        "previousResult": "",
+        "candidateError": ""
+      },
+      {
+        "ordinal": 2,
+        "npcId": "ren",
+        "decisionId": "adb2f460-f0e1-4ee9-8528-fe235ea5ffc2",
+        "step": 1,
+        "gameMinutes": 824.9,
+        "revision": 10,
+        "phase": "Conversation",
+        "triggers": "ScheduleChanged",
+        "previousResult": "agent.decision_stale",
+        "candidateError": ""
+      },
+      {
+        "ordinal": 3,
+        "npcId": "sora",
+        "decisionId": "5b7ca282-584b-4ac2-9bf2-40a7ccd83d48",
+        "step": 1,
+        "gameMinutes": 825,
+        "revision": 12,
+        "phase": "",
+        "triggers": "MeetingChanged,ActivityCancelled",
+        "previousResult": "",
+        "candidateError": ""
+      }
+    ],
+    "finding": "会面完成后Sora的普通待决策保留；real120/game825派发Social=null的普通请求，Wait完成后waiting0，已完成会面维持4句。"
+  },
+  "sourceVerification": {
+    "method": "独立git cat-file读取冻结提交全部1026个输入，与当前隔离项目逐项比较字节/换行/LFS OID与长度。",
+    "trackedCount": 1026,
+    "classifications": {
+      "line-endings-only": 86,
+      "byte-identical": 858,
+      "lfs-payload-verified": 81,
+      "different": 1
+    },
+    "csharpCount": 341,
+    "csharpClassifications": {
+      "byte-identical": 338,
+      "line-endings-only": 3
+    },
+    "scenes": [
+      {
+        "path": "Assets/CozyTown/Scenes/CozyTown_Dev.unity",
+        "gitBlob": "9dc00e7769921b8027358959bd428b5b4a37a461",
+        "frozenSha256": "371875a819f0f492d6da01da36882d4e4a22c37cbb451810392243a7df3b2915",
+        "isolatedSha256": "371875a819f0f492d6da01da36882d4e4a22c37cbb451810392243a7df3b2915",
+        "classification": "byte-identical"
+      },
+      {
+        "path": "Assets/Scenes/SampleScene.unity",
+        "gitBlob": "7b420f6ebd3ce91e13736fea44dc79263dcf2c94",
+        "frozenSha256": "387d8216a517be775b6ecc2ab55b97ece687c3372322da2ba027a96908014912",
+        "isolatedSha256": "387d8216a517be775b6ecc2ab55b97ece687c3372322da2ba027a96908014912",
+        "classification": "byte-identical"
+      },
+      {
+        "path": "Assets/Settings/Scenes/URP2DSceneTemplate.unity",
+        "gitBlob": "10756afa1888bb0c9d59137208f93fb86bea7046",
+        "frozenSha256": "f6fb3e91aaa90417e2920b7f903066833b3b9aea72ddcb5e46b91afa729c2e90",
+        "isolatedSha256": "f6fb3e91aaa90417e2920b7f903066833b3b9aea72ddcb5e46b91afa729c2e90",
+        "classification": "byte-identical"
+      }
+    ],
+    "targetSources": [
+      {
+        "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+        "gitBlob": "e2ad03edbe5bdbf14a2e91d97062fc3a048eb5d6",
+        "frozenSha256": "c9c089d2d3275ad7b821fcf180ec714108ecc57aafe2cb6b582ee25a163831ed",
+        "isolatedSha256": "d464050bf9bebba4d3fc8ef748575b92a292b0430b885a239c1e32d8d15347a1",
+        "classification": "line-endings-only"
+      },
+      {
+        "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcConversationBudgetTests.cs",
+        "gitBlob": "6fc977ab4badc2905fc54baeeb519e5378eae82f",
+        "frozenSha256": "9bbb221b84bc5585a6e960d8918422c53a18388239862df9d20f37c8c9a8fa98",
+        "isolatedSha256": "9bbb221b84bc5585a6e960d8918422c53a18388239862df9d20f37c8c9a8fa98",
+        "classification": "byte-identical"
+      },
+      {
+        "path": "Assets/CozyTown/Tests/PlayMode/NpcConversationBudgetPlayModeTests.cs",
+        "gitBlob": "7fbde89441e2a3088070c4c886711e4cf5ea0f95",
+        "frozenSha256": "fe49f9ecdb171e3cd58a5e5c02fc57250d6ea9c65a00c833751198a9d4760c98",
+        "isolatedSha256": "fe49f9ecdb171e3cd58a5e5c02fc57250d6ea9c65a00c833751198a9d4760c98",
+        "classification": "byte-identical"
+      }
+    ],
+    "nonSourceContentException": [
+      {
+        "path": "ProjectSettings/ProjectSettings.asset",
+        "gitBlob": "d13ed560a735d0422f7d3b6bbb1608e80d7b389c",
+        "frozenSha256": "5fa52c56948ae751f378f826390e91bc94fa36c574731d1fe8df3b6f877a1cd9",
+        "isolatedSha256": "a0cc453d18756d18cce9dcab3677f18702669d5ed974bee7f0fea5e5c890db02",
+        "classification": "different"
+      }
+    ],
+    "existingAuditPath": "Logs/conversation-turn-compiled-source-audit.json",
+    "existingAuditSha256": "6cf9df8aed14bf6cb4bcea1548763471a2381a252c01d9dfca1e5e7220a01acf",
+    "existingAuditPhase": "preliminary",
+    "existingAuditStatus": "failed",
+    "existingAuditIssues": [
+      "extra-isolated-input: ProjectSettings/SceneTemplateSettings.json"
+    ],
+    "existingCompilerManifestSourceCount": 341,
+    "existingMissingManifestSources": [],
+    "extraSceneTemplateSettings": {
+      "path": "ProjectSettings/SceneTemplateSettings.json",
+      "sha256": "bb9098b3bfcde78d93e264b96f7b77b5430e64e8c57a7aad7f5a5d9c3945e16a",
+      "bytes": 3535,
+      "contents": "空templatePinStates、默认场景模板依赖类型/实例化设置、newSceneOverride=0；不是C#或场景内容。",
+      "qualification": "已有preliminary source audit未允许该额外文件，故记录为source-audit限制，不宣称其status已通过。"
+    },
+    "followUpFrozenAudit": {
+      "path": "Logs/conversation-turn-compiled-source-audit-frozen.json",
+      "sha256": "131c619804d3478751fbe738a79f5550101ef6730ac64c242478c209903f0e1e",
+      "status": "passed",
+      "sourceCommit": "78d91d2bb91221697946be454b3893dada1c0ae7",
+      "issues": [],
+      "sceneTemplateSettingsExplicitException": {
+        "path": "ProjectSettings/SceneTemplateSettings.json",
+        "approvedByExplicitFlag": true,
+        "isolatedSha256": "bb9098b3bfcde78d93e264b96f7b77b5430e64e8c57a7aad7f5a5d9c3945e16a",
+        "expectedSha256": "bb9098b3bfcde78d93e264b96f7b77b5430e64e8c57a7aad7f5a5d9c3945e16a",
+        "projectSourceReferencesToTemplateSettingsOrService": [],
+        "contentSummary": "22 built-in dependency types, no pinned templates, all userAdded=false, newSceneOverride=0; no scene or asset paths.",
+        "observedOrigin": "Absent from the baseline; file creation/modification timestamp observed as 2026-09-14T06:40:22Z, before this turn-source freeze. Its writer was not captured, so Unity generation is inferred rather than proven.",
+        "impactAssessment": "The installed Unity manual limits these settings to the New Scene menu and dependency clone/reference defaults when creating a scene from a template. This project has no direct settings/service references; the conversation scene fixture loads an existing .unity file. No exercised template-instantiation path was found. This is a scoped assessment, not proof of global irrelevance.",
+        "evidence": [
+          "Unity 6000.5 local Manual/scene-templates-settings.html: New Scene Menu settings and Default Types settings",
+          "https://docs.unity3d.com/6000.5/Documentation/Manual/scene-templates-settings.html",
+          "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs: LoadFreshTown uses EditorSceneManager.LoadSceneAsyncInPlayMode",
+          "Assets/CozyTown/Unity/Editor/CozyTownDevSceneMenu.cs: explicit EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, ...) when creating the development scene"
+        ]
+      },
+      "sceneTemplateHashIndependentlyMatched": true,
+      "settingsEvidenceArtifacts": [
+        {
+          "path": "Logs/conversation-turn-isolated-settings.diff",
+          "sha256": "8c0ac1ae711a8a19e550d9040cf855f43b76aa777bf70a462d52322063a57e46",
+          "bytes": 14956,
+          "sensitiveSettingValuesRedacted": true
+        },
+        {
+          "path": "Logs/conversation-turn-SceneTemplateSettings.json",
+          "sha256": "bb9098b3bfcde78d93e264b96f7b77b5430e64e8c57a7aad7f5a5d9c3945e16a",
+          "bytes": 3535,
+          "sensitiveSettingValuesRedacted": false
+        }
+      ],
+      "classificationNote": "本审计直接比较Git blob，Scheduler仅换行差异计入86项；frozen报告以已冻结工作区overlay比较Scheduler，故其85项换行、859项字节相同。两者源码内容结论一致。"
+    }
+  },
+  "codeReferences": {
+    "defaultBudget": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionSettings.cs:7",
+    "waitingTurnIdentityAndDeadline": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs:47",
+    "freshRequestConstructionAtDispatch": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs:228",
+    "retainedOriginalEventClock": "Assets/CozyTown/Runtime/NpcAgents/NpcAgentWorld.cs:73",
+    "sceneCurrentRequestAssertions": "Assets/CozyTown/Tests/PlayMode/NpcConversationBudgetPlayModeTests.cs:127",
+    "sceneRecoveryStopsDispatch": "Assets/CozyTown/Tests/PlayMode/NpcConversationBudgetPlayModeTests.cs:174",
+    "structuredOldFrameValidation": "Assets/CozyTown/Tests/PlayMode/NpcConversationBudgetPlayModeTests.cs:402",
+    "ordinaryQueueAcceptance": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcConversationBudgetTests.cs:392"
+  },
+  "limits": [
+    "四个Unity场景是受控外部客户端与确定性注入realSeconds，Advance驱动真实身体；记录realSeconds不是测得的墙钟耗时。",
+    "默认8/60秒只由Unity四场景保持；Runtime最小及若干控制明确将滚动上限设为1或2，以分离调度边界。",
+    "8次耗尽F/S各总计9个请求，并未越过每60秒8次上限：real60.1时最早3次已释放，滚动计数6。",
+    "余量对照在game795.2零时间回答；耗尽组在game855.2派发、855.4回复，非零游戏延迟0.2，注入现实延迟约0.1秒。",
+    "1000恢复停止Tick，余量组waiting仍1且rolling仍8，耗尽组rolling仍6；这些是上次Tick留下的计数，不能写作恢复时队列都清空。角色到场和临时活动释放由公开状态和通过的断言验证，不是模型自主规划。",
+    "每组已发布4句及一次deliver，完成来自宿主四句上限；无EndConversation候选。旧S帧为合法express_wish/@learn_cooking/neutral，输入合法性通过public renderer断言；原候选因agent.decision_stale取消而非表达协议拒绝。",
+    "参与者memory未完整输出在这些checkpoint中；旧句不进memory、4条meeting.spoken以及活动释放依赖已通过的冻结测试断言。执行前事实记录直接显示3条既有statement且没有旧句。",
+    "JSONUtility会把无返回frame序列化为空字段对象、部分null字符串序列化为empty string。执行观察采用独立DataContract序列化并保留null；本审计只归一化已识别unit/speakerId空值和unknown.value空值及时间字段名，普通采样时间不作事实改变，statement/receipt来源时间仍完整比较。",
+    "完整套件默认跳过6个ExternalProvider入口；XML根result为Skipped:Ignored源自跳过项，失败数为0，不能写所有853/201项均执行通过。",
+    "源码比对核验当前隔离输入，不是对每个历史运行DLL/PDB的可复现构建证明；单个固定PlayerSettings差异与额外SceneTemplateSettings应分别披露。",
+    "后续frozen输入审计已显式记录两个设置例外并通过；初次preliminary失败保留为历史事实，不再作为未解决阻塞。额外模板设置仅作所查既有场景加载路径的影响限定。"
+  ]
+}
