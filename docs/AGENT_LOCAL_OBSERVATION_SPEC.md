@@ -6,6 +6,8 @@
 - 票据：[确定 NPC 局部观察与事实表达的边界](https://github.com/qinjunw/CozyTown/issues/65)。本文是 [Agent 世界 PRD](AGENT_WORLD_PRD.md) 的专项补充。
 - 观察投影、场景接线、请求装配及执行前复核已实现，协议见[局部观察 v1](NPC_AGENT_PROTOCOL.md#局部观察-v1)，固定测试见[实施验证](verification/npc-local-observation-2026-09-14.md)。受控表达与两组对照已实现；[首轮表达实验](verification/npc-expression-comparison-2026-09-14.md)保留 56 次真实调用的版本拒绝与场景失败。明确外层行动版本后，[新固定复测](verification/npc-expression-version-2026-09-14.md)的 S 24/24 版本正确并产生宿主输出，但仍有选错话题。[移动答复修复](verification/npc-moving-observation-2026-09-14.md)仅对已知同区、事实未变的接受／拒绝忽略坐标变化；8 个新世界、38 次真实调用中，4 次交付交谈、4 次拒绝均完成并恢复日程，表达问题与正式策略选择继续单独处理。
 
+[续谈时序复现](verification/npc-conversation-budget-2026-09-14.md)进一步确认：实际派发时更新观察，不会重置排队请求的原游戏时间期限；预算等待过长可能丢失整个轮次。完整请求重新采样由[后继调度修复](https://github.com/qinjunw/CozyTown/issues/83)处理，本轮没有放宽观察或表达检查。
+
 **现有资料加上本轮补查，已经足够启动有限事实域的观察模块和两组表达实验。** 技术路线不缺新的通用 Agent 框架，缺的是把游戏数据转成每名角色有权知道的事实，以及为表达方式建立可复核的比较。资料不能替代本地场景标注，也不能证明自由台词已经可靠。
 
 | 选择 | 状态 |

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-14 11:58:16Z" end-time="2026-09-14 11:58:17Z" duration="0.1705952">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="830" result="Failed" site="Child" start-time="2026-09-14 11:58:16Z" end-time="2026-09-14 11:58:17Z" duration="0.170595" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1710" name="CozyTown.Tests.EditMode.dll" fullname="&lt;isolated-project&gt;/Library/ScriptAssemblies/CozyTown.Tests.EditMode.dll" runstate="Runnable" testcasecount="591" result="Failed" site="Child" start-time="2026-09-14 11:58:17Z" end-time="2026-09-14 11:58:17Z" duration="0.153517" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="94444" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1711" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="591" result="Failed" site="Child" start-time="2026-09-14 11:58:17Z" end-time="2026-09-14 11:58:17Z" duration="0.147061" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1712" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="591" result="Failed" site="Child" start-time="2026-09-14 11:58:17Z" end-time="2026-09-14 11:58:17Z" duration="0.141140" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1713" name="EditMode" fullname="CozyTown.Tests.EditMode" runstate="Runnable" testcasecount="591" result="Failed" site="Child" start-time="2026-09-14 11:58:17Z" end-time="2026-09-14 11:58:17Z" duration="0.135156" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestSuite" id="1717" name="NpcAgents" fullname="CozyTown.Tests.EditMode.NpcAgents" runstate="Runnable" testcasecount="244" result="Failed" site="Child" start-time="2026-09-14 11:58:17Z" end-time="2026-09-14 11:58:17Z" duration="0.123571" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-suite type="TestFixture" id="1173" name="NpcConversationBudgetTests" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-14 11:58:17Z" end-time="2026-09-14 11:58:17Z" duration="0.115659" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1174" name="ConversationTurn_ResumesAfterBudgetReturns" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.ConversationTurn_ResumesAfterBudgetReturns" methodname="ConversationTurn_ResumesAfterBudgetReturns" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" seed="1176397829" result="Failed" start-time="2026-09-14 11:58:17Z" end-time="2026-09-14 11:58:17Z" duration="0.091525" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  The meeting still has a current speaker and an unfinished fourth turn.
+  Expected: 2
+  But was:  1
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.ConversationTurn_ResumesAfterBudgetReturns () [0x001f0] in &lt;isolated-project&gt;\Assets\CozyTown\Tests\EditMode\NpcAgents\NpcConversationBudgetTests.cs:66
+]]></stack-trace>
+                  </failure>
+                  <output><![CDATA[BUDGET_REQUEST {"ordinal":1,"npcId":"ren","decisionId":"42a05623-9193-4787-a97c-de7be18a6231","step":1,"gameMinutes":794.8,"revision":9,"phase":"Conversation","triggers":"WorldRebuilt,ActivityAccepted,MeetingChanged","previousResult":"","candidateError":""}
+BUDGET_TRACE {"point":"old-request","realSeconds":0,"gameMinutes":794.8,"renRevision":9,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"","finishedThisTick":0}
+BUDGET_TRACE {"point":"schedule-cancel","realSeconds":0.1,"gameMinutes":795,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":1}
+BUDGET_TRACE {"point":"late-reply-drained","realSeconds":0.2,"gameMinutes":795.2,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"before-opportunity-expiry","realSeconds":15,"gameMinutes":824.8,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"opportunity-expired","realSeconds":15.1,"gameMinutes":825,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"other-participant-schedule","realSeconds":22.6,"gameMinutes":840,"renRevision":10,"soraRevision":10,"requests":1,"rolling":1,"active":0,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"rolling-budget-open","realSeconds":60,"gameMinutes":914.8,"renRevision":10,"soraRevision":10,"requests":1,"rolling":0,"active":0,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+Saving results to: &lt;user-home&gt;/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

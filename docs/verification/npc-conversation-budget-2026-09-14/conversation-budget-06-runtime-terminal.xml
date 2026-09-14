@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="10" result="Passed" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-14 12:11:45Z" end-time="2026-09-14 12:11:46Z" duration="0.1810075">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="839" result="Passed" start-time="2026-09-14 12:11:45Z" end-time="2026-09-14 12:11:46Z" duration="0.181008" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1721" name="CozyTown.Tests.EditMode.dll" fullname="&lt;isolated-project&gt;/Library/ScriptAssemblies/CozyTown.Tests.EditMode.dll" runstate="Runnable" testcasecount="600" result="Passed" start-time="2026-09-14 12:11:45Z" end-time="2026-09-14 12:11:46Z" duration="0.153171" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="72040" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1722" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="600" result="Passed" start-time="2026-09-14 12:11:45Z" end-time="2026-09-14 12:11:46Z" duration="0.143210" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1723" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="600" result="Passed" start-time="2026-09-14 12:11:45Z" end-time="2026-09-14 12:11:46Z" duration="0.137117" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1724" name="EditMode" fullname="CozyTown.Tests.EditMode" runstate="Runnable" testcasecount="600" result="Passed" start-time="2026-09-14 12:11:45Z" end-time="2026-09-14 12:11:46Z" duration="0.131314" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1728" name="NpcAgents" fullname="CozyTown.Tests.EditMode.NpcAgents" runstate="Runnable" testcasecount="253" result="Passed" start-time="2026-09-14 12:11:45Z" end-time="2026-09-14 12:11:46Z" duration="0.123521" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1173" name="NpcConversationBudgetTests" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-09-14 12:11:45Z" end-time="2026-09-14 12:11:46Z" duration="0.119575" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1174" name="ExpiredQueuedTurn_RemainsUnspokenAfterBudgetReturnsUntilTheMeetingExpires" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.ExpiredQueuedTurn_RemainsUnspokenAfterBudgetReturnsUntilTheMeetingExpires" methodname="ExpiredQueuedTurn_RemainsUnspokenAfterBudgetReturnsUntilTheMeetingExpires" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" seed="889631020" result="Passed" start-time="2026-09-14 12:11:45Z" end-time="2026-09-14 12:11:46Z" duration="0.072319" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[BUDGET_REQUEST {"ordinal":1,"npcId":"ren","decisionId":"3fe952aa-05bc-44b1-aea9-52e986d339b4","step":1,"gameMinutes":794.8,"revision":9,"phase":"Conversation","triggers":"WorldRebuilt,ActivityAccepted,MeetingChanged","previousResult":"","candidateError":""}
+BUDGET_TRACE {"point":"old-request","realSeconds":0,"gameMinutes":794.8,"renRevision":9,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"","finishedThisTick":0}
+BUDGET_TRACE {"point":"schedule-cancel","realSeconds":0.1,"gameMinutes":795,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":1}
+BUDGET_TRACE {"point":"late-reply-drained","realSeconds":0.2,"gameMinutes":795.2,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"before-opportunity-expiry","realSeconds":15,"gameMinutes":824.8,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"opportunity-expired","realSeconds":15.1,"gameMinutes":825,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"other-participant-schedule","realSeconds":22.6,"gameMinutes":840,"renRevision":10,"soraRevision":10,"requests":1,"rolling":1,"active":0,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"rolling-budget-open","realSeconds":60,"gameMinutes":914.8,"renRevision":10,"soraRevision":10,"requests":1,"rolling":0,"active":0,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"meeting-deadline","realSeconds":67.6,"gameMinutes":930,"renRevision":12,"soraRevision":12,"requests":1,"rolling":0,"active":0,"waiting":0,"meeting":"Expired","speaker":"","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+]]></output>
+                </test-case>
+                <test-case id="1180" name="ReplyBeforeScheduleBoundary_CompletesWithoutAnotherBudgetSlot" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.ReplyBeforeScheduleBoundary_CompletesWithoutAnotherBudgetSlot" methodname="ReplyBeforeScheduleBoundary_CompletesWithoutAnotherBudgetSlot" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" seed="1491674710" result="Passed" start-time="2026-09-14 12:11:46Z" end-time="2026-09-14 12:11:46Z" duration="0.003359" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[BUDGET_REQUEST {"ordinal":1,"npcId":"ren","decisionId":"8998cf8a-1848-4c14-9c9c-4b1a32dd99e9","step":1,"gameMinutes":794.8,"revision":9,"phase":"Conversation","triggers":"WorldRebuilt,ActivityAccepted,MeetingChanged","previousResult":"","candidateError":""}
+BUDGET_TRACE {"point":"old-request","realSeconds":0,"gameMinutes":794.8,"renRevision":9,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"","finishedThisTick":0}
+BUDGET_TRACE {"point":"reply-before-boundary","realSeconds":0.05,"gameMinutes":794.9,"renRevision":12,"soraRevision":12,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Completed","speaker":"","lines":4,"renOutcome":"meeting.say","finishedThisTick":1}
+BUDGET_TRACE {"point":"schedule-after-completion","realSeconds":0.1,"gameMinutes":795,"renRevision":13,"soraRevision":12,"requests":1,"rolling":1,"active":0,"waiting":0,"meeting":"Completed","speaker":"","lines":4,"renOutcome":"meeting.say","finishedThisTick":0}
+]]></output>
+                </test-case>
+                <test-suite type="ParameterizedMethod" id="1179" name="RollingBudgetRelease_DispatchesOnlyWhileQueuedOpportunityIsValid" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.RollingBudgetRelease_DispatchesOnlyWhileQueuedOpportunityIsValid" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-09-14 12:11:46Z" end-time="2026-09-14 12:11:46Z" duration="0.013405" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1175" name="RollingBudgetRelease_DispatchesOnlyWhileQueuedOpportunityIsValid(795.2d,True)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.RollingBudgetRelease_DispatchesOnlyWhileQueuedOpportunityIsValid(795.2d,True)" methodname="RollingBudgetRelease_DispatchesOnlyWhileQueuedOpportunityIsValid" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" seed="1344153869" result="Passed" start-time="2026-09-14 12:11:46Z" end-time="2026-09-14 12:11:46Z" duration="0.005625" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[BUDGET_REQUEST {"ordinal":1,"npcId":"ren","decisionId":"ed3b6004-f458-4076-bad1-eb1e15f75881","step":1,"gameMinutes":794.8,"revision":9,"phase":"Conversation","triggers":"WorldRebuilt,ActivityAccepted,MeetingChanged","previousResult":"","candidateError":""}
+BUDGET_TRACE {"point":"old-request","realSeconds":0,"gameMinutes":794.8,"renRevision":9,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"","finishedThisTick":0}
+BUDGET_TRACE {"point":"schedule-cancel","realSeconds":0.1,"gameMinutes":795,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":1}
+BUDGET_TRACE {"point":"late-reply-drained","realSeconds":0.2,"gameMinutes":795.2,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"rolling-budget-still-full","realSeconds":59.9,"gameMinutes":795.2,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_REQUEST {"ordinal":2,"npcId":"ren","decisionId":"b0db37aa-9e93-4b9c-95d0-7e1784e85a4c","step":1,"gameMinutes":795,"revision":10,"phase":"Conversation","triggers":"ScheduleChanged","previousResult":"agent.decision_stale","candidateError":""}
+BUDGET_TRACE {"point":"rolling-budget-open","realSeconds":60,"gameMinutes":795.2,"renRevision":10,"soraRevision":9,"requests":2,"rolling":1,"active":1,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"replacement-completed","realSeconds":60.01,"gameMinutes":795.2,"renRevision":13,"soraRevision":12,"requests":2,"rolling":1,"active":0,"waiting":0,"meeting":"Completed","speaker":"","lines":4,"renOutcome":"meeting.say","finishedThisTick":1}
+]]></output>
+                  </test-case>
+                  <test-case id="1176" name="RollingBudgetRelease_DispatchesOnlyWhileQueuedOpportunityIsValid(824.9d,True)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.RollingBudgetRelease_DispatchesOnlyWhileQueuedOpportunityIsValid(824.9d,True)" methodname="RollingBudgetRelease_DispatchesOnlyWhileQueuedOpportunityIsValid" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" seed="1981171702" result="Passed" start-time="2026-09-14 12:11:46Z" end-time="2026-09-14 12:11:46Z" duration="0.001451" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[BUDGET_REQUEST {"ordinal":1,"npcId":"ren","decisionId":"1e9a063d-3db1-4757-949b-cf6443ff4a44","step":1,"gameMinutes":794.8,"revision":9,"phase":"Conversation","triggers":"WorldRebuilt,ActivityAccepted,MeetingChanged","previousResult":"","candidateError":""}
+BUDGET_TRACE {"point":"old-request","realSeconds":0,"gameMinutes":794.8,"renRevision":9,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"","finishedThisTick":0}
+BUDGET_TRACE {"point":"schedule-cancel","realSeconds":0.1,"gameMinutes":795,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":1}
+BUDGET_TRACE {"point":"late-reply-drained","realSeconds":0.2,"gameMinutes":795.2,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"rolling-budget-still-full","realSeconds":59.9,"gameMinutes":795.2,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_REQUEST {"ordinal":2,"npcId":"ren","decisionId":"dbb5417d-a3d8-4196-a632-7ab343feba66","step":1,"gameMinutes":795,"revision":10,"phase":"Conversation","triggers":"ScheduleChanged","previousResult":"agent.decision_stale","candidateError":""}
+BUDGET_TRACE {"point":"rolling-budget-open","realSeconds":60,"gameMinutes":824.9,"renRevision":10,"soraRevision":9,"requests":2,"rolling":1,"active":1,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"replacement-completed","realSeconds":60.01,"gameMinutes":824.9,"renRevision":13,"soraRevision":12,"requests":2,"rolling":1,"active":0,"waiting":0,"meeting":"Completed","speaker":"","lines":4,"renOutcome":"meeting.say","finishedThisTick":1}
+]]></output>
+                  </test-case>
+                  <test-case id="1177" name="RollingBudgetRelease_DispatchesOnlyWhileQueuedOpportunityIsValid(825,False)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.RollingBudgetRelease_DispatchesOnlyWhileQueuedOpportunityIsValid(825,False)" methodname="RollingBudgetRelease_DispatchesOnlyWhileQueuedOpportunityIsValid" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" seed="12533057" result="Passed" start-time="2026-09-14 12:11:46Z" end-time="2026-09-14 12:11:46Z" duration="0.000931" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[BUDGET_REQUEST {"ordinal":1,"npcId":"ren","decisionId":"2588a052-b611-435b-8c50-aae331d27a01","step":1,"gameMinutes":794.8,"revision":9,"phase":"Conversation","triggers":"WorldRebuilt,ActivityAccepted,MeetingChanged","previousResult":"","candidateError":""}
+BUDGET_TRACE {"point":"old-request","realSeconds":0,"gameMinutes":794.8,"renRevision":9,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"","finishedThisTick":0}
+BUDGET_TRACE {"point":"schedule-cancel","realSeconds":0.1,"gameMinutes":795,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":1}
+BUDGET_TRACE {"point":"late-reply-drained","realSeconds":0.2,"gameMinutes":795.2,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"rolling-budget-still-full","realSeconds":59.9,"gameMinutes":795.2,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"rolling-budget-open","realSeconds":60,"gameMinutes":825,"renRevision":10,"soraRevision":9,"requests":1,"rolling":0,"active":0,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+]]></output>
+                  </test-case>
+                  <test-case id="1178" name="RollingBudgetRelease_DispatchesOnlyWhileQueuedOpportunityIsValid(825.1d,False)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.RollingBudgetRelease_DispatchesOnlyWhileQueuedOpportunityIsValid(825.1d,False)" methodname="RollingBudgetRelease_DispatchesOnlyWhileQueuedOpportunityIsValid" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" seed="456610545" result="Passed" start-time="2026-09-14 12:11:46Z" end-time="2026-09-14 12:11:46Z" duration="0.000632" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[BUDGET_REQUEST {"ordinal":1,"npcId":"ren","decisionId":"2ce928c6-d529-49cb-a109-a4a6dadb9e08","step":1,"gameMinutes":794.8,"revision":9,"phase":"Conversation","triggers":"WorldRebuilt,ActivityAccepted,MeetingChanged","previousResult":"","candidateError":""}
+BUDGET_TRACE {"point":"old-request","realSeconds":0,"gameMinutes":794.8,"renRevision":9,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"","finishedThisTick":0}
+BUDGET_TRACE {"point":"schedule-cancel","realSeconds":0.1,"gameMinutes":795,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":1}
+BUDGET_TRACE {"point":"late-reply-drained","realSeconds":0.2,"gameMinutes":795.2,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"rolling-budget-still-full","realSeconds":59.9,"gameMinutes":795.2,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"rolling-budget-open","realSeconds":60,"gameMinutes":825.1,"renRevision":10,"soraRevision":9,"requests":1,"rolling":0,"active":0,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+]]></output>
+                  </test-case>
+                </test-suite>
+                <test-case id="1181" name="SpareBudgetSlot_DispatchesNewScheduleDecisionAfterTheCancelledReplyDrains" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.SpareBudgetSlot_DispatchesNewScheduleDecisionAfterTheCancelledReplyDrains" methodname="SpareBudgetSlot_DispatchesNewScheduleDecisionAfterTheCancelledReplyDrains" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" seed="1169783435" result="Passed" start-time="2026-09-14 12:11:46Z" end-time="2026-09-14 12:11:46Z" duration="0.001226" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[BUDGET_REQUEST {"ordinal":1,"npcId":"ren","decisionId":"feef5d88-bcd3-4b06-8288-a8c0bf134c32","step":1,"gameMinutes":794.8,"revision":9,"phase":"Conversation","triggers":"WorldRebuilt,ActivityAccepted,MeetingChanged","previousResult":"","candidateError":""}
+BUDGET_TRACE {"point":"old-request","realSeconds":0,"gameMinutes":794.8,"renRevision":9,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"","finishedThisTick":0}
+BUDGET_TRACE {"point":"schedule-cancel","realSeconds":0.1,"gameMinutes":795,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":1}
+BUDGET_REQUEST {"ordinal":2,"npcId":"ren","decisionId":"a894ad28-6783-4b89-9aa2-3e9d031fbfc9","step":1,"gameMinutes":795,"revision":10,"phase":"Conversation","triggers":"ScheduleChanged","previousResult":"agent.decision_stale","candidateError":""}
+BUDGET_TRACE {"point":"late-reply-drained-and-replacement-started","realSeconds":0.2,"gameMinutes":795.2,"renRevision":10,"soraRevision":9,"requests":2,"rolling":2,"active":1,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"replacement-completed","realSeconds":0.3,"gameMinutes":795.4,"renRevision":13,"soraRevision":12,"requests":2,"rolling":2,"active":0,"waiting":0,"meeting":"Completed","speaker":"","lines":4,"renOutcome":"meeting.say","finishedThisTick":1}
+]]></output>
+                </test-case>
+                <test-suite type="ParameterizedMethod" id="1185" name="TerminalMeetingChange_DiscardsQueuedTurnAndLateReplyBeforeBudgetReturns" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.TerminalMeetingChange_DiscardsQueuedTurnAndLateReplyBeforeBudgetReturns" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-14 12:11:46Z" end-time="2026-09-14 12:11:46Z" duration="0.006481" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1182" name="TerminalMeetingChange_DiscardsQueuedTurnAndLateReplyBeforeBudgetReturns(&quot;world-rebuild&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.TerminalMeetingChange_DiscardsQueuedTurnAndLateReplyBeforeBudgetReturns(&quot;world-rebuild&quot;)" methodname="TerminalMeetingChange_DiscardsQueuedTurnAndLateReplyBeforeBudgetReturns" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" seed="559797259" result="Passed" start-time="2026-09-14 12:11:46Z" end-time="2026-09-14 12:11:46Z" duration="0.003723" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[BUDGET_REQUEST {"ordinal":1,"npcId":"ren","decisionId":"7d80bc7c-fbf3-479e-81fa-6134c1d35977","step":1,"gameMinutes":794.8,"revision":9,"phase":"Conversation","triggers":"WorldRebuilt,ActivityAccepted,MeetingChanged","previousResult":"","candidateError":""}
+BUDGET_TRACE {"point":"old-request","realSeconds":0,"gameMinutes":794.8,"renRevision":9,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"","finishedThisTick":0}
+BUDGET_TRACE {"point":"schedule-cancel","realSeconds":0.1,"gameMinutes":795,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":1}
+BUDGET_TRACE {"point":"world-rebuild","realSeconds":0.2,"gameMinutes":795.2,"renRevision":1,"soraRevision":1,"requests":1,"rolling":1,"active":1,"waiting":0,"meeting":"","speaker":"","lines":0,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"terminal-late-reply-drained","realSeconds":0.3,"gameMinutes":795.2,"renRevision":1,"soraRevision":1,"requests":1,"rolling":1,"active":0,"waiting":0,"meeting":"","speaker":"","lines":0,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"terminal-budget-open","realSeconds":60,"gameMinutes":914.8,"renRevision":1,"soraRevision":2,"requests":1,"rolling":0,"active":0,"waiting":0,"meeting":"","speaker":"","lines":0,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+]]></output>
+                  </test-case>
+                  <test-case id="1183" name="TerminalMeetingChange_DiscardsQueuedTurnAndLateReplyBeforeBudgetReturns(&quot;player-busy&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.TerminalMeetingChange_DiscardsQueuedTurnAndLateReplyBeforeBudgetReturns(&quot;player-busy&quot;)" methodname="TerminalMeetingChange_DiscardsQueuedTurnAndLateReplyBeforeBudgetReturns" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" seed="339369922" result="Passed" start-time="2026-09-14 12:11:46Z" end-time="2026-09-14 12:11:46Z" duration="0.000971" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[BUDGET_REQUEST {"ordinal":1,"npcId":"ren","decisionId":"2b0cb2bd-81bf-4fdc-9a11-e31dc34e4813","step":1,"gameMinutes":794.8,"revision":9,"phase":"Conversation","triggers":"WorldRebuilt,ActivityAccepted,MeetingChanged","previousResult":"","candidateError":""}
+BUDGET_TRACE {"point":"old-request","realSeconds":0,"gameMinutes":794.8,"renRevision":9,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"","finishedThisTick":0}
+BUDGET_TRACE {"point":"schedule-cancel","realSeconds":0.1,"gameMinutes":795,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":1}
+BUDGET_TRACE {"point":"player-busy","realSeconds":0.2,"gameMinutes":795.2,"renRevision":12,"soraRevision":11,"requests":1,"rolling":1,"active":1,"waiting":0,"meeting":"Cancelled","speaker":"","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"terminal-late-reply-drained","realSeconds":0.3,"gameMinutes":795.2,"renRevision":12,"soraRevision":11,"requests":1,"rolling":1,"active":0,"waiting":0,"meeting":"Cancelled","speaker":"","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"terminal-budget-open","realSeconds":60,"gameMinutes":914.8,"renRevision":12,"soraRevision":12,"requests":1,"rolling":0,"active":0,"waiting":0,"meeting":"Cancelled","speaker":"","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+]]></output>
+                  </test-case>
+                  <test-case id="1184" name="TerminalMeetingChange_DiscardsQueuedTurnAndLateReplyBeforeBudgetReturns(&quot;meeting-deadline&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.TerminalMeetingChange_DiscardsQueuedTurnAndLateReplyBeforeBudgetReturns(&quot;meeting-deadline&quot;)" methodname="TerminalMeetingChange_DiscardsQueuedTurnAndLateReplyBeforeBudgetReturns" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" seed="1463977837" result="Passed" start-time="2026-09-14 12:11:46Z" end-time="2026-09-14 12:11:46Z" duration="0.000769" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[BUDGET_REQUEST {"ordinal":1,"npcId":"ren","decisionId":"5c2431b2-4406-4b4f-80a1-b8d8cb8cfd8f","step":1,"gameMinutes":794.8,"revision":9,"phase":"Conversation","triggers":"WorldRebuilt,ActivityAccepted,MeetingChanged","previousResult":"","candidateError":""}
+BUDGET_TRACE {"point":"old-request","realSeconds":0,"gameMinutes":794.8,"renRevision":9,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"","finishedThisTick":0}
+BUDGET_TRACE {"point":"schedule-cancel","realSeconds":0.1,"gameMinutes":795,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":1}
+BUDGET_TRACE {"point":"meeting-deadline","realSeconds":0.2,"gameMinutes":930,"renRevision":12,"soraRevision":11,"requests":1,"rolling":1,"active":1,"waiting":0,"meeting":"Expired","speaker":"","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"terminal-late-reply-drained","realSeconds":0.3,"gameMinutes":930,"renRevision":12,"soraRevision":11,"requests":1,"rolling":1,"active":0,"waiting":0,"meeting":"Expired","speaker":"","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"terminal-budget-open","realSeconds":60,"gameMinutes":930,"renRevision":12,"soraRevision":11,"requests":1,"rolling":0,"active":0,"waiting":0,"meeting":"Expired","speaker":"","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+Saving results to: &lt;user-home&gt;/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+                  </test-case>
+                </test-suite>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

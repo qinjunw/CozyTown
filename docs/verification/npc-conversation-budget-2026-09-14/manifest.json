@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 1,
+  "baselineCommit": "ec2082233bf64ff29d86350aaae9e0c0ac77884b",
+  "sourceCommit": "bb5c4eaf32be6de964b339800b0a1ee79c984f81",
+  "productionChanged": false,
+  "newRealModelCalls": 0,
+  "unityVersion": "6000.5.5f1",
+  "scope": "Deterministic characterization and controlled scene reproduction; not a production fix or model-stability study.",
+  "testSources": [
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcConversationBudgetTests.cs",
+      "sha256": "3194eb1116a4e2f67c8c06a79cf742b7e250377650e3b770f1afc5e2bea02976",
+      "bytes": 19636,
+      "committedBlobSha256": "3194eb1116a4e2f67c8c06a79cf742b7e250377650e3b770f1afc5e2bea02976"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcConversationBudgetPlayModeTests.cs",
+      "sha256": "eabafec8b5e4a6c787b7034c3ed34825dcba18f0fcfe9fb93facde6ae913e5fc",
+      "bytes": 24385,
+      "committedBlobSha256": "eabafec8b5e4a6c787b7034c3ed34825dcba18f0fcfe9fb93facde6ae913e5fc"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcConversationBudgetTests.cs.meta",
+      "sha256": "ca1a08c5c31fca1b9370b98ac3b777d5e5d407b28dd64423c34e5361b2cd459c",
+      "bytes": 60,
+      "committedBlobSha256": "ca1a08c5c31fca1b9370b98ac3b777d5e5d407b28dd64423c34e5361b2cd459c"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcConversationBudgetPlayModeTests.cs.meta",
+      "sha256": "c70166ff60eb478f4664a37f4b393a9b1604d37a1a8a58c2a4bde74e2d93c24c",
+      "bytes": 60,
+      "committedBlobSha256": "c70166ff60eb478f4664a37f4b393a9b1604d37a1a8a58c2a4bde74e2d93c24c"
+    }
+  ],
+  "runs": [
+    {
+      "file": "conversation-budget-01-target-red.xml",
+      "counts": {
+        "result": "Failed(Child)",
+        "total": "1",
+        "passed": "0",
+        "failed": "1",
+        "skipped": "0",
+        "duration": "0.1705952"
+      },
+      "failures": [
+        {
+          "test": "CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.ConversationTurn_ResumesAfterBudgetReturns",
+          "message": "  The meeting still has a current speaker and an unfinished fourth turn.\n  Expected: 2\n  But was:  1\n"
+        }
+      ],
+      "skipped": [],
+      "localConsoleLogSha256": "8ddb37e936874586b739a3077a5346335ab85440d22e445e417696744915d5ab"
+    },
+    {
+      "file": "conversation-budget-02-characterization.xml",
+      "counts": {
+        "result": "Passed",
+        "total": "1",
+        "passed": "1",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "0.107571"
+      },
+      "failures": [],
+      "skipped": [],
+      "localConsoleLogSha256": "c63c2a949cfde1f8ac5dcc83916e9fd439e8c1d5984f8b5e0e3c433bfafd85d9"
+    },
+    {
+      "file": "conversation-budget-03-scene-reproduction.xml",
+      "counts": {
+        "result": "Passed",
+        "total": "1",
+        "passed": "1",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "1.8595952"
+      },
+      "failures": [],
+      "skipped": [],
+      "localConsoleLogSha256": "e4a480e058e65b85dcce31e526aacaa1b1710139d3203aff8038287e242ff927"
+    },
+    {
+      "file": "conversation-budget-04-runtime-controls.xml",
+      "counts": {
+        "result": "Passed",
+        "total": "7",
+        "passed": "7",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "0.1360863"
+      },
+      "failures": [],
+      "skipped": [],
+      "localConsoleLogSha256": "cc429a4b1debc163eb9b178d32b0736dd0aa40770b2c5dc717e1245e361c9217"
+    },
+    {
+      "file": "conversation-budget-05-scene-control.xml",
+      "counts": {
+        "result": "Failed(Child)",
+        "total": "1",
+        "passed": "0",
+        "failed": "1",
+        "skipped": "0",
+        "duration": "0.6764206"
+      },
+      "failures": [
+        {
+          "test": "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.ConversationScheduleChange_WithOneBudgetSlotRemaining_DispatchesNewDecisionAndCompletesFourTurns",
+          "message": "  Expected: True\n  But was:  False\n"
+        }
+      ],
+      "skipped": [],
+      "localConsoleLogSha256": "875dcec2e301d62426396e8bf1599d90a461c41b50b533568a01672823cdf244"
+    },
+    {
+      "file": "conversation-budget-06-runtime-terminal.xml",
+      "counts": {
+        "result": "Passed",
+        "total": "10",
+        "passed": "10",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "0.1810075"
+      },
+      "failures": [],
+      "skipped": [],
+      "localConsoleLogSha256": "bd290931c4ae3dd973534e2b7d89237140487969c48faccbb9ddd357207005e8"
+    },
+    {
+      "file": "conversation-budget-07-runtime-dispatch-time.xml",
+      "counts": {
+        "result": "Passed",
+        "total": "11",
+        "passed": "11",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "0.1469674"
+      },
+      "failures": [],
+      "skipped": [],
+      "localConsoleLogSha256": "f900c9369813db8cdab328ef93bae01ce20e8307969c2f814713d0a8436a8000"
+    },
+    {
+      "file": "conversation-budget-08-scene-controls.xml",
+      "counts": {
+        "result": "Passed",
+        "total": "2",
+        "passed": "2",
+        "failed": "0",
+        "skipped": "0",
+        "duration": "0.8392608"
+      },
+      "failures": [],
+      "skipped": [],
+      "localConsoleLogSha256": "2af6557eefbcfd3e80eb4b341be5f78252176802c90c2b271ce3dffc0d84d2a7"
+    },
+    {
+      "file": "conversation-budget-09-full-edit.xml",
+      "counts": {
+        "result": "Skipped:Ignored",
+        "total": "840",
+        "passed": "839",
+        "failed": "0",
+        "skipped": "1",
+        "duration": "11.2080603"
+      },
+      "failures": [],
+      "skipped": [
+        {
+          "test": "CozyTown.Tests.UnityEditMode.NpcExpressionExperimentTests.LiveProxy_CompareEightFactCasesWithOneCallPerSample",
+          "reason": "Set COZYTOWN_RUN_EXPRESSION_FIXED=1 to run the registered provider comparison."
+        }
+      ],
+      "localConsoleLogSha256": "a9f7215ef6c3724b55a687cf006cedfe96c8b7c971d0ad80775537f37c1b654a"
+    },
+    {
+      "file": "conversation-budget-10-full-play.xml",
+      "counts": {
+        "result": "Skipped:Ignored",
+        "total": "199",
+        "passed": "194",
+        "failed": "0",
+        "skipped": "5",
+        "duration": "19.6584642"
+      },
+      "failures": [],
+      "skipped": [
+        {
+          "test": "CozyTown.Tests.PlayMode.NpcMeetingPlayModeTests.LiveProxy_RealProviderDrivesTheSceneMeetingWithinTheConfiguredBudget",
+          "reason": "Requires explicit live-meeting opt-in and a capped local proxy."
+        },
+        {
+          "test": "CozyTown.Tests.PlayMode.NpcResourcePlayModeTests.LiveProxy_TransfersOwnedResourcesThroughTheActualScene",
+          "reason": "Requires explicit resource-test opt-in and a capped local proxy."
+        },
+        {
+          "test": "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_ComparedExpressionModesAcrossFourFreshWorlds",
+          "reason": "Requires expression-experiment opt-in and two loopback proxies sharing a 48-call scene budget."
+        },
+        {
+          "test": "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_ComparedGroundingArmsAcrossFreshScenarios",
+          "reason": "Requires explicit grounding-experiment opt-in and four loopback endpoints with a shared 192-call scene budget."
+        },
+        {
+          "test": "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_RepeatsFourFreshInitialScenarios",
+          "reason": "Requires explicit scenario-test opt-in and one proxy capped at 96 calls for the entire matrix."
+        }
+      ],
+      "localConsoleLogSha256": "a026b796d370dbd37912bbdd66351ecc948da5a380804d135a7652170bf62e42"
+    }
+  ],
+  "publishedTransforms": [
+    {
+      "file": "conversation-budget-01-target-red.xml",
+      "originalSha256": "fb8d8e8b2909f1cb592612d97dcd565c2f493cf8b2543a48dc146213f9448f9e",
+      "publishedSha256": "2aa94207dcc132f2278920ee7b0354423b2da11934494eaddefd046ebcd08568",
+      "transform": "Replace local repository, isolated-project and user-home prefixes with XML-escaped placeholders; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-budget-02-characterization.xml",
+      "originalSha256": "e1f01947afe0e710e825828d8817cb497d15c2f4385bd52b909837ee428d57e1",
+      "publishedSha256": "ab89ef487d32b11ed9bdf03a05078a95df88441ab2bcca3ece38e966ba22be7c",
+      "transform": "Replace local repository, isolated-project and user-home prefixes with XML-escaped placeholders; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-budget-03-scene-reproduction.xml",
+      "originalSha256": "1d59df6a456f225d6ce08f384f975d54b413bc31b68037b4e8afa15a8e1c4782",
+      "publishedSha256": "41be002375428f55f143cd047baa51da1a76fa51019b3f59d954dc68294a0ea5",
+      "transform": "Replace local repository, isolated-project and user-home prefixes with XML-escaped placeholders; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-budget-04-runtime-controls.xml",
+      "originalSha256": "62c0c1bdc1829528e56080e878c073582829024e98f76e4c9cf42d0960828d6b",
+      "publishedSha256": "00dedc0f7d3a4ec13a21f75a6b300a62b7f8936c3efe2656843a595d249b116c",
+      "transform": "Replace local repository, isolated-project and user-home prefixes with XML-escaped placeholders; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-budget-05-scene-control.xml",
+      "originalSha256": "c256dce6b2dd4f1f45ece8f7454a681032df2fefddc69a3b986327f0b3b4cb5a",
+      "publishedSha256": "573833d22b1cea15a99d9e0b41a62222bd588add28f8923eb3282367b0d1b4df",
+      "transform": "Replace local repository, isolated-project and user-home prefixes with XML-escaped placeholders; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-budget-06-runtime-terminal.xml",
+      "originalSha256": "16d183382d2b03630cdb821c063a88be11443e5afc73a07f377f80cb85507b30",
+      "publishedSha256": "290d945739133624f18e3fe7da575ff6297381b03b9fe90e9dff78b78313f1c0",
+      "transform": "Replace local repository, isolated-project and user-home prefixes with XML-escaped placeholders; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-budget-07-runtime-dispatch-time.xml",
+      "originalSha256": "d124c507df7ed8a256096124566b3c2501bc0bda7265758d1fd6e4b3aba25697",
+      "publishedSha256": "8e734d7b9de6cba13f6b1a5d32ce8809519e4611a3069e0ac60ece031acf8a24",
+      "transform": "Replace local repository, isolated-project and user-home prefixes with XML-escaped placeholders; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-budget-08-scene-controls.xml",
+      "originalSha256": "48c8d6c1d9288751ea18fdfbd4f5a40dc1234bfb9b1c7258cbadd6c1ae52ea09",
+      "publishedSha256": "ae77558c323b9b2e9c08cae9d891aab2f98fcf3c599eb1225569cbd1113440e7",
+      "transform": "Replace local repository, isolated-project and user-home prefixes with XML-escaped placeholders; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-budget-09-full-edit.xml",
+      "originalSha256": "9cc60b8a9f5c58b16e25bf6e5f4f3b7660e43029482e0a6332d5cafe398bd75d",
+      "publishedSha256": "3fc583ac6e526d4d05aff53f326961493565f5326c7dae31c9e8adc22604bdf4",
+      "transform": "Replace local repository, isolated-project and user-home prefixes with XML-escaped placeholders; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-budget-10-full-play.xml",
+      "originalSha256": "4346c7ea62144caaea949e8f2b46472e9ff7cdd8d8018333c6557df6c7200a3c",
+      "publishedSha256": "d998aaed25f2a53e5a26206bc843eca9f127569263aa8a80eef3c72748e03b6c",
+      "transform": "Replace local repository, isolated-project and user-home prefixes with XML-escaped placeholders; UTF-8 without BOM."
+    },
+    {
+      "file": "conversation-budget-target-probe.cs",
+      "originalSha256": "adbee598ae3287b5757ab8761c62852a37862a94eda0c60c5c1af00ee84e5e1a",
+      "publishedSha256": "adbee598ae3287b5757ab8761c62852a37862a94eda0c60c5c1af00ee84e5e1a",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "conversation-budget-target-sources.json",
+      "originalSha256": "3bf9607e082bd12594aebe379fd43cb306f4e387390576cb3ddb6e499a111e8a",
+      "publishedSha256": "3bf9607e082bd12594aebe379fd43cb306f4e387390576cb3ddb6e499a111e8a",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "conversation-budget-scene-control-first-probe.cs",
+      "originalSha256": "6fd5e49f204f52c9ae4ef9a2fc5fdcf31d3bdec6d0fe630475acb3c36ca546fa",
+      "publishedSha256": "6fd5e49f204f52c9ae4ef9a2fc5fdcf31d3bdec6d0fe630475acb3c36ca546fa",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "conversation-budget-history-audit.json",
+      "originalSha256": "f77d1261cf53f70d7f8ebb62743911ed8e69ff54f99fdedee5721c4ded931e71",
+      "publishedSha256": "f77d1261cf53f70d7f8ebb62743911ed8e69ff54f99fdedee5721c4ded931e71",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "conversation-budget-input-audit.json",
+      "originalSha256": "1a7d00c610bb979db9c3404cdb941f05ddf487799c6358b2461b78fcc228824f",
+      "publishedSha256": "1a7d00c610bb979db9c3404cdb941f05ddf487799c6358b2461b78fcc228824f",
+      "transform": "Byte-for-byte copy."
+    },
+    {
+      "file": "conversation-budget-isolated-settings.diff",
+      "originalSha256": "fd6ec98b1b80afe43fc993d85e47b275dd82202c6c6167addb23e633d43b7749",
+      "publishedSha256": "8b3a20a71676238aabc3ad109ec59e8ee6a2ea77e9c9caab9a24b879fa395e5b",
+      "transform": "Replace local path prefixes; settings diff also replaces the generated console-platform passcode with a placeholder."
+    }
+  ],
+  "limitations": [
+    "01 is the intentionally failing target probe; passing characterization asserts the current defect.",
+    "05 is a retained fixture-time assertion failure, corrected without changing production behavior.",
+    "After scene dispatch stops, scheduler budget/waiting counters are cached, not fresh measurements.",
+    "Only isolated base project plus new tests was executed; unrelated shared-workspace changes were excluded."
+  ]
+}
