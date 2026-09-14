@@ -135,7 +135,7 @@ Examples: {"schemaVersion":1,"operation":"wait"};
 {"schemaVersion":1,"operation":"inspect_location","locationId":"known-id"};
 {"schemaVersion":1,"operation":"visit","locationId":"known-id","activity":"resting","durationGameMinutes":20}.
 Social candidate fields, when allowed: invite uses planId; accept_invite,
-decline_invite, say and end_conversation use meetingId; say also uses text.
+decline_invite, say and end_conversation use meetingId; say uses text unless an expression contract below replaces it.
 For resource meetings, social.resources contains fixed trade terms, only your own
 relevant quantity and balance, and deliveryResultCode from the host. Invite or accept
 only if you agree to those terms. When delivery is offered, use deliver or cancel_exchange
@@ -154,6 +154,32 @@ Unknown values and incomplete nearby lists do not establish zero, absence or unl
 A complete nearby list covers only registered entities in the stated region and radius, not the whole world.
 Sampled position is not targetLocationId. A registered or decorative object does not imply usable resources.
 """
+
+
+EXPRESSION_PROMPTS = {
+    "free_text": """Expression schemaVersion 1, mode free_text: say uses top-level text.
+Do not supply speechIntent, factId or tone. Keep the supplied facts and their expression permissions.
+""",
+    "structured_facts": """Expression schemaVersion 1, mode structured_facts replaces only the say text contract.
+For say return exactly schemaVersion, operation, meetingId, speechIntent, factId and tone at the top level.
+Never include text, extra actors, values, quantities, tense or other fields; the host renders the selected fact.
+Choose one speechIntent: report_observation, report_receipt, recall_statement, acknowledge_unknown, ask_about, express_wish.
+Choose tone neutral, warm or brief, and one factId from observation.facts or the reserved IDs below.
+Only canExpress facts may be used. Supported report_observation predicates:
+region and region_name use the authoritative region_name; nearby name, kind, interaction and present describe registered entities.
+kind supports decoration, water, landmark or resident; interaction supports none or fishing.
+owned_quantity describes your fish.carp count; terms_quantity and terms_price describe carp and coin trade terms;
+seller and buyer identify the trade participants; decision_stage supports opportunity, invitation, delivery or conversation.
+Do not select other predicates for report_observation. balance is private and cannot be expressed.
+report_receipt uses recorded delivery receipts; recall_statement attributes a recorded statement to its speaker and time.
+Use acknowledge_unknown for unknown quantity; do not report an unknown quantity as a known value.
+ask_about is limited to nearby name, present or unknown quantity, and the reserved @partner_assets topic below.
+express_wish is limited to @talk or @learn_cooking; it does not accept a fact from observation.facts.
+Reserved @partner_assets means the current listener's private assets are unknown: acknowledge_unknown or ask_about.
+Reserved @nearby_coverage describes the registered local coverage: report_observation, or acknowledge_unknown when incomplete or unmapped.
+Reserved @talk and @learn_cooking allow express_wish only, expressing a wish to talk or learn cooking, without claiming past actions.
+""",
+}
 
 
 class ProxyService:
@@ -193,6 +219,11 @@ class ProxyService:
             allowed = context.get("allowedOperations")
             if not isinstance(allowed, list) or not allowed or any(not isinstance(op, str) or op not in operations for op in allowed):
                 raise ValueError
+            if "expression" in context:
+                expression = context["expression"]
+                if (not isinstance(expression, dict) or type(expression.get("schemaVersion")) is not int
+                        or expression["schemaVersion"] != 1 or expression.get("mode") not in ("free_text", "structured_facts")):
+                    raise ValueError
             self._validate_observation(context)
             context_json = json.dumps(context, ensure_ascii=False, allow_nan=False)
             if len(context_json.encode("utf-8")) > 32768:
@@ -213,7 +244,7 @@ class ProxyService:
         try:
             response = self.transport({
                 "model": self.model,
-                "messages": [{"role": "system", "content": SYSTEM_PROMPT},
+                "messages": [{"role": "system", "content": SYSTEM_PROMPT + EXPRESSION_PROMPTS.get(context.get("expression", {}).get("mode"), "")},
                              {"role": "user", "content": context_json}],
                 "thinking": {"type": "disabled"},
                 "max_tokens": 512,
@@ -243,6 +274,8 @@ class ProxyService:
                     "say": {"meetingId", "text"}, "end_conversation": {"meetingId"},
                     "deliver": {"meetingId"}, "cancel_exchange": {"meetingId"},
                 }[candidate["operation"]]
+                if candidate["operation"] == "say" and context.get("expression", {}).get("mode") == "structured_facts":
+                    fields = {"schemaVersion", "operation", "meetingId", "speechIntent", "factId", "tone"}
                 candidate = {key: value for key, value in candidate.items() if key in fields}
                 record["candidate"] = candidate
                 record["status"] = "passed"
@@ -361,6 +394,18 @@ class ProxyService:
             except ValueError:
                 raise ProxyError("provider.candidate_invalid", 422, candidate_error_code="candidate.meeting_id_mismatch") from None
         if candidate["operation"] == "say":
+            structured = context.get("expression", {}).get("mode") == "structured_facts"
+            if (structured and "text" in candidate) or (not structured and any(
+                    field in candidate for field in ("speechIntent", "factId", "tone"))):
+                raise ProxyError("provider.candidate_invalid", 422, candidate_error_code="candidate.expression_mode_mismatch")
+            if structured:
+                if (set(candidate) != {"schemaVersion", "operation", "meetingId", "speechIntent", "factId", "tone"}
+                        or candidate.get("speechIntent") not in ("report_observation", "report_receipt", "recall_statement",
+                            "acknowledge_unknown", "ask_about", "express_wish")
+                        or candidate.get("tone") not in ("neutral", "warm", "brief")
+                        or not isinstance(candidate.get("factId"), str) or not candidate["factId"].strip()):
+                    raise ProxyError("provider.candidate_invalid", 422, candidate_error_code="candidate.speech_frame_invalid")
+                return
             speech = candidate.get("text")
             valid_text = isinstance(speech, str) and bool(speech.strip())
             if valid_text:

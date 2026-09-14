@@ -26,7 +26,7 @@ using UnityEngine.TestTools;
 
 namespace CozyTown.Tests.PlayMode
 {
-    public sealed class NpcResourceScenarioPlayModeTests
+    public sealed partial class NpcResourceScenarioPlayModeTests
     {
         private const string Ren = DefaultMvpIds.Npcs.Fisher, Sora = DefaultMvpIds.Npcs.Cook;
         private const string Fish = DefaultMvpIds.Items.Carp;
@@ -187,9 +187,12 @@ namespace CozyTown.Tests.PlayMode
         }
 
         private IEnumerator RunMatrix(MatrixReport report, string endpoint, int repetitions, bool reckless, string path, int firstOrdinal = 1,
-            bool grounding = false, int groundingBasePort = 0, bool correctFirstInvitation = false)
+            bool grounding = false, int groundingBasePort = 0, bool correctFirstInvitation = false,
+            bool expression = false, int expressionBasePort = 0)
         {
-            bool live = endpoint != null || groundingBasePort != 0;
+            if (expression && (repetitions != 1 || firstOrdinal != 1))
+                throw new ArgumentException("Expression trials require the four registered worlds without continuation.");
+            bool live = endpoint != null || groundingBasePort != 0 || expressionBasePort != 0;
             var epochs = new HashSet<string>();
             for (int repeat = 0; repeat < repetitions; repeat++)
             for (int offset = 0; offset < Scenarios.Length; offset++)
@@ -197,14 +200,24 @@ namespace CozyTown.Tests.PlayMode
                 int ordinal = repeat * Scenarios.Length + offset + 1;
                 if (ordinal < firstOrdinal) continue;
                 // Rotate the order on each repetition; the provider budget is shared across all trials.
-                var scenario = Scenarios[(repeat + offset) % Scenarios.Length];
+                var scenario = expression ? Scenarios[offset / 2] : Scenarios[(repeat + offset) % Scenarios.Length];
+                string expressionArm = offset == 0 || offset == 3 ? "F" : "S";
+                var speechMode = expression && expressionArm == "S" ? NpcSpeechMode.StructuredFacts : NpcSpeechMode.FreeText;
                 var trial = new Trial { scenario = scenario.Id, repetition = repeat + 1, ordinal = ordinal,
-                    startedAtUtc = DateTime.UtcNow.ToString("O"), arm = grounding ? ((char)('A' + offset)).ToString() : null };
+                    startedAtUtc = DateTime.UtcNow.ToString("O"), arm = expression ? expressionArm
+                        : grounding ? ((char)('A' + offset)).ToString() : null,
+                    speechMode = expression ? SpeechModeName(speechMode) : null };
                 report.trials.Add(trial);
                 Write(report, path);
                 yield return LoadFreshTown(scenario);
                 INpcDecisionClient inner;
-                if (grounding)
+                if (expression)
+                {
+                    string expressionEndpoint = "http://127.0.0.1:"
+                        + (live ? expressionBasePort + (expressionArm == "S" ? 1 : 0) : 1) + "/decide";
+                    inner = new ExpressionProxyClient(expressionEndpoint, trial, speechMode, live);
+                }
+                else if (grounding)
                 {
                     string armEndpoint = "http://127.0.0.1:" + (live ? groundingBasePort + offset : 1) + "/decide";
                     inner = new GroundingClient(armEndpoint, request =>
@@ -219,7 +232,7 @@ namespace CozyTown.Tests.PlayMode
                 if (correctFirstInvitation) inner = new CorrectionProbeClient(trial);
                 var client = new RecordingClient(inner, trial);
                 _controller.ConfigureDecisions(client, DefaultMvpContent.CreateConfiguration().Npcs.Where(n => n.Id == Ren || n.Id == Sora),
-                    meetingPlans: DefaultNpcResourcePlans.Create());
+                    meetingPlans: DefaultNpcResourcePlans.Create(), speechMode: speechMode);
                 trial.worldRunId = _controller.GetAgentState(Ren).WorldRunId.ToString();
                 trial.worldSeed = _services.WorldSeed.Value;
                 trial.initialAssets = Assets();
@@ -251,11 +264,25 @@ namespace CozyTown.Tests.PlayMode
                     bool terminal = observation.state == "Completed" || observation.state == "Declined"
                         || observation.state == "Cancelled" || observation.state == "Expired";
                     if (client.Active == 0 && (terminal || (observation.state == "None" && _controller.GameTotalMinutes >= 796))) break;
+                    if (expression && client.Active == 0 && trial.calls.Count >= 12) break;
                     yield return null;
                 }
                 trial.terminal = Observe(live ? UnityEngine.Time.realtimeSinceStartupAsDouble - start : simulated);
                 trial.behavior = Classify(trial);
                 trial.schedulerCalls = _controller.DecisionRequestsStarted;
+                if (expression)
+                {
+                    trial.stopReason = trial.terminal.state == "Completed" || trial.terminal.state == "Declined"
+                        || trial.terminal.state == "Cancelled" || trial.terminal.state == "Expired"
+                        ? "meeting_" + trial.terminal.state.ToLowerInvariant()
+                        : trial.calls.Count >= 12 ? "trial_call_cap"
+                        : trial.terminal.state == "None" && _controller.GameTotalMinutes >= 796
+                            ? "opportunity_closed" : "trial_deadline";
+                    trial.activelyEnded = trial.calls.Any(call => call.operation == "end_conversation"
+                        && call.hostCode == "meeting.end_conversation");
+                    trial.terminalActivitiesReleased = new[] { Ren, Sora }
+                        .All(id => _controller.GetAgentState(id).ActiveActivity == null);
+                }
                 // Stop model dispatch before advancing to the common recovery checkpoint.
                 Advance(Math.Max(0, 1000 - _controller.GameTotalMinutes) * WorldTimeProgress.EffectiveSecondsPerGameMinute);
                 trial.recovery = Observe(live ? UnityEngine.Time.realtimeSinceStartupAsDouble - start : simulated);
@@ -265,6 +292,12 @@ namespace CozyTown.Tests.PlayMode
                 trial.finalAssets = Assets();
                 trial.renMemories = _controller.GetMeetingMemories(Ren).Count;
                 trial.soraMemories = _controller.GetMeetingMemories(Sora).Count;
+                if (expression)
+                {
+                    trial.deadlineReleased = trial.terminal.state == "Expired" || trial.recovery.state == "Expired";
+                    trial.renMemoryRecords = CaptureMemories(Ren);
+                    trial.soraMemoryRecords = CaptureMemories(Sora);
+                }
                 Write(report, path);
                 yield return UnloadTown();
                 // A cancelled HTTP request can outlive its client. Allow the proxy's seven-second provider timeout to finish.
@@ -363,6 +396,7 @@ namespace CozyTown.Tests.PlayMode
                 renCoins = ren.Wallet.Balance, soraCoins = sora.Wallet.Balance,
                 renPosition = _ren.Position, soraPosition = _sora.Position, renRoute = _ren.Status.ToString(), soraRoute = _sora.Status.ToString(),
                 renTarget = _ren.TargetLocationId, soraTarget = _sora.TargetLocationId,
+                visibleText = _controller.GetComponent<NpcMeetingDialogueView>()?.VisibleText,
                 transcript = meeting?.Transcript.Select(l => l.SpeakerId + ": " + l.Text).ToArray() ?? Array.Empty<string>() };
         }
 
@@ -455,6 +489,8 @@ namespace CozyTown.Tests.PlayMode
                 {
                     var reply = await _inner.DecideAsync(request, token);
                     call.operation = reply.Operation; call.text = reply.Text;
+                    if (reply.SpeechFrame != null) call.speechFrame = new SpeechFrameRecord {
+                        speechIntent = reply.SpeechFrame.Intent, factId = reply.SpeechFrame.FactId, tone = reply.SpeechFrame.Tone };
                     return reply;
                 }
                 catch (Exception ex)
@@ -578,14 +614,17 @@ namespace CozyTown.Tests.PlayMode
             public string mode = "fixed", status = "started", startedAtUtc;
             public int providerCallCap = 96, perTrialCallCap = 12, trialDeadlineSeconds = 100, initialGameMinute = 735, recoveryGameMinute = 1000;
             public int firstOrdinal = 1;
+            public string[] registeredTrialOrder;
             public List<Trial> trials = new List<Trial>();
         }
         [Serializable] private sealed class Trial
         {
-            public string scenario, startedAtUtc, worldRunId, behavior, arm;
+            public string scenario, startedAtUtc, worldRunId, behavior, arm, speechMode, stopReason;
             public int repetition, ordinal, renMemories, soraMemories, worldSeed;
             public long schedulerCalls;
             public bool initialized, recovered, deliveryObserved;
+            public bool activelyEnded, deadlineReleased, terminalActivitiesReleased;
+            public MemoryRecord[] renMemoryRecords, soraMemoryRecords;
             public AssetRow[] initialAssets, finalAssets;
             public Observation initial, terminal, recovery;
             public List<Observation> observations = new List<Observation>();
@@ -595,7 +634,10 @@ namespace CozyTown.Tests.PlayMode
         [Serializable] private sealed class Call
         {
             public string npcId, decisionId, phase, contextJson, operation, text, error, hostCode, sentContextJson;
-            public string candidateErrorCode, decisionOutcomeCode;
+            public string candidateErrorCode, decisionOutcomeCode, rawReplyJson;
+            public SpeechFrameRecord speechFrame;
+            public int responseStatusCode;
+            public bool rawReplyTruncated;
             public int step;
             public double elapsedMilliseconds;
             public ExperimentObservation experimentObservation, sentObservation;
@@ -629,7 +671,7 @@ namespace CozyTown.Tests.PlayMode
         [Serializable] private sealed class Observation
         {
             public double elapsedSeconds, gameTotalMinutes;
-            public string state, receipt, meetingId, renRoute, soraRoute, renTarget, soraTarget;
+            public string state, receipt, meetingId, renRoute, soraRoute, renTarget, soraTarget, visibleText;
             public int renFish, soraFish, renCoins, soraCoins;
             public Vector2 renPosition, soraPosition;
             public string[] transcript;

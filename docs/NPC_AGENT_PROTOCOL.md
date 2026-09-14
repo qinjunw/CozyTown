@@ -177,6 +177,7 @@
 | `candidate.activity_invalid` | `activity` 为允许的工作或休息类型 |
 | `candidate.duration_invalid` | `durationGameMinutes` 为大于零、有限且不超过请求上限的 JSON 数值 |
 | `candidate.text_invalid` | `text` 是非空字符串，最多 240 个 UTF-16 代码单元 |
+| `candidate.speech_frame_invalid` | 结构化发言字段齐全，意图和语气属于有限集合，没有额外字段 |
 
 `candidate.schema_mismatch`、`candidate.operation_unavailable`、`candidate.plan_id_mismatch`、`candidate.meeting_id_mismatch` 和 `candidate.location_unknown` 表示请求绑定或可用集合不符，不触发纠正。普通 JSON 解析失败、过大正文、未知错误包和提供方故障也不触发纠正。Unity 与代理均不把字符串期限或浮点版本强制转换为有效参数。
 
@@ -185,3 +186,28 @@
 查询成功后的续调清除本次 `candidateErrorCode` 反馈，但仍保留“本决策已经纠正过”的限制；即使配置更多调用次数，也不能再纠正第二次字段错误。
 
 结果 `CandidateErrorCodes` 按发生顺序保留候选诊断，即使最终候选成功也不删除首次失败。场景记录的 `candidateErrorCode` 标明该次候选失败，`decisionOutcomeCode` 则记录整个决策的终态；不能把终态成功当成每次请求均已执行。
+
+## 表达实验协议 v1
+
+请求明确携带 `expression: {schemaVersion: 1, mode: "free_text"}` 或 `mode: "structured_facts"`；行动协议仍为原 v1／v2／v4。代理兼容缺少 `expression` 的旧自由表达请求。普通游戏默认自由表达；结构化模式由宿主配置，实验结果不自动改变默认策略。
+
+F 模式继续使用 `say.text`，禁止同时携带结构化帧字段。S 模式的 `say` 恰好包含以下六个顶层字段：
+
+```json
+{"schemaVersion":4,"operation":"say","meetingId":"<host-meeting-id>","speechIntent":"report_observation","factId":"npc.cook_sora:region_name","tone":"neutral"}
+```
+
+`speechIntent` 为 `report_observation`、`report_receipt`、`recall_statement`、`acknowledge_unknown`、`ask_about` 或 `express_wish`；`tone` 为 `neutral`、`warm` 或 `brief`。模型选择单个 `factId`，数值、主体、单位、时间和实体名称均由宿主事实确定。S 没有自由尾句，生成后的文本不再交给模型润色。
+
+| 引用 | 合法用途 |
+| --- | --- |
+| `observation.facts` 中的真实 ID | 按事实知识类型、来源、时间、表达许可及支持的谓词选择意图 |
+| `@partner_assets` | 在未获知当前听众资产时承认未知，或询问该信息 |
+| `@nearby_coverage` | 表达当前观察范围；仅在区域未知或列表不完整时承认范围不足 |
+| `@talk`、`@learn_cooking` | 表达聊天或学习烹饪的愿望，不暗示已发生的经历 |
+
+`NpcFactSpeech.TryRender` 生成最长 180 字符的整句；它可以拒绝未知引用、私有事实、错误知识类型、未来时间、单位不匹配或过长的声明引用。对当前已知数量选择“承认未知”会被拒绝。声明引用保留原话、说话者和时间，成功收据只表达已记录的过去交付。范围描述不把局部列表扩大为全镇真相。
+
+模式混用返回不可纠正的 `candidate.expression_mode_mismatch`；直接 Runtime 客户端混用由宿主以 `speech.mode_mismatch` 拒绝。S 字段形状错误可在原预算中纠正一次；事实语义错误以 `speech.*` 结束本次决策，不增加调用。最终执行仍先复核世界、轮次、期限与当前观察；过期事实返回 `agent.observation_stale`。
+
+候选中的 `SpeechFrame` 与实际会面文本分开保存。只有宿主接受的句子进入会面对话框和参与者经历。单独解析 JSON 不构成行动授权；游戏客户端解析时传入原请求绑定模式、身份与操作，最终由调度器和会面入口执行。

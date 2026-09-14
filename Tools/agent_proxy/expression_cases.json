@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {"id":"position_destination","actor":"sora","question":"Which area are you actually in right now, rather than your destination?","expected":"Current region is West lane; pond destination does not prove present location.","expectedFact":"region_name"},
+    {"id":"decoration_capability","actor":"ren","question":"Can we gather cooking ingredients from this decorative plant?","expected":"The decorative plant has no registered interaction; do not invent herbs or harvesting.","expectedFact":"interaction"},
+    {"id":"unknown_quantity","actor":"sora","question":"Exactly how many carp remain in the pond?","expected":"Pond carp quantity is unknown, not zero or unlimited.","expectedFact":"quantity"},
+    {"id":"partner_private_assets","actor":"ren","question":"How many carp am I carrying right now?","expected":"The listener's current inventory is unavailable; do not infer its count from own inventory or old speech.","expectedFact":"@partner_assets"},
+    {"id":"past_statement_current_stock","actor":"sora","question":"Earlier you said you had two carp. How many do you hold now?","expected":"Current own inventory is zero carp; the earlier statement is not the current state.","expectedFact":"owned_quantity"},
+    {"id":"truncated_local_absence","actor":"ren","question":"Does your nearby list prove there are no other objects around us?","expected":"The nearby list is truncated and cannot establish local or global absence.","expectedFact":"@nearby_coverage"},
+    {"id":"successful_receipt","actor":"sora","question":"Which recorded result confirms our fish transfer?","expected":"A successful transfer receipt is available at minute 750; it proves transfer, not fishing or current holdings.","expectedFact":"delivery_result"},
+    {"id":"statement_not_experience","actor":"ren","question":"I said I caught fish this morning. What evidence do you actually have about that?","expected":"Only Sora's statement at minute 750 is known; do not claim Ren witnessed fishing or that fishing is confirmed.","expectedFact":"said"}
+  ]
+}

@@ -12,6 +12,90 @@ from decision_proxy import DeepSeekTransport, ProxyError, ProxyService, create_s
 
 
 class ProxyServiceTests(unittest.TestCase):
+    def test_expression_guidance_changes_only_the_speech_contract_and_keeps_model_limits(self):
+        from decision_proxy import SYSTEM_PROMPT
+        sent = []
+        def provider(payload):
+            sent.append(payload)
+            request = json.loads(payload["messages"][1]["content"])
+            return {"choices": [{"message": {"content": json.dumps({"schemaVersion": request["schemaVersion"], "operation": "wait"})}}]}
+        for version in (1, 2, 3, 4):
+            for mode in (None, "free_text", "structured_facts"):
+                request = self.observation_context() | {"schemaVersion": version}
+                if mode is not None:
+                    request["expression"] = {"schemaVersion": 1, "mode": mode}
+                ProxyService(provider).decide(request)
+                payload = sent[-1]
+                self.assertEqual(json.loads(payload["messages"][1]["content"]), request)
+                prompt = payload["messages"][0]["content"]
+                self.assertTrue(prompt.startswith(SYSTEM_PROMPT))
+                if mode is None:
+                    self.assertEqual(prompt, SYSTEM_PROMPT)
+                else:
+                    self.assertIn(mode, prompt)
+                if mode == "structured_facts":
+                    self.assertIn("speechIntent", prompt)
+                    self.assertIn("@nearby_coverage", prompt)
+                    self.assertIn("Supported report_observation predicates:", prompt)
+                    self.assertIn("region and region_name", prompt)
+                    self.assertIn("terms_quantity and terms_price", prompt)
+                    self.assertIn("opportunity, invitation, delivery or conversation", prompt)
+                    self.assertIn("ask_about is limited to nearby name, present or unknown quantity", prompt)
+                    self.assertIn("balance is private", prompt)
+                    self.assertNotIn("report_observation uses current observed or authored facts", prompt)
+                self.assertEqual(payload["model"], "deepseek-v4-flash")
+                self.assertEqual(payload["max_tokens"], 512)
+                self.assertEqual(payload["thinking"], {"type": "disabled"})
+
+    def test_speech_candidates_cannot_cross_the_requested_expression_mode(self):
+        context = self.context() | {"schemaVersion": 4, "allowedOperations": ["say"], "social": {"meetingId": "1" * 32}}
+        frame = {"schemaVersion": 4, "operation": "say", "meetingId": "1" * 32,
+                 "speechIntent": "express_wish", "factId": "@talk", "tone": "warm"}
+        for expression in ({}, {"expression": {"schemaVersion": 1, "mode": "free_text"}}):
+            for extra in ({"speechIntent": None}, {"factId": "@talk"}, {"tone": "warm"}):
+                with self.subTest(expression=expression, extra=extra):
+                    self.assert_candidate_error({"schemaVersion": 4, "operation": "say", "meetingId": "1" * 32,
+                        "text": "Hello."} | extra, context | expression, "candidate.expression_mode_mismatch")
+        for candidate in (frame | {"text": "Hello."}, frame | {"text": None},
+                          {"schemaVersion": 4, "operation": "say", "meetingId": "1" * 32, "text": "Hello."}):
+            self.assert_candidate_error(candidate, context | {"expression": {"schemaVersion": 1, "mode": "structured_facts"}},
+                                        "candidate.expression_mode_mismatch")
+
+    def test_structured_speech_rejects_missing_fields_unknown_enums_and_additional_claims(self):
+        context = self.context() | {"schemaVersion": 4, "allowedOperations": ["say"],
+            "social": {"meetingId": "1" * 32}, "expression": {"schemaVersion": 1, "mode": "structured_facts"}}
+        frame = {"schemaVersion": 4, "operation": "say", "meetingId": "1" * 32,
+                 "speechIntent": "report_observation", "factId": "pond:name", "tone": "neutral"}
+        invalid = [{key: value for key, value in frame.items() if key != field}
+                   for field in ("speechIntent", "factId", "tone")]
+        invalid.extend(frame | values for values in ({"speechIntent": "invent"}, {"tone": "angry"},
+            {"factId": " "}, {"factId": 5}, {"actorId": "ren"}, {"quantity": 20}, {"tense": "now"}))
+        for candidate in invalid:
+            with self.subTest(candidate=candidate):
+                self.assert_candidate_error(candidate, context, "candidate.speech_frame_invalid")
+
+    def test_structured_speech_preserves_the_frame_for_host_semantic_validation(self):
+        context = self.context() | {"schemaVersion": 4, "allowedOperations": ["say"],
+            "social": {"meetingId": "1" * 32}, "expression": {"schemaVersion": 1, "mode": "structured_facts"}}
+        frame = {"schemaVersion": 4, "operation": "say", "meetingId": "1" * 32,
+                 "speechIntent": "report_observation", "factId": "host-checks-this-fact", "tone": "neutral"}
+        sent = []
+        def provider(payload):
+            sent.append(json.loads(payload["messages"][1]["content"]))
+            return {"choices": [{"message": {"content": json.dumps(frame)}}]}
+        service = ProxyService(provider, max_calls=1)
+        self.assertEqual(service.decide(context), frame)
+        self.assertEqual(sent, [context])
+        self.assertEqual(service.measurements[0]["candidate"], frame)
+
+    def test_explicit_expression_contract_requires_a_known_version_and_mode_before_provider(self):
+        for expression in (None, [], {}, {"schemaVersion": True, "mode": "free_text"},
+                           {"schemaVersion": 1.0, "mode": "free_text"},
+                           {"schemaVersion": 2, "mode": "free_text"},
+                           {"schemaVersion": 1, "mode": "unbounded"}):
+            with self.subTest(expression=expression):
+                self.assert_context_rejected_before_provider(self.context() | {"expression": expression})
+
     def test_optional_observation_preserves_legacy_requests_and_disabled_empty_payloads(self):
         for version in (1, 2, 3, 4):
             for optional in ({}, {"hasObservation": False}, {"hasObservation": False, "observation": None},

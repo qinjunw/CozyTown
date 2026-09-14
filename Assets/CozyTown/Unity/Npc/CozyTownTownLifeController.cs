@@ -97,13 +97,14 @@ namespace CozyTown.Unity.Npc
         }
 
         public void ConfigureDecisions(INpcDecisionClient client, IEnumerable<NpcDefinition> profiles,
-            NpcDecisionSettings settings = null, IEnumerable<NpcMeetingPlan> meetingPlans = null)
+            NpcDecisionSettings settings = null, IEnumerable<NpcMeetingPlan> meetingPlans = null,
+            NpcSpeechMode speechMode = NpcSpeechMode.FreeText)
         {
             if (_agents == null) throw new InvalidOperationException("Bind world time before configuring decisions.");
             var profileArray = profiles.ToArray();
             var meetings = meetingPlans == null ? null : new NpcMeetingBoard(_agents, meetingPlans, MeetingPresence, _resources);
             var candidate = new NpcDecisionScheduler(_agents, profileArray, client, settings, meetings,
-                request => CaptureObservation(request.NpcId, request.Social));
+                request => CaptureObservation(request.NpcId, request.Social), speechMode);
             var before = CaptureActivities();
             _decisions?.Dispose();
             _meetings?.CancelAll();

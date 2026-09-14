@@ -17,6 +17,80 @@ namespace CozyTown.Tests.UnityEditMode
     public sealed class ProxyNpcDecisionJsonCodecTests
     {
         [Test]
+        public void StandaloneStructuredCandidate_ParsesAFrameWithoutInventingAnIdentity()
+        {
+            var id = System.Guid.NewGuid();
+            var reply = new ProxyNpcDecisionJsonCodec().ParseResponse("{\"schemaVersion\":4,\"operation\":\"say\",\"meetingId\":\""
+                + id.ToString("N") + "\",\"speechIntent\":\"report_observation\",\"factId\":\"sora:region_name\",\"tone\":\"brief\"}");
+            Assert.That(reply.MeetingId, Is.EqualTo(id));
+            Assert.That(reply.SpeechFrame.FactId, Is.EqualTo("sora:region_name"));
+            Assert.That(reply.Text, Is.Null);
+        }
+
+        [Test]
+        public void StructuredSay_KeepsTheFrameSeparateFromDisplayedText()
+        {
+            var request = ConversationRequest(NpcSpeechMode.StructuredFacts);
+            string json = "{\"schemaVersion\":2,\"operation\":\"say\",\"meetingId\":\""
+                + request.Social.MeetingId.ToString("N")
+                + "\",\"speechIntent\":\"express_wish\",\"factId\":\"@talk\",\"tone\":\"warm\"}";
+            var codec = new ProxyNpcDecisionJsonCodec();
+            Assert.That(codec.SerializeRequest(request), Does.Contain("\"mode\":\"structured_facts\""));
+            var reply = codec.ParseResponse(json, request);
+            Assert.That(reply.Text, Is.Null);
+            Assert.That(reply.SpeechFrame.Intent, Is.EqualTo("express_wish"));
+            Assert.That(reply.SpeechFrame.FactId, Is.EqualTo("@talk"));
+            Assert.That(reply.SpeechFrame.Tone, Is.EqualTo("warm"));
+        }
+
+        private static NpcDecisionRequest ConversationRequest(NpcSpeechMode mode)
+        {
+            var world = new NpcAgentWorld(new[] { "ren", "sora" }.Select(id => new NpcDailySchedule(id,
+                id + ".home", id + ".outside", id + ".entry", id + ".work", id + ".rest", id + ".afternoon",
+                360, 480, 720, 810, 1020, 1080)));
+            world.Observe(new WorldTimeProgress(new GameClockSnapshot(1, 720), 0, false, 1));
+            var board = new NpcMeetingBoard(world, new[] { new NpcMeetingPlan("lunch", "sora", "ren", "pond",
+                "sora.rest", "ren.rest", 720, 750, 780) }, (npc, location) => NpcMeetingPresence.Arrived);
+            var meeting = board.Invite(world.GetState("sora"), "lunch").Value;
+            Assert.That(board.Respond(world.GetState("ren"), meeting.Id, true).IsSuccess, Is.True);
+            world.Observe(new WorldTimeProgress(new GameClockSnapshot(1, 750), 0, false, 1));
+            board.Observe();
+            var client = new CaptureClient();
+            using var scheduler = new NpcDecisionScheduler(world, new[] { new NpcDefinition("sora", "Sora", "Cook", "Hello") },
+                client, meetings: board, speechMode: mode);
+            scheduler.Tick(0);
+            return client.Request;
+        }
+
+        [TestCase("\"speechIntent\":\"express_wish\",\"factId\":\"@talk\",\"tone\":\"warm\",\"text\":\"I caught fish.\"", "candidate.expression_mode_mismatch", false)]
+        [TestCase("\"speechIntent\":\"invent\",\"factId\":\"@talk\",\"tone\":\"warm\"", "candidate.speech_frame_invalid", true)]
+        [TestCase("\"speechIntent\":\"express_wish\",\"factId\":\"@talk\",\"tone\":\"omniscient\"", "candidate.speech_frame_invalid", true)]
+        [TestCase("\"speechIntent\":\"express_wish\",\"factId\":\"@talk\",\"tone\":\"warm\",\"quantity\":999", "candidate.speech_frame_invalid", true)]
+        [TestCase("\"speechIntent\":\"express_wish\",\"factId\":\"@talk\",\"tone\":\"warm\",\"speakerId\":\"ren\"", "candidate.speech_frame_invalid", true)]
+        [TestCase("\"speechIntent\":\"express_wish\",\"factId\":\"@talk\",\"tone\":\"warm\",\"tense\":\"past\"", "candidate.speech_frame_invalid", true)]
+        public void StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues(string fields, string code, bool correctable)
+        {
+            var request = ConversationRequest(NpcSpeechMode.StructuredFacts);
+            string json = "{\"schemaVersion\":2,\"operation\":\"say\",\"meetingId\":\""
+                + request.Social.MeetingId.ToString("N") + "\"," + fields + "}";
+            var error = Assert.Throws<NpcCandidateException>(() => new ProxyNpcDecisionJsonCodec().ParseResponse(json, request));
+            Assert.That(error.Code, Is.EqualTo(code));
+            Assert.That(error.CanCorrect, Is.EqualTo(correctable));
+        }
+
+        [Test]
+        public void FreeSay_RejectsAStructuredFrameEvenWhenFreeTextIsPresent()
+        {
+            var request = ConversationRequest(NpcSpeechMode.FreeText);
+            string json = "{\"schemaVersion\":2,\"operation\":\"say\",\"meetingId\":\""
+                + request.Social.MeetingId.ToString("N")
+                + "\",\"text\":\"Hello.\",\"speechIntent\":\"express_wish\",\"factId\":\"@talk\",\"tone\":\"warm\"}";
+            var error = Assert.Throws<NpcCandidateException>(() => new ProxyNpcDecisionJsonCodec().ParseResponse(json, request));
+            Assert.That(error.Code, Is.EqualTo("candidate.expression_mode_mismatch"));
+            Assert.That(error.CanCorrect, Is.False);
+        }
+
+        [Test]
         public void BoundedTradeObservation_WithEightObjectsAndLongParticipantLinesFitsTheRequestLimit()
         {
             var schedules = new[] { "ren", "sora" }.Select(id => new NpcDailySchedule(id, id + ".home", id + ".outside", id + ".entry",
@@ -70,6 +144,7 @@ namespace CozyTown.Tests.UnityEditMode
             scheduler.Tick(0);
             string json = new ProxyNpcDecisionJsonCodec().SerializeRequest(client.Request);
             var payload = JsonUtility.FromJson<ObservationRequestPayload>(json);
+            Assert.That(json, Does.Contain("\"expression\":{\"schemaVersion\":1,\"mode\":\"free_text\"}"));
             Assert.That(payload.schemaVersion, Is.EqualTo(1));
             Assert.That(payload.hasObservation, Is.True);
             Assert.That(payload.observation.schemaVersion, Is.EqualTo(1));
