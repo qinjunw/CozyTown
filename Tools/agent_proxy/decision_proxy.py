@@ -160,7 +160,11 @@ EXPRESSION_PROMPTS = {
     "free_text": """Expression schemaVersion 1, mode free_text: say uses top-level text.
 Do not supply speechIntent, factId or tone. Keep the supplied facts and their expression permissions.
 """,
-    "structured_facts": """Expression schemaVersion 1, mode structured_facts replaces only the say text contract.
+    "structured_facts": """Speech format selected by expression.mode=structured_facts; only the say fields change.
+The reply is an ACTION candidate: copy schemaVersion from the request's TOP-LEVEL schemaVersion.
+The nested expression.schemaVersion and observation.schemaVersion describe input sections, not the reply.
+For example, a resource request with top-level schemaVersion 4 requires a reply with "schemaVersion":4,
+even when expression.schemaVersion is 1. Never use a nested input version as the reply version.
 For say return exactly schemaVersion, operation, meetingId, speechIntent, factId and tone at the top level.
 Never include text, extra actors, values, quantities, tense or other fields; the host renders the selected fact.
 Choose one speechIntent: report_observation, report_receipt, recall_statement, acknowledge_unknown, ask_about, express_wish.

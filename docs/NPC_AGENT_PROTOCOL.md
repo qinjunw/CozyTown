@@ -191,6 +191,8 @@
 
 请求明确携带 `expression: {schemaVersion: 1, mode: "free_text"}` 或 `mode: "structured_facts"`；行动协议仍为原 v1／v2／v4。代理兼容缺少 `expression` 的旧自由表达请求。普通游戏默认自由表达；结构化模式由宿主配置，实验结果不自动改变默认策略。
 
+候选顶层 `schemaVersion` 必须复制请求的最外层版本，不取 `expression.schemaVersion` 或 `observation.schemaVersion`。例如资源请求最外层为 `4`、表达小节为 `1`，结构化 `say` 仍返回最外层 `4`。S 提示词明确这一区别；代理与宿主继续拒绝不匹配版本，不自动改写原候选。
+
 F 模式继续使用 `say.text`，禁止同时携带结构化帧字段。S 模式的 `say` 恰好包含以下六个顶层字段：
 
 ```json

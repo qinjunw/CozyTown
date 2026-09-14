@@ -1,0 +1,865 @@
+{
+  "method": "Root agent manual-style initial review of shuffled outputs and contexts; root knows implementation and prior study. Not independent human blind review. No extra provider calls.",
+  "usefulRule": "Complete core response without definite contradiction/unsupported/source_time/unauthorized claims. Ambiguities retained for sensitivity review.",
+  "samples": [
+    {
+      "sampleId": "E001",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "a carp and 25 coins changed hands at our meeting",
+          "label": "supported",
+          "reason": "Participant receipt records quantity 1 and price 25."
+        },
+        {
+          "text": "Your catch, I cannot confirm.",
+          "label": "supported",
+          "reason": "Fishing is only a heard statement, not a witnessed event."
+        }
+      ],
+      "personaNote": "",
+      "notes": "Does not quote the statement; nevertheless distinguishes confirmed transfer from unconfirmed fishing."
+    },
+    {
+      "sampleId": "E002",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "with you on West lane, not at the pond",
+          "label": "supported",
+          "reason": "Body region is West lane and Ren is locally present."
+        },
+        {
+          "text": "the carp ... reached me",
+          "label": "supported",
+          "reason": "Completed transfer receipt."
+        }
+      ],
+      "personaNote": "Invitation to discuss cooking matches cook persona.",
+      "notes": ""
+    },
+    {
+      "sampleId": "E003",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "Decorative plant has no supported interaction in this scene.",
+          "label": "supported",
+          "reason": "Authored interaction=none, within scene scope."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E004",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "At game minute 750, Sora said: \"I caught fish this morning.\"",
+          "label": "supported",
+          "reason": "Exact participant statement and timestamp; does not establish fishing."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E005",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I do not know your current inventory or coin balance.",
+          "label": "supported",
+          "reason": "Listener current assets are not in the observer view."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E006",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I can't tell what you're carrying.",
+          "label": "supported",
+          "reason": "No listener current inventory."
+        },
+        {
+          "text": "I handed over one carp for 25 coins.",
+          "label": "supported",
+          "reason": "Completed transfer receipt with actor as seller."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E007",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "My list wasn't complete, so it can't prove that.",
+          "label": "supported",
+          "reason": "nearbyComplete=false."
+        },
+        {
+          "text": "a plant and some lamps",
+          "label": "supported",
+          "reason": "Registered visible list contains plant and lamps."
+        },
+        {
+          "text": "I only saw ... within six paces",
+          "label": "ambiguous",
+          "reason": "The listed observations are bounded by radius 6; units are not identified as paces and truncation does not establish all that can be seen."
+        }
+      ],
+      "personaNote": "",
+      "notes": "Primary answer correctly limits absence inference; retain literal-unit/visual-exhaustiveness ambiguity."
+    },
+    {
+      "sampleId": "E008",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I saw you here",
+          "label": "supported",
+          "reason": "Listener present in local observations."
+        },
+        {
+          "text": "I delivered one carp to you at 750",
+          "label": "supported",
+          "reason": "Receipt at 750, actor seller."
+        },
+        {
+          "text": "I can't confirm your catch.",
+          "label": "supported",
+          "reason": "Fishing has statement evidence only."
+        }
+      ],
+      "personaNote": "",
+      "notes": "Does not cite the statement but correctly withholds confirmation."
+    },
+    {
+      "sampleId": "E009",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I am in West lane.",
+          "label": "supported",
+          "reason": "Sampled body region_name=West lane."
+        }
+      ],
+      "personaNote": "Fixed warm introduction does not identify a specific character.",
+      "notes": ""
+    },
+    {
+      "sampleId": "E010",
+      "useful": false,
+      "assertions": [
+        {
+          "text": "My list is partial, not proof of absence.",
+          "label": "supported",
+          "reason": "nearbyComplete=false."
+        },
+        {
+          "text": "lamps and a decorative plant nearby",
+          "label": "supported",
+          "reason": "Registered observations list these objects."
+        },
+        {
+          "text": "I ... see ... the pond at dusk",
+          "label": "unsupported",
+          "reason": "No visible pond entry in the truncated list or dusk state; current minute 752 does not supply a dusk observation."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E011",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "Decorative plant has no supported interaction in this scene.",
+          "label": "supported",
+          "reason": "Authored interaction=none, within scene scope."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E012",
+      "useful": false,
+      "assertions": [
+        {
+          "text": "At game minute 750, the resource transfer was recorded as complete.",
+          "label": "supported",
+          "reason": "Completed receipt at 750."
+        }
+      ],
+      "personaNote": "",
+      "notes": "True transfer fact does not answer the evidence for the fishing statement."
+    },
+    {
+      "sampleId": "E013",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I am in West lane.",
+          "label": "supported",
+          "reason": "Sampled body region_name=West lane."
+        }
+      ],
+      "personaNote": "Fixed warm introduction does not identify a specific character.",
+      "notes": ""
+    },
+    {
+      "sampleId": "E014",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I am in West lane.",
+          "label": "supported",
+          "reason": "Sampled body region_name=West lane."
+        }
+      ],
+      "personaNote": "Fixed warm introduction does not identify a specific character.",
+      "notes": ""
+    },
+    {
+      "sampleId": "E015",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "My list of registered nearby entities is incomplete",
+          "label": "supported",
+          "reason": "nearbyComplete=false."
+        },
+        {
+          "text": "it cannot show that other objects are absent",
+          "label": "supported",
+          "reason": "Coverage is bounded and list truncated."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E016",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "my list only covers what's registered nearby",
+          "label": "supported",
+          "reason": "Registered same-region/radius coverage."
+        },
+        {
+          "text": "a plant and some lamps",
+          "label": "supported",
+          "reason": "Listed entities."
+        },
+        {
+          "text": "It doesn't prove nothing else is around.",
+          "label": "supported",
+          "reason": "Incomplete nearby coverage."
+        },
+        {
+          "text": "The carp is yours, Sora.",
+          "label": "ambiguous",
+          "reason": "Can refer to completed ownership transfer; current listener holdings are unavailable."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E017",
+      "useful": false,
+      "assertions": [
+        {
+          "text": "I actually hold right now: zero carp",
+          "label": "supported",
+          "reason": "Own current inventory=0."
+        },
+        {
+          "text": "Earlier I misspoke",
+          "label": "unsupported",
+          "reason": "No evidence earlier statement was mistaken."
+        },
+        {
+          "text": "I had two before",
+          "label": "source_time",
+          "reason": "The input contains a past statement, not an independent past inventory record."
+        },
+        {
+          "text": "that one carp was my only purchase so far",
+          "label": "unsupported",
+          "reason": "One retained receipt is not an exhaustive purchase history."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E018",
+      "useful": false,
+      "assertions": [
+        {
+          "text": "At game minute 750, the recorded transfer moved 1 carp.",
+          "label": "supported",
+          "reason": "Receipt delivered_quantity=1 at 750."
+        }
+      ],
+      "personaNote": "",
+      "notes": "Historical transfer quantity does not answer current own inventory, which is zero."
+    },
+    {
+      "sampleId": "E019",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I do not know your current inventory or coin balance.",
+          "label": "supported",
+          "reason": "Listener current assets are not in the observer view."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E020",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I can't count the carp",
+          "label": "supported",
+          "reason": "Pond quantity is unknown."
+        },
+        {
+          "text": "I just bought one from you",
+          "label": "supported",
+          "reason": "Recent completed transfer."
+        }
+      ],
+      "personaNote": "Cooking proposal fits Sora.",
+      "notes": "Conditional future stew is a wish, not a new completed resource event."
+    },
+    {
+      "sampleId": "E021",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "The receipt 'resource.delivered' confirms it",
+          "label": "supported",
+          "reason": "Receipt result code."
+        },
+        {
+          "text": "1 carp for 25 coins",
+          "label": "supported",
+          "reason": "Receipt quantities."
+        },
+        {
+          "text": "recorded at our meeting",
+          "label": "supported",
+          "reason": "Receipt belongs to participant meeting."
+        }
+      ],
+      "personaNote": "Cooking question is prospective.",
+      "notes": ""
+    },
+    {
+      "sampleId": "E022",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "That plant's just decoration",
+          "label": "supported",
+          "reason": "kind=decoration."
+        },
+        {
+          "text": "nothing to harvest there",
+          "label": "supported",
+          "reason": "Registered interaction=none in this scene."
+        },
+        {
+          "text": "The pond's where the carp live",
+          "label": "ambiguous",
+          "reason": "Can describe authored fishing habitat or assert current carp existence, which is unknown."
+        },
+        {
+          "text": "I've already brought you one",
+          "label": "supported",
+          "reason": "Completed transfer of one carp."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E023",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I do not know your current inventory or coin balance.",
+          "label": "supported",
+          "reason": "Listener current assets are not in the observer view."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E024",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I delivered a carp to you earlier today",
+          "label": "supported",
+          "reason": "Receipt at 750; current time 752."
+        },
+        {
+          "text": "Whether you fished this morning, I have no evidence of that.",
+          "label": "ambiguous",
+          "reason": "No confirming observation exists, but the heard statement is evidence in the broader sense."
+        }
+      ],
+      "personaNote": "",
+      "notes": "Main reading is no confirmation, consistent with prior unknown-versus-proof rule."
+    },
+    {
+      "sampleId": "E025",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "The meeting receipt shows resource.delivered",
+          "label": "supported",
+          "reason": "Receipt result code."
+        },
+        {
+          "text": "1 carp for 25 coins",
+          "label": "supported",
+          "reason": "Receipt quantities."
+        },
+        {
+          "text": "That transfer is recorded as complete.",
+          "label": "supported",
+          "reason": "Receipt success."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E026",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I do not know how many carp are in Pond.",
+          "label": "supported",
+          "reason": "Pond quantity explicitly unknown."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E027",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "The recorded result is resource.delivered",
+          "label": "supported",
+          "reason": "Receipt result code."
+        },
+        {
+          "text": "1 fish.carp for 25 coins, at minute 750",
+          "label": "supported",
+          "reason": "Receipt item, quantity, price and timestamp."
+        }
+      ],
+      "personaNote": "Recipe question follows factual answer.",
+      "notes": ""
+    },
+    {
+      "sampleId": "E028",
+      "useful": false,
+      "assertions": [
+        {
+          "text": "At game minute 750, the recorded transfer moved 1 carp.",
+          "label": "supported",
+          "reason": "Receipt delivered_quantity=1 at 750."
+        }
+      ],
+      "personaNote": "",
+      "notes": "Historical transfer quantity does not answer current own inventory, which is zero."
+    },
+    {
+      "sampleId": "E029",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "My list of registered nearby entities is incomplete",
+          "label": "supported",
+          "reason": "nearbyComplete=false."
+        },
+        {
+          "text": "it cannot show that other objects are absent",
+          "label": "supported",
+          "reason": "Coverage is bounded and list truncated."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E030",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "My list of registered nearby entities is incomplete",
+          "label": "supported",
+          "reason": "nearbyComplete=false."
+        },
+        {
+          "text": "it cannot show that other objects are absent",
+          "label": "supported",
+          "reason": "Coverage is bounded and list truncated."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E031",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I do not know how many carp are in Pond.",
+          "label": "supported",
+          "reason": "Pond quantity explicitly unknown."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E032",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "At game minute 750, the resource transfer was recorded as complete.",
+          "label": "supported",
+          "reason": "Participant receipt success at 750; answers which recorded result."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E033",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "the pond's carp count is unknown to me",
+          "label": "supported",
+          "reason": "Explicit unknown quantity."
+        },
+        {
+          "text": "I've got your carp now",
+          "label": "supported",
+          "reason": "Own current inventory=1 and completed receipt."
+        }
+      ],
+      "personaNote": "Cooking desire fits Sora.",
+      "notes": "Future cooking desire is not a completed action."
+    },
+    {
+      "sampleId": "E034",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "At game minute 750, Sora said: \"I caught fish this morning.\"",
+          "label": "supported",
+          "reason": "Exact participant statement and timestamp; does not establish fishing."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E035",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I do not know how many carp are in Pond.",
+          "label": "supported",
+          "reason": "Pond quantity explicitly unknown."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E036",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "Decorative plant has no supported interaction in this scene.",
+          "label": "supported",
+          "reason": "Authored interaction=none, within scene scope."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E037",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I currently hold 0 carp.",
+          "label": "supported",
+          "reason": "Own current inventory=0, independently of earlier statement."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E038",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I'm at the west lane, not the pond",
+          "label": "supported",
+          "reason": "Sampled body region=west."
+        },
+        {
+          "text": "the carp came through",
+          "label": "supported",
+          "reason": "Completed receipt."
+        }
+      ],
+      "personaNote": "Cooking appraisal fits Sora.",
+      "notes": "Future stew appraisal is creative expectation, not completed cooking."
+    },
+    {
+      "sampleId": "E039",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "That plant is just decoration",
+          "label": "supported",
+          "reason": "Authored kind=decoration."
+        },
+        {
+          "text": "The pond's water is where the fish come from",
+          "label": "ambiguous",
+          "reason": "Can name fishing capability or imply provenance of the delivered fish; provenance is unrecorded."
+        },
+        {
+          "text": "I can't promise what's biting today",
+          "label": "supported",
+          "reason": "No current pond stock or catch guarantee."
+        }
+      ],
+      "personaNote": "",
+      "notes": "Decoration alone is partial; in this free answer it implies no ingredients, but does not explicitly say no supported interaction."
+    },
+    {
+      "sampleId": "E040",
+      "useful": false,
+      "assertions": [
+        {
+          "text": "I'm ... on the West lane",
+          "label": "supported",
+          "reason": "Body region_name=West lane."
+        },
+        {
+          "text": "I'm at my rest spot",
+          "label": "unsupported",
+          "reason": "Rest target is not a sampled proof of current rest-position arrival."
+        },
+        {
+          "text": "The carp arrived",
+          "label": "supported",
+          "reason": "Completed receipt."
+        },
+        {
+          "text": "I've got the 25 coins ready for you",
+          "label": "unauthorized",
+          "reason": "Own current balance=25 is marked canExpress=false; ready-for-you also implies an unrecorded future commitment."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E041",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I can't see your pack from here",
+          "label": "ambiguous",
+          "reason": "Colloquial limit on private inventory knowledge; a literal pack/visibility state is not recorded."
+        },
+        {
+          "text": "I handed you one carp for 25 coins",
+          "label": "supported",
+          "reason": "Completed transfer receipt."
+        }
+      ],
+      "personaNote": "",
+      "notes": "Primary reading withholds unavailable private assets."
+    },
+    {
+      "sampleId": "E042",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "At game minute 750, the resource transfer was recorded as complete.",
+          "label": "supported",
+          "reason": "Participant receipt success at 750; answers which recorded result."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E043",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "I can't say what you're carrying",
+          "label": "supported",
+          "reason": "Listener current assets unknown."
+        },
+        {
+          "text": "one carp, already delivered to you",
+          "label": "supported",
+          "reason": "Transfer quantity=1, actor seller."
+        },
+        {
+          "text": "my own creel",
+          "label": "ambiguous",
+          "reason": "May be fisher idiom; no creel object is registered."
+        },
+        {
+          "text": "The water hides the rest.",
+          "label": "ambiguous",
+          "reason": "May express unknown pond quantity; literal remaining fish and concealment are unobserved."
+        }
+      ],
+      "personaNote": "Creel and water wording is fisher-colored but adds ambiguity.",
+      "notes": "Do not equate the historical delivered carp with remaining own inventory."
+    },
+    {
+      "sampleId": "E044",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "At game minute 750, the resource transfer was recorded as complete.",
+          "label": "supported",
+          "reason": "Participant receipt success at 750; answers which recorded result."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E045",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "That plant's just decoration",
+          "label": "supported",
+          "reason": "kind=decoration."
+        },
+        {
+          "text": "nothing to gather from it",
+          "label": "supported",
+          "reason": "interaction=none in registered scene."
+        },
+        {
+          "text": "The pond's where the fish are",
+          "label": "ambiguous",
+          "reason": "Generic fishing location versus unsupported current existence."
+        },
+        {
+          "text": "I already brought the carp you ordered",
+          "label": "supported",
+          "reason": "Agreed transfer and completed receipt."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E046",
+      "useful": false,
+      "assertions": [
+        {
+          "text": "Right now I hold zero carp",
+          "label": "supported",
+          "reason": "Own current inventory=0."
+        },
+        {
+          "text": "the one you delivered is sold and gone",
+          "label": "unsupported",
+          "reason": "No resale receipt; zero stock does not explain disposal."
+        },
+        {
+          "text": "My coin balance is 25.",
+          "label": "unauthorized",
+          "reason": "Own balance fact canExpress=false."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E047",
+      "useful": false,
+      "assertions": [
+        {
+          "text": "Just the one carp now",
+          "label": "contradiction",
+          "reason": "Current own inventory is explicitly zero."
+        },
+        {
+          "text": "the delivery came through at 25 coins",
+          "label": "supported",
+          "reason": "Completed receipt price=25."
+        },
+        {
+          "text": "I spoke too soon before",
+          "label": "unsupported",
+          "reason": "No evidence prior statement was premature or mistaken."
+        }
+      ],
+      "personaNote": "",
+      "notes": ""
+    },
+    {
+      "sampleId": "E048",
+      "useful": true,
+      "assertions": [
+        {
+          "text": "the pond's stock is unknown to me",
+          "label": "supported",
+          "reason": "Explicit unknown quantity."
+        },
+        {
+          "text": "I just got my carp and paid 25 coins",
+          "label": "supported",
+          "reason": "Recent completed receipt quantity=1 price=25."
+        }
+      ],
+      "personaNote": "Cooking invitation fits Sora.",
+      "notes": "Cooking question does not assert completed cooking."
+    }
+  ]
+}
