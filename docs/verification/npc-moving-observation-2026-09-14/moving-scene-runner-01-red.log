@@ -1,0 +1,15 @@
+test_standalone_scene_records_only_its_four_world_48_call_budget_without_fixed_evidence (test_expression_experiment.ExpressionExperimentTests.test_standalone_scene_records_only_its_four_world_48_call_budget_without_fixed_evidence) ... ERROR
+
+======================================================================
+ERROR: test_standalone_scene_records_only_its_four_world_48_call_budget_without_fixed_evidence (test_expression_experiment.ExpressionExperimentTests.test_standalone_scene_records_only_its_four_world_48_call_budget_without_fixed_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<local-root>\Tools\agent_proxy\test_expression_experiment.py", line 37, in test_standalone_scene_records_only_its_four_world_48_call_budget_without_fixed_evidence
+    with ExpressionExperiment(response, output, corpus, stage="scene", standalone_scene=True) as experiment:
+         ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ExpressionExperiment.__init__() got an unexpected keyword argument 'standalone_scene'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.006s
+
+FAILED (errors=1)

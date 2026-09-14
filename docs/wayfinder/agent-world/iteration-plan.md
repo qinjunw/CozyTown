@@ -7,7 +7,7 @@
 
 2026-09-14：[实现 NPC 按区域与距离的局部观察](https://github.com/qinjunw/CozyTown/issues/73)已完成区域、场景目录、权限、来源时间、首次派发采样与执行前复核，见[验证结果](../../verification/npc-local-observation-2026-09-14.md)。[对照验证 NPC 自由台词与结构化事实表达](https://github.com/qinjunw/CozyTown/issues/74)已完成实现及冻结实验：固定 48 次、四世界 8 次真实调用。结构化组 19/24 候选版本错误；四个世界均在邀约答复时因观察失效而未进入交谈，详见[首轮结果](../../verification/npc-expression-comparison-2026-09-14.md)。
 
-[区分行动版本与表达版本并复测结构化候选](https://github.com/qinjunw/CozyTown/issues/78)已明确候选版本来自请求外层，原校验和调用预算保持不变；新固定复测 S 24/24 版本正确且产生宿主输出，事实相关性单独评分，见[复测结果](../../verification/npc-expression-version-2026-09-14.md)。下一步是[复现移动中观察失效导致邀约答复丢弃](https://github.com/qinjunw/CozyTown/issues/79)，补齐采样与执行时视图后恢复实际交谈，再由用户[选择 NPC 的正式事实表达方式](https://github.com/qinjunw/CozyTown/issues/75)。会面对话停滞和普通活动期限继续保留各自票据。
+[区分行动版本与表达版本并复测结构化候选](https://github.com/qinjunw/CozyTown/issues/78)已明确候选版本来自请求外层，原校验和调用预算保持不变；新固定复测 S 24/24 版本正确且产生宿主输出，事实相关性单独评分，见[复测结果](../../verification/npc-expression-version-2026-09-14.md)。[复现移动中观察失效导致邀约答复丢弃](https://github.com/qinjunw/CozyTown/issues/79)已完成同区答复修复与执行前观察记录；8 个新世界、38 次真实调用中，4 次交付交谈、4 次拒绝均完成并恢复，候选拒绝与旧请求取消保留，见[验证报告](../../verification/npc-moving-observation-2026-09-14.md)。下一步[复现会面对话在日程变更与预算等待后的停滞](https://github.com/qinjunw/CozyTown/issues/72)；由用户[选择 NPC 的正式事实表达方式](https://github.com/qinjunw/CozyTown/issues/75)。普通活动期限继续保留独立票据。
 
 ## 迭代顺序
 

@@ -1,0 +1,8 @@
+{"attemptedProviderCalls":0,"decisionRequests":0,"endpoints":{"F":"http://127.0.0.1:50675/decide","S":"http://127.0.0.1:50676/decide"},"finishedDecisionRequests":0,"inflight":0,"remainingCalls":48,"requestedModel":"deepseek-v4-flash","runState":"running","stage":"scene","totalAttemptedProviderCalls":0,"worlds":{}}
+{"attemptedProviderCalls":0,"decisionRequests":0,"finishedDecisionRequests":0,"inflight":0,"remainingCalls":48,"requestedModel":"deepseek-v4-flash","runState":"stopped","stage":"scene","totalAttemptedProviderCalls":0,"worlds":{}}
+test_cli_starts_an_explicit_standalone_scene_and_freezes_its_own_evidence (test_expression_experiment.ExpressionExperimentTests.test_cli_starts_an_explicit_standalone_scene_and_freezes_its_own_evidence) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.356s
+
+OK

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="27" result="Passed" total="27" passed="27" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.2213583">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="804" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.221358" total="27" passed="27" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1679" name="CozyTown.Tests.EditMode.dll" fullname="&lt;isolated-project&gt;/Library/ScriptAssemblies/CozyTown.Tests.EditMode.dll" runstate="Runnable" testcasecount="565" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.202317" total="27" passed="27" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="50416" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1680" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="565" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.189498" total="27" passed="27" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1681" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="565" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.179280" total="27" passed="27" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1682" name="EditMode" fullname="CozyTown.Tests.EditMode" runstate="Runnable" testcasecount="565" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.169231" total="27" passed="27" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1686" name="NpcAgents" fullname="CozyTown.Tests.EditMode.NpcAgents" runstate="Runnable" testcasecount="218" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.159531" total="27" passed="27" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1311" name="NpcObservationDecisionTests" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" testcasecount="27" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.156167" total="27" passed="27" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-suite type="ParameterizedMethod" id="1330" name="BodyMovementDuringGeneration_RejectsTheCandidateEvenWithoutAResidentRevision" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.BodyMovementDuringGeneration_RejectsTheCandidateEvenWithoutAResidentRevision" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.090077" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1327" name="BodyMovementDuringGeneration_RejectsTheCandidateEvenWithoutAResidentRevision(0.25d,&quot;outdoors&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.BodyMovementDuringGeneration_RejectsTheCandidateEvenWithoutAResidentRevision(0.25d,&quot;outdoors&quot;)" methodname="BodyMovementDuringGeneration_RejectsTheCandidateEvenWithoutAResidentRevision" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="594734391" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.079200" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1328" name="BodyMovementDuringGeneration_RejectsTheCandidateEvenWithoutAResidentRevision(4,&quot;outdoors&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.BodyMovementDuringGeneration_RejectsTheCandidateEvenWithoutAResidentRevision(4,&quot;outdoors&quot;)" methodname="BodyMovementDuringGeneration_RejectsTheCandidateEvenWithoutAResidentRevision" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="1387618133" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.000525" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1329" name="BodyMovementDuringGeneration_RejectsTheCandidateEvenWithoutAResidentRevision(0,&quot;sora.home&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.BodyMovementDuringGeneration_RejectsTheCandidateEvenWithoutAResidentRevision(0,&quot;sora.home&quot;)" methodname="BodyMovementDuringGeneration_RejectsTheCandidateEvenWithoutAResidentRevision" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="953289563" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.000367" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1321" name="Continuation_KeepsTheOriginalObservationAndDecisionDeadline" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.Continuation_KeepsTheOriginalObservationAndDecisionDeadline" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.011685" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1319" name="Continuation_KeepsTheOriginalObservationAndDecisionDeadline(False)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.Continuation_KeepsTheOriginalObservationAndDecisionDeadline(False)" methodname="Continuation_KeepsTheOriginalObservationAndDecisionDeadline" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="556091719" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.006384" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1320" name="Continuation_KeepsTheOriginalObservationAndDecisionDeadline(True)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.Continuation_KeepsTheOriginalObservationAndDecisionDeadline(True)" methodname="Continuation_KeepsTheOriginalObservationAndDecisionDeadline" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="1470507383" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.003371" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1324" name="HiddenPartnerAssetChanges_KeepTheSameProjectionOperationsAndInvitationResult" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.HiddenPartnerAssetChanges_KeepTheSameProjectionOperationsAndInvitationResult" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.009015" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1322" name="HiddenPartnerAssetChanges_KeepTheSameProjectionOperationsAndInvitationResult(False)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.HiddenPartnerAssetChanges_KeepTheSameProjectionOperationsAndInvitationResult(False)" methodname="HiddenPartnerAssetChanges_KeepTheSameProjectionOperationsAndInvitationResult" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="2130375148" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.007600" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1323" name="HiddenPartnerAssetChanges_KeepTheSameProjectionOperationsAndInvitationResult(True)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.HiddenPartnerAssetChanges_KeepTheSameProjectionOperationsAndInvitationResult(True)" methodname="HiddenPartnerAssetChanges_KeepTheSameProjectionOperationsAndInvitationResult" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="941970772" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.000676" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1337" name="InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.007723" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1331" name="InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(&quot;null&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(&quot;null&quot;)" methodname="InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="687096492" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.004761" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1332" name="InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(&quot;throw&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(&quot;throw&quot;)" methodname="InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="147985244" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.000465" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1333" name="InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(&quot;wrong_observer&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(&quot;wrong_observer&quot;)" methodname="InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="1480026912" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.000323" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1334" name="InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(&quot;wrong_world&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(&quot;wrong_world&quot;)" methodname="InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="771194727" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.000275" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1335" name="InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(&quot;stale_time&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(&quot;stale_time&quot;)" methodname="InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="117207260" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.000276" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1336" name="InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(&quot;wrong_listener&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget(&quot;wrong_listener&quot;)" methodname="InitialObservationFailure_SkipsTheModelAndLetsAnotherResidentUseTheBudget" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="955644555" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.000240" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1314" name="InvitationReply_SameRegionMovementPreservesTheAnswerWithoutAnotherCall" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.InvitationReply_SameRegionMovementPreservesTheAnswerWithoutAnotherCall" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.007149" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1312" name="InvitationReply_SameRegionMovementPreservesTheAnswerWithoutAnotherCall(True)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.InvitationReply_SameRegionMovementPreservesTheAnswerWithoutAnotherCall(True)" methodname="InvitationReply_SameRegionMovementPreservesTheAnswerWithoutAnotherCall" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="912116450" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.005075" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[Dispatch: time=720, x=2, y=0, region=pond; execution: time=720, x=2.25, y=0.25, region=pond
+]]></output>
+                  </test-case>
+                  <test-case id="1313" name="InvitationReply_SameRegionMovementPreservesTheAnswerWithoutAnotherCall(False)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.InvitationReply_SameRegionMovementPreservesTheAnswerWithoutAnotherCall(False)" methodname="InvitationReply_SameRegionMovementPreservesTheAnswerWithoutAnotherCall" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="487955683" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.001201" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[Dispatch: time=720, x=2, y=0, region=pond; execution: time=720, x=2.25, y=0.25, region=pond
+]]></output>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1344" name="ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.004354" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1338" name="ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(&quot;null&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(&quot;null&quot;)" methodname="ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="122302350" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.001509" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1339" name="ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(&quot;throw&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(&quot;throw&quot;)" methodname="ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="781238994" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.000369" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1340" name="ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(&quot;wrong_observer&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(&quot;wrong_observer&quot;)" methodname="ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="1698681094" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.000297" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1341" name="ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(&quot;wrong_world&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(&quot;wrong_world&quot;)" methodname="ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="1362615695" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.000261" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1342" name="ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(&quot;stale_time&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(&quot;stale_time&quot;)" methodname="ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="473006456" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.000280" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1343" name="ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(&quot;wrong_listener&quot;)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest(&quot;wrong_listener&quot;)" methodname="ObservationFailureBeforeExecution_RetainsTheCandidateAndReleasesTheCompletedRequest" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="577873686" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.000259" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-case id="1315" name="OwnAssetsChangedDuringGeneration_RejectsTheCandidateAndRetainsItsOriginalObservation" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.OwnAssetsChangedDuringGeneration_RejectsTheCandidateAndRetainsItsOriginalObservation" methodname="OwnAssetsChangedDuringGeneration_RejectsTheCandidateAndRetainsItsOriginalObservation" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="618216062" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.002796" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1316" name="PendingBudgetWait_SamplesTheCurrentTimeAndBodyOnlyWhenDispatched" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.PendingBudgetWait_SamplesTheCurrentTimeAndBodyOnlyWhenDispatched" methodname="PendingBudgetWait_SamplesTheCurrentTimeAndBodyOnlyWhenDispatched" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="537516026" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.002188" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1317" name="PendingResourceDecision_RefreshesOwnTermsAndOperationsBeforeItsFirstDispatch" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.PendingResourceDecision_RefreshesOwnTermsAndOperationsBeforeItsFirstDispatch" methodname="PendingResourceDecision_RefreshesOwnTermsAndOperationsBeforeItsFirstDispatch" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="1400854463" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.001542" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1318" name="PendingResourceNeedSatisfied_DiscardsTheUnsentDecisionWithoutAnotherModelCall" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.PendingResourceNeedSatisfied_DiscardsTheUnsentDecisionWithoutAnotherModelCall" methodname="PendingResourceNeedSatisfied_DiscardsTheUnsentDecisionWithoutAnotherModelCall" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="1009917643" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.001221" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1325" name="RepeatedObservationRefresh_WithoutANewOpportunityDoesNotCallTheModel" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.RepeatedObservationRefresh_WithoutANewOpportunityDoesNotCallTheModel" methodname="RepeatedObservationRefresh_WithoutANewOpportunityDoesNotCallTheModel" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="411174689" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.002016" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1326" name="WorldReload_PreservesTheEpochGateAndBudgetWithObservationsEnabled" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests.WorldReload_PreservesTheEpochGateAndBudgetWithObservationsEnabled" methodname="WorldReload_PreservesTheEpochGateAndBudgetWithObservationsEnabled" classname="CozyTown.Tests.EditMode.NpcAgents.NpcObservationDecisionTests" runstate="Runnable" seed="1152877359" result="Passed" start-time="2026-09-14 10:43:01Z" end-time="2026-09-14 10:43:01Z" duration="0.003591" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: &lt;user-home&gt;/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
