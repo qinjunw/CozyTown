@@ -11,7 +11,9 @@
 
 [复现会面对话在日程变更与预算等待后的停滞](https://github.com/qinjunw/CozyTown/issues/72)已确定原队列期限早于预算释放的问题，历史失败与现状表征见[复现依据](../../verification/npc-conversation-budget-2026-09-14.md)。[保留预算等待中的会话轮次并重新采样请求](https://github.com/qinjunw/CozyTown/issues/83)现已完成：受控 F/S 场景在默认预算释放后重新派发并完成第四句，完整 EditMode 852、PlayMode 196 项通过。唯一四世界真实批次共 18 次调用且全部恢复，未耗尽预算；因果证据与自然流程覆盖的区别见[修复验证](../../verification/npc-conversation-turn-2026-09-14.md)。
 
-后续按 GitHub 前沿推进[明确 Agent 会话的对象装配边界](https://github.com/qinjunw/CozyTown/issues/85)，再依据依赖和用户决策扩展四人负载。[选择 NPC 的正式事实表达方式](https://github.com/qinjunw/CozyTown/issues/75)与[确定普通自主活动期限与日程恢复验收](https://github.com/qinjunw/CozyTown/issues/70)继续保留为独立讨论，不能由本次流程成功替代。
+2026-09-15：[明确 Agent 会话的对象装配边界](https://github.com/qinjunw/CozyTown/issues/85)保留指定控制器的局部装配，补齐默认世界服务、场景运行对象和客户端的所有权说明；现有相关 PlayMode 22 项、EditMode 4 项复测通过，未修改生产代码或新增真实调用，见[生命周期核验](../../audits/npc-session-composition-2026-09-15.md)。静态审计发现换绑失败后可能部分替换，以及重配时预算和在途计数不跨实例继承。
+
+后续依次推进[确保 Agent 换绑失败时保留原对象图](https://github.com/qinjunw/CozyTown/issues/87)、[约束运行中决策重配的预算与在途请求](https://github.com/qinjunw/CozyTown/issues/88)，公开入口复现失败后再修复，之后依据实际前沿和用户决策扩展四人负载。[选择 NPC 的正式事实表达方式](https://github.com/qinjunw/CozyTown/issues/75)与[确定普通自主活动期限与日程恢复验收](https://github.com/qinjunw/CozyTown/issues/70)继续保留为独立讨论，不能由本次流程成功替代。
 
 ## 迭代顺序
 
