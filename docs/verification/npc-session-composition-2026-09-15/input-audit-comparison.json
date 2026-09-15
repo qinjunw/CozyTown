@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "6cbf604c6249f811e75a7b4202325cc1f99575fd",
+  "currentAudit": {
+    "localPath": "Logs/session-composition-input-audit-2026-09-15.json",
+    "rawSha256": "b3cdd839c8a7f8b082ef74ecc62dbd43a3db201174ab8e332d4c7611707bdb05"
+  },
+  "previousAudit": {
+    "repositoryPath": "docs/verification/npc-conversation-turn-2026-09-14/conversation-turn-compiled-source-audit-frozen.json",
+    "sha256": "5ce773339457f265819399915fa870657cab8fcc2fa1a03c3a1a7a7befba860a"
+  },
+  "method": "Parsed JSON objects are equal after excluding exactly the four listed metadata fields. Reconstruct the current sanitized audit by replacing these fields in the published previous audit.",
+  "metadataChanges": {
+    "auditedAtUtc": {
+      "previous": "2026-09-14T13:30:22.333287+00:00",
+      "current": "2026-09-15T11:14:53.519018+00:00"
+    },
+    "worktreeHead": {
+      "previous": "78d91d2bb91221697946be454b3893dada1c0ae7",
+      "current": "6cbf604c6249f811e75a7b4202325cc1f99575fd"
+    },
+    "sourceCommit": {
+      "previous": "78d91d2bb91221697946be454b3893dada1c0ae7",
+      "current": "6cbf604c6249f811e75a7b4202325cc1f99575fd"
+    },
+    "isolatedProject": {
+      "previous": "<isolated-project>",
+      "current": "<isolated-project>"
+    }
+  },
+  "unchangedFields": [
+    "schemaVersion",
+    "phase",
+    "baselineCommit",
+    "scopes",
+    "status",
+    "evidenceLimit",
+    "trackedFiles",
+    "compiledSourceCount",
+    "matches",
+    "categories",
+    "targetOverlays",
+    "settingsException",
+    "sceneTemplateSettingsException",
+    "excludedTrackedWorktreeChanges",
+    "untrackedWorktreeInputs",
+    "extraIsolatedInputs",
+    "approvedExtraInputs",
+    "sourcesAbsentFromManifests",
+    "issues",
+    "compilerManifests",
+    "files",
+    "settingsEvidenceArtifacts"
+  ],
+  "unchangedFieldsCanonicalSha256": "0a5150c9a4e953f4ec23843c44b4764a8aebe1ba82c30000aab08b7fee6dee83",
+  "canonicalization": "UTF-8 JSON; ensure_ascii=False; sort_keys=True; separators=(comma, colon).",
+  "status": "passed",
+  "trackedFiles": 1026,
+  "compiledSourceCount": 341,
+  "matches": {
+    "byte-identical": 859,
+    "lfs-payload-verified": 81,
+    "line-endings-only": 85,
+    "pinned-unity-settings-serialization": 1
+  },
+  "categories": {
+    "ArtSource": 135,
+    "Assets": 513,
+    "Packages": 2,
+    "ProjectSettings": 26,
+    "assembly-definition": 6,
+    "csharp": 341,
+    "scene": 3
+  },
+  "evidenceLimit": "Audits current input bytes and existing Bee source manifests; does not run Unity, verify DLL/PDB source checksums, or assert test results."
+}
