@@ -1,6 +1,6 @@
 # ADR-0003：单槽位存档使用版本化数据包
 
-- 状态：已接受；版本号与顶层字段清单已由 ADR-0012 取代
+- 状态：已接受；经济字段与 v1 迁移见 ADR-0012，当前写入版本及结算日期语义见 ADR-0014
 - 日期：2026-08-28
 
 ## 背景
@@ -55,9 +55,11 @@ GameSaveSnapshot
 
 ## 当前实现
 
-`JsonFileSaveStorage` 当前写入独立于运行时对象的 schema v2 JSON 数据包，并按 ADR-0012 的固定规则把 schema v1 迁移为 v2 候选。写入时在目标文件同一目录生成临时文件，复读并校验后使用文件替换提交；临时写入或替换失败时，上一份有效存档保持可读。读取路径区分空槽、截断或结构损坏、未来版本和无效载荷。
+`JsonFileSaveStorage` 当前写入独立于运行时对象的 schema v3 JSON 数据包，按 ADR-0012 与 [ADR-0014](0014-continuous-world-time-and-morning-settlement.md) 保留 v1/v2 的原协议校验和逐版本迁移。写入时在目标文件同一目录生成临时文件，复读并校验后使用文件替换提交；临时写入或替换失败时，上一份有效存档保持可读。读取路径区分空槽、截断或结构损坏、未来版本和无效载荷。
 
 `GameSaveCoordinator` 为逻辑槽位 `main` 捕获世界种子、时间、全部角色与商店经济状态、农田和畜牧快照。读取先校验载荷状态范围、稳定主体和跨模块日期，再恢复五个状态边界；任一步失败时回滚五份调用前快照。常规 Editor Play 与构建使用 `<Application.persistentDataPath>/CozyTown/main.json`，批处理测试注入 `InMemorySaveStorage`，避免接触玩家存档。
+
+上述回滚处理模块恢复返回失败的路径，回滚自身也可能返回独立错误。默认对外存读档入口由 `DaytimeClockCoordinator` 包装，数据恢复成功后才发布 NPC 等订阅者的重建通知；通知异常不在上述五模块回滚范围内。Agent 运行状态、旧请求及通知失败的核查见[存读档生命周期研究](../research/npc-agent/save-load-lifecycle-2026-09-16.md)。
 
 ## 后果
 

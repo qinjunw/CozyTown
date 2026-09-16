@@ -15,6 +15,8 @@
 
 后续依次推进[确保 Agent 换绑失败时保留原对象图](https://github.com/qinjunw/CozyTown/issues/87)、[约束运行中决策重配的预算与在途请求](https://github.com/qinjunw/CozyTown/issues/88)，公开入口复现失败后再修复，之后依据实际前沿和用户决策扩展四人负载。[选择 NPC 的正式事实表达方式](https://github.com/qinjunw/CozyTown/issues/75)与[确定普通自主活动期限与日程恢复验收](https://github.com/qinjunw/CozyTown/issues/70)继续保留为独立讨论，不能由本次流程成功替代。
 
+2026-09-16：用户要求将换绑与存读档结合研究。[存读档生命周期研究](../../research/npc-agent/save-load-lifecycle-2026-09-16.md)核对七项官方来源和当前 schema v3：普通读档恢复原服务的数据，随后通知 NPC 重建，与更换依赖对象不同。本轮未改运行代码或执行新测试。换绑修复继续以失败前状态保持为目标，加入有效／无效读档、连续读档及旧请求对照；[明确读档提交后重建失败的处理边界](https://github.com/qinjunw/CozyTown/issues/91)在换绑修复后独立复现，要求区分已提交数据与未完成重建，不能只捕获通知异常后报告成功。四人跨日与读档恢复新增依赖该任务；会面／经历持久化规则仍需在其实施前明确。
+
 ## 迭代顺序
 
 | 顺序 | 票据 | 本轮待回答的问题 | 需求与验收 |
