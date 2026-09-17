@@ -1,9 +1,17 @@
 # Agent 世界迭代与测试方案
 
-- 日期：2026-09-12。
+- 初建：2026-09-12；本轮路线更新：2026-09-17。
 - 地图：[迭代世界与人物 Agent 的自主交互](map.md)。
 - 需求来源：[Agent 世界 PRD](../../AGENT_WORLD_PRD.md)。
 - 用户已授权制定方案并开始迭代；本文件定义实施顺序，运行结果在各票据和验证报告记录。
+
+## 当前执行路线
+
+用户已确认本轮交付为四人 AI Agent 实验平台：[完成条件、任务调整与验收矩阵](platform-milestone.md)。下一项讨论是完整逻辑快照的保存与恢复契约；当前可实施的独立修复为[确保 Agent 换绑失败时保留原对象图](https://github.com/qinjunw/CozyTown/issues/87)。持久化实现等待契约、活动期限和读档重建失败边界明确，再接入四人实验入口，最后统一评测和冻结候选版本。
+
+[验证四人跨日与读档恢复](https://github.com/qinjunw/CozyTown/issues/55)收窄为最终集成评测；快照设计、持久化实现和观察入口分别由前置票据承担。[确定 NPC 事实表达实验的配置与判定标准](https://github.com/qinjunw/CozyTown/issues/75)继续由用户参与决定，保留 F／S 对照，不预先指定唯一正式方案。领取与阻塞只查询 GitHub 原生关系。
+
+## 已完成阶段与历史证据
 
 2026-09-14：[实现 NPC 按区域与距离的局部观察](https://github.com/qinjunw/CozyTown/issues/73)已完成区域、场景目录、权限、来源时间、首次派发采样与执行前复核，见[验证结果](../../verification/npc-local-observation-2026-09-14.md)。[对照验证 NPC 自由台词与结构化事实表达](https://github.com/qinjunw/CozyTown/issues/74)已完成实现及冻结实验：固定 48 次、四世界 8 次真实调用。结构化组 19/24 候选版本错误；四个世界均在邀约答复时因观察失效而未进入交谈，详见[首轮结果](../../verification/npc-expression-comparison-2026-09-14.md)。
 
@@ -13,11 +21,11 @@
 
 2026-09-15：[明确 Agent 会话的对象装配边界](https://github.com/qinjunw/CozyTown/issues/85)保留指定控制器的局部装配，补齐默认世界服务、场景运行对象和客户端的所有权说明；现有相关 PlayMode 22 项、EditMode 4 项复测通过，未修改生产代码或新增真实调用，见[生命周期核验](../../audits/npc-session-composition-2026-09-15.md)。静态审计发现换绑失败后可能部分替换，以及重配时预算和在途计数不跨实例继承。
 
-后续依次推进[确保 Agent 换绑失败时保留原对象图](https://github.com/qinjunw/CozyTown/issues/87)、[约束运行中决策重配的预算与在途请求](https://github.com/qinjunw/CozyTown/issues/88)，公开入口复现失败后再修复，之后依据实际前沿和用户决策扩展四人负载。[选择 NPC 的正式事实表达方式](https://github.com/qinjunw/CozyTown/issues/75)与[确定普通自主活动期限与日程恢复验收](https://github.com/qinjunw/CozyTown/issues/70)继续保留为独立讨论，不能由本次流程成功替代。
+当时登记了[确保 Agent 换绑失败时保留原对象图](https://github.com/qinjunw/CozyTown/issues/87)、[约束运行中决策重配的预算与在途请求](https://github.com/qinjunw/CozyTown/issues/88)，要求公开入口复现失败后再修复；当前顺序见本文件开头。[确定 NPC 事实表达实验的配置与判定标准](https://github.com/qinjunw/CozyTown/issues/75)与[确定普通自主活动期限与日程恢复验收](https://github.com/qinjunw/CozyTown/issues/70)保留为独立讨论，不能由流程成功替代。
 
 2026-09-16：用户要求将换绑与存读档结合研究。[存读档生命周期研究](../../research/npc-agent/save-load-lifecycle-2026-09-16.md)核对七项官方来源和当前 schema v3：普通读档恢复原服务的数据，随后通知 NPC 重建，与更换依赖对象不同。本轮未改运行代码或执行新测试。换绑修复继续以失败前状态保持为目标，加入有效／无效读档、连续读档及旧请求对照；[明确读档提交后重建失败的处理边界](https://github.com/qinjunw/CozyTown/issues/91)在换绑修复后独立复现，要求区分已提交数据与未完成重建，不能只捕获通知异常后报告成功。四人跨日与读档恢复新增依赖该任务；会面／经历持久化规则仍需在其实施前明确。
 
-## 迭代顺序
+## 初始阶段划分
 
 | 顺序 | 票据 | 本轮待回答的问题 | 需求与验收 |
 | --- | --- | --- | --- |
@@ -25,7 +33,7 @@
 | 2 | [接入有界决策与渐进式上下文](tickets/bounded-decisions-and-context.md) | 什么事件值得调用模型，如何通过有限信息和执行反馈完成一次决策？ | FR-005、006、007、013、014；AC-05、06、09 |
 | 3 | [实现 Ren 与 Sora 的自主会面](tickets/autonomous-resident-meeting.md) | 如何稳定产生见面机会，并使接受、赴约、交谈与结束一致？ | FR-008、009、010；AC-01、04、06 |
 | 4 | [接通角色资源与实际协作](tickets/resident-resource-cooperation.md) | 双方资源如何通过已有规则完成真实交付？ | FR-011；AC-08 |
-| 5 | [验证四人跨日与读档恢复](tickets/four-resident-persistence-and-evaluation.md) | 哪些经历和承诺需要存档，如何证明多日运行及模型表现？ | FR-015、016；AC-02、07、09 |
+| 5 | [验证四人跨日与读档恢复](tickets/four-resident-persistence-and-evaluation.md) | 在既定快照契约与四人实验入口完成后，跨日、恢复及模型表现是否满足冻结的验收？ | FR-015、016；AC-02、07、09；前置工作见[第一版计划](platform-milestone.md) |
 
 上表编号省略 `AW-` 前缀。按顺序保留可以运行的切片，已有默认日程在无自主决策时继续工作。
 
