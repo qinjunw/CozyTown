@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-17 12:37:44Z" end-time="2026-09-17 12:37:44Z" duration="0.1741662">
+  <test-suite type="TestSuite" id="1282" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="215" result="Failed" site="Child" start-time="2026-09-17 12:37:44Z" end-time="2026-09-17 12:37:44Z" duration="0.174166" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1275" name="CozyTown.Tests.PlayMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="215" result="Failed" site="Child" start-time="2026-09-17 12:37:44Z" end-time="2026-09-17 12:37:44Z" duration="0.165234" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="122816" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1276" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="215" result="Failed" site="Child" start-time="2026-09-17 12:37:44Z" end-time="2026-09-17 12:37:44Z" duration="0.162433" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1277" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="215" result="Failed" site="Child" start-time="2026-09-17 12:37:44Z" end-time="2026-09-17 12:37:44Z" duration="0.160162" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1278" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="215" result="Failed" site="Child" start-time="2026-09-17 12:37:44Z" end-time="2026-09-17 12:37:44Z" duration="0.158000" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1091" name="NpcBindingPlayModeTests" fullname="CozyTown.Tests.PlayMode.NpcBindingPlayModeTests" classname="CozyTown.Tests.PlayMode.NpcBindingPlayModeTests" runstate="Runnable" testcasecount="14" result="Failed" site="Child" start-time="2026-09-17 12:37:44Z" end-time="2026-09-17 12:37:44Z" duration="0.153568" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1101" name="UnconfiguredAnimation_PreservesBindingUntilConfigurationIsRepaired" fullname="CozyTown.Tests.PlayMode.NpcBindingPlayModeTests.UnconfiguredAnimation_PreservesBindingUntilConfigurationIsRepaired" methodname="UnconfiguredAnimation_PreservesBindingUntilConfigurationIsRepaired" classname="CozyTown.Tests.PlayMode.NpcBindingPlayModeTests" runstate="Runnable" seed="961518606" result="Failed" start-time="2026-09-17 12:37:44Z" end-time="2026-09-17 12:37:44Z" duration="0.139848" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Expected: c70bef30-c257-485d-b79a-3a4f625e43d4
+  But was:  e8dc6653-11aa-46ff-b82f-e359f4a07ca5
+]]></message>
+                  <stack-trace><![CDATA[at CozyTown.Tests.PlayMode.NpcBindingPlayModeTests.UnconfiguredAnimation_PreservesBindingUntilConfigurationIsRepaired () [0x00050] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\NpcBindingPlayModeTests.cs:213
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -101,11 +101,17 @@ namespace CozyTown.Runtime.NpcAgents
 
         public void BindWorld(NpcAgentWorld world)
         {
+            ValidateWorldBinding(world);
+            _meetings?.BindWorld(world);
+            _world = world;
+        }
+
+        public void ValidateWorldBinding(NpcAgentWorld world)
+        {
             if (_disposed) throw new ObjectDisposedException(nameof(NpcDecisionScheduler));
             if (world == null) throw new ArgumentNullException(nameof(world));
             foreach (var resident in _residents) world.GetState(resident.Profile.Id);
-            _world = world;
-            _meetings?.BindWorld(world);
+            _meetings?.ValidateWorldBinding(world);
         }
 
         public void Dispose()

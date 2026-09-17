@@ -62,7 +62,7 @@ namespace CozyTown.Unity.Npc
         {
             if (timeFlow == null) throw new ArgumentNullException(nameof(timeFlow));
             bool resourcesChanged = resources != null && !ReferenceEquals(_resources, resources);
-            if (resources != null) _resources = resources;
+            var candidateResources = resources ?? _resources;
             foreach (var resident in residents) resident.ValidateConfiguration();
             if (_observation == null)
             {
@@ -80,12 +80,17 @@ namespace CozyTown.Unity.Npc
                 actors.Add(residents[i].NpcId, residents[i]);
             }
             var agents = new NpcAgentWorld(schedules, (npcId, locationId) => actors[npcId].CanVisit(locationId));
+            var progress = timeFlow.Current;
+            agents.Observe(progress);
+            _meetings?.ValidateWorldBinding(agents, candidateResources);
+            _decisions?.ValidateWorldBinding(agents);
             if (_timeFlow != null) _timeFlow.Changed -= Apply;
+            _resources = candidateResources;
             _agents = agents;
             foreach (var resident in residents) resident.BindAgents(_agents);
             _timeFlow = timeFlow;
             _hasState = false;
-            Apply(_timeFlow.Current);
+            Apply(progress);
             _decisions?.BindWorld(_agents);
             _timeFlow.Changed += Apply;
         }

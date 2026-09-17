@@ -110,6 +110,7 @@ namespace CozyTown.Unity.Npc
         {
             if (map == null || visual == null || times == null || times.Length != 6)
                 throw new InvalidOperationException("Resident requires a map, visual, and six daily phase boundaries.");
+            GetComponent<CozyTownNpcSpriteAnimator>()?.ValidateConfiguration();
             _schedule = new NpcDailySchedule(npcId, homeId, outsideId, entryId,
                 morningId, restId, afternoonId, times[0], times[1], times[2],
                 times[3], times[4], times[5]);

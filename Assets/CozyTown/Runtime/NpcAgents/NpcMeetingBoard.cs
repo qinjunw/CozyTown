@@ -122,7 +122,20 @@ namespace CozyTown.Runtime.NpcAgents
 
         public void BindWorld(NpcAgentWorld world, CharacterResourceTrading resources = null)
         {
+            ValidateWorldBinding(world, resources);
+            if (resources != null) _resources = resources;
+            _world = world;
+            Observe();
+        }
+
+        public void ValidateWorldBinding(NpcAgentWorld world, CharacterResourceTrading resources = null)
+        {
             if (world == null) throw new ArgumentNullException(nameof(world));
+            foreach (var plan in _plans.Values)
+            {
+                world.GetState(plan.InitiatorId);
+                world.GetState(plan.PartnerId);
+            }
             if (resources != null && !ReferenceEquals(resources, _resources))
             {
                 if (_plans.Count > 0 && world.GetState(_plans.Values.First().InitiatorId).WorldRunId == _worldRunId)
@@ -130,10 +143,7 @@ namespace CozyTown.Runtime.NpcAgents
                 foreach (var plan in _plans.Values.Where(plan => plan.ResourceTerms != null))
                     if (resources.Inspect(plan.ResourceTerms, plan.InitiatorId) == null || resources.Inspect(plan.ResourceTerms, plan.PartnerId) == null)
                         throw new ArgumentException("Resource plans require assets owned by both participants.");
-                _resources = resources;
             }
-            _world = world ?? throw new ArgumentNullException(nameof(world));
-            Observe();
         }
 
         public NpcSocialContext GetContext(string npcId)
