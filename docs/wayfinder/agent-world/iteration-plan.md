@@ -7,9 +7,9 @@
 
 ## 当前执行路线
 
-用户已确认本轮交付为四人 AI Agent 实验平台：[完成条件、任务调整与验收矩阵](platform-milestone.md)。下一项讨论是完整逻辑快照的保存与恢复契约；当前可实施的独立修复为[确保 Agent 换绑失败时保留原对象图](https://github.com/qinjunw/CozyTown/issues/87)。持久化实现等待契约、活动期限和读档重建失败边界明确，再接入四人实验入口，最后统一评测和冻结候选版本。
+用户已确认本轮交付为四人 AI Agent 实验平台：[完成条件、任务调整与验收矩阵](platform-milestone.md)。完整逻辑快照契约已确定，下一项可实施的前置修复为[确保 Agent 换绑失败时保留原对象图](https://github.com/qinjunw/CozyTown/issues/87)。持久化实现仍等待活动期限和读档重建失败边界明确，再接入四人实验入口，最后统一评测和冻结候选版本。
 
-[完整逻辑快照契约草案](../../AGENT_SNAPSHOT_SPEC.md)已完成字段盘点与 13 组公开验收设计；位置续走、互动续接和旧档初始化选择待用户答复，[ADR-0019](../../adr/0019-complete-logical-snapshots-and-agent-continuation.md)为 Proposed。当前没有新格式或恢复实现，也没有本轮运行测试；不能用草案代替后继实施与 RED → GREEN 证据。
+[完整逻辑快照契约 1.0](../../AGENT_SNAPSHOT_SPEC.md)包含字段盘点与 13 组公开验收；用户已采纳位置及路线续走、互动续接和旧档初始化，[ADR-0019](../../adr/0019-complete-logical-snapshots-and-agent-continuation.md)为 Accepted。当前没有新格式或恢复实现，也没有本轮运行测试；契约确认不替代后继实施与 RED → GREEN 证据。
 
 [验证四人跨日与读档恢复](https://github.com/qinjunw/CozyTown/issues/55)收窄为最终集成评测；快照设计、持久化实现和观察入口分别由前置票据承担。[确定 NPC 事实表达实验的配置与判定标准](https://github.com/qinjunw/CozyTown/issues/75)继续由用户参与决定，保留 F／S 对照，不预先指定唯一正式方案。领取与阻塞只查询 GitHub 原生关系。
 

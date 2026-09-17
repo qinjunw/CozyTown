@@ -26,7 +26,7 @@
 | 已有事实 | 对下一步的影响 |
 | --- | --- |
 | 默认社交计划与资源计划只包含 Ren／Sora，见 [社交配置](../../../Assets/CozyTown/Runtime/Content/DefaultNpcMeetingPlans.cs)和[资源配置](../../../Assets/CozyTown/Runtime/Content/DefaultNpcResourcePlans.cs) | 需要配置四人的自主机会与互动组合，并验证共享预算下的调度；不能把两人多次运行当成四人共同负载 |
-| [存档 DTO](../../../Assets/CozyTown/Runtime/Save/GameSaveSnapshot.cs) 为 schema v3，保存种子、时间、角色／商店资产、农田及畜牧 | Agent 活动、承诺、经历、会话和逻辑待办仍需持久化契约与实现 |
+| [存档 DTO](../../../Assets/CozyTown/Runtime/Save/GameSaveSnapshot.cs) 为 schema v3，保存种子、时间、角色／商店资产、农田及畜牧 | Agent 活动、承诺、经历、会话和逻辑待办的[持久化契约已确定](../../AGENT_SNAPSHOT_SPEC.md)，尚待实现 |
 | 普通读档恢复数据后重建 NPC，当前规则清除临时会面与经历，并按日程归位 | “完整逻辑快照”会改变恢复语义；先复审时间、活动及会面 ADR，再改格式和实现 |
 | 已有请求诊断、会面显示及实验日志；[NPC 调试视图](../../../Assets/CozyTown/Unity/Npc/CozyTownNpcDebugView.cs)承担玩家对话 | 需要把角色观察与实验运行入口接到已有公开诊断；避免将玩家对话框描述为已完成的 Agent 管理台 |
 | 实现通过多层 Draft PR 交付，当前未合并 | 最终验收必须指定包含全部依赖的提交；已关闭实施票据不代表主分支可直接运行所有能力 |
@@ -50,15 +50,15 @@ HTTP 请求、`Task`、取消源、事件订阅和 Unity 对象引用不写入�
 
 快照不承诺下次真实模型会说同样的话。相同输入与已记录输出的回放用于复核宿主行为；重新请求真实模型用于观察行为分布。回放记录并驱动游戏时间、调度器现实时间、事件及响应完成顺序；跨运行的临时 ID 明确映射，核对请求内容与配置后才提供对应记录。轨迹分歧应报告并停止该次回放，不能按序盲用旧回复。回放仍经过宿主校验，不凭历史台词重做交易。
 
-精确位置、进行中邀约／交谈的续接规则和旧存档缺字段默认值需要在快照契约票据中决定，本文件不提前替换已接受的 ADR。
+用户已在[完整逻辑快照契约](../../AGENT_SNAPSHOT_SPEC.md)中采纳精确位置与路线恢复、进行中邀约／交谈续接、旧存档保留已有数据并初始化缺失状态。[ADR-0019](../../adr/0019-complete-logical-snapshots-and-agent-continuation.md)记录新格式对旧恢复规则的局部修订；运行实现尚未改变。
 
 ## 4. Ticket 调整与实施顺序
 
-本表定义路线；开放状态和原生阻塞关系只在 GitHub 维护。先明确恢复契约与活动期限；独立入口修复可以先完成，不必等待新增玩法。
+本表定义路线；开放状态和原生阻塞关系只在 GitHub 维护。恢复契约已确定，活动期限仍待明确；独立入口修复可以先完成，不必等待新增玩法。
 
 | 工作 | 调整与退出条件 |
 | --- | --- |
-| [确定完整逻辑快照的保存与恢复契约](https://github.com/qinjunw/CozyTown/issues/93) | 新增决策票据。产出逐项状态清单、恢复阶段、兼容和失败语义，以及需复审的 ADR；这是推荐的下一项讨论 |
+| [确定完整逻辑快照的保存与恢复契约](https://github.com/qinjunw/CozyTown/issues/93) | 按用户选择确定逐项状态清单、恢复阶段、兼容和失败语义，交付[契约 1.0](../../AGENT_SNAPSHOT_SPEC.md)与 ADR-0019；后继实现依据该契约验收 |
 | [确定普通自主活动期限与日程恢复验收](https://github.com/qinjunw/CozyTown/issues/70) | 保留。决定长活动的合法期限和恢复的判定，保留历史 720 分钟样本失败记录 |
 | [确保 Agent 换绑失败时保留原对象图](https://github.com/qinjunw/CozyTown/issues/87) | 保留，当前可实施。验证无效换绑不破坏原服务、活动、订阅及请求资格，加入普通读档对照 |
 | [明确读档提交后重建失败的处理边界](https://github.com/qinjunw/CozyTown/issues/91) | 保留。区分提交前失败与数据已提交后的重建失败，禁止不一致会话继续行动 |
