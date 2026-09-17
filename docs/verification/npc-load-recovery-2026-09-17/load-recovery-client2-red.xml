@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="7" result="Failed(Child)" total="7" passed="5" failed="2" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.2087244">
+  <test-suite type="TestSuite" id="1293" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="222" result="Failed" site="Child" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.208724" total="7" passed="5" failed="2" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1286" name="CozyTown.Tests.PlayMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="222" result="Failed" site="Child" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.199726" total="7" passed="5" failed="2" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="20952" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1287" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="222" result="Failed" site="Child" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.196916" total="7" passed="5" failed="2" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1288" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="222" result="Failed" site="Child" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.194293" total="7" passed="5" failed="2" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1289" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="222" result="Failed" site="Child" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.191878" total="7" passed="5" failed="2" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1142" name="NpcLoadRecoveryPlayModeTests" fullname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" classname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" runstate="Runnable" testcasecount="7" result="Failed" site="Child" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.188201" total="7" passed="5" failed="2" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-suite type="ParameterizedMethod" id="1152" name="ClientReentrantSynchronizationFailure_StopsFurtherDispatchInTheCurrentTick" fullname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.ClientReentrantSynchronizationFailure_StopsFurtherDispatchInTheCurrentTick" classname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.141281" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1150" name="ClientReentrantSynchronizationFailure_StopsFurtherDispatchInTheCurrentTick(True)" fullname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.ClientReentrantSynchronizationFailure_StopsFurtherDispatchInTheCurrentTick(True)" methodname="ClientReentrantSynchronizationFailure_StopsFurtherDispatchInTheCurrentTick" classname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" runstate="Runnable" seed="1652472205" result="Failed" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.126384" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: True
+  But was:  False
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.ClientReentrantSynchronizationFailure_StopsFurtherDispatchInTheCurrentTick (System.Boolean load) [0x00168] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\NpcLoadRecoveryPlayModeTests.cs:183
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1151" name="ClientReentrantSynchronizationFailure_StopsFurtherDispatchInTheCurrentTick(False)" fullname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.ClientReentrantSynchronizationFailure_StopsFurtherDispatchInTheCurrentTick(False)" methodname="ClientReentrantSynchronizationFailure_StopsFurtherDispatchInTheCurrentTick" classname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" runstate="Runnable" seed="302854265" result="Failed" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.003826" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: 1
+  But was:  2
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.ClientReentrantSynchronizationFailure_StopsFurtherDispatchInTheCurrentTick (System.Boolean load) [0x0012d] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\NpcLoadRecoveryPlayModeTests.cs:181
+]]></stack-trace>
+                  </failure>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1149" name="Notification_ReentrantCommandsCannotReplaceWorldOrScheduler" fullname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.Notification_ReentrantCommandsCannotReplaceWorldOrScheduler" classname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.025524" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1147" name="Notification_ReentrantCommandsCannotReplaceWorldOrScheduler(False)" fullname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.Notification_ReentrantCommandsCannotReplaceWorldOrScheduler(False)" methodname="Notification_ReentrantCommandsCannotReplaceWorldOrScheduler" classname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" runstate="Runnable" seed="270848538" result="Passed" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.020829" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1148" name="Notification_ReentrantCommandsCannotReplaceWorldOrScheduler(True)" fullname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.Notification_ReentrantCommandsCannotReplaceWorldOrScheduler(True)" methodname="Notification_ReentrantCommandsCannotReplaceWorldOrScheduler" classname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" runstate="Runnable" seed="535247404" result="Passed" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.002605" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1146" name="PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload" fullname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload" classname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.017671" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1143" name="PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload(&quot;before&quot;)" fullname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload(&quot;before&quot;)" methodname="PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload" classname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" runstate="Runnable" seed="1765888565" result="Passed" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.010076" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1144" name="PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload(&quot;after&quot;)" fullname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload(&quot;after&quot;)" methodname="PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload" classname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" runstate="Runnable" seed="1600395331" result="Passed" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.003409" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1145" name="PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload(&quot;body&quot;)" fullname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload(&quot;body&quot;)" methodname="PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload" classname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" runstate="Runnable" seed="714317246" result="Passed" start-time="2026-09-17 14:20:55Z" end-time="2026-09-17 14:20:55Z" duration="0.002880" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

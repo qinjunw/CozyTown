@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Failed(Child)" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-17 14:12:55Z" end-time="2026-09-17 14:12:55Z" duration="0.2192049">
+  <test-suite type="TestSuite" id="1287" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="218" result="Failed" site="Child" start-time="2026-09-17 14:12:55Z" end-time="2026-09-17 14:12:55Z" duration="0.219205" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1280" name="CozyTown.Tests.PlayMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="218" result="Failed" site="Child" start-time="2026-09-17 14:12:55Z" end-time="2026-09-17 14:12:55Z" duration="0.208644" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="14008" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1281" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="218" result="Failed" site="Child" start-time="2026-09-17 14:12:55Z" end-time="2026-09-17 14:12:55Z" duration="0.205418" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1282" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="218" result="Failed" site="Child" start-time="2026-09-17 14:12:55Z" end-time="2026-09-17 14:12:55Z" duration="0.202555" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1283" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="218" result="Failed" site="Child" start-time="2026-09-17 14:12:55Z" end-time="2026-09-17 14:12:55Z" duration="0.199134" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1142" name="NpcLoadRecoveryPlayModeTests" fullname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" classname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2026-09-17 14:12:55Z" end-time="2026-09-17 14:12:55Z" duration="0.192553" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-suite type="ParameterizedMethod" id="1146" name="PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload" fullname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload" classname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2026-09-17 14:12:55Z" end-time="2026-09-17 14:12:55Z" duration="0.187245" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1143" name="PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload(&quot;before&quot;)" fullname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload(&quot;before&quot;)" methodname="PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload" classname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" runstate="Runnable" seed="789841782" result="Failed" start-time="2026-09-17 14:12:55Z" end-time="2026-09-17 14:12:55Z" duration="0.165183" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: No Exception to be thrown
+  But was:  <System.InvalidOperationException: injected synchronization fault
+  at CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests+<>c.<PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload>b__10_0 (CozyTown.Runtime.Time.WorldTimeProgress progress) [0x00014] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\NpcLoadRecoveryPlayModeTests.cs:66
+  at (wrapper delegate-invoke) System.Action`1[CozyTown.Runtime.Time.WorldTimeProgress].invoke_void_T(CozyTown.Runtime.Time.WorldTimeProgress)
+  at CozyTown.Runtime.Time.WorldTimeFlow.Publish (CozyTown.Runtime.Time.GameClockSnapshot clock, System.Double fractionalMinute, System.Boolean isRebuild, System.Nullable`1[T] advanceFromTotalMinutes) [0x00071] in [isolated-project]\Assets\CozyTown\Runtime\Time\WorldTimeFlow.cs:42
+  at CozyTown.Runtime.Application.DaytimeClockCoordinator.Load () [0x00024] in [isolated-project]\Assets\CozyTown\Runtime\Application\DaytimeClockCoordinator.cs:112
+  at CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests+<>c__DisplayClass10_0.<PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload>b__1 () [0x00000] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\NpcLoadRecoveryPlayModeTests.cs:87
+  at NUnit.Framework.Constraints.ThrowsConstraint+VoidInvocationDescriptor.Invoke () [0x00001] in <8b63e8ac0a4746599ed207982825ae6c>:0
+  at NUnit.Framework.Constraints.ThrowsConstraint+ExceptionInterceptor.Intercept (System.Object invocation) [0x00050] in <8b63e8ac0a4746599ed207982825ae6c>:0 >
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload (System.String fault) [0x00188] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\NpcLoadRecoveryPlayModeTests.cs:87
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1144" name="PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload(&quot;after&quot;)" fullname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload(&quot;after&quot;)" methodname="PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload" classname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" runstate="Runnable" seed="1770997985" result="Failed" start-time="2026-09-17 14:12:55Z" end-time="2026-09-17 14:12:55Z" duration="0.002720" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: No Exception to be thrown
+  But was:  <System.InvalidOperationException: injected synchronization fault
+  at CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests+<>c.<PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload>b__10_0 (CozyTown.Runtime.Time.WorldTimeProgress progress) [0x00014] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\NpcLoadRecoveryPlayModeTests.cs:66
+  at (wrapper delegate-invoke) System.Action`1[CozyTown.Runtime.Time.WorldTimeProgress].invoke_void_T(CozyTown.Runtime.Time.WorldTimeProgress)
+  at CozyTown.Runtime.Time.WorldTimeFlow.Publish (CozyTown.Runtime.Time.GameClockSnapshot clock, System.Double fractionalMinute, System.Boolean isRebuild, System.Nullable`1[T] advanceFromTotalMinutes) [0x00071] in [isolated-project]\Assets\CozyTown\Runtime\Time\WorldTimeFlow.cs:42
+  at CozyTown.Runtime.Application.DaytimeClockCoordinator.Load () [0x00024] in [isolated-project]\Assets\CozyTown\Runtime\Application\DaytimeClockCoordinator.cs:112
+  at CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests+<>c__DisplayClass10_0.<PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload>b__1 () [0x00000] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\NpcLoadRecoveryPlayModeTests.cs:87
+  at NUnit.Framework.Constraints.ThrowsConstraint+VoidInvocationDescriptor.Invoke () [0x00001] in <8b63e8ac0a4746599ed207982825ae6c>:0
+  at NUnit.Framework.Constraints.ThrowsConstraint+ExceptionInterceptor.Intercept (System.Object invocation) [0x00050] in <8b63e8ac0a4746599ed207982825ae6c>:0 >
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload (System.String fault) [0x00188] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\NpcLoadRecoveryPlayModeTests.cs:87
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1145" name="PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload(&quot;body&quot;)" fullname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload(&quot;body&quot;)" methodname="PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload" classname="CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests" runstate="Runnable" seed="1784706994" result="Failed" start-time="2026-09-17 14:12:55Z" end-time="2026-09-17 14:12:55Z" duration="0.003948" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: No Exception to be thrown
+  But was:  <System.NullReferenceException: Object reference not set to an instance of an object
+  at CozyTown.Unity.Npc.CozyTownNpcSpriteAnimator.Apply (UnityEngine.Vector2 direction, System.Boolean isWalking, System.Double acceptedSeconds, System.Boolean rebuild) [0x00091] in [isolated-project]\Assets\CozyTown\Unity\Npc\CozyTownNpcSpriteAnimator.cs:45
+  at CozyTown.Unity.Npc.NpcWorldResident2D.Commit (CozyTown.Unity.Npc.NpcWorldResident2D+Journey candidate) [0x0008b] in [isolated-project]\Assets\CozyTown\Unity\Npc\NpcWorldResident2D.cs:187
+  at CozyTown.Unity.Npc.CozyTownTownLifeController.Apply (CozyTown.Runtime.Time.WorldTimeProgress progress) [0x000c5] in [isolated-project]\Assets\CozyTown\Unity\Npc\CozyTownTownLifeController.cs:218
+  at CozyTown.Runtime.Time.WorldTimeFlow.Publish (CozyTown.Runtime.Time.GameClockSnapshot clock, System.Double fractionalMinute, System.Boolean isRebuild, System.Nullable`1[T] advanceFromTotalMinutes) [0x00071] in [isolated-project]\Assets\CozyTown\Runtime\Time\WorldTimeFlow.cs:42
+  at CozyTown.Runtime.Application.DaytimeClockCoordinator.Load () [0x00024] in [isolated-project]\Assets\CozyTown\Runtime\Application\DaytimeClockCoordinator.cs:112
+  at CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests+<>c__DisplayClass10_0.<PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload>b__1 () [0x00000] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\NpcLoadRecoveryPlayModeTests.cs:87
+  at NUnit.Framework.Constraints.ThrowsConstraint+VoidInvocationDescriptor.Invoke () [0x00001] in <8b63e8ac0a4746599ed207982825ae6c>:0
+  at NUnit.Framework.Constraints.ThrowsConstraint+ExceptionInterceptor.Intercept (System.Object invocation) [0x00050] in <8b63e8ac0a4746599ed207982825ae6c>:0 >
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.PlayMode.NpcLoadRecoveryPlayModeTests.PostCommitFailure_ReportsCommittedSaveAndFreezesDecisionsUntilReload (System.String fault) [0x00188] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\NpcLoadRecoveryPlayModeTests.cs:87
+]]></stack-trace>
+                  </failure>
+                  <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

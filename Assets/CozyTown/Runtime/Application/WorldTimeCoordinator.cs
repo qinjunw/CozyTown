@@ -42,6 +42,8 @@ namespace CozyTown.Runtime.Application
 
         public OperationResult<GameClockSnapshot> AdvanceMinutes(int gameMinutes)
         {
+            if (_timeFlow != null && _timeFlow.State != WorldTimeFlowState.Ready)
+                return OperationResult<GameClockSnapshot>.Failure("world_time.not_ready");
             if (gameMinutes > MaximumAdvanceMinutes)
             {
                 return OperationResult<GameClockSnapshot>.Failure("world_time.request_too_large");
@@ -136,7 +138,12 @@ namespace CozyTown.Runtime.Application
             double fraction = _timeFlow?.Current.FractionalMinute ?? 0;
             double startMinute = ((long)Current.Day - 1) * InMemoryTimeService.MinutesPerDay + Current.MinuteOfDay + fraction;
             time.CommitPrepared(targetClock);
-            if (gameMinutes > 0) _timeFlow?.Publish(targetClock, fraction, advanceFromTotalMinutes: startMinute);
+            if (gameMinutes > 0)
+            {
+                var published = _timeFlow?.Publish(targetClock, fraction, advanceFromTotalMinutes: startMinute);
+                if (published.HasValue && !published.Value.IsSuccess)
+                    return OperationResult<GameClockSnapshot>.Failure(published.Value.ErrorCode);
+            }
             return OperationResult<GameClockSnapshot>.Success(targetClock);
         }
 

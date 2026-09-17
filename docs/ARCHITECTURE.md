@@ -102,7 +102,7 @@ Assets/CozyTown/
 
 `TownMap2D` 提供住宅、地点、共享道路和按距离加权的确定性路径查询；`CozyTownTownLayout` 是铺地、地标及道路装配的共同来源。`TownRouteFollower2D` 从实际位置消费距离预算并扫掠脚部碰撞，报告移动、到达或受阻；`NpcWorldResident2D` 组合个人日程与实际旅程，不以计划时刻代替到达。
 
-`DaytimeClockCoordinator` 通过 `IDaytimeClock.AdvanceElapsed` 接收有效经过时长，每 0.5 秒推进 1 游戏分钟，跨午夜不封顶。组合根的 `DaytimeClock`、`Sleep`、`DayTransition`、`GameSave` 端口引用同一适配实例，普通走时和显式睡眠都调用 `IWorldTimeCoordinator.AdvanceMinutes`。仅成功睡眠或加载清空不足一分钟的余量；保存和失败操作保留余量。余量不进入 schema v3 存档。
+`DaytimeClockCoordinator` 通过 `IDaytimeClock.AdvanceElapsed` 接收有效经过时长，每 0.5 秒推进 1 游戏分钟，跨午夜不封顶。组合根的 `DaytimeClock`、`Sleep`、`DayTransition`、`GameSave` 端口引用同一适配实例，普通走时和显式睡眠都调用 `IWorldTimeCoordinator.AdvanceMinutes`。睡眠或加载的权威状态提交后清空不足一分钟的余量，即使后续通知失败；保存及提交前失败并成功回滚的操作保留余量。余量不进入 schema v3 存档。
 
 `WorldTimeCoordinator` 隐藏结算边界、逐周期候选和提交顺序。农田、畜牧和经济模块在内部准备已校验、独立持有的状态，全部准备成功后才替换当前状态及钟面。成长和产物规则仍属于各领域，未引入公共时间基类、回调调度平台或数据库。旧 `SleepToNextDay` 端口只计算到次日 06:00 的分钟差，再走统一入口；组合根不再使用旧 `DayTransitionCoordinator` 事务。
 
@@ -173,7 +173,11 @@ CozyTownCompositionRoot 只负责创建并连接上述对象。
 
 `Bind` 的资源参数为 null 时保留先前资源引用；跨默认服务图重绑应像 Bootstrap 一样同时传入匹配的时间与资源。控制器停用时停止自动 `Update` 决策，但仍处理已订阅的显式睡眠／读档通知。
 
-换绑先验证居民及可选动画配置，再准备候选世界时刻并校验会面参与者、资源归属和决策角色；这些检查通过后才发布引用并切换时钟订阅。上述输入校验失败保留原世界、会面、活动、资源、预算及未完成请求资格；成功换绑继续使用原调度器。公开入口验证见[换绑失败修复](verification/npc-binding-2026-09-17.md)。此保证覆盖配置与候选依赖校验，不将任意外部回调异常视为已经支持的事务回滚；普通读档提交后通知失败仍由[明确读档提交后重建失败的处理边界](https://github.com/qinjunw/CozyTown/issues/91)处理。
+换绑先验证居民及可选动画配置，再准备候选世界时刻并校验会面参与者、资源归属和决策角色；这些检查通过后才发布引用并切换时钟订阅。上述输入校验失败保留原世界、会面、活动、资源、预算及未完成请求资格；成功换绑继续使用原调度器。公开入口验证见[换绑失败修复](verification/npc-binding-2026-09-17.md)。此保证覆盖配置与候选依赖校验，不将任意外部回调异常视为已经支持的事务回滚；普通读档提交后通知失败按 [ADR-0020](adr/0020-post-commit-world-recovery.md)处理，公开故障注入见[恢复验证](verification/npc-load-recovery-2026-09-17.md)。
+
+`WorldTimeFlow.State` 区分 Ready、Publishing、RecoveryRequired。`Changed` 为关键同步，逐一尝试订阅者；全部成功后才发布 `PresentationChanged`，供灯光、农田及畜牧显示刷新。关键异常保留已提交数据并暂停时间协调、存档覆盖与 NPC 行为；修复后重新读取有效存档才恢复。显示异常返回明确结果但保持 Ready。通知期间同样拒绝嵌套操作、换绑与调度重配；模块返回普通失败并成功回滚则保持原状态，回滚失败或恢复抛错保守进入恢复状态。
+
+恢复中的调度器失效化逻辑请求并取消它们，保留未完成 Task 与调用预算；已完成结果只被回收，不能执行交付或活动，也不消费世界触发事件。模型客户端或观察回调返回后再次检查运行许可，避免当前 Tick 跨过故障继续派发或执行。
 
 重新配置时，旧任务可能仍在真实运行，新调度器没有跨实例预算或在途计数。当前初始化、重复注册和读档路径不会使用重新配置来刷新预算；运行中切换客户端的约束由[约束运行中决策重配的预算与在途请求](https://github.com/qinjunw/CozyTown/issues/88)处理。控制器的 `OnDestroy` 不等于 `CancelAll`；只销毁控制器组件而保留居民的场景热替换，尚无完整释放与恢复验收。客户端由调用方提供，`INpcDecisionClient` 不包含 Dispose；HTTP 适配器默认复用静态传输客户端，不能把调度器销毁等同于网络传输对象销毁。
 

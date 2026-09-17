@@ -61,7 +61,7 @@ HTTP 请求、`Task`、取消源、事件订阅和 Unity 对象引用不写入�
 | [确定完整逻辑快照的保存与恢复契约](https://github.com/qinjunw/CozyTown/issues/93) | 按用户选择确定逐项状态清单、恢复阶段、兼容和失败语义，交付[契约 1.0](../../AGENT_SNAPSHOT_SPEC.md)与 ADR-0019；后继实现依据该契约验收 |
 | [确定普通自主活动期限与日程恢复验收](https://github.com/qinjunw/CozyTown/issues/70) | 保留。决定长活动的合法期限和恢复的判定，保留历史 720 分钟样本失败记录 |
 | [确保 Agent 换绑失败时保留原对象图](https://github.com/qinjunw/CozyTown/issues/87) | 已实现候选依赖与居民配置的发布前校验；[验证报告](../../verification/npc-binding-2026-09-17.md)包含失败保护、合法重试及普通读档对照 |
-| [明确读档提交后重建失败的处理边界](https://github.com/qinjunw/CozyTown/issues/91) | 保留。区分提交前失败与数据已提交后的重建失败，禁止不一致会话继续行动 |
+| [明确读档提交后重建失败的处理边界](https://github.com/qinjunw/CozyTown/issues/91) | 已实现关键同步失败后的暂停、显示异常隔离和有效重读恢复；[ADR-0020](../../adr/0020-post-commit-world-recovery.md)与[验证报告](../../verification/npc-load-recovery-2026-09-17.md)定义提交后结果及预算边界 |
 | [约束运行中决策重配的预算与在途请求](https://github.com/qinjunw/CozyTown/issues/88) | 保留为发布前的调用约束验收；不要求增加热重配能力，可选择拒绝或推迟不安全重配 |
 | [实现世界与人物的完整逻辑快照](https://github.com/qinjunw/CozyTown/issues/94) | 从四人验收中拆出实施票据。按确定的契约补 DTO、版本迁移、同一边界采样、恢复及公开行为测试 |
 | [确定 NPC 事实表达实验的配置与判定标准](https://github.com/qinjunw/CozyTown/issues/75) | 调整原“选择 NPC 的正式事实表达方式”。延续 F／S 对照，确定各自判定、标签及是否需要推荐默认；不预先替用户选择唯一表达方式 |

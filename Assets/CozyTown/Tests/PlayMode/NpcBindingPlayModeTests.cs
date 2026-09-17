@@ -196,8 +196,11 @@ namespace CozyTown.Tests.PlayMode
 
         private sealed class InvalidTimeFlow : IWorldTimeFlow
         {
+            public WorldTimeFlowState State => WorldTimeFlowState.Ready;
+            public IReadOnlyList<string> NotificationFailures => Array.Empty<string>();
             public WorldTimeProgress Current => new WorldTimeProgress(new GameClockSnapshot(0, 360), 0, false);
             public event Action<WorldTimeProgress> Changed { add { } remove { } }
+            public event Action<WorldTimeProgress> PresentationChanged { add { } remove { } }
         }
 
         [Test]

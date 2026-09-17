@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="11" result="Passed" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-17 14:27:54Z" end-time="2026-09-17 14:27:55Z" duration="0.1367617">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="864" result="Passed" start-time="2026-09-17 14:27:54Z" end-time="2026-09-17 14:27:55Z" duration="0.136762" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1751" name="CozyTown.Tests.EditMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.EditMode.dll" runstate="Runnable" testcasecount="625" result="Passed" start-time="2026-09-17 14:27:54Z" end-time="2026-09-17 14:27:55Z" duration="0.123539" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="106580" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1752" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="625" result="Passed" start-time="2026-09-17 14:27:54Z" end-time="2026-09-17 14:27:55Z" duration="0.118675" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1753" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="625" result="Passed" start-time="2026-09-17 14:27:54Z" end-time="2026-09-17 14:27:55Z" duration="0.114352" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1754" name="EditMode" fullname="CozyTown.Tests.EditMode" runstate="Runnable" testcasecount="625" result="Passed" start-time="2026-09-17 14:27:54Z" end-time="2026-09-17 14:27:55Z" duration="0.110091" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1768" name="Application" fullname="CozyTown.Tests.EditMode.Application" runstate="Runnable" testcasecount="114" result="Passed" start-time="2026-09-17 14:27:54Z" end-time="2026-09-17 14:27:55Z" duration="0.104687" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1736" name="WorldTimeRecoveryTests" fullname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests" classname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-09-17 14:27:54Z" end-time="2026-09-17 14:27:55Z" duration="0.102542" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-suite type="ParameterizedMethod" id="1740" name="CriticalAdvanceFailure_CommitsTimeAndBlocksMutationsUntilLoad" fullname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests.CriticalAdvanceFailure_CommitsTimeAndBlocksMutationsUntilLoad" classname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-17 14:27:54Z" end-time="2026-09-17 14:27:55Z" duration="0.079541" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1737" name="CriticalAdvanceFailure_CommitsTimeAndBlocksMutationsUntilLoad(&quot;elapsed&quot;,361,0.5d)" fullname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests.CriticalAdvanceFailure_CommitsTimeAndBlocksMutationsUntilLoad(&quot;elapsed&quot;,361,0.5d)" methodname="CriticalAdvanceFailure_CommitsTimeAndBlocksMutationsUntilLoad" classname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests" runstate="Runnable" seed="993080627" result="Passed" start-time="2026-09-17 14:27:54Z" end-time="2026-09-17 14:27:55Z" duration="0.070043" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1738" name="CriticalAdvanceFailure_CommitsTimeAndBlocksMutationsUntilLoad(&quot;direct&quot;,361,0.5d)" fullname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests.CriticalAdvanceFailure_CommitsTimeAndBlocksMutationsUntilLoad(&quot;direct&quot;,361,0.5d)" methodname="CriticalAdvanceFailure_CommitsTimeAndBlocksMutationsUntilLoad" classname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests" runstate="Runnable" seed="1730804650" result="Passed" start-time="2026-09-17 14:27:55Z" end-time="2026-09-17 14:27:55Z" duration="0.000992" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1739" name="CriticalAdvanceFailure_CommitsTimeAndBlocksMutationsUntilLoad(&quot;sleep&quot;,420,0)" fullname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests.CriticalAdvanceFailure_CommitsTimeAndBlocksMutationsUntilLoad(&quot;sleep&quot;,420,0)" methodname="CriticalAdvanceFailure_CommitsTimeAndBlocksMutationsUntilLoad" classname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests" runstate="Runnable" seed="57736556" result="Passed" start-time="2026-09-17 14:27:55Z" end-time="2026-09-17 14:27:55Z" duration="0.001001" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1749" name="LoadNotification_ReentrantApplicationMutationsAreRejected" fullname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests.LoadNotification_ReentrantApplicationMutationsAreRejected" classname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-17 14:27:55Z" end-time="2026-09-17 14:27:55Z" duration="0.003395" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1747" name="LoadNotification_ReentrantApplicationMutationsAreRejected(False)" fullname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests.LoadNotification_ReentrantApplicationMutationsAreRejected(False)" methodname="LoadNotification_ReentrantApplicationMutationsAreRejected" classname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests" runstate="Runnable" seed="1774290491" result="Passed" start-time="2026-09-17 14:27:55Z" end-time="2026-09-17 14:27:55Z" duration="0.001597" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1748" name="LoadNotification_ReentrantApplicationMutationsAreRejected(True)" fullname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests.LoadNotification_ReentrantApplicationMutationsAreRejected(True)" methodname="LoadNotification_ReentrantApplicationMutationsAreRejected" classname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests" runstate="Runnable" seed="1009269344" result="Passed" start-time="2026-09-17 14:27:55Z" end-time="2026-09-17 14:27:55Z" duration="0.000784" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-case id="1750" name="LoadPresentationFailure_ReportsCommittedRestoreAndClearsElapsedRemainder" fullname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests.LoadPresentationFailure_ReportsCommittedRestoreAndClearsElapsedRemainder" methodname="LoadPresentationFailure_ReportsCommittedRestoreAndClearsElapsedRemainder" classname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests" runstate="Runnable" seed="405660758" result="Passed" start-time="2026-09-17 14:27:55Z" end-time="2026-09-17 14:27:55Z" duration="0.001907" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1745" name="MissingSaveDuringRecovery_PreservesSuspensionUntilAValidSnapshotIsLoaded" fullname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests.MissingSaveDuringRecovery_PreservesSuspensionUntilAValidSnapshotIsLoaded" methodname="MissingSaveDuringRecovery_PreservesSuspensionUntilAValidSnapshotIsLoaded" classname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests" runstate="Runnable" seed="734037964" result="Passed" start-time="2026-09-17 14:27:55Z" end-time="2026-09-17 14:27:55Z" duration="0.004164" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-suite type="ParameterizedMethod" id="1744" name="PresentationAdvanceFailure_PreservesCommittedFractionAndAllowsFurtherAdvance" fullname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests.PresentationAdvanceFailure_PreservesCommittedFractionAndAllowsFurtherAdvance" classname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-17 14:27:55Z" end-time="2026-09-17 14:27:55Z" duration="0.003185" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1741" name="PresentationAdvanceFailure_PreservesCommittedFractionAndAllowsFurtherAdvance(&quot;elapsed&quot;,361,0.5d,362,0)" fullname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests.PresentationAdvanceFailure_PreservesCommittedFractionAndAllowsFurtherAdvance(&quot;elapsed&quot;,361,0.5d,362,0)" methodname="PresentationAdvanceFailure_PreservesCommittedFractionAndAllowsFurtherAdvance" classname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests" runstate="Runnable" seed="131568359" result="Passed" start-time="2026-09-17 14:27:55Z" end-time="2026-09-17 14:27:55Z" duration="0.001377" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1742" name="PresentationAdvanceFailure_PreservesCommittedFractionAndAllowsFurtherAdvance(&quot;direct&quot;,361,0.5d,362,0)" fullname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests.PresentationAdvanceFailure_PreservesCommittedFractionAndAllowsFurtherAdvance(&quot;direct&quot;,361,0.5d,362,0)" methodname="PresentationAdvanceFailure_PreservesCommittedFractionAndAllowsFurtherAdvance" classname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests" runstate="Runnable" seed="1842193983" result="Passed" start-time="2026-09-17 14:27:55Z" end-time="2026-09-17 14:27:55Z" duration="0.000505" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1743" name="PresentationAdvanceFailure_PreservesCommittedFractionAndAllowsFurtherAdvance(&quot;sleep&quot;,420,0,420,0.5d)" fullname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests.PresentationAdvanceFailure_PreservesCommittedFractionAndAllowsFurtherAdvance(&quot;sleep&quot;,420,0,420,0.5d)" methodname="PresentationAdvanceFailure_PreservesCommittedFractionAndAllowsFurtherAdvance" classname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests" runstate="Runnable" seed="1042321441" result="Passed" start-time="2026-09-17 14:27:55Z" end-time="2026-09-17 14:27:55Z" duration="0.000450" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-case id="1746" name="RejectedSnapshotDuringRecovery_RollsBackAuthorityWithoutClearingSuspension" fullname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests.RejectedSnapshotDuringRecovery_RollsBackAuthorityWithoutClearingSuspension" methodname="RejectedSnapshotDuringRecovery_RollsBackAuthorityWithoutClearingSuspension" classname="CozyTown.Tests.EditMode.Application.WorldTimeRecoveryTests" runstate="Runnable" seed="2023065955" result="Passed" start-time="2026-09-17 14:27:55Z" end-time="2026-09-17 14:27:55Z" duration="0.001797" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

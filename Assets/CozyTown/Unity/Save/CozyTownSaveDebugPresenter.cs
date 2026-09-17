@@ -100,9 +100,16 @@ namespace CozyTown.Unity.Save
             }
 
             OperationResult result = _coordinator.Load();
-            view.Show(
-                _coordinator.HasSave,
-                result.IsSuccess ? "Game loaded." : $"Load failed: {result.ErrorCode}");
+            string feedback = result.IsSuccess ? "Game loaded." : $"Load failed: {result.ErrorCode}";
+            if (result.ErrorCode == "save.loaded_rebuild_required")
+                feedback = $"Data restored; world paused. Fix the fault and load again: {result.ErrorCode}";
+            else if (result.ErrorCode == "save.loaded_presentation_failed")
+                feedback = $"Data restored; display refresh failed: {result.ErrorCode}";
+            else if (result.ErrorCode == "save.restore_exception")
+                feedback = $"Load interrupted; world state uncertain and paused: {result.ErrorCode}";
+            else if (result.ErrorCode?.StartsWith("save.rollback_", StringComparison.Ordinal) == true)
+                feedback = $"Load could not roll back; world paused: {result.ErrorCode}";
+            view.Show(_coordinator.HasSave, feedback);
         }
     }
 }

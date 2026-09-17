@@ -17,6 +17,7 @@ namespace CozyTown.Runtime.NpcAgents
         private readonly NpcMeetingBoard _meetings;
         private readonly Func<NpcDecisionRequest, NpcLocalObservation> _observe;
         private readonly NpcSpeechMode _speechMode;
+        private readonly Func<bool> _canDecide;
         private readonly Queue<double> _requestStarts = new Queue<double>();
         private readonly List<NpcDecisionOutcome> _completed = new List<NpcDecisionOutcome>();
         private double _lastTick = double.NegativeInfinity;
@@ -71,13 +72,15 @@ namespace CozyTown.Runtime.NpcAgents
 
         public NpcDecisionScheduler(NpcAgentWorld world, IEnumerable<NpcDefinition> profiles, INpcDecisionClient client,
             NpcDecisionSettings settings = null, NpcMeetingBoard meetings = null,
-            Func<NpcDecisionRequest, NpcLocalObservation> observe = null, NpcSpeechMode speechMode = NpcSpeechMode.FreeText)
+            Func<NpcDecisionRequest, NpcLocalObservation> observe = null, NpcSpeechMode speechMode = NpcSpeechMode.FreeText,
+            Func<bool> canDecide = null)
         {
             _world = world ?? throw new ArgumentNullException(nameof(world));
             _client = client ?? throw new ArgumentNullException(nameof(client));
             _settings = settings ?? new NpcDecisionSettings();
             _meetings = meetings;
             _observe = observe;
+            _canDecide = canDecide;
             if (speechMode != NpcSpeechMode.FreeText && speechMode != NpcSpeechMode.StructuredFacts)
                 throw new ArgumentOutOfRangeException(nameof(speechMode));
             _speechMode = speechMode;
@@ -143,8 +146,9 @@ namespace CozyTown.Runtime.NpcAgents
                 throw new ArgumentOutOfRangeException(nameof(realSeconds), "Decision time must be finite, nonnegative and monotonic.");
             _lastTick = realSeconds;
             _completed.Clear();
-            _meetings?.Observe();
             while (_requestStarts.Count > 0 && _requestStarts.Peek() <= realSeconds - 60) _requestStarts.Dequeue();
+            if (_canDecide?.Invoke() == false) return SuspendDecisions();
+            _meetings?.Observe();
             int active = 0;
             foreach (var resident in _residents)
             {
@@ -191,6 +195,7 @@ namespace CozyTown.Runtime.NpcAgents
                     }
                     else active++;
                 }
+                if (_canDecide?.Invoke() == false) return SuspendDecisions();
                 var events = _world.TakeEvents(resident.Profile.Id);
                 state = _world.GetState(resident.Profile.Id);
                 var social = _meetings?.GetContext(resident.Profile.Id);
@@ -276,6 +281,7 @@ namespace CozyTown.Runtime.NpcAgents
                     string invalid = ObservationFailure(resident.Current);
                     if (invalid != null) { Finish(resident, invalid); continue; }
                 }
+                if (_canDecide?.Invoke() == false) return SuspendDecisions();
                 _requestStarts.Enqueue(realSeconds);
                 RequestsStarted++;
                 resident.Calls++;
@@ -307,6 +313,23 @@ namespace CozyTown.Runtime.NpcAgents
                 }
                 else active++;
                 _nextResident = (index + 1) % _residents.Length;
+                if (_canDecide?.Invoke() == false) return SuspendDecisions();
+            }
+            return Array.AsReadOnly(_completed.ToArray());
+        }
+
+        private IReadOnlyList<NpcDecisionOutcome> SuspendDecisions()
+        {
+            foreach (var resident in _residents)
+            {
+                resident.Pending = null;
+                resident.WaitingTurn = null;
+                if (resident.Current != null) Finish(resident, "agent.world_not_ready", cancelRequest: true);
+                if (resident.Request == null || !resident.Request.IsCompleted) continue;
+                _ = resident.Request.Exception;
+                resident.Request = null;
+                resident.Cancellation.Dispose();
+                resident.Cancellation = null;
             }
             return Array.AsReadOnly(_completed.ToArray());
         }
@@ -323,6 +346,11 @@ namespace CozyTown.Runtime.NpcAgents
             bool invitationReply = context.Social?.Kind == NpcSocialContextKind.Invitation
                 && (reply.Kind == NpcDecisionKind.AcceptInvitation || reply.Kind == NpcDecisionKind.DeclineInvitation);
             string observationFailure = _observe == null ? null : ObservationFailure(context, invitationReply, out executionObservation);
+            if (_canDecide?.Invoke() == false)
+            {
+                Finish(resident, "agent.world_not_ready", cancelRequest: true);
+                return;
+            }
             if (observationFailure != null)
             {
                 Finish(resident, observationFailure, reply: reply, executionObservation: executionObservation);

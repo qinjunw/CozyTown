@@ -27,6 +27,7 @@ namespace CozyTown.Unity.Npc
         private TownLocalObservation2D _observation;
 
         public bool DecisionsEnabled => _decisions != null;
+        public bool IsWorldReady => _timeFlow?.State == WorldTimeFlowState.Ready;
         public long DecisionRequestsStarted => _decisions?.RequestsStarted ?? 0;
         public int DecisionRequestsInLastMinute => _decisions?.RequestsInLastMinute ?? 0;
         public int ActiveDecisionRequests => _decisions?.ActiveRequestCount ?? 0;
@@ -61,6 +62,9 @@ namespace CozyTown.Unity.Npc
         public void Bind(IWorldTimeFlow timeFlow, CharacterResourceTrading resources = null)
         {
             if (timeFlow == null) throw new ArgumentNullException(nameof(timeFlow));
+            if (timeFlow.State != WorldTimeFlowState.Ready
+                || (_timeFlow != null && _timeFlow.State != WorldTimeFlowState.Ready))
+                throw new InvalidOperationException("Complete world recovery before changing the resident binding.");
             bool resourcesChanged = resources != null && !ReferenceEquals(_resources, resources);
             var candidateResources = resources ?? _resources;
             foreach (var resident in residents) resident.ValidateConfiguration();
@@ -106,10 +110,11 @@ namespace CozyTown.Unity.Npc
             NpcSpeechMode speechMode = NpcSpeechMode.FreeText)
         {
             if (_agents == null) throw new InvalidOperationException("Bind world time before configuring decisions.");
+            if (!IsWorldReady) throw new InvalidOperationException("Complete world recovery before configuring decisions.");
             var profileArray = profiles.ToArray();
             var meetings = meetingPlans == null ? null : new NpcMeetingBoard(_agents, meetingPlans, MeetingPresence, _resources);
             var candidate = new NpcDecisionScheduler(_agents, profileArray, client, settings, meetings,
-                request => CaptureObservation(request.NpcId, request.Social), speechMode);
+                request => CaptureObservation(request.NpcId, request.Social), speechMode, () => IsWorldReady);
             var before = CaptureActivities();
             _decisions?.Dispose();
             _meetings?.CancelAll();
@@ -127,8 +132,11 @@ namespace CozyTown.Unity.Npc
         public void TickDecisions(double realSeconds)
         {
             if (_decisions == null) return;
+            if (_timeFlow.State == WorldTimeFlowState.Publishing) return;
+            if (!IsWorldReady) { _decisions.Tick(realSeconds); return; }
             var before = CaptureActivities();
             _decisions.Tick(realSeconds);
+            if (!IsWorldReady) return;
             RefreshChangedActivities(before);
             _meetingView?.Present(_meetings, realSeconds);
         }
@@ -165,6 +173,7 @@ namespace CozyTown.Unity.Npc
         public OperationResult SubmitActivity(NpcActivityRequest request)
         {
             if (_agents == null) return OperationResult.Failure("agent.world_unbound");
+            if (!IsWorldReady) return OperationResult.Failure("agent.world_not_ready");
             var result = _agents.SubmitActivity(request);
             if (result.IsSuccess) RefreshTarget(request.NpcId);
             return result;
@@ -173,6 +182,7 @@ namespace CozyTown.Unity.Npc
         public OperationResult CancelActivity(string npcId, Guid worldRunId, long expectedRevision)
         {
             if (_agents == null) return OperationResult.Failure("agent.world_unbound");
+            if (!IsWorldReady) return OperationResult.Failure("agent.world_not_ready");
             var result = _agents.CancelActivity(npcId, worldRunId, expectedRevision);
             if (result.IsSuccess) RefreshTarget(npcId);
             return result;

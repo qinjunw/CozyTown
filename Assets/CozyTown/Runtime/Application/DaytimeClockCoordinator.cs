@@ -36,6 +36,8 @@ namespace CozyTown.Runtime.Application
 
         public OperationResult<GameClockSnapshot> AdvanceElapsed(double seconds)
         {
+            if (_timeFlow != null && _timeFlow.State != WorldTimeFlowState.Ready)
+                return OperationResult<GameClockSnapshot>.Failure("world_time.not_ready");
             if (seconds < 0 || double.IsNaN(seconds) || double.IsInfinity(seconds))
             {
                 return OperationResult<GameClockSnapshot>.Failure("time.elapsed_invalid");
@@ -56,7 +58,9 @@ namespace CozyTown.Runtime.Application
                 if (result.IsSuccess)
                 {
                     _elapsedSeconds = Math.Max(0, elapsed - minutes * SecondsPerMinute);
-                    _timeFlow?.CompleteElapsedAdvance(result.Value, _elapsedSeconds / SecondsPerMinute);
+                    var published = _timeFlow?.CompleteElapsedAdvance(result.Value, _elapsedSeconds / SecondsPerMinute);
+                    if (published.HasValue && !published.Value.IsSuccess)
+                        return OperationResult<GameClockSnapshot>.Failure(published.Value.ErrorCode);
                 }
                 return result;
             }
@@ -84,6 +88,8 @@ namespace CozyTown.Runtime.Application
 
         private OperationResult<GameClockSnapshot> AdvanceExplicitly(int gameMinutes)
         {
+            if (_timeFlow != null && _timeFlow.State != WorldTimeFlowState.Ready)
+                return OperationResult<GameClockSnapshot>.Failure("world_time.not_ready");
             _timeFlow?.BeginCoordinatedAdvance();
             try
             {
@@ -91,7 +97,9 @@ namespace CozyTown.Runtime.Application
                 if (result.IsSuccess)
                 {
                     _elapsedSeconds = 0;
-                    _timeFlow?.CompleteExplicitAdvance(result.Value, gameMinutes);
+                    var published = _timeFlow?.CompleteExplicitAdvance(result.Value, gameMinutes);
+                    if (published.HasValue && !published.Value.IsSuccess)
+                        return OperationResult<GameClockSnapshot>.Failure(published.Value.ErrorCode);
                 }
                 return result;
             }
@@ -101,15 +109,35 @@ namespace CozyTown.Runtime.Application
             }
         }
 
-        public OperationResult Save() => _gameSave.Save();
+        public OperationResult Save() => _timeFlow != null && _timeFlow.State != WorldTimeFlowState.Ready
+            ? OperationResult.Failure("world_time.not_ready") : _gameSave.Save();
 
         public OperationResult Load()
         {
-            OperationResult result = _gameSave.Load();
+            if (_timeFlow?.State == WorldTimeFlowState.Publishing)
+                return OperationResult.Failure("world_time.not_ready");
+            var previousState = _timeFlow?.BeginRestore();
+            OperationResult result;
+            try { result = _gameSave.Load(); }
+            catch (Exception error)
+            {
+                _timeFlow?.RequireRecovery("restore:" + error.GetType().Name);
+                return OperationResult.Failure("save.restore_exception");
+            }
+            if (!result.IsSuccess)
+            {
+                if (result.ErrorCode?.StartsWith("save.rollback_", StringComparison.Ordinal) == true)
+                    _timeFlow?.RequireRecovery(result.ErrorCode);
+                else if (previousState.HasValue) _timeFlow.RestoreRejected(previousState.Value);
+                return result;
+            }
             if (result.IsSuccess)
             {
                 _elapsedSeconds = 0;
-                _timeFlow?.Publish(Current, isRebuild: true);
+                var published = _timeFlow?.Publish(Current, isRebuild: true);
+                if (published.HasValue && !published.Value.IsSuccess)
+                    return OperationResult.Failure(_timeFlow.State == WorldTimeFlowState.RecoveryRequired
+                        ? "save.loaded_rebuild_required" : "save.loaded_presentation_failed");
             }
 
             return result;
