@@ -1,0 +1,31 @@
+{
+  "sourceRevision": "bc59db8de897261c3385286baf2e6cedf6b9677b",
+  "branch": "codex/agent-platform-candidate",
+  "gitTrees": {
+    "Assets": "a0bcfa168d56952ca3d346d5c47f42c60abaea3c",
+    "Tools": "0ffa2276cfa1c4b3f50127bba6483234c1291057",
+    "Packages": "cbeb180f99fe4c5b16039ace9e18b4d20c46747e",
+    "ProjectSettings": "a81e89f6be3dc10eac2d6ecbeef27c332314644b"
+  },
+  "equivalentRegressionSources": [
+    "19dff35147fbb7f8debc3aa0f98da44a29b5b52d",
+    "7ac7240963f113b54f30229c1ef929e0bbceac5d"
+  ],
+  "scene": "Assets/CozyTown/Scenes/CozyTown_Dev.unity",
+  "sceneSha256": "371875a819f0f492d6da01da36882d4e4a22c37cbb451810392243a7df3b2915",
+  "preRunClean": true,
+  "providerCallsEnabled": false,
+  "postRunGeneratedSettings": {
+    "observed": [
+      "ProjectSettings/ProjectSettings.asset",
+      "ProjectSettings/SceneTemplateSettings.json"
+    ],
+    "handling": "Copied generated artifacts to ignored diagnostics, restored the tracked file from tested source and removed only the newly generated SceneTemplateSettings.json after Unity exited.",
+    "diagnosticHashes": {
+      "candidate-generated-project-settings.asset": "a0cc453d18756d18cce9dcab3677f18702669d5ed974bee7f0fea5e5c890db02",
+      "candidate-generated-scene-template.json": "bb9098b3bfcde78d93e264b96f7b77b5430e64e8c57a7aad7f5a5d9c3945e16a",
+      "candidate-generated-settings.patch": "24abc9ad4f399a64c4cad148511434a265e7fb09317b1bac9321b92741ccce9d"
+    },
+    "interpretation": "Unity 6000.5.5f1 rewrote serializedVersion 28 to 29 and platform defaults during opening/testing. The authored source and committed settings remain unchanged; test-time generated settings are not claimed byte-identical."
+  }
+}

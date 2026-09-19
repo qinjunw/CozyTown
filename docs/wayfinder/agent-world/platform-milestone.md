@@ -1,9 +1,9 @@
 # AI Agent 实验平台第一版：范围与完成条件
 
-- 初始日期：2026-09-17；表达合同及后继输入更新：2026-09-19。
+- 初始日期：2026-09-17；表达合同及后继输入更新：2026-09-19；候选交付状态更新：2026-09-20。
 - 用户已确认的用途：四人自主运行、完整逻辑快照、可观测和重复实验。
 - 类型：PRD 的阶段范围与验收计划。以下是据此制定的任务边界，尚未完成的玩法决定保留在独立票据中。
-- 初始代码参照：`aebdcce1b1d3c7d48bc6d1ff9e1a989a64634f9c`；后续实现与验证以各节链接为准。本文件更新只调整文档与 GitHub 任务，没有新增运行测试或模型调用。
+- 初始代码参照：`aebdcce1b1d3c7d48bc6d1ff9e1a989a64634f9c`；后续实现与验证以各节链接为准。初始范围文档调整只涉及文档与 GitHub 任务，未新增运行测试或模型调用；本轮入口验收与调用记录见[候选交付记录](../../verification/agent-platform-candidate-2026-09-20.md)。
 - 需求入口：[Agent 世界 PRD](../../AGENT_WORLD_PRD.md)；状态、负责人和依赖以 [GitHub 地图](https://github.com/qinjunw/CozyTown/issues/50) 为准。
 
 ## 1. 完成边界
@@ -21,15 +21,15 @@
 
 本轮使用已实现的能力验证 Agent 机制。自主捕鱼、烹饪、种植闭环，新需求／长期关系系统、向第三人传播声明、大规模社会模拟及新地图不作为第一版的完成条件。它们需要新的范围决策，不能仅因实验中出现相关台词就登记为已有能力。
 
-## 2. 当前差距
+## 2. 当前交付与剩余边界
 
-| 已有事实 | 对下一步的影响 |
+| 已交付证据 | 仍需保留的边界 |
 | --- | --- |
-| 默认社交计划与资源计划只包含 Ren／Sora，见 [社交配置](../../../Assets/CozyTown/Runtime/Content/DefaultNpcMeetingPlans.cs)和[资源配置](../../../Assets/CozyTown/Runtime/Content/DefaultNpcResourcePlans.cs) | 需要配置四人的自主机会与互动组合，并验证共享预算下的调度；不能把两人多次运行当成四人共同负载 |
-| [存档 DTO](../../../Assets/CozyTown/Runtime/Save/GameSaveSnapshot.cs) 已为 schema v4，完整保存世界、人物身体、活动、会面及逻辑决策进度，见[实现验证](../../verification/complete-agent-snapshots-2026-09-19.md) | 后继实验入口应使用已验收快照与兼容配置；四人跨日集成仍需独立验证 |
-| 新档恢复已保存的身体、会面和经历，真实请求预算不回退；旧档按[快照契约](../../AGENT_SNAPSHOT_SPEC.md)初始化缺失状态 | F／S 配对从共同初始配置创建独立起点，不能重写快照模式标签绕过兼容检查 |
-| 已有请求诊断、会面显示及实验日志；[NPC 调试视图](../../../Assets/CozyTown/Unity/Npc/CozyTownNpcDebugView.cs)承担玩家对话 | 需要把角色观察与实验运行入口接到已有公开诊断；避免将玩家对话框描述为已完成的 Agent 管理台 |
-| 实现通过多层 Draft PR 交付，当前未合并 | 最终验收必须指定包含全部依赖的提交；已关闭实施票据不代表主分支可直接运行所有能力 |
+| [四人实验入口](../../verification/four-agent-entry-2026-09-19.md)已提供独立世界、Fixed／Live 的显式 F／S／Paired 选择及 Replay，配置 Mina/Eli 社交会面和 Sora/Ren 资源会面；四种资源初态通过共享调度器运行 | Fixed 验证宿主流程；Live 的拒绝、超时和未完成须按实际结果保留。Replay 的组别、资源场景与计划引用来自包，不重新调用模型 |
+| [存档 DTO](../../../Assets/CozyTown/Runtime/Save/GameSaveSnapshot.cs) 已为 schema v4，保存世界、人物身体、活动、会面及逻辑决策进度；[快照验证](../../verification/complete-agent-snapshots-2026-09-19.md)与[四人集成验证](../../verification/four-agent-integration-2026-09-20.md)覆盖阶段恢复、跨日、连续读档及严格回放 | 真实调用预算和物理在途占位不因读档回退。F／S 从共同配置创建独立起点，不能重写快照模式标签绕过兼容检查；窗口手动读档仅接受当前实验会话内的检查点标签 |
+| [角色观察入口](../../AGENT_EXPERIMENT_GUIDE.md)已显示四人状态、资产、所选人物的会面／经历、局部事实及审计，并导出初态、检查点、终态、输入和 trace | 当前角色观察与读档前历史审计分别呈现；记录中的提交文本不能自动等同逐帧画面验收。玩家对话仍由独立的 NPC 调试视图承担 |
+| [集成评测](../../verification/four-agent-integration-2026-09-20.md)保留预登记的 16 个 Live 世界和 244 次提供方尝试；15 个完成包通过严格 Replay，1 个期限未完成世界保留在分母中 | 这不证明全部世界成功或第二天持续有效行动；移动中的观察过期、自由台词缺少依据及结构化表达信息不足仍需报告。货币费用与精确预算等待时长保持未知 |
+| 候选分支为 `codex/agent-platform-candidate`，已测试来源为 `bc59db8de897261c3385286baf2e6cedf6b9677b`；其 `Assets`、`Tools`、`Packages`、`ProjectSettings` Git 树与 Live 冻结提交 `19dff35147fbb7f8debc3aa0f98da44a29b5b52d` 相同 | 本轮干净检出、入口验收、完整依赖及 PR 状态由[候选交付记录](../../verification/agent-platform-candidate-2026-09-20.md)登记。历史测试及关闭票据不替代本轮候选验收，也不代表已合并主分支 |
 
 存读档现状、失败边界及研究依据见[生命周期研究](../../research/npc-agent/save-load-lifecycle-2026-09-16.md)。双人流程、自由台词问题及结构化表达重复等历史证据保留在[续谈验证](../../verification/npc-conversation-turn-2026-09-14.md)，不随路线调整改写结果。
 

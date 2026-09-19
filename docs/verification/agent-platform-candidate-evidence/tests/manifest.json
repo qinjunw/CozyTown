@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "bc59db8de897261c3385286baf2e6cedf6b9677b",
+  "runs": [
+    {
+      "xml": "xml/candidate-entry-play.xml",
+      "sourceRevision": "bc59db8de897261c3385286baf2e6cedf6b9677b",
+      "rawXmlSha256": "1f7c3f6d56f228f17fe1b2b687b251b5c53ab994dc2f8ab2119e900b5fe84fd1",
+      "publicXmlSha256": "b046059a6c8c9fed9ea8b029351e725360fd7caabc30c7519dc58ddbb7314632",
+      "rawLogSha256": "836ba40cd92dc74d3756448cad00e7f15d7d897c0fb9461d2ae1b398e6c0ab56",
+      "counts": {
+        "reported": {
+          "testcasecount": 12,
+          "total": 12,
+          "passed": 12,
+          "failed": 0,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        "observedTestCases": 12,
+        "observedResults": {
+          "Passed": 12
+        }
+      },
+      "result": "Passed",
+      "startTimeUtc": "2026-09-19 20:11:38Z",
+      "endTimeUtc": "2026-09-19 20:11:43Z",
+      "durationSeconds": "4.7124604",
+      "failedTests": [],
+      "skippedTests": []
+    }
+  ],
+  "preflight": [
+    {
+      "file": "candidate-entry-preflight.json",
+      "rawSha256": "e1452d73b40acc40f4847517548cc7ffda7b0ba0dce9730701bc53f33938a5b0",
+      "publicSha256": "e1452d73b40acc40f4847517548cc7ffda7b0ba0dce9730701bc53f33938a5b0",
+      "transformation": "JSON formatting and LF newlines only."
+    }
+  ],
+  "redaction": "XML local project, user and Unity installation prefixes replaced with placeholders; result names and counts verified unchanged. Raw XML and logs retained locally by SHA256.",
+  "interpretation": "Twelve candidate entry tests passed. All clients are fixed, recorded or simulated HTTP clients; a fixture labelled live is not a provider sample."
+}
