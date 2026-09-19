@@ -1,8 +1,10 @@
+using System.Runtime.Serialization;
 using System;
 using CozyTown.Runtime.Economy;
 
 namespace CozyTown.Runtime.NpcAgents
 {
+    [DataContract]
     public sealed class NpcMeetingPlan
     {
         public NpcMeetingPlan(string id, string initiatorId, string partnerId, string placeId,
@@ -33,17 +35,29 @@ namespace CozyTown.Runtime.NpcAgents
             ResourceTerms = resourceTerms;
         }
 
+        [field: DataMember(Name = "id", IsRequired = true)]
         public string Id { get; }
+        [field: DataMember(Name = "initiatorId", IsRequired = true)]
         public string InitiatorId { get; }
+        [field: DataMember(Name = "partnerId", IsRequired = true)]
         public string PartnerId { get; }
+        [field: DataMember(Name = "placeId", IsRequired = true)]
         public string PlaceId { get; }
+        [field: DataMember(Name = "initiatorLocationId", IsRequired = true)]
         public string InitiatorLocationId { get; }
+        [field: DataMember(Name = "partnerLocationId", IsRequired = true)]
         public string PartnerLocationId { get; }
+        [field: DataMember(Name = "inviteStartMinute", IsRequired = true)]
         public int InviteStartMinute { get; }
+        [field: DataMember(Name = "meetingStartMinute", IsRequired = true)]
         public int MeetingStartMinute { get; }
+        [field: DataMember(Name = "inviteEndMinute", IsRequired = true)]
         public int InviteEndMinute { get; }
+        [field: DataMember(Name = "durationGameMinutes", IsRequired = true)]
         public int DurationGameMinutes { get; }
+        [field: DataMember(Name = "maxTurns", IsRequired = true)]
         public int MaxTurns { get; }
+        [field: DataMember(Name = "resourceTerms", IsRequired = true)]
         public CharacterTradeTerms ResourceTerms { get; }
     }
 }

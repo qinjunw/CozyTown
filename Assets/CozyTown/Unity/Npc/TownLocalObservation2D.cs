@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using CozyTown.Runtime.Content;
 using CozyTown.Runtime.NpcAgents;
 using CozyTown.Unity.Interaction;
@@ -26,6 +27,16 @@ namespace CozyTown.Unity.Npc
                 if (_usesDevelopmentMap) TryConfigureDevelopmentMap(_developmentMap);
                 return _scene;
             }
+        }
+
+        public string CaptureConfiguration()
+        {
+            var result = new StringBuilder();
+            TownMap2D.AppendConfiguration(result, Scene.CaptureConfiguration(), _interiorSpaces.Length);
+            foreach (var region in _interiorSpaces)
+                TownMap2D.AppendConfiguration(result, region.Id, region.Name, region.SpaceId,
+                    region.MinX, region.MinY, region.MaxX, region.MaxY);
+            return result.ToString();
         }
 
         public void Configure(NpcObservationScene scene, IEnumerable<NpcObservationRegion> interiorSpaces)

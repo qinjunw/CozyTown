@@ -14,6 +14,9 @@ namespace CozyTown.Unity.Time
         private bool _subscribed;
         private bool _hasApplicationFocus = true;
 
+        public PlayerModalInputGate2D InputGate => _inputGate;
+        public void DiscardFrameSample() => _discardNextFrame = true;
+
         public bool IsSimulationPaused => !isActiveAndEnabled || _clock == null
             || _inputGate == null || _inputGate.IsAcquired || !_hasApplicationFocus;
 

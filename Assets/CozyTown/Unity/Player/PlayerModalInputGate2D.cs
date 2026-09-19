@@ -20,6 +20,13 @@ namespace CozyTown.Unity.Player
 
         public event Action AcquisitionRevoked;
 
+        public void Revoke()
+        {
+            bool wasAcquired = IsAcquired;
+            RestoreActorControls();
+            if (wasAcquired) AcquisitionRevoked?.Invoke();
+        }
+
         public bool TryAcquire(object owner)
         {
             if (owner == null || !isActiveAndEnabled)
@@ -66,15 +73,7 @@ namespace CozyTown.Unity.Player
             ResolveComponents();
         }
 
-        private void OnDisable()
-        {
-            var wasAcquired = IsAcquired;
-            RestoreActorControls();
-            if (wasAcquired)
-            {
-                AcquisitionRevoked?.Invoke();
-            }
-        }
+        private void OnDisable() => Revoke();
 
         private void ResolveComponents()
         {

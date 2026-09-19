@@ -45,9 +45,24 @@ namespace CozyTown.Runtime.NpcAgents
         internal NpcDecisionRequest(NpcDecisionRequest previous, NpcSocialContext social) : this(previous)
             => Social = social;
 
+        internal NpcDecisionRequest(NpcDecisionRequest previous, NpcLocationDetails details, bool preserveStep) : this(previous)
+        {
+            LocationDetails = details;
+            Step = preserveStep ? previous.Step : previous.Step + 1;
+        }
+
         internal NpcDecisionRequest(NpcDecisionRequest previous, double dispatchTotalMinutes) : this(previous)
             => MaxActivityDurationGameMinutes = Math.Max(0, Math.Min(NpcAgentWorld.MaximumActivityDurationGameMinutes,
                 ActivityDeadlineTotalMinutes - dispatchTotalMinutes));
+
+        internal NpcDecisionRequest(NpcDefinition profile, NpcAgentSnapshot self, IEnumerable<string> knownLocationIds,
+            NpcDecisionProgressSnapshot progress, NpcSpeechMode speechMode, NpcSocialContext social = null)
+            : this(profile, self, progress.GameTotalMinutes, progress.Triggers, knownLocationIds, progress.MaxCalls,
+                progress.PreviousResultCode, social, speechMode, progress.ActivityDeadlineTotalMinutes)
+        {
+            Step = progress.NextStep;
+            CandidateErrorCode = progress.CandidateErrorCode;
+        }
 
         private NpcDecisionRequest(NpcDecisionRequest previous)
         {

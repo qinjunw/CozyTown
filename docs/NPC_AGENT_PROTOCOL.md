@@ -93,6 +93,8 @@
 
 默认内容启动器在非批量运行时读取 `COZYTOWN_AGENT_PROXY_ENDPOINT`。未配置时不启用自主模型调用；配置值应是实现本协议的完整 HTTP(S) 端点。批量测试不自动读取该端点，不会因机器环境配置而启动后台模型调用。该变量独立于玩家对话代理配置。
 
+完整存档使用 `INpcDecisionConfiguration` 保存非秘密客户端配置。HTTP 客户端从 `COZYTOWN_DECISION_SNAPSHOT_CONFIGURATION` 读取模型与提示词版本等声明，按允许字段规范化；缺失声明不阻止普通请求，但拒绝完整保存。声明匹配检查、字段示例及远程配置核验限制见[完整快照说明](verification/complete-agent-snapshots-2026-09-19.md#配置与旧档)。
+
 自定义服务或测试可在 `CozyTownBootstrap.Initialize` 前调用 `ConfigureDecisions(client, profiles, settings, meetingPlans)`，或在已绑定世界时间的 `CozyTownTownLifeController` 上显式配置。省略会面计划时保留普通活动模式。默认内容通过环境变量启用代理时加载 Sora 缺鱼联系 Ren 的资源会面计划；普通散步计划仍可显式配置。启动器同时绑定角色经济服务，支持人物控制器早注册和晚注册，重复注册不创建新调度器。角色配置 ID 必须与控制器注册的居民一致。
 
 `CozyTownTownLifeController` 提供请求累计数、当前滚动窗口次数、实际在途数和等待居民数；`GetDecisionOutcome(npcId)` 返回本人最近一次决策的上下文、最终候选、结果码、调用次数和现实时间。失败或取消时可能没有候选。该记录保留在内存中，不是跨日存档或模型用量报告。

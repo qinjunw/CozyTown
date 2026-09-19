@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Failed(Child)" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 09:52:10Z" end-time="2026-09-19 09:52:10Z" duration="0.4869625">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="905" result="Failed" site="Child" start-time="2026-09-19 09:52:10Z" end-time="2026-09-19 09:52:10Z" duration="0.486963" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1806" name="CozyTown.Tests.EditMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.EditMode.dll" runstate="Runnable" testcasecount="665" result="Failed" site="Child" start-time="2026-09-19 09:52:10Z" end-time="2026-09-19 09:52:10Z" duration="0.429306" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="14360" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1807" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="665" result="Failed" site="Child" start-time="2026-09-19 09:52:10Z" end-time="2026-09-19 09:52:10Z" duration="0.378162" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1808" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="665" result="Failed" site="Child" start-time="2026-09-19 09:52:10Z" end-time="2026-09-19 09:52:10Z" duration="0.359320" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1809" name="EditMode" fullname="CozyTown.Tests.EditMode" runstate="Runnable" testcasecount="665" result="Failed" site="Child" start-time="2026-09-19 09:52:10Z" end-time="2026-09-19 09:52:10Z" duration="0.341131" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestSuite" id="1813" name="NpcAgents" fullname="CozyTown.Tests.EditMode.NpcAgents" runstate="Runnable" testcasecount="305" result="Failed" site="Child" start-time="2026-09-19 09:52:10Z" end-time="2026-09-19 09:52:10Z" duration="0.238256" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-suite type="TestFixture" id="1276" name="NpcDecisionSnapshotTests" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests" classname="CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2026-09-19 09:52:10Z" end-time="2026-09-19 09:52:10Z" duration="0.226798" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-suite type="ParameterizedMethod" id="1280" name="QueuedContinuation_RestoresDisclosureAndCorrectionProgressWithoutExtendingItsWindow" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests.QueuedContinuation_RestoresDisclosureAndCorrectionProgressWithoutExtendingItsWindow" classname="CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-09-19 09:52:10Z" end-time="2026-09-19 09:52:10Z" duration="0.219015" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <failure>
+                    <message><![CDATA[One or more child tests had errors]]></message>
+                  </failure>
+                  <test-case id="1278" name="QueuedContinuation_RestoresDisclosureAndCorrectionProgressWithoutExtendingItsWindow(False)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests.QueuedContinuation_RestoresDisclosureAndCorrectionProgressWithoutExtendingItsWindow(False)" methodname="QueuedContinuation_RestoresDisclosureAndCorrectionProgressWithoutExtendingItsWindow" classname="CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests" runstate="Runnable" seed="303028544" result="Failed" start-time="2026-09-19 09:52:10Z" end-time="2026-09-19 09:52:10Z" duration="0.193924" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <failure>
+                      <message><![CDATA[  Expected: not null
+  But was:  null
+]]></message>
+                      <stack-trace><![CDATA[at CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests.QueuedContinuation_RestoresDisclosureAndCorrectionProgressWithoutExtendingItsWindow (System.Boolean correction) [0x0028b] in [isolated-project]\Assets\CozyTown\Tests\EditMode\NpcAgents\NpcDecisionSnapshotTests.cs:95
+]]></stack-trace>
+                    </failure>
+                  </test-case>
+                  <test-case id="1279" name="QueuedContinuation_RestoresDisclosureAndCorrectionProgressWithoutExtendingItsWindow(True)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests.QueuedContinuation_RestoresDisclosureAndCorrectionProgressWithoutExtendingItsWindow(True)" methodname="QueuedContinuation_RestoresDisclosureAndCorrectionProgressWithoutExtendingItsWindow" classname="CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests" runstate="Runnable" seed="1023008016" result="Failed" start-time="2026-09-19 09:52:10Z" end-time="2026-09-19 09:52:10Z" duration="0.006203" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <failure>
+                      <message><![CDATA[  Expected: "candidate.duration_invalid"
+  But was:  null
+]]></message>
+                      <stack-trace><![CDATA[at CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests.QueuedContinuation_RestoresDisclosureAndCorrectionProgressWithoutExtendingItsWindow (System.Boolean correction) [0x001d0] in [isolated-project]\Assets\CozyTown\Tests\EditMode\NpcAgents\NpcDecisionSnapshotTests.cs:84
+]]></stack-trace>
+                    </failure>
+                  </test-case>
+                </test-suite>
+              </test-suite>
+            </test-suite>
+            <test-suite type="TestSuite" id="1811" name="Save" fullname="CozyTown.Tests.EditMode.Save" runstate="Runnable" testcasecount="44" result="Failed" site="Child" start-time="2026-09-19 09:52:10Z" end-time="2026-09-19 09:52:10Z" duration="0.087690" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-suite type="TestFixture" id="1004" name="CompleteWorldSaveTests" fullname="CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests" classname="CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-09-19 09:52:10Z" end-time="2026-09-19 09:52:10Z" duration="0.084849" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1005" name="RejectedWorldPreparation_KeepsTheRunningClockAndDoesNotCommit" fullname="CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests.RejectedWorldPreparation_KeepsTheRunningClockAndDoesNotCommit" methodname="RejectedWorldPreparation_KeepsTheRunningClockAndDoesNotCommit" classname="CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests" runstate="Runnable" seed="1436347321" result="Failed" start-time="2026-09-19 09:52:10Z" end-time="2026-09-19 09:52:10Z" duration="0.083366" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: False
+  But was:  True
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests.RejectedWorldPreparation_KeepsTheRunningClockAndDoesNotCommit () [0x00061] in [isolated-project]\Assets\CozyTown\Tests\EditMode\Save\CompleteWorldSaveTests.cs:23
+]]></stack-trace>
+                  </failure>
+                  <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

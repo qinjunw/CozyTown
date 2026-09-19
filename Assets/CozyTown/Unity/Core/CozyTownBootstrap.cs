@@ -20,6 +20,7 @@ using CozyTown.Unity.Pond;
 using CozyTown.Unity.Save;
 using CozyTown.Unity.Shop;
 using CozyTown.Unity.Time;
+using CozyTown.Unity.Player;
 using UnityEngine;
 
 namespace CozyTown.Unity.Core
@@ -28,6 +29,7 @@ namespace CozyTown.Unity.Core
     public sealed class CozyTownBootstrap : MonoBehaviour
     {
         public const string AgentProxyEndpointEnvironmentVariable = "COZYTOWN_AGENT_PROXY_ENDPOINT";
+        public const string AgentSnapshotConfigurationEnvironmentVariable = "COZYTOWN_DECISION_SNAPSHOT_CONFIGURATION";
         [SerializeField]
         [Tooltip("Optional MonoBehaviour implementing ICozyTownServicesFactory. The default MVP configuration is used when omitted.")]
         private MonoBehaviour servicesFactoryBehaviour;
@@ -289,6 +291,7 @@ namespace CozyTown.Unity.Core
             if (IsInitialized)
             {
                 driver.Bind(_services.DaytimeClock);
+                BindWorldSnapshots();
             }
         }
 
@@ -307,6 +310,15 @@ namespace CozyTown.Unity.Core
             _townLife.Bind(_services.WorldTimeFlow, _services.ResourceTrading);
             if (_decisionClient != null && !_townLife.DecisionsEnabled)
                 _townLife.ConfigureDecisions(_decisionClient, _decisionProfiles, _decisionSettings, _meetingPlans);
+            BindWorldSnapshots();
+        }
+
+        private void BindWorldSnapshots()
+        {
+            if (_townLife == null || _daytimeClock == null || _daytimeClock.InputGate == null) return;
+            var gate = _daytimeClock.InputGate;
+            var player = gate.GetComponent<PlayerMovement2D>();
+            if (player != null) _townLife.ConfigureSnapshots(_services.WorldSnapshots, player, gate, _daytimeClock);
         }
 
         public void RegisterTownLighting(TownLightingController controller)
@@ -379,11 +391,12 @@ namespace CozyTown.Unity.Core
                 string endpoint = Environment.GetEnvironmentVariable(AgentProxyEndpointEnvironmentVariable);
                 if (!string.IsNullOrWhiteSpace(endpoint))
                 {
-                    try { ConfigureDecisions(new ProxyNpcDecisionClient(endpoint), configuration.Npcs,
+                    try { ConfigureDecisions(new ProxyNpcDecisionClient(endpoint, snapshotConfiguration:
+                        Environment.GetEnvironmentVariable(AgentSnapshotConfigurationEnvironmentVariable)), configuration.Npcs,
                         meetingPlans: CozyTown.Runtime.Content.DefaultNpcResourcePlans.Create()); }
                     catch (ArgumentException)
                     {
-                        Debug.LogWarning("Autonomous NPC decisions remain disabled: COZYTOWN_AGENT_PROXY_ENDPOINT must be an absolute HTTP or HTTPS URI.", this);
+                        Debug.LogWarning("Autonomous NPC decisions remain disabled: check COZYTOWN_AGENT_PROXY_ENDPOINT for an absolute HTTP or HTTPS URI and COZYTOWN_DECISION_SNAPSHOT_CONFIGURATION for valid non-secret model settings.", this);
                     }
                 }
             }
@@ -425,10 +438,12 @@ namespace CozyTown.Unity.Core
                 saveStorage = new JsonFileSaveStorage(savePath);
             }
 
-            return CozyTownCompositionRoot.Create(
+            var services = CozyTownCompositionRoot.Create(
                 configuration,
                 dialogue,
                 saveStorage);
+            services.WorldSnapshots.Require();
+            return services;
         }
 
         private void BindHudPresenters()

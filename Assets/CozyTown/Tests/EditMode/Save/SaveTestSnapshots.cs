@@ -22,7 +22,7 @@ namespace CozyTown.Tests.EditMode.Save
             int? livestockLastProcessedDay = null)
         {
             return new GameSaveSnapshot(
-                GameSaveSnapshot.CurrentSchemaVersion,
+                GameSaveSnapshot.LegacySchemaVersion,
                 worldSeed,
                 new GameClockSnapshot(day, minuteOfDay),
                 new[]
@@ -71,7 +71,7 @@ namespace CozyTown.Tests.EditMode.Save
             EconomyStateSnapshot economy = services.EconomyState.CaptureSnapshot();
 
             return new GameSaveSnapshot(
-                GameSaveSnapshot.CurrentSchemaVersion,
+                GameSaveSnapshot.LegacySchemaVersion,
                 services.WorldSeed.Value,
                 services.Time.Current,
                 economy.Characters,

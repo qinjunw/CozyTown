@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Application;
 using CozyTown.Runtime.Economy;
@@ -8,12 +9,15 @@ using CozyTown.Runtime.Npc;
 using CozyTown.Runtime.NpcAgents;
 using CozyTown.Runtime.NpcLife;
 using CozyTown.Runtime.Time;
+using CozyTown.Runtime.Save;
+using CozyTown.Unity.Player;
+using CozyTown.Unity.Time;
 using UnityEngine;
 
 namespace CozyTown.Unity.Npc
 {
     [DisallowMultipleComponent]
-    public sealed class CozyTownTownLifeController : MonoBehaviour
+    public sealed class CozyTownTownLifeController : MonoBehaviour, IWorldSnapshotAdapter
     {
         [SerializeField] private NpcWorldResident2D[] residents = Array.Empty<NpcWorldResident2D>();
         private IWorldTimeFlow _timeFlow;
@@ -27,6 +31,180 @@ namespace CozyTown.Unity.Npc
         private TownLocalObservation2D _observation;
         private bool _configuringDecisions;
         private bool _tickingDecisions;
+        private WorldSnapshotBinding _snapshotBinding;
+        private PlayerMovement2D _snapshotPlayer;
+        private PlayerModalInputGate2D _snapshotGate;
+        private DaytimeClockDriver _snapshotClockDriver;
+        private Func<double> _snapshotRealSeconds;
+        private NpcMeetingPlan[] _configuredMeetingPlans;
+        private WorldTimeProgress? _preparedPublication;
+
+        public void ConfigureSnapshots(WorldSnapshotBinding binding, PlayerMovement2D player,
+            PlayerModalInputGate2D gate, DaytimeClockDriver clockDriver = null, Func<double> realSeconds = null)
+        {
+            if (binding == null) throw new ArgumentNullException(nameof(binding));
+            if (player == null) throw new ArgumentNullException(nameof(player));
+            if (gate == null || gate.gameObject != player.gameObject)
+                throw new ArgumentException("Snapshot input gate must belong to the configured player.", nameof(gate));
+            if (_configuringDecisions || _tickingDecisions)
+                throw new InvalidOperationException("Complete the current decision operation before binding snapshots.");
+            player.CaptureInitialSnapshot();
+            _snapshotBinding?.Detach(this);
+            _snapshotBinding = binding;
+            _snapshotPlayer = player;
+            _snapshotGate = gate;
+            _snapshotClockDriver = clockDriver;
+            _snapshotRealSeconds = realSeconds ?? (() => UnityEngine.Time.realtimeSinceStartupAsDouble);
+            binding.Attach(this);
+        }
+
+        public CompleteWorldSnapshot CaptureSnapshot(WorldTimeProgress progress, string contentConfiguration)
+        {
+            RequireSnapshotBoundary();
+            if (!IsWorldReady || _last.TotalMinutes != progress.TotalMinutes
+                || _agents.TotalMinutes != progress.TotalMinutes || _last.RebuildVersion != progress.RebuildVersion)
+                throw new InvalidOperationException("Capture requires a completed update at one world time.");
+            var bodies = residents.Select(resident => resident.CaptureSnapshot()).ToArray();
+            for (int i = 0; i < bodies.Length; i++) residents[i].ValidateSnapshot(bodies[i], _agents, progress.TotalMinutes);
+            var player = _snapshotPlayer.CaptureSnapshot();
+            PlayerMovement2D.ValidateSnapshot(player);
+            return new CompleteWorldSnapshot(contentConfiguration, CaptureBodyConfiguration(), _agents.CaptureSnapshot(),
+                _meetings != null, _meetings?.CaptureSnapshot(), _decisions != null,
+                _decisions?.CaptureSnapshot(_snapshotRealSeconds()), bodies, player);
+        }
+
+        public IPreparedWorldRestore PrepareRestore(GameSaveSnapshot snapshot,
+            WorldTimeProgress progress, string contentConfiguration)
+        {
+            RequireSnapshotBoundary();
+            if (snapshot == null) throw new ArgumentNullException(nameof(snapshot));
+            bool legacy = snapshot.SchemaVersion < GameSaveSnapshot.CurrentSchemaVersion;
+            var actors = residents.ToDictionary(resident => resident.NpcId, StringComparer.Ordinal);
+            var bodyCandidates = new NpcWorldResident2D.Journey[residents.Length];
+            NpcAgentWorld agents;
+            NpcMeetingBoard meetings;
+            PlayerBodySnapshot player;
+            NpcDecisionSchedulerSnapshot decisions = null;
+            if (legacy)
+            {
+                agents = new NpcAgentWorld(residents.Select(resident => resident.Schedule),
+                    (npcId, locationId) => actors[npcId].CanVisit(locationId));
+                agents.Observe(progress);
+                meetings = _configuredMeetingPlans == null ? null
+                    : new NpcMeetingBoard(agents, _configuredMeetingPlans, MeetingPresence, _resources);
+                _decisions?.ValidateWorldBinding(agents);
+                for (int i = 0; i < residents.Length; i++)
+                    bodyCandidates[i] = residents[i].Reconstruct(progress.Clock.MinuteOfDay);
+                player = _snapshotPlayer.CaptureInitialSnapshot();
+            }
+            else
+            {
+                var complete = snapshot.CompleteWorld;
+                if (complete == null || complete.ContentConfiguration != contentConfiguration
+                    || complete.BodyConfiguration != CaptureBodyConfiguration()
+                    || complete.DecisionsEnabled != (_decisions != null) || complete.MeetingsEnabled != (_meetings != null)
+                    || complete.DecisionsEnabled != (complete.Decisions != null)
+                    || complete.MeetingsEnabled != (complete.Meetings != null)
+                    || complete.Residents == null || complete.Residents.Count != residents.Length)
+                    throw new ArgumentException("Saved world configuration and enabled systems must match this session.", nameof(snapshot));
+                var restored = _agents.PrepareRestore(complete.World, progress,
+                    (npcId, locationId) => actors[npcId].IsKnownLocation(locationId));
+                if (!restored.IsSuccess) throw new ArgumentException(restored.ErrorCode, nameof(snapshot));
+                agents = restored.Value;
+                meetings = null;
+                if (_meetings != null)
+                {
+                    var restoredMeetings = _meetings.PrepareRestore(complete.Meetings, agents, _resources);
+                    if (!restoredMeetings.IsSuccess) throw new ArgumentException(restoredMeetings.ErrorCode, nameof(snapshot));
+                    meetings = restoredMeetings.Value;
+                }
+                var bodies = complete.Residents.ToDictionary(body => body.NpcId, StringComparer.Ordinal);
+                for (int i = 0; i < residents.Length; i++)
+                {
+                    if (!bodies.TryGetValue(residents[i].NpcId, out var body))
+                        throw new ArgumentException("Saved bodies must contain every configured resident.", nameof(snapshot));
+                    bodyCandidates[i] = residents[i].PrepareRestore(body, agents, progress.TotalMinutes);
+                }
+                ValidateMeetingBodies(complete.Meetings, bodies);
+                decisions = complete.Decisions;
+                _decisions?.ValidateSnapshot(decisions, agents, meetings);
+                player = complete.Player;
+            }
+            PlayerMovement2D.ValidateSnapshot(player);
+            return new PreparedRestore(() =>
+            {
+                if (_decisions != null)
+                {
+                    if (legacy) _decisions.ResetWorld(agents, meetings, _snapshotRealSeconds());
+                    else _decisions.RestoreSnapshot(decisions, agents, meetings, _snapshotRealSeconds());
+                }
+                _agents = agents;
+                _meetings = meetings;
+                for (int i = 0; i < residents.Length; i++)
+                {
+                    residents[i].BindAgents(agents);
+                    residents[i].Commit(bodyCandidates[i]);
+                }
+                _snapshotPlayer.RestoreSnapshot(player);
+                Physics2D.SyncTransforms();
+                _last = progress;
+                _hasState = true;
+                _preparedPublication = progress;
+                foreach (var resident in residents) resident.CancelInteraction();
+                _snapshotGate.Revoke();
+                _snapshotClockDriver?.DiscardFrameSample();
+                foreach (var resident in residents) CaptureObservation(resident.NpcId, _meetings?.GetContext(resident.NpcId));
+            });
+        }
+
+        private static void ValidateMeetingBodies(NpcMeetingBoardSnapshot meetings,
+            IReadOnlyDictionary<string, NpcBodySnapshot> bodies)
+        {
+            if (meetings == null) return;
+            foreach (var meeting in meetings.Meetings.Where(item => item.State == NpcMeetingState.Talking))
+            {
+                var plan = meetings.Plans.Single(item => item.Id == meeting.PlanId);
+                if (!HasArrived(plan.InitiatorId, plan.InitiatorLocationId)
+                    || !HasArrived(plan.PartnerId, plan.PartnerLocationId))
+                    throw new ArgumentException("Talking participants must have arrived at their meeting locations with legal bodies.", nameof(bodies));
+            }
+
+            bool HasArrived(string npcId, string locationId)
+                => bodies.TryGetValue(npcId, out var body) && !body.NoLegalPosition
+                    && body.Route.Status == (int)CozyTown.Unity.Town.TownRouteStatus.Arrived
+                    && body.Route.TargetLocationId == locationId;
+        }
+
+        private string CaptureBodyConfiguration()
+        {
+            var result = new StringBuilder();
+            CozyTown.Unity.Town.TownMap2D.AppendConfiguration(result, "world-bodies-v1", residents.Length,
+                _snapshotPlayer.CaptureConfiguration(), _observation.CaptureConfiguration());
+            foreach (var resident in residents)
+                CozyTown.Unity.Town.TownMap2D.AppendConfiguration(result, resident.CaptureConfiguration());
+            return result.ToString();
+        }
+
+        private void RequireSnapshotBoundary()
+        {
+            if (_configuringDecisions || _tickingDecisions || !_hasState || _agents == null
+                || residents.Length != 4 || residents.Any(resident => resident == null)
+                || residents.Select(resident => resident.NpcId).Distinct().Count() != residents.Length
+                || _snapshotPlayer == null || _snapshotGate == null || _snapshotRealSeconds == null)
+                throw new InvalidOperationException("Complete snapshots require four bound residents and the player at a completed update boundary.");
+        }
+
+        private sealed class PreparedRestore : IPreparedWorldRestore
+        {
+            private Action _commit;
+            internal PreparedRestore(Action commit) => _commit = commit;
+            public void Commit()
+            {
+                var commit = _commit ?? throw new InvalidOperationException("A prepared world restore can only be committed once.");
+                _commit = null;
+                commit();
+            }
+        }
 
         public bool DecisionsEnabled => _decisions != null;
         public bool IsWorldReady => _timeFlow?.State == WorldTimeFlowState.Ready;
@@ -92,7 +270,11 @@ namespace CozyTown.Unity.Npc
             agents.Observe(progress);
             _meetings?.ValidateWorldBinding(agents, candidateResources);
             _decisions?.ValidateWorldBinding(agents);
-            if (_timeFlow != null) _timeFlow.Changed -= Apply;
+            if (_timeFlow != null)
+            {
+                _timeFlow.Changed -= Apply;
+                _timeFlow.PresentationChanged -= PresentRestoredMeetings;
+            }
             _resources = candidateResources;
             _agents = agents;
             foreach (var resident in residents) resident.BindAgents(_agents);
@@ -101,6 +283,7 @@ namespace CozyTown.Unity.Npc
             Apply(progress);
             _decisions?.BindWorld(_agents);
             _timeFlow.Changed += Apply;
+            _timeFlow.PresentationChanged += PresentRestoredMeetings;
         }
 
         public NpcAgentSnapshot GetAgentState(string npcId)
@@ -121,7 +304,8 @@ namespace CozyTown.Unity.Npc
             try
             {
                 var profileArray = profiles.ToArray();
-                var meetings = meetingPlans == null ? null : new NpcMeetingBoard(_agents, meetingPlans, MeetingPresence, _resources);
+                var plans = meetingPlans?.ToArray();
+                var meetings = plans == null ? null : new NpcMeetingBoard(_agents, plans, MeetingPresence, _resources);
                 if (!IsWorldReady) throw new InvalidOperationException("Complete world recovery before configuring decisions.");
                 var before = CaptureActivities();
                 var candidate = _decisions == null
@@ -132,6 +316,7 @@ namespace CozyTown.Unity.Npc
                 _meetings?.CancelAll();
                 _decisions = candidate;
                 _meetings = meetings;
+                _configuredMeetingPlans = plans;
                 RefreshChangedActivities(before);
                 if (_meetings != null)
                 {
@@ -183,6 +368,13 @@ namespace CozyTown.Unity.Npc
 
         private void Update() => TickDecisions(UnityEngine.Time.realtimeSinceStartupAsDouble);
 
+        private void PresentRestoredMeetings(WorldTimeProgress progress)
+        {
+            if (progress.IsRebuild)
+                _meetingView?.Present(_meetings, _snapshotRealSeconds?.Invoke()
+                    ?? UnityEngine.Time.realtimeSinceStartupAsDouble);
+        }
+
         public IReadOnlyList<NpcAgentEvent> TakeAgentEvents(string npcId)
         {
             if (_agents == null) throw new InvalidOperationException("Bind world time before querying residents.");
@@ -222,12 +414,26 @@ namespace CozyTown.Unity.Npc
         // including explicit sleep/load while the presentation is disabled.
         private void OnDestroy()
         {
+            _snapshotBinding?.Detach(this);
             _decisions?.Dispose();
-            if (_timeFlow != null) _timeFlow.Changed -= Apply;
+            if (_timeFlow != null)
+            {
+                _timeFlow.Changed -= Apply;
+                _timeFlow.PresentationChanged -= PresentRestoredMeetings;
+            }
         }
 
         private void Apply(WorldTimeProgress progress)
         {
+            if (_preparedPublication.HasValue)
+            {
+                if (progress.RebuildVersion != _preparedPublication.Value.RebuildVersion
+                    || progress.TotalMinutes != _preparedPublication.Value.TotalMinutes)
+                    throw new InvalidOperationException("Prepared bodies must publish at their restored world time.");
+                _preparedPublication = null;
+                _last = progress;
+                return;
+            }
             var candidates = new NpcWorldResident2D.Journey[residents.Length];
             bool rebuild = !_hasState || progress.RebuildVersion != _last.RebuildVersion;
             if (rebuild)

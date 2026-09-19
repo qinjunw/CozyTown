@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
+using System.Text;
 using CozyTown.Runtime.Economy;
 
 namespace CozyTown.Runtime.NpcAgents
@@ -12,6 +13,29 @@ namespace CozyTown.Runtime.NpcAgents
         private readonly NpcObservationEntity[] _entities;
         public double Radius { get; }
         public int MaxNearby { get; }
+
+        public string CaptureConfiguration()
+        {
+            var result = new StringBuilder();
+            Append("local-observation-v1", Radius, MaxNearby, _regions.Length);
+            foreach (var region in _regions)
+                Append(region.Id, region.Name, region.SpaceId, region.MinX, region.MinY, region.MaxX, region.MaxY);
+            Append(_entities.Length);
+            foreach (var entity in _entities)
+                Append(entity.Id, entity.Name, entity.X, entity.Y, entity.Kind, entity.SpaceId,
+                    entity.InteractionId, entity.ResourceItemId);
+            return result.ToString();
+
+            void Append(params object[] values)
+            {
+                foreach (object value in values)
+                {
+                    string text = value is double number ? number.ToString("R", CultureInfo.InvariantCulture)
+                        : Convert.ToString(value, CultureInfo.InvariantCulture) ?? string.Empty;
+                    result.Append(text.Length).Append(':').Append(text);
+                }
+            }
+        }
 
         public NpcObservationScene(IEnumerable<NpcObservationRegion> regions, IEnumerable<NpcObservationEntity> entities,
             double radius = 3, int maxNearby = 8)

@@ -38,6 +38,224 @@ namespace CozyTown.Runtime.NpcAgents
             internal NpcMeetingSnapshot Snapshot => new NpcMeetingSnapshot(Id, Plan.InitiatorId, Plan.PartnerId, State, SpeakerId, Transcript, Plan.ResourceTerms, DeliveryResultCode);
         }
 
+        public NpcMeetingBoardSnapshot CaptureSnapshot()
+        {
+            if (_plans.Count > 0 && _world.GetState(_plans.Values.First().InitiatorId).WorldRunId != _worldRunId)
+                throw new InvalidOperationException("Rebind the meeting board before capturing a different world timeline.");
+            foreach (var meeting in _current.Values.Distinct())
+                if (meeting.State != NpcMeetingState.Invited
+                    && (!ReferenceEquals(_world.GetState(meeting.Plan.InitiatorId).ActiveActivity, meeting.InitiatorActivity)
+                        || !ReferenceEquals(_world.GetState(meeting.Plan.PartnerId).ActiveActivity, meeting.PartnerActivity)))
+                    throw new InvalidOperationException("Complete the pending meeting update before capturing released activities.");
+            return new NpcMeetingBoardSnapshot(_plans.Values,
+                _current.Values.Distinct().Select(meeting => new NpcMeetingStateSnapshot(meeting.Id,
+                    meeting.Plan.Id, meeting.State, meeting.DayStart, meeting.StartsAt, meeting.EndsAt,
+                    meeting.InitiatorActivity?.ActivityId ?? Guid.Empty, meeting.PartnerActivity?.ActivityId ?? Guid.Empty,
+                    meeting.SpeakerId, meeting.DeliveryResultCode, meeting.Transcript)),
+                _latest.Values.GroupBy(item => item.Id).Select(group => group.First()),
+                _latest.Select(pair => new NpcLatestMeetingSnapshot(pair.Key, pair.Value.Id)),
+                _offeredDays.Select(pair => new NpcMeetingDaySnapshot(pair.Key, pair.Value)),
+                _opportunities.Select(pair => new NpcMeetingOpportunitySnapshot(pair.Key, pair.Value.Id)),
+                _memories.Select(pair => new NpcResidentMemoriesSnapshot(pair.Key, pair.Value)));
+        }
+
+        public OperationResult<NpcMeetingBoard> PrepareRestore(NpcMeetingBoardSnapshot snapshot,
+            NpcAgentWorld world, CharacterResourceTrading resources = null)
+        {
+            if (snapshot == null || world == null || snapshot.Plans == null || snapshot.Meetings == null
+                || snapshot.LatestResults == null || snapshot.LatestByResident == null || snapshot.OfferedDays == null
+                || snapshot.Opportunities == null || snapshot.Memories == null)
+                return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_invalid");
+            var plans = _plans.Values.ToArray();
+            if (snapshot.Plans.Count != plans.Length || snapshot.Plans.Where((plan, index) => !SamePlan(plan, plans[index])).Any())
+                return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_content_mismatch");
+            var residents = world.CaptureSnapshot().Residents.ToDictionary(item => item.NpcId, StringComparer.Ordinal);
+            var restoredResources = resources ?? _resources;
+            if (plans.Any(plan => !residents.ContainsKey(plan.InitiatorId) || !residents.ContainsKey(plan.PartnerId)
+                || (plan.ResourceTerms != null && (restoredResources?.Inspect(plan.ResourceTerms, plan.InitiatorId) == null
+                    || restoredResources.Inspect(plan.ResourceTerms, plan.PartnerId) == null))))
+                return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_residents_invalid");
+            if (snapshot.Meetings.Count > residents.Count / 2 || snapshot.LatestResults.Count > residents.Count
+                || snapshot.LatestByResident.Count > residents.Count || snapshot.Memories.Count > residents.Count
+                || snapshot.OfferedDays.Count > plans.Length || snapshot.Opportunities.Count > residents.Count)
+                return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_invalid");
+
+            var candidate = new NpcMeetingBoard(world, plans, _presence, restoredResources);
+            var meetingIds = new HashSet<Guid>();
+            foreach (var saved in snapshot.Meetings)
+            {
+                if (saved == null || saved.Id == Guid.Empty || !meetingIds.Add(saved.Id)
+                    || string.IsNullOrWhiteSpace(saved.PlanId) || !_plans.TryGetValue(saved.PlanId, out var plan)
+                    || candidate._current.ContainsKey(plan.InitiatorId) || candidate._current.ContainsKey(plan.PartnerId)
+                    || !ValidDay(saved.DayStart, world.TotalMinutes)
+                    || saved.State < NpcMeetingState.Invited || saved.State > NpcMeetingState.Talking
+                    || !ValidTranscript(saved.Transcript, plan.InitiatorId, plan.PartnerId, plan.MaxTurns, world.TotalMinutes)
+                    || saved.Transcript.Count >= plan.MaxTurns)
+                    return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_meeting_invalid");
+                var meeting = new Meeting { Id = saved.Id, Plan = plan, State = saved.State, DayStart = saved.DayStart,
+                    StartsAt = saved.StartsAt, EndsAt = saved.EndsAt, SpeakerId = saved.SpeakerId,
+                    DeliveryResultCode = saved.DeliveryResultCode };
+                if (saved.State == NpcMeetingState.Invited)
+                {
+                    if (saved.StartsAt != 0 || saved.EndsAt != 0 || saved.InitiatorActivityId != Guid.Empty
+                        || saved.PartnerActivityId != Guid.Empty || saved.SpeakerId != null || saved.Transcript.Count != 0
+                        || saved.DeliveryResultCode != null || world.TotalMinutes < saved.DayStart + plan.InviteStartMinute
+                        || world.TotalMinutes >= saved.DayStart + plan.InviteEndMinute)
+                        return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_meeting_invalid");
+                }
+                else
+                {
+                    if (!ValidMinute(saved.StartsAt, double.MaxValue) || !ValidMinute(saved.EndsAt, double.MaxValue)
+                        || saved.StartsAt < saved.DayStart + plan.MeetingStartMinute
+                        || saved.StartsAt >= saved.DayStart + plan.InviteEndMinute
+                        || saved.EndsAt != saved.StartsAt + plan.DurationGameMinutes || saved.EndsAt <= world.TotalMinutes
+                        || !MatchesActivity(residents[plan.InitiatorId].Activity, saved.InitiatorActivityId,
+                            plan.InitiatorLocationId, saved.StartsAt, saved.EndsAt)
+                        || !MatchesActivity(residents[plan.PartnerId].Activity, saved.PartnerActivityId,
+                            plan.PartnerLocationId, saved.StartsAt, saved.EndsAt)
+                        || candidate._places.ContainsKey(plan.PlaceId))
+                        return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_activity_invalid");
+                    if (saved.State == NpcMeetingState.Talking)
+                    {
+                        string nextSpeaker = saved.Transcript.Count % 2 == 0 ? plan.InitiatorId : plan.PartnerId;
+                        if (saved.StartsAt > world.TotalMinutes || saved.SpeakerId != nextSpeaker
+                            || (saved.DeliveryResultCode != null && (plan.ResourceTerms == null || saved.DeliveryResultCode != "resource.delivered"))
+                            || (plan.ResourceTerms != null && saved.Transcript.Count > 0 && saved.DeliveryResultCode != "resource.delivered"))
+                            return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_turn_invalid");
+                    }
+                    else if (saved.SpeakerId != null || saved.Transcript.Count != 0 || saved.DeliveryResultCode != null
+                        || (saved.State == NpcMeetingState.Scheduled && saved.StartsAt < world.TotalMinutes)
+                        || (saved.State == NpcMeetingState.Travelling && saved.StartsAt > world.TotalMinutes))
+                        return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_turn_invalid");
+                    meeting.InitiatorActivity = world.GetState(plan.InitiatorId).ActiveActivity;
+                    meeting.PartnerActivity = world.GetState(plan.PartnerId).ActiveActivity;
+                    candidate._places.Add(plan.PlaceId, meeting);
+                }
+                meeting.Transcript.AddRange(saved.Transcript);
+                candidate._current.Add(plan.InitiatorId, meeting);
+                candidate._current.Add(plan.PartnerId, meeting);
+            }
+
+            if (residents.Values.Any(resident => resident.Activity?.IsMeetingActivity == true
+                && (!candidate._current.TryGetValue(resident.NpcId, out var owner) || owner.State == NpcMeetingState.Invited)))
+                return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_activity_invalid");
+
+            var results = new Dictionary<Guid, NpcMeetingSnapshot>();
+            foreach (var result in snapshot.LatestResults)
+            {
+                if (result == null || result.Id == Guid.Empty || !meetingIds.Add(result.Id)
+                    || !residents.ContainsKey(result.InitiatorId ?? string.Empty) || !residents.ContainsKey(result.PartnerId ?? string.Empty)
+                    || result.InitiatorId == result.PartnerId || result.State < NpcMeetingState.Completed || result.State > NpcMeetingState.Expired
+                    || result.SpeakerId != null || !ValidTranscript(result.Transcript, result.InitiatorId, result.PartnerId, 8, world.TotalMinutes)
+                    || !plans.Any(plan => plan.InitiatorId == result.InitiatorId && plan.PartnerId == result.PartnerId
+                        && SameTerms(plan.ResourceTerms, result.ResourceTerms) && ValidResultForPlan(result, plan)))
+                    return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_result_invalid");
+                results.Add(result.Id, result);
+            }
+            foreach (var link in snapshot.LatestByResident)
+            {
+                if (link == null || string.IsNullOrWhiteSpace(link.NpcId) || candidate._latest.ContainsKey(link.NpcId)
+                    || !results.TryGetValue(link.MeetingId, out var result)
+                    || (link.NpcId != result.InitiatorId && link.NpcId != result.PartnerId))
+                    return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_result_invalid");
+                candidate._latest.Add(link.NpcId, result);
+            }
+            if (results.Keys.Any(id => !candidate._latest.Values.Any(result => result.Id == id)))
+                return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_result_invalid");
+            foreach (var offered in snapshot.OfferedDays)
+            {
+                if (offered == null || string.IsNullOrWhiteSpace(offered.PlanId) || !_plans.ContainsKey(offered.PlanId)
+                    || candidate._offeredDays.ContainsKey(offered.PlanId) || !ValidDay(offered.DayStart, world.TotalMinutes))
+                    return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_opportunity_invalid");
+                candidate._offeredDays.Add(offered.PlanId, offered.DayStart);
+            }
+            foreach (var meeting in snapshot.Meetings)
+                if (!candidate._offeredDays.TryGetValue(meeting.PlanId, out double day) || day != meeting.DayStart)
+                    return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_opportunity_invalid");
+            foreach (var opportunity in snapshot.Opportunities)
+            {
+                if (opportunity == null || string.IsNullOrWhiteSpace(opportunity.PlanId)
+                    || !_plans.TryGetValue(opportunity.PlanId, out var plan) || opportunity.NpcId != plan.InitiatorId
+                    || candidate._opportunities.ContainsKey(opportunity.NpcId) || !candidate._offeredDays.ContainsKey(plan.Id))
+                    return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_opportunity_invalid");
+                candidate._opportunities.Add(opportunity.NpcId, plan);
+            }
+            foreach (var owner in snapshot.Memories)
+            {
+                if (owner == null || !residents.ContainsKey(owner.NpcId ?? string.Empty) || candidate._memories.ContainsKey(owner.NpcId)
+                    || owner.Memories == null || owner.Memories.Count > 16)
+                    return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_memory_invalid");
+                double last = 0;
+                foreach (var memory in owner.Memories)
+                {
+                    if (memory == null || memory.MeetingId == Guid.Empty || string.IsNullOrWhiteSpace(memory.Kind) || memory.Kind.Length > 128
+                        || !residents.ContainsKey(memory.PartnerId ?? string.Empty) || memory.PartnerId == owner.NpcId
+                        || !plans.Any(plan => (plan.InitiatorId == owner.NpcId && plan.PartnerId == memory.PartnerId)
+                            || (plan.PartnerId == owner.NpcId && plan.InitiatorId == memory.PartnerId))
+                        || !ValidMinute(memory.TotalMinutes, world.TotalMinutes) || memory.TotalMinutes < last
+                        || (memory.Kind == "meeting.spoken" ? ((memory.SpeakerId != owner.NpcId && memory.SpeakerId != memory.PartnerId)
+                            || string.IsNullOrWhiteSpace(memory.Text) || memory.Text.Length > 240)
+                            : memory.SpeakerId != null || memory.Text != null))
+                        return OperationResult<NpcMeetingBoard>.Failure("meeting.snapshot_memory_invalid");
+                    last = memory.TotalMinutes;
+                }
+                candidate._memories.Add(owner.NpcId, owner.Memories.ToList());
+            }
+            return OperationResult<NpcMeetingBoard>.Success(candidate);
+        }
+
+        private static bool MatchesActivity(NpcActivitySnapshot activity, Guid id, string location, double starts, double ends)
+            => activity != null && activity.IsMeetingActivity && id != Guid.Empty && activity.ActivityId == id && activity.TargetLocationId == location
+                && activity.Activity == NpcActivity.Resting && activity.StartsAtTotalMinutes == starts && activity.ExpiresAtTotalMinutes == ends;
+
+        private static bool ValidDay(double dayStart, double now)
+            => ValidMinute(dayStart, now) && dayStart % 1440 == 0;
+
+        private static bool ValidMinute(double value, double maximum)
+            => !double.IsNaN(value) && !double.IsInfinity(value) && value >= 0 && value <= maximum;
+
+        private static bool ValidTranscript(IReadOnlyList<NpcConversationLine> transcript, string initiator, string partner, int maxTurns, double now)
+        {
+            if (transcript == null || transcript.Count > maxTurns) return false;
+            double last = 0;
+            for (int i = 0; i < transcript.Count; i++)
+            {
+                var line = transcript[i];
+                if (line == null || line.SpeakerId != (i % 2 == 0 ? initiator : partner)
+                    || string.IsNullOrWhiteSpace(line.Text) || line.Text.Length > 240
+                    || !ValidMinute(line.TotalMinutes, now) || line.TotalMinutes < last) return false;
+                last = line.TotalMinutes;
+            }
+            return true;
+        }
+
+        private static bool SamePlan(NpcMeetingPlan first, NpcMeetingPlan second)
+            => first != null && second != null && first.Id == second.Id && first.InitiatorId == second.InitiatorId
+                && first.PartnerId == second.PartnerId && first.PlaceId == second.PlaceId
+                && first.InitiatorLocationId == second.InitiatorLocationId && first.PartnerLocationId == second.PartnerLocationId
+                && first.InviteStartMinute == second.InviteStartMinute && first.MeetingStartMinute == second.MeetingStartMinute
+                && first.InviteEndMinute == second.InviteEndMinute && first.DurationGameMinutes == second.DurationGameMinutes
+                && first.MaxTurns == second.MaxTurns && SameTerms(first.ResourceTerms, second.ResourceTerms);
+
+        private static bool SameTerms(CharacterTradeTerms first, CharacterTradeTerms second)
+            => first == null ? second == null : second != null && first.BuyerId == second.BuyerId
+                && first.SellerId == second.SellerId && first.ItemId == second.ItemId
+                && first.Quantity == second.Quantity && first.TotalPrice == second.TotalPrice;
+
+        private static bool ValidResultForPlan(NpcMeetingSnapshot result, NpcMeetingPlan plan)
+        {
+            if (result.Transcript.Count > plan.MaxTurns
+                || (result.State == NpcMeetingState.Completed ? result.Transcript.Count < 2 : result.Transcript.Count == plan.MaxTurns)
+                || (result.State == NpcMeetingState.Declined && result.Transcript.Count != 0)) return false;
+            if (plan.ResourceTerms == null) return result.DeliveryResultCode == null;
+            if (result.State == NpcMeetingState.Completed || result.Transcript.Count > 0)
+                return result.DeliveryResultCode == "resource.delivered";
+            if (result.State == NpcMeetingState.Declined) return result.DeliveryResultCode == null;
+            return result.DeliveryResultCode == null || result.DeliveryResultCode == "resource.delivered"
+                || (result.State == NpcMeetingState.Cancelled && !string.IsNullOrWhiteSpace(result.DeliveryResultCode)
+                    && result.DeliveryResultCode.Length <= 128);
+        }
+
         public NpcMeetingBoard(NpcAgentWorld world, IEnumerable<NpcMeetingPlan> plans,
             Func<string, string, NpcMeetingPresence> presence = null, CharacterResourceTrading resources = null)
         {
@@ -173,6 +391,53 @@ namespace CozyTown.Runtime.NpcAgents
         }
 
         internal void TakeOpportunity(string npcId) => _opportunities.Remove(npcId);
+
+        internal bool MatchesSnapshotDecisionContext(string npcId, NpcSocialContextKind kind, string planId,
+            Guid meetingId, int spokenLines, double opportunityDayStart, bool wasDispatched)
+        {
+            if (string.IsNullOrWhiteSpace(npcId) || string.IsNullOrWhiteSpace(planId)
+                || !_plans.TryGetValue(planId, out var plan)) return false;
+            if (kind == NpcSocialContextKind.Opportunity)
+            {
+                if (plan.InitiatorId != npcId || meetingId != Guid.Empty || spokenLines != 0
+                    || !ValidDay(opportunityDayStart, _world.TotalMinutes)
+                    || !_offeredDays.TryGetValue(planId, out double offered) || offered != opportunityDayStart
+                    || _world.TotalMinutes < opportunityDayStart + plan.InviteStartMinute
+                    || _world.TotalMinutes >= opportunityDayStart + plan.InviteEndMinute
+                    || _current.ContainsKey(npcId)) return false;
+                return wasDispatched
+                    ? !_opportunities.ContainsKey(npcId) && !_current.ContainsKey(plan.PartnerId)
+                        && _world.GetState(npcId).ActiveActivity == null
+                        && _world.GetState(plan.PartnerId).ActiveActivity == null
+                    : _opportunities.TryGetValue(npcId, out var pending) && pending.Id == planId;
+            }
+            if (!_current.TryGetValue(npcId, out var meeting) || meeting.Id != meetingId
+                || meeting.Plan.Id != planId || meeting.Transcript.Count != spokenLines) return false;
+            if (kind == NpcSocialContextKind.Invitation)
+                return meeting.State == NpcMeetingState.Invited && npcId == plan.PartnerId
+                    && _world.TotalMinutes < meeting.DayStart + plan.InviteEndMinute;
+            return (kind == NpcSocialContextKind.Conversation || kind == NpcSocialContextKind.Delivery)
+                && meeting.State == NpcMeetingState.Talking && meeting.SpeakerId == npcId
+                && _world.TotalMinutes < meeting.EndsAt
+                && kind == (plan.ResourceTerms != null && meeting.DeliveryResultCode == null
+                    ? NpcSocialContextKind.Delivery : NpcSocialContextKind.Conversation);
+        }
+
+        internal NpcSocialContext GetDecisionContinuationContext(string npcId, string planId, double opportunityDayStart)
+        {
+            if (string.IsNullOrWhiteSpace(planId) || !_plans.TryGetValue(planId, out var plan) || plan.InitiatorId != npcId
+                || !ValidDay(opportunityDayStart, _world.TotalMinutes)
+                || !_offeredDays.TryGetValue(planId, out double offered) || offered != opportunityDayStart
+                || _world.TotalMinutes < opportunityDayStart + plan.InviteStartMinute
+                || _world.TotalMinutes >= opportunityDayStart + plan.InviteEndMinute
+                || _current.ContainsKey(plan.InitiatorId) || _current.ContainsKey(plan.PartnerId)
+                || _world.GetState(plan.InitiatorId).ActiveActivity != null || _world.GetState(plan.PartnerId).ActiveActivity != null
+                || (plan.ResourceTerms != null && !_resources.IsNeeded(plan.ResourceTerms))) return null;
+            return new NpcSocialContext(NpcSocialContextKind.Opportunity, plan, npcId, Guid.Empty,
+                opportunityDayStart + plan.MeetingStartMinute, opportunityDayStart + plan.InviteEndMinute,
+                Array.Empty<NpcConversationLine>(), GetMemories(npcId).Reverse().Take(4).Reverse(),
+                _resources?.Inspect(plan.ResourceTerms, npcId));
+        }
 
         public void CancelAll()
         {

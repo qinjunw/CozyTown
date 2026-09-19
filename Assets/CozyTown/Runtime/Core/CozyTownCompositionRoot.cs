@@ -149,6 +149,7 @@ namespace CozyTown.Runtime.Core
                 npcContent,
                 npcDialogue,
                 () => time.Current);
+            var worldSnapshots = new WorldSnapshotBinding();
             var gameSave = new GameSaveCoordinator(
                 worldSeed,
                 time,
@@ -156,8 +157,10 @@ namespace CozyTown.Runtime.Core
                 farm,
                 livestock,
                 saveStorage,
-                legacyNpcDefaults: configuration.InitialNpcEconomy);
-            var daytimeClock = new DaytimeClockCoordinator(worldTime, gameSave, timeFlow);
+                legacyNpcDefaults: configuration.InitialNpcEconomy, worldSnapshots: worldSnapshots,
+                timeFlow: timeFlow, contentConfiguration: ContentSnapshotConfiguration.Capture(configuration));
+            var daytimeClock = new DaytimeClockCoordinator(worldTime, gameSave, timeFlow,
+                () => gameSave.LoadedFractionalMinute);
 
             return new CozyTownServices(
                 daytimeClock,
@@ -183,7 +186,7 @@ namespace CozyTown.Runtime.Core
                 worldTime,
                 daytimeClock,
                 timeFlow,
-                new CharacterResourceTrading(economyState, configuration.Items, configuration.InventoryCapacitySlots));
+                new CharacterResourceTrading(economyState, configuration.Items, configuration.InventoryCapacitySlots), worldSnapshots);
         }
 
         public static CozyTownServices CreateDefault()

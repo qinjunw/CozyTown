@@ -41,7 +41,7 @@ T1-3～T1-4 已接入四人作息、碰撞感知道路导航、四向行走帧�
 
 [T1-2b: Verify continuous world time, morning settlement and sleep](https://github.com/qinjunw/CozyTown/issues/38) 按 [ADR-0014](docs/adr/0014-continuous-world-time-and-morning-settlement.md) 替换原午夜封顶规则：每 5 个有效现实秒推进 10 游戏分钟，午夜只改变日期，每日 05:00 处理尚未完成的生产结算和商店库存替换。正常走时与睡眠共用世界时间推进入口；床选择器默认 8 小时，允许 1～12 个整小时，选择和取消不推进时间。
 
-存档当前写入 schema v3；v1/v2 先按旧协议校验再迁移，保留实际资产和已结算日。2026-09-06 全量 EditMode `357/357`、图形 PlayMode `62/62` 通过；[实现 PR](https://github.com/qinjunw/CozyTown/pull/39) 已合入受保护的主分支。床选择、关闭、停用恢复和正式场景生产闭环已自动验证；该结果不代表 NPC 日程或人工场景验收已完成。后续按 [T1 当前验收](docs/TOWN_LIFE_PLAN.md#10-t1-3t1-5-当前验收2026-09-06) 推进。
+该阶段存档写入 schema v3；v1/v2 先按旧协议校验再迁移，保留实际资产和已结算日。当前完整世界快照采用 schema v4，配置与验证见[实现报告](docs/verification/complete-agent-snapshots-2026-09-19.md)。2026-09-06 全量 EditMode `357/357`、图形 PlayMode `62/62` 通过；[实现 PR](https://github.com/qinjunw/CozyTown/pull/39) 已合入受保护的主分支。床选择、关闭、停用恢复和正式场景生产闭环已自动验证；该结果不代表 NPC 日程或人工场景验收已完成。后续按 [T1 当前验收](docs/TOWN_LIFE_PLAN.md#10-t1-3t1-5-当前验收2026-09-06) 推进。
 
 ## AI 接入边界
 

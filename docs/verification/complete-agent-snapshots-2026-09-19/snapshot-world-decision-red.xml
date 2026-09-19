@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Failed(Child)" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 09:32:02Z" end-time="2026-09-19 09:32:02Z" duration="0.1789563">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="900" result="Failed" site="Child" start-time="2026-09-19 09:32:02Z" end-time="2026-09-19 09:32:02Z" duration="0.178956" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1798" name="CozyTown.Tests.EditMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.EditMode.dll" runstate="Runnable" testcasecount="660" result="Failed" site="Child" start-time="2026-09-19 09:32:02Z" end-time="2026-09-19 09:32:02Z" duration="0.147524" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="55512" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1799" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="660" result="Failed" site="Child" start-time="2026-09-19 09:32:02Z" end-time="2026-09-19 09:32:02Z" duration="0.135234" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1800" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="660" result="Failed" site="Child" start-time="2026-09-19 09:32:02Z" end-time="2026-09-19 09:32:02Z" duration="0.124299" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1801" name="EditMode" fullname="CozyTown.Tests.EditMode" runstate="Runnable" testcasecount="660" result="Failed" site="Child" start-time="2026-09-19 09:32:02Z" end-time="2026-09-19 09:32:02Z" duration="0.114757" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestSuite" id="1805" name="NpcAgents" fullname="CozyTown.Tests.EditMode.NpcAgents" runstate="Runnable" testcasecount="302" result="Failed" site="Child" start-time="2026-09-19 09:32:02Z" end-time="2026-09-19 09:32:02Z" duration="0.102271" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-suite type="TestFixture" id="1154" name="NpcAgentWorldSnapshotTests" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldSnapshotTests" classname="CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldSnapshotTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-19 09:32:02Z" end-time="2026-09-19 09:32:02Z" duration="0.063494" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1155" name="CaptureAndPrepare_RestoresActivityDeadlineAndEventsWithoutChangingLiveWorld" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldSnapshotTests.CaptureAndPrepare_RestoresActivityDeadlineAndEventsWithoutChangingLiveWorld" methodname="CaptureAndPrepare_RestoresActivityDeadlineAndEventsWithoutChangingLiveWorld" classname="CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldSnapshotTests" runstate="Runnable" seed="1422190218" result="Failed" label="Error" start-time="2026-09-19 09:32:02Z" end-time="2026-09-19 09:32:02Z" duration="0.034550" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                    <stack-trace><![CDATA[  at CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldSnapshotTests.CaptureAndPrepare_RestoresActivityDeadlineAndEventsWithoutChangingLiveWorld () [0x0008d] in [isolated-project]\Assets\CozyTown\Tests\EditMode\NpcAgents\NpcAgentWorldSnapshotTests.cs:22
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ]]></stack-trace>
+                  </failure>
+                </test-case>
+              </test-suite>
+              <test-suite type="TestFixture" id="1273" name="NpcDecisionSnapshotTests" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests" classname="CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-19 09:32:02Z" end-time="2026-09-19 09:32:02Z" duration="0.027480" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1274" name="FirstCallInFlight_RestoreConsumesItsAttemptAndRetainsTheOldPhysicalSlot" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests.FirstCallInFlight_RestoreConsumesItsAttemptAndRetainsTheOldPhysicalSlot" methodname="FirstCallInFlight_RestoreConsumesItsAttemptAndRetainsTheOldPhysicalSlot" classname="CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests" runstate="Runnable" seed="532202066" result="Failed" label="Error" start-time="2026-09-19 09:32:02Z" end-time="2026-09-19 09:32:02Z" duration="0.023192" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[System.NotSupportedException : Decision snapshot capture is not implemented.]]></message>
+                    <stack-trace><![CDATA[  at CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests.FirstCallInFlight_RestoreConsumesItsAttemptAndRetainsTheOldPhysicalSlot () [0x0006d] in [isolated-project]\Assets\CozyTown\Tests\EditMode\NpcAgents\NpcDecisionSnapshotTests.cs:23
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ]]></stack-trace>
+                  </failure>
+                  <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

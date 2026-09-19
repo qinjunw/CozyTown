@@ -38,7 +38,7 @@ namespace CozyTown.Tests.EditMode.Save
         }
 
         [Test]
-        public void SaveAndLoad_CurrentSchema_RoundTripsJsonPayload()
+        public void SaveAndLoad_LegacySchemaThree_RoundTripsJsonPayload()
         {
             var storage = new JsonFileSaveStorage(_savePath);
             GameSaveSnapshot snapshot = SaveTestSnapshots.Create();
@@ -64,7 +64,7 @@ namespace CozyTown.Tests.EditMode.Save
         }
 
         [Test]
-        public void SaveAndLoad_CurrentSchema_RoundTripsEveryCharacterAndShop()
+        public void SaveAndLoad_LegacySchemaThree_RoundTripsEveryCharacterAndShop()
         {
             GameSaveSnapshot baseline = SaveTestSnapshots.Create();
             var snapshot = new GameSaveSnapshot(
@@ -205,6 +205,7 @@ namespace CozyTown.Tests.EditMode.Save
             Assert.That(first.IsSuccess, Is.True);
             Assert.That(second.IsSuccess, Is.True);
             Assert.That(first.Value.SchemaVersion, Is.EqualTo(3));
+            Assert.That(first.Value.SourceSchemaVersion, Is.EqualTo(1));
             Assert.That(first.Value.WorldSeed, Is.EqualTo(JsonFileSaveStorage.LegacyV1WorldSeed));
             Assert.That(first.Value.Clock.Day, Is.EqualTo(3));
             Assert.That(first.Value.Clock.MinuteOfDay, Is.EqualTo(420));

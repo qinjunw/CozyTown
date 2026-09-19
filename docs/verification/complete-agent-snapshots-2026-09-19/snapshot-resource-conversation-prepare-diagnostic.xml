@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 10:27:01Z" end-time="2026-09-19 10:27:02Z" duration="0.4133248">
+  <test-suite type="TestSuite" id="1365" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="279" result="Failed" site="Child" start-time="2026-09-19 10:27:01Z" end-time="2026-09-19 10:27:02Z" duration="0.413325" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1358" name="CozyTown.Tests.PlayMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="279" result="Failed" site="Child" start-time="2026-09-19 10:27:01Z" end-time="2026-09-19 10:27:02Z" duration="0.398044" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="111696" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1359" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="279" result="Failed" site="Child" start-time="2026-09-19 10:27:01Z" end-time="2026-09-19 10:27:02Z" duration="0.394061" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1360" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="279" result="Failed" site="Child" start-time="2026-09-19 10:27:01Z" end-time="2026-09-19 10:27:02Z" duration="0.390496" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1361" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="279" result="Failed" site="Child" start-time="2026-09-19 10:27:01Z" end-time="2026-09-19 10:27:02Z" duration="0.386844" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1022" name="CompleteWorldSnapshotPlayModeTests" fullname="CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests" classname="CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests" runstate="Runnable" testcasecount="14" result="Failed" site="Child" start-time="2026-09-19 10:27:02Z" end-time="2026-09-19 10:27:02Z" duration="0.378257" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1023" name="ResourceConversation_LoadRestoresAcceptedBodiesAndDeliveredPendingTurnWithoutRepeatingTradeOrFutureBubble" fullname="CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.ResourceConversation_LoadRestoresAcceptedBodiesAndDeliveredPendingTurnWithoutRepeatingTradeOrFutureBubble" methodname="ResourceConversation_LoadRestoresAcceptedBodiesAndDeliveredPendingTurnWithoutRepeatingTradeOrFutureBubble" classname="CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests" runstate="Runnable" seed="575737933" result="Failed" start-time="2026-09-19 10:27:02Z" end-time="2026-09-19 10:27:02Z" duration="0.353269" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Expected: No Exception to be thrown
+  But was:  <System.ArgumentException: Decision snapshot resident configuration or cooldown is invalid.
+Parameter name: snapshot
+  at CozyTown.Runtime.NpcAgents.NpcDecisionScheduler.ValidateSnapshot (CozyTown.Runtime.NpcAgents.NpcDecisionSchedulerSnapshot snapshot, CozyTown.Runtime.NpcAgents.NpcAgentWorld world, CozyTown.Runtime.NpcAgents.NpcMeetingBoard meetings) [0x00194] in [isolated-project]\Assets\CozyTown\Runtime\NpcAgents\NpcDecisionScheduler.cs:182
+  at CozyTown.Unity.Npc.CozyTownTownLifeController.PrepareRestore (CozyTown.Runtime.Save.GameSaveSnapshot snapshot, CozyTown.Runtime.Time.WorldTimeProgress progress, System.String contentConfiguration) [0x00368] in [isolated-project]\Assets\CozyTown\Unity\Npc\CozyTownTownLifeController.cs:129
+  at CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests+<>c__DisplayClass0_0.<ResourceConversation_LoadRestoresAcceptedBodiesAndDeliveredPendingTurnWithoutRepeatingTradeOrFutureBubble>b__4 () [0x00000] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\CompleteWorldConversationSnapshotPlayModeTests.cs:53
+  at NUnit.Framework.Constraints.ThrowsConstraint+VoidInvocationDescriptor.Invoke () [0x00001] in <8b63e8ac0a4746599ed207982825ae6c>:0
+  at NUnit.Framework.Constraints.ThrowsConstraint+ExceptionInterceptor.Intercept (System.Object invocation) [0x00050] in <8b63e8ac0a4746599ed207982825ae6c>:0 >
+]]></message>
+                  <stack-trace><![CDATA[at CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.ResourceConversation_LoadRestoresAcceptedBodiesAndDeliveredPendingTurnWithoutRepeatingTradeOrFutureBubble () [0x00352] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\CompleteWorldConversationSnapshotPlayModeTests.cs:53
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="14" result="Failed(Child)" total="14" passed="13" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:35Z" duration="0.8492219">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="925" result="Failed" site="Child" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:35Z" duration="0.849222" total="14" passed="13" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1829" name="CozyTown.Tests.EditMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.EditMode.dll" runstate="Runnable" testcasecount="684" result="Failed" site="Child" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:35Z" duration="0.814373" total="14" passed="13" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="99344" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1830" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="684" result="Failed" site="Child" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:35Z" duration="0.798808" total="14" passed="13" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1831" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="684" result="Failed" site="Child" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:35Z" duration="0.784263" total="14" passed="13" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1832" name="EditMode" fullname="CozyTown.Tests.EditMode" runstate="Runnable" testcasecount="684" result="Failed" site="Child" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:35Z" duration="0.767741" total="14" passed="13" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestSuite" id="1834" name="Save" fullname="CozyTown.Tests.EditMode.Save" runstate="Runnable" testcasecount="56" result="Failed" site="Child" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:35Z" duration="0.750336" total="14" passed="13" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-suite type="TestFixture" id="1004" name="CompleteSnapshotStorageTests" fullname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests" classname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:35Z" duration="0.714846" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1005" name="CompleteSnapshot_RoundTripsFractionalClockAllResidentsAndIndependentEvents" fullname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.CompleteSnapshot_RoundTripsFractionalClockAllResidentsAndIndependentEvents" methodname="CompleteSnapshot_RoundTripsFractionalClockAllResidentsAndIndependentEvents" classname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests" runstate="Runnable" seed="1075819094" result="Passed" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:34Z" duration="0.337174" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-suite type="ParameterizedMethod" id="1016" name="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults" fullname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults" classname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:35Z" duration="0.352492" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1006" name="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;sourceSchemaVersion&quot;,&quot;\&quot;sourceSchemaVersion\&quot;:0&quot;)" fullname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;sourceSchemaVersion&quot;,&quot;\&quot;sourceSchemaVersion\&quot;:0&quot;)" methodname="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults" classname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests" runstate="Runnable" seed="1197327482" result="Passed" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:34Z" duration="0.067903" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1007" name="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;fractionalMinute&quot;,&quot;\&quot;removedFractionalMinute\&quot;:0.25&quot;)" fullname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;fractionalMinute&quot;,&quot;\&quot;removedFractionalMinute\&quot;:0.25&quot;)" methodname="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults" classname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests" runstate="Runnable" seed="436223661" result="Passed" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:34Z" duration="0.051238" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1008" name="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;sourceSchemaVersion&quot;,&quot;\&quot;removedSourceSchemaVersion\&quot;:4&quot;)" fullname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;sourceSchemaVersion&quot;,&quot;\&quot;removedSourceSchemaVersion\&quot;:4&quot;)" methodname="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults" classname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests" runstate="Runnable" seed="67689706" result="Passed" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:34Z" duration="0.028538" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1009" name="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;completeWorld&quot;,null)" fullname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;completeWorld&quot;,null)" methodname="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults" classname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests" runstate="Runnable" seed="99092263" result="Passed" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:34Z" duration="0.028445" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1010" name="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;contentConfiguration&quot;,null)" fullname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;contentConfiguration&quot;,null)" methodname="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults" classname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests" runstate="Runnable" seed="829723230" result="Passed" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:34Z" duration="0.027836" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1011" name="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;residents&quot;,null)" fullname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;residents&quot;,null)" methodname="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults" classname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests" runstate="Runnable" seed="792520865" result="Passed" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:34Z" duration="0.027141" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1012" name="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;events&quot;,null)" fullname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;events&quot;,null)" methodname="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults" classname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests" runstate="Runnable" seed="1506784087" result="Passed" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:34Z" duration="0.026508" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1013" name="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;meetingsEnabled&quot;,null)" fullname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;meetingsEnabled&quot;,null)" methodname="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults" classname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests" runstate="Runnable" seed="138716516" result="Passed" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:34Z" duration="0.031548" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1014" name="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;decisionsEnabled&quot;,null)" fullname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;decisionsEnabled&quot;,null)" methodname="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults" classname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests" runstate="Runnable" seed="2139324582" result="Passed" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:34Z" duration="0.025995" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1015" name="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;player&quot;,null)" fullname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(&quot;player&quot;,null)" methodname="IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults" classname="CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests" runstate="Runnable" seed="1657824701" result="Passed" start-time="2026-09-19 10:08:34Z" end-time="2026-09-19 10:08:35Z" duration="0.028689" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+              </test-suite>
+              <test-suite type="TestFixture" id="1017" name="CompleteWorldSaveTests" fullname="CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests" classname="CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2026-09-19 10:08:35Z" end-time="2026-09-19 10:08:35Z" duration="0.032021" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1018" name="InvalidCompleteResources_AreRejectedBeforeWritingTheClock" fullname="CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests.InvalidCompleteResources_AreRejectedBeforeWritingTheClock" methodname="InvalidCompleteResources_AreRejectedBeforeWritingTheClock" classname="CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests" runstate="Runnable" seed="917373372" result="Failed" start-time="2026-09-19 10:08:35Z" end-time="2026-09-19 10:08:35Z" duration="0.021122" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: 0
+  But was:  2
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests.InvalidCompleteResources_AreRejectedBeforeWritingTheClock () [0x00110] in [isolated-project]\Assets\CozyTown\Tests\EditMode\Save\CompleteWorldSaveTests.cs:37
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1019" name="RejectedWorldPreparation_KeepsTheRunningClockAndDoesNotCommit" fullname="CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests.RejectedWorldPreparation_KeepsTheRunningClockAndDoesNotCommit" methodname="RejectedWorldPreparation_KeepsTheRunningClockAndDoesNotCommit" classname="CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests" runstate="Runnable" seed="685444237" result="Passed" start-time="2026-09-19 10:08:35Z" end-time="2026-09-19 10:08:35Z" duration="0.006582" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1020" name="RequiredWorldWithoutAnAdapter_RejectsSaveAndKeepsThePreviousSlot" fullname="CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests.RequiredWorldWithoutAnAdapter_RejectsSaveAndKeepsThePreviousSlot" methodname="RequiredWorldWithoutAnAdapter_RejectsSaveAndKeepsThePreviousSlot" classname="CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests" runstate="Runnable" seed="1127028806" result="Passed" start-time="2026-09-19 10:08:35Z" end-time="2026-09-19 10:08:35Z" duration="0.001865" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

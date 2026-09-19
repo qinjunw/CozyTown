@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
 using UnityEngine;
 
 namespace CozyTown.Unity.Town
@@ -12,6 +14,69 @@ namespace CozyTown.Unity.Town
         [SerializeField] private TownRoad[] roads = Array.Empty<TownRoad>();
 
         public IReadOnlyList<TownHome> Homes => Array.AsReadOnly(homes);
+
+        public string CaptureConfiguration()
+        {
+            var result = new StringBuilder();
+            AppendConfiguration(result, "town-map-route-v1", Physics2D.defaultContactOffset, homes.Length);
+            foreach (var home in homes)
+                AppendConfiguration(result, home.HomeId, home.NpcId, home.DoorstepLocationId, home.EntryLocationId);
+            AppendConfiguration(result, locations.Length);
+            foreach (var location in locations)
+                AppendConfiguration(result, location.Id, location.Position.x, location.Position.y);
+            AppendConfiguration(result, roads.Length);
+            foreach (var road in roads) AppendConfiguration(result, road.FromLocationId, road.ToLocationId);
+            foreach (var collider in GetComponentsInChildren<Collider2D>(true))
+            {
+                if (collider.isTrigger || (collider.attachedRigidbody != null
+                    && collider.attachedRigidbody.bodyType != RigidbodyType2D.Static)) continue;
+                AppendConfiguration(result, collider.GetType().FullName, collider.enabled,
+                    collider.gameObject.activeInHierarchy, collider.offset.x, collider.offset.y);
+                var matrix = collider.transform.localToWorldMatrix;
+                for (int i = 0; i < 16; i++) AppendConfiguration(result, matrix[i]);
+                switch (collider)
+                {
+                    case BoxCollider2D box:
+                        AppendConfiguration(result, box.size.x, box.size.y, box.edgeRadius);
+                        break;
+                    case CircleCollider2D circle:
+                        AppendConfiguration(result, circle.radius);
+                        break;
+                    case CapsuleCollider2D capsule:
+                        AppendConfiguration(result, capsule.size.x, capsule.size.y, (int)capsule.direction);
+                        break;
+                    case PolygonCollider2D polygon:
+                        AppendConfiguration(result, polygon.pathCount);
+                        for (int i = 0; i < polygon.pathCount; i++) AppendPoints(polygon.GetPath(i));
+                        break;
+                    case EdgeCollider2D edge:
+                        AppendConfiguration(result, edge.edgeRadius);
+                        AppendPoints(edge.points);
+                        break;
+                    default:
+                        throw new InvalidOperationException("Snapshot configuration does not support this world collider: "
+                            + collider.GetType().Name);
+                }
+            }
+            return result.ToString();
+
+            void AppendPoints(Vector2[] points)
+            {
+                AppendConfiguration(result, points.Length);
+                foreach (var point in points) AppendConfiguration(result, point.x, point.y);
+            }
+        }
+
+        internal static void AppendConfiguration(StringBuilder result, params object[] values)
+        {
+            foreach (object value in values)
+            {
+                string text = value is float single ? single.ToString("R", CultureInfo.InvariantCulture)
+                    : value is double number ? number.ToString("R", CultureInfo.InvariantCulture)
+                    : Convert.ToString(value, CultureInfo.InvariantCulture) ?? string.Empty;
+                result.Append(text.Length).Append(':').Append(text);
+            }
+        }
 
         public void Configure(TownHome[] townHomes, TownLocation[] townLocations, TownRoad[] townRoads)
         {
@@ -72,6 +137,26 @@ namespace CozyTown.Unity.Town
             var location = Array.Find(locations, candidate => string.Equals(candidate.Id, locationId, StringComparison.Ordinal));
             position = location != null ? location.Position : default;
             return location != null;
+        }
+
+        internal bool ContainsRoadSegment(Vector2 from, Vector2 to)
+        {
+            foreach (var road in roads)
+            {
+                TryGetLocation(road.FromLocationId, out var start);
+                TryGetLocation(road.ToLocationId, out var end);
+                if (IsOnSegment(from, start, end) && IsOnSegment(to, start, end)) return true;
+            }
+            return false;
+        }
+
+        internal static bool IsOnSegment(Vector2 point, Vector2 from, Vector2 to)
+        {
+            var segment = to - from;
+            if (segment.sqrMagnitude == 0) return Vector2.SqrMagnitude(point - from) <= 0.00000001f;
+            float progress = Vector2.Dot(point - from, segment) / segment.sqrMagnitude;
+            return progress >= -0.00001f && progress <= 1.00001f
+                && Vector2.SqrMagnitude(from + Mathf.Clamp01(progress) * segment - point) <= 0.00000001f;
         }
 
         public bool TryFindRoute(string fromLocationId, string toLocationId,

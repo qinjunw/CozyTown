@@ -14,15 +14,23 @@ namespace CozyTown.Runtime.NpcAgents
         private readonly Resident[] _residents;
         private readonly INpcDecisionClient _client;
         private readonly NpcDecisionSettings _settings;
-        private readonly NpcMeetingBoard _meetings;
+        private NpcMeetingBoard _meetings;
         private readonly Func<NpcDecisionRequest, NpcLocalObservation> _observe;
         private readonly NpcSpeechMode _speechMode;
         private readonly Func<bool> _canDecide;
         private RequestHistory _history = new RequestHistory();
+        private readonly List<RetiredRequest> _retiredRequests = new List<RetiredRequest>();
+
+        private sealed class RetiredRequest
+        {
+            internal Task<NpcDecisionReply> Task;
+            internal CancellationTokenSource Cancellation;
+        }
 
         private sealed class RequestHistory
         {
             internal readonly Queue<double> Starts = new Queue<double>();
+            // Snapshot loads restore behavior cooldowns; actual call times and counts remain unchanged.
             internal readonly Dictionary<string, double> ResidentStarts = new Dictionary<string, double>(StringComparer.Ordinal);
             internal long RequestsStarted;
         }
@@ -32,10 +40,12 @@ namespace CozyTown.Runtime.NpcAgents
         private bool _disposed;
         private bool _isTicking;
         private bool _isReplacing;
+        private bool _isRestoring;
 
         public long RequestsStarted => _history.RequestsStarted;
         public int RequestsInLastMinute => _history.Starts.Count;
-        public int ActiveRequestCount => _residents.Count(item => item.Request != null && !item.Request.IsCompleted);
+        public int ActiveRequestCount => _residents.Count(item => item.Request != null && !item.Request.IsCompleted)
+            + _retiredRequests.Count(item => !item.Task.IsCompleted);
         public int WaitingResidentCount => _residents.Count(item => item.WaitingTurn != null || item.Pending != null
             || (item.Current != null && item.Request == null));
 
@@ -52,6 +62,11 @@ namespace CozyTown.Runtime.NpcAgents
             internal int Calls;
             internal double RequestStarted;
             internal double LastStarted = double.NegativeInfinity;
+            internal double DecisionDeadlineSeconds;
+            internal bool RefreshObservation;
+            internal string RestoredLocationId;
+            internal string RestoredLastResultCode;
+            internal Guid RestoredResultWorldRunId;
         }
 
         private sealed class ConversationTurn
@@ -110,6 +125,245 @@ namespace CozyTown.Runtime.NpcAgents
             if (resident == null) throw new ArgumentException("The NPC has no decision profile.", nameof(npcId));
             return resident.LastOutcome;
         }
+
+        public NpcDecisionSchedulerSnapshot CaptureSnapshot(double realSeconds)
+        {
+            RequireSnapshotBoundary();
+            RequireRealTime(realSeconds);
+            string clientConfiguration = RequireClientConfiguration();
+            var residents = _residents.Select(resident => new NpcDecisionResidentSnapshot(resident.Profile,
+                Math.Min(_settings.ResidentCooldownSeconds, Math.Max(0, resident.LastStarted + _settings.ResidentCooldownSeconds - realSeconds)),
+                PreviousResultCode(resident), CaptureProgress(resident, realSeconds), CaptureProgress(resident, realSeconds, pending: true),
+                CaptureWaitingTurn(resident))).ToArray();
+            return new NpcDecisionSchedulerSnapshot(_world.TotalMinutes, residents, new NpcDecisionSettingsSnapshot(_settings),
+                _speechMode, _residents.Length == 0 ? null : _residents[_nextResident].Profile.Id, clientConfiguration);
+        }
+
+        private NpcDecisionProgressSnapshot CaptureProgress(Resident resident, double realSeconds, bool pending = false)
+        {
+            var current = pending ? resident.Pending : resident.Current;
+            if (current == null || InvalidContext(current, _world.GetState(resident.Profile.Id)) != null) return null;
+            if (!pending && resident.Request != null && realSeconds >= resident.RequestStarted + _settings.RequestTimeoutSeconds)
+                return null;
+            var social = current.Social;
+            if (social != null && MatchingSocial(_meetings, resident.Profile.Id, social.Kind, social.PlanId, social.MeetingId,
+                social.Transcript.Count, current.GameTotalMinutes, !pending, _world.TotalMinutes) == null) return null;
+            int calls = pending ? 0 : resident.Calls;
+            return new NpcDecisionProgressSnapshot(current.Self.Revision, current.GameTotalMinutes,
+                current.ActivityDeadlineTotalMinutes, current.Triggers, current.MaxCalls, calls + 1,
+                calls, pending ? 0 : Math.Min(_settings.DecisionTimeoutSeconds, Math.Max(0, resident.DecisionDeadlineSeconds - realSeconds)),
+                current.PreviousResultCode,
+                !pending && (current.LocationDetails != null || resident.RestoredLocationId != null),
+                pending ? null : current.LocationDetails?.LocationId ?? resident.RestoredLocationId,
+                pending ? (IEnumerable<string>)Array.Empty<string>() : resident.CandidateErrorCodes, current.CandidateErrorCode,
+                social?.Kind, social?.PlanId, social?.MeetingId ?? Guid.Empty, social?.Transcript.Count ?? 0);
+        }
+
+        private NpcWaitingTurnSnapshot CaptureWaitingTurn(Resident resident)
+        {
+            var turn = resident.WaitingTurn;
+            return turn != null && turn.Matches(_world.GetState(resident.Profile.Id), _meetings?.GetContext(resident.Profile.Id), _world.TotalMinutes)
+                ? new NpcWaitingTurnSnapshot(turn.MeetingId, turn.SpeakerId, turn.SpokenLines, turn.Triggers) : null;
+        }
+
+        public void ValidateSnapshot(NpcDecisionSchedulerSnapshot snapshot, NpcAgentWorld world, NpcMeetingBoard meetings)
+        {
+            RequireSnapshotBoundary();
+            if (snapshot == null) throw new ArgumentNullException(nameof(snapshot));
+            if (world == null) throw new ArgumentNullException(nameof(world));
+            if (snapshot.GameTotalMinutes != world.TotalMinutes || snapshot.Settings?.Matches(_settings) != true
+                || snapshot.ClientConfiguration != RequireClientConfiguration()
+                || snapshot.SpeechMode != _speechMode || snapshot.Residents == null || snapshot.Residents.Count != _residents.Length
+                || !snapshot.Residents.Select(item => item?.NpcId).SequenceEqual(_residents.Select(item => item.Profile.Id)))
+                throw new ArgumentException("Decision snapshot time, settings and residents must match the restored world.", nameof(snapshot));
+            var ids = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var saved in snapshot.Residents)
+            {
+                var resident = _residents.FirstOrDefault(item => item.Profile.Id == saved?.NpcId);
+                if (resident == null || !ids.Add(saved.NpcId) || !saved.Matches(resident.Profile)
+                    || !FiniteRange(saved.RemainingCooldownSeconds, 0, _settings.ResidentCooldownSeconds))
+                    throw new ArgumentException("Decision snapshot resident configuration or cooldown is invalid.", nameof(snapshot));
+                world.GetState(saved.NpcId);
+                ValidateProgress(saved.Current, saved.NpcId, world, meetings, true);
+                ValidateProgress(saved.Pending, saved.NpcId, world, meetings, false);
+                if (saved.WaitingTurn != null)
+                {
+                    var turn = saved.WaitingTurn;
+                    var social = meetings?.GetContext(saved.NpcId);
+                    if (turn.SpeakerId != saved.NpcId || !IsDeliveredConversation(social) || social.MeetingId != turn.MeetingId
+                        || social.Transcript.Count != turn.SpokenLines || world.TotalMinutes >= social.DeadlineTotalMinutes
+                        || !ValidTriggers(turn.Triggers, world.TotalMinutes))
+                        throw new ArgumentException("The saved conversation turn must match the restored meeting speaker and transcript.", nameof(snapshot));
+                }
+            }
+            if (_residents.Length == 0 ? snapshot.NextResidentId != null : !ids.Contains(snapshot.NextResidentId ?? string.Empty))
+                throw new ArgumentException("Decision polling cursor must identify a configured resident.", nameof(snapshot));
+        }
+
+        private void ValidateProgress(NpcDecisionProgressSnapshot progress, string npcId, NpcAgentWorld world,
+            NpcMeetingBoard meetings, bool started)
+        {
+            if (progress == null) return;
+            if (progress.ExpectedRevision != world.GetState(npcId).Revision || !FiniteRange(progress.GameTotalMinutes, 0, world.TotalMinutes)
+                    || world.TotalMinutes >= progress.GameTotalMinutes + _settings.OpportunityLifetimeGameMinutes
+                    || progress.MaxCalls != _settings.MaxCallsPerDecision
+                    || (started ? progress.Calls < 1 || progress.Calls > progress.MaxCalls : progress.Calls != 0)
+                    || progress.NextStep != progress.Calls + 1
+                    || !FiniteRange(progress.RemainingDecisionSeconds, 0, started ? _settings.DecisionTimeoutSeconds : 0)
+                    || progress.HasLocationDetails != (progress.LocationId != null)
+                    || (progress.HasLocationDetails && (!started || !world.GetKnownLocationIds(npcId).Contains(progress.LocationId)))
+                    || progress.CandidateErrorCodes == null || progress.CandidateErrorCodes.Count > (started ? 1 : 0)
+                    || progress.CandidateErrorCodes.Any(code => !NpcCandidateException.IsKnownCode(code) || !new NpcCandidateException(code).CanCorrect)
+                    || (progress.CandidateErrorCode != null && (progress.CandidateErrorCodes.Count != 1
+                        || progress.CandidateErrorCodes[0] != progress.CandidateErrorCode))
+                    || !ValidTriggers(progress.Triggers, world.TotalMinutes))
+                throw new ArgumentException("Decision continuation fields are invalid.", nameof(progress));
+            if (progress.SocialKind == null)
+            {
+                if (progress.PlanId != null || progress.MeetingId != Guid.Empty || progress.SpokenLines != 0
+                    || progress.ActivityDeadlineTotalMinutes != world.NextScheduleChangeAfter(npcId, progress.GameTotalMinutes)
+                    || world.TotalMinutes >= progress.ActivityDeadlineTotalMinutes || world.GetState(npcId).ActiveActivity != null
+                    || world.GetState(npcId).Target.ExpectedActivity != NpcActivity.Resting)
+                    throw new ArgumentException("An ordinary decision must retain its original schedule window.", nameof(progress));
+            }
+            else if (progress.ActivityDeadlineTotalMinutes != 0 || progress.HasLocationDetails
+                || !Enum.IsDefined(typeof(NpcSocialContextKind), progress.SocialKind.Value)
+                || meetings?.MatchesSnapshotDecisionContext(npcId, progress.SocialKind.Value, progress.PlanId, progress.MeetingId,
+                    progress.SpokenLines, Math.Floor(progress.GameTotalMinutes / 1440) * 1440, started) != true)
+                throw new ArgumentException("The saved social decision must match the restored meeting or offered plan.", nameof(progress));
+        }
+
+        private static bool ValidTriggers(IReadOnlyList<NpcAgentEvent> triggers, double totalMinutes)
+            => triggers != null && triggers.Count > 0 && triggers.Count <= 16 && triggers.Select(item => item?.Kind).Distinct().Count() == triggers.Count
+                && triggers.All(item => item != null && Enum.IsDefined(typeof(NpcAgentEventKind), item.Kind)
+                    && FiniteRange(item.TotalMinutes, 0, totalMinutes));
+
+        private static NpcSocialContext MatchingSocial(NpcMeetingBoard meetings, string npcId, NpcSocialContextKind kind,
+            string planId, Guid meetingId, int spokenLines, double gameTotalMinutes, bool started, double currentTotalMinutes)
+        {
+            if (meetings == null) return null;
+            var social = kind == NpcSocialContextKind.Opportunity && started
+                ? meetings.GetDecisionContinuationContext(npcId, planId, Math.Floor(gameTotalMinutes / 1440) * 1440)
+                : meetings.GetContext(npcId);
+            return social != null && social.Kind == kind && social.PlanId == planId
+                && social.MeetingId == meetingId && social.Transcript.Count == spokenLines
+                && currentTotalMinutes < social.DeadlineTotalMinutes ? social : null;
+        }
+
+        public void RestoreSnapshot(NpcDecisionSchedulerSnapshot snapshot, NpcAgentWorld world,
+            NpcMeetingBoard meetings, double realSeconds)
+        {
+            ValidateSnapshot(snapshot, world, meetings);
+            RequireRealTime(realSeconds);
+            var restored = _residents.Select(previous =>
+            {
+                var saved = snapshot.Residents.First(item => item.NpcId == previous.Profile.Id);
+                double lastStarted = realSeconds + saved.RemainingCooldownSeconds - _settings.ResidentCooldownSeconds;
+                var resident = new Resident { Profile = previous.Profile, LastStarted = lastStarted,
+                    RestoredLastResultCode = saved.LastResultCode, RestoredResultWorldRunId = world.GetState(saved.NpcId).WorldRunId };
+                resident.Pending = RestoreProgress(saved.Pending, resident.Profile, world, meetings, false);
+                var progress = saved.Current;
+                resident.Current = RestoreProgress(progress, resident.Profile, world, meetings, true);
+                if (resident.Current != null)
+                {
+                    resident.Calls = progress.Calls;
+                    resident.DecisionDeadlineSeconds = realSeconds + progress.RemainingDecisionSeconds;
+                    resident.RefreshObservation = true;
+                    resident.RestoredLocationId = progress.LocationId;
+                    resident.CandidateErrorCodes.AddRange(progress.CandidateErrorCodes);
+                }
+                if (saved.WaitingTurn != null)
+                    resident.WaitingTurn = new ConversationTurn(world.GetState(saved.NpcId), meetings.GetContext(saved.NpcId), saved.WaitingTurn.Triggers);
+                return resident;
+            }).ToArray();
+            CommitRestoredResidents(restored, world, meetings, realSeconds,
+                _residents.Length == 0 ? 0 : Array.FindIndex(restored, item => item.Profile.Id == snapshot.NextResidentId));
+        }
+
+        public void ResetWorld(NpcAgentWorld world, NpcMeetingBoard meetings, double realSeconds)
+        {
+            RequireSnapshotBoundary();
+            RequireRealTime(realSeconds);
+            if (world == null) throw new ArgumentNullException(nameof(world));
+            foreach (var resident in _residents) world.GetState(resident.Profile.Id);
+            meetings?.ValidateWorldBinding(world);
+            var restored = _residents.Select(previous => new Resident { Profile = previous.Profile }).ToArray();
+            CommitRestoredResidents(restored, world, meetings, realSeconds, 0);
+        }
+
+        private void CommitRestoredResidents(Resident[] restored, NpcAgentWorld world, NpcMeetingBoard meetings,
+            double realSeconds, int nextResident)
+        {
+            _isReplacing = true;
+            _isRestoring = true;
+            try
+            {
+                foreach (var resident in _residents)
+                {
+                    var request = resident.Request;
+                    if (request == null) continue;
+                    if (request.IsCompleted)
+                    {
+                        _ = request.Exception;
+                        resident.Cancellation.Dispose();
+                    }
+                    else
+                    {
+                        _retiredRequests.Add(new RetiredRequest { Task = request, Cancellation = resident.Cancellation });
+                        try { resident.Cancellation.Cancel(); }
+                        catch (AggregateException) { /* Invalidating the old decision must survive client cancellation callbacks. */ }
+                    }
+                }
+                Array.Copy(restored, _residents, restored.Length);
+                _world = world;
+                _meetings = meetings;
+                _lastTick = realSeconds;
+                _nextResident = nextResident;
+                foreach (var resident in _residents) _history.ResidentStarts[resident.Profile.Id] = resident.LastStarted;
+                _completed.Clear();
+            }
+            finally { _isReplacing = false; _isRestoring = false; }
+        }
+
+        private NpcDecisionRequest RestoreProgress(NpcDecisionProgressSnapshot progress, NpcDefinition profile, NpcAgentWorld world,
+            NpcMeetingBoard meetings, bool started)
+        {
+            if (progress == null || progress.ExpectedRevision != world.GetState(profile.Id).Revision
+                || world.TotalMinutes >= progress.GameTotalMinutes + _settings.OpportunityLifetimeGameMinutes
+                || (progress.SocialKind == null && world.TotalMinutes >= progress.ActivityDeadlineTotalMinutes)) return null;
+            var social = progress.SocialKind == null ? null : MatchingSocial(meetings, profile.Id, progress.SocialKind.Value,
+                progress.PlanId, progress.MeetingId, progress.SpokenLines, progress.GameTotalMinutes, started, world.TotalMinutes);
+            if (progress.SocialKind != null && social == null) return null;
+            return new NpcDecisionRequest(profile, world.GetState(profile.Id), world.GetKnownLocationIds(profile.Id), progress, _speechMode, social);
+        }
+
+        private void RequireSnapshotBoundary()
+        {
+            if (_disposed) throw new ObjectDisposedException(nameof(NpcDecisionScheduler));
+            if (_isTicking || _isReplacing) throw new InvalidOperationException("Complete the current decision operation before capturing or restoring decisions.");
+        }
+
+        private string RequireClientConfiguration()
+        {
+            string configuration = (_client as INpcDecisionConfiguration)?.SnapshotConfiguration;
+            if (string.IsNullOrWhiteSpace(configuration) || configuration.Length > 16384)
+                throw new InvalidOperationException("Complete snapshots require a declared non-secret decision client configuration of at most 16384 characters.");
+            return configuration;
+        }
+
+        private void RequireRealTime(double realSeconds)
+        {
+            if (!FiniteRange(realSeconds, 0, double.MaxValue) || realSeconds < _lastTick)
+                throw new ArgumentOutOfRangeException(nameof(realSeconds), "Decision time must be finite, nonnegative and monotonic.");
+        }
+
+        private static bool FiniteRange(double value, double minimum, double maximum)
+            => !double.IsNaN(value) && !double.IsInfinity(value) && value >= minimum && value <= maximum;
+
+        private string PreviousResultCode(Resident resident)
+            => resident.LastOutcome?.WorldRunId == _world.GetState(resident.Profile.Id).WorldRunId
+                ? resident.LastOutcome.Code : resident.RestoredResultWorldRunId == _world.GetState(resident.Profile.Id).WorldRunId
+                    ? resident.RestoredLastResultCode : null;
 
         public void BindWorld(NpcAgentWorld world)
         {
@@ -177,6 +431,7 @@ namespace CozyTown.Runtime.NpcAgents
         public void Dispose()
         {
             if (_disposed) return;
+            if (_isRestoring) throw new InvalidOperationException("Complete decision restoration before disposing the scheduler.");
             _disposed = true;
             foreach (var resident in _residents)
             {
@@ -195,6 +450,13 @@ namespace CozyTown.Runtime.NpcAgents
                 resident.Request = null;
                 resident.Cancellation = null;
             }
+            foreach (var retired in _retiredRequests)
+                _ = retired.Task.ContinueWith(completed =>
+                {
+                    _ = completed.Exception;
+                    retired.Cancellation.Dispose();
+                }, CancellationToken.None, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
+            _retiredRequests.Clear();
         }
 
         public IReadOnlyList<NpcDecisionOutcome> Tick(double realSeconds)
@@ -213,10 +475,16 @@ namespace CozyTown.Runtime.NpcAgents
                 throw new ArgumentOutOfRangeException(nameof(realSeconds), "Decision time must be finite, nonnegative and monotonic.");
             _lastTick = realSeconds;
             _completed.Clear();
+            foreach (var retired in _retiredRequests.Where(item => item.Task.IsCompleted).ToArray())
+            {
+                _ = retired.Task.Exception;
+                retired.Cancellation.Dispose();
+                _retiredRequests.Remove(retired);
+            }
             while (_history.Starts.Count > 0 && _history.Starts.Peek() <= realSeconds - 60) _history.Starts.Dequeue();
             if (_canDecide?.Invoke() == false) return SuspendDecisions();
             _meetings?.Observe();
-            int active = 0;
+            int active = _retiredRequests.Count;
             foreach (var resident in _residents)
             {
                 var state = _world.GetState(resident.Profile.Id);
@@ -225,8 +493,10 @@ namespace CozyTown.Runtime.NpcAgents
                     string invalid = InvalidContext(resident.Current, state);
                     if (invalid != null) Finish(resident, invalid, cancelRequest: true);
                 }
-                if (resident.Current != null && realSeconds >= resident.LastStarted + _settings.DecisionTimeoutSeconds)
+                if (resident.Current != null && realSeconds >= resident.DecisionDeadlineSeconds)
                     Finish(resident, "agent.decision_timeout", cancelRequest: true);
+                if (resident.Current != null && resident.Request == null && resident.Calls >= resident.Current.MaxCalls)
+                    Finish(resident, "agent.decision_step_limit");
                 if (resident.Current != null && resident.Request != null
                     && realSeconds >= resident.RequestStarted + _settings.RequestTimeoutSeconds)
                     Finish(resident, "agent.request_timeout", cancelRequest: true);
@@ -285,7 +555,7 @@ namespace CozyTown.Runtime.NpcAgents
                 }
                 resident.Pending = new NpcDecisionRequest(resident.Profile, state, _world.TotalMinutes, events,
                     _world.GetKnownLocationIds(resident.Profile.Id), _settings.MaxCallsPerDecision,
-                    resident.LastOutcome?.WorldRunId == state.WorldRunId ? resident.LastOutcome.Code : null, social, _speechMode,
+                    PreviousResultCode(resident), social, _speechMode,
                     social == null ? _world.NextScheduleChangeAfter(resident.Profile.Id, _world.TotalMinutes) : 0);
             }
             int first = _nextResident;
@@ -306,7 +576,7 @@ namespace CozyTown.Runtime.NpcAgents
                         if (!turn.Matches(state, social, _world.TotalMinutes)) continue;
                         resident.Pending = new NpcDecisionRequest(resident.Profile, state, _world.TotalMinutes, turn.Triggers,
                             _world.GetKnownLocationIds(resident.Profile.Id), _settings.MaxCallsPerDecision,
-                            resident.LastOutcome?.WorldRunId == state.WorldRunId ? resident.LastOutcome.Code : null, social, _speechMode);
+                            PreviousResultCode(resident), social, _speechMode);
                     }
                     if (resident.Pending == null) continue;
                     if (InvalidContext(resident.Pending, _world.GetState(resident.Profile.Id)) != null)
@@ -331,6 +601,7 @@ namespace CozyTown.Runtime.NpcAgents
                     resident.Current = resident.Pending;
                     resident.Pending = null;
                     resident.LastStarted = realSeconds;
+                    resident.DecisionDeadlineSeconds = realSeconds + _settings.DecisionTimeoutSeconds;
                     _history.ResidentStarts[resident.Profile.Id] = realSeconds;
                     resident.Calls = 0;
                     resident.CandidateErrorCodes.Clear();
@@ -345,10 +616,27 @@ namespace CozyTown.Runtime.NpcAgents
                     }
                     if (resident.Current.Social?.Kind == NpcSocialContextKind.Opportunity) _meetings.TakeOpportunity(resident.Profile.Id);
                 }
-                else if (_observe != null)
+                else
                 {
-                    string invalid = ObservationFailure(resident.Current);
-                    if (invalid != null) { Finish(resident, invalid); continue; }
+                    if (resident.RestoredLocationId != null)
+                    {
+                        var details = _world.InspectLocation(resident.Profile.Id, resident.RestoredLocationId);
+                        if (!details.IsSuccess) { Finish(resident, details.ErrorCode); continue; }
+                        resident.Current = new NpcDecisionRequest(resident.Current, details.Value, preserveStep: true);
+                        resident.RestoredLocationId = null;
+                    }
+                    if (_observe != null)
+                    {
+                        string invalid;
+                        if (resident.RefreshObservation)
+                        {
+                            invalid = TryReadObservation(resident.Current, out var observation) ? null : "agent.observation_unavailable";
+                            if (invalid == null) resident.Current = new NpcDecisionRequest(resident.Current, observation);
+                            resident.RefreshObservation = false;
+                        }
+                        else invalid = ObservationFailure(resident.Current);
+                        if (invalid != null) { Finish(resident, invalid); continue; }
+                    }
                 }
                 if (_canDecide?.Invoke() == false) return SuspendDecisions();
                 string dispatchFailure = InvalidContext(resident.Current, _world.GetState(resident.Profile.Id));

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CozyTown.Runtime.Save;
 using UnityEngine;
 
 namespace CozyTown.Unity.Town
@@ -138,6 +139,73 @@ namespace CozyTown.Unity.Town
         }
 
         public TownRouteFollower2D Clone() => (TownRouteFollower2D)MemberwiseClone();
+
+        public TownRouteSnapshot CaptureSnapshot()
+        {
+            var waypoints = new Position2DSnapshot[_waypoints.Count];
+            for (int i = 0; i < waypoints.Length; i++) waypoints[i] = Snapshot(_waypoints[i]);
+            return new TownRouteSnapshot(Snapshot(Position), Snapshot(FacingDirection),
+                TargetLocationId, waypoints, _waypointIndex, (int)Status, _hasReplanned);
+        }
+
+        public static TownRouteFollower2D RestoreSnapshot(TownMap2D map, TownRouteSnapshot snapshot,
+            float radius, Vector2 footOffset, Transform worldRoot, bool noLegalPosition = false)
+        {
+            if (map == null) throw new ArgumentNullException(nameof(map));
+            if (snapshot == null) throw new ArgumentNullException(nameof(snapshot));
+            var waypoints = snapshot.Waypoints;
+            if (snapshot.Position == null || snapshot.Facing == null || waypoints == null
+                || !Enum.IsDefined(typeof(TownRouteStatus), snapshot.Status)
+                || !map.TryGetLocation(snapshot.TargetLocationId, out var target))
+                throw new ArgumentException("Saved route requires a known target and complete execution state.", nameof(snapshot));
+            var points = new Vector2[waypoints.Length];
+            for (int i = 0; i < points.Length; i++) points[i] = PositionOf(waypoints[i]);
+            var restored = new TownRouteFollower2D(map, PositionOf(snapshot.Position), radius, footOffset, worldRoot)
+            {
+                FacingDirection = PositionOf(snapshot.Facing),
+                TargetLocationId = snapshot.TargetLocationId,
+                Status = (TownRouteStatus)snapshot.Status,
+                _waypoints = Array.AsReadOnly(points),
+                _waypointIndex = snapshot.WaypointIndex,
+                _hasReplanned = snapshot.HasReplanned
+            };
+            int index = snapshot.WaypointIndex;
+            if (Mathf.Abs(restored.FacingDirection.sqrMagnitude - 1f) > 0.0001f
+                || index < 0 || index > Math.Max(1, points.Length)
+                || (noLegalPosition && restored.Status != TownRouteStatus.Blocked))
+                throw new ArgumentException("Saved route has an invalid cursor, facing, or blocked state.", nameof(snapshot));
+            if (points.Length > 0)
+            {
+                if (Vector2.SqrMagnitude(points[points.Length - 1] - target) > 0.00000001f)
+                    throw new ArgumentException("Saved route must end at its target.", nameof(snapshot));
+                for (int i = 1; i < points.Length; i++)
+                    if (!map.ContainsRoadSegment(points[i - 1], points[i]))
+                        throw new ArgumentException("Saved route must follow the configured town roads.", nameof(snapshot));
+            }
+            if (restored.Status == TownRouteStatus.Travelling
+                && (points.Length < 2 || index < 1 || index >= points.Length
+                    || !TownMap2D.IsOnSegment(restored.Position, points[index - 1], points[index])))
+                throw new ArgumentException("Travelling residents require a current road segment and a valid cursor.", nameof(snapshot));
+            if (restored.Status == TownRouteStatus.Arrived
+                && (points.Length == 0 || index != points.Length
+                    || Vector2.SqrMagnitude(restored.Position - target) > 0.00000001f))
+                throw new ArgumentException("Arrived residents must be at the saved target.", nameof(snapshot));
+            if (!noLegalPosition && restored.Status == TownRouteStatus.Blocked
+                && !map.ContainsRoadSegment(restored.Position, restored.Position))
+                throw new ArgumentException("A visible blocked resident must remain on a configured road.", nameof(snapshot));
+            if (!noLegalPosition && !restored.HasClearFooting)
+                throw new ArgumentException("Saved resident position is occupied by a world obstacle.", nameof(snapshot));
+            return restored;
+        }
+
+        private static Position2DSnapshot Snapshot(Vector2 value) => new Position2DSnapshot(value.x, value.y);
+
+        private static Vector2 PositionOf(Position2DSnapshot value)
+        {
+            if (value == null || !IsFinite(new Vector2(value.X, value.Y)))
+                throw new ArgumentException("Saved route positions must be finite.");
+            return new Vector2(value.X, value.Y);
+        }
 
         internal void Block() => Status = TownRouteStatus.Blocked;
 

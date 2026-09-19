@@ -12,6 +12,8 @@ python -B Tools/agent_proxy/decision_proxy.py --credential-file '<private-creden
 
 代理仅监听 `127.0.0.1`。在启动 Unity 的进程环境中设置 `COZYTOWN_AGENT_PROXY_ENDPOINT=http://127.0.0.1:8766/decide`，再进入游戏。已经运行的编辑器需要重新启动才能继承新环境。普通 batch 测试忽略这个变量。
 
+完整世界快照还要求在 Unity 启动环境设置 `COZYTOWN_DECISION_SNAPSHOT_CONFIGURATION`，声明实际模型、提示词版本及生成参数。字段和示例见[快照配置说明](../../docs/verification/complete-agent-snapshots-2026-09-19.md#配置与旧档)。未声明时可以调用代理，但完整保存会拒绝该决策客户端；声明只记录非秘密配置，不填密钥或代理地址。读取快照要求声明匹配，当前不会向远程代理握手核验声明。
+
 真实场景联调需要为测试进程显式设置 `COZYTOWN_RUN_LIVE_MEETING=1` 和 `COZYTOWN_LIVE_MEETING_ENDPOINT=<loopback-decide-url>`，只运行 `NpcMeetingPlayModeTests.LiveProxy_RealProviderDrivesTheSceneMeetingWithinTheConfiguredBudget`。该测试从 12:15 开始，以正常游戏倍率推进两位居民，记录 `Logs/agent-meetings-live-scene.json`。记录已存在时拒绝再次执行；重跑前应保留旧证据并核对剩余预算。测试不直接读取密钥。
 
 资源交付联调使用独立的 `COZYTOWN_RUN_LIVE_RESOURCE=1` 和 `COZYTOWN_LIVE_RESOURCE_ENDPOINT=<loopback-decide-url>`，只运行 `NpcResourcePlayModeTests.LiveProxy_TransfersOwnedResourcesThroughTheActualScene`。启动代理时设置 `--max-calls 10`。场景记录 `Logs/agent-resources-live-scene.json`，包含到场位置、交付结果、双方相关资产及日程恢复；同样拒绝覆盖已有记录。普通游戏通过自主决策端点启用 Sora 缺鱼联系 Ren 的场景，普通散步计划仍可显式配置。

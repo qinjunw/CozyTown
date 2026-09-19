@@ -1,6 +1,8 @@
 using System;
+using System.Text;
 using CozyTown.Runtime.NpcAgents;
 using CozyTown.Runtime.NpcLife;
+using CozyTown.Runtime.Save;
 using CozyTown.Runtime.Time;
 using CozyTown.Unity.Town;
 using CozyTown.Unity.Interaction;
@@ -30,6 +32,46 @@ namespace CozyTown.Unity.Npc
         private bool _warnedNoLegalPosition;
 
         public string NpcId => npcId;
+        public NpcBodySnapshot CaptureSnapshot()
+        {
+            if (_journey == null) throw new InvalidOperationException("Bind resident world time before capturing its body.");
+            if (Position != _journey.Follower.Position)
+                throw new InvalidOperationException("Resident transform and accepted route position must agree before saving.");
+            return new NpcBodySnapshot(npcId, _journey.Follower.CaptureSnapshot(),
+                _journey.Activity, _journey.NoLegalPosition);
+        }
+        public string CaptureConfiguration()
+        {
+            ValidateConfiguration();
+            var result = new StringBuilder();
+            TownMap2D.AppendConfiguration(result, "npc-body-v1", map.CaptureConfiguration(), npcId,
+                homeId, outsideId, entryId, morningId, restId, afternoonId, unitsPerSecond,
+                morningWorkFacing.x, morningWorkFacing.y, afternoonWorkFacing.x, afternoonWorkFacing.y,
+                0.3f, 0f, 0f);
+            foreach (int minute in times) TownMap2D.AppendConfiguration(result, minute);
+            return result.ToString();
+        }
+        public void ValidateSnapshot(NpcBodySnapshot snapshot, NpcAgentWorld agents, double totalMinutes)
+            => PrepareRestore(snapshot, agents, totalMinutes);
+        internal Journey PrepareRestore(NpcBodySnapshot snapshot, NpcAgentWorld agents, double totalMinutes)
+        {
+            if (_schedule == null) ValidateConfiguration();
+            if (snapshot == null || snapshot.NpcId != npcId || snapshot.Route == null
+                || !Enum.IsDefined(typeof(NpcActivity), snapshot.Activity)
+                || agents == null || double.IsNaN(totalMinutes) || double.IsInfinity(totalMinutes)
+                || totalMinutes < 0 || agents.TotalMinutes != totalMinutes)
+                throw new ArgumentException("Saved body identity and time must match the candidate resident world.", nameof(snapshot));
+            var target = agents.GetTargetAt(npcId, totalMinutes);
+            if (snapshot.Route.TargetLocationId != target.TargetLocationId || snapshot.Activity != target.ExpectedActivity)
+                throw new ArgumentException("Saved body target must match the resident's restored activity.", nameof(snapshot));
+            var follower = TownRouteFollower2D.RestoreSnapshot(map, snapshot.Route, 0.3f, Vector2.zero,
+                map.transform, snapshot.NoLegalPosition);
+            return new Journey { Follower = follower, Activity = snapshot.Activity,
+                WorkFacing = WorkFacingAt((int)(Math.Floor(totalMinutes) % 1440)),
+                IsWalking = follower.Status == TownRouteStatus.Travelling,
+                IsRebuild = true, NoLegalPosition = snapshot.NoLegalPosition };
+        }
+        internal bool IsKnownLocation(string locationId) => map.TryGetLocation(locationId, out _);
         internal NpcDailySchedule Schedule => _schedule;
         internal bool CanVisit(string locationId) => map.TryFindRoute(Position, locationId, out _);
         internal void BindAgents(NpcAgentWorld agents) => _agents = agents;

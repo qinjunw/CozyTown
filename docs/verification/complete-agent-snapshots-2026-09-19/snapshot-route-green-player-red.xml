@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="7" result="Failed(Child)" total="7" passed="6" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 09:50:52Z" end-time="2026-09-19 09:50:52Z" duration="0.1559873">
+  <test-suite type="TestSuite" id="1345" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="262" result="Failed" site="Child" start-time="2026-09-19 09:50:52Z" end-time="2026-09-19 09:50:52Z" duration="0.155987" total="7" passed="6" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1338" name="CozyTown.Tests.PlayMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="262" result="Failed" site="Child" start-time="2026-09-19 09:50:52Z" end-time="2026-09-19 09:50:52Z" duration="0.139734" total="7" passed="6" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="96852" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1339" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="262" result="Failed" site="Child" start-time="2026-09-19 09:50:52Z" end-time="2026-09-19 09:50:52Z" duration="0.134201" total="7" passed="6" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1340" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="262" result="Failed" site="Child" start-time="2026-09-19 09:50:52Z" end-time="2026-09-19 09:50:52Z" duration="0.129665" total="7" passed="6" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1341" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="262" result="Failed" site="Child" start-time="2026-09-19 09:50:52Z" end-time="2026-09-19 09:50:52Z" duration="0.125912" total="7" passed="6" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1010" name="BodySnapshotPlayModeTests" fullname="CozyTown.Tests.PlayMode.BodySnapshotPlayModeTests" classname="CozyTown.Tests.PlayMode.BodySnapshotPlayModeTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-19 09:50:52Z" end-time="2026-09-19 09:50:52Z" duration="0.099308" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1016" name="BlockedSavedJourney_RemainsBlockedAfterObstacleRemovedUntilExplicitRetry" fullname="CozyTown.Tests.PlayMode.BodySnapshotPlayModeTests.BlockedSavedJourney_RemainsBlockedAfterObstacleRemovedUntilExplicitRetry" methodname="BlockedSavedJourney_RemainsBlockedAfterObstacleRemovedUntilExplicitRetry" classname="CozyTown.Tests.PlayMode.BodySnapshotPlayModeTests" runstate="Runnable" seed="297867105" result="Passed" start-time="2026-09-19 09:50:52Z" end-time="2026-09-19 09:50:52Z" duration="0.052837" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1011" name="CapturedJourney_RestoresRoadCursorAndContinuesFromSamePosition" fullname="CozyTown.Tests.PlayMode.BodySnapshotPlayModeTests.CapturedJourney_RestoresRoadCursorAndContinuesFromSamePosition" methodname="CapturedJourney_RestoresRoadCursorAndContinuesFromSamePosition" classname="CozyTown.Tests.PlayMode.BodySnapshotPlayModeTests" runstate="Runnable" seed="387830339" result="Passed" start-time="2026-09-19 09:50:52Z" end-time="2026-09-19 09:50:52Z" duration="0.004292" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1015" name="InvalidSavedJourney_RejectsBeforeChangingCurrentFollower" fullname="CozyTown.Tests.PlayMode.BodySnapshotPlayModeTests.InvalidSavedJourney_RejectsBeforeChangingCurrentFollower" classname="CozyTown.Tests.PlayMode.BodySnapshotPlayModeTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-19 09:50:52Z" end-time="2026-09-19 09:50:52Z" duration="0.013975" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1012" name="InvalidSavedJourney_RejectsBeforeChangingCurrentFollower(0)" fullname="CozyTown.Tests.PlayMode.BodySnapshotPlayModeTests.InvalidSavedJourney_RejectsBeforeChangingCurrentFollower(0)" methodname="InvalidSavedJourney_RejectsBeforeChangingCurrentFollower" classname="CozyTown.Tests.PlayMode.BodySnapshotPlayModeTests" runstate="Runnable" seed="778096135" result="Passed" start-time="2026-09-19 09:50:52Z" end-time="2026-09-19 09:50:52Z" duration="0.007894" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1013" name="InvalidSavedJourney_RejectsBeforeChangingCurrentFollower(1)" fullname="CozyTown.Tests.PlayMode.BodySnapshotPlayModeTests.InvalidSavedJourney_RejectsBeforeChangingCurrentFollower(1)" methodname="InvalidSavedJourney_RejectsBeforeChangingCurrentFollower" classname="CozyTown.Tests.PlayMode.BodySnapshotPlayModeTests" runstate="Runnable" seed="1162863346" result="Passed" start-time="2026-09-19 09:50:52Z" end-time="2026-09-19 09:50:52Z" duration="0.000663" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1014" name="InvalidSavedJourney_RejectsBeforeChangingCurrentFollower(2)" fullname="CozyTown.Tests.PlayMode.BodySnapshotPlayModeTests.InvalidSavedJourney_RejectsBeforeChangingCurrentFollower(2)" methodname="InvalidSavedJourney_RejectsBeforeChangingCurrentFollower" classname="CozyTown.Tests.PlayMode.BodySnapshotPlayModeTests" runstate="Runnable" seed="909779223" result="Passed" start-time="2026-09-19 09:50:52Z" end-time="2026-09-19 09:50:52Z" duration="0.000486" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1017" name="NoLegalPositionSnapshot_PreservesFiniteOffRoadPositionAndRequiresBlockedState" fullname="CozyTown.Tests.PlayMode.BodySnapshotPlayModeTests.NoLegalPositionSnapshot_PreservesFiniteOffRoadPositionAndRequiresBlockedState" methodname="NoLegalPositionSnapshot_PreservesFiniteOffRoadPositionAndRequiresBlockedState" classname="CozyTown.Tests.PlayMode.BodySnapshotPlayModeTests" runstate="Runnable" seed="249406532" result="Passed" start-time="2026-09-19 09:50:52Z" end-time="2026-09-19 09:50:52Z" duration="0.001957" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1230" name="PlayerBodySnapshotPlayModeTests" fullname="CozyTown.Tests.PlayMode.PlayerBodySnapshotPlayModeTests" classname="CozyTown.Tests.PlayMode.PlayerBodySnapshotPlayModeTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-19 09:50:52Z" end-time="2026-09-19 09:50:52Z" duration="0.017550" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1231" name="RestorePlayer_PreservesPositionAndFacingClearsVelocityAndClosesOldModal" fullname="CozyTown.Tests.PlayMode.PlayerBodySnapshotPlayModeTests.RestorePlayer_PreservesPositionAndFacingClearsVelocityAndClosesOldModal" methodname="RestorePlayer_PreservesPositionAndFacingClearsVelocityAndClosesOldModal" classname="CozyTown.Tests.PlayMode.PlayerBodySnapshotPlayModeTests" runstate="Runnable" seed="1337081751" result="Failed" label="Error" start-time="2026-09-19 09:50:52Z" end-time="2026-09-19 09:50:52Z" duration="0.015189" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                  <stack-trace><![CDATA[  at CozyTown.Tests.PlayMode.PlayerBodySnapshotPlayModeTests.RestorePlayer_PreservesPositionAndFacingClearsVelocityAndClosesOldModal () [0x000ab] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\PlayerBodySnapshotPlayModeTests.cs:31
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ]]></stack-trace>
+                </failure>
+                <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -2,13 +2,13 @@
 
 - 初始确认：2026-09-17；活动期限补充：2026-09-19；版本：1.1。
 - 票据：[确定完整逻辑快照的保存与恢复契约](https://github.com/qinjunw/CozyTown/issues/93)。
-- 状态：已确认。用户答复“好的,按照推荐来,开始工作吧”，采纳第 1 节三项恢复行为；新格式和恢复代码尚未实现。
+- 状态：契约已确认；schema v4 与恢复接口已实施，验证结果见[实现报告](verification/complete-agent-snapshots-2026-09-19.md)。
 - 初始核对基准：`7d20bad55a854fb496a8cb295ae93648e66d6141`。2026-09-17 的契约确认只读核对源码与测试入口，新增运行测试和真实模型调用均为 0。
 - 范围：[第一版实验平台](wayfinder/agent-world/platform-milestone.md)的现有世界、人物、行动与交互；AW-FR-012、014、015、016，AW-AC-02、05、07、09。
 
 ## 1. 恢复行为选择
 
-用户已确认完整逻辑快照是第一版目标，并采纳以下三项方案。当前代码仍按日程安置 NPC，清除临时活动、会面及经历；本节规定后继实现的目标行为。
+用户已确认完整逻辑快照是第一版目标，并采纳以下三项方案。schema v4 采用本节恢复行为；v1–v3 按已确认的旧档规则初始化缺失人物状态。
 
 | 选择 | 已采用方案与例子 | 未采用方案与代价 | 状态 |
 | --- | --- | --- | --- |
@@ -18,9 +18,9 @@
 
 第 3–9 节为后继实现和验收使用的契约。普通自主活动期限与“恢复日程”判定已按[确定普通自主活动期限与日程恢复验收](https://github.com/qinjunw/CozyTown/issues/70)确认，见第 9 节；本契约保存原始开始、有效截止时刻，不在读档时重新延长期限。
 
-## 2. 当前数据与接口的差距
+## 2. 实施前的数据与接口差距
 
-[GameSaveSnapshot](../Assets/CozyTown/Runtime/Save/GameSaveSnapshot.cs) 的 schema v3 包含世界种子、整数分钟、角色／商店资产、农田和畜牧。[GameSaveCoordinator](../Assets/CozyTown/Runtime/Application/GameSaveCoordinator.cs)依次恢复这些模块；[DaytimeClockCoordinator](../Assets/CozyTown/Runtime/Application/DaytimeClockCoordinator.cs)在成功加载后清零小数余量并发布重建通知。通知及失败边界见[存读档研究](research/npc-agent/save-load-lifecycle-2026-09-16.md)。
+以下记录契约确认时的 schema v3 行为，schema v4 的实现与测试见[实现报告](verification/complete-agent-snapshots-2026-09-19.md)。当时 [GameSaveSnapshot](../Assets/CozyTown/Runtime/Save/GameSaveSnapshot.cs) 包含世界种子、整数分钟、角色／商店资产、农田和畜牧；协调器依次恢复这些模块，成功加载后清零小数余量并发布重建通知。通知及失败边界见[存读档研究](research/npc-agent/save-load-lifecycle-2026-09-16.md)。
 
 现有 `NpcAgentSnapshot` 和 `NpcMeetingSnapshot` 是查询视图：前者不含活动开始时刻和事件队列；后者不含完整计划、预约时段及活动归属。`TakeEvents` 会消费通知，保存不能借它读取事件。[世界状态](../Assets/CozyTown/Runtime/NpcAgents/NpcAgentWorld.cs)与[会面板](../Assets/CozyTown/Runtime/NpcAgents/NpcMeetingBoard.cs)需要独立的无副作用导出和受校验恢复边界。
 
@@ -95,7 +95,7 @@ MeetingId 和活动归属作为存档中的逻辑身份保持；WorldRunId 与�
 
 ## 6. 格式、旧档与兼容
 
-目标写入版本为 schema v4；当前实现仍写 v3。新格式包含必需的世界／人物／Agent／配置区段，缺失区段是无效输入，不能套用旧版缺字段默认值。沿用稳定 ID、逐版本迁移、迁移后统一校验和未知未来版本拒绝规则，不改变现有磁盘提交机制。
+默认 Unity 游戏写入 schema v4；独立资源测试可显式使用旧格式 v3。新格式包含必需的世界／人物／Agent／配置区段，缺失区段是无效输入，不能套用旧版缺字段默认值。沿用稳定 ID、逐版本迁移、迁移后统一校验和未知未来版本拒绝规则，不改变现有磁盘提交机制。
 
 旧档迁移规则：先沿用 v1／v2 到现有 v3 的经济及结算语义，再产生完整快照起点。保留原时间、种子、资产及生产进展；小数分钟为零；人物按旧日程归位；活动、会面、经历、逻辑待办为空；按原初始化规则产生后续机会。仅含玩家的合法旧档沿用已记录的 NPC 资产初始化规则，部分缺少角色仍拒绝。玩家位置缺失时使用显式初始配置。
 
@@ -114,7 +114,7 @@ MeetingId 和活动归属作为存档中的逻辑身份保持；WorldRunId 与�
 | [ADR-0016](adr/0016-bounded-autonomous-decisions.md) | 补逻辑待办续接和已耗步骤；真实预算／物理请求仍独立于世界恢复 |
 | [ADR-0017](adr/0017-resident-meeting-commitments.md)、[ADR-0018](adr/0018-resident-resource-delivery.md) | 新格式持久保存进行中互动、有限经历及交付凭据，双方活动和资源继续受宿主校验 |
 
-这些变化由已接受的 [ADR-0019](adr/0019-complete-logical-snapshots-and-agent-continuation.md)规定，面向尚未实现的新格式；旧格式仍采用本契约的迁移规则。普通自主活动期限按第 9 节保存和续接；表达方式、四人实验 UI 和模型行为评测继续由各自票据处理。
+这些变化由已接受的 [ADR-0019](adr/0019-complete-logical-snapshots-and-agent-continuation.md)规定，并由 schema v4 实现；旧格式仍采用本契约的迁移规则。普通自主活动期限按第 9 节保存和续接；表达方式、四人实验 UI 和模型行为评测继续由各自票据处理。
 
 ## 8. 公开验收矩阵
 
@@ -138,11 +138,11 @@ MeetingId 和活动归属作为存档中的逻辑身份保持；WorldRunId 与�
 
 提交后失败的当前处理依据 [ADR-0020](adr/0020-post-commit-world-recovery.md)。后继实现必须保留其暂停、错误类别和预算约束，并验证新快照准备、模块异常与补偿失败；现有 schema v3 的故障测试不替代 SC-10 的四人准备验证。
 
-本表是后继实施的验收要求，不是本轮通过结果。确定性恢复验证无需真实模型；真实模型的再次选择由最终四人评测另行报告。
+本表记录验收要求，实际测试入口、运行统计与限制见[实现报告](verification/complete-agent-snapshots-2026-09-19.md)。确定性恢复验证无需真实模型；真实模型的再次选择由最终四人评测另行报告。
 
 ## 9. 2026-09-19：普通自主活动期限的保存与续接
 
-用户已确认[确定普通自主活动期限与日程恢复验收](https://github.com/qinjunw/CozyTown/issues/70)。本节补充 schema v4 的目标合同；当前仍写 schema v3，尚未实现本节的存档恢复。
+用户已确认[确定普通自主活动期限与日程恢复验收](https://github.com/qinjunw/CozyTown/issues/70)。本节规定 schema v4 的活动期限保存与续接合同。
 
 普通 `visit` 在下一次默认活动或目的地切换前结束；早晨到达期限和回家到达期限不单独改变窗口。机会建立时固定原窗口截止，后续派发只计算剩余上限。超过该次请求已披露最大值的候选以 `candidate.duration_invalid` 拒绝，并在剩余额度允许时使用既有一次纠正；合法延迟回复的实际活动截止取接受时刻加候选时长与原窗口截止的较早值。可信调用方的通用活动、正式会面仍使用各自已确认期限。
 

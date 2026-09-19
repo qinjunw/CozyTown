@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CozyTown.Runtime.Core;
 using CozyTown.Runtime.Economy;
 using CozyTown.Runtime.Farming;
@@ -13,7 +14,8 @@ namespace CozyTown.Runtime.Save
     {
         public static OperationResult Validate(GameSaveSnapshot snapshot)
         {
-            return Validate(snapshot, GameSaveSnapshot.CurrentSchemaVersion);
+            return Validate(snapshot, snapshot?.SchemaVersion == GameSaveSnapshot.LegacySchemaVersion
+                ? GameSaveSnapshot.LegacySchemaVersion : GameSaveSnapshot.CurrentSchemaVersion);
         }
 
         public static OperationResult ValidateLegacyV2(GameSaveSnapshot snapshot)
@@ -35,6 +37,12 @@ namespace CozyTown.Runtime.Save
                 return OperationResult.Failure("save.schema_unsupported");
             }
 
+            if (expectedSchemaVersion == GameSaveSnapshot.CurrentSchemaVersion && !CompleteWorldIsValid(snapshot))
+                return OperationResult.Failure("save.payload_invalid");
+            if (expectedSchemaVersion < GameSaveSnapshot.CurrentSchemaVersion
+                && (snapshot.CompleteWorld != null || snapshot.FractionalMinute != 0))
+                return OperationResult.Failure("save.payload_invalid");
+
             CharacterEconomySnapshot[] characters = snapshot.Characters;
             ShopEconomySnapshot[] shops = snapshot.Shops;
             if (snapshot.Farm == null
@@ -54,6 +62,36 @@ namespace CozyTown.Runtime.Save
             }
 
             return OperationResult.Success();
+        }
+
+        private static bool CompleteWorldIsValid(GameSaveSnapshot snapshot)
+        {
+            var complete = snapshot.CompleteWorld;
+            if (double.IsNaN(snapshot.FractionalMinute) || snapshot.FractionalMinute < 0 || snapshot.FractionalMinute >= 1
+                || snapshot.SourceSchemaVersion < 1 || snapshot.SourceSchemaVersion > GameSaveSnapshot.CurrentSchemaVersion
+                || complete == null || string.IsNullOrWhiteSpace(complete.ContentConfiguration)
+                || string.IsNullOrWhiteSpace(complete.BodyConfiguration) || complete.World == null
+                || complete.World.Residents == null || complete.World.Schedules == null
+                || complete.Residents == null || complete.Residents.Count != 4 || complete.Player == null
+                || complete.World.Residents.Count != 4 || complete.World.Schedules.Count != 4
+                || complete.MeetingsEnabled != (complete.Meetings != null)
+                || complete.DecisionsEnabled != (complete.Decisions != null)
+                || (complete.MeetingsEnabled && !complete.DecisionsEnabled)
+                || complete.World.TotalMinutes != new WorldTimeProgress(snapshot.Clock, snapshot.FractionalMinute, true).TotalMinutes)
+                return false;
+            var ids = new HashSet<string>(StringComparer.Ordinal);
+            if (complete.Residents.Any(body => body == null || string.IsNullOrWhiteSpace(body.NpcId)
+                    || !ids.Add(body.NpcId) || body.Route == null)) return false;
+            if (complete.World.Residents.Any(resident => resident == null)
+                || complete.World.Schedules.Any(schedule => schedule == null)) return false;
+            if (!complete.MeetingsEnabled && complete.World.Residents.Any(resident => resident.Activity?.IsMeetingActivity == true))
+                return false;
+            return ids.SetEquals(complete.World.Residents.Select(resident => resident.NpcId))
+                && ids.SetEquals(complete.World.Schedules.Select(schedule => schedule.NpcId))
+                && snapshot.Characters.Length == 5
+                && new HashSet<string>(snapshot.Characters.Where(character => character != null)
+                    .Select(character => character.CharacterId), StringComparer.Ordinal)
+                    .SetEquals(ids.Concat(new[] { Content.DefaultMvpIds.Characters.Player }));
         }
 
         private static bool CharactersAreValid(CharacterEconomySnapshot[] characters)

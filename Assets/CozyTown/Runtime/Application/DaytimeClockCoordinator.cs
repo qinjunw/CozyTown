@@ -18,16 +18,18 @@ namespace CozyTown.Runtime.Application
         private readonly IWorldTimeCoordinator _worldTime;
         private readonly IGameSaveCoordinator _gameSave;
         private readonly WorldTimeFlow _timeFlow;
+        private readonly Func<double> _loadedFractionalMinute;
         private double _elapsedSeconds;
 
         public DaytimeClockCoordinator(
             IWorldTimeCoordinator worldTime,
             IGameSaveCoordinator gameSave,
-            WorldTimeFlow timeFlow = null)
+            WorldTimeFlow timeFlow = null, Func<double> loadedFractionalMinute = null)
         {
             _worldTime = worldTime ?? throw new ArgumentNullException(nameof(worldTime));
             _gameSave = gameSave ?? throw new ArgumentNullException(nameof(gameSave));
             _timeFlow = timeFlow;
+            _loadedFractionalMinute = loadedFractionalMinute;
         }
 
         public GameClockSnapshot Current => _worldTime.Current;
@@ -133,8 +135,11 @@ namespace CozyTown.Runtime.Application
             }
             if (result.IsSuccess)
             {
-                _elapsedSeconds = 0;
-                var published = _timeFlow?.Publish(Current, isRebuild: true);
+                double fraction = _loadedFractionalMinute?.Invoke() ?? 0;
+                _elapsedSeconds = fraction * SecondsPerMinute;
+                double totalMinutes = new WorldTimeProgress(Current, fraction, true).TotalMinutes;
+                var published = _timeFlow?.Publish(Current, fraction, isRebuild: true,
+                    advanceFromTotalMinutes: totalMinutes);
                 if (published.HasValue && !published.Value.IsSuccess)
                     return OperationResult.Failure(_timeFlow.State == WorldTimeFlowState.RecoveryRequired
                         ? "save.loaded_rebuild_required" : "save.loaded_presentation_failed");

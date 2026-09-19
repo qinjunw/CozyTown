@@ -87,7 +87,7 @@ namespace CozyTown.Tests.EditMode.Application
             GameSaveSnapshot before = SaveTestSnapshots.Capture(services);
             CharacterEconomySnapshot player = before.Characters[0];
             GameSaveSnapshot invalid = new GameSaveSnapshot(
-                GameSaveSnapshot.CurrentSchemaVersion,
+                GameSaveSnapshot.LegacySchemaVersion,
                 before.WorldSeed,
                 new GameClockSnapshot(1, 10 * 60),
                 new[]
@@ -183,7 +183,7 @@ namespace CozyTown.Tests.EditMode.Application
                 wateredToday: true,
                 status: FarmPlotStatus.Growing);
             var target = new GameSaveSnapshot(
-                GameSaveSnapshot.CurrentSchemaVersion,
+                GameSaveSnapshot.LegacySchemaVersion,
                 worldSeed: 777,
                 new GameClockSnapshot(1, 10 * 60),
                 new[]
