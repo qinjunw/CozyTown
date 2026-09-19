@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='utf-8'?>
+<test-run id="2" testcasecount="23" result="Passed" total="23" passed="23" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.6908042">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="1105" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.690804" total="23" passed="23" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2377" name="CozyTown.Tests.UnityEditMode.dll" fullname="&lt;project-root&gt;/Library/ScriptAssemblies/CozyTown.Tests.UnityEditMode.dll" runstate="Runnable" testcasecount="363" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.653060" total="23" passed="23" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="128496" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2378" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="363" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.644885" total="23" passed="23" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2379" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="363" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.637143" total="23" passed="23" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="2380" name="UnityEditMode" fullname="CozyTown.Tests.UnityEditMode" runstate="Runnable" testcasecount="363" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.629448" total="23" passed="23" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="2001" name="AgentExperimentPairComparisonTests" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" testcasecount="23" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.614231" total="23" passed="23" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="2018" name="ContextComparison_AllowsOnlySpeechModeAndKnownIdentitiesWithoutComparingWallClock" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_AllowsOnlySpeechModeAndKnownIdentitiesWithoutComparingWallClock" methodname="ContextComparison_AllowsOnlySpeechModeAndKnownIdentitiesWithoutComparingWallClock" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1013381670" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.119612" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="2027" name="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.020905" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="2020" name="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;action-version&quot;,&quot;/schemaVersion&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;action-version&quot;,&quot;/schemaVersion&quot;)" methodname="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1082455211" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.003715" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2021" name="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;expression-version&quot;,&quot;/expression/schemaVersion&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;expression-version&quot;,&quot;/expression/schemaVersion&quot;)" methodname="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1229132604" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.000432" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2022" name="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;game-time&quot;,&quot;/gameTotalMinutes&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;game-time&quot;,&quot;/gameTotalMinutes&quot;)" methodname="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="525111531" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.001917" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2023" name="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;identity-in-fact&quot;,&quot;/observation/facts/0/value&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;identity-in-fact&quot;,&quot;/observation/facts/0/value&quot;)" methodname="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1644929418" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.001771" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2024" name="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;world-reference&quot;,&quot;/observation/worldRunId&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;world-reference&quot;,&quot;/observation/worldRunId&quot;)" methodname="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1133213572" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.001971" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2025" name="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;order&quot;,&quot;/callOrdinal&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;order&quot;,&quot;/callOrdinal&quot;)" methodname="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="364041859" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.000499" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2026" name="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;missing-call&quot;,&quot;/calls/2&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;missing-call&quot;,&quot;/calls/2&quot;)" methodname="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1461611479" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.003760" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="2019" name="ContextComparison_ReturnsTheFirstDifferentFactAndStopsAtThatPrefix" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_ReturnsTheFirstDifferentFactAndStopsAtThatPrefix" methodname="ContextComparison_ReturnsTheFirstDifferentFactAndStopsAtThatPrefix" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="176763309" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.008188" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="2006" name="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.325532" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="2002" name="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(&quot;available&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(&quot;available&quot;)" methodname="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1323484962" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.271564" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2003" name="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(&quot;seller_empty&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(&quot;seller_empty&quot;)" methodname="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1147714079" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.014939" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2004" name="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(&quot;buyer_poor&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(&quot;buyer_poor&quot;)" methodname="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="616740445" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.017998" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2005" name="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(&quot;need_satisfied&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(&quot;need_satisfied&quot;)" methodname="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="682405116" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.018724" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="2016" name="InitialComparison_IdentifiesNonSpeechDifferences" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.095937" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="2007" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;wallet&quot;,&quot;/characters/&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;wallet&quot;,&quot;/characters/&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1531899965" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.012689" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2008" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;clock&quot;,&quot;/clock/minuteOfDay&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;clock&quot;,&quot;/clock/minuteOfDay&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1013031093" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.012552" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2009" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;body&quot;,&quot;/completeWorld/residents/&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;body&quot;,&quot;/completeWorld/residents/&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="813408093" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.010962" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2010" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;persona&quot;,&quot;/persona&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;persona&quot;,&quot;/persona&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="568837344" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.008853" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2011" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;budget&quot;,&quot;/maxRequestsPerMinute&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;budget&quot;,&quot;/maxRequestsPerMinute&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1795347888" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.009446" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2012" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;client&quot;,&quot;/clientConfiguration&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;client&quot;,&quot;/clientConfiguration&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="923258619" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.009801" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2013" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;content&quot;,&quot;/contentConfiguration&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;content&quot;,&quot;/contentConfiguration&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1798198346" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.007284" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2014" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;bodyConfiguration&quot;,&quot;/bodyConfiguration&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;bodyConfiguration&quot;,&quot;/bodyConfiguration&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="235827406" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.008318" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="2015" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;seed&quot;,&quot;/worldSeed&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;seed&quot;,&quot;/worldSeed&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="150495957" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.011210" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="2017" name="InitialComparison_RejectsSameModeNonzeroInitialClockAndExecutionHistory" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_RejectsSameModeNonzeroInitialClockAndExecutionHistory" methodname="InitialComparison_RejectsSameModeNonzeroInitialClockAndExecutionHistory" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1906430438" result="Passed" start-time="2026-09-19 16:28:13Z" end-time="2026-09-19 16:28:13Z" duration="0.004900" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output>Saving results to: &lt;user-home&gt;/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+</output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

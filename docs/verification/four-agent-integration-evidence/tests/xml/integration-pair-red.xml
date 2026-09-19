@@ -1,0 +1,342 @@
+<?xml version='1.0' encoding='utf-8'?>
+<test-run id="2" testcasecount="23" result="Failed(Child)" total="23" passed="0" failed="23" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.4023549">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="1105" result="Failed" site="Child" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.402355" total="23" passed="0" failed="23" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message>One or more child tests had errors</message>
+    </failure>
+    <test-suite type="Assembly" id="2377" name="CozyTown.Tests.UnityEditMode.dll" fullname="&lt;project-root&gt;/Library/ScriptAssemblies/CozyTown.Tests.UnityEditMode.dll" runstate="Runnable" testcasecount="363" result="Failed" site="Child" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.372071" total="23" passed="0" failed="23" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="94144" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message>One or more child tests had errors</message>
+      </failure>
+      <test-suite type="TestSuite" id="2378" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="363" result="Failed" site="Child" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.366424" total="23" passed="0" failed="23" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message>One or more child tests had errors</message>
+        </failure>
+        <test-suite type="TestSuite" id="2379" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="363" result="Failed" site="Child" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.361164" total="23" passed="0" failed="23" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message>One or more child tests had errors</message>
+          </failure>
+          <test-suite type="TestSuite" id="2380" name="UnityEditMode" fullname="CozyTown.Tests.UnityEditMode" runstate="Runnable" testcasecount="363" result="Failed" site="Child" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.355894" total="23" passed="0" failed="23" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message>One or more child tests had errors</message>
+            </failure>
+            <test-suite type="TestFixture" id="2001" name="AgentExperimentPairComparisonTests" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" testcasecount="23" result="Failed" site="Child" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.345530" total="23" passed="0" failed="23" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message>One or more child tests had errors</message>
+              </failure>
+              <test-case id="2018" name="ContextComparison_AllowsOnlySpeechModeAndKnownIdentitiesWithoutComparingWallClock" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_AllowsOnlySpeechModeAndKnownIdentitiesWithoutComparingWallClock" methodname="ContextComparison_AllowsOnlySpeechModeAndKnownIdentitiesWithoutComparingWallClock" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="104981828" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.016084" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                  <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_AllowsOnlySpeechModeAndKnownIdentitiesWithoutComparingWallClock () [0x00079] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:71 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                </failure>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="2027" name="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" testcasecount="7" result="Failed" site="Child" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.011143" total="7" passed="0" failed="7" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message>One or more child tests had errors</message>
+                </failure>
+                <test-case id="2020" name="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;action-version&quot;,&quot;/schemaVersion&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;action-version&quot;,&quot;/schemaVersion&quot;)" methodname="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1358498323" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.001754" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder (System.String changed, System.String expectedPath) [0x00161] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:121 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2021" name="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;expression-version&quot;,&quot;/expression/schemaVersion&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;expression-version&quot;,&quot;/expression/schemaVersion&quot;)" methodname="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1714603237" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.000419" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder (System.String changed, System.String expectedPath) [0x00161] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:121 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2022" name="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;game-time&quot;,&quot;/gameTotalMinutes&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;game-time&quot;,&quot;/gameTotalMinutes&quot;)" methodname="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1079597765" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.000332" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder (System.String changed, System.String expectedPath) [0x00161] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:121 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2023" name="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;identity-in-fact&quot;,&quot;/observation/facts/0/value&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;identity-in-fact&quot;,&quot;/observation/facts/0/value&quot;)" methodname="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="185303481" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.000307" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder (System.String changed, System.String expectedPath) [0x00161] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:121 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2024" name="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;world-reference&quot;,&quot;/observation/worldRunId&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;world-reference&quot;,&quot;/observation/worldRunId&quot;)" methodname="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="2074950836" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.000899" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder (System.String changed, System.String expectedPath) [0x00161] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:121 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2025" name="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;order&quot;,&quot;/callOrdinal&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;order&quot;,&quot;/callOrdinal&quot;)" methodname="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="2046854362" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.000281" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder (System.String changed, System.String expectedPath) [0x00161] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:121 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2026" name="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;missing-call&quot;,&quot;/calls/2&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(&quot;missing-call&quot;,&quot;/calls/2&quot;)" methodname="ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1490881666" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.000282" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder (System.String changed, System.String expectedPath) [0x00161] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:121 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+              </test-suite>
+              <test-case id="2019" name="ContextComparison_ReturnsTheFirstDifferentFactAndStopsAtThatPrefix" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_ReturnsTheFirstDifferentFactAndStopsAtThatPrefix" methodname="ContextComparison_ReturnsTheFirstDifferentFactAndStopsAtThatPrefix" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="95835406" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.000801" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                  <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_ReturnsTheFirstDifferentFactAndStopsAtThatPrefix () [0x00060] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:83 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                </failure>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="2006" name="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.268036" total="4" passed="0" failed="4" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message>One or more child tests had errors</message>
+                </failure>
+                <test-case id="2002" name="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(&quot;available&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(&quot;available&quot;)" methodname="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1061725923" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.251166" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase (System.String scenario) [0x00011] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:28 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2003" name="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(&quot;seller_empty&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(&quot;seller_empty&quot;)" methodname="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1401822696" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.005142" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase (System.String scenario) [0x00011] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:28 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2004" name="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(&quot;buyer_poor&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(&quot;buyer_poor&quot;)" methodname="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1155332521" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.004943" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase (System.String scenario) [0x00011] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:28 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2005" name="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(&quot;need_satisfied&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(&quot;need_satisfied&quot;)" methodname="InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1059242302" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.004726" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase (System.String scenario) [0x00011] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:28 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="2016" name="InitialComparison_IdentifiesNonSpeechDifferences" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" testcasecount="9" result="Failed" site="Child" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.021352" total="9" passed="0" failed="9" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message>One or more child tests had errors</message>
+                </failure>
+                <test-case id="2007" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;wallet&quot;,&quot;/characters/&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;wallet&quot;,&quot;/characters/&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="588867793" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.003331" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences (System.String changed, System.String pathPart) [0x00000] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:46 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2008" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;clock&quot;,&quot;/clock/minuteOfDay&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;clock&quot;,&quot;/clock/minuteOfDay&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1995300314" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.005051" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences (System.String changed, System.String pathPart) [0x00000] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:46 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2009" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;body&quot;,&quot;/completeWorld/residents/&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;body&quot;,&quot;/completeWorld/residents/&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="684883285" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.001547" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences (System.String changed, System.String pathPart) [0x00000] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:46 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2010" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;persona&quot;,&quot;/persona&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;persona&quot;,&quot;/persona&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="959507862" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.001473" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences (System.String changed, System.String pathPart) [0x00000] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:46 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2011" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;budget&quot;,&quot;/maxRequestsPerMinute&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;budget&quot;,&quot;/maxRequestsPerMinute&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="770074977" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.001426" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences (System.String changed, System.String pathPart) [0x00000] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:46 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2012" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;client&quot;,&quot;/clientConfiguration&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;client&quot;,&quot;/clientConfiguration&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1113046338" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.001243" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences (System.String changed, System.String pathPart) [0x00000] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:46 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2013" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;content&quot;,&quot;/contentConfiguration&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;content&quot;,&quot;/contentConfiguration&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="888211857" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.001251" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences (System.String changed, System.String pathPart) [0x00000] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:46 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2014" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;bodyConfiguration&quot;,&quot;/bodyConfiguration&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;bodyConfiguration&quot;,&quot;/bodyConfiguration&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1601258074" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.001402" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences (System.String changed, System.String pathPart) [0x00000] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:46 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="2015" name="InitialComparison_IdentifiesNonSpeechDifferences(&quot;seed&quot;,&quot;/worldSeed&quot;)" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(&quot;seed&quot;,&quot;/worldSeed&quot;)" methodname="InitialComparison_IdentifiesNonSpeechDifferences" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="579903852" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.001383" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                    <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences (System.String changed, System.String pathPart) [0x00000] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:46 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                  </failure>
+                </test-case>
+              </test-suite>
+              <test-case id="2017" name="InitialComparison_RejectsSameModeNonzeroInitialClockAndExecutionHistory" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_RejectsSameModeNonzeroInitialClockAndExecutionHistory" methodname="InitialComparison_RejectsSameModeNonzeroInitialClockAndExecutionHistory" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1213402952" result="Failed" label="Error" start-time="2026-09-19 16:17:41Z" end-time="2026-09-19 16:17:41Z" duration="0.001730" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                  <stack-trace>  at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_RejectsSameModeNonzeroInitialClockAndExecutionHistory () [0x0000c] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:56 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&amp;)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in &lt;816f70bc2a9c4332b0bd119906a8d40e&gt;:0 </stack-trace>
+                </failure>
+                <output>Saving results to: &lt;user-home&gt;/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+</output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

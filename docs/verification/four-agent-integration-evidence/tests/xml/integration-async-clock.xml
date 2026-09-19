@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='utf-8'?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 17:03:05Z" end-time="2026-09-19 17:03:09Z" duration="3.353589">
+  <test-suite type="TestSuite" id="1389" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="298" result="Passed" start-time="2026-09-19 17:03:05Z" end-time="2026-09-19 17:03:09Z" duration="3.353589" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1382" name="CozyTown.Tests.PlayMode.dll" fullname="&lt;project-root&gt;/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="298" result="Passed" start-time="2026-09-19 17:03:05Z" end-time="2026-09-19 17:03:09Z" duration="3.339101" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="68668" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1383" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="298" result="Passed" start-time="2026-09-19 17:03:05Z" end-time="2026-09-19 17:03:09Z" duration="3.332525" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1384" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="298" result="Passed" start-time="2026-09-19 17:03:05Z" end-time="2026-09-19 17:03:09Z" duration="3.327376" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1385" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="298" result="Passed" start-time="2026-09-19 17:03:05Z" end-time="2026-09-19 17:03:09Z" duration="3.322334" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1020" name="AgentIntegrationSnapshotPlayModeTests" fullname="CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests" classname="CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-19 17:03:05Z" end-time="2026-09-19 17:03:09Z" duration="3.309891" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1021" name="FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay" fullname="CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay" methodname="FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay" classname="CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests" runstate="Runnable" seed="81248084" result="Passed" start-time="2026-09-19 17:03:05Z" end-time="2026-09-19 17:03:07Z" duration="1.277933" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output>Second-day outcomes:
+npc.farmer_eli game=2130 real=314.5-&gt;315 social= reply=Wait code=agent.observation_stale calls=1
+npc.shopkeeper_mina game=2160 real=329.5-&gt;330 social=Opportunity reply=Invite code=agent.observation_stale calls=1
+npc.fisher_ren game=2175 real=337-&gt;337.5 social= reply=Wait code=agent.observation_stale calls=1
+npc.cook_sora game=2220 real=359.5-&gt;360 social= reply=Wait code=agent.observation_stale calls=1
+Offered days: mina-eli-main-road-chat=1440,sora-ren-fish-supply=0
+</output>
+              </test-case>
+              <test-case id="1022" name="FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience" fullname="CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience" methodname="FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience" classname="CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests" runstate="Runnable" seed="1669417202" result="Passed" start-time="2026-09-19 17:03:07Z" end-time="2026-09-19 17:03:08Z" duration="1.410012" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output>Restored twice: idle at 1/720
+Restored twice: invited at 1/736
+Restored twice: scheduled at 1/738
+Restored twice: travelling at 1/780
+Restored twice: before_delivery at 1/787
+Restored twice: after_delivery at 1/789
+Restored twice: talking at 1/791
+Phase checkpoint audit package: &lt;project-root&gt;\Logs\agent-platform\integration-phase-checkpoints\9b83b474ccc140bf8c801b542238a849
+</output>
+              </test-case>
+              <test-case id="1023" name="PendingCalls_AfterTimedSavesAndRepeatedLoadsRejectLateRepliesAndReplayTheCompletePackage" fullname="CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.PendingCalls_AfterTimedSavesAndRepeatedLoadsRejectLateRepliesAndReplayTheCompletePackage" methodname="PendingCalls_AfterTimedSavesAndRepeatedLoadsRejectLateRepliesAndReplayTheCompletePackage" classname="CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests" runstate="Runnable" seed="739114668" result="Passed" start-time="2026-09-19 17:03:08Z" end-time="2026-09-19 17:03:09Z" duration="0.595914" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output>Delayed completion replay package: &lt;project-root&gt;\Logs\agent-platform\integration-async-replay\7608cec2795b4f108060832b82b2b444
+Saving results to: &lt;user-home&gt;/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+</output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

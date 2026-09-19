@@ -1,0 +1,3524 @@
+{
+  "schemaVersion": 1,
+  "generatedAtUtc": "2026-09-19T17:32:38.222473+00:00",
+  "evidenceDirectoryName": "integration-coordinated-fixed-20260920-a",
+  "study": {
+    "studyId": "aaff00b1bb5a4dc69fb3f223352abbf3",
+    "stage": "fixed",
+    "sourceRevision": "9737054c9a0d7c84237439fe13ae36f704c0a43f",
+    "evaluationPlanReference": "docs/verification/four-agent-integration-plan-2026-09-20.md@9737054c9a0d7c84237439fe13ae36f704c0a43f",
+    "createdAtUtc": "2026-09-19T17:16:52.428990+00:00",
+    "expressionContractVersion": "1.0",
+    "scriptVersion": "cross-day-v1",
+    "maxProviderCalls": 512,
+    "proxyCleanupTimeoutSeconds": 30,
+    "sourceSha256": {
+      "decision_proxy.py": "80d64e591614a2dd87abcdb7dba584db130f105d0c127e6f1ffa7b0c6bb17536",
+      "run_four_agent_integration.py": "d70bbcdc2ab94cee22addff811f3703e1e33fcfc5724a501d5624e682ef95b96"
+    },
+    "systemPromptSha256": {
+      "F": "9cae533037c0bd2204b3cc8ee06c73557cbce264424db9968215c9eff3956ecd",
+      "S": "72d7f723583f3a1552c01dce95845b4db54311b338c335eeb16e6559df719042"
+    },
+    "state": "aborted",
+    "providerAttempts": 0
+  },
+  "counts": {
+    "plannedWorlds": 16,
+    "worldStatuses": {
+      "host_failure": 1,
+      "not_started": 15
+    },
+    "plannedPairs": 8,
+    "recordedPairComparisons": 0
+  },
+  "definitions": {
+    "dispatchDay": "Day of trace request gameTotalMinutes.",
+    "outcomeDay": "Day of outcome request context; this is not the completion wall-clock day.",
+    "timeline": "Meeting phases, activity releases and body states are sampled observations; transitions may span a load or skipped game time.",
+    "null": "Unavailable or not established by retained evidence; unknown model tokens and cost are not zero.",
+    "pairComparison": "Copies the Unity pair-context report. Missing report means not compared; a null divergence alone does not establish comparison.",
+    "generatedAtUtc": "Summary generation time; source event times are retained separately.",
+    "evidenceSnapshot": "Files are read once with shared access. If a study is running, this report is a partial observation, not an atomic completed snapshot."
+  },
+  "worlds": [
+    {
+      "worldId": "b0eda16037f844838a791ae344b6a5ac",
+      "ordinal": 1,
+      "repetition": 1,
+      "pairId": "8b28180a697d42e59adc4d4e3ac86433",
+      "armOrder": [
+        "F",
+        "S"
+      ],
+      "scenarioId": "available",
+      "speechMode": "F",
+      "stage": "fixed",
+      "directory": "01-b0eda16037f844838a791ae344b6a5ac",
+      "status": "host_failure",
+      "coordinatorReason": "experiment.host_or_replay_failed",
+      "resultStatus": "host_failure",
+      "resultReason": "Replay checkpoint differs from its recorded save input: origin",
+      "hostViolations": [
+        "Replay: Replay checkpoint differs from its recorded save input: origin"
+      ],
+      "replayPassed": false,
+      "manifestCompleted": true,
+      "initialized": true,
+      "providerAttempts": 0,
+      "providerAttemptLedgerRows": 0,
+      "hostCalls": 16,
+      "traceCalls": 16,
+      "outcomes": 16,
+      "completedGameMinutes": 2400.0,
+      "realSeconds": 450.5,
+      "initialProxyStatus": null,
+      "proxyCleanup": null,
+      "timelineSamples": 902,
+      "maxObservedInFlight": 2,
+      "maxObservedWaitingResidents": 2,
+      "npcs": [
+        {
+          "npcId": "npc.shopkeeper_mina",
+          "days": {
+            "D1": {
+              "dispatches": 3,
+              "outcomes": 3,
+              "outcomeCodes": {
+                "meeting.invited": 1,
+                "meeting.say": 1,
+                "meeting.end_conversation": 1
+              },
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": {
+                "callOrdinal": 0,
+                "tick": 0,
+                "gameMinutes": 721.0,
+                "realSeconds": 0.5
+              },
+              "lastDispatch": {
+                "callOrdinal": 7,
+                "tick": 31,
+                "gameMinutes": 752.0,
+                "realSeconds": 16.0
+              }
+            },
+            "D2": {
+              "dispatches": 1,
+              "outcomes": 1,
+              "outcomeCodes": {
+                "agent.observation_stale": 1
+              },
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": {
+                "callOrdinal": 13,
+                "tick": 660,
+                "gameMinutes": 2160.0,
+                "realSeconds": 330.5
+              },
+              "lastDispatch": {
+                "callOrdinal": 13,
+                "tick": 660,
+                "gameMinutes": 2160.0,
+                "realSeconds": 330.5
+              }
+            }
+          },
+          "timelineSamples": 902,
+          "meetingPhaseSamples": [
+            {
+              "tick": 0,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 720.0,
+              "realSeconds": 0.0,
+              "recordedAtUtc": "2026-09-19T17:17:21.3934258Z",
+              "meetingState": null
+            },
+            {
+              "tick": 2,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 722.0,
+              "realSeconds": 1.0,
+              "recordedAtUtc": "2026-09-19T17:17:21.5647612Z",
+              "meetingState": "Invited"
+            },
+            {
+              "tick": 3,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 723.0,
+              "realSeconds": 1.5,
+              "recordedAtUtc": "2026-09-19T17:17:21.5937369Z",
+              "meetingState": "Scheduled"
+            },
+            {
+              "tick": 20,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 740.0,
+              "realSeconds": 10.0,
+              "recordedAtUtc": "2026-09-19T17:17:22.0422579Z",
+              "meetingState": "Travelling"
+            },
+            {
+              "tick": 29,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 749.0,
+              "realSeconds": 14.5,
+              "recordedAtUtc": "2026-09-19T17:17:22.2563300Z",
+              "meetingState": "Talking"
+            },
+            {
+              "tick": 33,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 753.0,
+              "realSeconds": 16.5,
+              "recordedAtUtc": "2026-09-19T17:17:22.3688670Z",
+              "meetingState": "Completed"
+            },
+            {
+              "tick": 241,
+              "worldRunId": "23e39fc6e8db42f0af0847082d1e6fd5",
+              "gameMinutes": 1740.0,
+              "realSeconds": 120.5,
+              "recordedAtUtc": "2026-09-19T17:17:27.5579980Z",
+              "meetingState": "Completed"
+            }
+          ],
+          "activityReleaseSamples": [
+            {
+              "tick": 33,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 753.0,
+              "realSeconds": 16.5,
+              "recordedAtUtc": "2026-09-19T17:17:22.3688670Z",
+              "previousActivity": "Resting",
+              "sameWorldRun": true
+            }
+          ],
+          "bodyStatusSampleCounts": {
+            "Arrived": 844,
+            "Travelling": 58
+          },
+          "lastObservedState": {
+            "tick": 901,
+            "worldRunId": "23e39fc6e8db42f0af0847082d1e6fd5",
+            "gameMinutes": 2400.0,
+            "realSeconds": 450.5,
+            "recordedAtUtc": "2026-09-19T17:17:43.8817147Z",
+            "npcId": "npc.shopkeeper_mina",
+            "lastResult": "agent.observation_stale",
+            "meetingState": "Completed",
+            "target": "work.shopkeeper_mina",
+            "bodyStatus": "Arrived",
+            "activity": "",
+            "hasCurrent": false,
+            "hasPending": false,
+            "hasWaitingTurn": false,
+            "hasActivity": false,
+            "remainingCooldown": 0.0,
+            "activityExpires": 0.0,
+            "currentTriggers": [],
+            "pendingTriggers": []
+          }
+        },
+        {
+          "npcId": "npc.farmer_eli",
+          "days": {
+            "D1": {
+              "dispatches": 3,
+              "outcomes": 3,
+              "outcomeCodes": {
+                "agent.decision_stale": 1,
+                "meeting.accept_invite": 1,
+                "meeting.say": 1
+              },
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": {
+                "callOrdinal": 1,
+                "tick": 0,
+                "gameMinutes": 721.0,
+                "realSeconds": 0.5
+              },
+              "lastDispatch": {
+                "callOrdinal": 6,
+                "tick": 29,
+                "gameMinutes": 750.0,
+                "realSeconds": 15.0
+              }
+            },
+            "D2": {
+              "dispatches": 1,
+              "outcomes": 1,
+              "outcomeCodes": {
+                "agent.observation_stale": 1
+              },
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": {
+                "callOrdinal": 12,
+                "tick": 630,
+                "gameMinutes": 2130.0,
+                "realSeconds": 315.5
+              },
+              "lastDispatch": {
+                "callOrdinal": 12,
+                "tick": 630,
+                "gameMinutes": 2130.0,
+                "realSeconds": 315.5
+              }
+            }
+          },
+          "timelineSamples": 902,
+          "meetingPhaseSamples": [
+            {
+              "tick": 0,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 720.0,
+              "realSeconds": 0.0,
+              "recordedAtUtc": "2026-09-19T17:17:21.3934258Z",
+              "meetingState": null
+            },
+            {
+              "tick": 2,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 722.0,
+              "realSeconds": 1.0,
+              "recordedAtUtc": "2026-09-19T17:17:21.5647612Z",
+              "meetingState": "Invited"
+            },
+            {
+              "tick": 3,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 723.0,
+              "realSeconds": 1.5,
+              "recordedAtUtc": "2026-09-19T17:17:21.5937369Z",
+              "meetingState": "Scheduled"
+            },
+            {
+              "tick": 20,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 740.0,
+              "realSeconds": 10.0,
+              "recordedAtUtc": "2026-09-19T17:17:22.0422579Z",
+              "meetingState": "Travelling"
+            },
+            {
+              "tick": 29,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 749.0,
+              "realSeconds": 14.5,
+              "recordedAtUtc": "2026-09-19T17:17:22.2563300Z",
+              "meetingState": "Talking"
+            },
+            {
+              "tick": 33,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 753.0,
+              "realSeconds": 16.5,
+              "recordedAtUtc": "2026-09-19T17:17:22.3688670Z",
+              "meetingState": "Completed"
+            },
+            {
+              "tick": 241,
+              "worldRunId": "23e39fc6e8db42f0af0847082d1e6fd5",
+              "gameMinutes": 1740.0,
+              "realSeconds": 120.5,
+              "recordedAtUtc": "2026-09-19T17:17:27.5579980Z",
+              "meetingState": "Completed"
+            }
+          ],
+          "activityReleaseSamples": [
+            {
+              "tick": 33,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 753.0,
+              "realSeconds": 16.5,
+              "recordedAtUtc": "2026-09-19T17:17:22.3688670Z",
+              "previousActivity": "Resting",
+              "sameWorldRun": true
+            }
+          ],
+          "bodyStatusSampleCounts": {
+            "Arrived": 845,
+            "Travelling": 57
+          },
+          "lastObservedState": {
+            "tick": 901,
+            "worldRunId": "23e39fc6e8db42f0af0847082d1e6fd5",
+            "gameMinutes": 2400.0,
+            "realSeconds": 450.5,
+            "recordedAtUtc": "2026-09-19T17:17:43.8817147Z",
+            "npcId": "npc.farmer_eli",
+            "lastResult": "agent.observation_stale",
+            "meetingState": "Completed",
+            "target": "work.farmer_eli",
+            "bodyStatus": "Arrived",
+            "activity": "",
+            "hasCurrent": false,
+            "hasPending": false,
+            "hasWaitingTurn": false,
+            "hasActivity": false,
+            "remainingCooldown": 0.0,
+            "activityExpires": 0.0,
+            "currentTriggers": [],
+            "pendingTriggers": []
+          }
+        },
+        {
+          "npcId": "npc.fisher_ren",
+          "days": {
+            "D1": {
+              "dispatches": 2,
+              "outcomes": 2,
+              "outcomeCodes": {
+                "meeting.accept_invite": 1,
+                "meeting.say": 1
+              },
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": {
+                "callOrdinal": 4,
+                "tick": 16,
+                "gameMinutes": 737.0,
+                "realSeconds": 8.5
+              },
+              "lastDispatch": {
+                "callOrdinal": 10,
+                "tick": 69,
+                "gameMinutes": 790.0,
+                "realSeconds": 35.0
+              }
+            },
+            "D2": {
+              "dispatches": 1,
+              "outcomes": 1,
+              "outcomeCodes": {
+                "agent.observation_stale": 1
+              },
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": {
+                "callOrdinal": 14,
+                "tick": 675,
+                "gameMinutes": 2175.0,
+                "realSeconds": 338.0
+              },
+              "lastDispatch": {
+                "callOrdinal": 14,
+                "tick": 675,
+                "gameMinutes": 2175.0,
+                "realSeconds": 338.0
+              }
+            }
+          },
+          "timelineSamples": 902,
+          "meetingPhaseSamples": [
+            {
+              "tick": 0,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 720.0,
+              "realSeconds": 0.0,
+              "recordedAtUtc": "2026-09-19T17:17:21.3934258Z",
+              "meetingState": null
+            },
+            {
+              "tick": 16,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 736.0,
+              "realSeconds": 8.0,
+              "recordedAtUtc": "2026-09-19T17:17:21.8917998Z",
+              "meetingState": "Invited"
+            },
+            {
+              "tick": 18,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 738.0,
+              "realSeconds": 9.0,
+              "recordedAtUtc": "2026-09-19T17:17:21.9931873Z",
+              "meetingState": "Scheduled"
+            },
+            {
+              "tick": 60,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 780.0,
+              "realSeconds": 30.0,
+              "recordedAtUtc": "2026-09-19T17:17:23.0239511Z",
+              "meetingState": "Travelling"
+            },
+            {
+              "tick": 67,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 787.0,
+              "realSeconds": 33.5,
+              "recordedAtUtc": "2026-09-19T17:17:23.1924650Z",
+              "meetingState": "Talking"
+            },
+            {
+              "tick": 72,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 792.0,
+              "realSeconds": 36.0,
+              "recordedAtUtc": "2026-09-19T17:17:23.3510633Z",
+              "meetingState": "Completed"
+            },
+            {
+              "tick": 241,
+              "worldRunId": "23e39fc6e8db42f0af0847082d1e6fd5",
+              "gameMinutes": 1740.0,
+              "realSeconds": 120.5,
+              "recordedAtUtc": "2026-09-19T17:17:27.5579980Z",
+              "meetingState": "Completed"
+            }
+          ],
+          "activityReleaseSamples": [
+            {
+              "tick": 72,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 792.0,
+              "realSeconds": 36.0,
+              "recordedAtUtc": "2026-09-19T17:17:23.3510633Z",
+              "previousActivity": "Resting",
+              "sameWorldRun": true
+            }
+          ],
+          "bodyStatusSampleCounts": {
+            "Arrived": 859,
+            "Travelling": 43
+          },
+          "lastObservedState": {
+            "tick": 901,
+            "worldRunId": "23e39fc6e8db42f0af0847082d1e6fd5",
+            "gameMinutes": 2400.0,
+            "realSeconds": 450.5,
+            "recordedAtUtc": "2026-09-19T17:17:43.8817147Z",
+            "npcId": "npc.fisher_ren",
+            "lastResult": "agent.observation_stale",
+            "meetingState": "Completed",
+            "target": "work.fisher_ren.afternoon",
+            "bodyStatus": "Arrived",
+            "activity": "",
+            "hasCurrent": false,
+            "hasPending": false,
+            "hasWaitingTurn": false,
+            "hasActivity": false,
+            "remainingCooldown": 0.0,
+            "activityExpires": 0.0,
+            "currentTriggers": [],
+            "pendingTriggers": []
+          }
+        },
+        {
+          "npcId": "npc.cook_sora",
+          "days": {
+            "D1": {
+              "dispatches": 4,
+              "outcomes": 4,
+              "outcomeCodes": {
+                "meeting.invited": 1,
+                "meeting.deliver": 1,
+                "meeting.say": 1,
+                "meeting.end_conversation": 1
+              },
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": {
+                "callOrdinal": 3,
+                "tick": 14,
+                "gameMinutes": 735.0,
+                "realSeconds": 7.5
+              },
+              "lastDispatch": {
+                "callOrdinal": 11,
+                "tick": 70,
+                "gameMinutes": 791.0,
+                "realSeconds": 35.5
+              }
+            },
+            "D2": {
+              "dispatches": 1,
+              "outcomes": 1,
+              "outcomeCodes": {
+                "agent.observation_stale": 1
+              },
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": {
+                "callOrdinal": 15,
+                "tick": 720,
+                "gameMinutes": 2220.0,
+                "realSeconds": 360.5
+              },
+              "lastDispatch": {
+                "callOrdinal": 15,
+                "tick": 720,
+                "gameMinutes": 2220.0,
+                "realSeconds": 360.5
+              }
+            }
+          },
+          "timelineSamples": 902,
+          "meetingPhaseSamples": [
+            {
+              "tick": 0,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 720.0,
+              "realSeconds": 0.0,
+              "recordedAtUtc": "2026-09-19T17:17:21.3934258Z",
+              "meetingState": null
+            },
+            {
+              "tick": 16,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 736.0,
+              "realSeconds": 8.0,
+              "recordedAtUtc": "2026-09-19T17:17:21.8917998Z",
+              "meetingState": "Invited"
+            },
+            {
+              "tick": 18,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 738.0,
+              "realSeconds": 9.0,
+              "recordedAtUtc": "2026-09-19T17:17:21.9931873Z",
+              "meetingState": "Scheduled"
+            },
+            {
+              "tick": 60,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 780.0,
+              "realSeconds": 30.0,
+              "recordedAtUtc": "2026-09-19T17:17:23.0239511Z",
+              "meetingState": "Travelling"
+            },
+            {
+              "tick": 67,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 787.0,
+              "realSeconds": 33.5,
+              "recordedAtUtc": "2026-09-19T17:17:23.1924650Z",
+              "meetingState": "Talking"
+            },
+            {
+              "tick": 72,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 792.0,
+              "realSeconds": 36.0,
+              "recordedAtUtc": "2026-09-19T17:17:23.3510633Z",
+              "meetingState": "Completed"
+            },
+            {
+              "tick": 241,
+              "worldRunId": "23e39fc6e8db42f0af0847082d1e6fd5",
+              "gameMinutes": 1740.0,
+              "realSeconds": 120.5,
+              "recordedAtUtc": "2026-09-19T17:17:27.5579980Z",
+              "meetingState": "Completed"
+            }
+          ],
+          "activityReleaseSamples": [
+            {
+              "tick": 72,
+              "worldRunId": "65c4590543c44b0f9af2716f6dd34e4f",
+              "gameMinutes": 792.0,
+              "realSeconds": 36.0,
+              "recordedAtUtc": "2026-09-19T17:17:23.3510633Z",
+              "previousActivity": "Resting",
+              "sameWorldRun": true
+            }
+          ],
+          "bodyStatusSampleCounts": {
+            "Arrived": 854,
+            "Travelling": 48
+          },
+          "lastObservedState": {
+            "tick": 901,
+            "worldRunId": "23e39fc6e8db42f0af0847082d1e6fd5",
+            "gameMinutes": 2400.0,
+            "realSeconds": 450.5,
+            "recordedAtUtc": "2026-09-19T17:17:43.8817147Z",
+            "npcId": "npc.cook_sora",
+            "lastResult": "agent.observation_stale",
+            "meetingState": "Completed",
+            "target": "work.cook_sora",
+            "bodyStatus": "Arrived",
+            "activity": "",
+            "hasCurrent": false,
+            "hasPending": false,
+            "hasWaitingTurn": false,
+            "hasActivity": false,
+            "remainingCooldown": 0.0,
+            "activityExpires": 0.0,
+            "currentTriggers": [],
+            "pendingTriggers": []
+          }
+        }
+      ],
+      "speech": {
+        "acceptedOutcomes": 4,
+        "declaredAcceptedOutcomes": 4,
+        "evidenceRows": 4,
+        "committedTextRows": 4,
+        "missingAcceptedOutcomeIndices": [],
+        "rowsWithMissingReasons": [],
+        "uniqueEvidenceOutcomeIndices": 4
+      },
+      "model": {
+        "declaredRequestedModel": null,
+        "observedRequestedModels": null,
+        "observedReturnedModels": null,
+        "providerMeasurementRecords": null,
+        "usage": {
+          "promptTokens": null,
+          "knownPromptTokens": null,
+          "promptTokensKnownRecords": 0,
+          "completionTokens": null,
+          "knownCompletionTokens": null,
+          "completionTokensKnownRecords": 0,
+          "totalTokens": null,
+          "knownTotalTokens": null,
+          "totalTokensKnownRecords": 0
+        },
+        "cost": null
+      },
+      "utcEvidence": {
+        "result": {
+          "startedAtUtc": "2026-09-19T17:17:21.3816143Z",
+          "cleanupStartedAtUtc": "2026-09-19T17:17:43.9034442Z",
+          "finishedAtUtc": "2026-09-19T17:17:44.4538449Z"
+        },
+        "ledger": [
+          {
+            "event": "world_published",
+            "recordedAtUtc": "2026-09-19T17:16:52.461339+00:00",
+            "reason": null,
+            "status": null
+          },
+          {
+            "event": "world_started",
+            "recordedAtUtc": "2026-09-19T17:17:21.189082+00:00",
+            "reason": null,
+            "status": null
+          },
+          {
+            "event": "study_aborted",
+            "recordedAtUtc": "2026-09-19T17:17:44.498198+00:00",
+            "reason": "experiment.host_or_replay_failed",
+            "status": "host_failure"
+          }
+        ],
+        "firstTimelineAtUtc": "2026-09-19T17:17:21.3934258Z",
+        "lastTimelineAtUtc": "2026-09-19T17:17:43.8817147Z",
+        "firstProviderAdmissionAtUtc": null,
+        "lastProviderAdmissionAtUtc": null
+      }
+    },
+    {
+      "worldId": "bd5815ded8b54bc796ecf63f15571aa6",
+      "ordinal": 2,
+      "repetition": 1,
+      "pairId": "8b28180a697d42e59adc4d4e3ac86433",
+      "armOrder": [
+        "F",
+        "S"
+      ],
+      "scenarioId": "available",
+      "speechMode": "S",
+      "stage": "fixed",
+      "directory": "02-bd5815ded8b54bc796ecf63f15571aa6",
+      "status": "not_started",
+      "coordinatorReason": null,
+      "resultStatus": null,
+      "resultReason": null,
+      "hostViolations": null,
+      "replayPassed": null,
+      "manifestCompleted": null,
+      "initialized": null,
+      "providerAttempts": 0,
+      "providerAttemptLedgerRows": 0,
+      "hostCalls": null,
+      "traceCalls": null,
+      "outcomes": null,
+      "completedGameMinutes": null,
+      "realSeconds": null,
+      "initialProxyStatus": null,
+      "proxyCleanup": null,
+      "timelineSamples": 0,
+      "maxObservedInFlight": null,
+      "maxObservedWaitingResidents": null,
+      "npcs": [
+        {
+          "npcId": "npc.shopkeeper_mina",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.farmer_eli",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.fisher_ren",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.cook_sora",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        }
+      ],
+      "speech": {
+        "acceptedOutcomes": null,
+        "declaredAcceptedOutcomes": null,
+        "evidenceRows": null,
+        "committedTextRows": null,
+        "missingAcceptedOutcomeIndices": null,
+        "rowsWithMissingReasons": [],
+        "uniqueEvidenceOutcomeIndices": null
+      },
+      "model": {
+        "declaredRequestedModel": null,
+        "observedRequestedModels": null,
+        "observedReturnedModels": null,
+        "providerMeasurementRecords": null,
+        "usage": {
+          "promptTokens": null,
+          "knownPromptTokens": null,
+          "promptTokensKnownRecords": 0,
+          "completionTokens": null,
+          "knownCompletionTokens": null,
+          "completionTokensKnownRecords": 0,
+          "totalTokens": null,
+          "knownTotalTokens": null,
+          "totalTokensKnownRecords": 0
+        },
+        "cost": null
+      },
+      "utcEvidence": {
+        "result": {
+          "startedAtUtc": null,
+          "cleanupStartedAtUtc": null,
+          "finishedAtUtc": null
+        },
+        "ledger": [],
+        "firstTimelineAtUtc": null,
+        "lastTimelineAtUtc": null,
+        "firstProviderAdmissionAtUtc": null,
+        "lastProviderAdmissionAtUtc": null
+      }
+    },
+    {
+      "worldId": "8e3d80c40dbe4d19920fd372e594c211",
+      "ordinal": 3,
+      "repetition": 1,
+      "pairId": "31fe1132ddb141e8b0fd016c47cf2bae",
+      "armOrder": [
+        "F",
+        "S"
+      ],
+      "scenarioId": "seller_empty",
+      "speechMode": "F",
+      "stage": "fixed",
+      "directory": "03-8e3d80c40dbe4d19920fd372e594c211",
+      "status": "not_started",
+      "coordinatorReason": null,
+      "resultStatus": null,
+      "resultReason": null,
+      "hostViolations": null,
+      "replayPassed": null,
+      "manifestCompleted": null,
+      "initialized": null,
+      "providerAttempts": 0,
+      "providerAttemptLedgerRows": 0,
+      "hostCalls": null,
+      "traceCalls": null,
+      "outcomes": null,
+      "completedGameMinutes": null,
+      "realSeconds": null,
+      "initialProxyStatus": null,
+      "proxyCleanup": null,
+      "timelineSamples": 0,
+      "maxObservedInFlight": null,
+      "maxObservedWaitingResidents": null,
+      "npcs": [
+        {
+          "npcId": "npc.shopkeeper_mina",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.farmer_eli",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.fisher_ren",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.cook_sora",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        }
+      ],
+      "speech": {
+        "acceptedOutcomes": null,
+        "declaredAcceptedOutcomes": null,
+        "evidenceRows": null,
+        "committedTextRows": null,
+        "missingAcceptedOutcomeIndices": null,
+        "rowsWithMissingReasons": [],
+        "uniqueEvidenceOutcomeIndices": null
+      },
+      "model": {
+        "declaredRequestedModel": null,
+        "observedRequestedModels": null,
+        "observedReturnedModels": null,
+        "providerMeasurementRecords": null,
+        "usage": {
+          "promptTokens": null,
+          "knownPromptTokens": null,
+          "promptTokensKnownRecords": 0,
+          "completionTokens": null,
+          "knownCompletionTokens": null,
+          "completionTokensKnownRecords": 0,
+          "totalTokens": null,
+          "knownTotalTokens": null,
+          "totalTokensKnownRecords": 0
+        },
+        "cost": null
+      },
+      "utcEvidence": {
+        "result": {
+          "startedAtUtc": null,
+          "cleanupStartedAtUtc": null,
+          "finishedAtUtc": null
+        },
+        "ledger": [],
+        "firstTimelineAtUtc": null,
+        "lastTimelineAtUtc": null,
+        "firstProviderAdmissionAtUtc": null,
+        "lastProviderAdmissionAtUtc": null
+      }
+    },
+    {
+      "worldId": "cedb141fd12e43a480dd7f50221cd294",
+      "ordinal": 4,
+      "repetition": 1,
+      "pairId": "31fe1132ddb141e8b0fd016c47cf2bae",
+      "armOrder": [
+        "F",
+        "S"
+      ],
+      "scenarioId": "seller_empty",
+      "speechMode": "S",
+      "stage": "fixed",
+      "directory": "04-cedb141fd12e43a480dd7f50221cd294",
+      "status": "not_started",
+      "coordinatorReason": null,
+      "resultStatus": null,
+      "resultReason": null,
+      "hostViolations": null,
+      "replayPassed": null,
+      "manifestCompleted": null,
+      "initialized": null,
+      "providerAttempts": 0,
+      "providerAttemptLedgerRows": 0,
+      "hostCalls": null,
+      "traceCalls": null,
+      "outcomes": null,
+      "completedGameMinutes": null,
+      "realSeconds": null,
+      "initialProxyStatus": null,
+      "proxyCleanup": null,
+      "timelineSamples": 0,
+      "maxObservedInFlight": null,
+      "maxObservedWaitingResidents": null,
+      "npcs": [
+        {
+          "npcId": "npc.shopkeeper_mina",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.farmer_eli",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.fisher_ren",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.cook_sora",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        }
+      ],
+      "speech": {
+        "acceptedOutcomes": null,
+        "declaredAcceptedOutcomes": null,
+        "evidenceRows": null,
+        "committedTextRows": null,
+        "missingAcceptedOutcomeIndices": null,
+        "rowsWithMissingReasons": [],
+        "uniqueEvidenceOutcomeIndices": null
+      },
+      "model": {
+        "declaredRequestedModel": null,
+        "observedRequestedModels": null,
+        "observedReturnedModels": null,
+        "providerMeasurementRecords": null,
+        "usage": {
+          "promptTokens": null,
+          "knownPromptTokens": null,
+          "promptTokensKnownRecords": 0,
+          "completionTokens": null,
+          "knownCompletionTokens": null,
+          "completionTokensKnownRecords": 0,
+          "totalTokens": null,
+          "knownTotalTokens": null,
+          "totalTokensKnownRecords": 0
+        },
+        "cost": null
+      },
+      "utcEvidence": {
+        "result": {
+          "startedAtUtc": null,
+          "cleanupStartedAtUtc": null,
+          "finishedAtUtc": null
+        },
+        "ledger": [],
+        "firstTimelineAtUtc": null,
+        "lastTimelineAtUtc": null,
+        "firstProviderAdmissionAtUtc": null,
+        "lastProviderAdmissionAtUtc": null
+      }
+    },
+    {
+      "worldId": "b7fda00124554384b4ea2a5484e19dd1",
+      "ordinal": 5,
+      "repetition": 1,
+      "pairId": "f0bee3d3a74b4fc484a8208653f2f5cd",
+      "armOrder": [
+        "F",
+        "S"
+      ],
+      "scenarioId": "buyer_poor",
+      "speechMode": "F",
+      "stage": "fixed",
+      "directory": "05-b7fda00124554384b4ea2a5484e19dd1",
+      "status": "not_started",
+      "coordinatorReason": null,
+      "resultStatus": null,
+      "resultReason": null,
+      "hostViolations": null,
+      "replayPassed": null,
+      "manifestCompleted": null,
+      "initialized": null,
+      "providerAttempts": 0,
+      "providerAttemptLedgerRows": 0,
+      "hostCalls": null,
+      "traceCalls": null,
+      "outcomes": null,
+      "completedGameMinutes": null,
+      "realSeconds": null,
+      "initialProxyStatus": null,
+      "proxyCleanup": null,
+      "timelineSamples": 0,
+      "maxObservedInFlight": null,
+      "maxObservedWaitingResidents": null,
+      "npcs": [
+        {
+          "npcId": "npc.shopkeeper_mina",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.farmer_eli",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.fisher_ren",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.cook_sora",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        }
+      ],
+      "speech": {
+        "acceptedOutcomes": null,
+        "declaredAcceptedOutcomes": null,
+        "evidenceRows": null,
+        "committedTextRows": null,
+        "missingAcceptedOutcomeIndices": null,
+        "rowsWithMissingReasons": [],
+        "uniqueEvidenceOutcomeIndices": null
+      },
+      "model": {
+        "declaredRequestedModel": null,
+        "observedRequestedModels": null,
+        "observedReturnedModels": null,
+        "providerMeasurementRecords": null,
+        "usage": {
+          "promptTokens": null,
+          "knownPromptTokens": null,
+          "promptTokensKnownRecords": 0,
+          "completionTokens": null,
+          "knownCompletionTokens": null,
+          "completionTokensKnownRecords": 0,
+          "totalTokens": null,
+          "knownTotalTokens": null,
+          "totalTokensKnownRecords": 0
+        },
+        "cost": null
+      },
+      "utcEvidence": {
+        "result": {
+          "startedAtUtc": null,
+          "cleanupStartedAtUtc": null,
+          "finishedAtUtc": null
+        },
+        "ledger": [],
+        "firstTimelineAtUtc": null,
+        "lastTimelineAtUtc": null,
+        "firstProviderAdmissionAtUtc": null,
+        "lastProviderAdmissionAtUtc": null
+      }
+    },
+    {
+      "worldId": "1d07d27f920d4ab1ab69c3bc43c8b8b1",
+      "ordinal": 6,
+      "repetition": 1,
+      "pairId": "f0bee3d3a74b4fc484a8208653f2f5cd",
+      "armOrder": [
+        "F",
+        "S"
+      ],
+      "scenarioId": "buyer_poor",
+      "speechMode": "S",
+      "stage": "fixed",
+      "directory": "06-1d07d27f920d4ab1ab69c3bc43c8b8b1",
+      "status": "not_started",
+      "coordinatorReason": null,
+      "resultStatus": null,
+      "resultReason": null,
+      "hostViolations": null,
+      "replayPassed": null,
+      "manifestCompleted": null,
+      "initialized": null,
+      "providerAttempts": 0,
+      "providerAttemptLedgerRows": 0,
+      "hostCalls": null,
+      "traceCalls": null,
+      "outcomes": null,
+      "completedGameMinutes": null,
+      "realSeconds": null,
+      "initialProxyStatus": null,
+      "proxyCleanup": null,
+      "timelineSamples": 0,
+      "maxObservedInFlight": null,
+      "maxObservedWaitingResidents": null,
+      "npcs": [
+        {
+          "npcId": "npc.shopkeeper_mina",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.farmer_eli",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.fisher_ren",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.cook_sora",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        }
+      ],
+      "speech": {
+        "acceptedOutcomes": null,
+        "declaredAcceptedOutcomes": null,
+        "evidenceRows": null,
+        "committedTextRows": null,
+        "missingAcceptedOutcomeIndices": null,
+        "rowsWithMissingReasons": [],
+        "uniqueEvidenceOutcomeIndices": null
+      },
+      "model": {
+        "declaredRequestedModel": null,
+        "observedRequestedModels": null,
+        "observedReturnedModels": null,
+        "providerMeasurementRecords": null,
+        "usage": {
+          "promptTokens": null,
+          "knownPromptTokens": null,
+          "promptTokensKnownRecords": 0,
+          "completionTokens": null,
+          "knownCompletionTokens": null,
+          "completionTokensKnownRecords": 0,
+          "totalTokens": null,
+          "knownTotalTokens": null,
+          "totalTokensKnownRecords": 0
+        },
+        "cost": null
+      },
+      "utcEvidence": {
+        "result": {
+          "startedAtUtc": null,
+          "cleanupStartedAtUtc": null,
+          "finishedAtUtc": null
+        },
+        "ledger": [],
+        "firstTimelineAtUtc": null,
+        "lastTimelineAtUtc": null,
+        "firstProviderAdmissionAtUtc": null,
+        "lastProviderAdmissionAtUtc": null
+      }
+    },
+    {
+      "worldId": "127eb74b425e4f40b81fcf88eab27a27",
+      "ordinal": 7,
+      "repetition": 1,
+      "pairId": "d060b5491456428fb02af8b5dad1030a",
+      "armOrder": [
+        "F",
+        "S"
+      ],
+      "scenarioId": "need_satisfied",
+      "speechMode": "F",
+      "stage": "fixed",
+      "directory": "07-127eb74b425e4f40b81fcf88eab27a27",
+      "status": "not_started",
+      "coordinatorReason": null,
+      "resultStatus": null,
+      "resultReason": null,
+      "hostViolations": null,
+      "replayPassed": null,
+      "manifestCompleted": null,
+      "initialized": null,
+      "providerAttempts": 0,
+      "providerAttemptLedgerRows": 0,
+      "hostCalls": null,
+      "traceCalls": null,
+      "outcomes": null,
+      "completedGameMinutes": null,
+      "realSeconds": null,
+      "initialProxyStatus": null,
+      "proxyCleanup": null,
+      "timelineSamples": 0,
+      "maxObservedInFlight": null,
+      "maxObservedWaitingResidents": null,
+      "npcs": [
+        {
+          "npcId": "npc.shopkeeper_mina",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.farmer_eli",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.fisher_ren",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.cook_sora",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        }
+      ],
+      "speech": {
+        "acceptedOutcomes": null,
+        "declaredAcceptedOutcomes": null,
+        "evidenceRows": null,
+        "committedTextRows": null,
+        "missingAcceptedOutcomeIndices": null,
+        "rowsWithMissingReasons": [],
+        "uniqueEvidenceOutcomeIndices": null
+      },
+      "model": {
+        "declaredRequestedModel": null,
+        "observedRequestedModels": null,
+        "observedReturnedModels": null,
+        "providerMeasurementRecords": null,
+        "usage": {
+          "promptTokens": null,
+          "knownPromptTokens": null,
+          "promptTokensKnownRecords": 0,
+          "completionTokens": null,
+          "knownCompletionTokens": null,
+          "completionTokensKnownRecords": 0,
+          "totalTokens": null,
+          "knownTotalTokens": null,
+          "totalTokensKnownRecords": 0
+        },
+        "cost": null
+      },
+      "utcEvidence": {
+        "result": {
+          "startedAtUtc": null,
+          "cleanupStartedAtUtc": null,
+          "finishedAtUtc": null
+        },
+        "ledger": [],
+        "firstTimelineAtUtc": null,
+        "lastTimelineAtUtc": null,
+        "firstProviderAdmissionAtUtc": null,
+        "lastProviderAdmissionAtUtc": null
+      }
+    },
+    {
+      "worldId": "320a2e09ad5a4d7fa0cc192c9b1f97de",
+      "ordinal": 8,
+      "repetition": 1,
+      "pairId": "d060b5491456428fb02af8b5dad1030a",
+      "armOrder": [
+        "F",
+        "S"
+      ],
+      "scenarioId": "need_satisfied",
+      "speechMode": "S",
+      "stage": "fixed",
+      "directory": "08-320a2e09ad5a4d7fa0cc192c9b1f97de",
+      "status": "not_started",
+      "coordinatorReason": null,
+      "resultStatus": null,
+      "resultReason": null,
+      "hostViolations": null,
+      "replayPassed": null,
+      "manifestCompleted": null,
+      "initialized": null,
+      "providerAttempts": 0,
+      "providerAttemptLedgerRows": 0,
+      "hostCalls": null,
+      "traceCalls": null,
+      "outcomes": null,
+      "completedGameMinutes": null,
+      "realSeconds": null,
+      "initialProxyStatus": null,
+      "proxyCleanup": null,
+      "timelineSamples": 0,
+      "maxObservedInFlight": null,
+      "maxObservedWaitingResidents": null,
+      "npcs": [
+        {
+          "npcId": "npc.shopkeeper_mina",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.farmer_eli",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.fisher_ren",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.cook_sora",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        }
+      ],
+      "speech": {
+        "acceptedOutcomes": null,
+        "declaredAcceptedOutcomes": null,
+        "evidenceRows": null,
+        "committedTextRows": null,
+        "missingAcceptedOutcomeIndices": null,
+        "rowsWithMissingReasons": [],
+        "uniqueEvidenceOutcomeIndices": null
+      },
+      "model": {
+        "declaredRequestedModel": null,
+        "observedRequestedModels": null,
+        "observedReturnedModels": null,
+        "providerMeasurementRecords": null,
+        "usage": {
+          "promptTokens": null,
+          "knownPromptTokens": null,
+          "promptTokensKnownRecords": 0,
+          "completionTokens": null,
+          "knownCompletionTokens": null,
+          "completionTokensKnownRecords": 0,
+          "totalTokens": null,
+          "knownTotalTokens": null,
+          "totalTokensKnownRecords": 0
+        },
+        "cost": null
+      },
+      "utcEvidence": {
+        "result": {
+          "startedAtUtc": null,
+          "cleanupStartedAtUtc": null,
+          "finishedAtUtc": null
+        },
+        "ledger": [],
+        "firstTimelineAtUtc": null,
+        "lastTimelineAtUtc": null,
+        "firstProviderAdmissionAtUtc": null,
+        "lastProviderAdmissionAtUtc": null
+      }
+    },
+    {
+      "worldId": "280d57fd8e8c4c9fa376f6b47215dd79",
+      "ordinal": 9,
+      "repetition": 2,
+      "pairId": "26baf474e8e84cbb8a3845ef0b62a64f",
+      "armOrder": [
+        "S",
+        "F"
+      ],
+      "scenarioId": "available",
+      "speechMode": "S",
+      "stage": "fixed",
+      "directory": "09-280d57fd8e8c4c9fa376f6b47215dd79",
+      "status": "not_started",
+      "coordinatorReason": null,
+      "resultStatus": null,
+      "resultReason": null,
+      "hostViolations": null,
+      "replayPassed": null,
+      "manifestCompleted": null,
+      "initialized": null,
+      "providerAttempts": 0,
+      "providerAttemptLedgerRows": 0,
+      "hostCalls": null,
+      "traceCalls": null,
+      "outcomes": null,
+      "completedGameMinutes": null,
+      "realSeconds": null,
+      "initialProxyStatus": null,
+      "proxyCleanup": null,
+      "timelineSamples": 0,
+      "maxObservedInFlight": null,
+      "maxObservedWaitingResidents": null,
+      "npcs": [
+        {
+          "npcId": "npc.shopkeeper_mina",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.farmer_eli",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.fisher_ren",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.cook_sora",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        }
+      ],
+      "speech": {
+        "acceptedOutcomes": null,
+        "declaredAcceptedOutcomes": null,
+        "evidenceRows": null,
+        "committedTextRows": null,
+        "missingAcceptedOutcomeIndices": null,
+        "rowsWithMissingReasons": [],
+        "uniqueEvidenceOutcomeIndices": null
+      },
+      "model": {
+        "declaredRequestedModel": null,
+        "observedRequestedModels": null,
+        "observedReturnedModels": null,
+        "providerMeasurementRecords": null,
+        "usage": {
+          "promptTokens": null,
+          "knownPromptTokens": null,
+          "promptTokensKnownRecords": 0,
+          "completionTokens": null,
+          "knownCompletionTokens": null,
+          "completionTokensKnownRecords": 0,
+          "totalTokens": null,
+          "knownTotalTokens": null,
+          "totalTokensKnownRecords": 0
+        },
+        "cost": null
+      },
+      "utcEvidence": {
+        "result": {
+          "startedAtUtc": null,
+          "cleanupStartedAtUtc": null,
+          "finishedAtUtc": null
+        },
+        "ledger": [],
+        "firstTimelineAtUtc": null,
+        "lastTimelineAtUtc": null,
+        "firstProviderAdmissionAtUtc": null,
+        "lastProviderAdmissionAtUtc": null
+      }
+    },
+    {
+      "worldId": "0d8a5d7a7010490bbe53959781996225",
+      "ordinal": 10,
+      "repetition": 2,
+      "pairId": "26baf474e8e84cbb8a3845ef0b62a64f",
+      "armOrder": [
+        "S",
+        "F"
+      ],
+      "scenarioId": "available",
+      "speechMode": "F",
+      "stage": "fixed",
+      "directory": "10-0d8a5d7a7010490bbe53959781996225",
+      "status": "not_started",
+      "coordinatorReason": null,
+      "resultStatus": null,
+      "resultReason": null,
+      "hostViolations": null,
+      "replayPassed": null,
+      "manifestCompleted": null,
+      "initialized": null,
+      "providerAttempts": 0,
+      "providerAttemptLedgerRows": 0,
+      "hostCalls": null,
+      "traceCalls": null,
+      "outcomes": null,
+      "completedGameMinutes": null,
+      "realSeconds": null,
+      "initialProxyStatus": null,
+      "proxyCleanup": null,
+      "timelineSamples": 0,
+      "maxObservedInFlight": null,
+      "maxObservedWaitingResidents": null,
+      "npcs": [
+        {
+          "npcId": "npc.shopkeeper_mina",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.farmer_eli",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.fisher_ren",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.cook_sora",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        }
+      ],
+      "speech": {
+        "acceptedOutcomes": null,
+        "declaredAcceptedOutcomes": null,
+        "evidenceRows": null,
+        "committedTextRows": null,
+        "missingAcceptedOutcomeIndices": null,
+        "rowsWithMissingReasons": [],
+        "uniqueEvidenceOutcomeIndices": null
+      },
+      "model": {
+        "declaredRequestedModel": null,
+        "observedRequestedModels": null,
+        "observedReturnedModels": null,
+        "providerMeasurementRecords": null,
+        "usage": {
+          "promptTokens": null,
+          "knownPromptTokens": null,
+          "promptTokensKnownRecords": 0,
+          "completionTokens": null,
+          "knownCompletionTokens": null,
+          "completionTokensKnownRecords": 0,
+          "totalTokens": null,
+          "knownTotalTokens": null,
+          "totalTokensKnownRecords": 0
+        },
+        "cost": null
+      },
+      "utcEvidence": {
+        "result": {
+          "startedAtUtc": null,
+          "cleanupStartedAtUtc": null,
+          "finishedAtUtc": null
+        },
+        "ledger": [],
+        "firstTimelineAtUtc": null,
+        "lastTimelineAtUtc": null,
+        "firstProviderAdmissionAtUtc": null,
+        "lastProviderAdmissionAtUtc": null
+      }
+    },
+    {
+      "worldId": "62aa902d446f4f00b80da5c126f3d27a",
+      "ordinal": 11,
+      "repetition": 2,
+      "pairId": "0ad4027af08240f4bc49934160cc815e",
+      "armOrder": [
+        "S",
+        "F"
+      ],
+      "scenarioId": "seller_empty",
+      "speechMode": "S",
+      "stage": "fixed",
+      "directory": "11-62aa902d446f4f00b80da5c126f3d27a",
+      "status": "not_started",
+      "coordinatorReason": null,
+      "resultStatus": null,
+      "resultReason": null,
+      "hostViolations": null,
+      "replayPassed": null,
+      "manifestCompleted": null,
+      "initialized": null,
+      "providerAttempts": 0,
+      "providerAttemptLedgerRows": 0,
+      "hostCalls": null,
+      "traceCalls": null,
+      "outcomes": null,
+      "completedGameMinutes": null,
+      "realSeconds": null,
+      "initialProxyStatus": null,
+      "proxyCleanup": null,
+      "timelineSamples": 0,
+      "maxObservedInFlight": null,
+      "maxObservedWaitingResidents": null,
+      "npcs": [
+        {
+          "npcId": "npc.shopkeeper_mina",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.farmer_eli",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.fisher_ren",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.cook_sora",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        }
+      ],
+      "speech": {
+        "acceptedOutcomes": null,
+        "declaredAcceptedOutcomes": null,
+        "evidenceRows": null,
+        "committedTextRows": null,
+        "missingAcceptedOutcomeIndices": null,
+        "rowsWithMissingReasons": [],
+        "uniqueEvidenceOutcomeIndices": null
+      },
+      "model": {
+        "declaredRequestedModel": null,
+        "observedRequestedModels": null,
+        "observedReturnedModels": null,
+        "providerMeasurementRecords": null,
+        "usage": {
+          "promptTokens": null,
+          "knownPromptTokens": null,
+          "promptTokensKnownRecords": 0,
+          "completionTokens": null,
+          "knownCompletionTokens": null,
+          "completionTokensKnownRecords": 0,
+          "totalTokens": null,
+          "knownTotalTokens": null,
+          "totalTokensKnownRecords": 0
+        },
+        "cost": null
+      },
+      "utcEvidence": {
+        "result": {
+          "startedAtUtc": null,
+          "cleanupStartedAtUtc": null,
+          "finishedAtUtc": null
+        },
+        "ledger": [],
+        "firstTimelineAtUtc": null,
+        "lastTimelineAtUtc": null,
+        "firstProviderAdmissionAtUtc": null,
+        "lastProviderAdmissionAtUtc": null
+      }
+    },
+    {
+      "worldId": "de9f2877b3f14863bc3457e9d3f593c8",
+      "ordinal": 12,
+      "repetition": 2,
+      "pairId": "0ad4027af08240f4bc49934160cc815e",
+      "armOrder": [
+        "S",
+        "F"
+      ],
+      "scenarioId": "seller_empty",
+      "speechMode": "F",
+      "stage": "fixed",
+      "directory": "12-de9f2877b3f14863bc3457e9d3f593c8",
+      "status": "not_started",
+      "coordinatorReason": null,
+      "resultStatus": null,
+      "resultReason": null,
+      "hostViolations": null,
+      "replayPassed": null,
+      "manifestCompleted": null,
+      "initialized": null,
+      "providerAttempts": 0,
+      "providerAttemptLedgerRows": 0,
+      "hostCalls": null,
+      "traceCalls": null,
+      "outcomes": null,
+      "completedGameMinutes": null,
+      "realSeconds": null,
+      "initialProxyStatus": null,
+      "proxyCleanup": null,
+      "timelineSamples": 0,
+      "maxObservedInFlight": null,
+      "maxObservedWaitingResidents": null,
+      "npcs": [
+        {
+          "npcId": "npc.shopkeeper_mina",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.farmer_eli",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.fisher_ren",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.cook_sora",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        }
+      ],
+      "speech": {
+        "acceptedOutcomes": null,
+        "declaredAcceptedOutcomes": null,
+        "evidenceRows": null,
+        "committedTextRows": null,
+        "missingAcceptedOutcomeIndices": null,
+        "rowsWithMissingReasons": [],
+        "uniqueEvidenceOutcomeIndices": null
+      },
+      "model": {
+        "declaredRequestedModel": null,
+        "observedRequestedModels": null,
+        "observedReturnedModels": null,
+        "providerMeasurementRecords": null,
+        "usage": {
+          "promptTokens": null,
+          "knownPromptTokens": null,
+          "promptTokensKnownRecords": 0,
+          "completionTokens": null,
+          "knownCompletionTokens": null,
+          "completionTokensKnownRecords": 0,
+          "totalTokens": null,
+          "knownTotalTokens": null,
+          "totalTokensKnownRecords": 0
+        },
+        "cost": null
+      },
+      "utcEvidence": {
+        "result": {
+          "startedAtUtc": null,
+          "cleanupStartedAtUtc": null,
+          "finishedAtUtc": null
+        },
+        "ledger": [],
+        "firstTimelineAtUtc": null,
+        "lastTimelineAtUtc": null,
+        "firstProviderAdmissionAtUtc": null,
+        "lastProviderAdmissionAtUtc": null
+      }
+    },
+    {
+      "worldId": "8df1086c927b480383c72a7efcfa9b23",
+      "ordinal": 13,
+      "repetition": 2,
+      "pairId": "ef7288755fe24c3ebeb86a135d5c589c",
+      "armOrder": [
+        "S",
+        "F"
+      ],
+      "scenarioId": "buyer_poor",
+      "speechMode": "S",
+      "stage": "fixed",
+      "directory": "13-8df1086c927b480383c72a7efcfa9b23",
+      "status": "not_started",
+      "coordinatorReason": null,
+      "resultStatus": null,
+      "resultReason": null,
+      "hostViolations": null,
+      "replayPassed": null,
+      "manifestCompleted": null,
+      "initialized": null,
+      "providerAttempts": 0,
+      "providerAttemptLedgerRows": 0,
+      "hostCalls": null,
+      "traceCalls": null,
+      "outcomes": null,
+      "completedGameMinutes": null,
+      "realSeconds": null,
+      "initialProxyStatus": null,
+      "proxyCleanup": null,
+      "timelineSamples": 0,
+      "maxObservedInFlight": null,
+      "maxObservedWaitingResidents": null,
+      "npcs": [
+        {
+          "npcId": "npc.shopkeeper_mina",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.farmer_eli",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.fisher_ren",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.cook_sora",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        }
+      ],
+      "speech": {
+        "acceptedOutcomes": null,
+        "declaredAcceptedOutcomes": null,
+        "evidenceRows": null,
+        "committedTextRows": null,
+        "missingAcceptedOutcomeIndices": null,
+        "rowsWithMissingReasons": [],
+        "uniqueEvidenceOutcomeIndices": null
+      },
+      "model": {
+        "declaredRequestedModel": null,
+        "observedRequestedModels": null,
+        "observedReturnedModels": null,
+        "providerMeasurementRecords": null,
+        "usage": {
+          "promptTokens": null,
+          "knownPromptTokens": null,
+          "promptTokensKnownRecords": 0,
+          "completionTokens": null,
+          "knownCompletionTokens": null,
+          "completionTokensKnownRecords": 0,
+          "totalTokens": null,
+          "knownTotalTokens": null,
+          "totalTokensKnownRecords": 0
+        },
+        "cost": null
+      },
+      "utcEvidence": {
+        "result": {
+          "startedAtUtc": null,
+          "cleanupStartedAtUtc": null,
+          "finishedAtUtc": null
+        },
+        "ledger": [],
+        "firstTimelineAtUtc": null,
+        "lastTimelineAtUtc": null,
+        "firstProviderAdmissionAtUtc": null,
+        "lastProviderAdmissionAtUtc": null
+      }
+    },
+    {
+      "worldId": "7504bb523e184a9e9cfc48cc284744e8",
+      "ordinal": 14,
+      "repetition": 2,
+      "pairId": "ef7288755fe24c3ebeb86a135d5c589c",
+      "armOrder": [
+        "S",
+        "F"
+      ],
+      "scenarioId": "buyer_poor",
+      "speechMode": "F",
+      "stage": "fixed",
+      "directory": "14-7504bb523e184a9e9cfc48cc284744e8",
+      "status": "not_started",
+      "coordinatorReason": null,
+      "resultStatus": null,
+      "resultReason": null,
+      "hostViolations": null,
+      "replayPassed": null,
+      "manifestCompleted": null,
+      "initialized": null,
+      "providerAttempts": 0,
+      "providerAttemptLedgerRows": 0,
+      "hostCalls": null,
+      "traceCalls": null,
+      "outcomes": null,
+      "completedGameMinutes": null,
+      "realSeconds": null,
+      "initialProxyStatus": null,
+      "proxyCleanup": null,
+      "timelineSamples": 0,
+      "maxObservedInFlight": null,
+      "maxObservedWaitingResidents": null,
+      "npcs": [
+        {
+          "npcId": "npc.shopkeeper_mina",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.farmer_eli",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.fisher_ren",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.cook_sora",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        }
+      ],
+      "speech": {
+        "acceptedOutcomes": null,
+        "declaredAcceptedOutcomes": null,
+        "evidenceRows": null,
+        "committedTextRows": null,
+        "missingAcceptedOutcomeIndices": null,
+        "rowsWithMissingReasons": [],
+        "uniqueEvidenceOutcomeIndices": null
+      },
+      "model": {
+        "declaredRequestedModel": null,
+        "observedRequestedModels": null,
+        "observedReturnedModels": null,
+        "providerMeasurementRecords": null,
+        "usage": {
+          "promptTokens": null,
+          "knownPromptTokens": null,
+          "promptTokensKnownRecords": 0,
+          "completionTokens": null,
+          "knownCompletionTokens": null,
+          "completionTokensKnownRecords": 0,
+          "totalTokens": null,
+          "knownTotalTokens": null,
+          "totalTokensKnownRecords": 0
+        },
+        "cost": null
+      },
+      "utcEvidence": {
+        "result": {
+          "startedAtUtc": null,
+          "cleanupStartedAtUtc": null,
+          "finishedAtUtc": null
+        },
+        "ledger": [],
+        "firstTimelineAtUtc": null,
+        "lastTimelineAtUtc": null,
+        "firstProviderAdmissionAtUtc": null,
+        "lastProviderAdmissionAtUtc": null
+      }
+    },
+    {
+      "worldId": "8b0b38a4b70848faa24c15897d50e928",
+      "ordinal": 15,
+      "repetition": 2,
+      "pairId": "3e6bcd371c9646c3b2fac5ddf85bee52",
+      "armOrder": [
+        "S",
+        "F"
+      ],
+      "scenarioId": "need_satisfied",
+      "speechMode": "S",
+      "stage": "fixed",
+      "directory": "15-8b0b38a4b70848faa24c15897d50e928",
+      "status": "not_started",
+      "coordinatorReason": null,
+      "resultStatus": null,
+      "resultReason": null,
+      "hostViolations": null,
+      "replayPassed": null,
+      "manifestCompleted": null,
+      "initialized": null,
+      "providerAttempts": 0,
+      "providerAttemptLedgerRows": 0,
+      "hostCalls": null,
+      "traceCalls": null,
+      "outcomes": null,
+      "completedGameMinutes": null,
+      "realSeconds": null,
+      "initialProxyStatus": null,
+      "proxyCleanup": null,
+      "timelineSamples": 0,
+      "maxObservedInFlight": null,
+      "maxObservedWaitingResidents": null,
+      "npcs": [
+        {
+          "npcId": "npc.shopkeeper_mina",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.farmer_eli",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.fisher_ren",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.cook_sora",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        }
+      ],
+      "speech": {
+        "acceptedOutcomes": null,
+        "declaredAcceptedOutcomes": null,
+        "evidenceRows": null,
+        "committedTextRows": null,
+        "missingAcceptedOutcomeIndices": null,
+        "rowsWithMissingReasons": [],
+        "uniqueEvidenceOutcomeIndices": null
+      },
+      "model": {
+        "declaredRequestedModel": null,
+        "observedRequestedModels": null,
+        "observedReturnedModels": null,
+        "providerMeasurementRecords": null,
+        "usage": {
+          "promptTokens": null,
+          "knownPromptTokens": null,
+          "promptTokensKnownRecords": 0,
+          "completionTokens": null,
+          "knownCompletionTokens": null,
+          "completionTokensKnownRecords": 0,
+          "totalTokens": null,
+          "knownTotalTokens": null,
+          "totalTokensKnownRecords": 0
+        },
+        "cost": null
+      },
+      "utcEvidence": {
+        "result": {
+          "startedAtUtc": null,
+          "cleanupStartedAtUtc": null,
+          "finishedAtUtc": null
+        },
+        "ledger": [],
+        "firstTimelineAtUtc": null,
+        "lastTimelineAtUtc": null,
+        "firstProviderAdmissionAtUtc": null,
+        "lastProviderAdmissionAtUtc": null
+      }
+    },
+    {
+      "worldId": "eb2483e26ba14507948f096929e872a2",
+      "ordinal": 16,
+      "repetition": 2,
+      "pairId": "3e6bcd371c9646c3b2fac5ddf85bee52",
+      "armOrder": [
+        "S",
+        "F"
+      ],
+      "scenarioId": "need_satisfied",
+      "speechMode": "F",
+      "stage": "fixed",
+      "directory": "16-eb2483e26ba14507948f096929e872a2",
+      "status": "not_started",
+      "coordinatorReason": null,
+      "resultStatus": null,
+      "resultReason": null,
+      "hostViolations": null,
+      "replayPassed": null,
+      "manifestCompleted": null,
+      "initialized": null,
+      "providerAttempts": 0,
+      "providerAttemptLedgerRows": 0,
+      "hostCalls": null,
+      "traceCalls": null,
+      "outcomes": null,
+      "completedGameMinutes": null,
+      "realSeconds": null,
+      "initialProxyStatus": null,
+      "proxyCleanup": null,
+      "timelineSamples": 0,
+      "maxObservedInFlight": null,
+      "maxObservedWaitingResidents": null,
+      "npcs": [
+        {
+          "npcId": "npc.shopkeeper_mina",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.farmer_eli",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.fisher_ren",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        },
+        {
+          "npcId": "npc.cook_sora",
+          "days": {
+            "D1": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            },
+            "D2": {
+              "dispatches": null,
+              "outcomes": null,
+              "outcomeCodes": {},
+              "providerAttemptsMatchedToTrace": 0,
+              "firstDispatch": null,
+              "lastDispatch": null
+            }
+          },
+          "timelineSamples": 0,
+          "meetingPhaseSamples": [],
+          "activityReleaseSamples": [],
+          "bodyStatusSampleCounts": {},
+          "lastObservedState": null
+        }
+      ],
+      "speech": {
+        "acceptedOutcomes": null,
+        "declaredAcceptedOutcomes": null,
+        "evidenceRows": null,
+        "committedTextRows": null,
+        "missingAcceptedOutcomeIndices": null,
+        "rowsWithMissingReasons": [],
+        "uniqueEvidenceOutcomeIndices": null
+      },
+      "model": {
+        "declaredRequestedModel": null,
+        "observedRequestedModels": null,
+        "observedReturnedModels": null,
+        "providerMeasurementRecords": null,
+        "usage": {
+          "promptTokens": null,
+          "knownPromptTokens": null,
+          "promptTokensKnownRecords": 0,
+          "completionTokens": null,
+          "knownCompletionTokens": null,
+          "completionTokensKnownRecords": 0,
+          "totalTokens": null,
+          "knownTotalTokens": null,
+          "totalTokensKnownRecords": 0
+        },
+        "cost": null
+      },
+      "utcEvidence": {
+        "result": {
+          "startedAtUtc": null,
+          "cleanupStartedAtUtc": null,
+          "finishedAtUtc": null
+        },
+        "ledger": [],
+        "firstTimelineAtUtc": null,
+        "lastTimelineAtUtc": null,
+        "firstProviderAdmissionAtUtc": null,
+        "lastProviderAdmissionAtUtc": null
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "pairId": "8b28180a697d42e59adc4d4e3ac86433",
+      "scenarioId": "available",
+      "repetition": 1,
+      "worldIds": [
+        "b0eda16037f844838a791ae344b6a5ac",
+        "bd5815ded8b54bc796ecf63f15571aa6"
+      ],
+      "status": "not_compared",
+      "reportPath": null,
+      "report": null
+    },
+    {
+      "pairId": "31fe1132ddb141e8b0fd016c47cf2bae",
+      "scenarioId": "seller_empty",
+      "repetition": 1,
+      "worldIds": [
+        "8e3d80c40dbe4d19920fd372e594c211",
+        "cedb141fd12e43a480dd7f50221cd294"
+      ],
+      "status": "not_compared",
+      "reportPath": null,
+      "report": null
+    },
+    {
+      "pairId": "f0bee3d3a74b4fc484a8208653f2f5cd",
+      "scenarioId": "buyer_poor",
+      "repetition": 1,
+      "worldIds": [
+        "b7fda00124554384b4ea2a5484e19dd1",
+        "1d07d27f920d4ab1ab69c3bc43c8b8b1"
+      ],
+      "status": "not_compared",
+      "reportPath": null,
+      "report": null
+    },
+    {
+      "pairId": "d060b5491456428fb02af8b5dad1030a",
+      "scenarioId": "need_satisfied",
+      "repetition": 1,
+      "worldIds": [
+        "127eb74b425e4f40b81fcf88eab27a27",
+        "320a2e09ad5a4d7fa0cc192c9b1f97de"
+      ],
+      "status": "not_compared",
+      "reportPath": null,
+      "report": null
+    },
+    {
+      "pairId": "26baf474e8e84cbb8a3845ef0b62a64f",
+      "scenarioId": "available",
+      "repetition": 2,
+      "worldIds": [
+        "280d57fd8e8c4c9fa376f6b47215dd79",
+        "0d8a5d7a7010490bbe53959781996225"
+      ],
+      "status": "not_compared",
+      "reportPath": null,
+      "report": null
+    },
+    {
+      "pairId": "0ad4027af08240f4bc49934160cc815e",
+      "scenarioId": "seller_empty",
+      "repetition": 2,
+      "worldIds": [
+        "62aa902d446f4f00b80da5c126f3d27a",
+        "de9f2877b3f14863bc3457e9d3f593c8"
+      ],
+      "status": "not_compared",
+      "reportPath": null,
+      "report": null
+    },
+    {
+      "pairId": "ef7288755fe24c3ebeb86a135d5c589c",
+      "scenarioId": "buyer_poor",
+      "repetition": 2,
+      "worldIds": [
+        "8df1086c927b480383c72a7efcfa9b23",
+        "7504bb523e184a9e9cfc48cc284744e8"
+      ],
+      "status": "not_compared",
+      "reportPath": null,
+      "report": null
+    },
+    {
+      "pairId": "3e6bcd371c9646c3b2fac5ddf85bee52",
+      "scenarioId": "need_satisfied",
+      "repetition": 2,
+      "worldIds": [
+        "8b0b38a4b70848faa24c15897d50e928",
+        "eb2483e26ba14507948f096929e872a2"
+      ],
+      "status": "not_compared",
+      "reportPath": null,
+      "report": null
+    }
+  ],
+  "evidenceFiles": {
+    "plan.json": {
+      "bytes": 17711,
+      "sha256": "3dda971da312298f76cabbfd791119b6a46f6b8d7eb81992b87991e9473026a1"
+    },
+    "status.json": {
+      "bytes": 3669,
+      "sha256": "4b46434bc355f9acd32a3a36d84bc1b7047e611d4f13fb149fe9f1589b5b3de3"
+    },
+    "ledger.jsonl": {
+      "bytes": 641,
+      "sha256": "2e1b4d6635e5ac4978a6be972ae313b9ec96171ddb762382fdb36c4cbf4e7ee8"
+    },
+    "01-b0eda16037f844838a791ae344b6a5ac/result.json": {
+      "bytes": 834,
+      "sha256": "8734ea4ae023785ea83dd26f6aaa4179718f80bfba97a41937878d97f01e4fc5"
+    },
+    "01-b0eda16037f844838a791ae344b6a5ac/package/manifest.json": {
+      "bytes": 1076526,
+      "sha256": "92ad1aa1cc75302fad585ae0dc6712788986289f60a34349e8a785617044cdbf"
+    },
+    "01-b0eda16037f844838a791ae344b6a5ac/timeline.jsonl": {
+      "bytes": 1410965,
+      "sha256": "4ee3a0c07aa904d68a11fca13aaf0c89471f34035186b4b137c83d3261982132"
+    },
+    "01-b0eda16037f844838a791ae344b6a5ac/speech.json": {
+      "bytes": 2128,
+      "sha256": "c1904b2d13cb63b62f97eebbcbaee1c9c0b3ddcfbb6444e10aa894624e0eec4b"
+    }
+  },
+  "warnings": []
+}

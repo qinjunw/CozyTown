@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 16:48:55Z" end-time="2026-09-19 16:48:56Z" duration="0.1728314">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="1106" result="Failed" site="Child" start-time="2026-09-19 16:48:55Z" end-time="2026-09-19 16:48:56Z" duration="0.172831" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message>One or more child tests had errors</message>
+    </failure>
+    <test-suite type="Assembly" id="2378" name="CozyTown.Tests.UnityEditMode.dll" fullname="&lt;project-root&gt;/Library/ScriptAssemblies/CozyTown.Tests.UnityEditMode.dll" runstate="Runnable" testcasecount="364" result="Failed" site="Child" start-time="2026-09-19 16:48:56Z" end-time="2026-09-19 16:48:56Z" duration="0.141852" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="124412" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message>One or more child tests had errors</message>
+      </failure>
+      <test-suite type="TestSuite" id="2379" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="364" result="Failed" site="Child" start-time="2026-09-19 16:48:56Z" end-time="2026-09-19 16:48:56Z" duration="0.135557" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message>One or more child tests had errors</message>
+        </failure>
+        <test-suite type="TestSuite" id="2380" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="364" result="Failed" site="Child" start-time="2026-09-19 16:48:56Z" end-time="2026-09-19 16:48:56Z" duration="0.130108" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message>One or more child tests had errors</message>
+          </failure>
+          <test-suite type="TestSuite" id="2381" name="UnityEditMode" fullname="CozyTown.Tests.UnityEditMode" runstate="Runnable" testcasecount="364" result="Failed" site="Child" start-time="2026-09-19 16:48:56Z" end-time="2026-09-19 16:48:56Z" duration="0.124623" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message>One or more child tests had errors</message>
+            </failure>
+            <test-suite type="TestFixture" id="2001" name="AgentExperimentPairComparisonTests" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" testcasecount="24" result="Failed" site="Child" start-time="2026-09-19 16:48:56Z" end-time="2026-09-19 16:48:56Z" duration="0.111680" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message>One or more child tests had errors</message>
+              </failure>
+              <test-case id="2019" name="ContextComparison_MatchesUnassignedOpportunitiesBeforeLaterMeetings" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_MatchesUnassignedOpportunitiesBeforeLaterMeetings" methodname="ContextComparison_MatchesUnassignedOpportunitiesBeforeLaterMeetings" classname="CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests" runstate="Runnable" seed="1442193718" result="Failed" start-time="2026-09-19 16:48:56Z" end-time="2026-09-19 16:48:56Z" duration="0.082653" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message>  Expected: null
+  But was:  &lt;CozyTown.Unity.Experiments.AgentExperimentContextDivergence&gt;
+</message>
+                  <stack-trace>at CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_MatchesUnassignedOpportunitiesBeforeLaterMeetings () [0x00017] in &lt;project-root&gt;\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentPairComparisonTests.cs:82
+</stack-trace>
+                </failure>
+                <output>Saving results to: &lt;user-home&gt;/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+</output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

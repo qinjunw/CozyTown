@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='utf-8'?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 16:21:44Z" end-time="2026-09-19 16:21:45Z" duration="1.4603574">
+  <test-suite type="TestSuite" id="1384" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="294" result="Failed" site="Child" start-time="2026-09-19 16:21:44Z" end-time="2026-09-19 16:21:45Z" duration="1.460357" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message>One or more child tests had errors</message>
+    </failure>
+    <test-suite type="Assembly" id="1377" name="CozyTown.Tests.PlayMode.dll" fullname="&lt;project-root&gt;/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="294" result="Failed" site="Child" start-time="2026-09-19 16:21:44Z" end-time="2026-09-19 16:21:45Z" duration="1.443956" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="77948" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message>One or more child tests had errors</message>
+      </failure>
+      <test-suite type="TestSuite" id="1378" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="294" result="Failed" site="Child" start-time="2026-09-19 16:21:44Z" end-time="2026-09-19 16:21:45Z" duration="1.439195" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message>One or more child tests had errors</message>
+        </failure>
+        <test-suite type="TestSuite" id="1379" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="294" result="Failed" site="Child" start-time="2026-09-19 16:21:44Z" end-time="2026-09-19 16:21:45Z" duration="1.433913" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message>One or more child tests had errors</message>
+          </failure>
+          <test-suite type="TestSuite" id="1380" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="294" result="Failed" site="Child" start-time="2026-09-19 16:21:44Z" end-time="2026-09-19 16:21:45Z" duration="1.428784" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message>One or more child tests had errors</message>
+            </failure>
+            <test-suite type="TestFixture" id="1017" name="AgentIntegrationSnapshotPlayModeTests" fullname="CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests" classname="CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-19 16:21:44Z" end-time="2026-09-19 16:21:45Z" duration="1.413604" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message>One or more child tests had errors</message>
+              </failure>
+              <test-case id="1018" name="FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay" fullname="CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay" methodname="FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay" classname="CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests" runstate="Runnable" seed="1799643754" result="Failed" start-time="2026-09-19 16:21:44Z" end-time="2026-09-19 16:21:45Z" duration="1.386211" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message>  Expected: not equal to ebe86176-3eee-4175-946a-557dd73394a0
+  But was:  ebe86176-3eee-4175-946a-557dd73394a0
+</message>
+                  <stack-trace>at CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests+&lt;FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay&gt;d__6.MoveNext () [0x0026f] in &lt;project-root&gt;\Assets\CozyTown\Tests\PlayMode\AgentIntegrationSnapshotPlayModeTests.cs:73
+at UnityEngine.TestTools.TestEnumerator+&lt;Execute&gt;d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+</stack-trace>
+                </failure>
+                <output>Saving results to: &lt;user-home&gt;/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+</output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

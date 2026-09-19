@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 17:17:20Z" end-time="2026-09-19 17:17:44Z" duration="24.2163485">
+  <test-suite type="TestSuite" id="1389" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="298" result="Failed" site="Child" start-time="2026-09-19 17:17:20Z" end-time="2026-09-19 17:17:44Z" duration="24.216349" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message>One or more child tests had errors</message>
+    </failure>
+    <test-suite type="Assembly" id="1382" name="CozyTown.Tests.PlayMode.dll" fullname="&lt;project-root&gt;/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="298" result="Failed" site="Child" start-time="2026-09-19 17:17:20Z" end-time="2026-09-19 17:17:44Z" duration="24.199494" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="42780" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message>One or more child tests had errors</message>
+      </failure>
+      <test-suite type="TestSuite" id="1383" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="298" result="Failed" site="Child" start-time="2026-09-19 17:17:20Z" end-time="2026-09-19 17:17:44Z" duration="24.194426" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message>One or more child tests had errors</message>
+        </failure>
+        <test-suite type="TestSuite" id="1384" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="298" result="Failed" site="Child" start-time="2026-09-19 17:17:20Z" end-time="2026-09-19 17:17:44Z" duration="24.190833" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message>One or more child tests had errors</message>
+          </failure>
+          <test-suite type="TestSuite" id="1385" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="298" result="Failed" site="Child" start-time="2026-09-19 17:17:20Z" end-time="2026-09-19 17:17:44Z" duration="24.187258" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message>One or more child tests had errors</message>
+            </failure>
+            <test-suite type="TestFixture" id="1017" name="AgentIntegrationMatrixPlayModeTests" fullname="CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests" classname="CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-09-19 17:17:20Z" end-time="2026-09-19 17:17:44Z" duration="24.175888" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message>One or more child tests had errors</message>
+              </failure>
+              <test-case id="1019" name="CoordinatedMatrix_ExecutesOnlyRegisteredFreshWorlds" fullname="CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.CoordinatedMatrix_ExecutesOnlyRegisteredFreshWorlds" methodname="CoordinatedMatrix_ExecutesOnlyRegisteredFreshWorlds" classname="CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests" runstate="Runnable" seed="1166592726" result="Failed" start-time="2026-09-19 17:17:20Z" end-time="2026-09-19 17:17:44Z" duration="24.152038" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Category" value="ExternalProvider" />
+                  <property name="Timeout" value="12800000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message>  Replay checkpoint differs from its recorded save input: origin
+  Expected: not equal to "initialization_failed" and not equal to "host_failure"
+  But was:  "host_failure"
+</message>
+                  <stack-trace>at CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests+&lt;CoordinatedMatrix_ExecutesOnlyRegisteredFreshWorlds&gt;d__18.MoveNext () [0x00277] in &lt;project-root&gt;\Assets\CozyTown\Tests\PlayMode\AgentIntegrationMatrixPlayModeTests.cs:172
+at UnityEngine.TestTools.TestEnumerator+&lt;Execute&gt;d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+</stack-trace>
+                </failure>
+                <output>Saving results to: &lt;user-home&gt;/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+</output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
