@@ -10,7 +10,7 @@ namespace CozyTown.Runtime.NpcAgents
         internal NpcDecisionRequest(NpcDefinition profile, NpcAgentSnapshot self,
             double gameTotalMinutes, IEnumerable<NpcAgentEvent> triggers, IEnumerable<string> knownLocationIds,
             int maxCalls, string previousResultCode, NpcSocialContext social = null,
-            NpcSpeechMode speechMode = NpcSpeechMode.FreeText)
+            NpcSpeechMode speechMode = NpcSpeechMode.FreeText, double activityDeadlineTotalMinutes = 0)
         {
             NpcId = profile.Id;
             DisplayName = profile.DisplayName;
@@ -25,6 +25,10 @@ namespace CozyTown.Runtime.NpcAgents
             PreviousResultCode = previousResultCode;
             Social = social;
             SpeechMode = speechMode;
+            ActivityDeadlineTotalMinutes = activityDeadlineTotalMinutes;
+            MaxActivityDurationGameMinutes = social == null
+                ? Math.Max(0, Math.Min(NpcAgentWorld.MaximumActivityDurationGameMinutes, activityDeadlineTotalMinutes - gameTotalMinutes))
+                : NpcAgentWorld.MaximumActivityDurationGameMinutes;
         }
 
         internal NpcDecisionRequest(NpcDecisionRequest previous, NpcLocationDetails details, string candidateErrorCode = null)
@@ -40,6 +44,10 @@ namespace CozyTown.Runtime.NpcAgents
 
         internal NpcDecisionRequest(NpcDecisionRequest previous, NpcSocialContext social) : this(previous)
             => Social = social;
+
+        internal NpcDecisionRequest(NpcDecisionRequest previous, double dispatchTotalMinutes) : this(previous)
+            => MaxActivityDurationGameMinutes = Math.Max(0, Math.Min(NpcAgentWorld.MaximumActivityDurationGameMinutes,
+                ActivityDeadlineTotalMinutes - dispatchTotalMinutes));
 
         private NpcDecisionRequest(NpcDecisionRequest previous)
         {
@@ -59,6 +67,8 @@ namespace CozyTown.Runtime.NpcAgents
             CandidateErrorCode = previous.CandidateErrorCode;
             Observation = previous.Observation;
             SpeechMode = previous.SpeechMode;
+            ActivityDeadlineTotalMinutes = previous.ActivityDeadlineTotalMinutes;
+            MaxActivityDurationGameMinutes = previous.MaxActivityDurationGameMinutes;
         }
 
         public string NpcId { get; }
@@ -77,6 +87,8 @@ namespace CozyTown.Runtime.NpcAgents
         public NpcSocialContext Social { get; }
         public NpcLocalObservation Observation { get; }
         public NpcSpeechMode SpeechMode { get; }
+        public double ActivityDeadlineTotalMinutes { get; }
+        public double MaxActivityDurationGameMinutes { get; }
         public bool HasSelfAssessment => Social?.Resources != null && Social.Kind != NpcSocialContextKind.Conversation
             && Social.DeliveryResultCode != "resource.delivered";
         public IReadOnlyList<string> AllowedOperations

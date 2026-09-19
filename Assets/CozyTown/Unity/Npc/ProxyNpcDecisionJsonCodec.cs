@@ -53,7 +53,8 @@ namespace CozyTown.Unity.Npc
                 if (activity != "working" && activity != "resting") throw new NpcCandidateException("candidate.activity_invalid");
                 if (!fields.TryGetValue("durationGameMinutes", out var duration) || duration.Type != "number"
                     || !double.TryParse(duration.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out double minutes)
-                    || double.IsNaN(minutes) || double.IsInfinity(minutes) || minutes <= 0 || minutes > NpcAgentWorld.MaximumActivityDurationGameMinutes)
+                    || double.IsNaN(minutes) || double.IsInfinity(minutes) || minutes <= 0
+                    || minutes > (request?.MaxActivityDurationGameMinutes ?? NpcAgentWorld.MaximumActivityDurationGameMinutes))
                     throw new NpcCandidateException("candidate.duration_invalid");
                 return new NpcDecisionReply(NpcDecisionKind.Visit, location,
                     activity == "working" ? NpcActivity.Working : NpcActivity.Resting, minutes);
@@ -147,7 +148,7 @@ namespace CozyTown.Unity.Npc
             public string activity;
             public int step;
             public int remainingCalls;
-            public double maxActivityDurationGameMinutes = NpcAgentWorld.MaximumActivityDurationGameMinutes;
+            public double maxActivityDurationGameMinutes;
             public string[] allowedOperations = { "wait", "inspect_location", "visit" };
             public string[] allowedActivities = { "working", "resting" };
             public EventPayload[] triggers;
@@ -174,6 +175,7 @@ namespace CozyTown.Unity.Npc
                 worldRunId = request.Self.WorldRunId.ToString("N");
                 revision = request.Self.Revision;
                 gameTotalMinutes = request.GameTotalMinutes;
+                maxActivityDurationGameMinutes = request.MaxActivityDurationGameMinutes;
                 targetLocationId = request.Self.Target.TargetLocationId;
                 activity = request.Self.Target.ExpectedActivity.ToString().ToLowerInvariant();
                 step = request.Step;

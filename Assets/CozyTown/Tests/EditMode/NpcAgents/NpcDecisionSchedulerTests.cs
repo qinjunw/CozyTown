@@ -224,8 +224,8 @@ namespace CozyTown.Tests.EditMode.NpcAgents
         [TestCase(NpcDecisionKind.InspectLocation, "ren.work", NpcActivity.Resting, 20, "agent.location_unknown")]
         [TestCase(NpcDecisionKind.Visit, "ren.work", NpcActivity.Resting, 20, "agent.location_unknown")]
         [TestCase(NpcDecisionKind.Visit, "mina.work", NpcActivity.Home, 20, "agent.activity_invalid")]
-        [TestCase(NpcDecisionKind.Visit, "mina.work", NpcActivity.Resting, 0, "agent.deadline_invalid")]
-        [TestCase(NpcDecisionKind.Visit, "mina.work", NpcActivity.Resting, double.NaN, "agent.deadline_invalid")]
+        [TestCase(NpcDecisionKind.Visit, "mina.work", NpcActivity.Resting, 0, "agent.response_invalid")]
+        [TestCase(NpcDecisionKind.Visit, "mina.work", NpcActivity.Resting, double.NaN, "agent.response_invalid")]
         [TestCase((NpcDecisionKind)99, "mina.work", NpcActivity.Resting, 20, "agent.response_invalid")]
         public void InvalidCandidate_CannotUseAnotherResidentsContextOrBypassActivityChecks(
             NpcDecisionKind kind, string location, NpcActivity activity, double duration, string code)
@@ -233,13 +233,16 @@ namespace CozyTown.Tests.EditMode.NpcAgents
             var world = new NpcAgentWorld(new[] { Schedule("mina"), Schedule("ren") }, (npcId, locationId) => true);
             world.Observe(Time(720));
             var client = new ControlledClient();
-            using var scheduler = new NpcDecisionScheduler(world, new[] { Profile("mina") }, client);
+            using var scheduler = new NpcDecisionScheduler(world, new[] { Profile("mina") }, client,
+                new NpcDecisionSettings(maxCallsPerDecision: duration == 0 || double.IsNaN(duration) ? 1 : 2));
             scheduler.Tick(0);
             client.Complete(0, new NpcDecisionReply(kind, location, activity, duration));
 
             scheduler.Tick(1);
 
             Assert.That(scheduler.GetLastOutcome("mina").Code, Is.EqualTo(code));
+            if (duration == 0 || double.IsNaN(duration))
+                Assert.That(scheduler.GetLastOutcome("mina").CandidateErrorCodes, Is.EqualTo(new[] { "candidate.duration_invalid" }));
             Assert.That(world.GetState("mina").ActiveActivity, Is.Null);
             Assert.That(world.GetState("ren").ActiveActivity, Is.Null);
             Assert.That(client.Requests.Count, Is.EqualTo(1));

@@ -1,15 +1,15 @@
 # Agent 世界迭代与测试方案
 
-- 初建：2026-09-12；本轮路线更新：2026-09-17。
+- 初建：2026-09-12；本轮路线更新：2026-09-19。
 - 地图：[迭代世界与人物 Agent 的自主交互](map.md)。
 - 需求来源：[Agent 世界 PRD](../../AGENT_WORLD_PRD.md)。
 - 用户已授权制定方案并开始迭代；本文件定义实施顺序，运行结果在各票据和验证报告记录。
 
 ## 当前执行路线
 
-用户已确认本轮交付为四人 AI Agent 实验平台：[完成条件、任务调整与验收矩阵](platform-milestone.md)。完整逻辑快照契约已确定，[换绑输入失败保护](../../verification/npc-binding-2026-09-17.md)已实现。[读档提交后的恢复边界](../../verification/npc-load-recovery-2026-09-17.md)已实现。下一项可推进[约束运行中决策重配的预算与在途请求](https://github.com/qinjunw/CozyTown/issues/88)。持久化实现仍等待普通活动期限的用户决策，再接入四人实验入口，最后统一评测和冻结候选版本。
+用户已确认本轮交付为四人 AI Agent 实验平台：[完成条件、任务调整与验收矩阵](platform-milestone.md)。完整逻辑快照契约已确定，[换绑输入失败保护](../../verification/npc-binding-2026-09-17.md)、[读档提交后的恢复边界](../../verification/npc-load-recovery-2026-09-17.md)和[重配预算保护](../../verification/npc-reconfiguration-2026-09-19.md)已实现。用户已确认普通自主活动限于当前日程窗口，实施与到期恢复证据见[活动窗口验证](../../verification/npc-activity-window-2026-09-19.md)。下一阶段将这些合同接入完整逻辑快照，再提供四人实验入口，最后统一评测和冻结候选版本。
 
-[完整逻辑快照契约 1.0](../../AGENT_SNAPSHOT_SPEC.md)包含字段盘点与 13 组公开验收；用户已采纳位置及路线续走、互动续接和旧档初始化，[ADR-0019](../../adr/0019-complete-logical-snapshots-and-agent-continuation.md)为 Accepted。当前没有新快照格式及其完整状态恢复实现；现有运行测试验证换绑、schema v3 读档及提交后恢复状态，不能代替完整逻辑快照的后继验收。
+[完整逻辑快照契约 1.1](../../AGENT_SNAPSHOT_SPEC.md)包含字段盘点、13 组公开验收及普通活动截止补充；用户已采纳位置及路线续走、互动续接和旧档初始化，[ADR-0019](../../adr/0019-complete-logical-snapshots-and-agent-continuation.md)为 Accepted。当前没有新快照格式及其完整状态恢复实现；现有运行测试验证换绑、schema v3 读档及提交后恢复状态，不能代替完整逻辑快照的后继验收。
 
 [验证四人跨日与读档恢复](https://github.com/qinjunw/CozyTown/issues/55)收窄为最终集成评测；快照设计、持久化实现和观察入口分别由前置票据承担。[确定 NPC 事实表达实验的配置与判定标准](https://github.com/qinjunw/CozyTown/issues/75)继续由用户参与决定，保留 F／S 对照，不预先指定唯一正式方案。领取与阻塞只查询 GitHub 原生关系。
 

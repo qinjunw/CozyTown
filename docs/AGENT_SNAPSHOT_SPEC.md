@@ -1,9 +1,9 @@
 # 世界与人物完整逻辑快照契约
 
-- 日期：2026-09-17；版本：1.0。
+- 初始确认：2026-09-17；活动期限补充：2026-09-19；版本：1.1。
 - 票据：[确定完整逻辑快照的保存与恢复契约](https://github.com/qinjunw/CozyTown/issues/93)。
 - 状态：已确认。用户答复“好的,按照推荐来,开始工作吧”，采纳第 1 节三项恢复行为；新格式和恢复代码尚未实现。
-- 源码基准：`7d20bad55a854fb496a8cb295ae93648e66d6141`。本轮只读核对源码与测试入口，新增运行测试和真实模型调用均为 0。
+- 初始核对基准：`7d20bad55a854fb496a8cb295ae93648e66d6141`。2026-09-17 的契约确认只读核对源码与测试入口，新增运行测试和真实模型调用均为 0。
 - 范围：[第一版实验平台](wayfinder/agent-world/platform-milestone.md)的现有世界、人物、行动与交互；AW-FR-012、014、015、016，AW-AC-02、05、07、09。
 
 ## 1. 恢复行为选择
@@ -16,7 +16,7 @@
 | Q2 进行中互动 | 恢复双方已确认的阶段、预约、交付结果和未完成轮次。保存时已交鱼、正在等 Sora 发言，读取后保留鱼钱变化，继续该轮或按原限制回退 | 记录读档中止并结束互动；损失原实验阶段的连续性 | 已确认 |
 | Q3 旧档兼容 | v1–v3 保留已有世界和资产，NPC 按日程初始化，缺失经历与承诺为空，记录迁移来源 | 旧档只保留查看，实验从新档开始；失去已有世界的继续运行入口 | 已确认 |
 
-第 3–8 节为后继实现和验收使用的契约。普通活动的最长时限与“恢复日程”判定由[独立票据](https://github.com/qinjunw/CozyTown/issues/70)决定；本契约保存原始开始、截止时刻，不在读档时重新延长期限。
+第 3–9 节为后继实现和验收使用的契约。普通自主活动期限与“恢复日程”判定已按[确定普通自主活动期限与日程恢复验收](https://github.com/qinjunw/CozyTown/issues/70)确认，见第 9 节；本契约保存原始开始、有效截止时刻，不在读档时重新延长期限。
 
 ## 2. 当前数据与接口的差距
 
@@ -36,14 +36,14 @@
 | S02 世界种子与结算 | WorldSeed，各商店补给日及算法版本，农田／畜牧最后结算日 | 保存；按现有凌晨与晨间规则校验，加载不重新结算已完成日期。商店随机序列由种子、主体、日期和算法重建 | [协调器](../Assets/CozyTown/Runtime/Application/GameSaveCoordinator.cs)、[补给算法](../Assets/CozyTown/Runtime/Economy/DeterministicShopStockReplacementPolicy.cs) |
 | S03 角色和商店资产 | 全部主体 ID、背包／库存物品及数量、金币 | 保存；保持全部角色集合、容量和守恒规则，不能只保存当前会面的两人 | [经济快照](../Assets/CozyTown/Runtime/Economy/EconomyStateSnapshot.cs) |
 | S04 生产进度 | 每块地的 ID、作物、成长进度、浇水与状态；动物 ID、种类、喂食与待领取状态 | 保存；与结算凭据一致；完成的生产只体现在实际产物或待领取记录中 | [农田](../Assets/CozyTown/Runtime/Farming/FarmSnapshot.cs)、[畜牧](../Assets/CozyTown/Runtime/Livestock/LivestockSnapshot.cs) |
-| S05 人物活动 | NPC ID、逻辑修订、当前活动身份、目标、类型、ActivityStart、截止时刻、活动归属 | 保存；默认日程目标从统一时刻和配置重建。恢复关联不代表再次接受一次活动 | [Agent 世界](../Assets/CozyTown/Runtime/NpcAgents/NpcAgentWorld.cs) |
+| S05 人物活动 | NPC ID、逻辑修订、当前活动身份、目标、类型、ActivityStart、截止时刻、活动归属 | 保存；普通自主活动保留实际接受时刻和受原窗口约束的有效截止；默认日程目标从统一时刻和配置重建。恢复关联不代表再次接受一次活动 | [Agent 世界](../Assets/CozyTown/Runtime/NpcAgents/NpcAgentWorld.cs) |
 | S06 未消费事件 | 每个人尚未消费的 Kind、发生总时刻与顺序 | 保存现有有界队列；不得消费它来捕获，不恢复已消费通知，也不补发过去所有日程事件 | [事件](../Assets/CozyTown/Runtime/NpcAgents/NpcAgentEvent.cs) |
 | S07 NPC 身体 | NPC ID、实际位置、目标、路径剩余部分或路径及游标、Travelling／Arrived／Blocked、已重规划标记、NoLegalPosition | 保存；到家和可见性从活动、到达及合法位置重建。朝向可保存；动画相位不参与逻辑等价 | [居民身体](../Assets/CozyTown/Unity/Npc/NpcWorldResident2D.cs)、[路线执行](../Assets/CozyTown/Unity/Town/TownRouteFollower2D.cs) |
 | S08 会面及承诺 | MeetingId、PlanId、计划版本、双方、状态、DayStart、StartsAt、EndsAt、双方活动归属、站位与固定交易条款 | 保存；同一会面只存一份，参与者和地点索引重建；同一人物不得属于两场占用身体的会面 | [会面板](../Assets/CozyTown/Runtime/NpcAgents/NpcMeetingBoard.cs)、[计划](../Assets/CozyTown/Runtime/NpcAgents/NpcMeetingPlan.cs) |
 | S09 会话与最近结果 | SpeakerId、有序台词及说话者／时间、DeliveryResultCode、每人的最近会面结果 | 保存；已完成交付与资产来自同一时点，恢复结果不再次调用交易；保留当前“最近结果”去重范围 | [会面视图](../Assets/CozyTown/Runtime/NpcAgents/NpcMeetingSnapshot.cs)、[台词](../Assets/CozyTown/Runtime/NpcAgents/NpcConversationLine.cs) |
 | S10 每日机会 | 每个计划已提供机会的日期、每个 NPC 尚可消费的机会 | 保存；`_offeredDays` 与 `_opportunities` 都影响是否再次邀约，不能只由当前会面推算 | [会面板](../Assets/CozyTown/Runtime/NpcAgents/NpcMeetingBoard.cs) |
 | S11 个人经历与声明 | 归属 NPC、MeetingId、Kind、PartnerId、TotalMinutes、SpeakerId、Text 和顺序 | 保存现有有界记录及容量规则；不升级为无限历史或第三人传播；讲话仍是某人在当时说过的话 | [记忆](../Assets/CozyTown/Runtime/NpcAgents/NpcMeetingMemory.cs) |
-| S12 待决机会与待发言轮次 | Pending／Current 的逻辑阶段、机会类型、原相关修订、触发及时间、机会截止；WaitingTurn 的会面、说话人、已发言数及触发 | 保存逻辑续接；恢复后关联新代次，核对世界和会面，再生成新请求。原本已失效的机会不因加载复活；不能通过一个 WorldRebuilt 通知重新触发所有机会 | [调度器](../Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs) |
+| S12 待决机会与待发言轮次 | Pending／Current 的逻辑阶段、机会类型、原相关修订、触发及时间、机会截止、普通自主活动原窗口截止；WaitingTurn 的会面、说话人、已发言数及触发 | 保存逻辑续接；恢复后关联新代次，核对世界和会面，再生成新请求。普通活动上限在每次派发时由原窗口剩余量重建；原本已失效的机会不因加载复活，也不由一个 WorldRebuilt 通知重新触发所有机会 | [调度器](../Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs) |
 | S13 决策进度 | 已耗 Calls、原 MaxCalls、纠错计数与反馈、下一 Step、已披露详情的存在性及地点 ID、剩余总决策时限、上次结果码 | 保存影响下一步的部分；上下文重新采样；已耗次数不退还。旧请求／回复 DTO 不是可直接执行的续接数据 | [请求](../Assets/CozyTown/Runtime/NpcAgents/NpcDecisionRequest.cs)、[调度器](../Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs) |
 | S14 冷却与轮询 | 每人剩余行为冷却、尚未开始／已结束状态、下一轮询角色身份 | 保存相对剩余量及顺序；恢复时绑定新的单调时间原点；不保存上次进程的绝对时钟值 | [调度器](../Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs) |
 | S15 内容与实验配置 | 内容／地图／路线规则、人设、日程、能力、计划、协议、表达模式、模型标识及非秘密生成参数、调度配置的版本或指纹 | 保存配置值或可准确解析的版本引用；不兼容则提交前拒绝。密钥、端点凭据和当前进程限流账本不在世界快照内 | [人设内容](../Assets/CozyTown/Runtime/Content/DefaultMvpContent.cs)、[决策配置](../Assets/CozyTown/Runtime/NpcAgents/NpcDecisionSettings.cs) |
@@ -114,7 +114,7 @@ MeetingId 和活动归属作为存档中的逻辑身份保持；WorldRunId 与�
 | [ADR-0016](adr/0016-bounded-autonomous-decisions.md) | 补逻辑待办续接和已耗步骤；真实预算／物理请求仍独立于世界恢复 |
 | [ADR-0017](adr/0017-resident-meeting-commitments.md)、[ADR-0018](adr/0018-resident-resource-delivery.md) | 新格式持久保存进行中互动、有限经历及交付凭据，双方活动和资源继续受宿主校验 |
 
-这些变化由已接受的 [ADR-0019](adr/0019-complete-logical-snapshots-and-agent-continuation.md)规定，面向尚未实现的新格式；旧格式仍采用本契约的迁移规则。普通活动期限、表达方式、四人实验 UI 和模型行为评测继续由各自票据处理，不能把本次确认当成其他玩法也已决定。
+这些变化由已接受的 [ADR-0019](adr/0019-complete-logical-snapshots-and-agent-continuation.md)规定，面向尚未实现的新格式；旧格式仍采用本契约的迁移规则。普通自主活动期限按第 9 节保存和续接；表达方式、四人实验 UI 和模型行为评测继续由各自票据处理。
 
 ## 8. 公开验收矩阵
 
@@ -139,3 +139,22 @@ MeetingId 和活动归属作为存档中的逻辑身份保持；WorldRunId 与�
 提交后失败的当前处理依据 [ADR-0020](adr/0020-post-commit-world-recovery.md)。后继实现必须保留其暂停、错误类别和预算约束，并验证新快照准备、模块异常与补偿失败；现有 schema v3 的故障测试不替代 SC-10 的四人准备验证。
 
 本表是后继实施的验收要求，不是本轮通过结果。确定性恢复验证无需真实模型；真实模型的再次选择由最终四人评测另行报告。
+
+## 9. 2026-09-19：普通自主活动期限的保存与续接
+
+用户已确认[确定普通自主活动期限与日程恢复验收](https://github.com/qinjunw/CozyTown/issues/70)。本节补充 schema v4 的目标合同；当前仍写 schema v3，尚未实现本节的存档恢复。
+
+普通 `visit` 在下一次默认活动或目的地切换前结束；早晨到达期限和回家到达期限不单独改变窗口。机会建立时固定原窗口截止，后续派发只计算剩余上限。超过该次请求已披露最大值的候选以 `candidate.duration_invalid` 拒绝，并在剩余额度允许时使用既有一次纠正；合法延迟回复的实际活动截止取接受时刻加候选时长与原窗口截止的较早值。可信调用方的通用活动、正式会面仍使用各自已确认期限。
+
+S05 保存已接受普通活动的实际开始时刻和有效截止，加载只恢复其剩余行程及占用。S12 保存原普通活动窗口截止及原机会期限；S13 保留已耗 `Calls`、原 `MaxCalls`、下一 `Step`、纠正计数及反馈。恢复不能重发已接受活动，也不能补回已耗调用或一次纠正。
+
+`MaxActivityDurationGameMinutes` 是派发时的派生约束。恢复后先核对原窗口、原机会、状态修订和剩余决策预算，再用实际派发时刻计算最大剩余时长；不能从当前日程重新赠送完整窗口，也不能把存档前披露的最大值直接用于新请求。旧代次回复仍无执行资格。玩家模态暂停自然游戏时间，不改变活动绝对截止；同进程真实请求预算继续按原账本计量。
+
+在第 8 节验收矩阵中增加以下固定输入：
+
+| 对应验收 | 场景 | 必须观察到的结果 |
+| --- | --- | --- |
+| SC-02／S05 | 720 派发时披露 60 分钟，730 接受合法时长 60，途中保存并恢复 | 实际开始仍为 730、有效截止仍为 780；780 释放活动并恢复当时日程。即使已到达且日程目的地相同，也不能用到达状态代替释放检查 |
+| SC-06／S12 | 原普通窗口截止为 780，机会仍有效；在排队或续调阶段保存，恢复后于 745 派发 | 原窗口仍截止于 780，本次最大时长为 35；恢复不延长原机会，超限候选沿既有一次纠正规则处理 |
+| SC-06／S13 | `candidate.duration_invalid` 后保存，再恢复到同一决策 | 已用纠正及调用保持；不能重新获得第二次纠正，也不能因加载补满总调用预算 |
+| SC-02／SC-12 | 普通活动途中打开玩家模态，再关闭并继续自然走时 | 暂停保留活动和原绝对截止；恢复后到期从实际位置采用日程，无需新的模型请求完成释放 |

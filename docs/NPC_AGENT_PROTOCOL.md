@@ -17,7 +17,7 @@
 | `triggers` | 合并后的相关事件，包含 `kind` 和 `gameTotalMinutes` |
 | `knownLocationIds` | 本人日程涉及的地点 ID；不是全世界地点或其他居民资料 |
 | `step`、`remainingCalls` | 当前调用序号和本次调用后剩余调用次数 |
-| `allowedOperations`、`allowedActivities`、`maxActivityDurationGameMinutes` | 支持的操作、活动类型和临时活动期限上限 |
+| `allowedOperations`、`allowedActivities`、`maxActivityDurationGameMinutes` | 支持的操作、活动类型和本次实际派发时的活动时长上限；普通活动取原日程窗口剩余分钟，最多 1440 |
 | `hasLocationDetails`、`locationDetails` | 为 `true` 时才读取详情对象的 `locationId`、`isReachable`；为 `false` 时忽略该对象 |
 | `previousResultCode` | 同一世界内本人的上次决策结果码；没有时为空，不包含历史上下文链 |
 | `candidateErrorCode` | 非空时表示本次决策的前一个候选因字段问题未执行；本次为唯一一次纠正机会，与上次已结束决策的结果分开 |
@@ -71,9 +71,13 @@
 {"schemaVersion":1,"operation":"visit","locationId":"<known-location-id>","activity":"resting","durationGameMinutes":20}
 ```
 
-`visit` 仅支持 `working` 或 `resting`，期限必须是大于零且不超过 1440 的有限游戏分钟，从宿主接受时刻起计算。宿主再次检查世界代次、修订、机会有效期、忙碌状态、已知地点与路线可达性。查询结果不是预留或执行授权。接受候选后由现有身体和路线控制器移动；接受不表示已经到达或完成工作。
+`visit` 仅支持 `working` 或 `resting`，期限必须是大于零且不超过本次请求 `maxActivityDurationGameMinutes` 的有限游戏分钟。普通自主活动最迟在下一次默认目标或活动类型切换时结束；到达检查点不缩短窗口。排队、查询和纠正后，每次派发重新计算剩余时长，原机会时刻和窗口截止保持不变。
 
-额外字段没有执行效果。响应不能选择执行者、修改金币或物品、推进时间或写入存档。未知操作、版本或缺少必要候选字段会失败；无效期限由活动仲裁拒绝。
+超过已披露上限的候选返回 `candidate.duration_invalid`，可在原预算内纠正一次。合法候选从宿主接受时刻起计算时长，但实际截止取“接受时刻加申请时长”和“原窗口截止”的较早值。例如 12:00 披露最多 60 分钟、12:10 接受 60 分钟时，仍在 13:00 结束。正式会面采用独立承诺期限。
+
+宿主再次检查世界代次、修订、机会有效期、窗口期限、忙碌状态、已知地点与路线可达性。查询结果不是预留或执行授权。时长包含路程；到达不重新计时，到期从实际位置恢复当前日程。接受候选不表示已经到达或完成工作。
+
+额外字段没有执行效果。响应不能选择执行者、修改金币或物品、推进时间或写入存档。未知操作、版本或缺少必要候选字段会失败。代理、响应解析和调度器分别检查活动时长，直接客户端也不能绕过该约束。
 
 ## 触发与运行期限
 

@@ -400,23 +400,6 @@ namespace CozyTown.Tests.UnityEditMode
         }
 
         [Test]
-        public void VisitResponse_RejectsDurationBeyondTheDisclosedWindow()
-        {
-            var world = new NpcAgentWorld(new[] { new NpcDailySchedule("mina", "home", "outside", "entry", "work",
-                "rest", "work", 360, 480, 720, 780, 1020, 1080) });
-            world.Observe(new WorldTimeProgress(new GameClockSnapshot(1, 735), 0, false, 1));
-            var client = new CaptureClient();
-            using var scheduler = new NpcDecisionScheduler(world, new[] { new NpcDefinition("mina", "Mina", "Farmer", "Hello") }, client);
-            scheduler.Tick(0);
-            var codec = new ProxyNpcDecisionJsonCodec();
-            const string candidate = "{\"schemaVersion\":1,\"operation\":\"visit\",\"locationId\":\"work\",\"activity\":\"working\",\"durationGameMinutes\":";
-            Assert.That(codec.ParseResponse(candidate + "45}", client.Request).DurationGameMinutes, Is.EqualTo(45));
-            var error = Assert.Throws<NpcCandidateException>(() => codec.ParseResponse(candidate + "720}", client.Request));
-            Assert.That(error.Code, Is.EqualTo("candidate.duration_invalid"));
-            Assert.That(error.CanCorrect, Is.True);
-        }
-
-        [Test]
         public void WireRequest_IncludesBoundIdentityAndLimitsWithoutOtherResidentsPrivateContext()
         {
             var schedule = new NpcDailySchedule("mina", "mina.home", "mina.outside", "mina.entry", "mina.work",

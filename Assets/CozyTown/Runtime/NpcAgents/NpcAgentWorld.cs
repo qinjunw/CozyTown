@@ -110,6 +110,22 @@ namespace CozyTown.Runtime.NpcAgents
                 schedule.MorningWorkLocationId, schedule.RestLocationId, schedule.AfternoonWorkLocationId }.Distinct().ToArray());
         }
 
+        internal double NextScheduleChangeAfter(string npcId, double totalMinutes)
+        {
+            RequireTime(totalMinutes);
+            var schedule = RequireResident(npcId).Schedule;
+            double dayStart = Math.Floor(totalMinutes / 1440) * 1440;
+            double next = totalMinutes + 1440;
+            foreach (int minute in new[] { schedule.DepartureMinute, schedule.RestStartMinute,
+                schedule.AfternoonStartMinute, schedule.ReturnStartMinute })
+            {
+                double boundary = dayStart + minute;
+                if (boundary <= totalMinutes) boundary += 1440;
+                next = Math.Min(next, boundary);
+            }
+            return next;
+        }
+
         public OperationResult<NpcLocationDetails> InspectLocation(string npcId, string locationId)
         {
             var resident = RequireResident(npcId);

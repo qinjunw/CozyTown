@@ -1,0 +1,23 @@
+{
+  ".gitattributes": "abb91b5ac5b7bd43ecc46a35a5238f253806e3bfa82d586677c742cf94a2311e",
+  "activity-window-body-green.xml": "0bb36c514e49e8d41dbf40a9b140d0a7e5ed7164d14b9e293ad6201f43a3be12",
+  "activity-window-body-red-source.cs": "dea3ecc0510ed28d3d8697f2e7044185e21697b84fdccff6b47c3b31f6eb82bd",
+  "activity-window-body-red.xml": "5766e2f513425229bf344451c46df68988c2e47b9f1dfd8b99eae75b125c0801",
+  "activity-window-codec-green.xml": "208bb2153c134317e5b5e8d1304e9f3fe9cbf8f6631f3503d3c8fbd5e7c56a03",
+  "activity-window-codec-red-source.cs": "7e13fba335af00e1fa3875ec39cee297e96cc957b244836b9b9cdd1770289aa3",
+  "activity-window-codec-red.xml": "3782216b1991d84151f82701f0800e9d3eea3e466a8221a5d6834761c4ca2366",
+  "activity-window-final-edit.xml": "7186084e55afaf7cb75ef5eee0378b25d589d98556f05c20c11b8d21f0948cb7",
+  "activity-window-final-play.xml": "b03d55618de69a7a63473d8f7cdbd6eed894df85af69d443ba05625d9625cc13",
+  "activity-window-final2-edit.xml": "9735f5d500d4e9971312e63a7fd3fba0f2d48b4d82f5e9aab67f0f7c588d6b4f",
+  "activity-window-final3-edit.xml": "a5a0d7c7b4322b990b3b36c98d0c11f3821125adb9d104e7aff501e8bad90fc9",
+  "activity-window-scheduler-green.xml": "62b4bce0fcad15b1957c3495b3028e047fef32a3fc61c8c8935331e42cf6973c",
+  "activity-window-scheduler-red-source.cs": "549e5205aa57f02d5e92dfa1543616ffb2dafbb7d4c8a330d0a2001b53ae332d",
+  "activity-window-scheduler-red.xml": "f6487c44b7c9ca1049c2e80fec3642dca5284918cb19941eed308102ebe75b9b",
+  "activity-window-wire-green.xml": "88d9fa75cdede4715277bf60878642eef448b3fc9667aa8fa8d2a7687772ca8a",
+  "activity-window-wire-red-source.cs": "b7c5aa310c0320eb70d54eaca194b275c828bc58b9e62516620aae8de45f855c",
+  "activity-window-wire-red.xml": "7d9cd7142bc3e8cbe1eecf5800423c492c8cb7d676c5f2c57ce5d256c8c2dfc6",
+  "input-audit.json": "fd1cec2cd136b9258e21f1a482158ad6dd11f35542b19bae2d16d23bc6804e5d",
+  "isolated-settings.diff": "4d8f93f288777b35ec318a9e9860bf921745e8b4af90f5a2bc4f0f3c5fe77e25",
+  "manifest.json": "dae760f5d29b6c51e625a0e1dc42813a34a919807e505774814adb77bf740894",
+  "SceneTemplateSettings.json": "bb9098b3bfcde78d93e264b96f7b77b5430e64e8c57a7aad7f5a5d9c3945e16a"
+}

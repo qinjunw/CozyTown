@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="12" result="Failed(Child)" total="12" passed="4" failed="8" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.1466938">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="890" result="Failed" site="Child" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.146694" total="12" passed="4" failed="8" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1784" name="CozyTown.Tests.EditMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.EditMode.dll" runstate="Runnable" testcasecount="650" result="Failed" site="Child" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.131803" total="12" passed="4" failed="8" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="60804" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1785" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="650" result="Failed" site="Child" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.125508" total="12" passed="4" failed="8" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1786" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="650" result="Failed" site="Child" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.119394" total="12" passed="4" failed="8" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1787" name="EditMode" fullname="CozyTown.Tests.EditMode" runstate="Runnable" testcasecount="650" result="Failed" site="Child" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.113125" total="12" passed="4" failed="8" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestSuite" id="1791" name="NpcAgents" fullname="CozyTown.Tests.EditMode.NpcAgents" runstate="Runnable" testcasecount="292" result="Failed" site="Child" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.094156" total="12" passed="4" failed="8" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-suite type="TestFixture" id="1127" name="NpcActivityWindowDecisionTests" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" testcasecount="12" result="Failed" site="Child" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.080651" total="12" passed="4" failed="8" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-suite type="ParameterizedMethod" id="1130" name="DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.034213" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <failure>
+                    <message><![CDATA[One or more child tests had errors]]></message>
+                  </failure>
+                  <test-case id="1128" name="DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection(False)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection(False)" methodname="DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="110693664" result="Failed" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.025852" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <failure>
+                      <message><![CDATA[  Expected: null
+  But was:  <CozyTown.Runtime.NpcAgents.NpcActivityRequest>
+]]></message>
+                      <stack-trace><![CDATA[at CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection (System.Boolean repeatInvalidDuration) [0x000d3] in [isolated-project]\Assets\CozyTown\Tests\EditMode\NpcAgents\NpcActivityWindowDecisionTests.cs:30
+]]></stack-trace>
+                    </failure>
+                  </test-case>
+                  <test-case id="1129" name="DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection(True)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection(True)" methodname="DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="1651632996" result="Failed" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.000442" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <failure>
+                      <message><![CDATA[  Expected: null
+  But was:  <CozyTown.Runtime.NpcAgents.NpcActivityRequest>
+]]></message>
+                      <stack-trace><![CDATA[at CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection (System.Boolean repeatInvalidDuration) [0x000d3] in [isolated-project]\Assets\CozyTown\Tests\EditMode\NpcAgents\NpcActivityWindowDecisionTests.cs:30
+]]></stack-trace>
+                    </failure>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1136" name="DispatchCallback_CrossingTheWindowPreventsTheClientCall" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DispatchCallback_CrossingTheWindowPreventsTheClientCall" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.020428" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <failure>
+                    <message><![CDATA[One or more child tests had errors]]></message>
+                  </failure>
+                  <test-case id="1134" name="DispatchCallback_CrossingTheWindowPreventsTheClientCall(False)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DispatchCallback_CrossingTheWindowPreventsTheClientCall(False)" methodname="DispatchCallback_CrossingTheWindowPreventsTheClientCall" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="493304281" result="Failed" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.015262" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <failure>
+                      <message><![CDATA[  Expected: <empty>
+  But was:  < <CozyTown.Runtime.NpcAgents.NpcDecisionRequest> >
+]]></message>
+                      <stack-trace><![CDATA[at CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DispatchCallback_CrossingTheWindowPreventsTheClientCall (System.Boolean advanceInReadiness) [0x000b6] in [isolated-project]\Assets\CozyTown\Tests\EditMode\NpcAgents\NpcActivityWindowDecisionTests.cs:182
+]]></stack-trace>
+                    </failure>
+                  </test-case>
+                  <test-case id="1135" name="DispatchCallback_CrossingTheWindowPreventsTheClientCall(True)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DispatchCallback_CrossingTheWindowPreventsTheClientCall(True)" methodname="DispatchCallback_CrossingTheWindowPreventsTheClientCall" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="44528300" result="Failed" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.000515" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <failure>
+                      <message><![CDATA[  Expected: <empty>
+  But was:  < <CozyTown.Runtime.NpcAgents.NpcDecisionRequest> >
+]]></message>
+                      <stack-trace><![CDATA[at CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DispatchCallback_CrossingTheWindowPreventsTheClientCall (System.Boolean advanceInReadiness) [0x000b6] in [isolated-project]\Assets\CozyTown\Tests\EditMode\NpcAgents\NpcActivityWindowDecisionTests.cs:182
+]]></stack-trace>
+                    </failure>
+                  </test-case>
+                </test-suite>
+                <test-case id="1132" name="DurationCorrection_DoesNotExtendTheOriginalOpportunityLifetime" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DurationCorrection_DoesNotExtendTheOriginalOpportunityLifetime" methodname="DurationCorrection_DoesNotExtendTheOriginalOpportunityLifetime" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="1752266630" result="Failed" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.001614" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: 2
+  But was:  1
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DurationCorrection_DoesNotExtendTheOriginalOpportunityLifetime () [0x0009b] in [isolated-project]\Assets\CozyTown\Tests\EditMode\NpcAgents\NpcActivityWindowDecisionTests.cs:112
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1133" name="DurationCorrection_SharesTheRateBudgetAndOriginalDecisionTimeout" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DurationCorrection_SharesTheRateBudgetAndOriginalDecisionTimeout" methodname="DurationCorrection_SharesTheRateBudgetAndOriginalDecisionTimeout" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="1573880099" result="Failed" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.001125" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: null
+  But was:  <CozyTown.Runtime.NpcAgents.NpcDecisionOutcome>
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DurationCorrection_SharesTheRateBudgetAndOriginalDecisionTimeout () [0x000ee] in [isolated-project]\Assets\CozyTown\Tests\EditMode\NpcAgents\NpcActivityWindowDecisionTests.cs:142
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-suite type="ParameterizedMethod" id="1139" name="ExecutionCallback_AdvancingWithinTheWindowCannotPostponeItsDeadline" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.ExecutionCallback_AdvancingWithinTheWindowCannotPostponeItsDeadline" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.006180" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1137" name="ExecutionCallback_AdvancingWithinTheWindowCannotPostponeItsDeadline(False)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.ExecutionCallback_AdvancingWithinTheWindowCannotPostponeItsDeadline(False)" methodname="ExecutionCallback_AdvancingWithinTheWindowCannotPostponeItsDeadline" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="37713319" result="Passed" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.004604" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1138" name="ExecutionCallback_AdvancingWithinTheWindowCannotPostponeItsDeadline(True)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.ExecutionCallback_AdvancingWithinTheWindowCannotPostponeItsDeadline(True)" methodname="ExecutionCallback_AdvancingWithinTheWindowCannotPostponeItsDeadline" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="1188192167" result="Passed" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.000331" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1142" name="ExecutionCallback_CrossingTheWindowCannotAcceptTheCompletedVisit" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.ExecutionCallback_CrossingTheWindowCannotAcceptTheCompletedVisit" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.001910" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1140" name="ExecutionCallback_CrossingTheWindowCannotAcceptTheCompletedVisit(False)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.ExecutionCallback_CrossingTheWindowCannotAcceptTheCompletedVisit(False)" methodname="ExecutionCallback_CrossingTheWindowCannotAcceptTheCompletedVisit" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="1268809659" result="Passed" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.000586" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1141" name="ExecutionCallback_CrossingTheWindowCannotAcceptTheCompletedVisit(True)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.ExecutionCallback_CrossingTheWindowCannotAcceptTheCompletedVisit(True)" methodname="ExecutionCallback_CrossingTheWindowCannotAcceptTheCompletedVisit" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="2087956987" result="Passed" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.000271" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-case id="1131" name="InspectContinuation_WaitingForBudgetDisclosesTheRemainingWindowAtDispatch" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.InspectContinuation_WaitingForBudgetDisclosesTheRemainingWindowAtDispatch" methodname="InspectContinuation_WaitingForBudgetDisclosesTheRemainingWindowAtDispatch" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="1204391951" result="Failed" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.001983" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: 40
+  But was:  60.0d
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.InspectContinuation_WaitingForBudgetDisclosesTheRemainingWindowAtDispatch () [0x001c7] in [isolated-project]\Assets\CozyTown\Tests\EditMode\NpcAgents\NpcActivityWindowDecisionTests.cs:88
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1143" name="ReplacementPending_KeepsItsOriginalWindowAndResamplesDurationWhenDispatched" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.ReplacementPending_KeepsItsOriginalWindowAndResamplesDurationWhenDispatched" methodname="ReplacementPending_KeepsItsOriginalWindowAndResamplesDurationWhenDispatched" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="1760054530" result="Failed" start-time="2026-09-19 07:59:30Z" end-time="2026-09-19 07:59:30Z" duration="0.002111" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: 40
+  But was:  60.0d
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.ReplacementPending_KeepsItsOriginalWindowAndResamplesDurationWhenDispatched () [0x001c3] in [isolated-project]\Assets\CozyTown\Tests\EditMode\NpcAgents\NpcActivityWindowDecisionTests.cs:273
+]]></stack-trace>
+                  </failure>
+                  <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

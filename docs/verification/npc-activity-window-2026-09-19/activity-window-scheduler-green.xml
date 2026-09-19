@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="19" result="Passed" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.1226248">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="897" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.122625" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1793" name="CozyTown.Tests.EditMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.EditMode.dll" runstate="Runnable" testcasecount="657" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.107081" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="91812" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1794" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="657" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.101039" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1795" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="657" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.095560" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1796" name="EditMode" fullname="CozyTown.Tests.EditMode" runstate="Runnable" testcasecount="657" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.089824" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1800" name="NpcAgents" fullname="CozyTown.Tests.EditMode.NpcAgents" runstate="Runnable" testcasecount="299" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.085047" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1127" name="NpcActivityWindowDecisionTests" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" testcasecount="19" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.081560" total="19" passed="19" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-suite type="ParameterizedMethod" id="1138" name="DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.039719" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1136" name="DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection(False)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection(False)" methodname="DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="321795366" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.031642" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1137" name="DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection(True)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection(True)" methodname="DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="2132119026" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.000297" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1135" name="DirectClient_NonfiniteDurationCannotEnterTheWorldAndCanBeCorrected" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_NonfiniteDurationCannotEnterTheWorldAndCanBeCorrected" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.002072" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1132" name="DirectClient_NonfiniteDurationCannotEnterTheWorldAndCanBeCorrected(double.NaN)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_NonfiniteDurationCannotEnterTheWorldAndCanBeCorrected(double.NaN)" methodname="DirectClient_NonfiniteDurationCannotEnterTheWorldAndCanBeCorrected" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="749327289" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.000665" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1133" name="DirectClient_NonfiniteDurationCannotEnterTheWorldAndCanBeCorrected(double.PositiveInfinity)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_NonfiniteDurationCannotEnterTheWorldAndCanBeCorrected(double.PositiveInfinity)" methodname="DirectClient_NonfiniteDurationCannotEnterTheWorldAndCanBeCorrected" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="1999591357" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.000153" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1134" name="DirectClient_NonfiniteDurationCannotEnterTheWorldAndCanBeCorrected(double.NegativeInfinity)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_NonfiniteDurationCannotEnterTheWorldAndCanBeCorrected(double.NegativeInfinity)" methodname="DirectClient_NonfiniteDurationCannotEnterTheWorldAndCanBeCorrected" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="504712833" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.000105" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1144" name="DispatchCallback_CrossingTheWindowPreventsTheClientCall" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DispatchCallback_CrossingTheWindowPreventsTheClientCall" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.010882" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1142" name="DispatchCallback_CrossingTheWindowPreventsTheClientCall(False)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DispatchCallback_CrossingTheWindowPreventsTheClientCall(False)" methodname="DispatchCallback_CrossingTheWindowPreventsTheClientCall" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="1691395432" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.009982" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1143" name="DispatchCallback_CrossingTheWindowPreventsTheClientCall(True)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DispatchCallback_CrossingTheWindowPreventsTheClientCall(True)" methodname="DispatchCallback_CrossingTheWindowPreventsTheClientCall" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="1162872761" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.000226" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-case id="1140" name="DurationCorrection_DoesNotExtendTheOriginalOpportunityLifetime" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DurationCorrection_DoesNotExtendTheOriginalOpportunityLifetime" methodname="DurationCorrection_DoesNotExtendTheOriginalOpportunityLifetime" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="120890072" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.001476" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1141" name="DurationCorrection_SharesTheRateBudgetAndOriginalDecisionTimeout" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DurationCorrection_SharesTheRateBudgetAndOriginalDecisionTimeout" methodname="DurationCorrection_SharesTheRateBudgetAndOriginalDecisionTimeout" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="1456483367" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.000734" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-suite type="ParameterizedMethod" id="1147" name="ExecutionCallback_AdvancingWithinTheWindowCannotPostponeItsDeadline" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.ExecutionCallback_AdvancingWithinTheWindowCannotPostponeItsDeadline" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.002447" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1145" name="ExecutionCallback_AdvancingWithinTheWindowCannotPostponeItsDeadline(False)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.ExecutionCallback_AdvancingWithinTheWindowCannotPostponeItsDeadline(False)" methodname="ExecutionCallback_AdvancingWithinTheWindowCannotPostponeItsDeadline" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="743395469" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.001542" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1146" name="ExecutionCallback_AdvancingWithinTheWindowCannotPostponeItsDeadline(True)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.ExecutionCallback_AdvancingWithinTheWindowCannotPostponeItsDeadline(True)" methodname="ExecutionCallback_AdvancingWithinTheWindowCannotPostponeItsDeadline" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="603952087" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.000192" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1150" name="ExecutionCallback_CrossingTheWindowCannotAcceptTheCompletedVisit" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.ExecutionCallback_CrossingTheWindowCannotAcceptTheCompletedVisit" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.000983" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1148" name="ExecutionCallback_CrossingTheWindowCannotAcceptTheCompletedVisit(False)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.ExecutionCallback_CrossingTheWindowCannotAcceptTheCompletedVisit(False)" methodname="ExecutionCallback_CrossingTheWindowCannotAcceptTheCompletedVisit" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="1991330400" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.000237" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1149" name="ExecutionCallback_CrossingTheWindowCannotAcceptTheCompletedVisit(True)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.ExecutionCallback_CrossingTheWindowCannotAcceptTheCompletedVisit(True)" methodname="ExecutionCallback_CrossingTheWindowCannotAcceptTheCompletedVisit" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="1961915005" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.000144" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-case id="1139" name="InspectContinuation_WaitingForBudgetDisclosesTheRemainingWindowAtDispatch" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.InspectContinuation_WaitingForBudgetDisclosesTheRemainingWindowAtDispatch" methodname="InspectContinuation_WaitingForBudgetDisclosesTheRemainingWindowAtDispatch" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="1443772006" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.001076" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1152" name="Meeting_CrossesThePartnersScheduleAndReleasesIntoTheRemainingOrdinaryWindow" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.Meeting_CrossesThePartnersScheduleAndReleasesIntoTheRemainingOrdinaryWindow" methodname="Meeting_CrossesThePartnersScheduleAndReleasesIntoTheRemainingOrdinaryWindow" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="1426230146" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.007698" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-suite type="ParameterizedMethod" id="1131" name="OrdinaryRequest_DisclosesTheCurrentFractionalAndAbsoluteWindow" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.OrdinaryRequest_DisclosesTheCurrentFractionalAndAbsoluteWindow" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.003318" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1128" name="OrdinaryRequest_DisclosesTheCurrentFractionalAndAbsoluteWindow(1,735,0,735,45,780)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.OrdinaryRequest_DisclosesTheCurrentFractionalAndAbsoluteWindow(1,735,0,735,45,780)" methodname="OrdinaryRequest_DisclosesTheCurrentFractionalAndAbsoluteWindow" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="342405677" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.002107" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1129" name="OrdinaryRequest_DisclosesTheCurrentFractionalAndAbsoluteWindow(1,779,0.5d,779.5d,0.5d,780)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.OrdinaryRequest_DisclosesTheCurrentFractionalAndAbsoluteWindow(1,779,0.5d,779.5d,0.5d,780)" methodname="OrdinaryRequest_DisclosesTheCurrentFractionalAndAbsoluteWindow" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="831324821" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.000153" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1130" name="OrdinaryRequest_DisclosesTheCurrentFractionalAndAbsoluteWindow(2,735,0,2175,45,2220)" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.OrdinaryRequest_DisclosesTheCurrentFractionalAndAbsoluteWindow(2,735,0,2175,45,2220)" methodname="OrdinaryRequest_DisclosesTheCurrentFractionalAndAbsoluteWindow" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="2122783827" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.000116" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-case id="1151" name="ReplacementPending_KeepsItsOriginalWindowAndResamplesDurationWhenDispatched" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.ReplacementPending_KeepsItsOriginalWindowAndResamplesDurationWhenDispatched" methodname="ReplacementPending_KeepsItsOriginalWindowAndResamplesDurationWhenDispatched" classname="CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests" runstate="Runnable" seed="1253114550" result="Passed" start-time="2026-09-19 08:01:14Z" end-time="2026-09-19 08:01:14Z" duration="0.001550" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

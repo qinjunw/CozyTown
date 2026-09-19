@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="65" result="Passed" total="65" passed="65" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.1854582">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="878" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.185458" total="65" passed="65" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2097" name="CozyTown.Tests.UnityEditMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.UnityEditMode.dll" runstate="Runnable" testcasecount="240" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.171887" total="65" passed="65" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="48124" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2098" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="240" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.169083" total="65" passed="65" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2099" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="240" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.166468" total="65" passed="65" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="2100" name="UnityEditMode" fullname="CozyTown.Tests.UnityEditMode" runstate="Runnable" testcasecount="240" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.163938" total="65" passed="65" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1922" name="ProxyNpcDecisionJsonCodecTests" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="65" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.159883" total="65" passed="65" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1968" name="AmbiguousJson_IsRejectedWithoutProducingACandidate" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.AmbiguousJson_IsRejectedWithoutProducingACandidate" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.036986" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1966" name="AmbiguousJson_IsRejectedWithoutProducingACandidate(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;wait\&quot;,\&quot;operation\&quot;:\&quot;visit\&quot;}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.AmbiguousJson_IsRejectedWithoutProducingACandidate(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;wait\&quot;,\&quot;operation\&quot;:\&quot;visit\&quot;}&quot;)" methodname="AmbiguousJson_IsRejectedWithoutProducingACandidate" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1946810114" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.026160" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1967" name="AmbiguousJson_IsRejectedWithoutProducingACandidate(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;wait\&quot;} {\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;wait\&quot;}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.AmbiguousJson_IsRejectedWithoutProducingACandidate(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;wait\&quot;} {\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;wait\&quot;}&quot;)" methodname="AmbiguousJson_IsRejectedWithoutProducingACandidate" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1524815992" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000277" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1933" name="BoundedTradeObservation_WithEightObjectsAndLongParticipantLinesFitsTheRequestLimit" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.BoundedTradeObservation_WithEightObjectsAndLongParticipantLinesFitsTheRequestLimit" methodname="BoundedTradeObservation_WithEightObjectsAndLongParticipantLinesFitsTheRequestLimit" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="141214250" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.051632" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[BOUNDED_OBSERVATION_REQUEST={"schemaVersion":4,"decisionId":"4e78bf1297f1490ca6b87565c89b0efd","npcId":"sora","displayName":"Sora","persona":"A cook who enjoys local ingredients.","worldRunId":"bea20ee70a6e4aebba9320bab94c0eca","revision":10,"gameTotalMinutes":750.0,"targetLocationId":"sora.rest","activity":"resting","step":1,"remainingCalls":1,"maxActivityDurationGameMinutes":1440.0,"allowedOperations":["say","end_conversation"],"allowedActivities":[],"triggers":[{"kind":"WorldRebuilt","gameTotalMinutes":720.0},{"kind":"ActivityAccepted","gameTotalMinutes":720.0},{"kind":"MeetingChanged","gameTotalMinutes":750.0}],"knownLocationIds":[],"hasLocationDetails":false,"locationDetails":{"locationId":"","isReachable":false},"previousResultCode":"","candidateErrorCode":"","social":{"resources":{"sellerId":"ren","buyerId":"sora","itemId":"fish","deliveryResultCode":"resource.delivered","quantity":1,"totalPrice":25,"ownedQuantity":1,"balance":25},"kind":"conversation","planId":"supply","partnerId":"ren","placeId":"pond","locationId":"sora.rest","meetingId":"a8147196d3484942a9452e103e8faa23","startsAtTotalMinutes":750.0,"deadlineTotalMinutes":900.0,"maxTurns":6,"transcript":[{"speakerId":"sora","text":"鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼","gameTotalMinutes":750.0},{"speakerId":"ren","text":"鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼","gameTotalMinutes":750.0},{"speakerId":"sora","text":"鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼","gameTotalMinutes":750.0},{"speakerId":"ren","text":"鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼","gameTotalMinutes":750.0}],"memories":[{"kind":"meeting.spoken","partnerId":"ren","speakerId":"sora","text":"鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼","gameTotalMinutes":750.0},{"kind":"meeting.spoken","partnerId":"ren","speakerId":"ren","text":"鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼","gameTotalMinutes":750.0},{"kind":"meeting.spoken","partnerId":"ren","speakerId":"sora","text":"鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼","gameTotalMinutes":750.0},{"kind":"meeting.spoken","partnerId":"ren","speakerId":"ren","text":"鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼","gameTotalMinutes":750.0}]},"hasSelfAssessment":false,"selfAssessment":{"role":"","reasonCode":"","scope":"","canMeetKnownTerms":false,"missingCoins":0,"missingQuantity":0},"hasObservation":true,"observation":{"schemaVersion":1,"observerId":"sora","worldRunId":"bea20ee70a6e4aebba9320bab94c0eca","spaceId":"outdoors","regionId":"pond","coverageDomain":"registered_entities_same_region_within_radius","listenerId":"ren","observedAtGameTotalMinutes":750.0,"x":0.0,"y":0.0,"radius":3.0,"hasRegion":true,"nearbyComplete":false,"nearbyEntityIds":["water-0","water-1","water-2","water-3","water-4","water-5","water-6","water-7"],"facts":[{"factId":"sora:region","entityId":"sora","predicate":"region","value":"pond","valueType":"text","unit":"","knowledge":"observed","source":"body_region","observerId":"sora","scope":"sampled_body_position","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"sora:region_name","entityId":"sora","predicate":"region_name","value":"池塘周边","valueType":"text","unit":"","knowledge":"observed","source":"body_region","observerId":"sora","scope":"sampled_body_position","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"sora:owned_quantity","entityId":"sora","predicate":"owned_quantity","value":"1","valueType":"number","unit":"fish","knowledge":"observed","source":"character_resources","observerId":"sora","scope":"own_current_assets","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"sora:balance","entityId":"sora","predicate":"balance","value":"25","valueType":"number","unit":"coins","knowledge":"observed","source":"character_resources","observerId":"sora","scope":"own_current_assets","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":false},{"factId":"plan:supply:terms_quantity","entityId":"plan:supply","predicate":"terms_quantity","value":"1","valueType":"number","unit":"fish","knowledge":"authored","source":"meeting_terms","observerId":"sora","scope":"participants","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"plan:supply:terms_price","entityId":"plan:supply","predicate":"terms_price","value":"25","valueType":"number","unit":"coins","knowledge":"authored","source":"meeting_terms","observerId":"sora","scope":"participants","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"plan:supply:seller","entityId":"plan:supply","predicate":"seller","value":"ren","valueType":"text","unit":"","knowledge":"authored","source":"meeting_terms","observerId":"sora","scope":"participants","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"plan:supply:buyer","entityId":"plan:supply","predicate":"buyer","value":"sora","valueType":"text","unit":"","knowledge":"authored","source":"meeting_terms","observerId":"sora","scope":"participants","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"plan:supply:decision_stage","entityId":"plan:supply","predicate":"decision_stage","value":"conversation","valueType":"text","unit":"","knowledge":"observed","source":"meeting_board","observerId":"sora","scope":"participants","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"meeting:a8147196d3484942a9452e103e8faa23:delivery_result","entityId":"meeting:a8147196d3484942a9452e103e8faa23","predicate":"delivery_result","value":"resource.delivered","valueType":"text","unit":"","knowledge":"receipt","source":"meeting_receipt","observerId":"sora","scope":"completed_transfer","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"meeting:a8147196d3484942a9452e103e8faa23:delivered_quantity","entityId":"meeting:a8147196d3484942a9452e103e8faa23","predicate":"delivered_quantity","value":"1","valueType":"number","unit":"fish","knowledge":"receipt","source":"meeting_receipt","observerId":"sora","scope":"completed_transfer","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"meeting:a8147196d3484942a9452e103e8faa23:delivered_price","entityId":"meeting:a8147196d3484942a9452e103e8faa23","predicate":"delivered_price","value":"25","valueType":"number","unit":"coins","knowledge":"receipt","source":"meeting_receipt","observerId":"sora","scope":"completed_transfer","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"statement:a8147196d3484942a9452e103e8faa23:0","entityId":"sora","predicate":"said","value":"鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼","valueType":"text","unit":"","knowledge":"statement","source":"meeting_transcript","observerId":"sora","scope":"heard_by_participant","speakerId":"sora","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"statement:a8147196d3484942a9452e103e8faa23:1","entityId":"ren","predicate":"said","value":"鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼","valueType":"text","unit":"","knowledge":"statement","source":"meeting_transcript","observerId":"sora","scope":"heard_by_participant","speakerId":"ren","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"statement:a8147196d3484942a9452e103e8faa23:2","entityId":"sora","predicate":"said","value":"鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼","valueType":"text","unit":"","knowledge":"statement","source":"meeting_transcript","observerId":"sora","scope":"heard_by_participant","speakerId":"sora","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"statement:a8147196d3484942a9452e103e8faa23:3","entityId":"ren","predicate":"said","value":"鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼鱼","valueType":"text","unit":"","knowledge":"statement","source":"meeting_transcript","observerId":"sora","scope":"heard_by_participant","speakerId":"ren","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-0:name","entityId":"water-0","predicate":"name","value":"池塘","valueType":"text","unit":"","knowledge":"observed","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-0:kind","entityId":"water-0","predicate":"kind","value":"water","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-0:interaction","entityId":"water-0","predicate":"interaction","value":"fishing","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-0:quantity","entityId":"water-0","predicate":"quantity","value":"","valueType":"unknown","unit":"fish","knowledge":"unknown","source":"semantic_catalog.unmodelled_quantity","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-1:name","entityId":"water-1","predicate":"name","value":"池塘","valueType":"text","unit":"","knowledge":"observed","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-1:kind","entityId":"water-1","predicate":"kind","value":"water","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-1:interaction","entityId":"water-1","predicate":"interaction","value":"fishing","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-1:quantity","entityId":"water-1","predicate":"quantity","value":"","valueType":"unknown","unit":"fish","knowledge":"unknown","source":"semantic_catalog.unmodelled_quantity","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-2:name","entityId":"water-2","predicate":"name","value":"池塘","valueType":"text","unit":"","knowledge":"observed","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-2:kind","entityId":"water-2","predicate":"kind","value":"water","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-2:interaction","entityId":"water-2","predicate":"interaction","value":"fishing","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-2:quantity","entityId":"water-2","predicate":"quantity","value":"","valueType":"unknown","unit":"fish","knowledge":"unknown","source":"semantic_catalog.unmodelled_quantity","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-3:name","entityId":"water-3","predicate":"name","value":"池塘","valueType":"text","unit":"","knowledge":"observed","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-3:kind","entityId":"water-3","predicate":"kind","value":"water","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-3:interaction","entityId":"water-3","predicate":"interaction","value":"fishing","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-3:quantity","entityId":"water-3","predicate":"quantity","value":"","valueType":"unknown","unit":"fish","knowledge":"unknown","source":"semantic_catalog.unmodelled_quantity","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-4:name","entityId":"water-4","predicate":"name","value":"池塘","valueType":"text","unit":"","knowledge":"observed","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-4:kind","entityId":"water-4","predicate":"kind","value":"water","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-4:interaction","entityId":"water-4","predicate":"interaction","value":"fishing","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-4:quantity","entityId":"water-4","predicate":"quantity","value":"","valueType":"unknown","unit":"fish","knowledge":"unknown","source":"semantic_catalog.unmodelled_quantity","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-5:name","entityId":"water-5","predicate":"name","value":"池塘","valueType":"text","unit":"","knowledge":"observed","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-5:kind","entityId":"water-5","predicate":"kind","value":"water","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-5:interaction","entityId":"water-5","predicate":"interaction","value":"fishing","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-5:quantity","entityId":"water-5","predicate":"quantity","value":"","valueType":"unknown","unit":"fish","knowledge":"unknown","source":"semantic_catalog.unmodelled_quantity","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-6:name","entityId":"water-6","predicate":"name","value":"池塘","valueType":"text","unit":"","knowledge":"observed","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-6:kind","entityId":"water-6","predicate":"kind","value":"water","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-6:interaction","entityId":"water-6","predicate":"interaction","value":"fishing","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-6:quantity","entityId":"water-6","predicate":"quantity","value":"","valueType":"unknown","unit":"fish","knowledge":"unknown","source":"semantic_catalog.unmodelled_quantity","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-7:name","entityId":"water-7","predicate":"name","value":"池塘","valueType":"text","unit":"","knowledge":"observed","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-7:kind","entityId":"water-7","predicate":"kind","value":"water","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-7:interaction","entityId":"water-7","predicate":"interaction","value":"fishing","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true},{"factId":"water-7:quantity","entityId":"water-7","predicate":"quantity","value":"","valueType":"unknown","unit":"fish","knowledge":"unknown","source":"semantic_catalog.unmodelled_quantity","observerId":"sora","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":750.0,"canExpress":true}]},"expression":{"schemaVersion":1,"mode":"free_text"}}
+]]></output>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1951" name="CandidateFieldTypes_AreNotCoercedIntoValidValues" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.CandidateFieldTypes_AreNotCoercedIntoValidValues" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.003505" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1946" name="CandidateFieldTypes_AreNotCoercedIntoValidValues(&quot;{\&quot;schemaVersion\&quot;:true,\&quot;operation\&quot;:\&quot;wait\&quot;}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.CandidateFieldTypes_AreNotCoercedIntoValidValues(&quot;{\&quot;schemaVersion\&quot;:true,\&quot;operation\&quot;:\&quot;wait\&quot;}&quot;)" methodname="CandidateFieldTypes_AreNotCoercedIntoValidValues" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="323622489" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.001143" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1947" name="CandidateFieldTypes_AreNotCoercedIntoValidValues(&quot;{\&quot;schemaVersion\&quot;:1.0,\&quot;operation\&quot;:\&quot;wait\&quot;}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.CandidateFieldTypes_AreNotCoercedIntoValidValues(&quot;{\&quot;schemaVersion\&quot;:1.0,\&quot;operation\&quot;:\&quot;wait\&quot;}&quot;)" methodname="CandidateFieldTypes_AreNotCoercedIntoValidValues" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="411804215" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000260" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1948" name="CandidateFieldTypes_AreNotCoercedIntoValidValues(&quot;{\&quot;schemaVersion\&quot;:\&quot;1\&quot;,\&quot;operation\&quot;:\&quot;wait\&quot;}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.CandidateFieldTypes_AreNotCoercedIntoValidValues(&quot;{\&quot;schemaVersion\&quot;:\&quot;1\&quot;,\&quot;operation\&quot;:\&quot;wait\&quot;}&quot;)" methodname="CandidateFieldTypes_AreNotCoercedIntoValidValues" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="825713379" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000125" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1949" name="CandidateFieldTypes_AreNotCoercedIntoValidValues(&quot;{\&quot;schemaVersion\&quot;:4,\&quot;operation\&quot;:\&quot;invite\&quot;,\&quot;planId\&quot;:5}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.CandidateFieldTypes_AreNotCoercedIntoValidValues(&quot;{\&quot;schemaVersion\&quot;:4,\&quot;operation\&quot;:\&quot;invite\&quot;,\&quot;planId\&quot;:5}&quot;)" methodname="CandidateFieldTypes_AreNotCoercedIntoValidValues" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="332159794" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000231" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1950" name="CandidateFieldTypes_AreNotCoercedIntoValidValues(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;visit\&quot;,\&quot;locationId\&quot;:\&quot;work\&quot;,\&quot;activity\&quot;:\&quot;working\&quot;,\&quot;durationGameMinutes\&quot;:\&quot;20\&quot;}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.CandidateFieldTypes_AreNotCoercedIntoValidValues(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;visit\&quot;,\&quot;locationId\&quot;:\&quot;work\&quot;,\&quot;activity\&quot;:\&quot;working\&quot;,\&quot;durationGameMinutes\&quot;:\&quot;20\&quot;}&quot;)" methodname="CandidateFieldTypes_AreNotCoercedIntoValidValues" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1887581269" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000340" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1932" name="FreeSay_RejectsAStructuredFrameEvenWhenFreeTextIsPresent" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.FreeSay_RejectsAStructuredFrameEvenWhenFreeTextIsPresent" methodname="FreeSay_RejectsAStructuredFrameEvenWhenFreeTextIsPresent" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1209983231" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.001434" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1996" name="InvalidResponse_IsRejected" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvalidResponse_IsRejected" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.017174" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1988" name="InvalidResponse_IsRejected(&quot;&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvalidResponse_IsRejected(&quot;&quot;)" methodname="InvalidResponse_IsRejected" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="726412188" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000252" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1989" name="InvalidResponse_IsRejected(&quot;[]&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvalidResponse_IsRejected(&quot;[]&quot;)" methodname="InvalidResponse_IsRejected" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="276923609" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000086" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1990" name="InvalidResponse_IsRejected(&quot;{broken}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvalidResponse_IsRejected(&quot;{broken}&quot;)" methodname="InvalidResponse_IsRejected" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="225798966" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.014998" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1991" name="InvalidResponse_IsRejected(&quot;{\&quot;operation\&quot;:\&quot;wait\&quot;}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvalidResponse_IsRejected(&quot;{\&quot;operation\&quot;:\&quot;wait\&quot;}&quot;)" methodname="InvalidResponse_IsRejected" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1473536911" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000175" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1992" name="InvalidResponse_IsRejected(&quot;{\&quot;schemaVersion\&quot;:5,\&quot;operation\&quot;:\&quot;wait\&quot;}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvalidResponse_IsRejected(&quot;{\&quot;schemaVersion\&quot;:5,\&quot;operation\&quot;:\&quot;wait\&quot;}&quot;)" methodname="InvalidResponse_IsRejected" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="2011565399" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000091" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1993" name="InvalidResponse_IsRejected(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;give_coins\&quot;}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvalidResponse_IsRejected(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;give_coins\&quot;}&quot;)" methodname="InvalidResponse_IsRejected" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1563170647" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000091" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1994" name="InvalidResponse_IsRejected(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;inspect_location\&quot;}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvalidResponse_IsRejected(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;inspect_location\&quot;}&quot;)" methodname="InvalidResponse_IsRejected" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="730229993" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000082" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1995" name="InvalidResponse_IsRejected(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;visit\&quot;,\&quot;locationId\&quot;:\&quot;mina.work\&quot;,\&quot;activity\&quot;:\&quot;home\&quot;}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvalidResponse_IsRejected(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;visit\&quot;,\&quot;locationId\&quot;:\&quot;mina.work\&quot;,\&quot;activity\&quot;:\&quot;home\&quot;}&quot;)" methodname="InvalidResponse_IsRejected" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1668993713" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000090" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1956" name="InvalidSchemaField_PreservesItsNoncorrectableDiagnostic" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvalidSchemaField_PreservesItsNoncorrectableDiagnostic" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.001375" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1952" name="InvalidSchemaField_PreservesItsNoncorrectableDiagnostic(&quot;{}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvalidSchemaField_PreservesItsNoncorrectableDiagnostic(&quot;{}&quot;)" methodname="InvalidSchemaField_PreservesItsNoncorrectableDiagnostic" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1820469423" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000338" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1953" name="InvalidSchemaField_PreservesItsNoncorrectableDiagnostic(&quot;{\&quot;schemaVersion\&quot;:true}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvalidSchemaField_PreservesItsNoncorrectableDiagnostic(&quot;{\&quot;schemaVersion\&quot;:true}&quot;)" methodname="InvalidSchemaField_PreservesItsNoncorrectableDiagnostic" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="999242969" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000118" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1954" name="InvalidSchemaField_PreservesItsNoncorrectableDiagnostic(&quot;{\&quot;schemaVersion\&quot;:1.0}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvalidSchemaField_PreservesItsNoncorrectableDiagnostic(&quot;{\&quot;schemaVersion\&quot;:1.0}&quot;)" methodname="InvalidSchemaField_PreservesItsNoncorrectableDiagnostic" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="960799724" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000077" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1955" name="InvalidSchemaField_PreservesItsNoncorrectableDiagnostic(&quot;{\&quot;schemaVersion\&quot;:\&quot;1\&quot;}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvalidSchemaField_PreservesItsNoncorrectableDiagnostic(&quot;{\&quot;schemaVersion\&quot;:\&quot;1\&quot;}&quot;)" methodname="InvalidSchemaField_PreservesItsNoncorrectableDiagnostic" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="295849156" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000074" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1937" name="InvitationWithoutTopLevelPlanId_ReportsACorrectableFieldError" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvitationWithoutTopLevelPlanId_ReportsACorrectableFieldError" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.001111" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1935" name="InvitationWithoutTopLevelPlanId_ReportsACorrectableFieldError(&quot;{\&quot;schemaVersion\&quot;:4,\&quot;operation\&quot;:\&quot;invite\&quot;}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvitationWithoutTopLevelPlanId_ReportsACorrectableFieldError(&quot;{\&quot;schemaVersion\&quot;:4,\&quot;operation\&quot;:\&quot;invite\&quot;}&quot;)" methodname="InvitationWithoutTopLevelPlanId_ReportsACorrectableFieldError" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="712876740" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000325" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1936" name="InvitationWithoutTopLevelPlanId_ReportsACorrectableFieldError(&quot;{\&quot;schemaVersion\&quot;:4,\&quot;operation\&quot;:\&quot;invite\&quot;,\&quot;social\&quot;:{\&quot;planId\&quot;:\&quot;lunch\&quot;}}&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.InvitationWithoutTopLevelPlanId_ReportsACorrectableFieldError(&quot;{\&quot;schemaVersion\&quot;:4,\&quot;operation\&quot;:\&quot;invite\&quot;,\&quot;social\&quot;:{\&quot;planId\&quot;:\&quot;lunch\&quot;}}&quot;)" methodname="InvitationWithoutTopLevelPlanId_ReportsACorrectableFieldError" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1922037525" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000271" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1962" name="MeetingIdentifier_UsesGuidValueWhileKeepingRequestBinding" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.MeetingIdentifier_UsesGuidValueWhileKeepingRequestBinding" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.003084" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1960" name="MeetingIdentifier_UsesGuidValueWhileKeepingRequestBinding(&quot;N&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.MeetingIdentifier_UsesGuidValueWhileKeepingRequestBinding(&quot;N&quot;)" methodname="MeetingIdentifier_UsesGuidValueWhileKeepingRequestBinding" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1401199687" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.002386" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1961" name="MeetingIdentifier_UsesGuidValueWhileKeepingRequestBinding(&quot;D&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.MeetingIdentifier_UsesGuidValueWhileKeepingRequestBinding(&quot;D&quot;)" methodname="MeetingIdentifier_UsesGuidValueWhileKeepingRequestBinding" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="2099649840" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000205" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1934" name="ObservationEnvelope_SerializesBoundFactsWithoutChangingTheActionProtocol" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ObservationEnvelope_SerializesBoundFactsWithoutChangingTheActionProtocol" methodname="ObservationEnvelope_SerializesBoundFactsWithoutChangingTheActionProtocol" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1636312384" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.004288" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[OBSERVATION_REQUEST={"schemaVersion":1,"decisionId":"b6bd9b8ebbfa475990198c40879d3437","npcId":"mina","displayName":"Mina","persona":"Shopkeeper","worldRunId":"08dfece75c2e4b578fb9a61c158eb318","revision":1,"gameTotalMinutes":720.0,"targetLocationId":"rest","activity":"resting","step":1,"remainingCalls":1,"maxActivityDurationGameMinutes":60.0,"allowedOperations":["wait","inspect_location","visit"],"allowedActivities":["working","resting"],"triggers":[{"kind":"WorldRebuilt","gameTotalMinutes":720.0}],"knownLocationIds":["outside","entry","work","rest"],"hasLocationDetails":false,"locationDetails":{"locationId":"","isReachable":false},"previousResultCode":"","candidateErrorCode":"","social":{"resources":{"sellerId":"","buyerId":"","itemId":"","deliveryResultCode":"","quantity":0,"totalPrice":0,"ownedQuantity":0,"balance":0},"kind":"","planId":"","partnerId":"","placeId":"","locationId":"","meetingId":"","startsAtTotalMinutes":0.0,"deadlineTotalMinutes":0.0,"maxTurns":0,"transcript":[],"memories":[]},"hasSelfAssessment":false,"selfAssessment":{"role":"","reasonCode":"","scope":"","canMeetKnownTerms":false,"missingCoins":0,"missingQuantity":0},"hasObservation":true,"observation":{"schemaVersion":1,"observerId":"mina","worldRunId":"08dfece75c2e4b578fb9a61c158eb318","spaceId":"outdoors","regionId":"pond","coverageDomain":"registered_entities_same_region_within_radius","listenerId":"","observedAtGameTotalMinutes":720.0,"x":-2.0,"y":0.0,"radius":3.0,"hasRegion":true,"nearbyComplete":true,"nearbyEntityIds":["water"],"facts":[{"factId":"mina:region","entityId":"mina","predicate":"region","value":"pond","valueType":"text","unit":"","knowledge":"observed","source":"body_region","observerId":"mina","scope":"sampled_body_position","speakerId":"","observedAtGameTotalMinutes":720.0,"canExpress":true},{"factId":"mina:region_name","entityId":"mina","predicate":"region_name","value":"Pond","valueType":"text","unit":"","knowledge":"observed","source":"body_region","observerId":"mina","scope":"sampled_body_position","speakerId":"","observedAtGameTotalMinutes":720.0,"canExpress":true},{"factId":"water:name","entityId":"water","predicate":"name","value":"池塘","valueType":"text","unit":"","knowledge":"observed","source":"semantic_catalog","observerId":"mina","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":720.0,"canExpress":true},{"factId":"water:kind","entityId":"water","predicate":"kind","value":"landmark","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"mina","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":720.0,"canExpress":true},{"factId":"water:interaction","entityId":"water","predicate":"interaction","value":"fishing","valueType":"text","unit":"","knowledge":"authored","source":"semantic_catalog","observerId":"mina","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":720.0,"canExpress":true},{"factId":"water:quantity","entityId":"water","predicate":"quantity","value":"","valueType":"unknown","unit":"fish","knowledge":"unknown","source":"semantic_catalog.unmodelled_quantity","observerId":"mina","scope":"sampled_local_entity","speakerId":"","observedAtGameTotalMinutes":720.0,"canExpress":true}]},"expression":{"schemaVersion":1,"mode":"free_text"}}
+]]></output>
+              </test-case>
+              <test-case id="2001" name="OversizedPersona_IsRejectedBeforeSendingTheContext" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.OversizedPersona_IsRejectedBeforeSendingTheContext" methodname="OversizedPersona_IsRejectedBeforeSendingTheContext" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="636665322" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000763" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1997" name="OversizedResponse_IsRejectedBeforeParsing" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.OversizedResponse_IsRejectedBeforeParsing" methodname="OversizedResponse_IsRejectedBeforeParsing" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1125458645" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000264" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1945" name="RequiredCandidateFields_ReportTheirOwnFailure" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.RequiredCandidateFields_ReportTheirOwnFailure" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.003807" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1938" name="RequiredCandidateFields_ReportTheirOwnFailure(&quot;{\&quot;schemaVersion\&quot;:4,\&quot;operation\&quot;:\&quot;accept_invite\&quot;}&quot;,&quot;candidate.meeting_id_required&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.RequiredCandidateFields_ReportTheirOwnFailure(&quot;{\&quot;schemaVersion\&quot;:4,\&quot;operation\&quot;:\&quot;accept_invite\&quot;}&quot;,&quot;candidate.meeting_id_required&quot;)" methodname="RequiredCandidateFields_ReportTheirOwnFailure" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="793480790" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000691" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1939" name="RequiredCandidateFields_ReportTheirOwnFailure(&quot;{\&quot;schemaVersion\&quot;:4,\&quot;operation\&quot;:\&quot;accept_invite\&quot;,\&quot;meetingId\&quot;:\&quot;bad\&quot;}&quot;,&quot;candidate.meeting_id_invalid&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.RequiredCandidateFields_ReportTheirOwnFailure(&quot;{\&quot;schemaVersion\&quot;:4,\&quot;operation\&quot;:\&quot;accept_invite\&quot;,\&quot;meetingId\&quot;:\&quot;bad\&quot;}&quot;,&quot;candidate.meeting_id_invalid&quot;)" methodname="RequiredCandidateFields_ReportTheirOwnFailure" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1315141052" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000270" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1940" name="RequiredCandidateFields_ReportTheirOwnFailure(&quot;{\&quot;schemaVersion\&quot;:4,\&quot;operation\&quot;:\&quot;say\&quot;,\&quot;meetingId\&quot;:\&quot;11111111111111111111111111111111\&quot;}&quot;,&quot;candidate.text_invalid&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.RequiredCandidateFields_ReportTheirOwnFailure(&quot;{\&quot;schemaVersion\&quot;:4,\&quot;operation\&quot;:\&quot;say\&quot;,\&quot;meetingId\&quot;:\&quot;11111111111111111111111111111111\&quot;}&quot;,&quot;candidate.text_invalid&quot;)" methodname="RequiredCandidateFields_ReportTheirOwnFailure" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="404136046" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000123" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1941" name="RequiredCandidateFields_ReportTheirOwnFailure(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;inspect_location\&quot;}&quot;,&quot;candidate.location_id_required&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.RequiredCandidateFields_ReportTheirOwnFailure(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;inspect_location\&quot;}&quot;,&quot;candidate.location_id_required&quot;)" methodname="RequiredCandidateFields_ReportTheirOwnFailure" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1352590603" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000091" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1942" name="RequiredCandidateFields_ReportTheirOwnFailure(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;visit\&quot;,\&quot;locationId\&quot;:\&quot;work\&quot;,\&quot;activity\&quot;:\&quot;home\&quot;,\&quot;durationGameMinutes\&quot;:20}&quot;,&quot;candidate.activity_invalid&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.RequiredCandidateFields_ReportTheirOwnFailure(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;visit\&quot;,\&quot;locationId\&quot;:\&quot;work\&quot;,\&quot;activity\&quot;:\&quot;home\&quot;,\&quot;durationGameMinutes\&quot;:20}&quot;,&quot;candidate.activity_invalid&quot;)" methodname="RequiredCandidateFields_ReportTheirOwnFailure" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1142882031" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000093" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1943" name="RequiredCandidateFields_ReportTheirOwnFailure(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;visit\&quot;,\&quot;locationId\&quot;:\&quot;work\&quot;,\&quot;activity\&quot;:\&quot;working\&quot;}&quot;,&quot;candidate.duration_invalid&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.RequiredCandidateFields_ReportTheirOwnFailure(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;visit\&quot;,\&quot;locationId\&quot;:\&quot;work\&quot;,\&quot;activity\&quot;:\&quot;working\&quot;}&quot;,&quot;candidate.duration_invalid&quot;)" methodname="RequiredCandidateFields_ReportTheirOwnFailure" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="465685972" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000105" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1944" name="RequiredCandidateFields_ReportTheirOwnFailure(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;visit\&quot;,\&quot;locationId\&quot;:\&quot;work\&quot;,\&quot;activity\&quot;:\&quot;working\&quot;,\&quot;durationGameMinutes\&quot;:1441}&quot;,&quot;candidate.duration_invalid&quot;)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.RequiredCandidateFields_ReportTheirOwnFailure(&quot;{\&quot;schemaVersion\&quot;:1,\&quot;operation\&quot;:\&quot;visit\&quot;,\&quot;locationId\&quot;:\&quot;work\&quot;,\&quot;activity\&quot;:\&quot;working\&quot;,\&quot;durationGameMinutes\&quot;:1441}&quot;,&quot;candidate.duration_invalid&quot;)" methodname="RequiredCandidateFields_ReportTheirOwnFailure" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="842000725" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000990" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1977" name="ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.004385" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1974" name="ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources(24,False,1)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources(24,False,1)" methodname="ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="188486140" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.003120" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1975" name="ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources(25,True,0)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources(25,True,0)" methodname="ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1072711857" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000241" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1976" name="ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources(26,True,0)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources(26,True,0)" methodname="ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1229268792" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000256" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1973" name="ResourceResponse_UsesOnlyTheMeetingIdentifier" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceResponse_UsesOnlyTheMeetingIdentifier" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.001972" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1969" name="ResourceResponse_UsesOnlyTheMeetingIdentifier(3,&quot;deliver&quot;,Deliver)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceResponse_UsesOnlyTheMeetingIdentifier(3,&quot;deliver&quot;,Deliver)" methodname="ResourceResponse_UsesOnlyTheMeetingIdentifier" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="52779467" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000743" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1970" name="ResourceResponse_UsesOnlyTheMeetingIdentifier(3,&quot;cancel_exchange&quot;,CancelExchange)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceResponse_UsesOnlyTheMeetingIdentifier(3,&quot;cancel_exchange&quot;,CancelExchange)" methodname="ResourceResponse_UsesOnlyTheMeetingIdentifier" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="404536311" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000157" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1971" name="ResourceResponse_UsesOnlyTheMeetingIdentifier(4,&quot;deliver&quot;,Deliver)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceResponse_UsesOnlyTheMeetingIdentifier(4,&quot;deliver&quot;,Deliver)" methodname="ResourceResponse_UsesOnlyTheMeetingIdentifier" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="301856239" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000119" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1972" name="ResourceResponse_UsesOnlyTheMeetingIdentifier(4,&quot;cancel_exchange&quot;,CancelExchange)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceResponse_UsesOnlyTheMeetingIdentifier(4,&quot;cancel_exchange&quot;,CancelExchange)" methodname="ResourceResponse_UsesOnlyTheMeetingIdentifier" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1692227019" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000103" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1978" name="SocialContext_DisclosesPartnerAndTranscriptOnlyForTheCurrentPhase" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.SocialContext_DisclosesPartnerAndTranscriptOnlyForTheCurrentPhase" methodname="SocialContext_DisclosesPartnerAndTranscriptOnlyForTheCurrentPhase" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1927578052" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000869" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1959" name="SocialIdentifiers_MustBindTheCandidateToTheRequestedPlanOrMeeting" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.SocialIdentifiers_MustBindTheCandidateToTheRequestedPlanOrMeeting" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.001185" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1957" name="SocialIdentifiers_MustBindTheCandidateToTheRequestedPlanOrMeeting(False)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.SocialIdentifiers_MustBindTheCandidateToTheRequestedPlanOrMeeting(False)" methodname="SocialIdentifiers_MustBindTheCandidateToTheRequestedPlanOrMeeting" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="607737236" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000524" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1958" name="SocialIdentifiers_MustBindTheCandidateToTheRequestedPlanOrMeeting(True)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.SocialIdentifiers_MustBindTheCandidateToTheRequestedPlanOrMeeting(True)" methodname="SocialIdentifiers_MustBindTheCandidateToTheRequestedPlanOrMeeting" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="887778547" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000158" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1984" name="SocialResponse_ParsesOnlyTheBoundCandidate" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.SocialResponse_ParsesOnlyTheBoundCandidate" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.001785" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1979" name="SocialResponse_ParsesOnlyTheBoundCandidate(&quot;invite&quot;,Invite)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.SocialResponse_ParsesOnlyTheBoundCandidate(&quot;invite&quot;,Invite)" methodname="SocialResponse_ParsesOnlyTheBoundCandidate" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="875096417" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000447" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1980" name="SocialResponse_ParsesOnlyTheBoundCandidate(&quot;accept_invite&quot;,AcceptInvitation)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.SocialResponse_ParsesOnlyTheBoundCandidate(&quot;accept_invite&quot;,AcceptInvitation)" methodname="SocialResponse_ParsesOnlyTheBoundCandidate" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="881639692" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000235" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1981" name="SocialResponse_ParsesOnlyTheBoundCandidate(&quot;decline_invite&quot;,DeclineInvitation)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.SocialResponse_ParsesOnlyTheBoundCandidate(&quot;decline_invite&quot;,DeclineInvitation)" methodname="SocialResponse_ParsesOnlyTheBoundCandidate" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="684549569" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000123" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1982" name="SocialResponse_ParsesOnlyTheBoundCandidate(&quot;say&quot;,Speak)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.SocialResponse_ParsesOnlyTheBoundCandidate(&quot;say&quot;,Speak)" methodname="SocialResponse_ParsesOnlyTheBoundCandidate" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1828129690" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000103" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1983" name="SocialResponse_ParsesOnlyTheBoundCandidate(&quot;end_conversation&quot;,EndConversation)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.SocialResponse_ParsesOnlyTheBoundCandidate(&quot;end_conversation&quot;,EndConversation)" methodname="SocialResponse_ParsesOnlyTheBoundCandidate" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1375438507" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000096" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1965" name="SpeechLength_UsesTheSameUtf16BoundaryAsTheMeetingBoard" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.SpeechLength_UsesTheSameUtf16BoundaryAsTheMeetingBoard" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.002732" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1963" name="SpeechLength_UsesTheSameUtf16BoundaryAsTheMeetingBoard(120,True)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.SpeechLength_UsesTheSameUtf16BoundaryAsTheMeetingBoard(120,True)" methodname="SpeechLength_UsesTheSameUtf16BoundaryAsTheMeetingBoard" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1972247584" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.001485" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1964" name="SpeechLength_UsesTheSameUtf16BoundaryAsTheMeetingBoard(121,False)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.SpeechLength_UsesTheSameUtf16BoundaryAsTheMeetingBoard(121,False)" methodname="SpeechLength_UsesTheSameUtf16BoundaryAsTheMeetingBoard" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="356287805" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000210" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1923" name="StandaloneStructuredCandidate_ParsesAFrameWithoutInventingAnIdentity" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.StandaloneStructuredCandidate_ParsesAFrameWithoutInventingAnIdentity" methodname="StandaloneStructuredCandidate_ParsesAFrameWithoutInventingAnIdentity" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1425187330" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000687" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1924" name="StructuredSay_KeepsTheFrameSeparateFromDisplayedText" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.StructuredSay_KeepsTheFrameSeparateFromDisplayedText" methodname="StructuredSay_KeepsTheFrameSeparateFromDisplayedText" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1507554934" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000600" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1931" name="StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.002656" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1925" name="StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues(&quot;\&quot;speechIntent\&quot;:\&quot;express_wish\&quot;,\&quot;factId\&quot;:\&quot;@talk\&quot;,\&quot;tone\&quot;:\&quot;warm\&quot;,\&quot;text\&quot;:\&quot;I caught fish.\&quot;&quot;,&quot;candidate.expression_mode_mismatch&quot;,False)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues(&quot;\&quot;speechIntent\&quot;:\&quot;express_wish\&quot;,\&quot;factId\&quot;:\&quot;@talk\&quot;,\&quot;tone\&quot;:\&quot;warm\&quot;,\&quot;text\&quot;:\&quot;I caught fish.\&quot;&quot;,&quot;candidate.expression_mode_mismatch&quot;,False)" methodname="StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="494850950" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000765" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1926" name="StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues(&quot;\&quot;speechIntent\&quot;:\&quot;invent\&quot;,\&quot;factId\&quot;:\&quot;@talk\&quot;,\&quot;tone\&quot;:\&quot;warm\&quot;&quot;,&quot;candidate.speech_frame_invalid&quot;,True)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues(&quot;\&quot;speechIntent\&quot;:\&quot;invent\&quot;,\&quot;factId\&quot;:\&quot;@talk\&quot;,\&quot;tone\&quot;:\&quot;warm\&quot;&quot;,&quot;candidate.speech_frame_invalid&quot;,True)" methodname="StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="926112263" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000202" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1927" name="StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues(&quot;\&quot;speechIntent\&quot;:\&quot;express_wish\&quot;,\&quot;factId\&quot;:\&quot;@talk\&quot;,\&quot;tone\&quot;:\&quot;omniscient\&quot;&quot;,&quot;candidate.speech_frame_invalid&quot;,True)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues(&quot;\&quot;speechIntent\&quot;:\&quot;express_wish\&quot;,\&quot;factId\&quot;:\&quot;@talk\&quot;,\&quot;tone\&quot;:\&quot;omniscient\&quot;&quot;,&quot;candidate.speech_frame_invalid&quot;,True)" methodname="StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1667989706" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000159" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1928" name="StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues(&quot;\&quot;speechIntent\&quot;:\&quot;express_wish\&quot;,\&quot;factId\&quot;:\&quot;@talk\&quot;,\&quot;tone\&quot;:\&quot;warm\&quot;,\&quot;quantity\&quot;:999&quot;,&quot;candidate.speech_frame_invalid&quot;,True)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues(&quot;\&quot;speechIntent\&quot;:\&quot;express_wish\&quot;,\&quot;factId\&quot;:\&quot;@talk\&quot;,\&quot;tone\&quot;:\&quot;warm\&quot;,\&quot;quantity\&quot;:999&quot;,&quot;candidate.speech_frame_invalid&quot;,True)" methodname="StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1180510287" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000164" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1929" name="StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues(&quot;\&quot;speechIntent\&quot;:\&quot;express_wish\&quot;,\&quot;factId\&quot;:\&quot;@talk\&quot;,\&quot;tone\&quot;:\&quot;warm\&quot;,\&quot;speakerId\&quot;:\&quot;ren\&quot;&quot;,&quot;candidate.speech_frame_invalid&quot;,True)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues(&quot;\&quot;speechIntent\&quot;:\&quot;express_wish\&quot;,\&quot;factId\&quot;:\&quot;@talk\&quot;,\&quot;tone\&quot;:\&quot;warm\&quot;,\&quot;speakerId\&quot;:\&quot;ren\&quot;&quot;,&quot;candidate.speech_frame_invalid&quot;,True)" methodname="StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="865706914" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000152" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1930" name="StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues(&quot;\&quot;speechIntent\&quot;:\&quot;express_wish\&quot;,\&quot;factId\&quot;:\&quot;@talk\&quot;,\&quot;tone\&quot;:\&quot;warm\&quot;,\&quot;tense\&quot;:\&quot;past\&quot;&quot;,&quot;candidate.speech_frame_invalid&quot;,True)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues(&quot;\&quot;speechIntent\&quot;:\&quot;express_wish\&quot;,\&quot;factId\&quot;:\&quot;@talk\&quot;,\&quot;tone\&quot;:\&quot;warm\&quot;,\&quot;tense\&quot;:\&quot;past\&quot;&quot;,&quot;candidate.speech_frame_invalid&quot;,True)" methodname="StructuredSay_RejectsFreeAdditionsAndUnsupportedFrameValues" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="812555277" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000165" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1987" name="SupportedResponse_ParsesTheOperation" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.SupportedResponse_ParsesTheOperation" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000870" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1985" name="SupportedResponse_ParsesTheOperation(&quot;wait&quot;,Wait)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.SupportedResponse_ParsesTheOperation(&quot;wait&quot;,Wait)" methodname="SupportedResponse_ParsesTheOperation" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="2141130310" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000218" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1986" name="SupportedResponse_ParsesTheOperation(&quot;inspect_location&quot;,InspectLocation)" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.SupportedResponse_ParsesTheOperation(&quot;inspect_location&quot;,InspectLocation)" methodname="SupportedResponse_ParsesTheOperation" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1336190394" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000117" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1998" name="VisitResponse_ParsesOnlyTheCandidateWithoutAcceptingAnActorOrEconomicWrites" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.VisitResponse_ParsesOnlyTheCandidateWithoutAcceptingAnActorOrEconomicWrites" methodname="VisitResponse_ParsesOnlyTheCandidateWithoutAcceptingAnActorOrEconomicWrites" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1487219029" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000599" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1999" name="VisitResponse_RejectsDurationBeyondTheDisclosedWindow" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.VisitResponse_RejectsDurationBeyondTheDisclosedWindow" methodname="VisitResponse_RejectsDurationBeyondTheDisclosedWindow" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="222868728" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.000583" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="2000" name="WireRequest_IncludesBoundIdentityAndLimitsWithoutOtherResidentsPrivateContext" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.WireRequest_IncludesBoundIdentityAndLimitsWithoutOtherResidentsPrivateContext" methodname="WireRequest_IncludesBoundIdentityAndLimitsWithoutOtherResidentsPrivateContext" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="239754730" result="Passed" start-time="2026-09-19 07:58:08Z" end-time="2026-09-19 07:58:08Z" duration="0.003805" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

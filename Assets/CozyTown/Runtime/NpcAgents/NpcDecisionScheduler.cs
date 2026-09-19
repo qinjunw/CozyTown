@@ -166,7 +166,7 @@ namespace CozyTown.Runtime.NpcAgents
                         || candidate.InvalidContext(pending, _world.GetState(resident.Profile.Id)) != null) continue;
                     resident.Pending = new NpcDecisionRequest(resident.Profile, pending.Self, pending.GameTotalMinutes,
                         pending.Triggers, pending.KnownLocationIds, settings.MaxCallsPerDecision, pending.PreviousResultCode,
-                        speechMode: speechMode);
+                        speechMode: speechMode, activityDeadlineTotalMinutes: pending.ActivityDeadlineTotalMinutes);
                 }
                 Dispose();
                 return candidate;
@@ -285,7 +285,8 @@ namespace CozyTown.Runtime.NpcAgents
                 }
                 resident.Pending = new NpcDecisionRequest(resident.Profile, state, _world.TotalMinutes, events,
                     _world.GetKnownLocationIds(resident.Profile.Id), _settings.MaxCallsPerDecision,
-                    resident.LastOutcome?.WorldRunId == state.WorldRunId ? resident.LastOutcome.Code : null, social, _speechMode);
+                    resident.LastOutcome?.WorldRunId == state.WorldRunId ? resident.LastOutcome.Code : null, social, _speechMode,
+                    social == null ? _world.NextScheduleChangeAfter(resident.Profile.Id, _world.TotalMinutes) : 0);
             }
             int first = _nextResident;
             for (int offset = 0; offset < _residents.Length; offset++)
@@ -350,6 +351,10 @@ namespace CozyTown.Runtime.NpcAgents
                     if (invalid != null) { Finish(resident, invalid); continue; }
                 }
                 if (_canDecide?.Invoke() == false) return SuspendDecisions();
+                string dispatchFailure = InvalidContext(resident.Current, _world.GetState(resident.Profile.Id));
+                if (dispatchFailure != null) { Finish(resident, dispatchFailure); continue; }
+                if (resident.Current.Social == null)
+                    resident.Current = new NpcDecisionRequest(resident.Current, _world.TotalMinutes);
                 _history.Starts.Enqueue(realSeconds);
                 _history.RequestsStarted++;
                 resident.Calls++;
@@ -424,6 +429,12 @@ namespace CozyTown.Runtime.NpcAgents
                 Finish(resident, observationFailure, reply: reply, executionObservation: executionObservation);
                 return;
             }
+            string contextFailure = InvalidContext(context, _world.GetState(resident.Profile.Id));
+            if (contextFailure != null)
+            {
+                Finish(resident, contextFailure, reply: reply, executionObservation: executionObservation);
+                return;
+            }
             if (!context.AllowedOperations.Contains(reply.Operation))
             {
                 Finish(resident, string.IsNullOrEmpty(reply.Operation) ? "agent.response_invalid" : "agent.operation_unavailable", reply: reply, executionObservation: executionObservation);
@@ -483,13 +494,20 @@ namespace CozyTown.Runtime.NpcAgents
             }
             if (reply.Kind == NpcDecisionKind.Visit)
             {
+                if (double.IsNaN(reply.DurationGameMinutes) || double.IsInfinity(reply.DurationGameMinutes)
+                    || reply.DurationGameMinutes <= 0 || reply.DurationGameMinutes > context.MaxActivityDurationGameMinutes)
+                {
+                    HandleCandidateFailure(resident, new NpcCandidateException("candidate.duration_invalid"));
+                    return;
+                }
                 if (!context.KnownLocationIds.Contains(reply.LocationId))
                 {
                     Finish(resident, "agent.location_unknown", reply: reply, executionObservation: executionObservation);
                     return;
                 }
                 var result = _world.SubmitActivity(new NpcActivityRequest(context.NpcId, context.Self.WorldRunId, context.Self.Revision,
-                    reply.LocationId, reply.Activity, _world.TotalMinutes + reply.DurationGameMinutes));
+                    reply.LocationId, reply.Activity, Math.Min(_world.TotalMinutes + reply.DurationGameMinutes,
+                        context.ActivityDeadlineTotalMinutes)));
                 Finish(resident, result.IsSuccess ? "agent.activity_accepted" : result.ErrorCode, reply: reply, executionObservation: executionObservation);
                 return;
             }
@@ -500,7 +518,8 @@ namespace CozyTown.Runtime.NpcAgents
         {
             if (context.Self.WorldRunId != state.WorldRunId) return "agent.world_stale";
             if (context.Self.Revision != state.Revision) return "agent.decision_stale";
-            if (_world.TotalMinutes >= context.GameTotalMinutes + _settings.OpportunityLifetimeGameMinutes)
+            if (_world.TotalMinutes >= context.GameTotalMinutes + _settings.OpportunityLifetimeGameMinutes
+                || (context.Social == null && _world.TotalMinutes >= context.ActivityDeadlineTotalMinutes))
                 return "agent.opportunity_expired";
             return null;
         }
