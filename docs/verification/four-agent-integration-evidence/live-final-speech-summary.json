@@ -1,0 +1,4203 @@
+{
+  "schemaVersion": 1,
+  "generatedAtUtc": "2026-09-19T19:56:16.942912+00:00",
+  "valid": true,
+  "errors": [],
+  "study": {
+    "studyId": "7d38d3654b2741d18f76ef86ebb8d1f0",
+    "stage": "live",
+    "sourceRevision": "19dff35147fbb7f8debc3aa0f98da44a29b5b52d",
+    "evaluationPlanReference": "docs/verification/four-agent-integration-plan-2026-09-20.md@19dff35147fbb7f8debc3aa0f98da44a29b5b52d",
+    "expressionContractVersion": "1.0"
+  },
+  "coverage": {
+    "finalSampleRows": 72,
+    "assignedSampleRows": 72,
+    "uniqueAssignedSamples": 72,
+    "missingSampleIds": [],
+    "extraSampleIds": [],
+    "duplicateSampleIds": []
+  },
+  "worldDenominator": [
+    {
+      "worldId": "16bdb522d58c4acaae0945b20e31d18c",
+      "ordinal": 1,
+      "status": "completed",
+      "speechRows": 8,
+      "declaredAcceptedSpeechOutcomes": 8,
+      "acceptedSpeechOutcomesInManifest": 8
+    },
+    {
+      "worldId": "8d93b14b995c48e884c60eb81e62149a",
+      "ordinal": 2,
+      "status": "completed",
+      "speechRows": 8,
+      "declaredAcceptedSpeechOutcomes": 8,
+      "acceptedSpeechOutcomesInManifest": 8
+    },
+    {
+      "worldId": "1a8fc0aaf5da46ada8b042bd845b5591",
+      "ordinal": 3,
+      "status": "completed",
+      "speechRows": 4,
+      "declaredAcceptedSpeechOutcomes": 4,
+      "acceptedSpeechOutcomesInManifest": 4
+    },
+    {
+      "worldId": "c6cf99d35d344186a5d03a6d03e66935",
+      "ordinal": 4,
+      "status": "completed",
+      "speechRows": 4,
+      "declaredAcceptedSpeechOutcomes": 4,
+      "acceptedSpeechOutcomesInManifest": 4
+    },
+    {
+      "worldId": "7fa0a7de143f495b934c17e9771b7600",
+      "ordinal": 5,
+      "status": "completed",
+      "speechRows": 3,
+      "declaredAcceptedSpeechOutcomes": 3,
+      "acceptedSpeechOutcomesInManifest": 3
+    },
+    {
+      "worldId": "25e93afdb422462a908760ee29b7b52e",
+      "ordinal": 6,
+      "status": "completed",
+      "speechRows": 2,
+      "declaredAcceptedSpeechOutcomes": 2,
+      "acceptedSpeechOutcomesInManifest": 2
+    },
+    {
+      "worldId": "749611f0fd6c401db2d27357cfed0e4e",
+      "ordinal": 7,
+      "status": "completed",
+      "speechRows": 4,
+      "declaredAcceptedSpeechOutcomes": 4,
+      "acceptedSpeechOutcomesInManifest": 4
+    },
+    {
+      "worldId": "ec2a0997c2974affb47f0ef99aabcd8b",
+      "ordinal": 8,
+      "status": "completed",
+      "speechRows": 4,
+      "declaredAcceptedSpeechOutcomes": 4,
+      "acceptedSpeechOutcomesInManifest": 4
+    },
+    {
+      "worldId": "c049dfc8ff914447bacec61200d4c717",
+      "ordinal": 9,
+      "status": "completed",
+      "speechRows": 8,
+      "declaredAcceptedSpeechOutcomes": 8,
+      "acceptedSpeechOutcomesInManifest": 8
+    },
+    {
+      "worldId": "2f7a9e79f9154fd9b7819e1fa00666d2",
+      "ordinal": 10,
+      "status": "completed",
+      "speechRows": 7,
+      "declaredAcceptedSpeechOutcomes": 7,
+      "acceptedSpeechOutcomesInManifest": 7
+    },
+    {
+      "worldId": "b101d76cebb844e7b6a3cbb34af1e8d3",
+      "ordinal": 11,
+      "status": "completed",
+      "speechRows": 4,
+      "declaredAcceptedSpeechOutcomes": 4,
+      "acceptedSpeechOutcomesInManifest": 4
+    },
+    {
+      "worldId": "a3ec1c9b286d44aca44d4f411ec526ae",
+      "ordinal": 12,
+      "status": "incomplete",
+      "speechRows": 4,
+      "declaredAcceptedSpeechOutcomes": 4,
+      "acceptedSpeechOutcomesInManifest": 4
+    },
+    {
+      "worldId": "7b38403ddefb4203b20c61e5541ea3c0",
+      "ordinal": 13,
+      "status": "completed",
+      "speechRows": 0,
+      "declaredAcceptedSpeechOutcomes": 0,
+      "acceptedSpeechOutcomesInManifest": 0
+    },
+    {
+      "worldId": "5c4fea43ee954b9d939513e57b703fc5",
+      "ordinal": 14,
+      "status": "completed",
+      "speechRows": 4,
+      "declaredAcceptedSpeechOutcomes": 4,
+      "acceptedSpeechOutcomesInManifest": 4
+    },
+    {
+      "worldId": "c10447227784487fb8865ea6fbb3b14a",
+      "ordinal": 15,
+      "status": "completed",
+      "speechRows": 4,
+      "declaredAcceptedSpeechOutcomes": 4,
+      "acceptedSpeechOutcomesInManifest": 4
+    },
+    {
+      "worldId": "fcf65de0bcac464b9befa2fd79713240",
+      "ordinal": 16,
+      "status": "completed",
+      "speechRows": 4,
+      "declaredAcceptedSpeechOutcomes": 4,
+      "acceptedSpeechOutcomesInManifest": 4
+    }
+  ],
+  "worldStatusCounts": {
+    "completed": 15,
+    "incomplete": 1
+  },
+  "sourceDenominator": {
+    "plannedWorlds": 16,
+    "worldsWithSpeechRowsField": 16,
+    "sourceSpeechRows": 72,
+    "sampleRows": 72,
+    "uniqueSampleIds": 72,
+    "verifiedAssociations": 72,
+    "invalidAssociations": 0,
+    "committedTranscriptRows": 72,
+    "missingTranscriptRows": 0,
+    "availableManifestOutcomeCollections": 16,
+    "acceptedSpeechOutcomesInAvailableManifests": 72,
+    "acceptedOutcomesWithoutSpeechRows": 0,
+    "sourceReadWarnings": 0
+  },
+  "finalProvenance": {
+    "packId": "c8e0998dbfe48d16aeff0c7a5652e6b308fa40728583c11ccb2322483e7f09c8",
+    "packSha256": "9bc50d29f3b9708b7571a6ade4a3f21c2b1b0ac50452a523a1cf4611e4e0da8d",
+    "identitySha256": "fde634cd09d132c70a8c43b2e4667287439354a30f8dcec942ea092b51db6b13",
+    "sourceFiles": {
+      "plan.json": {
+        "bytes": 21870,
+        "sha256": "ba9fca585b16983b40a8ad061a88a1eaee6d6804d91cf62809c9696d60089984"
+      },
+      "status.json": {
+        "bytes": 18255,
+        "sha256": "d5e836e8ff3bb7762a4c61077635e59a1cac189c99f08333634ce712c6cafdad"
+      },
+      "01-16bdb522d58c4acaae0945b20e31d18c/speech.json": {
+        "bytes": 4813,
+        "sha256": "2f4abebac607a1a3c67c431906ef20608288d25ab387900beeccecd483d7bc24"
+      },
+      "01-16bdb522d58c4acaae0945b20e31d18c/package/manifest.json": {
+        "bytes": 1259875,
+        "sha256": "0f7d5480d20c7957caccb0d14d03d976ce3ca41648a2bfba629d23b7629f54c2"
+      },
+      "02-8d93b14b995c48e884c60eb81e62149a/speech.json": {
+        "bytes": 4451,
+        "sha256": "5134771764e5c9f05a4113fc1fb7642c6eb39a6d58d020b357380e6b3602e60b"
+      },
+      "02-8d93b14b995c48e884c60eb81e62149a/package/manifest.json": {
+        "bytes": 1277062,
+        "sha256": "d07c81decfa3d4417107e2e04af3147059ee1ae691c4093c929d5357606e05d4"
+      },
+      "03-1a8fc0aaf5da46ada8b042bd845b5591/speech.json": {
+        "bytes": 2639,
+        "sha256": "b678cdcd87547bac891bfefa95082ce21685f780e5cd492a7f994f8abbe33829"
+      },
+      "03-1a8fc0aaf5da46ada8b042bd845b5591/package/manifest.json": {
+        "bytes": 969014,
+        "sha256": "c166a93b8a01bb129e26ef760a482a8ad4d2670c2051795d71df6ea4ee1ac818"
+      },
+      "04-c6cf99d35d344186a5d03a6d03e66935/speech.json": {
+        "bytes": 2187,
+        "sha256": "f5424e56d63ada11869404c97d10d3d821f7a57392996a1dd713e19ccdbb2b4e"
+      },
+      "04-c6cf99d35d344186a5d03a6d03e66935/package/manifest.json": {
+        "bytes": 930673,
+        "sha256": "154b13c9409e11d96c04120be43ae468fe4fbbb275678fa3eb38a4c6d1607fdb"
+      },
+      "05-7fa0a7de143f495b934c17e9771b7600/speech.json": {
+        "bytes": 1906,
+        "sha256": "7fbb3bd201b4b8a1843c8870de7c163287b3e0871b2e5a0c3cbaf9c9e7aa4885"
+      },
+      "05-7fa0a7de143f495b934c17e9771b7600/package/manifest.json": {
+        "bytes": 924940,
+        "sha256": "dd1928a69dfe73dbf9fd689a03040a70cf8e279e1b6cec44218c04ed72d90d7a"
+      },
+      "06-25e93afdb422462a908760ee29b7b52e/speech.json": {
+        "bytes": 1162,
+        "sha256": "6b09b0fde81aa05bb17d9c177b86a8551896ffcd20e49de8dae114c1d11edbd8"
+      },
+      "06-25e93afdb422462a908760ee29b7b52e/package/manifest.json": {
+        "bytes": 917733,
+        "sha256": "24d9c80f0fa7d361dc260ff8b40248bd5d7352c9cfb776375a725825768bcd42"
+      },
+      "07-749611f0fd6c401db2d27357cfed0e4e/speech.json": {
+        "bytes": 2448,
+        "sha256": "31636ef279deabbc0e1bf1e69c30f243406eee2d152b0e2c6bfb4d7b829ea022"
+      },
+      "07-749611f0fd6c401db2d27357cfed0e4e/package/manifest.json": {
+        "bytes": 875041,
+        "sha256": "d703debc0867d8132da2dc5a8bfc43f4f53a087b87f2b25b20787f52264311aa"
+      },
+      "08-ec2a0997c2974affb47f0ef99aabcd8b/speech.json": {
+        "bytes": 2269,
+        "sha256": "a30da955556c3524ef5e00d2d4a5e275988ad799250c9bcb2e061c9179f1a7cd"
+      },
+      "08-ec2a0997c2974affb47f0ef99aabcd8b/package/manifest.json": {
+        "bytes": 866567,
+        "sha256": "1f5476db5e2ba4e1a70f6997f0be7fecc63ce188b3ac3aa912d0a1c71f73b801"
+      },
+      "09-c049dfc8ff914447bacec61200d4c717/speech.json": {
+        "bytes": 4334,
+        "sha256": "5261ce66ae0fa74e9b4995f36cf045e5aa174f6c2d640b440d6782b687782338"
+      },
+      "09-c049dfc8ff914447bacec61200d4c717/package/manifest.json": {
+        "bytes": 1229301,
+        "sha256": "7a6d66bd6984cb21b66265e46fd7cd66230173264077215d4e93a2dbbdc2694e"
+      },
+      "10-2f7a9e79f9154fd9b7819e1fa00666d2/speech.json": {
+        "bytes": 4254,
+        "sha256": "c27bf6ef427178564ecf53befb31c426859e4b3636e27729020608feaa59a8f9"
+      },
+      "10-2f7a9e79f9154fd9b7819e1fa00666d2/package/manifest.json": {
+        "bytes": 1234682,
+        "sha256": "2a0790fda96c6cd80524d253c6d066ab0d35969a913f423ff215196a2ddb5f85"
+      },
+      "11-b101d76cebb844e7b6a3cbb34af1e8d3/speech.json": {
+        "bytes": 2254,
+        "sha256": "c091039797b852b61fc5822b9cafc6978c71dbe61968777ab49b8e24341296a2"
+      },
+      "11-b101d76cebb844e7b6a3cbb34af1e8d3/package/manifest.json": {
+        "bytes": 954043,
+        "sha256": "025fd9e8d709ced8f1718c4cc4168cae1819fc62abb29fa7650a140478de69e3"
+      },
+      "12-a3ec1c9b286d44aca44d4f411ec526ae/speech.json": {
+        "bytes": 2529,
+        "sha256": "075a88868ba65fa01b30507a04942794eb1967222c7fd36ae0295acc87b57ec1"
+      },
+      "12-a3ec1c9b286d44aca44d4f411ec526ae/package/manifest.json": {
+        "bytes": 943177,
+        "sha256": "8cc84397efbb03af3c41302152223fdf7cb1f6bb9e213295e6cb6569765a6a1e"
+      },
+      "13-7b38403ddefb4203b20c61e5541ea3c0/speech.json": {
+        "bytes": 131,
+        "sha256": "f1b6761e06ef1d59fe967932dc65b082ced1b01558d5a6fe7bd4eb68c8750c50"
+      },
+      "13-7b38403ddefb4203b20c61e5541ea3c0/package/manifest.json": {
+        "bytes": 821453,
+        "sha256": "9d4eddf7e62d28f342a460a1a40954f3ce37b83b5514b5f5d2e324a4592f1180"
+      },
+      "14-5c4fea43ee954b9d939513e57b703fc5/speech.json": {
+        "bytes": 2559,
+        "sha256": "88118c3839bce04e3ed577b61e5b8af622e03b19346ffadd18012b8a91a23237"
+      },
+      "14-5c4fea43ee954b9d939513e57b703fc5/package/manifest.json": {
+        "bytes": 930254,
+        "sha256": "64aad29e05fde68fd5a972fbd9ec9dd59130a891cf087648b1e7452b72244fe1"
+      },
+      "15-c10447227784487fb8865ea6fbb3b14a/speech.json": {
+        "bytes": 2179,
+        "sha256": "38f86977a7ca6e9e9ba22f34e55fd1e06fa0f74034554a62c0cd01e4db700fbb"
+      },
+      "15-c10447227784487fb8865ea6fbb3b14a/package/manifest.json": {
+        "bytes": 865593,
+        "sha256": "dea9666a5107330698df33e4036361f8511b0129523aed00ee6469747c70f53e"
+      },
+      "16-fcf65de0bcac464b9befa2fd79713240/speech.json": {
+        "bytes": 2439,
+        "sha256": "31bda15030cf9f35557b5f7f39f899fd5eeb3e659813125f30ce5703bf59ef86"
+      },
+      "16-fcf65de0bcac464b9befa2fd79713240/package/manifest.json": {
+        "bytes": 871278,
+        "sha256": "bc455e7e2dde1af8e58acf899e1f37252e477fcea3af162d72117121c09886bf"
+      }
+    }
+  },
+  "batches": [
+    {
+      "packId": "fde465027bc078424d7972a2cd2d35ea99590d256742e75aaceb1921e55d8ab5",
+      "packFile": "live-review-batch-01.json",
+      "packSha256": "2d6faff4a6e6467039ed99a06629c2d27d5e36224559c2751f5667e4d1dfffe1",
+      "identityFile": "live-review-batch-01-identity.json",
+      "identitySha256": "4a16fc9ebcb1dee586a6e4f492b882de429cace3670cc513f9ec4753c5dacfd5",
+      "adjudicationFile": "live-review-01-adjudicated.json",
+      "adjudicationSha256": "10b13e22ddaa8472fb89f9233c274f37fbe950374de67109c69a3f00a143bb2e",
+      "reviewers": [
+        {
+          "reviewer": "a",
+          "file": "live-review-01-a.json",
+          "sha256": "9ee8a3ce259e42f6ada30b80ca8eb9403fbca2ec3ce2a286885f91ffaa18e19b"
+        },
+        {
+          "reviewer": "b",
+          "file": "live-review-01-b.json",
+          "sha256": "9d2a98fe9522fc8eb9aa0096549c5c2c18d9a5d113859201c08157f8a5c768e2"
+        }
+      ],
+      "coverage": {
+        "expectedSamples": 16,
+        "reviewedExpectedSamples": 16,
+        "missingSampleIds": [],
+        "extraSampleIds": [],
+        "duplicatePackSampleIds": [],
+        "duplicateReviewSampleIds": []
+      },
+      "statistics": {
+        "reviewedUtterances": 16,
+        "allReviewUnits": 52,
+        "factualAssertions": 27,
+        "verdictCounts": {
+          "ambiguous": 5,
+          "not_factual": 25,
+          "supported": 13,
+          "unsupported": 9
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 9,
+            "N": 27,
+            "rate": 0.3333333333333333
+          },
+          "ambiguous": {
+            "n": 5,
+            "N": 27,
+            "rate": 0.18518518518518517
+          },
+          "conservativeIssues": {
+            "n": 14,
+            "N": 27,
+            "rate": 0.5185185185185185
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 4,
+            "N": 16,
+            "rate": 0.25
+          },
+          "ambiguous": {
+            "n": 3,
+            "N": 16,
+            "rate": 0.1875
+          },
+          "conservativeIssues": {
+            "n": 6,
+            "N": 16,
+            "rate": 0.375
+          },
+          "withFactualAssertions": {
+            "n": 13,
+            "N": 16,
+            "rate": 0.8125
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 16,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 3,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "relevant": 9,
+            "relevant_but_no_new_information": 4,
+            "relevant_with_addressee_shift": 1,
+            "relevant_with_unclear_cooking_link": 1,
+            "weakly_relevant": 1
+          },
+          "refusal": {
+            "none": 16
+          },
+          "repetition": {
+            "none": 5,
+            "semantic_partial": 5,
+            "semantic_topic_reuse": 1,
+            "verbatim": 4,
+            "verbatim_partial_and_semantic": 1
+          },
+          "persona": {
+            "insufficient_evidence": 7,
+            "supported": 9
+          },
+          "qaCoverage": {
+            "N/A": 16
+          }
+        }
+      }
+    },
+    {
+      "packId": "de12706dd08af0e30e78b53df0739bde21d46c8641c94c41a2b18067d1dcbaeb",
+      "packFile": "live-review-batch-02.json",
+      "packSha256": "8436f9262224a6fff7a843892acd6b92274dbb8dbabf3bf17f5ef5857b43367f",
+      "identityFile": "live-review-batch-02-identity.json",
+      "identitySha256": "7a4bd40c1b1c787d666411fff050e178973f5579734b73f16fb8b6721123358d",
+      "adjudicationFile": "live-review-02-adjudicated.json",
+      "adjudicationSha256": "6f08e4ad6b08e9cd25d07aa8458eb452a8044c2cfff41880450ab42e3c99d7da",
+      "reviewers": [
+        {
+          "reviewer": "a",
+          "file": "live-review-02-a.json",
+          "sha256": "840807e0c77d17e9ea79eef7cb95447f680af6f17fe6f27f84a662d1809b081f"
+        },
+        {
+          "reviewer": "b",
+          "file": "live-review-02-b.json",
+          "sha256": "1f434f2371c2a0f58c14d2fcdb55bfef1c74932ce7826818003cb88f79872013"
+        }
+      ],
+      "coverage": {
+        "expectedSamples": 8,
+        "reviewedExpectedSamples": 8,
+        "missingSampleIds": [],
+        "extraSampleIds": [],
+        "duplicatePackSampleIds": [],
+        "duplicateReviewSampleIds": []
+      },
+      "statistics": {
+        "reviewedUtterances": 8,
+        "allReviewUnits": 28,
+        "factualAssertions": 10,
+        "verdictCounts": {
+          "ambiguous": 2,
+          "not_factual": 18,
+          "supported": 5,
+          "unsupported": 3
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 3,
+            "N": 10,
+            "rate": 0.3
+          },
+          "ambiguous": {
+            "n": 2,
+            "N": 10,
+            "rate": 0.2
+          },
+          "conservativeIssues": {
+            "n": 5,
+            "N": 10,
+            "rate": 0.5
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 3,
+            "N": 8,
+            "rate": 0.375
+          },
+          "ambiguous": {
+            "n": 2,
+            "N": 8,
+            "rate": 0.25
+          },
+          "conservativeIssues": {
+            "n": 3,
+            "N": 8,
+            "rate": 0.375
+          },
+          "withFactualAssertions": {
+            "n": 5,
+            "N": 8,
+            "rate": 0.625
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 8,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 3,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "relevant": 7,
+            "relevant_but_no_new_information": 1
+          },
+          "refusal": {
+            "none": 7,
+            "reasonable_unknown": 1
+          },
+          "repetition": {
+            "none": 3,
+            "semantic_partial": 2,
+            "semantic_topic_reuse": 2,
+            "verbatim": 1
+          },
+          "persona": {
+            "insufficient_evidence": 1,
+            "supported": 7
+          },
+          "qaCoverage": {
+            "N/A": 8
+          }
+        }
+      }
+    },
+    {
+      "packId": "cbb9bec15f922073f2c844dc6e39413ef00b79513587e4037477a235ef3d868f",
+      "packFile": "live-review-batch-03.json",
+      "packSha256": "9cbf7c0cf0a0257260a07c0fab21b33595fe67e96ae3bb005ce32e433f26196b",
+      "identityFile": "live-review-batch-03-identity.json",
+      "identitySha256": "a8bb6616d9f0b52a6ffeff4e1c5f6b37b6589fab180b5aface57459cd8985c98",
+      "adjudicationFile": "live-review-03-adjudicated.json",
+      "adjudicationSha256": "90900e491538b3dc01777716bbd104454b0306b7b53516aae00d9ae081cd5874",
+      "reviewers": [
+        {
+          "reviewer": "a",
+          "file": "live-review-03-a.json",
+          "sha256": "cbb522def7ff731bafeafffee09dfc064402a378d14fe229979052443c1bbac8"
+        },
+        {
+          "reviewer": "b",
+          "file": "live-review-03-b.json",
+          "sha256": "d0e8524f66ce2d050812af505091042fd7a7b09c2706fc7489aac03f46efa77e"
+        }
+      ],
+      "coverage": {
+        "expectedSamples": 5,
+        "reviewedExpectedSamples": 5,
+        "missingSampleIds": [],
+        "extraSampleIds": [],
+        "duplicatePackSampleIds": [],
+        "duplicateReviewSampleIds": []
+      },
+      "statistics": {
+        "reviewedUtterances": 5,
+        "allReviewUnits": 19,
+        "factualAssertions": 8,
+        "verdictCounts": {
+          "ambiguous": 1,
+          "not_factual": 11,
+          "supported": 5,
+          "unsupported": 2
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 2,
+            "N": 8,
+            "rate": 0.25
+          },
+          "ambiguous": {
+            "n": 1,
+            "N": 8,
+            "rate": 0.125
+          },
+          "conservativeIssues": {
+            "n": 3,
+            "N": 8,
+            "rate": 0.375
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 2,
+            "N": 5,
+            "rate": 0.4
+          },
+          "ambiguous": {
+            "n": 1,
+            "N": 5,
+            "rate": 0.2
+          },
+          "conservativeIssues": {
+            "n": 2,
+            "N": 5,
+            "rate": 0.4
+          },
+          "withFactualAssertions": {
+            "n": 4,
+            "N": 5,
+            "rate": 0.8
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 5,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 1,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "partially_relevant": 1,
+            "relevant": 4
+          },
+          "refusal": {
+            "none": 4,
+            "reasonable_unknown": 1
+          },
+          "repetition": {
+            "none": 3,
+            "semantic_partial": 2
+          },
+          "persona": {
+            "insufficient_evidence": 1,
+            "supported": 4
+          },
+          "qaCoverage": {
+            "N/A": 5
+          }
+        }
+      }
+    },
+    {
+      "packId": "97eb5af0d7443aaf8706e7cbe50840fc1ed345367ea936b6540c8cdcd946bc4e",
+      "packFile": "live-review-batch-04.json",
+      "packSha256": "70566547ab4f921c3a6e492da7b1331dbd63b120e884588670000423296b5afd",
+      "identityFile": "live-review-batch-04-identity.json",
+      "identitySha256": "e180f69ad81998672ca15f8267fd5f92548303ff9be9ec6f8a59548d3f54b784",
+      "adjudicationFile": "live-review-04-adjudicated.json",
+      "adjudicationSha256": "7e87d1ed18920ac3ce49e875c5649bdf298eb979d583d70ab508271a135f524e",
+      "reviewers": [
+        {
+          "reviewer": "a",
+          "file": "live-review-04-a.json",
+          "sha256": "7e79c8c5e41b8ed10f71b5e1be71eb571fc1e6b1f2f231d945bb8fc7ac6cdf10"
+        },
+        {
+          "reviewer": "b",
+          "file": "live-review-04-b.json",
+          "sha256": "02fbd2bd6e5fb837a047de5264839370308b5ce7b5e7ce89776858bafb0a7a07"
+        }
+      ],
+      "coverage": {
+        "expectedSamples": 8,
+        "reviewedExpectedSamples": 8,
+        "missingSampleIds": [],
+        "extraSampleIds": [],
+        "duplicatePackSampleIds": [],
+        "duplicateReviewSampleIds": []
+      },
+      "statistics": {
+        "reviewedUtterances": 8,
+        "allReviewUnits": 24,
+        "factualAssertions": 10,
+        "verdictCounts": {
+          "ambiguous": 1,
+          "not_factual": 14,
+          "supported": 7,
+          "unsupported": 2
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 2,
+            "N": 10,
+            "rate": 0.2
+          },
+          "ambiguous": {
+            "n": 1,
+            "N": 10,
+            "rate": 0.1
+          },
+          "conservativeIssues": {
+            "n": 3,
+            "N": 10,
+            "rate": 0.3
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 1,
+            "N": 8,
+            "rate": 0.125
+          },
+          "ambiguous": {
+            "n": 1,
+            "N": 8,
+            "rate": 0.125
+          },
+          "conservativeIssues": {
+            "n": 1,
+            "N": 8,
+            "rate": 0.125
+          },
+          "withFactualAssertions": {
+            "n": 6,
+            "N": 8,
+            "rate": 0.75
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 8,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 2,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "relevant": 6,
+            "relevant_but_no_new_information": 2
+          },
+          "refusal": {
+            "none": 4,
+            "reasonable_unknown": 4
+          },
+          "repetition": {
+            "none": 2,
+            "semantic_greeting": 1,
+            "semantic_partial": 2,
+            "verbatim": 2,
+            "verbatim_partial_and_semantic": 1
+          },
+          "persona": {
+            "insufficient_evidence": 3,
+            "supported": 5
+          },
+          "qaCoverage": {
+            "N/A": 8
+          }
+        }
+      }
+    },
+    {
+      "packId": "242ff833cfdf84e6a52d8e24d54cb03bfdde30a2418bd08a503d333865554d3d",
+      "packFile": "live-review-batch-05.json",
+      "packSha256": "001342a4f34c8a547aa60014f88ad73e5c12571b0137379cc10fd6272f45f996",
+      "identityFile": "live-review-batch-05-identity.json",
+      "identitySha256": "102aae59538da87e01fc167ed5436ad8c2a0ec2fd007a02f0d676df20b6282b2",
+      "adjudicationFile": "live-review-05-adjudicated.json",
+      "adjudicationSha256": "9a1c7f58a3efdad6c5c6d17b6e9899192e33a30606bcac92edf50c0483f3d9de",
+      "reviewers": [
+        {
+          "reviewer": "a",
+          "file": "live-review-05-a.json",
+          "sha256": "ebdec8b8cc9ee57073e699ea10c18887efea6a5c901c934584ff3f87dca97707"
+        },
+        {
+          "reviewer": "b",
+          "file": "live-review-05-b.json",
+          "sha256": "489804aca478e9cdcf779fe54a3c099a72d7e440654aa93f100c03d8dcb45416"
+        }
+      ],
+      "coverage": {
+        "expectedSamples": 15,
+        "reviewedExpectedSamples": 15,
+        "missingSampleIds": [],
+        "extraSampleIds": [],
+        "duplicatePackSampleIds": [],
+        "duplicateReviewSampleIds": []
+      },
+      "statistics": {
+        "reviewedUtterances": 15,
+        "allReviewUnits": 51,
+        "factualAssertions": 24,
+        "verdictCounts": {
+          "ambiguous": 2,
+          "not_factual": 27,
+          "supported": 13,
+          "unsupported": 9
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 9,
+            "N": 24,
+            "rate": 0.375
+          },
+          "ambiguous": {
+            "n": 2,
+            "N": 24,
+            "rate": 0.08333333333333333
+          },
+          "conservativeIssues": {
+            "n": 11,
+            "N": 24,
+            "rate": 0.4583333333333333
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 4,
+            "N": 15,
+            "rate": 0.26666666666666666
+          },
+          "ambiguous": {
+            "n": 2,
+            "N": 15,
+            "rate": 0.13333333333333333
+          },
+          "conservativeIssues": {
+            "n": 5,
+            "N": 15,
+            "rate": 0.3333333333333333
+          },
+          "withFactualAssertions": {
+            "n": 10,
+            "N": 15,
+            "rate": 0.6666666666666666
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 15,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 5,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "relevant": 9,
+            "relevant_but_no_new_information": 2,
+            "relevant_topic_shift": 2,
+            "relevant_with_addressee_shift": 2
+          },
+          "refusal": {
+            "none": 15
+          },
+          "repetition": {
+            "none": 6,
+            "semantic_greeting": 1,
+            "semantic_partial": 3,
+            "semantic_topic_reuse": 1,
+            "verbatim": 2,
+            "verbatim_partial_and_semantic": 1,
+            "verbatim_preface_only": 1
+          },
+          "persona": {
+            "insufficient_evidence": 5,
+            "supported": 10
+          },
+          "qaCoverage": {
+            "N/A": 15
+          }
+        }
+      }
+    },
+    {
+      "packId": "e67564e7dcc1bf39397847646e5ffecc794a06fa01d9347b03d7ce12e51d9b7b",
+      "packFile": "live-review-batch-06.json",
+      "packSha256": "e7e13cd2dee7dcae29f5b553ed224a483767943b639e2d31f692dd38049adcd6",
+      "identityFile": "live-review-batch-06-identity.json",
+      "identitySha256": "e07eff3f509c2aa6c8fa9a633f43f39523f3020661a8acb2f1936ffe82a347fe",
+      "adjudicationFile": "live-review-06-adjudicated.json",
+      "adjudicationSha256": "88e1c40d840613e51cf5b832e7576117ed7e4437219a075fe4334ce7bf9e452f",
+      "reviewers": [
+        {
+          "reviewer": "a",
+          "file": "live-review-06-a.json",
+          "sha256": "2ffc99bbdd33e9d9929b4036af8a64156cbb1abc68d9c329dba2d17a4e2cd37c"
+        },
+        {
+          "reviewer": "b",
+          "file": "live-review-06-b.json",
+          "sha256": "19f9952fb3e58746028ca25d70d16c46e5f915c14a074b744192ced64a2c497d"
+        }
+      ],
+      "coverage": {
+        "expectedSamples": 8,
+        "reviewedExpectedSamples": 8,
+        "missingSampleIds": [],
+        "extraSampleIds": [],
+        "duplicatePackSampleIds": [],
+        "duplicateReviewSampleIds": []
+      },
+      "statistics": {
+        "reviewedUtterances": 8,
+        "allReviewUnits": 26,
+        "factualAssertions": 13,
+        "verdictCounts": {
+          "ambiguous": 4,
+          "not_factual": 13,
+          "supported": 4,
+          "unsupported": 5
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 5,
+            "N": 13,
+            "rate": 0.38461538461538464
+          },
+          "ambiguous": {
+            "n": 4,
+            "N": 13,
+            "rate": 0.3076923076923077
+          },
+          "conservativeIssues": {
+            "n": 9,
+            "N": 13,
+            "rate": 0.6923076923076923
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 1,
+            "N": 8,
+            "rate": 0.125
+          },
+          "ambiguous": {
+            "n": 3,
+            "N": 8,
+            "rate": 0.375
+          },
+          "conservativeIssues": {
+            "n": 3,
+            "N": 8,
+            "rate": 0.375
+          },
+          "withFactualAssertions": {
+            "n": 7,
+            "N": 8,
+            "rate": 0.875
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 8,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 1,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "relevant": 6,
+            "weakly_relevant": 2
+          },
+          "refusal": {
+            "none": 8
+          },
+          "repetition": {
+            "none": 2,
+            "semantic_acknowledgment_and_topic_reuse": 1,
+            "semantic_topic_reuse": 2,
+            "verbatim_preface_only": 3
+          },
+          "persona": {
+            "insufficient_evidence": 4,
+            "supported": 4
+          },
+          "qaCoverage": {
+            "N/A": 8
+          }
+        }
+      }
+    },
+    {
+      "packId": "c4bf9c5470178817dc7e5b32223cf57c3c1bd8bd7acc2da71bc4cb3fcd0babbe",
+      "packFile": "live-review-batch-07.json",
+      "packSha256": "bb5feeabaef4d223f98c9355a77cc3b2fc5a05f530811662151a34ac96a56acb",
+      "identityFile": "live-review-batch-07-identity.json",
+      "identitySha256": "9c7428b64e0aa87e231073c6b8d191ee4ae8f908a62af9b84e3adff604829776",
+      "adjudicationFile": "live-review-07-adjudicated.json",
+      "adjudicationSha256": "8e1e47e73a87943243090f60165b21a6caf8d40b07591951d3c99a4e952d3c45",
+      "reviewers": [
+        {
+          "reviewer": "a",
+          "file": "live-review-07-a.json",
+          "sha256": "7286e725f426241734d0649bbfda2bd72aee28e040211119f7067d6746b4a1e5"
+        },
+        {
+          "reviewer": "b",
+          "file": "live-review-07-b.json",
+          "sha256": "2f04b40b0cd86f6d07d15b949ebeaf553beefe0c72313354964df1a5c37acd4f"
+        }
+      ],
+      "coverage": {
+        "expectedSamples": 4,
+        "reviewedExpectedSamples": 4,
+        "missingSampleIds": [],
+        "extraSampleIds": [],
+        "duplicatePackSampleIds": [],
+        "duplicateReviewSampleIds": []
+      },
+      "statistics": {
+        "reviewedUtterances": 4,
+        "allReviewUnits": 21,
+        "factualAssertions": 9,
+        "verdictCounts": {
+          "ambiguous": 3,
+          "not_factual": 12,
+          "supported": 4,
+          "unsupported": 2
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 2,
+            "N": 9,
+            "rate": 0.2222222222222222
+          },
+          "ambiguous": {
+            "n": 3,
+            "N": 9,
+            "rate": 0.3333333333333333
+          },
+          "conservativeIssues": {
+            "n": 5,
+            "N": 9,
+            "rate": 0.5555555555555556
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 1,
+            "N": 4,
+            "rate": 0.25
+          },
+          "ambiguous": {
+            "n": 2,
+            "N": 4,
+            "rate": 0.5
+          },
+          "conservativeIssues": {
+            "n": 3,
+            "N": 4,
+            "rate": 0.75
+          },
+          "withFactualAssertions": {
+            "n": 4,
+            "N": 4,
+            "rate": 1.0
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 4,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 0,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "relevant": 4
+          },
+          "refusal": {
+            "none": 4
+          },
+          "repetition": {
+            "none": 1,
+            "semantic_acknowledgment_and_location_reuse": 1,
+            "semantic_acknowledgment_and_topic_reuse": 1,
+            "semantic_trade_topic_reuse": 1
+          },
+          "persona": {
+            "supported": 4
+          },
+          "qaCoverage": {
+            "N/A": 4
+          }
+        }
+      }
+    },
+    {
+      "packId": "6735023c6f12e8042ac129c5a90512dfc1e33f985aff41b626212223bb643f34",
+      "packFile": "live-review-batch-08.json",
+      "packSha256": "b1aee8cb0b741d093bf80944b889a04c49affa72ee2dff1d4d42a6cc19ee676f",
+      "identityFile": "live-review-batch-08-identity.json",
+      "identitySha256": "91a6924351e8b2f9e2129f02058e8d066bf43741d9c287c828bebbcd4f01093d",
+      "adjudicationFile": "live-review-08-adjudicated.json",
+      "adjudicationSha256": "d22cb5e2c0330126db88e0de9e1964934622e8083b56834e7be792551e0ea4f7",
+      "reviewers": [
+        {
+          "reviewer": "a",
+          "file": "live-review-08-a.json",
+          "sha256": "5d28b84302545db3f9fac3a58d1f62f53aa0cd9e46ba760a8dac63147caa417a"
+        },
+        {
+          "reviewer": "b",
+          "file": "live-review-08-b.json",
+          "sha256": "b57a1fe632a956a97597386c36975fac931626a616be935214936e36901a9008"
+        }
+      ],
+      "coverage": {
+        "expectedSamples": 4,
+        "reviewedExpectedSamples": 4,
+        "missingSampleIds": [],
+        "extraSampleIds": [],
+        "duplicatePackSampleIds": [],
+        "duplicateReviewSampleIds": []
+      },
+      "statistics": {
+        "reviewedUtterances": 4,
+        "allReviewUnits": 5,
+        "factualAssertions": 1,
+        "verdictCounts": {
+          "not_factual": 4,
+          "supported": 1
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 0,
+            "N": 1,
+            "rate": 0.0
+          },
+          "ambiguous": {
+            "n": 0,
+            "N": 1,
+            "rate": 0.0
+          },
+          "conservativeIssues": {
+            "n": 0,
+            "N": 1,
+            "rate": 0.0
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 0,
+            "N": 4,
+            "rate": 0.0
+          },
+          "ambiguous": {
+            "n": 0,
+            "N": 4,
+            "rate": 0.0
+          },
+          "conservativeIssues": {
+            "n": 0,
+            "N": 4,
+            "rate": 0.0
+          },
+          "withFactualAssertions": {
+            "n": 1,
+            "N": 4,
+            "rate": 0.25
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 4,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 3,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "relevant": 3,
+            "weakly_relevant": 1
+          },
+          "refusal": {
+            "none": 4
+          },
+          "repetition": {
+            "none": 2,
+            "verbatim_full_utterance": 1,
+            "verbatim_reciprocal_reply": 1
+          },
+          "persona": {
+            "insufficient_evidence": 2,
+            "supported": 2
+          },
+          "qaCoverage": {
+            "N/A": 4
+          }
+        }
+      }
+    },
+    {
+      "packId": "c224921796fd7fda6f02c789c19f9df765220d1768e625beb03a6da5120149b7",
+      "packFile": "live-review-batch-09.json",
+      "packSha256": "e7bf3609124890b2ad4d4be002f505ffacfc4368afdfb233541d5fba83e59778",
+      "identityFile": "live-review-batch-09-identity.json",
+      "identitySha256": "51183d80e4bb3a9eac7379303c5c15409dce4e97dbb5fc86f7c2ffdad6fcb45a",
+      "adjudicationFile": "live-review-09-adjudicated.json",
+      "adjudicationSha256": "68adeb9773bbf8cde2fd211e488962efec29d4c7bc07bcf650f1ce0df78c74f7",
+      "reviewers": [
+        {
+          "reviewer": "a",
+          "file": "live-review-09-a.json",
+          "sha256": "50e47d5d4c000f2631291ee058ea4e1020ad88624111a878791cbf51cd2debaf"
+        },
+        {
+          "reviewer": "b",
+          "file": "live-review-09-b.json",
+          "sha256": "0dd720c4c2f7b50302ecb2ceebfaba2da1c7050bbfaac82fde5a874766060661"
+        }
+      ],
+      "coverage": {
+        "expectedSamples": 4,
+        "reviewedExpectedSamples": 4,
+        "missingSampleIds": [],
+        "extraSampleIds": [],
+        "duplicatePackSampleIds": [],
+        "duplicateReviewSampleIds": []
+      },
+      "statistics": {
+        "reviewedUtterances": 4,
+        "allReviewUnits": 19,
+        "factualAssertions": 5,
+        "verdictCounts": {
+          "ambiguous": 3,
+          "not_factual": 14,
+          "supported": 1,
+          "unsupported": 1
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 1,
+            "N": 5,
+            "rate": 0.2
+          },
+          "ambiguous": {
+            "n": 3,
+            "N": 5,
+            "rate": 0.6
+          },
+          "conservativeIssues": {
+            "n": 4,
+            "N": 5,
+            "rate": 0.8
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 1,
+            "N": 4,
+            "rate": 0.25
+          },
+          "ambiguous": {
+            "n": 3,
+            "N": 4,
+            "rate": 0.75
+          },
+          "conservativeIssues": {
+            "n": 3,
+            "N": 4,
+            "rate": 0.75
+          },
+          "withFactualAssertions": {
+            "n": 3,
+            "N": 4,
+            "rate": 0.75
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 4,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 1,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "relevant": 4
+          },
+          "refusal": {
+            "none": 4
+          },
+          "repetition": {
+            "none": 1,
+            "semantic_exchange_restatement": 1,
+            "semantic_greeting_and_topic_reuse": 1,
+            "semantic_recipe_topic_reuse": 1
+          },
+          "persona": {
+            "supported": 4
+          },
+          "qaCoverage": {
+            "N/A": 4
+          }
+        }
+      }
+    }
+  ],
+  "sourceChain": [
+    {
+      "batchPackId": "fde465027bc078424d7972a2cd2d35ea99590d256742e75aaceb1921e55d8ab5",
+      "kind": "direct_complete_source_packet",
+      "sourceFilesComparedToFinal": true
+    },
+    {
+      "batchPackId": "de12706dd08af0e30e78b53df0739bde21d46c8641c94c41a2b18067d1dcbaeb",
+      "kind": "incremental_source_packet",
+      "sourcePackId": "d47f6dac9b441b09fd8e6a071b08510c160db1c768a19b7362f6e867ef79580f",
+      "sourceBlindFile": "live-review-batch-02.blind-source.json",
+      "sourceBlindSha256": "06dab8dcdbb77dba2a2bad2111278754f4d86e934be08b5b8c0c0e5de612a539",
+      "sourceIdentityFile": "live-review-batch-02.identity-source.json",
+      "sourceIdentitySha256": "d3156d27553f5520f1085c1b65545fafb2083a7cc20e9945d2216ed268e06688",
+      "previousPacks": [
+        {
+          "fileName": "live-review-batch-01.json",
+          "sha256": "2d6faff4a6e6467039ed99a06629c2d27d5e36224559c2751f5667e4d1dfffe1",
+          "packId": "fde465027bc078424d7972a2cd2d35ea99590d256742e75aaceb1921e55d8ab5",
+          "sampleRows": 16,
+          "uniqueSampleIds": 16
+        }
+      ]
+    },
+    {
+      "batchPackId": "cbb9bec15f922073f2c844dc6e39413ef00b79513587e4037477a235ef3d868f",
+      "kind": "incremental_source_packet",
+      "sourcePackId": "a6cb429e2f17e830d8c6537f980114e1fc1b7d8dfedfe66d0c49276ab405572d",
+      "sourceBlindFile": "live-review-batch-03.blind-source.json",
+      "sourceBlindSha256": "1c8140bf58f49346ac653e969e0e13ec2ef5c37facbd62f5e96c2087029fa0f8",
+      "sourceIdentityFile": "live-review-batch-03.identity-source.json",
+      "sourceIdentitySha256": "51373d9f60888efac69d48368f0b84c81068b47cfcb847e83731b169fc4a1bee",
+      "previousPacks": [
+        {
+          "fileName": "live-review-batch-01.json",
+          "sha256": "2d6faff4a6e6467039ed99a06629c2d27d5e36224559c2751f5667e4d1dfffe1",
+          "packId": "fde465027bc078424d7972a2cd2d35ea99590d256742e75aaceb1921e55d8ab5",
+          "sampleRows": 16,
+          "uniqueSampleIds": 16
+        },
+        {
+          "fileName": "live-review-batch-02.json",
+          "sha256": "8436f9262224a6fff7a843892acd6b92274dbb8dbabf3bf17f5ef5857b43367f",
+          "packId": "de12706dd08af0e30e78b53df0739bde21d46c8641c94c41a2b18067d1dcbaeb",
+          "sampleRows": 8,
+          "uniqueSampleIds": 8
+        }
+      ]
+    },
+    {
+      "batchPackId": "97eb5af0d7443aaf8706e7cbe50840fc1ed345367ea936b6540c8cdcd946bc4e",
+      "kind": "incremental_source_packet",
+      "sourcePackId": "405566f2f882df5da50301fa2a157e663f00e3fe87b5be4ec73056ec07991549",
+      "sourceBlindFile": "live-review-batch-04.blind-source.json",
+      "sourceBlindSha256": "a0d975e7999cd64944b27ac5be0f8fde4d6e41e160b113396e3398614ee93b8b",
+      "sourceIdentityFile": "live-review-batch-04.identity-source.json",
+      "sourceIdentitySha256": "0df5da665da9f96bf61201993b4d1a5ccb79de41ced950120d2bdd843421c44e",
+      "previousPacks": [
+        {
+          "fileName": "live-review-batch-01.json",
+          "sha256": "2d6faff4a6e6467039ed99a06629c2d27d5e36224559c2751f5667e4d1dfffe1",
+          "packId": "fde465027bc078424d7972a2cd2d35ea99590d256742e75aaceb1921e55d8ab5",
+          "sampleRows": 16,
+          "uniqueSampleIds": 16
+        },
+        {
+          "fileName": "live-review-batch-02.json",
+          "sha256": "8436f9262224a6fff7a843892acd6b92274dbb8dbabf3bf17f5ef5857b43367f",
+          "packId": "de12706dd08af0e30e78b53df0739bde21d46c8641c94c41a2b18067d1dcbaeb",
+          "sampleRows": 8,
+          "uniqueSampleIds": 8
+        },
+        {
+          "fileName": "live-review-batch-03.json",
+          "sha256": "9cbf7c0cf0a0257260a07c0fab21b33595fe67e96ae3bb005ce32e433f26196b",
+          "packId": "cbb9bec15f922073f2c844dc6e39413ef00b79513587e4037477a235ef3d868f",
+          "sampleRows": 5,
+          "uniqueSampleIds": 5
+        }
+      ]
+    },
+    {
+      "batchPackId": "242ff833cfdf84e6a52d8e24d54cb03bfdde30a2418bd08a503d333865554d3d",
+      "kind": "incremental_source_packet",
+      "sourcePackId": "3c3ad6e855de252bdbec04fa0818aaea99009f04427ce51489242bee95264bb6",
+      "sourceBlindFile": "live-review-batch-05.blind-source.json",
+      "sourceBlindSha256": "7c6ded51fb226fd608aa8a46b27a51f2aa3ff27e4a7e3bd846e3d9f5b75c4035",
+      "sourceIdentityFile": "live-review-batch-05.identity-source.json",
+      "sourceIdentitySha256": "5ffb049fdf15cc7e34665031a1a2f3160ecbcefcfd7b3ab1ca5371aa366b5c6c",
+      "previousPacks": [
+        {
+          "fileName": "live-review-batch-01.json",
+          "sha256": "2d6faff4a6e6467039ed99a06629c2d27d5e36224559c2751f5667e4d1dfffe1",
+          "packId": "fde465027bc078424d7972a2cd2d35ea99590d256742e75aaceb1921e55d8ab5",
+          "sampleRows": 16,
+          "uniqueSampleIds": 16
+        },
+        {
+          "fileName": "live-review-batch-02.json",
+          "sha256": "8436f9262224a6fff7a843892acd6b92274dbb8dbabf3bf17f5ef5857b43367f",
+          "packId": "de12706dd08af0e30e78b53df0739bde21d46c8641c94c41a2b18067d1dcbaeb",
+          "sampleRows": 8,
+          "uniqueSampleIds": 8
+        },
+        {
+          "fileName": "live-review-batch-03.json",
+          "sha256": "9cbf7c0cf0a0257260a07c0fab21b33595fe67e96ae3bb005ce32e433f26196b",
+          "packId": "cbb9bec15f922073f2c844dc6e39413ef00b79513587e4037477a235ef3d868f",
+          "sampleRows": 5,
+          "uniqueSampleIds": 5
+        },
+        {
+          "fileName": "live-review-batch-04.json",
+          "sha256": "70566547ab4f921c3a6e492da7b1331dbd63b120e884588670000423296b5afd",
+          "packId": "97eb5af0d7443aaf8706e7cbe50840fc1ed345367ea936b6540c8cdcd946bc4e",
+          "sampleRows": 8,
+          "uniqueSampleIds": 8
+        }
+      ]
+    },
+    {
+      "batchPackId": "e67564e7dcc1bf39397847646e5ffecc794a06fa01d9347b03d7ce12e51d9b7b",
+      "kind": "incremental_source_packet",
+      "sourcePackId": "585a86acf50a52cf44935180b11a1690f3dd8b9e3b58b5c53bf6a00a41b88e28",
+      "sourceBlindFile": "live-review-batch-06.blind-source.json",
+      "sourceBlindSha256": "172c079e8483cf128ddd09f310f604245b1f796562ef32c733fcdbb8280c797c",
+      "sourceIdentityFile": "live-review-batch-06.identity-source.json",
+      "sourceIdentitySha256": "0e6113cc4209109402071d07836bb960bca917e10e6a46c30f246d8c9e2b5461",
+      "previousPacks": [
+        {
+          "fileName": "live-review-batch-01.json",
+          "sha256": "2d6faff4a6e6467039ed99a06629c2d27d5e36224559c2751f5667e4d1dfffe1",
+          "packId": "fde465027bc078424d7972a2cd2d35ea99590d256742e75aaceb1921e55d8ab5",
+          "sampleRows": 16,
+          "uniqueSampleIds": 16
+        },
+        {
+          "fileName": "live-review-batch-02.json",
+          "sha256": "8436f9262224a6fff7a843892acd6b92274dbb8dbabf3bf17f5ef5857b43367f",
+          "packId": "de12706dd08af0e30e78b53df0739bde21d46c8641c94c41a2b18067d1dcbaeb",
+          "sampleRows": 8,
+          "uniqueSampleIds": 8
+        },
+        {
+          "fileName": "live-review-batch-03.json",
+          "sha256": "9cbf7c0cf0a0257260a07c0fab21b33595fe67e96ae3bb005ce32e433f26196b",
+          "packId": "cbb9bec15f922073f2c844dc6e39413ef00b79513587e4037477a235ef3d868f",
+          "sampleRows": 5,
+          "uniqueSampleIds": 5
+        },
+        {
+          "fileName": "live-review-batch-04.json",
+          "sha256": "70566547ab4f921c3a6e492da7b1331dbd63b120e884588670000423296b5afd",
+          "packId": "97eb5af0d7443aaf8706e7cbe50840fc1ed345367ea936b6540c8cdcd946bc4e",
+          "sampleRows": 8,
+          "uniqueSampleIds": 8
+        },
+        {
+          "fileName": "live-review-batch-05.json",
+          "sha256": "001342a4f34c8a547aa60014f88ad73e5c12571b0137379cc10fd6272f45f996",
+          "packId": "242ff833cfdf84e6a52d8e24d54cb03bfdde30a2418bd08a503d333865554d3d",
+          "sampleRows": 15,
+          "uniqueSampleIds": 15
+        }
+      ]
+    },
+    {
+      "batchPackId": "c4bf9c5470178817dc7e5b32223cf57c3c1bd8bd7acc2da71bc4cb3fcd0babbe",
+      "kind": "incremental_source_packet",
+      "sourcePackId": "54070729ac8aeaf0ac54eec0c1d9f8d164c73d7ddfbad1ec9b851dafd3cf4f1f",
+      "sourceBlindFile": "live-review-batch-07.blind-source.json",
+      "sourceBlindSha256": "b03675f92add6bb7c0c4f3a7843bd86d8f90f8787cf34cc52eb4b338eb2c3f51",
+      "sourceIdentityFile": "live-review-batch-07.identity-source.json",
+      "sourceIdentitySha256": "66c3c4f5dfaf6b22d105ead7913ab277a50ee8a581e2a8a83b73d28edea37937",
+      "previousPacks": [
+        {
+          "fileName": "live-review-batch-01.json",
+          "sha256": "2d6faff4a6e6467039ed99a06629c2d27d5e36224559c2751f5667e4d1dfffe1",
+          "packId": "fde465027bc078424d7972a2cd2d35ea99590d256742e75aaceb1921e55d8ab5",
+          "sampleRows": 16,
+          "uniqueSampleIds": 16
+        },
+        {
+          "fileName": "live-review-batch-02.json",
+          "sha256": "8436f9262224a6fff7a843892acd6b92274dbb8dbabf3bf17f5ef5857b43367f",
+          "packId": "de12706dd08af0e30e78b53df0739bde21d46c8641c94c41a2b18067d1dcbaeb",
+          "sampleRows": 8,
+          "uniqueSampleIds": 8
+        },
+        {
+          "fileName": "live-review-batch-03.json",
+          "sha256": "9cbf7c0cf0a0257260a07c0fab21b33595fe67e96ae3bb005ce32e433f26196b",
+          "packId": "cbb9bec15f922073f2c844dc6e39413ef00b79513587e4037477a235ef3d868f",
+          "sampleRows": 5,
+          "uniqueSampleIds": 5
+        },
+        {
+          "fileName": "live-review-batch-04.json",
+          "sha256": "70566547ab4f921c3a6e492da7b1331dbd63b120e884588670000423296b5afd",
+          "packId": "97eb5af0d7443aaf8706e7cbe50840fc1ed345367ea936b6540c8cdcd946bc4e",
+          "sampleRows": 8,
+          "uniqueSampleIds": 8
+        },
+        {
+          "fileName": "live-review-batch-05.json",
+          "sha256": "001342a4f34c8a547aa60014f88ad73e5c12571b0137379cc10fd6272f45f996",
+          "packId": "242ff833cfdf84e6a52d8e24d54cb03bfdde30a2418bd08a503d333865554d3d",
+          "sampleRows": 15,
+          "uniqueSampleIds": 15
+        },
+        {
+          "fileName": "live-review-batch-06.json",
+          "sha256": "e7e13cd2dee7dcae29f5b553ed224a483767943b639e2d31f692dd38049adcd6",
+          "packId": "e67564e7dcc1bf39397847646e5ffecc794a06fa01d9347b03d7ce12e51d9b7b",
+          "sampleRows": 8,
+          "uniqueSampleIds": 8
+        }
+      ]
+    },
+    {
+      "batchPackId": "6735023c6f12e8042ac129c5a90512dfc1e33f985aff41b626212223bb643f34",
+      "kind": "incremental_source_packet",
+      "sourcePackId": "afd982e052acaf121aac8c751eed4488fbc79bb683f0106715ca69823dcd96c8",
+      "sourceBlindFile": "live-review-batch-08.blind-source.json",
+      "sourceBlindSha256": "513037c0aee063c83593b687a08fd080b6d2d6ec36f2e36adb8e550577e287e8",
+      "sourceIdentityFile": "live-review-batch-08.identity-source.json",
+      "sourceIdentitySha256": "72118f1d99d0d061d0bfa9a7380bf6075a8502ddc029613f10d46cb42ef590c4",
+      "previousPacks": [
+        {
+          "fileName": "live-review-batch-01.json",
+          "sha256": "2d6faff4a6e6467039ed99a06629c2d27d5e36224559c2751f5667e4d1dfffe1",
+          "packId": "fde465027bc078424d7972a2cd2d35ea99590d256742e75aaceb1921e55d8ab5",
+          "sampleRows": 16,
+          "uniqueSampleIds": 16
+        },
+        {
+          "fileName": "live-review-batch-02.json",
+          "sha256": "8436f9262224a6fff7a843892acd6b92274dbb8dbabf3bf17f5ef5857b43367f",
+          "packId": "de12706dd08af0e30e78b53df0739bde21d46c8641c94c41a2b18067d1dcbaeb",
+          "sampleRows": 8,
+          "uniqueSampleIds": 8
+        },
+        {
+          "fileName": "live-review-batch-03.json",
+          "sha256": "9cbf7c0cf0a0257260a07c0fab21b33595fe67e96ae3bb005ce32e433f26196b",
+          "packId": "cbb9bec15f922073f2c844dc6e39413ef00b79513587e4037477a235ef3d868f",
+          "sampleRows": 5,
+          "uniqueSampleIds": 5
+        },
+        {
+          "fileName": "live-review-batch-04.json",
+          "sha256": "70566547ab4f921c3a6e492da7b1331dbd63b120e884588670000423296b5afd",
+          "packId": "97eb5af0d7443aaf8706e7cbe50840fc1ed345367ea936b6540c8cdcd946bc4e",
+          "sampleRows": 8,
+          "uniqueSampleIds": 8
+        },
+        {
+          "fileName": "live-review-batch-05.json",
+          "sha256": "001342a4f34c8a547aa60014f88ad73e5c12571b0137379cc10fd6272f45f996",
+          "packId": "242ff833cfdf84e6a52d8e24d54cb03bfdde30a2418bd08a503d333865554d3d",
+          "sampleRows": 15,
+          "uniqueSampleIds": 15
+        },
+        {
+          "fileName": "live-review-batch-06.json",
+          "sha256": "e7e13cd2dee7dcae29f5b553ed224a483767943b639e2d31f692dd38049adcd6",
+          "packId": "e67564e7dcc1bf39397847646e5ffecc794a06fa01d9347b03d7ce12e51d9b7b",
+          "sampleRows": 8,
+          "uniqueSampleIds": 8
+        },
+        {
+          "fileName": "live-review-batch-07.json",
+          "sha256": "bb5feeabaef4d223f98c9355a77cc3b2fc5a05f530811662151a34ac96a56acb",
+          "packId": "c4bf9c5470178817dc7e5b32223cf57c3c1bd8bd7acc2da71bc4cb3fcd0babbe",
+          "sampleRows": 4,
+          "uniqueSampleIds": 4
+        }
+      ]
+    },
+    {
+      "batchPackId": "c224921796fd7fda6f02c789c19f9df765220d1768e625beb03a6da5120149b7",
+      "kind": "incremental_source_packet",
+      "sourcePackId": "c8e0998dbfe48d16aeff0c7a5652e6b308fa40728583c11ccb2322483e7f09c8",
+      "sourceBlindFile": "live-review-batch-09.blind-source.json",
+      "sourceBlindSha256": "eadccf963e5d36f6802f5b6657b451264f5541e826436f2a19230ac370ca7ac5",
+      "sourceIdentityFile": "live-review-batch-09.identity-source.json",
+      "sourceIdentitySha256": "6ac83c88f7b21bf63b7de4f1d7e2486ad4457d9cda4fa2ba62bed53f0c4f5ddd",
+      "previousPacks": [
+        {
+          "fileName": "live-review-batch-01.json",
+          "sha256": "2d6faff4a6e6467039ed99a06629c2d27d5e36224559c2751f5667e4d1dfffe1",
+          "packId": "fde465027bc078424d7972a2cd2d35ea99590d256742e75aaceb1921e55d8ab5",
+          "sampleRows": 16,
+          "uniqueSampleIds": 16
+        },
+        {
+          "fileName": "live-review-batch-02.json",
+          "sha256": "8436f9262224a6fff7a843892acd6b92274dbb8dbabf3bf17f5ef5857b43367f",
+          "packId": "de12706dd08af0e30e78b53df0739bde21d46c8641c94c41a2b18067d1dcbaeb",
+          "sampleRows": 8,
+          "uniqueSampleIds": 8
+        },
+        {
+          "fileName": "live-review-batch-03.json",
+          "sha256": "9cbf7c0cf0a0257260a07c0fab21b33595fe67e96ae3bb005ce32e433f26196b",
+          "packId": "cbb9bec15f922073f2c844dc6e39413ef00b79513587e4037477a235ef3d868f",
+          "sampleRows": 5,
+          "uniqueSampleIds": 5
+        },
+        {
+          "fileName": "live-review-batch-04.json",
+          "sha256": "70566547ab4f921c3a6e492da7b1331dbd63b120e884588670000423296b5afd",
+          "packId": "97eb5af0d7443aaf8706e7cbe50840fc1ed345367ea936b6540c8cdcd946bc4e",
+          "sampleRows": 8,
+          "uniqueSampleIds": 8
+        },
+        {
+          "fileName": "live-review-batch-05.json",
+          "sha256": "001342a4f34c8a547aa60014f88ad73e5c12571b0137379cc10fd6272f45f996",
+          "packId": "242ff833cfdf84e6a52d8e24d54cb03bfdde30a2418bd08a503d333865554d3d",
+          "sampleRows": 15,
+          "uniqueSampleIds": 15
+        },
+        {
+          "fileName": "live-review-batch-06.json",
+          "sha256": "e7e13cd2dee7dcae29f5b553ed224a483767943b639e2d31f692dd38049adcd6",
+          "packId": "e67564e7dcc1bf39397847646e5ffecc794a06fa01d9347b03d7ce12e51d9b7b",
+          "sampleRows": 8,
+          "uniqueSampleIds": 8
+        },
+        {
+          "fileName": "live-review-batch-07.json",
+          "sha256": "bb5feeabaef4d223f98c9355a77cc3b2fc5a05f530811662151a34ac96a56acb",
+          "packId": "c4bf9c5470178817dc7e5b32223cf57c3c1bd8bd7acc2da71bc4cb3fcd0babbe",
+          "sampleRows": 4,
+          "uniqueSampleIds": 4
+        },
+        {
+          "fileName": "live-review-batch-08.json",
+          "sha256": "b1aee8cb0b741d093bf80944b889a04c49affa72ee2dff1d4d42a6cc19ee676f",
+          "packId": "6735023c6f12e8042ac129c5a90512dfc1e33f985aff41b626212223bb643f34",
+          "sampleRows": 4,
+          "uniqueSampleIds": 4
+        }
+      ]
+    }
+  ],
+  "countingRule": "Supplied final adjudications only. Conservative issues are clear verdicts union ambiguous. Missing evidence is separate from no-factual speech. Dimension labels are distributions, not automatic problem classifications.",
+  "statistics": {
+    "reviewedUtterances": 72,
+    "allReviewUnits": 245,
+    "factualAssertions": 107,
+    "verdictCounts": {
+      "ambiguous": 21,
+      "not_factual": 138,
+      "supported": 53,
+      "unsupported": 33
+    },
+    "assertions": {
+      "clearIssues": {
+        "n": 33,
+        "N": 107,
+        "rate": 0.308411214953271
+      },
+      "ambiguous": {
+        "n": 21,
+        "N": 107,
+        "rate": 0.19626168224299065
+      },
+      "conservativeIssues": {
+        "n": 54,
+        "N": 107,
+        "rate": 0.5046728971962616
+      }
+    },
+    "utterances": {
+      "clearIssues": {
+        "n": 17,
+        "N": 72,
+        "rate": 0.2361111111111111
+      },
+      "ambiguous": {
+        "n": 17,
+        "N": 72,
+        "rate": 0.2361111111111111
+      },
+      "conservativeIssues": {
+        "n": 26,
+        "N": 72,
+        "rate": 0.3611111111111111
+      },
+      "withFactualAssertions": {
+        "n": 53,
+        "N": 72,
+        "rate": 0.7361111111111112
+      },
+      "reviewEvidenceMissing": {
+        "n": 0,
+        "N": 72,
+        "rate": 0.0
+      }
+    },
+    "noFactualUtterances": 19,
+    "reviewEvidenceMissingUnits": 0,
+    "dimensions": {
+      "relevance": {
+        "partially_relevant": 1,
+        "relevant": 52,
+        "relevant_but_no_new_information": 9,
+        "relevant_topic_shift": 2,
+        "relevant_with_addressee_shift": 3,
+        "relevant_with_unclear_cooking_link": 1,
+        "weakly_relevant": 4
+      },
+      "refusal": {
+        "none": 66,
+        "reasonable_unknown": 6
+      },
+      "repetition": {
+        "none": 25,
+        "semantic_acknowledgment_and_location_reuse": 1,
+        "semantic_acknowledgment_and_topic_reuse": 2,
+        "semantic_exchange_restatement": 1,
+        "semantic_greeting": 2,
+        "semantic_greeting_and_topic_reuse": 1,
+        "semantic_partial": 14,
+        "semantic_recipe_topic_reuse": 1,
+        "semantic_topic_reuse": 6,
+        "semantic_trade_topic_reuse": 1,
+        "verbatim": 9,
+        "verbatim_full_utterance": 1,
+        "verbatim_partial_and_semantic": 3,
+        "verbatim_preface_only": 4,
+        "verbatim_reciprocal_reply": 1
+      },
+      "persona": {
+        "insufficient_evidence": 23,
+        "supported": 49
+      },
+      "qaCoverage": {
+        "N/A": 72
+      }
+    }
+  },
+  "groups": {
+    "bySpeechMode": {
+      "F": {
+        "reviewedUtterances": 38,
+        "allReviewUnits": 192,
+        "factualAssertions": 87,
+        "verdictCounts": {
+          "ambiguous": 21,
+          "not_factual": 105,
+          "supported": 33,
+          "unsupported": 33
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 33,
+            "N": 87,
+            "rate": 0.3793103448275862
+          },
+          "ambiguous": {
+            "n": 21,
+            "N": 87,
+            "rate": 0.2413793103448276
+          },
+          "conservativeIssues": {
+            "n": 54,
+            "N": 87,
+            "rate": 0.6206896551724138
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 17,
+            "N": 38,
+            "rate": 0.4473684210526316
+          },
+          "ambiguous": {
+            "n": 17,
+            "N": 38,
+            "rate": 0.4473684210526316
+          },
+          "conservativeIssues": {
+            "n": 26,
+            "N": 38,
+            "rate": 0.6842105263157895
+          },
+          "withFactualAssertions": {
+            "n": 33,
+            "N": 38,
+            "rate": 0.868421052631579
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 38,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 5,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "partially_relevant": 1,
+            "relevant": 33,
+            "relevant_with_addressee_shift": 3,
+            "relevant_with_unclear_cooking_link": 1
+          },
+          "refusal": {
+            "none": 37,
+            "reasonable_unknown": 1
+          },
+          "repetition": {
+            "none": 10,
+            "semantic_acknowledgment_and_location_reuse": 1,
+            "semantic_acknowledgment_and_topic_reuse": 2,
+            "semantic_exchange_restatement": 1,
+            "semantic_greeting": 2,
+            "semantic_greeting_and_topic_reuse": 1,
+            "semantic_partial": 14,
+            "semantic_recipe_topic_reuse": 1,
+            "semantic_topic_reuse": 5,
+            "semantic_trade_topic_reuse": 1
+          },
+          "persona": {
+            "insufficient_evidence": 1,
+            "supported": 37
+          },
+          "qaCoverage": {
+            "N/A": 38
+          }
+        }
+      },
+      "S": {
+        "reviewedUtterances": 34,
+        "allReviewUnits": 53,
+        "factualAssertions": 20,
+        "verdictCounts": {
+          "not_factual": 33,
+          "supported": 20
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 0,
+            "N": 20,
+            "rate": 0.0
+          },
+          "ambiguous": {
+            "n": 0,
+            "N": 20,
+            "rate": 0.0
+          },
+          "conservativeIssues": {
+            "n": 0,
+            "N": 20,
+            "rate": 0.0
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 0,
+            "N": 34,
+            "rate": 0.0
+          },
+          "ambiguous": {
+            "n": 0,
+            "N": 34,
+            "rate": 0.0
+          },
+          "conservativeIssues": {
+            "n": 0,
+            "N": 34,
+            "rate": 0.0
+          },
+          "withFactualAssertions": {
+            "n": 20,
+            "N": 34,
+            "rate": 0.5882352941176471
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 34,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 14,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "relevant": 19,
+            "relevant_but_no_new_information": 9,
+            "relevant_topic_shift": 2,
+            "weakly_relevant": 4
+          },
+          "refusal": {
+            "none": 29,
+            "reasonable_unknown": 5
+          },
+          "repetition": {
+            "none": 15,
+            "semantic_topic_reuse": 1,
+            "verbatim": 9,
+            "verbatim_full_utterance": 1,
+            "verbatim_partial_and_semantic": 3,
+            "verbatim_preface_only": 4,
+            "verbatim_reciprocal_reply": 1
+          },
+          "persona": {
+            "insufficient_evidence": 22,
+            "supported": 12
+          },
+          "qaCoverage": {
+            "N/A": 34
+          }
+        }
+      }
+    },
+    "byNpc": {
+      "npc.cook_sora": {
+        "reviewedUtterances": 8,
+        "allReviewUnits": 31,
+        "factualAssertions": 14,
+        "verdictCounts": {
+          "not_factual": 17,
+          "supported": 10,
+          "unsupported": 4
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 4,
+            "N": 14,
+            "rate": 0.2857142857142857
+          },
+          "ambiguous": {
+            "n": 0,
+            "N": 14,
+            "rate": 0.0
+          },
+          "conservativeIssues": {
+            "n": 4,
+            "N": 14,
+            "rate": 0.2857142857142857
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 3,
+            "N": 8,
+            "rate": 0.375
+          },
+          "ambiguous": {
+            "n": 0,
+            "N": 8,
+            "rate": 0.0
+          },
+          "conservativeIssues": {
+            "n": 3,
+            "N": 8,
+            "rate": 0.375
+          },
+          "withFactualAssertions": {
+            "n": 6,
+            "N": 8,
+            "rate": 0.75
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 8,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 2,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "relevant": 6,
+            "relevant_but_no_new_information": 1,
+            "relevant_topic_shift": 1
+          },
+          "refusal": {
+            "none": 8
+          },
+          "repetition": {
+            "none": 5,
+            "semantic_partial": 2,
+            "verbatim": 1
+          },
+          "persona": {
+            "insufficient_evidence": 3,
+            "supported": 5
+          },
+          "qaCoverage": {
+            "N/A": 8
+          }
+        }
+      },
+      "npc.farmer_eli": {
+        "reviewedUtterances": 28,
+        "allReviewUnits": 100,
+        "factualAssertions": 48,
+        "verdictCounts": {
+          "ambiguous": 12,
+          "not_factual": 52,
+          "supported": 13,
+          "unsupported": 23
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 23,
+            "N": 48,
+            "rate": 0.4791666666666667
+          },
+          "ambiguous": {
+            "n": 12,
+            "N": 48,
+            "rate": 0.25
+          },
+          "conservativeIssues": {
+            "n": 35,
+            "N": 48,
+            "rate": 0.7291666666666666
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 9,
+            "N": 28,
+            "rate": 0.32142857142857145
+          },
+          "ambiguous": {
+            "n": 10,
+            "N": 28,
+            "rate": 0.35714285714285715
+          },
+          "conservativeIssues": {
+            "n": 13,
+            "N": 28,
+            "rate": 0.4642857142857143
+          },
+          "withFactualAssertions": {
+            "n": 21,
+            "N": 28,
+            "rate": 0.75
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 28,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 7,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "partially_relevant": 1,
+            "relevant": 20,
+            "relevant_but_no_new_information": 2,
+            "relevant_topic_shift": 1,
+            "relevant_with_addressee_shift": 2,
+            "weakly_relevant": 2
+          },
+          "refusal": {
+            "none": 24,
+            "reasonable_unknown": 4
+          },
+          "repetition": {
+            "none": 4,
+            "semantic_acknowledgment_and_location_reuse": 1,
+            "semantic_acknowledgment_and_topic_reuse": 2,
+            "semantic_exchange_restatement": 1,
+            "semantic_greeting": 2,
+            "semantic_greeting_and_topic_reuse": 1,
+            "semantic_partial": 5,
+            "semantic_topic_reuse": 4,
+            "verbatim": 3,
+            "verbatim_partial_and_semantic": 1,
+            "verbatim_preface_only": 3,
+            "verbatim_reciprocal_reply": 1
+          },
+          "persona": {
+            "insufficient_evidence": 10,
+            "supported": 18
+          },
+          "qaCoverage": {
+            "N/A": 28
+          }
+        }
+      },
+      "npc.fisher_ren": {
+        "reviewedUtterances": 7,
+        "allReviewUnits": 16,
+        "factualAssertions": 8,
+        "verdictCounts": {
+          "ambiguous": 2,
+          "not_factual": 8,
+          "supported": 3,
+          "unsupported": 3
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 3,
+            "N": 8,
+            "rate": 0.375
+          },
+          "ambiguous": {
+            "n": 2,
+            "N": 8,
+            "rate": 0.25
+          },
+          "conservativeIssues": {
+            "n": 5,
+            "N": 8,
+            "rate": 0.625
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 2,
+            "N": 7,
+            "rate": 0.2857142857142857
+          },
+          "ambiguous": {
+            "n": 2,
+            "N": 7,
+            "rate": 0.2857142857142857
+          },
+          "conservativeIssues": {
+            "n": 3,
+            "N": 7,
+            "rate": 0.42857142857142855
+          },
+          "withFactualAssertions": {
+            "n": 6,
+            "N": 7,
+            "rate": 0.8571428571428571
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 7,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 1,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "relevant": 3,
+            "relevant_but_no_new_information": 3,
+            "relevant_with_unclear_cooking_link": 1
+          },
+          "refusal": {
+            "none": 7
+          },
+          "repetition": {
+            "semantic_partial": 2,
+            "semantic_topic_reuse": 1,
+            "verbatim": 2,
+            "verbatim_partial_and_semantic": 2
+          },
+          "persona": {
+            "insufficient_evidence": 4,
+            "supported": 3
+          },
+          "qaCoverage": {
+            "N/A": 7
+          }
+        }
+      },
+      "npc.shopkeeper_mina": {
+        "reviewedUtterances": 29,
+        "allReviewUnits": 98,
+        "factualAssertions": 37,
+        "verdictCounts": {
+          "ambiguous": 7,
+          "not_factual": 61,
+          "supported": 27,
+          "unsupported": 3
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 3,
+            "N": 37,
+            "rate": 0.08108108108108109
+          },
+          "ambiguous": {
+            "n": 7,
+            "N": 37,
+            "rate": 0.1891891891891892
+          },
+          "conservativeIssues": {
+            "n": 10,
+            "N": 37,
+            "rate": 0.2702702702702703
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 3,
+            "N": 29,
+            "rate": 0.10344827586206896
+          },
+          "ambiguous": {
+            "n": 5,
+            "N": 29,
+            "rate": 0.1724137931034483
+          },
+          "conservativeIssues": {
+            "n": 7,
+            "N": 29,
+            "rate": 0.2413793103448276
+          },
+          "withFactualAssertions": {
+            "n": 20,
+            "N": 29,
+            "rate": 0.6896551724137931
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 29,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 9,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "relevant": 23,
+            "relevant_but_no_new_information": 3,
+            "relevant_with_addressee_shift": 1,
+            "weakly_relevant": 2
+          },
+          "refusal": {
+            "none": 27,
+            "reasonable_unknown": 2
+          },
+          "repetition": {
+            "none": 16,
+            "semantic_partial": 5,
+            "semantic_recipe_topic_reuse": 1,
+            "semantic_topic_reuse": 1,
+            "semantic_trade_topic_reuse": 1,
+            "verbatim": 3,
+            "verbatim_full_utterance": 1,
+            "verbatim_preface_only": 1
+          },
+          "persona": {
+            "insufficient_evidence": 6,
+            "supported": 23
+          },
+          "qaCoverage": {
+            "N/A": 29
+          }
+        }
+      }
+    },
+    "byScenario": {
+      "available": {
+        "reviewedUtterances": 31,
+        "allReviewUnits": 103,
+        "factualAssertions": 51,
+        "verdictCounts": {
+          "ambiguous": 7,
+          "not_factual": 52,
+          "supported": 26,
+          "unsupported": 18
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 18,
+            "N": 51,
+            "rate": 0.35294117647058826
+          },
+          "ambiguous": {
+            "n": 7,
+            "N": 51,
+            "rate": 0.13725490196078433
+          },
+          "conservativeIssues": {
+            "n": 25,
+            "N": 51,
+            "rate": 0.49019607843137253
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 8,
+            "N": 31,
+            "rate": 0.25806451612903225
+          },
+          "ambiguous": {
+            "n": 5,
+            "N": 31,
+            "rate": 0.16129032258064516
+          },
+          "conservativeIssues": {
+            "n": 11,
+            "N": 31,
+            "rate": 0.3548387096774194
+          },
+          "withFactualAssertions": {
+            "n": 23,
+            "N": 31,
+            "rate": 0.7419354838709677
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 31,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 8,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "relevant": 18,
+            "relevant_but_no_new_information": 6,
+            "relevant_topic_shift": 2,
+            "relevant_with_addressee_shift": 3,
+            "relevant_with_unclear_cooking_link": 1,
+            "weakly_relevant": 1
+          },
+          "refusal": {
+            "none": 31
+          },
+          "repetition": {
+            "none": 11,
+            "semantic_greeting": 1,
+            "semantic_partial": 8,
+            "semantic_topic_reuse": 2,
+            "verbatim": 6,
+            "verbatim_partial_and_semantic": 2,
+            "verbatim_preface_only": 1
+          },
+          "persona": {
+            "insufficient_evidence": 12,
+            "supported": 19
+          },
+          "qaCoverage": {
+            "N/A": 31
+          }
+        }
+      },
+      "buyer_poor": {
+        "reviewedUtterances": 9,
+        "allReviewUnits": 40,
+        "factualAssertions": 17,
+        "verdictCounts": {
+          "ambiguous": 4,
+          "not_factual": 23,
+          "supported": 9,
+          "unsupported": 4
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 4,
+            "N": 17,
+            "rate": 0.23529411764705882
+          },
+          "ambiguous": {
+            "n": 4,
+            "N": 17,
+            "rate": 0.23529411764705882
+          },
+          "conservativeIssues": {
+            "n": 8,
+            "N": 17,
+            "rate": 0.47058823529411764
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 3,
+            "N": 9,
+            "rate": 0.3333333333333333
+          },
+          "ambiguous": {
+            "n": 3,
+            "N": 9,
+            "rate": 0.3333333333333333
+          },
+          "conservativeIssues": {
+            "n": 5,
+            "N": 9,
+            "rate": 0.5555555555555556
+          },
+          "withFactualAssertions": {
+            "n": 8,
+            "N": 9,
+            "rate": 0.8888888888888888
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 9,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 1,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "partially_relevant": 1,
+            "relevant": 8
+          },
+          "refusal": {
+            "none": 8,
+            "reasonable_unknown": 1
+          },
+          "repetition": {
+            "none": 4,
+            "semantic_acknowledgment_and_location_reuse": 1,
+            "semantic_acknowledgment_and_topic_reuse": 1,
+            "semantic_partial": 2,
+            "semantic_trade_topic_reuse": 1
+          },
+          "persona": {
+            "insufficient_evidence": 1,
+            "supported": 8
+          },
+          "qaCoverage": {
+            "N/A": 9
+          }
+        }
+      },
+      "need_satisfied": {
+        "reviewedUtterances": 16,
+        "allReviewUnits": 48,
+        "factualAssertions": 16,
+        "verdictCounts": {
+          "ambiguous": 4,
+          "not_factual": 32,
+          "supported": 9,
+          "unsupported": 3
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 3,
+            "N": 16,
+            "rate": 0.1875
+          },
+          "ambiguous": {
+            "n": 4,
+            "N": 16,
+            "rate": 0.25
+          },
+          "conservativeIssues": {
+            "n": 7,
+            "N": 16,
+            "rate": 0.4375
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 2,
+            "N": 16,
+            "rate": 0.125
+          },
+          "ambiguous": {
+            "n": 4,
+            "N": 16,
+            "rate": 0.25
+          },
+          "conservativeIssues": {
+            "n": 4,
+            "N": 16,
+            "rate": 0.25
+          },
+          "withFactualAssertions": {
+            "n": 10,
+            "N": 16,
+            "rate": 0.625
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 16,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 6,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "relevant": 13,
+            "relevant_but_no_new_information": 2,
+            "weakly_relevant": 1
+          },
+          "refusal": {
+            "none": 12,
+            "reasonable_unknown": 4
+          },
+          "repetition": {
+            "none": 5,
+            "semantic_exchange_restatement": 1,
+            "semantic_greeting": 1,
+            "semantic_greeting_and_topic_reuse": 1,
+            "semantic_partial": 2,
+            "semantic_recipe_topic_reuse": 1,
+            "verbatim": 2,
+            "verbatim_full_utterance": 1,
+            "verbatim_partial_and_semantic": 1,
+            "verbatim_reciprocal_reply": 1
+          },
+          "persona": {
+            "insufficient_evidence": 5,
+            "supported": 11
+          },
+          "qaCoverage": {
+            "N/A": 16
+          }
+        }
+      },
+      "seller_empty": {
+        "reviewedUtterances": 16,
+        "allReviewUnits": 54,
+        "factualAssertions": 23,
+        "verdictCounts": {
+          "ambiguous": 6,
+          "not_factual": 31,
+          "supported": 9,
+          "unsupported": 8
+        },
+        "assertions": {
+          "clearIssues": {
+            "n": 8,
+            "N": 23,
+            "rate": 0.34782608695652173
+          },
+          "ambiguous": {
+            "n": 6,
+            "N": 23,
+            "rate": 0.2608695652173913
+          },
+          "conservativeIssues": {
+            "n": 14,
+            "N": 23,
+            "rate": 0.6086956521739131
+          }
+        },
+        "utterances": {
+          "clearIssues": {
+            "n": 4,
+            "N": 16,
+            "rate": 0.25
+          },
+          "ambiguous": {
+            "n": 5,
+            "N": 16,
+            "rate": 0.3125
+          },
+          "conservativeIssues": {
+            "n": 6,
+            "N": 16,
+            "rate": 0.375
+          },
+          "withFactualAssertions": {
+            "n": 12,
+            "N": 16,
+            "rate": 0.75
+          },
+          "reviewEvidenceMissing": {
+            "n": 0,
+            "N": 16,
+            "rate": 0.0
+          }
+        },
+        "noFactualUtterances": 4,
+        "reviewEvidenceMissingUnits": 0,
+        "dimensions": {
+          "relevance": {
+            "relevant": 13,
+            "relevant_but_no_new_information": 1,
+            "weakly_relevant": 2
+          },
+          "refusal": {
+            "none": 15,
+            "reasonable_unknown": 1
+          },
+          "repetition": {
+            "none": 5,
+            "semantic_acknowledgment_and_topic_reuse": 1,
+            "semantic_partial": 2,
+            "semantic_topic_reuse": 4,
+            "verbatim": 1,
+            "verbatim_preface_only": 3
+          },
+          "persona": {
+            "insufficient_evidence": 5,
+            "supported": 11
+          },
+          "qaCoverage": {
+            "N/A": 16
+          }
+        }
+      }
+    },
+    "strata": [
+      {
+        "speechMode": "F",
+        "npcId": "npc.cook_sora",
+        "scenarioId": "available",
+        "statistics": {
+          "reviewedUtterances": 4,
+          "allReviewUnits": 24,
+          "factualAssertions": 11,
+          "verdictCounts": {
+            "not_factual": 13,
+            "supported": 7,
+            "unsupported": 4
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 4,
+              "N": 11,
+              "rate": 0.36363636363636365
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 11,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 4,
+              "N": 11,
+              "rate": 0.36363636363636365
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 3,
+              "N": 4,
+              "rate": 0.75
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 3,
+              "N": 4,
+              "rate": 0.75
+            },
+            "withFactualAssertions": {
+              "n": 3,
+              "N": 4,
+              "rate": 0.75
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 1,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 4
+            },
+            "refusal": {
+              "none": 4
+            },
+            "repetition": {
+              "none": 2,
+              "semantic_partial": 2
+            },
+            "persona": {
+              "supported": 4
+            },
+            "qaCoverage": {
+              "N/A": 4
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "F",
+        "npcId": "npc.farmer_eli",
+        "scenarioId": "available",
+        "statistics": {
+          "reviewedUtterances": 4,
+          "allReviewUnits": 22,
+          "factualAssertions": 15,
+          "verdictCounts": {
+            "ambiguous": 3,
+            "not_factual": 7,
+            "supported": 1,
+            "unsupported": 11
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 11,
+              "N": 15,
+              "rate": 0.7333333333333333
+            },
+            "ambiguous": {
+              "n": 3,
+              "N": 15,
+              "rate": 0.2
+            },
+            "conservativeIssues": {
+              "n": 14,
+              "N": 15,
+              "rate": 0.9333333333333333
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 3,
+              "N": 4,
+              "rate": 0.75
+            },
+            "ambiguous": {
+              "n": 2,
+              "N": 4,
+              "rate": 0.5
+            },
+            "conservativeIssues": {
+              "n": 4,
+              "N": 4,
+              "rate": 1.0
+            },
+            "withFactualAssertions": {
+              "n": 4,
+              "N": 4,
+              "rate": 1.0
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 0,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 2,
+              "relevant_with_addressee_shift": 2
+            },
+            "refusal": {
+              "none": 4
+            },
+            "repetition": {
+              "semantic_greeting": 1,
+              "semantic_partial": 2,
+              "semantic_topic_reuse": 1
+            },
+            "persona": {
+              "supported": 4
+            },
+            "qaCoverage": {
+              "N/A": 4
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "F",
+        "npcId": "npc.farmer_eli",
+        "scenarioId": "buyer_poor",
+        "statistics": {
+          "reviewedUtterances": 3,
+          "allReviewUnits": 16,
+          "factualAssertions": 8,
+          "verdictCounts": {
+            "ambiguous": 2,
+            "not_factual": 8,
+            "supported": 3,
+            "unsupported": 3
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 3,
+              "N": 8,
+              "rate": 0.375
+            },
+            "ambiguous": {
+              "n": 2,
+              "N": 8,
+              "rate": 0.25
+            },
+            "conservativeIssues": {
+              "n": 5,
+              "N": 8,
+              "rate": 0.625
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 2,
+              "N": 3,
+              "rate": 0.6666666666666666
+            },
+            "ambiguous": {
+              "n": 2,
+              "N": 3,
+              "rate": 0.6666666666666666
+            },
+            "conservativeIssues": {
+              "n": 3,
+              "N": 3,
+              "rate": 1.0
+            },
+            "withFactualAssertions": {
+              "n": 3,
+              "N": 3,
+              "rate": 1.0
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 3,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 0,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "partially_relevant": 1,
+              "relevant": 2
+            },
+            "refusal": {
+              "none": 2,
+              "reasonable_unknown": 1
+            },
+            "repetition": {
+              "semantic_acknowledgment_and_location_reuse": 1,
+              "semantic_acknowledgment_and_topic_reuse": 1,
+              "semantic_partial": 1
+            },
+            "persona": {
+              "supported": 3
+            },
+            "qaCoverage": {
+              "N/A": 3
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "F",
+        "npcId": "npc.farmer_eli",
+        "scenarioId": "need_satisfied",
+        "statistics": {
+          "reviewedUtterances": 4,
+          "allReviewUnits": 18,
+          "factualAssertions": 5,
+          "verdictCounts": {
+            "ambiguous": 2,
+            "not_factual": 13,
+            "supported": 1,
+            "unsupported": 2
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 2,
+              "N": 5,
+              "rate": 0.4
+            },
+            "ambiguous": {
+              "n": 2,
+              "N": 5,
+              "rate": 0.4
+            },
+            "conservativeIssues": {
+              "n": 4,
+              "N": 5,
+              "rate": 0.8
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 1,
+              "N": 4,
+              "rate": 0.25
+            },
+            "ambiguous": {
+              "n": 2,
+              "N": 4,
+              "rate": 0.5
+            },
+            "conservativeIssues": {
+              "n": 2,
+              "N": 4,
+              "rate": 0.5
+            },
+            "withFactualAssertions": {
+              "n": 2,
+              "N": 4,
+              "rate": 0.5
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 2,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 4
+            },
+            "refusal": {
+              "none": 4
+            },
+            "repetition": {
+              "semantic_exchange_restatement": 1,
+              "semantic_greeting": 1,
+              "semantic_greeting_and_topic_reuse": 1,
+              "semantic_partial": 1
+            },
+            "persona": {
+              "insufficient_evidence": 1,
+              "supported": 3
+            },
+            "qaCoverage": {
+              "N/A": 4
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "F",
+        "npcId": "npc.farmer_eli",
+        "scenarioId": "seller_empty",
+        "statistics": {
+          "reviewedUtterances": 4,
+          "allReviewUnits": 23,
+          "factualAssertions": 12,
+          "verdictCounts": {
+            "ambiguous": 5,
+            "not_factual": 11,
+            "unsupported": 7
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 7,
+              "N": 12,
+              "rate": 0.5833333333333334
+            },
+            "ambiguous": {
+              "n": 5,
+              "N": 12,
+              "rate": 0.4166666666666667
+            },
+            "conservativeIssues": {
+              "n": 12,
+              "N": 12,
+              "rate": 1.0
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 3,
+              "N": 4,
+              "rate": 0.75
+            },
+            "ambiguous": {
+              "n": 4,
+              "N": 4,
+              "rate": 1.0
+            },
+            "conservativeIssues": {
+              "n": 4,
+              "N": 4,
+              "rate": 1.0
+            },
+            "withFactualAssertions": {
+              "n": 4,
+              "N": 4,
+              "rate": 1.0
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 0,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 4
+            },
+            "refusal": {
+              "none": 4
+            },
+            "repetition": {
+              "semantic_acknowledgment_and_topic_reuse": 1,
+              "semantic_partial": 1,
+              "semantic_topic_reuse": 2
+            },
+            "persona": {
+              "supported": 4
+            },
+            "qaCoverage": {
+              "N/A": 4
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "F",
+        "npcId": "npc.fisher_ren",
+        "scenarioId": "available",
+        "statistics": {
+          "reviewedUtterances": 3,
+          "allReviewUnits": 11,
+          "factualAssertions": 5,
+          "verdictCounts": {
+            "ambiguous": 2,
+            "not_factual": 6,
+            "unsupported": 3
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 3,
+              "N": 5,
+              "rate": 0.6
+            },
+            "ambiguous": {
+              "n": 2,
+              "N": 5,
+              "rate": 0.4
+            },
+            "conservativeIssues": {
+              "n": 5,
+              "N": 5,
+              "rate": 1.0
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 2,
+              "N": 3,
+              "rate": 0.6666666666666666
+            },
+            "ambiguous": {
+              "n": 2,
+              "N": 3,
+              "rate": 0.6666666666666666
+            },
+            "conservativeIssues": {
+              "n": 3,
+              "N": 3,
+              "rate": 1.0
+            },
+            "withFactualAssertions": {
+              "n": 3,
+              "N": 3,
+              "rate": 1.0
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 3,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 0,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 2,
+              "relevant_with_unclear_cooking_link": 1
+            },
+            "refusal": {
+              "none": 3
+            },
+            "repetition": {
+              "semantic_partial": 2,
+              "semantic_topic_reuse": 1
+            },
+            "persona": {
+              "supported": 3
+            },
+            "qaCoverage": {
+              "N/A": 3
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "F",
+        "npcId": "npc.shopkeeper_mina",
+        "scenarioId": "available",
+        "statistics": {
+          "reviewedUtterances": 4,
+          "allReviewUnits": 21,
+          "factualAssertions": 10,
+          "verdictCounts": {
+            "ambiguous": 2,
+            "not_factual": 11,
+            "supported": 8
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 0,
+              "N": 10,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 2,
+              "N": 10,
+              "rate": 0.2
+            },
+            "conservativeIssues": {
+              "n": 2,
+              "N": 10,
+              "rate": 0.2
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 1,
+              "N": 4,
+              "rate": 0.25
+            },
+            "conservativeIssues": {
+              "n": 1,
+              "N": 4,
+              "rate": 0.25
+            },
+            "withFactualAssertions": {
+              "n": 3,
+              "N": 4,
+              "rate": 0.75
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 1,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 3,
+              "relevant_with_addressee_shift": 1
+            },
+            "refusal": {
+              "none": 4
+            },
+            "repetition": {
+              "none": 2,
+              "semantic_partial": 2
+            },
+            "persona": {
+              "supported": 4
+            },
+            "qaCoverage": {
+              "N/A": 4
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "F",
+        "npcId": "npc.shopkeeper_mina",
+        "scenarioId": "buyer_poor",
+        "statistics": {
+          "reviewedUtterances": 4,
+          "allReviewUnits": 21,
+          "factualAssertions": 8,
+          "verdictCounts": {
+            "ambiguous": 2,
+            "not_factual": 13,
+            "supported": 5,
+            "unsupported": 1
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 1,
+              "N": 8,
+              "rate": 0.125
+            },
+            "ambiguous": {
+              "n": 2,
+              "N": 8,
+              "rate": 0.25
+            },
+            "conservativeIssues": {
+              "n": 3,
+              "N": 8,
+              "rate": 0.375
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 1,
+              "N": 4,
+              "rate": 0.25
+            },
+            "ambiguous": {
+              "n": 1,
+              "N": 4,
+              "rate": 0.25
+            },
+            "conservativeIssues": {
+              "n": 2,
+              "N": 4,
+              "rate": 0.5
+            },
+            "withFactualAssertions": {
+              "n": 4,
+              "N": 4,
+              "rate": 1.0
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 0,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 4
+            },
+            "refusal": {
+              "none": 4
+            },
+            "repetition": {
+              "none": 2,
+              "semantic_partial": 1,
+              "semantic_trade_topic_reuse": 1
+            },
+            "persona": {
+              "supported": 4
+            },
+            "qaCoverage": {
+              "N/A": 4
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "F",
+        "npcId": "npc.shopkeeper_mina",
+        "scenarioId": "need_satisfied",
+        "statistics": {
+          "reviewedUtterances": 4,
+          "allReviewUnits": 18,
+          "factualAssertions": 6,
+          "verdictCounts": {
+            "ambiguous": 2,
+            "not_factual": 12,
+            "supported": 3,
+            "unsupported": 1
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 1,
+              "N": 6,
+              "rate": 0.16666666666666666
+            },
+            "ambiguous": {
+              "n": 2,
+              "N": 6,
+              "rate": 0.3333333333333333
+            },
+            "conservativeIssues": {
+              "n": 3,
+              "N": 6,
+              "rate": 0.5
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 1,
+              "N": 4,
+              "rate": 0.25
+            },
+            "ambiguous": {
+              "n": 2,
+              "N": 4,
+              "rate": 0.5
+            },
+            "conservativeIssues": {
+              "n": 2,
+              "N": 4,
+              "rate": 0.5
+            },
+            "withFactualAssertions": {
+              "n": 3,
+              "N": 4,
+              "rate": 0.75
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 1,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 4
+            },
+            "refusal": {
+              "none": 4
+            },
+            "repetition": {
+              "none": 2,
+              "semantic_partial": 1,
+              "semantic_recipe_topic_reuse": 1
+            },
+            "persona": {
+              "supported": 4
+            },
+            "qaCoverage": {
+              "N/A": 4
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "F",
+        "npcId": "npc.shopkeeper_mina",
+        "scenarioId": "seller_empty",
+        "statistics": {
+          "reviewedUtterances": 4,
+          "allReviewUnits": 18,
+          "factualAssertions": 7,
+          "verdictCounts": {
+            "ambiguous": 1,
+            "not_factual": 11,
+            "supported": 5,
+            "unsupported": 1
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 1,
+              "N": 7,
+              "rate": 0.14285714285714285
+            },
+            "ambiguous": {
+              "n": 1,
+              "N": 7,
+              "rate": 0.14285714285714285
+            },
+            "conservativeIssues": {
+              "n": 2,
+              "N": 7,
+              "rate": 0.2857142857142857
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 1,
+              "N": 4,
+              "rate": 0.25
+            },
+            "ambiguous": {
+              "n": 1,
+              "N": 4,
+              "rate": 0.25
+            },
+            "conservativeIssues": {
+              "n": 2,
+              "N": 4,
+              "rate": 0.5
+            },
+            "withFactualAssertions": {
+              "n": 4,
+              "N": 4,
+              "rate": 1.0
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 0,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 4
+            },
+            "refusal": {
+              "none": 4
+            },
+            "repetition": {
+              "none": 2,
+              "semantic_partial": 1,
+              "semantic_topic_reuse": 1
+            },
+            "persona": {
+              "supported": 4
+            },
+            "qaCoverage": {
+              "N/A": 4
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "S",
+        "npcId": "npc.cook_sora",
+        "scenarioId": "available",
+        "statistics": {
+          "reviewedUtterances": 4,
+          "allReviewUnits": 7,
+          "factualAssertions": 3,
+          "verdictCounts": {
+            "not_factual": 4,
+            "supported": 3
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 0,
+              "N": 3,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 3,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 3,
+              "rate": 0.0
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "withFactualAssertions": {
+              "n": 3,
+              "N": 4,
+              "rate": 0.75
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 1,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 2,
+              "relevant_but_no_new_information": 1,
+              "relevant_topic_shift": 1
+            },
+            "refusal": {
+              "none": 4
+            },
+            "repetition": {
+              "none": 3,
+              "verbatim": 1
+            },
+            "persona": {
+              "insufficient_evidence": 3,
+              "supported": 1
+            },
+            "qaCoverage": {
+              "N/A": 4
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "S",
+        "npcId": "npc.farmer_eli",
+        "scenarioId": "available",
+        "statistics": {
+          "reviewedUtterances": 4,
+          "allReviewUnits": 7,
+          "factualAssertions": 2,
+          "verdictCounts": {
+            "not_factual": 5,
+            "supported": 2
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 0,
+              "N": 2,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 2,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 2,
+              "rate": 0.0
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "withFactualAssertions": {
+              "n": 2,
+              "N": 4,
+              "rate": 0.5
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 2,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 2,
+              "relevant_topic_shift": 1,
+              "weakly_relevant": 1
+            },
+            "refusal": {
+              "none": 4
+            },
+            "repetition": {
+              "none": 2,
+              "verbatim": 1,
+              "verbatim_preface_only": 1
+            },
+            "persona": {
+              "insufficient_evidence": 3,
+              "supported": 1
+            },
+            "qaCoverage": {
+              "N/A": 4
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "S",
+        "npcId": "npc.farmer_eli",
+        "scenarioId": "buyer_poor",
+        "statistics": {
+          "reviewedUtterances": 1,
+          "allReviewUnits": 2,
+          "factualAssertions": 1,
+          "verdictCounts": {
+            "not_factual": 1,
+            "supported": 1
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 0,
+              "N": 1,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 1,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 1,
+              "rate": 0.0
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 0,
+              "N": 1,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 1,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 1,
+              "rate": 0.0
+            },
+            "withFactualAssertions": {
+              "n": 1,
+              "N": 1,
+              "rate": 1.0
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 1,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 0,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 1
+            },
+            "refusal": {
+              "none": 1
+            },
+            "repetition": {
+              "none": 1
+            },
+            "persona": {
+              "insufficient_evidence": 1
+            },
+            "qaCoverage": {
+              "N/A": 1
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "S",
+        "npcId": "npc.farmer_eli",
+        "scenarioId": "need_satisfied",
+        "statistics": {
+          "reviewedUtterances": 4,
+          "allReviewUnits": 6,
+          "factualAssertions": 3,
+          "verdictCounts": {
+            "not_factual": 3,
+            "supported": 3
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 0,
+              "N": 3,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 3,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 3,
+              "rate": 0.0
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "withFactualAssertions": {
+              "n": 3,
+              "N": 4,
+              "rate": 0.75
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 1,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 3,
+              "relevant_but_no_new_information": 1
+            },
+            "refusal": {
+              "none": 2,
+              "reasonable_unknown": 2
+            },
+            "repetition": {
+              "none": 1,
+              "verbatim": 1,
+              "verbatim_partial_and_semantic": 1,
+              "verbatim_reciprocal_reply": 1
+            },
+            "persona": {
+              "insufficient_evidence": 2,
+              "supported": 2
+            },
+            "qaCoverage": {
+              "N/A": 4
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "S",
+        "npcId": "npc.farmer_eli",
+        "scenarioId": "seller_empty",
+        "statistics": {
+          "reviewedUtterances": 4,
+          "allReviewUnits": 6,
+          "factualAssertions": 2,
+          "verdictCounts": {
+            "not_factual": 4,
+            "supported": 2
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 0,
+              "N": 2,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 2,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 2,
+              "rate": 0.0
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "withFactualAssertions": {
+              "n": 2,
+              "N": 4,
+              "rate": 0.5
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 2,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 2,
+              "relevant_but_no_new_information": 1,
+              "weakly_relevant": 1
+            },
+            "refusal": {
+              "none": 3,
+              "reasonable_unknown": 1
+            },
+            "repetition": {
+              "semantic_topic_reuse": 1,
+              "verbatim": 1,
+              "verbatim_preface_only": 2
+            },
+            "persona": {
+              "insufficient_evidence": 3,
+              "supported": 1
+            },
+            "qaCoverage": {
+              "N/A": 4
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "S",
+        "npcId": "npc.fisher_ren",
+        "scenarioId": "available",
+        "statistics": {
+          "reviewedUtterances": 4,
+          "allReviewUnits": 5,
+          "factualAssertions": 3,
+          "verdictCounts": {
+            "not_factual": 2,
+            "supported": 3
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 0,
+              "N": 3,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 3,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 3,
+              "rate": 0.0
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "withFactualAssertions": {
+              "n": 3,
+              "N": 4,
+              "rate": 0.75
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 1,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 1,
+              "relevant_but_no_new_information": 3
+            },
+            "refusal": {
+              "none": 4
+            },
+            "repetition": {
+              "verbatim": 2,
+              "verbatim_partial_and_semantic": 2
+            },
+            "persona": {
+              "insufficient_evidence": 4
+            },
+            "qaCoverage": {
+              "N/A": 4
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "S",
+        "npcId": "npc.shopkeeper_mina",
+        "scenarioId": "available",
+        "statistics": {
+          "reviewedUtterances": 4,
+          "allReviewUnits": 6,
+          "factualAssertions": 2,
+          "verdictCounts": {
+            "not_factual": 4,
+            "supported": 2
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 0,
+              "N": 2,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 2,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 2,
+              "rate": 0.0
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "withFactualAssertions": {
+              "n": 2,
+              "N": 4,
+              "rate": 0.5
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 2,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 2,
+              "relevant_but_no_new_information": 2
+            },
+            "refusal": {
+              "none": 4
+            },
+            "repetition": {
+              "none": 2,
+              "verbatim": 2
+            },
+            "persona": {
+              "insufficient_evidence": 2,
+              "supported": 2
+            },
+            "qaCoverage": {
+              "N/A": 4
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "S",
+        "npcId": "npc.shopkeeper_mina",
+        "scenarioId": "buyer_poor",
+        "statistics": {
+          "reviewedUtterances": 1,
+          "allReviewUnits": 1,
+          "factualAssertions": 0,
+          "verdictCounts": {
+            "not_factual": 1
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 0,
+              "N": 0,
+              "rate": null
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 0,
+              "rate": null
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 0,
+              "rate": null
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 0,
+              "N": 1,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 1,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 1,
+              "rate": 0.0
+            },
+            "withFactualAssertions": {
+              "n": 0,
+              "N": 1,
+              "rate": 0.0
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 1,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 1,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 1
+            },
+            "refusal": {
+              "none": 1
+            },
+            "repetition": {
+              "none": 1
+            },
+            "persona": {
+              "supported": 1
+            },
+            "qaCoverage": {
+              "N/A": 1
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "S",
+        "npcId": "npc.shopkeeper_mina",
+        "scenarioId": "need_satisfied",
+        "statistics": {
+          "reviewedUtterances": 4,
+          "allReviewUnits": 6,
+          "factualAssertions": 2,
+          "verdictCounts": {
+            "not_factual": 4,
+            "supported": 2
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 0,
+              "N": 2,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 2,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 2,
+              "rate": 0.0
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "withFactualAssertions": {
+              "n": 2,
+              "N": 4,
+              "rate": 0.5
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 2,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 2,
+              "relevant_but_no_new_information": 1,
+              "weakly_relevant": 1
+            },
+            "refusal": {
+              "none": 2,
+              "reasonable_unknown": 2
+            },
+            "repetition": {
+              "none": 2,
+              "verbatim": 1,
+              "verbatim_full_utterance": 1
+            },
+            "persona": {
+              "insufficient_evidence": 2,
+              "supported": 2
+            },
+            "qaCoverage": {
+              "N/A": 4
+            }
+          }
+        }
+      },
+      {
+        "speechMode": "S",
+        "npcId": "npc.shopkeeper_mina",
+        "scenarioId": "seller_empty",
+        "statistics": {
+          "reviewedUtterances": 4,
+          "allReviewUnits": 7,
+          "factualAssertions": 2,
+          "verdictCounts": {
+            "not_factual": 5,
+            "supported": 2
+          },
+          "assertions": {
+            "clearIssues": {
+              "n": 0,
+              "N": 2,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 2,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 2,
+              "rate": 0.0
+            }
+          },
+          "utterances": {
+            "clearIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "conservativeIssues": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            },
+            "withFactualAssertions": {
+              "n": 2,
+              "N": 4,
+              "rate": 0.5
+            },
+            "reviewEvidenceMissing": {
+              "n": 0,
+              "N": 4,
+              "rate": 0.0
+            }
+          },
+          "noFactualUtterances": 2,
+          "reviewEvidenceMissingUnits": 0,
+          "dimensions": {
+            "relevance": {
+              "relevant": 3,
+              "weakly_relevant": 1
+            },
+            "refusal": {
+              "none": 4
+            },
+            "repetition": {
+              "none": 3,
+              "verbatim_preface_only": 1
+            },
+            "persona": {
+              "insufficient_evidence": 2,
+              "supported": 2
+            },
+            "qaCoverage": {
+              "N/A": 4
+            }
+          }
+        }
+      }
+    ]
+  }
+}

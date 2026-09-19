@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "archiveReproduction": "passed",
+  "speechStatisticsAndGroupsEqual": true,
+  "worldsAndPairsEqual": true,
+  "candidateWorldsAndMetricsEqual": true,
+  "credentialValueScan": "passed",
+  "scannedFileOrZipMemberCount": 801,
+  "providerCalls": 0,
+  "note": "Regenerated timestamps and portable source hashes can differ; compared metric and world objects were equal."
+}

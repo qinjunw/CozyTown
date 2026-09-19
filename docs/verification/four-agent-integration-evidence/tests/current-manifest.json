@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "19dff35147fbb7f8debc3aa0f98da44a29b5b52d",
+  "runs": [
+    {
+      "xml": "xml/integration-coordinated-live-a.xml",
+      "sourceRevision": "19dff35147fbb7f8debc3aa0f98da44a29b5b52d",
+      "rawXmlSha256": "60ee4fdd0de5351e9ba2081703e6f29c364259cf11c43f86436a566b9dab1e9f",
+      "publicXmlSha256": "82e053f240ab0ba68fb0826ca02d21e11dd2b83f4a71bebfa688712117fdd9dc",
+      "rawLogSha256": "7736b9a78ecd441afb2bae055705d0a8f0c5f132544d3915ebdc4a15d46cf127",
+      "counts": {
+        "reported": {
+          "testcasecount": 1,
+          "total": 1,
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        "observedTestCases": 1,
+        "observedResults": {
+          "Passed": 1
+        }
+      },
+      "result": "Passed",
+      "startTimeUtc": "2026-09-19 17:46:11Z",
+      "endTimeUtc": "2026-09-19 19:49:15Z",
+      "durationSeconds": "7383.2449361",
+      "failedTests": [],
+      "skippedTests": []
+    },
+    {
+      "xml": "xml/integration-frozen-edit.xml",
+      "sourceRevision": "19dff35147fbb7f8debc3aa0f98da44a29b5b52d",
+      "rawXmlSha256": "ec4380a4395f6738cb309fcba3df39c6782f0fbfe79a77feb5f17ac94f4d8371",
+      "publicXmlSha256": "8e5d2edae3a628648d6d97cc003d113c2f533bbb004395e51ffc0b0c267f1dfb",
+      "rawLogSha256": "a2d21f256ec0ca29a9c1b6f94a2210fefbf7084eda4f5f1e458fd06e576e28a3",
+      "counts": {
+        "reported": {
+          "testcasecount": 1106,
+          "total": 1106,
+          "passed": 1105,
+          "failed": 0,
+          "skipped": 1,
+          "inconclusive": 0
+        },
+        "observedTestCases": 1106,
+        "observedResults": {
+          "Passed": 1105,
+          "Skipped": 1
+        }
+      },
+      "result": "Skipped:Ignored",
+      "startTimeUtc": "2026-09-19 19:51:50Z",
+      "endTimeUtc": "2026-09-19 19:52:07Z",
+      "durationSeconds": "17.2618119",
+      "failedTests": [],
+      "skippedTests": [
+        "CozyTown.Tests.UnityEditMode.NpcExpressionExperimentTests.LiveProxy_CompareEightFactCasesWithOneCallPerSample"
+      ]
+    }
+  ],
+  "preflight": [
+    {
+      "file": "integration-live-preflight-20260920-a.json",
+      "rawSha256": "1590b505ecbe41322d0d64c360f89c8262868a05ab3aaec01621bf910cde7f72",
+      "publicSha256": "dbb4146c15a9d08b2a0f50fb61dc3d092e6033596169a81f88c591c666bdee13",
+      "transformation": "JSON formatting and LF newlines only."
+    },
+    {
+      "file": "integration-frozen-edit-preflight.json",
+      "rawSha256": "7545ed5b03e8ebb1bc3489b8ebb5f1e7bf6dc5330a049210b1358cb97cd94c10",
+      "publicSha256": "91845c7fda8310c1efa6a32dfb17832ec3287248d33f8a7a738ebe0405965c27",
+      "transformation": "JSON formatting and LF newlines only."
+    }
+  ],
+  "redaction": "XML local project, user and Unity installation prefixes replaced with placeholders; result names and counts verified unchanged. Raw XML and logs retained locally by SHA256.",
+  "interpretation": "Unity test success and individual coordinated-world completion are separate results; consult the retained study status for its original world denominator."
+}

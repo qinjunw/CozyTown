@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "archive": "integration-diagnostics.zip",
+  "archiveBytes": 109811,
+  "archiveSha256": "c541b9de9897aff7538ebfd3fb10524ac3c17f54d22252a69ef21793d37fc234",
+  "transformation": "None; all selected files retain their exact bytes, including original line endings.",
+  "files": [
+    {
+      "file": "audit_final_live_host_coverage.py",
+      "bytes": 17172,
+      "sha256": "c5915de1d381fde40baa318796019d5e10d5b9f0a284073832f39ad43936f847"
+    },
+    {
+      "file": "coordinated-live-a.stderr-export.json",
+      "bytes": 291,
+      "sha256": "f208f4e046e515c3cd41561dba704e84b3f141be448f6ff7e1ae98bfde9bb3cd"
+    },
+    {
+      "file": "coordinated-live-a.stderr.portable.log",
+      "bytes": 2731,
+      "sha256": "39e4256cc13d8ce22b6bb49ed1f48762ef96a6e458d6f70340c25a5e7bf74121"
+    },
+    {
+      "file": "final-live-host-additional-audit.json",
+      "bytes": 38662,
+      "sha256": "7809c5c476dd28e29e91ae675908a66d3ccb133613b4fec6034fd83cfbdd03f8"
+    },
+    {
+      "file": "final-live-host-coverage-audit.json",
+      "bytes": 233734,
+      "sha256": "d0e949e792151125eab82584a068ae5e72b909e37d19e2d4253ac8738a3c1af5"
+    },
+    {
+      "file": "final-live-host-coverage-audit.md",
+      "bytes": 12043,
+      "sha256": "df970d96b5844512b770834b5bb62af45f3ab1c332bb502991c56909af49fbe4"
+    },
+    {
+      "file": "integration-analysis-tools-freeze-v2.json",
+      "bytes": 1330,
+      "sha256": "e7e266e02a354c054f2bd070e8d5b70c250b7422f4788db8d166174a1186aab4"
+    },
+    {
+      "file": "integration-candidate-evidence-v3-notes.md",
+      "bytes": 4439,
+      "sha256": "8d52a7622e9ad5340acce1d96ec90dbdd89529be48f6f5be83e53bb54357546c"
+    },
+    {
+      "file": "integration-candidate-first8-v3-audit.json",
+      "bytes": 53856,
+      "sha256": "773bfd66ebe908c45882e4991bcee6675728563df841b405fada5308095fb2b9"
+    },
+    {
+      "file": "integration-candidate-metrics-tool-freeze.json",
+      "bytes": 978,
+      "sha256": "f4c6f32084c85becce5a62f7a297fa705ba5264f8223e64491553ccaf2bca905"
+    },
+    {
+      "file": "integration-candidate-tests-v3.log",
+      "bytes": 3634,
+      "sha256": "1e382e939046f0d4b172e6c18a2d57b843e6022feedc028812d4c81765c14f35"
+    },
+    {
+      "file": "integration-generated-settings-diagnostic.json",
+      "bytes": 739,
+      "sha256": "04c596c9da97b58be9498c4ddfc679e5369300167447947db56856795b22ee25"
+    },
+    {
+      "file": "integration-npc-context-audit-data.json",
+      "bytes": 754737,
+      "sha256": "01cbb20936dc83a80050d88d8c30eb3b69e611ca08cac6065c9bceac23006361"
+    },
+    {
+      "file": "integration-npc-context-audit.md",
+      "bytes": 4478,
+      "sha256": "71a0be0e6e32ad60dee5b4222368fe9083d58ec368009b78b24da049bff23a95"
+    },
+    {
+      "file": "integration-npc-context-tests-v3.log",
+      "bytes": 1407,
+      "sha256": "4ac3d69b2514c406da816a6b5d94556cc5bce9edb8c98d2798a4ca9f9ff1d281"
+    },
+    {
+      "file": "integration-post-live-project-settings.asset",
+      "bytes": 20574,
+      "sha256": "a0cc453d18756d18cce9dcab3677f18702669d5ed974bee7f0fea5e5c890db02"
+    },
+    {
+      "file": "integration-post-live-project-settings.patch",
+      "bytes": 15453,
+      "sha256": "24abc9ad4f399a64c4cad148511434a265e7fb09317b1bac9321b92741ccce9d"
+    },
+    {
+      "file": "integration-power-request.json",
+      "bytes": 444,
+      "sha256": "c79325078216299b7daf9f9ee58467336a1cfcf3e4a2c457faca46ab3dfd141a"
+    },
+    {
+      "file": "integration-report-coverage-notes.md",
+      "bytes": 20213,
+      "sha256": "b08f6807b6f6199799806aa9890606389bd19b23ba5ed7285b50d68707284947"
+    },
+    {
+      "file": "integration-source-bound-python.json",
+      "bytes": 587,
+      "sha256": "c1642a103ecd41d4d0fc51d3f0f96a88be4b4d046750f76c561300d21eb94986"
+    },
+    {
+      "file": "integration-source-bound-python.log",
+      "bytes": 22170,
+      "sha256": "9cde471ea24c55c2a537e14bd110dc612931f9843bbba373a534d5db1fda58ba"
+    },
+    {
+      "file": "integration-world12-power-events.json",
+      "bytes": 443,
+      "sha256": "63d11d3e01a365fcd8910211e1c00a787c60e3aa15ca65f37c28cede136a2cb7"
+    },
+    {
+      "file": "keep-integration-awake.ps1",
+      "bytes": 1573,
+      "sha256": "bbe02eb854dc4d84ae07842a48b9cab2c4302d7e1728cbc13a12d5902cb0e4ed"
+    },
+    {
+      "file": "live-connection-aborted-diagnostic.json",
+      "bytes": 1221,
+      "sha256": "ebfbcb6aee65e2169e1fb4096da169bfdd6b6d1ba95f9986c0f0a45d8a076055"
+    },
+    {
+      "file": "live-world12-deadline-diagnostic.json",
+      "bytes": 2000,
+      "sha256": "15230c061dba9664ba6d7ce16a8fe51f718be974f802ebdb3946e0eb0f9de988"
+    },
+    {
+      "file": "offline-metrics-independent-review.md",
+      "bytes": 7140,
+      "sha256": "7cfbe52899a0e4f38edd863583a143eb8cb1b9d5fee63f7d67b403838c257c75"
+    },
+    {
+      "file": "offline-metrics-v3-independent-review.md",
+      "bytes": 5586,
+      "sha256": "94db419aba3d52a715d38a0ba2791c51feb74a993ebf21d04a9f81c7493b2598"
+    }
+  ]
+}

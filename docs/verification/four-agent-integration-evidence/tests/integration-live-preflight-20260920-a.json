@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-09-19T17:44:37.180289+00:00",
+  "sourceRevision": "19dff35147fbb7f8debc3aa0f98da44a29b5b52d",
+  "validatedCodeRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+  "sourceTreeIds": {
+    "Assets": "a0bcfa168d56952ca3d346d5c47f42c60abaea3c",
+    "Tools": "0ffa2276cfa1c4b3f50127bba6483234c1291057",
+    "Packages": "cbeb180f99fe4c5b16039ace9e18b4d20c46747e",
+    "ProjectSettings": "a81e89f6be3dc10eac2d6ecbeef27c332314644b"
+  },
+  "codeAndProjectTreesEqualToValidatedRevision": true,
+  "trackedWorktreeClean": true,
+  "unityVersion": "6000.5.5f1",
+  "unityRevision": "d16e074b49fd",
+  "pythonVersion": "3.13.1",
+  "platform": "win32",
+  "lfsFsck": "passed",
+  "priorRealProviderCallsInThisIntegration": 0,
+  "evaluationPlanReference": "docs/verification/four-agent-integration-plan-2026-09-20.md@19dff35147fbb7f8debc3aa0f98da44a29b5b52d",
+  "fullPlayXmlSha256": "619d3c80cc541f1d401404d3b89fbdb261a32ac6642f967ebaaf081161be40d4",
+  "fixedCoordinatedStudyId": "5bca75d39f60474b91fbc3e051369188",
+  "maxProviderCalls": 512,
+  "maxWorldProviderCalls": 32,
+  "maxWorldRealSeconds": 600
+}
