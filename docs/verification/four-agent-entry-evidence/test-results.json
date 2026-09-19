@@ -1,0 +1,85 @@
+{
+  "baseRevision": "60f6ac4fa97eaadfe49a4191e68fa1cc55b7c180",
+  "branch": "codex/four-agent-experiment-platform",
+  "unity": "6000.5.5f1",
+  "runs": [
+    {
+      "suite": "edit",
+      "xml": "Logs/agent-platform/final-edit.xml",
+      "sha256": "48049ea64dbbde5ac5b7259d56aa1879ce9f6b4a59f9c289b6f80da80eac3be4",
+      "total": 1065,
+      "passed": 1064,
+      "failed": 0,
+      "skipped": 1,
+      "skips": [
+        {
+          "name": "CozyTown.Tests.UnityEditMode.NpcExpressionExperimentTests.LiveProxy_CompareEightFactCasesWithOneCallPerSample",
+          "reason": "Set COZYTOWN_RUN_EXPRESSION_FIXED=1 to run the registered provider comparison."
+        }
+      ],
+      "phase": "before_evaluation_metadata"
+    },
+    {
+      "suite": "play",
+      "xml": "Logs/agent-platform/final-play.xml",
+      "sha256": "b6e805e0f545c3a00e4c4edbad90d6fb35dd4646e237f963053916b1bd543616",
+      "total": 291,
+      "passed": 286,
+      "failed": 0,
+      "skipped": 5,
+      "skips": [
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcMeetingPlayModeTests.LiveProxy_RealProviderDrivesTheSceneMeetingWithinTheConfiguredBudget",
+          "reason": "Requires explicit live-meeting opt-in and a capped local proxy."
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcResourcePlayModeTests.LiveProxy_TransfersOwnedResourcesThroughTheActualScene",
+          "reason": "Requires explicit resource-test opt-in and a capped local proxy."
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_ComparedExpressionModesAcrossFourFreshWorlds",
+          "reason": "Requires expression-experiment opt-in and two loopback proxies sharing a 48-call scene budget."
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_ComparedGroundingArmsAcrossFreshScenarios",
+          "reason": "Requires explicit grounding-experiment opt-in and four loopback endpoints with a shared 192-call scene budget."
+        },
+        {
+          "name": "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_RepeatsFourFreshInitialScenarios",
+          "reason": "Requires explicit scenario-test opt-in and one proxy capped at 96 calls for the entire matrix."
+        }
+      ],
+      "phase": "before_evaluation_metadata"
+    },
+    {
+      "suite": "edit-targeted",
+      "phase": "after_evaluation_metadata",
+      "xml": "Logs/agent-platform/evaluation-metadata-green.xml",
+      "sha256": "ecaadbdfdefb873da0a9ce1bf1a57d13f5593b0f419b4c0a9262b819f7e55188",
+      "total": 70,
+      "passed": 70,
+      "failed": 0,
+      "skipped": 0,
+      "skips": []
+    },
+    {
+      "suite": "play-targeted",
+      "phase": "after_evaluation_metadata",
+      "xml": "Logs/agent-platform/session-evaluation-green.xml",
+      "sha256": "c0c085af2afc460594ae4f2034ff7712721a3398719c15daa55a1d1a3de24fb2",
+      "total": 11,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "skips": []
+    }
+  ],
+  "python": {
+    "command": "python -B -m unittest discover -s Tools/agent_proxy -p 'test_*.py' -q",
+    "log": "Logs/agent-platform/python-suite.log",
+    "sha256": "0ce018e625c8ed1ec8110e3f75d4ab51f3c1246eb3b33daf377e109974679fcd",
+    "passed": 70,
+    "failed": 0
+  },
+  "realProviderCalls": 0
+}

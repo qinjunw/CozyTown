@@ -16,6 +16,12 @@ namespace CozyTown.Unity.Npc
         public const int MaximumRequestBytes = 32768;
         public const int MaximumResponseBytes = 16384;
 
+        public string SerializeObservation(NpcLocalObservation observation)
+        {
+            if (observation == null) throw new ArgumentNullException(nameof(observation));
+            return JsonUtility.ToJson(new ObservationPayload(observation));
+        }
+
         public string SerializeRequest(NpcDecisionRequest request)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));

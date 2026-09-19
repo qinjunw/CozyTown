@@ -267,7 +267,7 @@ class ProxyServiceTests(unittest.TestCase):
                         self.assertEqual(response.code, status)
                         self.assertEqual(json.load(response), expected)
                     self.assertEqual(service.status["attemptedProviderCalls"], 1)
-                    self.assertNotIn("private-candidate-value", trace.getvalue())
+                    self.assertEqual(json.loads(trace.getvalue())["rawCandidate"], content)
                 finally:
                     server.shutdown()
                     server.server_close()
@@ -423,15 +423,17 @@ class ProxyServiceTests(unittest.TestCase):
                 self.assertEqual(service.decide(context), {"schemaVersion": 3, "operation": operation,
                                                          "meetingId": "11111111111111111111111111111111"})
 
-    def test_trace_and_status_count_failures_and_exclude_unrecognized_candidate_fields(self):
+    def test_trace_keeps_raw_text_but_action_candidate_excludes_unrecognized_fields(self):
         trace = io.StringIO()
         service = ProxyService(lambda payload: {"choices": [{"message": {"content": json.dumps({
             "schemaVersion": 1, "operation": "wait", "unrecognized": "not-a-game-candidate"})}}]}, max_calls=1, trace=trace)
         self.assertEqual(service.decide(self.context()), {"schemaVersion": 1, "operation": "wait"})
         self.assertEqual(service.status["remainingCalls"], 0)
         self.assertEqual(service.status["inflight"], 0)
-        self.assertNotIn("not-a-game-candidate", trace.getvalue())
-        self.assertEqual(json.loads(trace.getvalue())["status"], "passed")
+        record = json.loads(trace.getvalue())
+        self.assertNotIn("unrecognized", record["candidate"])
+        self.assertEqual(json.loads(record["rawCandidate"])["unrecognized"], "not-a-game-candidate")
+        self.assertEqual(record["status"], "passed")
 
     def test_private_file_selects_only_one_cozytown_credential(self):
         with tempfile.TemporaryDirectory() as directory:

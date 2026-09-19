@@ -136,6 +136,15 @@ namespace CozyTown.Runtime.Save
             }
         }
 
+        public static string SerializeSnapshot(GameSaveSnapshot snapshot)
+        {
+            var validation = GameSaveSnapshotValidator.Validate(snapshot);
+            if (!validation.IsSuccess) throw new ArgumentException(validation.ErrorCode, nameof(snapshot));
+            using var stream = new MemoryStream();
+            new DataContractJsonSerializer(typeof(V2SaveFileData)).WriteObject(stream, V2SaveFileData.FromSnapshot(snapshot));
+            return System.Text.Encoding.UTF8.GetString(stream.ToArray());
+        }
+
         private OperationResult<GameSaveSnapshot> ReadSnapshot(string path)
         {
             SchemaProbe probe;

@@ -328,19 +328,20 @@ namespace CozyTown.Unity.Npc
             finally { _configuringDecisions = false; }
         }
 
-        public void TickDecisions(double realSeconds)
+        public IReadOnlyList<NpcDecisionOutcome> TickDecisions(double realSeconds)
         {
-            if (_decisions == null || _configuringDecisions || _tickingDecisions) return;
-            if (_timeFlow.State == WorldTimeFlowState.Publishing) return;
+            if (_decisions == null || _configuringDecisions || _tickingDecisions) return Array.Empty<NpcDecisionOutcome>();
+            if (_timeFlow.State == WorldTimeFlowState.Publishing) return Array.Empty<NpcDecisionOutcome>();
             _tickingDecisions = true;
             try
             {
-                if (!IsWorldReady) { _decisions.Tick(realSeconds); return; }
+                if (!IsWorldReady) return _decisions.Tick(realSeconds);
                 var before = CaptureActivities();
-                _decisions.Tick(realSeconds);
-                if (!IsWorldReady) return;
+                var outcomes = _decisions.Tick(realSeconds);
+                if (!IsWorldReady) return outcomes;
                 RefreshChangedActivities(before);
                 _meetingView?.Present(_meetings, realSeconds);
+                return outcomes;
             }
             finally { _tickingDecisions = false; }
         }

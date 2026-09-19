@@ -9,6 +9,7 @@ import math
 import uuid
 from pathlib import Path
 import urllib.error
+import urllib.parse
 import urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
@@ -71,6 +72,25 @@ def create_server(service, port=0):
         def do_GET(self):
             if self.path == "/status":
                 self.reply(200, service.status)
+            elif self.path.split("?", 1)[0] == "/measurements":
+                try:
+                    query = urllib.parse.parse_qs(self.path.partition("?")[2], keep_blank_values=True,
+                                                  strict_parsing=True, max_num_fields=2)
+                    decision_id = query.get("decisionId", [None])[0]
+                    step = query.get("step", [None])[0]
+                    if (any(key not in ("decisionId", "step") or len(values) != 1 for key, values in query.items())
+                            or decision_id is not None and not decision_id.strip()
+                            or step is not None and (decision_id is None or not step.isascii()
+                                                     or not step.isdecimal() or int(step) < 1)):
+                        raise ValueError
+                    records = service.measurements
+                    if decision_id is not None:
+                        records = [record for record in records if record["decisionId"] == decision_id]
+                    if step is not None:
+                        records = [record for record in records if record["step"] == int(step)]
+                    self.reply(200, {"measurements": records})
+                except ValueError:
+                    self.reply(400, {"error": "proxy.measurement_query_invalid"})
             else:
                 self.reply(404, {"error": "proxy.route_unknown"})
 
@@ -244,7 +264,9 @@ class ProxyService:
             call_number = self._calls
         started = time.monotonic()
         record = {"call": call_number, "npcId": context.get("npcId"), "decisionId": context.get("decisionId"),
-                  "step": context.get("step"), "requestedModel": self.model, "status": "provider.failure"}
+                  "step": context.get("step"), "requestedModel": self.model, "status": "provider.failure",
+                  "returnedModel": None, "promptTokens": None, "completionTokens": None, "totalTokens": None,
+                  "rawCandidate": None, "rawCandidateTruncated": False}
         try:
             response = self.transport({
                 "model": self.model,
@@ -255,8 +277,10 @@ class ProxyService:
                 "response_format": {"type": "json_object"},
                 "stream": False,
             })
-            record["returnedModel"] = response.get("model")
-            usage = response.get("usage") or {}
+            returned_model = response.get("model")
+            record["returnedModel"] = returned_model if isinstance(returned_model, str) else None
+            usage = response.get("usage")
+            usage = usage if isinstance(usage, dict) else {}
             for source, target in (("prompt_tokens", "promptTokens"), ("completion_tokens", "completionTokens"),
                                    ("total_tokens", "totalTokens")):
                 value = usage.get(source)
@@ -264,7 +288,11 @@ class ProxyService:
             try:
                 choice = response["choices"][0]
                 content = choice["message"]["content"]
-                if not isinstance(content, str) or len(content.encode("utf-8")) > 16384 or choice.get("finish_reason") == "length":
+                if isinstance(content, str):
+                    encoded = content.encode("utf-8")
+                    record["rawCandidate"] = encoded[:16384].decode("utf-8", errors="ignore")
+                    record["rawCandidateTruncated"] = len(encoded) > 16384
+                if not isinstance(content, str) or record["rawCandidateTruncated"] or choice.get("finish_reason") == "length":
                     raise ValueError
                 candidate = json.loads(content)
                 if not isinstance(candidate, dict):
