@@ -18,14 +18,23 @@ namespace CozyTown.Runtime.NpcAgents
         private readonly Func<NpcDecisionRequest, NpcLocalObservation> _observe;
         private readonly NpcSpeechMode _speechMode;
         private readonly Func<bool> _canDecide;
-        private readonly Queue<double> _requestStarts = new Queue<double>();
+        private RequestHistory _history = new RequestHistory();
+
+        private sealed class RequestHistory
+        {
+            internal readonly Queue<double> Starts = new Queue<double>();
+            internal readonly Dictionary<string, double> ResidentStarts = new Dictionary<string, double>(StringComparer.Ordinal);
+            internal long RequestsStarted;
+        }
         private readonly List<NpcDecisionOutcome> _completed = new List<NpcDecisionOutcome>();
         private double _lastTick = double.NegativeInfinity;
         private int _nextResident;
         private bool _disposed;
+        private bool _isTicking;
+        private bool _isReplacing;
 
-        public long RequestsStarted { get; private set; }
-        public int RequestsInLastMinute => _requestStarts.Count;
+        public long RequestsStarted => _history.RequestsStarted;
+        public int RequestsInLastMinute => _history.Starts.Count;
         public int ActiveRequestCount => _residents.Count(item => item.Request != null && !item.Request.IsCompleted);
         public int WaitingResidentCount => _residents.Count(item => item.WaitingTurn != null || item.Pending != null
             || (item.Current != null && item.Request == null));
@@ -112,9 +121,57 @@ namespace CozyTown.Runtime.NpcAgents
         public void ValidateWorldBinding(NpcAgentWorld world)
         {
             if (_disposed) throw new ObjectDisposedException(nameof(NpcDecisionScheduler));
+            if (_isReplacing) throw new InvalidOperationException("Complete decision replacement before changing the world binding.");
             if (world == null) throw new ArgumentNullException(nameof(world));
             foreach (var resident in _residents) world.GetState(resident.Profile.Id);
             _meetings?.ValidateWorldBinding(world);
+        }
+
+        public NpcDecisionScheduler CreateReplacement(IEnumerable<NpcDefinition> profiles, INpcDecisionClient client,
+            NpcDecisionSettings settings = null, NpcMeetingBoard meetings = null,
+            Func<NpcDecisionRequest, NpcLocalObservation> observe = null, NpcSpeechMode speechMode = NpcSpeechMode.FreeText,
+            Func<bool> canDecide = null)
+        {
+            if (_disposed) throw new ObjectDisposedException(nameof(NpcDecisionScheduler));
+            if (_isTicking || _isReplacing)
+                throw new InvalidOperationException("Complete the current decision operation before replacing decisions.");
+            if (ActiveRequestCount != 0)
+                throw new InvalidOperationException("Wait for every client task to complete before replacing decisions.");
+            settings = settings ?? _settings;
+            if (RequestsStarted > 0 && (settings.MaxRequestsPerMinute > _settings.MaxRequestsPerMinute
+                || settings.MaxConcurrentRequests > _settings.MaxConcurrentRequests
+                || settings.ResidentCooldownSeconds < _settings.ResidentCooldownSeconds
+                || settings.RequestTimeoutSeconds > _settings.RequestTimeoutSeconds
+                || settings.DecisionTimeoutSeconds > _settings.DecisionTimeoutSeconds
+                || settings.MaxCallsPerDecision > _settings.MaxCallsPerDecision
+                || settings.OpportunityLifetimeGameMinutes > _settings.OpportunityLifetimeGameMinutes))
+                throw new InvalidOperationException("Decision limits can only stay unchanged or become stricter after the first client call.");
+            _isReplacing = true;
+            try
+            {
+                var candidate = new NpcDecisionScheduler(_world, profiles, client, settings, meetings,
+                    observe, speechMode, canDecide);
+                if (_disposed) throw new ObjectDisposedException(nameof(NpcDecisionScheduler));
+                bool canReplace = _canDecide?.Invoke() != false;
+                if (_disposed) throw new ObjectDisposedException(nameof(NpcDecisionScheduler));
+                if (!canReplace)
+                    throw new InvalidOperationException("Complete world recovery before replacing decisions.");
+                candidate._history = _history;
+                candidate._lastTick = _lastTick;
+                foreach (var resident in candidate._residents)
+                {
+                    if (_history.ResidentStarts.TryGetValue(resident.Profile.Id, out var started)) resident.LastStarted = started;
+                    var pending = _residents.FirstOrDefault(item => item.Profile.Id == resident.Profile.Id)?.Pending;
+                    if (pending == null || pending.Social != null
+                        || candidate.InvalidContext(pending, _world.GetState(resident.Profile.Id)) != null) continue;
+                    resident.Pending = new NpcDecisionRequest(resident.Profile, pending.Self, pending.GameTotalMinutes,
+                        pending.Triggers, pending.KnownLocationIds, settings.MaxCallsPerDecision, pending.PreviousResultCode,
+                        speechMode: speechMode);
+                }
+                Dispose();
+                return candidate;
+            }
+            finally { _isReplacing = false; }
         }
 
         public void Dispose()
@@ -125,7 +182,8 @@ namespace CozyTown.Runtime.NpcAgents
             {
                 resident.Pending = null;
                 resident.WaitingTurn = null;
-                if (resident.Current != null) Finish(resident, "agent.decision_cancelled", cancelRequest: true);
+                if (resident.Current != null) Finish(resident, "agent.decision_cancelled",
+                    cancelRequest: resident.Request != null && !resident.Request.IsCompleted);
                 var task = resident.Request;
                 var cancellation = resident.Cancellation;
                 if (task == null) continue;
@@ -142,11 +200,20 @@ namespace CozyTown.Runtime.NpcAgents
         public IReadOnlyList<NpcDecisionOutcome> Tick(double realSeconds)
         {
             if (_disposed) throw new ObjectDisposedException(nameof(NpcDecisionScheduler));
+            if (_isTicking || _isReplacing)
+                throw new InvalidOperationException("Complete the current decision operation before ticking decisions.");
+            _isTicking = true;
+            try { return TickCore(realSeconds); }
+            finally { _isTicking = false; }
+        }
+
+        private IReadOnlyList<NpcDecisionOutcome> TickCore(double realSeconds)
+        {
             if (double.IsNaN(realSeconds) || double.IsInfinity(realSeconds) || realSeconds < 0 || realSeconds < _lastTick)
                 throw new ArgumentOutOfRangeException(nameof(realSeconds), "Decision time must be finite, nonnegative and monotonic.");
             _lastTick = realSeconds;
             _completed.Clear();
-            while (_requestStarts.Count > 0 && _requestStarts.Peek() <= realSeconds - 60) _requestStarts.Dequeue();
+            while (_history.Starts.Count > 0 && _history.Starts.Peek() <= realSeconds - 60) _history.Starts.Dequeue();
             if (_canDecide?.Invoke() == false) return SuspendDecisions();
             _meetings?.Observe();
             int active = 0;
@@ -223,7 +290,7 @@ namespace CozyTown.Runtime.NpcAgents
             int first = _nextResident;
             for (int offset = 0; offset < _residents.Length; offset++)
             {
-                if (active >= _settings.MaxConcurrentRequests || _requestStarts.Count >= _settings.MaxRequestsPerMinute) break;
+                if (active >= _settings.MaxConcurrentRequests || _history.Starts.Count >= _settings.MaxRequestsPerMinute) break;
                 int index = (first + offset) % _residents.Length;
                 var resident = _residents[index];
                 if (resident.Request != null) continue;
@@ -263,6 +330,7 @@ namespace CozyTown.Runtime.NpcAgents
                     resident.Current = resident.Pending;
                     resident.Pending = null;
                     resident.LastStarted = realSeconds;
+                    _history.ResidentStarts[resident.Profile.Id] = realSeconds;
                     resident.Calls = 0;
                     resident.CandidateErrorCodes.Clear();
                     if (_observe != null)
@@ -282,8 +350,8 @@ namespace CozyTown.Runtime.NpcAgents
                     if (invalid != null) { Finish(resident, invalid); continue; }
                 }
                 if (_canDecide?.Invoke() == false) return SuspendDecisions();
-                _requestStarts.Enqueue(realSeconds);
-                RequestsStarted++;
+                _history.Starts.Enqueue(realSeconds);
+                _history.RequestsStarted++;
                 resident.Calls++;
                 resident.RequestStarted = realSeconds;
                 resident.Cancellation = new CancellationTokenSource();

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 07:14:44Z" end-time="2026-09-19 07:14:44Z" duration="0.1171815">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="877" result="Failed" site="Child" start-time="2026-09-19 07:14:44Z" end-time="2026-09-19 07:14:44Z" duration="0.117182" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1767" name="CozyTown.Tests.EditMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.EditMode.dll" runstate="Runnable" testcasecount="638" result="Failed" site="Child" start-time="2026-09-19 07:14:44Z" end-time="2026-09-19 07:14:44Z" duration="0.102101" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="112476" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1768" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="638" result="Failed" site="Child" start-time="2026-09-19 07:14:44Z" end-time="2026-09-19 07:14:44Z" duration="0.095092" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1769" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="638" result="Failed" site="Child" start-time="2026-09-19 07:14:44Z" end-time="2026-09-19 07:14:44Z" duration="0.088718" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1770" name="EditMode" fullname="CozyTown.Tests.EditMode" runstate="Runnable" testcasecount="638" result="Failed" site="Child" start-time="2026-09-19 07:14:44Z" end-time="2026-09-19 07:14:44Z" duration="0.069328" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestSuite" id="1774" name="NpcAgents" fullname="CozyTown.Tests.EditMode.NpcAgents" runstate="Runnable" testcasecount="280" result="Failed" site="Child" start-time="2026-09-19 07:14:44Z" end-time="2026-09-19 07:14:44Z" duration="0.049399" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-suite type="TestFixture" id="1204" name="NpcDecisionReplacementTests" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcDecisionReplacementTests" classname="CozyTown.Tests.EditMode.NpcAgents.NpcDecisionReplacementTests" runstate="Runnable" testcasecount="11" result="Failed" site="Child" start-time="2026-09-19 07:14:44Z" end-time="2026-09-19 07:14:44Z" duration="0.036919" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1216" name="ReadinessCallbackDisposingSource_PreventsReturningALiveReplacement" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcDecisionReplacementTests.ReadinessCallbackDisposingSource_PreventsReturningALiveReplacement" methodname="ReadinessCallbackDisposingSource_PreventsReturningALiveReplacement" classname="CozyTown.Tests.EditMode.NpcAgents.NpcDecisionReplacementTests" runstate="Runnable" seed="1276083716" result="Failed" start-time="2026-09-19 07:14:44Z" end-time="2026-09-19 07:14:44Z" duration="0.019749" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: <System.ObjectDisposedException>
+  But was:  null
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.EditMode.NpcAgents.NpcDecisionReplacementTests.ReadinessCallbackDisposingSource_PreventsReturningALiveReplacement () [0x0006f] in [isolated-project]\Assets\CozyTown\Tests\EditMode\NpcAgents\NpcDecisionReplacementTests.cs:285
+]]></stack-trace>
+                  </failure>
+                  <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -1,0 +1,471 @@
+{
+  "baseline": "43bc3854f43a98c6b9653bae83a6560e8f14a917",
+  "unityVersion": "6000.5.5f1",
+  "realModelCalls": 0,
+  "runs": [
+    {
+      "filter": "",
+      "exitCode": 0,
+      "mode": "EditMode",
+      "name": "reconfiguration-final-edit",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "876",
+        "result": "Skipped:Ignored",
+        "total": "876",
+        "passed": "875",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "1",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 07:12:22Z",
+        "end-time": "2026-09-19 07:12:33Z",
+        "duration": "10.6792132"
+      },
+      "rawXmlSha256": "c1872a12e7f8029dabff10483c0c90df4688b1e38eb2242e0f4481d26101679d",
+      "xml": "reconfiguration-final-edit.xml",
+      "publishedXmlSha256": "300e8660eb8feac13b69491fa87d00d0aeae9d2f4c5e581aad7295e4710c51a4",
+      "rawLogSha256": "52b0dcbe6cd509a6675eec2c79636795b6cec041205424c21df9fed975bc1a63",
+      "failedTests": []
+    },
+    {
+      "mode": "PlayMode",
+      "exitCode": 0,
+      "filter": "",
+      "name": "reconfiguration-final-play",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "251",
+        "result": "Skipped:Ignored",
+        "total": "251",
+        "passed": "246",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "5",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 07:16:13Z",
+        "end-time": "2026-09-19 07:16:36Z",
+        "duration": "23.4418394"
+      },
+      "rawXmlSha256": "95ead9c906e52810d523462b80864787e229fea776627231a3fa401566d1318b",
+      "xml": "reconfiguration-final-play.xml",
+      "publishedXmlSha256": "9a167965eab4056343f6a915837ab1f85fd6a3b83239014c01f19c3243c92939",
+      "rawLogSha256": "2c21ca54ef894ce387637df542671f256be835d14f7dfbeaa9ba0c6bf38f2d08",
+      "failedTests": []
+    },
+    {
+      "mode": "EditMode",
+      "filter": "",
+      "exitCode": 0,
+      "name": "reconfiguration-final2-edit",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "877",
+        "result": "Skipped:Ignored",
+        "total": "877",
+        "passed": "876",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "1",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 07:15:37Z",
+        "end-time": "2026-09-19 07:15:47Z",
+        "duration": "9.7504876"
+      },
+      "rawXmlSha256": "426b117b7d7ac9b3225aa5c498fa511ded20c03819c355bf56bd99740d3536b7",
+      "xml": "reconfiguration-final2-edit.xml",
+      "publishedXmlSha256": "98c458b4fbdede7024f2b8f4c2fbb981b7c1bb78151f00617afe71562bf48b75",
+      "rawLogSha256": "11ef84a4fb33b0ef8d0317b75c321aa8ebdabf4e45fa9a81705efcfa9eefcf91",
+      "failedTests": []
+    },
+    {
+      "exitCode": 0,
+      "filter": "NpcReconfigurationPlayModeTests",
+      "mode": "PlayMode",
+      "name": "reconfiguration-inflight-green",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "3",
+        "result": "Passed",
+        "total": "3",
+        "passed": "3",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 06:50:13Z",
+        "end-time": "2026-09-19 06:50:13Z",
+        "duration": "0.1669509"
+      },
+      "rawXmlSha256": "879565ba167b20fdda5f0914e830f69409a3b2c03ec11e1f0c58caddd42bcf0f",
+      "xml": "reconfiguration-inflight-green.xml",
+      "publishedXmlSha256": "1721e5840d93055db3dc0bf8da3526b89c8aab8f3b48a852e61036defc63628f",
+      "rawLogSha256": "60af0c159c0b3ac909e2d5d7de431a1d088ebd4996f90342b525493bc175c27e",
+      "failedTests": []
+    },
+    {
+      "mode": "PlayMode",
+      "exitCode": 2,
+      "filter": "UnfinishedRequest_RejectsReplacementUntilTheTaskEnds",
+      "name": "reconfiguration-inflight-red",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "2",
+        "result": "Failed(Child)",
+        "total": "2",
+        "passed": "0",
+        "failed": "2",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 06:49:25Z",
+        "end-time": "2026-09-19 06:49:26Z",
+        "duration": "0.1872311"
+      },
+      "rawXmlSha256": "230e1ab97262185e1857f513e37f88cf27ff13e83fa3fde9235800f0cd9e70f6",
+      "xml": "reconfiguration-inflight-red.xml",
+      "publishedXmlSha256": "af66951dcb8fc4b578a8e8fd5bb866cc5d19397f01047d46892c324aa6cf8781",
+      "rawLogSha256": "d7769cde0283198bbcb08bd162ae74d2f640aa052fa337c326033de0017679d1",
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.UnfinishedRequest_RejectsReplacementUntilTheTaskEnds(False)",
+        "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.UnfinishedRequest_RejectsReplacementUntilTheTaskEnds(True)"
+      ]
+    },
+    {
+      "filter": "NpcReconfigurationPlayModeTests",
+      "exitCode": 0,
+      "mode": "PlayMode",
+      "name": "reconfiguration-limits-green",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "11",
+        "result": "Passed",
+        "total": "11",
+        "passed": "11",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 06:52:04Z",
+        "end-time": "2026-09-19 06:52:05Z",
+        "duration": "0.1721072"
+      },
+      "rawXmlSha256": "8ca8da8df8e07bcfcb393410b426a2cba4879addabc7ff48504a5a3aea248e56",
+      "xml": "reconfiguration-limits-green.xml",
+      "publishedXmlSha256": "139b102c84fc9355ab235541ccfb96fd8b37ddf0d1e6368f5aaac792169ee609",
+      "rawLogSha256": "289f6722cce47ed59afecff97cfd6a2f8f7657efb9a5f8d04e154bbc828f6527",
+      "failedTests": []
+    },
+    {
+      "filter": "NpcReconfigurationPlayModeTests",
+      "exitCode": 2,
+      "mode": "PlayMode",
+      "name": "reconfiguration-limits-red",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "11",
+        "result": "Failed(Child)",
+        "total": "11",
+        "passed": "4",
+        "failed": "7",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 06:51:12Z",
+        "end-time": "2026-09-19 06:51:12Z",
+        "duration": "0.1621388"
+      },
+      "rawXmlSha256": "7827f95958afd7799d4bafaf5e29ee8ecdbb7bbca752e6d7c057b0d1ba5de7ba",
+      "xml": "reconfiguration-limits-red.xml",
+      "publishedXmlSha256": "8b86c3fa4826634cf818d774e47e57a0c2ebdd2c17b82be9d1c6249381c105ff",
+      "rawLogSha256": "eea104163fc3ed3f5059c73d4bf4709058bc240ef2f5c81bb588fba99c0bec7f",
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(\"rate\")",
+        "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(\"concurrency\")",
+        "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(\"cooldown\")",
+        "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(\"request-timeout\")",
+        "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(\"decision-timeout\")",
+        "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(\"calls\")",
+        "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(\"lifetime\")"
+      ]
+    },
+    {
+      "mode": "PlayMode",
+      "exitCode": 0,
+      "filter": "NpcReconfigurationPlayModeTests",
+      "name": "reconfiguration-reentry-green",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "15",
+        "result": "Passed",
+        "total": "15",
+        "passed": "15",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 06:54:53Z",
+        "end-time": "2026-09-19 06:54:53Z",
+        "duration": "0.2656972"
+      },
+      "rawXmlSha256": "e32fafd96e2cebc93510213939b7578ae531bc6274a84ed22156a83de21889b6",
+      "xml": "reconfiguration-reentry-green.xml",
+      "publishedXmlSha256": "5c63f352c116d384a6060e20d597b0af81e21357ec888d87ddffaa2c5f74704b",
+      "rawLogSha256": "40517f270088dfe4fb40abefb0d3305bf7c4f501a8eb39660f8c1f523c9b7187",
+      "failedTests": []
+    },
+    {
+      "filter": "NpcReconfigurationPlayModeTests",
+      "exitCode": 2,
+      "mode": "PlayMode",
+      "name": "reconfiguration-reentry-red",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "15",
+        "result": "Failed(Child)",
+        "total": "15",
+        "passed": "12",
+        "failed": "3",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 06:53:09Z",
+        "end-time": "2026-09-19 06:53:09Z",
+        "duration": "0.2007715"
+      },
+      "rawXmlSha256": "f9064aa70f10fc5e523377e4e3160149c722d1df638860a6f6408fcba0f84263",
+      "xml": "reconfiguration-reentry-red.xml",
+      "publishedXmlSha256": "6b956b9a848117c92fca2e1386e8b9c47e2def0d76bad637e8487d9fb8ada5c6",
+      "rawLogSha256": "55b1a671b5d4481fc365130339ff721b7cc8accaf093e97816feee20ad639ad1",
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.DispatchCallback_CannotReplaceOrDispatchAgainBeforeItsTaskIsRegistered",
+        "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.EnumerationThatFailsWorldRecovery_KeepsTheOldSchedulerAvailableForRecovery",
+        "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.ProfileEnumeration_CannotDispatchOrReplaceTheBinding"
+      ]
+    },
+    {
+      "filter": "ReadinessCallbackDisposingSource_PreventsReturningALiveReplacement",
+      "mode": "EditMode",
+      "exitCode": 2,
+      "name": "reconfiguration-retirement-red",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "1",
+        "result": "Failed(Child)",
+        "total": "1",
+        "passed": "0",
+        "failed": "1",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 07:14:44Z",
+        "end-time": "2026-09-19 07:14:44Z",
+        "duration": "0.1171815"
+      },
+      "rawXmlSha256": "15dc2b975e3125a825d8b0791a4cd04614ba0f0d6670539e8f307f8dc439338d",
+      "xml": "reconfiguration-retirement-red.xml",
+      "publishedXmlSha256": "496e4e4a65866955dc6219fc4e93e709d0268f1e9db3f8601cb912ba34507b71",
+      "rawLogSha256": "ae3be47267c29bbe5eea6bffaea729878090cffc500fda9eadb1304cbe3d8902",
+      "failedTests": [
+        "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionReplacementTests.ReadinessCallbackDisposingSource_PreventsReturningALiveReplacement"
+      ]
+    },
+    {
+      "filter": "NpcDecisionReplacementTests",
+      "mode": "EditMode",
+      "exitCode": 0,
+      "name": "reconfiguration-state-green",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "10",
+        "result": "Passed",
+        "total": "10",
+        "passed": "10",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 07:11:28Z",
+        "end-time": "2026-09-19 07:11:28Z",
+        "duration": "0.1109452"
+      },
+      "rawXmlSha256": "dad252643a910523daeea37a6605d3de0115dd029f636c23eb50b2811b0954d4",
+      "xml": "reconfiguration-state-green.xml",
+      "publishedXmlSha256": "e380d83b56d653fdc075480fa0bfa5469c31ff464b965b9d049237d497456e08",
+      "rawLogSha256": "62c54df0f63c106701c7311c9ca4e93a9b16ef96b543453cbaa69348dcb190b6",
+      "failedTests": []
+    },
+    {
+      "filter": "NpcDecisionReplacementTests",
+      "exitCode": 2,
+      "mode": "EditMode",
+      "name": "reconfiguration-state-red",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "10",
+        "result": "Failed(Child)",
+        "total": "10",
+        "passed": "4",
+        "failed": "6",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 07:10:28Z",
+        "end-time": "2026-09-19 07:10:28Z",
+        "duration": "0.1009578"
+      },
+      "rawXmlSha256": "aa08080ba9da078803ed50e07b919faba66c535e33c160ef35caa269b6165e27",
+      "xml": "reconfiguration-state-red.xml",
+      "publishedXmlSha256": "cb1b560c5d9b158e86a094dc680dc93e874478aad4f96a1b0e520e63666998d4",
+      "rawLogSha256": "af1ef93db25d69f9b62649ecf922e3fe7a7d376fa2d9f1ef7a8b82b5ed65bc16",
+      "failedTests": [
+        "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionReplacementTests.ClientCallback_CannotReplaceOrTickBeforeItsTaskHasBeenRegistered",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionReplacementTests.RemovingAndReaddingAProfile_PreservesItsCooldownAcrossRepeatedReplacement",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionReplacementTests.RepeatedReplacement_DoesNotExtendTheQueuedOpportunityDeadline",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionReplacementTests.Replacement_PreservesQueuedOpportunityWithTheNewProfileAndExpressionSettings",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionReplacementTests.Replacement_PreservesTheMonotonicRealTimeBoundary",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionReplacementTests.ReplacementProfileEnumeration_CannotTickReplaceOrRebindTheOriginalScheduler"
+      ]
+    },
+    {
+      "filter": "NpcReconfigurationPlayModeTests",
+      "mode": "PlayMode",
+      "exitCode": 0,
+      "name": "reconfiguration-window-green",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "1",
+        "result": "Passed",
+        "total": "1",
+        "passed": "1",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 06:45:42Z",
+        "end-time": "2026-09-19 06:45:42Z",
+        "duration": "0.132124"
+      },
+      "rawXmlSha256": "69b28f88b672d902c63d5728a3c16aef36146414351598d1e6dda6e48cea182d",
+      "xml": "reconfiguration-window-green.xml",
+      "publishedXmlSha256": "d319e12d71bdd39d0ec35149bfb20133d3694e06280faa7f1f99656fc50875b2",
+      "rawLogSha256": "fe93df4637dadc28eee43b50b128e2ceed7760215ff8308a810b597de98d0356",
+      "failedTests": []
+    },
+    {
+      "filter": "NpcReconfigurationPlayModeTests",
+      "mode": "PlayMode",
+      "exitCode": 2,
+      "name": "reconfiguration-window-red",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "1",
+        "result": "Failed(Child)",
+        "total": "1",
+        "passed": "0",
+        "failed": "1",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 06:44:19Z",
+        "end-time": "2026-09-19 06:44:19Z",
+        "duration": "0.1613794"
+      },
+      "rawXmlSha256": "5ca4446b1f0f1d4c1d53d3b90a27a0a9d5c0a579f9d336c684e8cd9b47eba817",
+      "xml": "reconfiguration-window-red.xml",
+      "publishedXmlSha256": "0e6faa57792bb5e8277b035b35ef396ac5a745793d6bee24ec091d3e03d5efae",
+      "rawLogSha256": "f8c65fd7b771e8b64d218124053fa2f9c0633d44bb66ef3df88b14d715a258a8",
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.CompletedRequest_ReconfigurationKeepsTheOriginalCallWindow"
+      ]
+    }
+  ],
+  "inputAudit": "input-audit.json",
+  "sourceFiles": [
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "8666edc2fdeae77ffebd8279839b4500f3c23637fce512d76b0a2e0b77f598fa"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcBindingPlayModeTests.cs",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "cd42ddc6559db9d6992a0e873eef5aebcfcae36bf8ac7903f251524ecc951148"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/CozyTownTownLifeController.cs",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "11c577493d16974045f528985450b11289f96e65af466566a9ff33da78048663"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcReconfigurationPlayModeTests.cs",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "eb451939ddeee94376ed61dca3739503ae65af1d613456586a6b298af761f0b5"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcReconfigurationPlayModeTests.cs.meta",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "797cc6910762f352ae76a50d5a5e652868cb1f0316c545a59a9eebae9cff14a0"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcDecisionReplacementTests.cs",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "bcb603368ce56c5cea271440642d83a1427faa577042d4e2aac7432b6d43c149"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcDecisionReplacementTests.cs.meta",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "55918f1e175ca8411e2eec9190cd13f166361ee7c749e0c2e256571d6ab5d734"
+    }
+  ],
+  "redEvidence": {
+    "reconfiguration-window-red": "Baseline production: replacement resets cumulative and rolling request history.",
+    "reconfiguration-inflight-red": "After history transfer only: unfinished and timed-out client tasks do not prevent replacement.",
+    "reconfiguration-limits-red": "After unfinished task guard: seven relaxed settings are accepted after a client call.",
+    "reconfiguration-reentry-red": "After limit checks: controller configuration/tick reentry and readiness changes can replace live state.",
+    "reconfiguration-state-red": "After controller guards: pending opportunity, cooldown, real-time and runtime reentry tests fail.",
+    "reconfiguration-retirement-red": "After runtime state transfer: readiness callback can retire source but factory still returns a live replacement."
+  },
+  "controlCorrections": [],
+  "intermediateRuns": [
+    "reconfiguration-final-edit has 875 passing tests before the readiness-disposal regression was added. Final validated inputs are reconfiguration-final2-edit and reconfiguration-final-play."
+  ],
+  "limits": [
+    "Final input audit identifies final suite sources; intermediate runs record ordered work-in-progress stages, not frozen binaries."
+  ]
+}

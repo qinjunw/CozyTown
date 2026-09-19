@@ -25,6 +25,8 @@ namespace CozyTown.Unity.Npc
         private CharacterResourceTrading _resources;
         private NpcMeetingDialogueView _meetingView;
         private TownLocalObservation2D _observation;
+        private bool _configuringDecisions;
+        private bool _tickingDecisions;
 
         public bool DecisionsEnabled => _decisions != null;
         public bool IsWorldReady => _timeFlow?.State == WorldTimeFlowState.Ready;
@@ -39,6 +41,7 @@ namespace CozyTown.Unity.Npc
 
         public void Configure(params NpcWorldResident2D[] actors)
         {
+            if (_configuringDecisions) throw new InvalidOperationException("Complete decision configuration before changing residents.");
             residents = (NpcWorldResident2D[])actors.Clone();
         }
 
@@ -61,6 +64,7 @@ namespace CozyTown.Unity.Npc
 
         public void Bind(IWorldTimeFlow timeFlow, CharacterResourceTrading resources = null)
         {
+            if (_configuringDecisions) throw new InvalidOperationException("Complete decision configuration before changing the world binding.");
             if (timeFlow == null) throw new ArgumentNullException(nameof(timeFlow));
             if (timeFlow.State != WorldTimeFlowState.Ready
                 || (_timeFlow != null && _timeFlow.State != WorldTimeFlowState.Ready))
@@ -109,36 +113,51 @@ namespace CozyTown.Unity.Npc
             NpcDecisionSettings settings = null, IEnumerable<NpcMeetingPlan> meetingPlans = null,
             NpcSpeechMode speechMode = NpcSpeechMode.FreeText)
         {
+            if (_configuringDecisions || _tickingDecisions)
+                throw new InvalidOperationException("Complete the current decision operation before configuring decisions.");
             if (_agents == null) throw new InvalidOperationException("Bind world time before configuring decisions.");
             if (!IsWorldReady) throw new InvalidOperationException("Complete world recovery before configuring decisions.");
-            var profileArray = profiles.ToArray();
-            var meetings = meetingPlans == null ? null : new NpcMeetingBoard(_agents, meetingPlans, MeetingPresence, _resources);
-            var candidate = new NpcDecisionScheduler(_agents, profileArray, client, settings, meetings,
-                request => CaptureObservation(request.NpcId, request.Social), speechMode, () => IsWorldReady);
-            var before = CaptureActivities();
-            _decisions?.Dispose();
-            _meetings?.CancelAll();
-            _decisions = candidate;
-            _meetings = meetings;
-            RefreshChangedActivities(before);
-            if (_meetings != null)
+            _configuringDecisions = true;
+            try
             {
-                if (_meetingView == null) _meetingView = gameObject.AddComponent<NpcMeetingDialogueView>();
-                _meetingView.Configure(residents, profileArray);
+                var profileArray = profiles.ToArray();
+                var meetings = meetingPlans == null ? null : new NpcMeetingBoard(_agents, meetingPlans, MeetingPresence, _resources);
+                if (!IsWorldReady) throw new InvalidOperationException("Complete world recovery before configuring decisions.");
+                var before = CaptureActivities();
+                var candidate = _decisions == null
+                    ? new NpcDecisionScheduler(_agents, profileArray, client, settings, meetings,
+                        request => CaptureObservation(request.NpcId, request.Social), speechMode, () => IsWorldReady)
+                    : _decisions.CreateReplacement(profileArray, client, settings, meetings,
+                        request => CaptureObservation(request.NpcId, request.Social), speechMode, () => IsWorldReady);
+                _meetings?.CancelAll();
+                _decisions = candidate;
+                _meetings = meetings;
+                RefreshChangedActivities(before);
+                if (_meetings != null)
+                {
+                    if (_meetingView == null) _meetingView = gameObject.AddComponent<NpcMeetingDialogueView>();
+                    _meetingView.Configure(residents, profileArray);
+                }
+                else if (_meetingView != null) { Destroy(_meetingView); _meetingView = null; }
             }
-            else if (_meetingView != null) { Destroy(_meetingView); _meetingView = null; }
+            finally { _configuringDecisions = false; }
         }
 
         public void TickDecisions(double realSeconds)
         {
-            if (_decisions == null) return;
+            if (_decisions == null || _configuringDecisions || _tickingDecisions) return;
             if (_timeFlow.State == WorldTimeFlowState.Publishing) return;
-            if (!IsWorldReady) { _decisions.Tick(realSeconds); return; }
-            var before = CaptureActivities();
-            _decisions.Tick(realSeconds);
-            if (!IsWorldReady) return;
-            RefreshChangedActivities(before);
-            _meetingView?.Present(_meetings, realSeconds);
+            _tickingDecisions = true;
+            try
+            {
+                if (!IsWorldReady) { _decisions.Tick(realSeconds); return; }
+                var before = CaptureActivities();
+                _decisions.Tick(realSeconds);
+                if (!IsWorldReady) return;
+                RefreshChangedActivities(before);
+                _meetingView?.Present(_meetings, realSeconds);
+            }
+            finally { _tickingDecisions = false; }
         }
 
         private NpcActivityRequest[] CaptureActivities()

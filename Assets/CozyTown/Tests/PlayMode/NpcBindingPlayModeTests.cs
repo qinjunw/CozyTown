@@ -327,6 +327,106 @@ namespace CozyTown.Tests.PlayMode
             Assert.That(_client.Requests[2].Social.Kind, Is.EqualTo(NpcSocialContextKind.Delivery));
         }
 
+        [TestCase("client")]
+        [TestCase("profile")]
+        [TestCase("meeting-plan")]
+        [TestCase("speech-mode")]
+        public void InvalidDecisionReplacement_PreservesMeetingActivitiesAndCompletedDelivery(string invalid)
+        {
+            StartDelivery();
+            var meeting = _controller.GetMeeting(Sora);
+            var soraActivity = _controller.GetAgentState(Sora).ActiveActivity;
+            var renActivity = _controller.GetAgentState(Ren).ActiveActivity;
+            var soraResources = _controller.GetMeetingResources(Sora);
+            var renResources = _controller.GetMeetingResources(Ren);
+            _client.Replies[2].SetResult(new NpcDecisionReply(NpcDecisionKind.Deliver, meetingId: meeting.Id));
+            Assert.That(_controller.ActiveDecisionRequests, Is.Zero);
+            INpcDecisionClient candidateClient = invalid == "client" ? null : new PendingClient();
+            var profiles = new[] { new NpcDefinition(Sora, "Sora", "Cook", "Hello"),
+                new NpcDefinition(Ren, "Ren", "Fisher", "Hello") };
+            if (invalid == "profile") profiles[1] = profiles[0];
+            var plans = invalid == "meeting-plan"
+                ? new[] { new NpcMeetingPlan("unknown-partner", Sora, "npc.missing", "pond",
+                    Sora + ".outside", "missing.outside", 720, 750, 780) } : null;
+            var mode = invalid == "speech-mode" ? (NpcSpeechMode)99 : NpcSpeechMode.FreeText;
+
+            Assert.Catch<ArgumentException>(() => _controller.ConfigureDecisions(candidateClient, profiles,
+                meetingPlans: plans, speechMode: mode));
+
+            Assert.That(_controller.GetMeeting(Sora).Id, Is.EqualTo(meeting.Id));
+            Assert.That(_controller.GetMeeting(Sora).State, Is.EqualTo(NpcMeetingState.Talking));
+            Assert.That(_controller.GetAgentState(Sora).ActiveActivity, Is.SameAs(soraActivity));
+            Assert.That(_controller.GetAgentState(Ren).ActiveActivity, Is.SameAs(renActivity));
+            Assert.That(_controller.GetMeetingResources(Sora).Balance, Is.EqualTo(soraResources.Balance));
+            Assert.That(_controller.GetMeetingResources(Ren).OwnedQuantity, Is.EqualTo(renResources.OwnedQuantity));
+            Assert.That(_controller.DecisionRequestsStarted, Is.EqualTo(3));
+            Assert.That(_client.Tokens[2].IsCancellationRequested, Is.False);
+
+            _controller.TickDecisions(3);
+
+            Assert.That(_controller.GetMeeting(Sora).DeliveryResultCode, Is.EqualTo("resource.delivered"));
+            Assert.That(_controller.GetMeetingResources(Sora).Balance, Is.EqualTo(soraResources.Balance - 25));
+            Assert.That(_controller.GetMeetingResources(Sora).OwnedQuantity, Is.EqualTo(soraResources.OwnedQuantity + 1));
+            Assert.That(_controller.GetMeetingResources(Ren).Balance, Is.EqualTo(renResources.Balance + 25));
+            Assert.That(_controller.GetMeetingResources(Ren).OwnedQuantity, Is.EqualTo(renResources.OwnedQuantity - 1));
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void DecisionReplacement_CannotReplayCompletedDelivery(bool deliveryAlreadyApplied)
+        {
+            StartDelivery();
+            var meeting = _controller.GetMeeting(Sora);
+            var soraBefore = _services.ResourceTrading.Inspect(meeting.ResourceTerms, Sora);
+            var renBefore = _services.ResourceTrading.Inspect(meeting.ResourceTerms, Ren);
+            _client.Replies[2].SetResult(new NpcDecisionReply(NpcDecisionKind.Deliver, meetingId: meeting.Id));
+            if (deliveryAlreadyApplied)
+            {
+                _controller.TickDecisions(3);
+                Assert.That(_controller.GetMeeting(Sora).DeliveryResultCode, Is.EqualTo("resource.delivered"));
+            }
+            Assert.That(_controller.ActiveDecisionRequests, Is.Zero);
+            var replacement = new DeliveryReplayClient(meeting.Id);
+
+            _controller.ConfigureDecisions(replacement, new[] {
+                new NpcDefinition(Sora, "Sora", "Cook", "Hello"),
+                new NpcDefinition(Ren, "Ren", "Fisher", "Hello") });
+
+            Assert.That(_controller.GetMeeting(Sora), Is.Null);
+            Assert.That(_controller.GetAgentState(Sora).ActiveActivity, Is.Null);
+            Assert.That(_controller.GetAgentState(Ren).ActiveActivity, Is.Null);
+            Assert.That(_controller.DecisionRequestsStarted, Is.EqualTo(3));
+            _controller.TickDecisions(59);
+            Assert.That(replacement.Requests, Is.Empty);
+            _controller.TickDecisions(60);
+            Assert.That(replacement.Requests, Is.Not.Empty);
+            Assert.That(replacement.Requests[0].Social, Is.Null);
+            _controller.TickDecisions(60.1);
+            Assert.That(_controller.GetDecisionOutcome(replacement.Requests[0].NpcId).Code,
+                Is.EqualTo("agent.operation_unavailable"));
+            _controller.TickDecisions(61);
+            var soraAfter = _services.ResourceTrading.Inspect(meeting.ResourceTerms, Sora);
+            var renAfter = _services.ResourceTrading.Inspect(meeting.ResourceTerms, Ren);
+            int deliveries = deliveryAlreadyApplied ? 1 : 0;
+            Assert.That(soraAfter.Balance, Is.EqualTo(soraBefore.Balance - 25 * deliveries));
+            Assert.That(soraAfter.OwnedQuantity, Is.EqualTo(soraBefore.OwnedQuantity + deliveries));
+            Assert.That(renAfter.Balance, Is.EqualTo(renBefore.Balance + 25 * deliveries));
+            Assert.That(renAfter.OwnedQuantity, Is.EqualTo(renBefore.OwnedQuantity - deliveries));
+            Assert.That(_client.Requests.Count, Is.EqualTo(3));
+        }
+
+        private sealed class DeliveryReplayClient : INpcDecisionClient
+        {
+            private readonly Guid _meetingId;
+            public readonly List<NpcDecisionRequest> Requests = new List<NpcDecisionRequest>();
+            public DeliveryReplayClient(Guid meetingId) => _meetingId = meetingId;
+            public Task<NpcDecisionReply> DecideAsync(NpcDecisionRequest request, CancellationToken token)
+            {
+                Requests.Add(request);
+                return Task.FromResult(new NpcDecisionReply(NpcDecisionKind.Deliver, meetingId: _meetingId));
+            }
+        }
+
         private sealed class SnapshotStorage : ISaveStorage
         {
             public GameSaveSnapshot Snapshot;
