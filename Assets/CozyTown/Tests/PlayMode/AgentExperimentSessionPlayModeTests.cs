@@ -40,6 +40,42 @@ namespace CozyTown.Tests.PlayMode
         }
 
         [UnityTest]
+        public IEnumerator WaitingBetweenInputs_PreservesPlayerPositionAcrossLoadsAndStrictReplay()
+        {
+            const string path = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(path, new LoadSceneParameters(LoadSceneMode.Additive));
+            _scene = SceneManager.GetSceneByPath(path);
+            var source = AgentExperimentSession.Attach(_scene,
+                CozyTownCompositionRoot.Create(AgentExperimentContent.CreateConfiguration()), "available");
+            source.Start(NpcSpeechMode.FreeText, "fixed", new FixedExperimentDecisionClient());
+            for (int frame = 0; frame < 5; frame++) yield return new UnityEngine.WaitForFixedUpdate();
+
+            source.Save("origin");
+            var saved = source.Services.SaveStorage.Load("main").Value;
+            Assert.That(saved.CompleteWorld.Player.Position.X, Is.EqualTo(0));
+            Assert.That(saved.CompleteWorld.Player.Position.Y, Is.EqualTo(0));
+            Assert.That(source.Controller.DecisionRequestsStarted, Is.Zero);
+            source.Load("origin");
+            source.Load("origin");
+            for (int frame = 0; frame < 5; frame++) yield return new UnityEngine.WaitForFixedUpdate();
+            source.Save("after_loads");
+            saved = source.Services.SaveStorage.Load("main").Value;
+            Assert.That(saved.CompleteWorld.Player.Position.X, Is.EqualTo(0));
+            Assert.That(saved.CompleteWorld.Player.Position.Y, Is.EqualTo(0));
+            source.Complete();
+            string directory = Path.GetFullPath(Path.Combine("Logs", "agent-platform", "packages", Guid.NewGuid().ToString("N")));
+            source.Export(directory);
+            yield return SceneManager.UnloadSceneAsync(_scene);
+            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(path, new LoadSceneParameters(LoadSceneMode.Additive));
+            _scene = SceneManager.GetSceneByPath(path);
+            var replay = AgentExperimentSession.Attach(_scene,
+                CozyTownCompositionRoot.Create(AgentExperimentContent.CreateConfiguration()), "available");
+            replay.StartReplay(directory);
+            while (replay.ReplayNext()) { }
+            Assert.That(replay.Completed, Is.True);
+        }
+
+        [UnityTest]
         public IEnumerator FailedInitialSnapshot_StopsTheExperimentBeforeAnyDispatch()
         {
             const string path = "Assets/CozyTown/Scenes/CozyTown_Dev.unity";

@@ -359,6 +359,11 @@ namespace CozyTown.Unity.Experiments
             controller.ConfigureSnapshots(services.WorldSnapshots, player, session._inputGate, driver, () => session.RealSeconds);
             services.WorldSnapshots.Require();
             if (!session._inputGate.TryAcquire(session)) throw new InvalidOperationException("Close other modal interfaces before starting an experiment.");
+            // Physics contacts must not move the player between recorded experiment inputs.
+            var playerBody = player.GetComponent<Rigidbody2D>();
+            playerBody.constraints = RigidbodyConstraints2D.FreezeAll;
+            playerBody.linearVelocity = Vector2.zero;
+            playerBody.angularVelocity = 0;
             var saved = services.GameSave.Save();
             if (!saved.IsSuccess) throw new InvalidOperationException(saved.ErrorCode);
             session.InitialSnapshot = services.SaveStorage.Load("main").Value;
