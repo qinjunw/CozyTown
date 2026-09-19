@@ -1,1 +1,1 @@
-tests/xml/*.xml text eol=lf
+tests/xml/*.xml text eol=lf whitespace=-blank-at-eol
