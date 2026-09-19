@@ -104,6 +104,14 @@ python -B Tools/agent_proxy/expression_experiment.py --stage scene --standalone-
 
 Unity 入口及环境变量同上述场景阶段。默认冻结范围之外的测试文件通过重复 `--source-file` 加入；本轮两批登记及范围见[移动中答复方案](../../docs/verification/npc-moving-observation-plan-2026-09-14.md)。场景调用记录的 `executionObservationJson` 保存本次宿主执行前重读，提前取消时为 `null`；它与原 `contextJson` 分开，不替换模型已收到的事实。
 
+## 四人跨日与读档矩阵
+
+`run_four_agent_integration.py` 与 Unity 的 `AgentIntegrationMatrixPlayModeTests.CoordinatedMatrix_ExecutesOnlyRegisteredFreshWorlds` 配合执行四种资源初态、两次 F/S 配对，共 16 个新世界。协调器先登记清单，每世界初始化通过后才授权模型调用；每世界最多 32 次提供方尝试、600 现实秒，全批最多 512 次。失败尝试计入账本，已有输出目录不能覆盖或续跑。
+
+固定阶段不需要凭据。Live 使用同一 Python 进程依次创建独立代理，以全批账本约束总量；它与手动窗口共用单个代理的使用方式分别记账。完成包在新场景严格回放，初始化、宿主或回放失败会停止后续世界。
+
+冻结版本、启动命令、时间脚本及结果字段见[四人集成验收计划](../../docs/verification/four-agent-integration-plan-2026-09-20.md)。交互式入口和实验包解释见[操作指南](../../docs/AGENT_EXPERIMENT_GUIDE.md)。固定、回放与真实模型的结果分开统计。
+
 ## 验证
 
 ```powershell
