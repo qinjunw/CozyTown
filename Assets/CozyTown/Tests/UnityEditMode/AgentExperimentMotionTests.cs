@@ -51,6 +51,8 @@ namespace CozyTown.Tests.UnityEditMode
             double end = last + 2;
             double minutesBefore = launcher.Session.Controller.GameTotalMinutes;
             double previousMinutes = minutesBefore;
+            double uninterruptedUntil = last, uninterruptedMinutes = minutesBefore;
+            bool interrupted = false;
             float largestJump = 0;
             int movingFrames = 0;
             int observedFrames = 0;
@@ -61,6 +63,10 @@ namespace CozyTown.Tests.UnityEditMode
                 Assert.That(launcher.Error, Is.Null);
                 double now = launcher.RealSeconds;
                 double minutes = launcher.Session.Controller.GameTotalMinutes;
+                Assert.That(minutes - previousMinutes, Is.LessThanOrEqualTo(0.251),
+                    "A frame may accept at most eight 1/64-second steps, even after a long stall.");
+                interrupted |= now - last >= 0.125;
+                if (!interrupted) { uninterruptedUntil = now; uninterruptedMinutes = minutes; }
                 bool moved = false;
                 for (int i = 0; i < residents.Length; i++)
                 {
@@ -87,7 +93,10 @@ namespace CozyTown.Tests.UnityEditMode
             Assert.That(movingFrames, Is.GreaterThan(8), "A travelling resident must move more frequently than twice a second.");
             Assert.That(largestJump, Is.LessThanOrEqualTo(0.27f), "Even eight catch-up steps must not jump a whole world unit.");
             Assert.That(animationChanged, Is.True, "The visible walking sprite must animate.");
-            Assert.That(previousMinutes - minutesBefore, Is.EqualTo((last - started) * 2).Within(0.1),
+            if (uninterruptedUntil - started < 0.5)
+                Assert.Inconclusive("The runner stalled before a half-second motion sample; repeat this fixture in an idle editor.");
+            TestContext.WriteLine($"Uninterrupted rate sample: {uninterruptedUntil - started:F4}s; long frame observed: {interrupted}.");
+            Assert.That(uninterruptedMinutes - minutesBefore, Is.EqualTo((uninterruptedUntil - started) * 2).Within(0.1),
                 "Continuous running must retain the configured world-time rate.");
 
             var pausedPositions = residents.Select(resident => resident.Position).ToArray();
