@@ -94,6 +94,8 @@ namespace CozyTown.Unity.Experiments
         private readonly System.Diagnostics.Stopwatch _clock = new System.Diagnostics.Stopwatch();
         private double _lastUpdate, _accumulator;
         public const double GameStepSeconds = 0.5;
+        // Binary subdivisions keep world-time fractions exact through recorded playback.
+        private const double ContinuousStepSeconds = GameStepSeconds / 32;
         public CozyTownServices Services { get; private set; }
         public AgentExperimentSession Session { get; private set; }
         public bool IsRunning { get; private set; }
@@ -191,24 +193,25 @@ namespace CozyTown.Unity.Experiments
                 double now = RealSeconds;
                 _accumulator += now - _lastUpdate;
                 _lastUpdate = now;
-                int steps = 0;
-                while (_accumulator >= GameStepSeconds && IsRunning && steps++ < 8)
+                for (int steps = 0; IsRunning && steps < 8; steps++)
                 {
-                    _accumulator -= GameStepSeconds;
-                    Advance();
+                    double stepSeconds = IsReplay ? Session.NextReplayDelaySeconds : ContinuousStepSeconds;
+                    if (_accumulator < stepSeconds) break;
+                    _accumulator -= stepSeconds;
+                    Advance(stepSeconds);
                 }
             }
             catch (Exception exception) { Fail(exception); }
         }
 
-        private void Advance()
+        private void Advance(double elapsedGameSeconds = GameStepSeconds)
         {
             RequireReady();
             if (IsReplay)
             {
                 if (!Session.ReplayNext() || Session.Completed) SetRunning(false);
             }
-            else Session.Step(GameStepSeconds, RealSeconds);
+            else Session.Step(elapsedGameSeconds, RealSeconds);
         }
 
         private void RequireReady()

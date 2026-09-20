@@ -156,6 +156,21 @@ namespace CozyTown.Unity.Experiments
             _armOrder = package.Manifest.armOrder.ToArray();
         }
 
+        public double NextReplayDelaySeconds
+        {
+            get
+            {
+                if (_replayPackage == null) throw new InvalidOperationException("Start a recorded experiment replay first.");
+                if (Completed) return 0;
+                if (_replayInput >= _replayPackage.Manifest.inputs.Count) throw Stop("Replay has no completion input.");
+                var input = _replayPackage.Manifest.inputs[_replayInput];
+                double delay = input.kind == "advance" ? input.elapsedGameSeconds : 0;
+                if (double.IsNaN(delay) || double.IsInfinity(delay) || delay < 0)
+                    throw Stop("Replay input duration must be finite and non-negative.");
+                return delay;
+            }
+        }
+
         public bool ReplayNext()
         {
             if (_replayPackage == null) throw new InvalidOperationException("Start a recorded experiment replay first.");
