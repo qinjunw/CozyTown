@@ -12,7 +12,7 @@ Fixed → 运行停用了普通逐帧时钟，改为每 0.5 秒提交一次世�
 
 ## 验证与失败记录
 
-[验证计划](agent-motion-plan-2026-09-20.md)记录公开测试边界和步长调整依据。[证据清单](agent-motion-evidence/tests/manifest.json)关联 XML、运行源码哈希、原始日志哈希及完整结果；输出中的测试客户端属于固定替身，无真实提供方调用。
+[验证计划](agent-motion-plan-2026-09-20.md)记录公开测试边界和步长调整依据。[证据清单](agent-motion-evidence/tests/manifest.json)关联[原始 XML 压缩包](agent-motion-evidence/tests/test-results.zip)、运行源码哈希、原始日志哈希及完整结果。清单中的 XML 名称指压缩包内文件，保留原字节及空白；输出中的测试客户端属于固定替身，无真实提供方调用。
 
 | 检查 | 结果 |
 | --- | --- |

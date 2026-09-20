@@ -246,5 +246,10 @@
     "expectedDivergenceTick": 5436,
     "path": "../rejected-1over60-package.zip",
     "sha256": "5e2d9dad61ef2d45f2f43bafc870415e91695b4320e011151de5197e65fc534e"
+  },
+  "xmlArchive": {
+    "sha256": "594be41f5db2042de561204dbab1133b428f271dc0fbdeae0c73412ee57d456b",
+    "path": "test-results.zip",
+    "note": "run.xml names entries inside this archive; original XML bytes and whitespace are retained."
   }
 }
