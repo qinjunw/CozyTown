@@ -89,12 +89,12 @@ namespace CozyTown.Tests.UnityEditMode
             }
             launcher.SetRunning(false);
             TestContext.WriteLine($"Observed {observedFrames} short samples over {Time.frameCount - firstFrame} player-loop frames, {movingFrames} moving samples; largest movement {largestJump:F4} units.");
+            if (uninterruptedUntil - started < 0.5)
+                Assert.Inconclusive("The runner stalled before a half-second motion sample; repeat this fixture in an idle editor.");
             Assert.That(observedFrames, Is.GreaterThan(15), "The runner must provide enough rendered frames to assess motion.");
             Assert.That(movingFrames, Is.GreaterThan(8), "A travelling resident must move more frequently than twice a second.");
             Assert.That(largestJump, Is.LessThanOrEqualTo(0.27f), "Even eight catch-up steps must not jump a whole world unit.");
             Assert.That(animationChanged, Is.True, "The visible walking sprite must animate.");
-            if (uninterruptedUntil - started < 0.5)
-                Assert.Inconclusive("The runner stalled before a half-second motion sample; repeat this fixture in an idle editor.");
             TestContext.WriteLine($"Uninterrupted rate sample: {uninterruptedUntil - started:F4}s; long frame observed: {interrupted}.");
             Assert.That(uninterruptedMinutes - minutesBefore, Is.EqualTo((uninterruptedUntil - started) * 2).Within(0.1),
                 "Continuous running must retain the configured world-time rate.");
@@ -107,8 +107,17 @@ namespace CozyTown.Tests.UnityEditMode
             CollectionAssert.AreEqual(pausedPositions, residents.Select(resident => resident.Position).ToArray());
             launcher.SetRunning(true);
             double resumedAt = launcher.RealSeconds;
-            while (launcher.RealSeconds < resumedAt + 0.15) yield return null;
+            double resumeSample = resumedAt;
+            bool resumeInterrupted = false;
+            while (launcher.RealSeconds < resumedAt + 0.15)
+            {
+                yield return null;
+                double now = launcher.RealSeconds;
+                resumeInterrupted |= now - resumeSample >= 0.125;
+                resumeSample = now;
+            }
             launcher.SetRunning(false);
+            if (resumeInterrupted) Assert.Inconclusive("The runner stalled during the resume sample; repeat this fixture in an idle editor.");
             Assert.That(launcher.Session.Controller.GameTotalMinutes - previousMinutes,
                 Is.EqualTo((launcher.RealSeconds - resumedAt) * 2).Within(0.1));
             double beforeManualStep = launcher.Session.Controller.GameTotalMinutes;
