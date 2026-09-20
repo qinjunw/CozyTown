@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-20 11:20:59Z" end-time="2026-09-20 11:21:00Z" duration="0.7416207">
+  <test-suite type="TestSuite" id="1390" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="299" result="Failed" site="Child" start-time="2026-09-20 11:20:59Z" end-time="2026-09-20 11:21:00Z" duration="0.741621" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1383" name="CozyTown.Tests.PlayMode.dll" fullname="C:/Users/64475/.codex/worktrees/agent-motion-continuity/game-ToWork/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="299" result="Failed" site="Child" start-time="2026-09-20 11:20:59Z" end-time="2026-09-20 11:21:00Z" duration="0.726281" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="27836" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1384" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="299" result="Failed" site="Child" start-time="2026-09-20 11:20:59Z" end-time="2026-09-20 11:21:00Z" duration="0.722014" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1385" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="299" result="Failed" site="Child" start-time="2026-09-20 11:20:59Z" end-time="2026-09-20 11:21:00Z" duration="0.717940" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1386" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="299" result="Failed" site="Child" start-time="2026-09-20 11:20:59Z" end-time="2026-09-20 11:21:00Z" duration="0.714062" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1003" name="AgentExperimentSessionPlayModeTests" fullname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests" classname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests" runstate="Runnable" testcasecount="11" result="Failed" site="Child" start-time="2026-09-20 11:20:59Z" end-time="2026-09-20 11:21:00Z" duration="0.699628" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1008" name="FreshScene_PreparesFourBodiesAndAssetsWithoutDispatchBeforeExplicitSelection" fullname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.FreshScene_PreparesFourBodiesAndAssetsWithoutDispatchBeforeExplicitSelection" methodname="FreshScene_PreparesFourBodiesAndAssetsWithoutDispatchBeforeExplicitSelection" classname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests" runstate="Runnable" seed="80925154" result="Failed" start-time="2026-09-20 11:20:59Z" end-time="2026-09-20 11:21:00Z" duration="0.671509" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[Unhandled log message: '[Error] CozyTown bootstrap could not initialize: Farm world view requires 6 configured plots and state entries.'. Use UnityEngine.TestTools.LogAssert.Expect
+TearDown : Unhandled log message: '[Error] Save debug presenter requires a view and IGameSaveCoordinator.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                  <stack-trace><![CDATA[CozyTown.Unity.Save.CozyTownSaveDebugPresenter:Start () (at Assets/CozyTown/Unity/Save/CozyTownSaveDebugPresenter.cs:38)
+
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[CozyTown bootstrap could not initialize: Farm world view requires 6 configured plots and state entries.
+Player sprite animator requires four idle and eight walk Sprites.
+Save debug presenter requires a view and IGameSaveCoordinator.
+Saving results to: C:/Users/64475/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

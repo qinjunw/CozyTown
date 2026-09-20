@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-20 11:28:50Z" end-time="2026-09-20 11:28:59Z" duration="9.1457626">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="1108" result="Passed" start-time="2026-09-20 11:28:50Z" end-time="2026-09-20 11:28:59Z" duration="9.145763" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2381" name="CozyTown.Tests.UnityEditMode.dll" fullname="C:/Users/64475/.codex/worktrees/agent-motion-continuity/game-ToWork/Library/ScriptAssemblies/CozyTown.Tests.UnityEditMode.dll" runstate="Runnable" testcasecount="366" result="Passed" start-time="2026-09-20 11:28:50Z" end-time="2026-09-20 11:28:59Z" duration="9.119623" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="35624" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2382" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="366" result="Passed" start-time="2026-09-20 11:28:50Z" end-time="2026-09-20 11:28:59Z" duration="9.115590" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2383" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="366" result="Passed" start-time="2026-09-20 11:28:50Z" end-time="2026-09-20 11:28:59Z" duration="9.112083" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="2384" name="UnityEditMode" fullname="CozyTown.Tests.UnityEditMode" runstate="Runnable" testcasecount="366" result="Passed" start-time="2026-09-20 11:28:50Z" end-time="2026-09-20 11:28:59Z" duration="9.107157" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1931" name="AgentExperimentMotionTests" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentMotionTests" classname="CozyTown.Tests.UnityEditMode.AgentExperimentMotionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-20 11:28:50Z" end-time="2026-09-20 11:28:59Z" duration="9.090347" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1933" name="Replay_PacesEachRecordedDurationAndConsumesZeroDurationOperationsWithoutExtraWaits" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentMotionTests.Replay_PacesEachRecordedDurationAndConsumesZeroDurationOperationsWithoutExtraWaits" methodname="Replay_PacesEachRecordedDurationAndConsumesZeroDurationOperationsWithoutExtraWaits" classname="CozyTown.Tests.UnityEditMode.AgentExperimentMotionTests" runstate="Runnable" seed="331529016" result="Passed" start-time="2026-09-20 11:28:50Z" end-time="2026-09-20 11:28:55Z" duration="5.064057" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1932" name="Run_MovesVisibleResidentsInSmallStepsAndPauseDoesNotAccumulateWorldTime" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentMotionTests.Run_MovesVisibleResidentsInSmallStepsAndPauseDoesNotAccumulateWorldTime" methodname="Run_MovesVisibleResidentsInSmallStepsAndPauseDoesNotAccumulateWorldTime" classname="CozyTown.Tests.UnityEditMode.AgentExperimentMotionTests" runstate="Runnable" seed="1402067618" result="Passed" start-time="2026-09-20 11:28:55Z" end-time="2026-09-20 11:28:59Z" duration="4.000482" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Observed 5266 short frames, 119 moving frames; largest movement 0.0333 units.
+Saving results to: C:/Users/64475/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

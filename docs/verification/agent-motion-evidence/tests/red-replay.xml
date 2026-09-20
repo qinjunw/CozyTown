@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Failed(Child)" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-20 11:25:35Z" end-time="2026-09-20 11:25:46Z" duration="11.0311259">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="1108" result="Failed" site="Child" start-time="2026-09-20 11:25:35Z" end-time="2026-09-20 11:25:46Z" duration="11.031126" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="2381" name="CozyTown.Tests.UnityEditMode.dll" fullname="C:/Users/64475/.codex/worktrees/agent-motion-continuity/game-ToWork/Library/ScriptAssemblies/CozyTown.Tests.UnityEditMode.dll" runstate="Runnable" testcasecount="366" result="Failed" site="Child" start-time="2026-09-20 11:25:35Z" end-time="2026-09-20 11:25:46Z" duration="10.995186" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="3816" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="2382" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="366" result="Failed" site="Child" start-time="2026-09-20 11:25:35Z" end-time="2026-09-20 11:25:46Z" duration="10.988503" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="2383" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="366" result="Failed" site="Child" start-time="2026-09-20 11:25:35Z" end-time="2026-09-20 11:25:46Z" duration="10.981862" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="2384" name="UnityEditMode" fullname="CozyTown.Tests.UnityEditMode" runstate="Runnable" testcasecount="366" result="Failed" site="Child" start-time="2026-09-20 11:25:35Z" end-time="2026-09-20 11:25:46Z" duration="10.976640" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1931" name="AgentExperimentMotionTests" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentMotionTests" classname="CozyTown.Tests.UnityEditMode.AgentExperimentMotionTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-09-20 11:25:35Z" end-time="2026-09-20 11:25:46Z" duration="10.964129" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1933" name="Replay_PacesEachRecordedDurationAndConsumesZeroDurationOperationsWithoutExtraWaits" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentMotionTests.Replay_PacesEachRecordedDurationAndConsumesZeroDurationOperationsWithoutExtraWaits" methodname="Replay_PacesEachRecordedDurationAndConsumesZeroDurationOperationsWithoutExtraWaits" classname="CozyTown.Tests.UnityEditMode.AgentExperimentMotionTests" runstate="Runnable" seed="738763589" result="Failed" start-time="2026-09-20 11:25:35Z" end-time="2026-09-20 11:25:40Z" duration="5.683095" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Fine and zero-duration inputs must not each wait 0.5s.
+  Expected: True
+  But was:  False
+]]></message>
+                  <stack-trace><![CDATA[at CozyTown.Tests.UnityEditMode.AgentExperimentMotionTests+<Replay_PacesEachRecordedDurationAndConsumesZeroDurationOperationsWithoutExtraWaits>d__1.MoveNext () [0x0032a] in C:\Users\64475\.codex\worktrees\agent-motion-continuity\game-ToWork\Assets\CozyTown\Tests\UnityEditMode\AgentExperimentMotionTests.cs:150
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1932" name="Run_MovesVisibleResidentsInSmallStepsAndPauseDoesNotAccumulateWorldTime" fullname="CozyTown.Tests.UnityEditMode.AgentExperimentMotionTests.Run_MovesVisibleResidentsInSmallStepsAndPauseDoesNotAccumulateWorldTime" methodname="Run_MovesVisibleResidentsInSmallStepsAndPauseDoesNotAccumulateWorldTime" classname="CozyTown.Tests.UnityEditMode.AgentExperimentMotionTests" runstate="Runnable" seed="1209758302" result="Passed" start-time="2026-09-20 11:25:40Z" end-time="2026-09-20 11:25:46Z" duration="5.246743" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Observed 3857 short frames, 119 moving frames; largest movement 0.0333 units.
+Saving results to: C:/Users/64475/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
