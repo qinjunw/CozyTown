@@ -1,0 +1,1111 @@
+{
+  "schemaVersion": 1,
+  "auditedAtUtc": "2026-09-19T20:16:24.449008+00:00",
+  "scope": "Read-only GitHub/native dependency and local Git evidence audit; no Unity or provider request, no GitHub mutation, no tracked edit.",
+  "candidateBaseRevision": "bc59db8de897261c3385286baf2e6cedf6b9677b",
+  "candidateBranch": "codex/agent-platform-candidate",
+  "githubSnapshotAtUtc": "2026-09-19T20:11:52.827013+00:00",
+  "githubSourceSha256": "76d0286eca0a461b30498d88ba2d5376bfa8c706b190ae361dff88fc96d04384",
+  "map": {
+    "title": "迭代世界与人物 Agent 的自主交互",
+    "url": "https://github.com/qinjunw/CozyTown/issues/50",
+    "stateAtRead": "open"
+  },
+  "counts": {
+    "nativeChildren": 28,
+    "closedWithFinalResolution": 27,
+    "openChildren": 1,
+    "nativeBlockingEdges": 41,
+    "openNativeBlockers": 0,
+    "resolutionOrScopePullRequests": 28,
+    "ancestorHeads": 28,
+    "draftUnmergedPullRequests": 28
+  },
+  "issues": [
+    {
+      "number": 51,
+      "title": "实现世界事件与人物活动仲裁",
+      "url": "https://github.com/qinjunw/CozyTown/issues/51",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/51#issuecomment-5645348689",
+      "resolutionBodySha256": "0f5be047a799fb9c90020468bde755970ac1ddaafb299bd09fafb2f6b462485b",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        56
+      ],
+      "blockedBy": []
+    },
+    {
+      "number": 52,
+      "title": "接入有界决策与渐进式上下文",
+      "url": "https://github.com/qinjunw/CozyTown/issues/52",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/52#issuecomment-5645645473",
+      "resolutionBodySha256": "380d13c92ba6d71fd3bb8679b167a6c72e6ff26ac1f4d86f806e4197de556f94",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        57
+      ],
+      "blockedBy": [
+        {
+          "number": 51,
+          "title": "实现世界事件与人物活动仲裁",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 53,
+      "title": "实现 Ren 与 Sora 的自主会面",
+      "url": "https://github.com/qinjunw/CozyTown/issues/53",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/53#issuecomment-5646199826",
+      "resolutionBodySha256": "4dc2bf935027965fd50f58bb595fa1ec8517810b7fb8f568b85fe08e7d5d9657",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        58
+      ],
+      "blockedBy": [
+        {
+          "number": 52,
+          "title": "接入有界决策与渐进式上下文",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 54,
+      "title": "接通角色资源与实际协作",
+      "url": "https://github.com/qinjunw/CozyTown/issues/54",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/54#issuecomment-5646520870",
+      "resolutionBodySha256": "17a6d6c209d939cbccff43542756a2b232d8db3134c1e4bd8091c321c82f8d91",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        59
+      ],
+      "blockedBy": [
+        {
+          "number": 53,
+          "title": "实现 Ren 与 Sora 的自主会面",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 55,
+      "title": "验证四人跨日与读档恢复",
+      "url": "https://github.com/qinjunw/CozyTown/issues/55",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/55#issuecomment-5744955514",
+      "resolutionBodySha256": "c84422a2db92f17ebea8f84cef3e0c97948ae345eef8289201258940f74d8e6e",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        106
+      ],
+      "blockedBy": [
+        {
+          "number": 54,
+          "title": "接通角色资源与实际协作",
+          "state": "closed"
+        },
+        {
+          "number": 60,
+          "title": "验证双人资源协作的多初始场景",
+          "state": "closed"
+        },
+        {
+          "number": 62,
+          "title": "明确资源不足时的邀约与答复策略",
+          "state": "closed"
+        },
+        {
+          "number": 63,
+          "title": "校验邀约候选必填字段并限定纠错机会",
+          "state": "closed"
+        },
+        {
+          "number": 70,
+          "title": "确定普通自主活动期限与日程恢复验收",
+          "state": "closed"
+        },
+        {
+          "number": 72,
+          "title": "复现会面对话在日程变更与预算等待后的停滞",
+          "state": "closed"
+        },
+        {
+          "number": 83,
+          "title": "保留预算等待中的会话轮次并重新采样请求",
+          "state": "closed"
+        },
+        {
+          "number": 91,
+          "title": "明确读档提交后重建失败的处理边界",
+          "state": "closed"
+        },
+        {
+          "number": 94,
+          "title": "实现世界与人物的完整逻辑快照",
+          "state": "closed"
+        },
+        {
+          "number": 75,
+          "title": "确定 NPC 事实表达实验的配置与判定标准",
+          "state": "closed"
+        },
+        {
+          "number": 88,
+          "title": "约束运行中决策重配的预算与在途请求",
+          "state": "closed"
+        },
+        {
+          "number": 95,
+          "title": "建立四人实验入口与角色观察视图",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 60,
+      "title": "验证双人资源协作的多初始场景",
+      "url": "https://github.com/qinjunw/CozyTown/issues/60",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/60#issuecomment-5647542415",
+      "resolutionBodySha256": "968a339e8e9ffc20fd8b080acc2a95b39fe5e47a2764298afcd3a2c7987266d8",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        61
+      ],
+      "blockedBy": [
+        {
+          "number": 54,
+          "title": "接通角色资源与实际协作",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 62,
+      "title": "明确资源不足时的邀约与答复策略",
+      "url": "https://github.com/qinjunw/CozyTown/issues/62",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/62#issuecomment-5652205928",
+      "resolutionBodySha256": "a54a4f3ee29d9388efc4f0a5cb74ba466344527acebbc358e9376d6240a46714",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        69
+      ],
+      "blockedBy": [
+        {
+          "number": 60,
+          "title": "验证双人资源协作的多初始场景",
+          "state": "closed"
+        },
+        {
+          "number": 64,
+          "title": "调研 NPC 环境事实与行动可行性上下文",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 63,
+      "title": "校验邀约候选必填字段并限定纠错机会",
+      "url": "https://github.com/qinjunw/CozyTown/issues/63",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/63#issuecomment-5652468877",
+      "resolutionBodySha256": "43f65bdbe8a9759ef4420cccd0b9f317ed273f47d1fc994d494452922f4214e1",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        71
+      ],
+      "blockedBy": [
+        {
+          "number": 60,
+          "title": "验证双人资源协作的多初始场景",
+          "state": "closed"
+        },
+        {
+          "number": 64,
+          "title": "调研 NPC 环境事实与行动可行性上下文",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 64,
+      "title": "调研 NPC 环境事实与行动可行性上下文",
+      "url": "https://github.com/qinjunw/CozyTown/issues/64",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/64#issuecomment-5648388924",
+      "resolutionBodySha256": "a2372fb74fb195c8891f59a4c4b8e3ccf4e0fa9419d24ccd6cd8634412d17018",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        66
+      ],
+      "blockedBy": []
+    },
+    {
+      "number": 65,
+      "title": "确定 NPC 局部观察与事实表达的边界",
+      "url": "https://github.com/qinjunw/CozyTown/issues/65",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/65#issuecomment-5653795877",
+      "resolutionBodySha256": "a9fffe49bf17fc72ffa8d3ce99f24d82b2011f8c54d6a8c72c05332d1eabc982",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        76
+      ],
+      "blockedBy": [
+        {
+          "number": 64,
+          "title": "调研 NPC 环境事实与行动可行性上下文",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 67,
+      "title": "对照验证 NPC 环境上下文与资源条件",
+      "url": "https://github.com/qinjunw/CozyTown/issues/67",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/67#issuecomment-5651869336",
+      "resolutionBodySha256": "2457ee1cb8d5afaeebe59f74b9d40d13b14400f8623da5ce7d941e3a2d91b4df",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        68
+      ],
+      "blockedBy": [
+        {
+          "number": 64,
+          "title": "调研 NPC 环境事实与行动可行性上下文",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 70,
+      "title": "确定普通自主活动期限与日程恢复验收",
+      "url": "https://github.com/qinjunw/CozyTown/issues/70",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/70#issuecomment-5740390158",
+      "resolutionBodySha256": "1fd90864a627ea9a51b8dfa946ac5b0ec6ff42bb316839658536278543ea8f9a",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        102
+      ],
+      "blockedBy": []
+    },
+    {
+      "number": 72,
+      "title": "复现会面对话在日程变更与预算等待后的停滞",
+      "url": "https://github.com/qinjunw/CozyTown/issues/72",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/72#issuecomment-5663905350",
+      "resolutionBodySha256": "ac60d43af85290d96e324b7f3ca6ef2af1581b24cfac3615d742deced3669eff",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        84
+      ],
+      "blockedBy": [
+        {
+          "number": 63,
+          "title": "校验邀约候选必填字段并限定纠错机会",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 73,
+      "title": "实现 NPC 按区域与距离的局部观察",
+      "url": "https://github.com/qinjunw/CozyTown/issues/73",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/73#issuecomment-5654899384",
+      "resolutionBodySha256": "b043dd067ae5678efd2e3f1e1e9d31d057f55e55c2980d09a4aa5fbfad3b49cc",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        77
+      ],
+      "blockedBy": [
+        {
+          "number": 65,
+          "title": "确定 NPC 局部观察与事实表达的边界",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 74,
+      "title": "对照验证 NPC 自由台词与结构化事实表达",
+      "url": "https://github.com/qinjunw/CozyTown/issues/74",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/74#issuecomment-5660667398",
+      "resolutionBodySha256": "032cdcdf1f940319ff75e35708f3d7691098f993a60a48c974994cba4330e2d6",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        80
+      ],
+      "blockedBy": [
+        {
+          "number": 73,
+          "title": "实现 NPC 按区域与距离的局部观察",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 75,
+      "title": "确定 NPC 事实表达实验的配置与判定标准",
+      "url": "https://github.com/qinjunw/CozyTown/issues/75",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/75#issuecomment-5742518954",
+      "resolutionBodySha256": "5e8cf3dc998b6e147205c9bd836ae6843bfb51688c378b4584c0e8c9138cbf45",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        104
+      ],
+      "blockedBy": [
+        {
+          "number": 74,
+          "title": "对照验证 NPC 自由台词与结构化事实表达",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 78,
+      "title": "区分行动版本与表达版本并复测结构化候选",
+      "url": "https://github.com/qinjunw/CozyTown/issues/78",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/78#issuecomment-5661229164",
+      "resolutionBodySha256": "39dd39ccfbfd6219db2af6083eb70e04de2a35bbc8471a5910026f6caa29fbd8",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        81
+      ],
+      "blockedBy": [
+        {
+          "number": 74,
+          "title": "对照验证 NPC 自由台词与结构化事实表达",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 79,
+      "title": "复现移动中观察失效导致邀约答复丢弃",
+      "url": "https://github.com/qinjunw/CozyTown/issues/79",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/79#issuecomment-5663136536",
+      "resolutionBodySha256": "151803a1e61e360558a217c280bdc1983994e2521ca4a55364bd97e5a70cd313",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        82
+      ],
+      "blockedBy": [
+        {
+          "number": 74,
+          "title": "对照验证 NPC 自由台词与结构化事实表达",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 83,
+      "title": "保留预算等待中的会话轮次并重新采样请求",
+      "url": "https://github.com/qinjunw/CozyTown/issues/83",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/83#issuecomment-5664900887",
+      "resolutionBodySha256": "327145997b30e52d3e6c8a73eaba1c7cbc38e3203e62fbc176d5e6f916fcc523",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        86
+      ],
+      "blockedBy": [
+        {
+          "number": 72,
+          "title": "复现会面对话在日程变更与预算等待后的停滞",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 85,
+      "title": "明确 Agent 会话的对象装配边界",
+      "url": "https://github.com/qinjunw/CozyTown/issues/85",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/85#issuecomment-5679516870",
+      "resolutionBodySha256": "67dd52adf94ba74948389f67697b35c28dad07f8d7f999c0769ad5a69b77e261",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        89
+      ],
+      "blockedBy": [
+        {
+          "number": 83,
+          "title": "保留预算等待中的会话轮次并重新采样请求",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 87,
+      "title": "确保 Agent 换绑失败时保留原对象图",
+      "url": "https://github.com/qinjunw/CozyTown/issues/87",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/87#issuecomment-5714616418",
+      "resolutionBodySha256": "188e0d3c9a265acae811472b3802da35ed8093c364ee55360b775e8382d1f304",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        99
+      ],
+      "blockedBy": [
+        {
+          "number": 85,
+          "title": "明确 Agent 会话的对象装配边界",
+          "state": "closed"
+        },
+        {
+          "number": 90,
+          "title": "调研存读档与 Agent 运行状态恢复的一致性边界",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 88,
+      "title": "约束运行中决策重配的预算与在途请求",
+      "url": "https://github.com/qinjunw/CozyTown/issues/88",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/88#issuecomment-5740182984",
+      "resolutionBodySha256": "e9cd0a3674304f928a478e26eb7f5a7a5be5d0e2e203248653f53371041bd061",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        101
+      ],
+      "blockedBy": [
+        {
+          "number": 87,
+          "title": "确保 Agent 换绑失败时保留原对象图",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 90,
+      "title": "调研存读档与 Agent 运行状态恢复的一致性边界",
+      "url": "https://github.com/qinjunw/CozyTown/issues/90",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/90#issuecomment-5700904150",
+      "resolutionBodySha256": "e426efe2841a1b4e5fa116d9fc7a4c98840abb24554d51942082aac0c9be49dc",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        92
+      ],
+      "blockedBy": [
+        {
+          "number": 85,
+          "title": "明确 Agent 会话的对象装配边界",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 91,
+      "title": "明确读档提交后重建失败的处理边界",
+      "url": "https://github.com/qinjunw/CozyTown/issues/91",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/91#issuecomment-5716208662",
+      "resolutionBodySha256": "3ac7def36a225d82532bd61c37120f3f0f76e7db11de4029d8e099ba504f842b",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        99,
+        100
+      ],
+      "blockedBy": [
+        {
+          "number": 87,
+          "title": "确保 Agent 换绑失败时保留原对象图",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 93,
+      "title": "确定完整逻辑快照的保存与恢复契约",
+      "url": "https://github.com/qinjunw/CozyTown/issues/93",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/93#issuecomment-5713719414",
+      "resolutionBodySha256": "692c72338c3134a1067f532f4120bf6efd4d1418fa91d302dc64369a5befba7b",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        98
+      ],
+      "blockedBy": []
+    },
+    {
+      "number": 94,
+      "title": "实现世界与人物的完整逻辑快照",
+      "url": "https://github.com/qinjunw/CozyTown/issues/94",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/94#issuecomment-5741213333",
+      "resolutionBodySha256": "2b5d8dc6462a62865acccea7257f7bc60f59c4769d30471ae8518bab34f083c2",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        103
+      ],
+      "blockedBy": [
+        {
+          "number": 70,
+          "title": "确定普通自主活动期限与日程恢复验收",
+          "state": "closed"
+        },
+        {
+          "number": 93,
+          "title": "确定完整逻辑快照的保存与恢复契约",
+          "state": "closed"
+        },
+        {
+          "number": 91,
+          "title": "明确读档提交后重建失败的处理边界",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 95,
+      "title": "建立四人实验入口与角色观察视图",
+      "url": "https://github.com/qinjunw/CozyTown/issues/95",
+      "state": "closed",
+      "resolutionUrl": "https://github.com/qinjunw/CozyTown/issues/95#issuecomment-5743325462",
+      "resolutionBodySha256": "0d0ddaee7a085ef3c30cf523bc6b9c3527fc19a43997db06ed189d970381b36a",
+      "resolutionDeclaresUnmerged": true,
+      "resolutionPullRequests": [
+        105
+      ],
+      "blockedBy": [
+        {
+          "number": 94,
+          "title": "实现世界与人物的完整逻辑快照",
+          "state": "closed"
+        },
+        {
+          "number": 75,
+          "title": "确定 NPC 事实表达实验的配置与判定标准",
+          "state": "closed"
+        }
+      ]
+    },
+    {
+      "number": 96,
+      "title": "冻结 AI Agent 实验平台候选版本",
+      "url": "https://github.com/qinjunw/CozyTown/issues/96",
+      "state": "open",
+      "resolutionUrl": null,
+      "resolutionBodySha256": null,
+      "resolutionDeclaresUnmerged": null,
+      "resolutionPullRequests": [],
+      "blockedBy": [
+        {
+          "number": 55,
+          "title": "验证四人跨日与读档恢复",
+          "state": "closed"
+        }
+      ]
+    }
+  ],
+  "pullRequests": [
+    {
+      "baseRefName": "main",
+      "headRefName": "codex/agent-world-foundation",
+      "headRefOid": "3c7853b3d3404fc851b28a22170bd83c2fe29b2f",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 56,
+      "state": "OPEN",
+      "title": "新增居民活动仲裁与 Agent 世界运行基础",
+      "url": "https://github.com/qinjunw/CozyTown/pull/56",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/agent-world-foundation",
+      "headRefName": "codex/agent-world-bounded-decisions",
+      "headRefOid": "268d42a03b3758845a7a78160fb94306a82474f8",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 57,
+      "state": "OPEN",
+      "title": "接入 NPC 有界自主决策与渐进式地点上下文",
+      "url": "https://github.com/qinjunw/CozyTown/pull/57",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/agent-world-bounded-decisions",
+      "headRefName": "codex/agent-world-resident-meetings",
+      "headRefOid": "9a3ffaf04af00df0e9bd7ec72fcbf52ed910253a",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 58,
+      "state": "OPEN",
+      "title": "接入 Ren 与 Sora 的自主会面和真实模型代理",
+      "url": "https://github.com/qinjunw/CozyTown/pull/58",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/agent-world-resident-meetings",
+      "headRefName": "codex/agent-world-resource-cooperation",
+      "headRefOid": "0990f726d9ddbb21a23b23e3d1ffef9332b43092",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 59,
+      "state": "OPEN",
+      "title": "接通 NPC 资源会面与原子交付",
+      "url": "https://github.com/qinjunw/CozyTown/pull/59",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/agent-world-resource-cooperation",
+      "headRefName": "codex/agent-resource-scenario-evaluation",
+      "headRefOid": "42fcca439c9a0ac59d584d069b7577b906ba940e",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 61,
+      "state": "OPEN",
+      "title": "新增双人资源协作的多场景真实模型评测",
+      "url": "https://github.com/qinjunw/CozyTown/pull/61",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/agent-resource-scenario-evaluation",
+      "headRefName": "codex/research-npc-environment-grounding",
+      "headRefOid": "da1699cc80c35cb10b140a393ca2d38497ac581e",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 66,
+      "state": "OPEN",
+      "title": "调研 NPC 环境事实与行动可行性上下文",
+      "url": "https://github.com/qinjunw/CozyTown/pull/66",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/research-npc-environment-grounding",
+      "headRefName": "codex/npc-grounding-experiment",
+      "headRefOid": "49733ac4521863d55d56a6b7f3ece2dc5e39580f",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 68,
+      "state": "OPEN",
+      "title": "对照评测 NPC 环境上下文与自方资源条件",
+      "url": "https://github.com/qinjunw/CozyTown/pull/68",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/npc-grounding-experiment",
+      "headRefName": "codex/npc-resource-preconditions",
+      "headRefOid": "424d9a7d03a101a9ca9303b466b1966c63145b90",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 69,
+      "state": "OPEN",
+      "title": "限定 NPC 资源邀约与答复的自方履约条件",
+      "url": "https://github.com/qinjunw/CozyTown/pull/69",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/npc-resource-preconditions",
+      "headRefName": "codex/npc-candidate-validation",
+      "headRefOid": "d8005cdb8284a1563f0288c555683589a7933a6a",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 71,
+      "state": "OPEN",
+      "title": "校验 NPC 候选字段并限定一次纠正",
+      "url": "https://github.com/qinjunw/CozyTown/pull/71",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/npc-candidate-validation",
+      "headRefName": "codex/npc-local-observation-boundaries",
+      "headRefOid": "cd2daae033b0311200637922156279c9224f8ca1",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 76,
+      "state": "OPEN",
+      "title": "定义 NPC 局部观察边界与事实表达对照方案",
+      "url": "https://github.com/qinjunw/CozyTown/pull/76",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/npc-local-observation-boundaries",
+      "headRefName": "codex/npc-local-observation",
+      "headRefOid": "d994e3b0ff581fe332995328212ff5aba84cc23a",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 77,
+      "state": "OPEN",
+      "title": "实现 NPC 局部观察并拒绝失效事实候选",
+      "url": "https://github.com/qinjunw/CozyTown/pull/77",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/npc-local-observation",
+      "headRefName": "codex/npc-expression-comparison",
+      "headRefOid": "900fe0ad1dc619dc289ffc443b2caba8bc1fed4c",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 80,
+      "state": "OPEN",
+      "title": "新增 NPC 结构化事实表达并记录两组真实对照结果",
+      "url": "https://github.com/qinjunw/CozyTown/pull/80",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/npc-expression-comparison",
+      "headRefName": "codex/npc-expression-version-binding",
+      "headRefOid": "5b6a29bf1b85a0514ed610f04aca52587b25b29a",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 81,
+      "state": "OPEN",
+      "title": "明确 NPC 结构化候选版本并记录 48 次真实复测",
+      "url": "https://github.com/qinjunw/CozyTown/pull/81",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/npc-expression-version-binding",
+      "headRefName": "codex/npc-moving-observation-revalidation",
+      "headRefOid": "ec2082233bf64ff29d86350aaae9e0c0ac77884b",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 82,
+      "state": "OPEN",
+      "title": "保留同区移动中的邀约答复并验证八个真实世界",
+      "url": "https://github.com/qinjunw/CozyTown/pull/82",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/npc-moving-observation-revalidation",
+      "headRefName": "codex/npc-conversation-budget-reproduction",
+      "headRefOid": "68832af00675ecf3388085bee379d46b3fa5947d",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 84,
+      "state": "OPEN",
+      "title": "复现会话预算等待停滞并登记恢复验收",
+      "url": "https://github.com/qinjunw/CozyTown/pull/84",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/npc-conversation-budget-reproduction",
+      "headRefName": "codex/npc-conversation-turn-wakeup",
+      "headRefOid": "6cbf604c6249f811e75a7b4202325cc1f99575fd",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 86,
+      "state": "OPEN",
+      "title": "保留预算等待轮次并在派发时重新采样会话请求",
+      "url": "https://github.com/qinjunw/CozyTown/pull/86",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/npc-conversation-turn-wakeup",
+      "headRefName": "codex/npc-session-composition-boundary",
+      "headRefOid": "85e243edabcead1cfcf8da4d4b90a1633888c49b",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 89,
+      "state": "OPEN",
+      "title": "明确 Agent 对象装配边界并登记生命周期修复",
+      "url": "https://github.com/qinjunw/CozyTown/pull/89",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/npc-session-composition-boundary",
+      "headRefName": "codex/agent-save-load-research",
+      "headRefOid": "aebdcce1b1d3c7d48bc6d1ff9e1a989a64634f9c",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 92,
+      "state": "OPEN",
+      "title": "结合存读档明确 Agent 恢复与失败验收",
+      "url": "https://github.com/qinjunw/CozyTown/pull/92",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/agent-save-load-research",
+      "headRefName": "codex/agent-platform-milestone",
+      "headRefOid": "7d20bad55a854fb496a8cb295ae93648e66d6141",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 97,
+      "state": "OPEN",
+      "title": "明确四人 Agent 实验平台的范围与验收路线",
+      "url": "https://github.com/qinjunw/CozyTown/pull/97",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/agent-platform-milestone",
+      "headRefName": "codex/agent-snapshot-contract",
+      "headRefOid": "96034ae38e116c59409cef8349f47c294608581d",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 98,
+      "state": "OPEN",
+      "title": "确定完整逻辑快照的恢复契约与验收",
+      "url": "https://github.com/qinjunw/CozyTown/pull/98",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/agent-snapshot-contract",
+      "headRefName": "codex/agent-bind-atomicity",
+      "headRefOid": "ee5f4d7ca387b9130d8e6e3a016095d458043ac9",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 99,
+      "state": "OPEN",
+      "title": "修复 Agent 换绑失败后的世界引用与时钟订阅",
+      "url": "https://github.com/qinjunw/CozyTown/pull/99",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/agent-bind-atomicity",
+      "headRefName": "codex/agent-load-recovery",
+      "headRefOid": "43bc3854f43a98c6b9653bae83a6560e8f14a917",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 100,
+      "state": "OPEN",
+      "title": "为读档后的重建失败增加暂停与恢复边界",
+      "url": "https://github.com/qinjunw/CozyTown/pull/100",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/agent-load-recovery",
+      "headRefName": "codex/agent-reconfiguration-budget",
+      "headRefOid": "bca2a6c272cead7a1ea0f303a49cf39addc60c0c",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 101,
+      "state": "OPEN",
+      "title": "重配决策时保留调用预算并等待真实请求结束",
+      "url": "https://github.com/qinjunw/CozyTown/pull/101",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/agent-reconfiguration-budget",
+      "headRefName": "codex/npc-activity-deadline-policy",
+      "headRefOid": "927d83e0e897e59a594a1a9fd4234f3662d6990a",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 102,
+      "state": "OPEN",
+      "title": "限制普通自主活动在当前日程窗口内结束",
+      "url": "https://github.com/qinjunw/CozyTown/pull/102",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/npc-activity-deadline-policy",
+      "headRefName": "codex/complete-agent-snapshots",
+      "headRefOid": "68a1dde7c7099f3e9ee7e975141d0bf9d18099aa",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 103,
+      "state": "OPEN",
+      "title": "保存完整世界快照并恢复 NPC 决策进度",
+      "url": "https://github.com/qinjunw/CozyTown/pull/103",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/complete-agent-snapshots",
+      "headRefName": "codex/npc-expression-evaluation-contract",
+      "headRefOid": "60f6ac4fa97eaadfe49a4191e68fa1cc55b7c180",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 104,
+      "state": "OPEN",
+      "title": "确定 NPC 表达实验的配置与判定合同",
+      "url": "https://github.com/qinjunw/CozyTown/pull/104",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/npc-expression-evaluation-contract",
+      "headRefName": "codex/four-agent-experiment-platform",
+      "headRefOid": "d5ecfaf83890d57dbfeaf58e401c02b112dcf662",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 105,
+      "state": "OPEN",
+      "title": "新增四人实验入口、完整记录与严格回放",
+      "url": "https://github.com/qinjunw/CozyTown/pull/105",
+      "headIsAncestorOfCandidate": true
+    },
+    {
+      "baseRefName": "codex/four-agent-experiment-platform",
+      "headRefName": "codex/four-agent-integration-validation",
+      "headRefOid": "bc59db8de897261c3385286baf2e6cedf6b9677b",
+      "isDraft": true,
+      "mergedAt": null,
+      "number": 106,
+      "state": "OPEN",
+      "title": "验证四人跨日读档与有界实验协调流程",
+      "url": "https://github.com/qinjunw/CozyTown/pull/106",
+      "headIsAncestorOfCandidate": true
+    }
+  ],
+  "codeAndConfigurationTrees": {
+    "Assets": "a0bcfa168d56952ca3d346d5c47f42c60abaea3c",
+    "Tools": "0ffa2276cfa1c4b3f50127bba6483234c1291057",
+    "Packages": "cbeb180f99fe4c5b16039ace9e18b4d20c46747e",
+    "ProjectSettings": "a81e89f6be3dc10eac2d6ecbeef27c332314644b"
+  },
+  "sameTreeEvidenceSource": "19dff35147fbb7f8debc3aa0f98da44a29b5b52d",
+  "documentsAtBase": [
+    {
+      "path": "README.md",
+      "sourceRevision": "bc59db8de897261c3385286baf2e6cedf6b9677b",
+      "sha256": "0d38a9c7d57f7172f06dadfa356ea7d83bf4e7c92ebb6e1b1ac49546dfd63ff4"
+    },
+    {
+      "path": "docs/AGENT_EXPERIMENT_GUIDE.md",
+      "sourceRevision": "bc59db8de897261c3385286baf2e6cedf6b9677b",
+      "sha256": "6ac0afd257a63f11c236f95cab54b6269786364d9a869c8884e0e0d69b5e3684"
+    },
+    {
+      "path": "docs/AGENT_WORLD_PRD.md",
+      "sourceRevision": "bc59db8de897261c3385286baf2e6cedf6b9677b",
+      "sha256": "432b6b27e77376b3786ddbaa2122f65f682146f2c6d791c3aa1b92590cb7740f"
+    },
+    {
+      "path": "docs/wayfinder/agent-world/platform-milestone.md",
+      "sourceRevision": "bc59db8de897261c3385286baf2e6cedf6b9677b",
+      "sha256": "57fdf2beca52e82f4e70630abb091ccf4bf71669bca38fc8df2b1b80f719e811"
+    },
+    {
+      "path": "docs/wayfinder/github-tracker.md",
+      "sourceRevision": "bc59db8de897261c3385286baf2e6cedf6b9677b",
+      "sha256": "105e73ba0ec8d0ad510b1535a8893db3105a0d97746da332711b421963ec8603"
+    },
+    {
+      "path": "docs/AGENT_SNAPSHOT_SPEC.md",
+      "sourceRevision": "bc59db8de897261c3385286baf2e6cedf6b9677b",
+      "sha256": "448af62137a8c6db7ef52ec488f237d4f0bcbd9e6d95791f4fe28b18646688c4"
+    },
+    {
+      "path": "docs/AGENT_EXPRESSION_EVALUATION_SPEC.md",
+      "sourceRevision": "bc59db8de897261c3385286baf2e6cedf6b9677b",
+      "sha256": "ce99d09d082315b770bead3b7810308cdebdcb545a2e41b624ae5b92a7bcd085"
+    },
+    {
+      "path": "docs/verification/four-agent-integration-2026-09-20.md",
+      "sourceRevision": "bc59db8de897261c3385286baf2e6cedf6b9677b",
+      "sha256": "ae583e1e33e2f97e80c92a9afb0382a97c6143ad1b2af8512908fa861976e60f"
+    }
+  ],
+  "entryRun": {
+    "preflight": "candidate-entry-preflight.json",
+    "preflightSha256": "e1452d73b40acc40f4847517548cc7ffda7b0ba0dce9730701bc53f33938a5b0",
+    "xml": "candidate-entry-play.xml",
+    "xmlSha256": "1f7c3f6d56f228f17fe1b2b687b251b5c53ab994dc2f8ab2119e900b5fe84fd1",
+    "counts": {
+      "id": "2",
+      "testcasecount": "12",
+      "result": "Passed",
+      "total": "12",
+      "passed": "12",
+      "failed": "0",
+      "inconclusive": "0",
+      "skipped": "0",
+      "asserts": "0",
+      "engine-version": "3.5.0.0",
+      "clr-version": "4.0.30319.42000",
+      "start-time": "2026-09-19 20:11:38Z",
+      "end-time": "2026-09-19 20:11:43Z",
+      "duration": "4.7124604"
+    },
+    "cases": [
+      {
+        "fullname": "CozyTown.Tests.PlayMode.AgentExperimentLauncherPlayModeTests.Activation_InstallsTheExperimentBeforeBootstrapAwake",
+        "result": "Passed"
+      },
+      {
+        "fullname": "CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.FailedInitialSnapshot_StopsTheExperimentBeforeAnyDispatch",
+        "result": "Passed"
+      },
+      {
+        "fullname": "CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.FixedRun_CompletesBothMeetingsAndRecordsAllFourResidents",
+        "result": "Passed"
+      },
+      {
+        "fullname": "CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.FreshScene_PreparesFourBodiesAndAssetsWithoutDispatchBeforeExplicitSelection",
+        "result": "Passed"
+      },
+      {
+        "fullname": "CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.RecordedExperiment_ExportsFullStateTimelineAndObservedExecution",
+        "result": "Passed"
+      },
+      {
+        "fullname": "CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.RecordedStructuredWorld_ReplaysSavedInputsAndDeliveryInAFreshScene",
+        "result": "Passed"
+      },
+      {
+        "fullname": "CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.RejectedTimeAdvance_DoesNotContaminateTheCompletedReplay",
+        "result": "Passed"
+      },
+      {
+        "fullname": "CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.Replay_StopsWhenCheckpointAssetsDifferFromTheRecordedSaveInput",
+        "result": "Passed"
+      },
+      {
+        "fullname": "CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.SavedExperiment_RestoresEarlierWorldWithoutRefundingRequestsOrKeepingFutureReceipts",
+        "result": "Passed"
+      },
+      {
+        "fullname": "CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.SleepInput_CrossesTheDayBoundaryAndReplaysTheSameSettledWorld",
+        "result": "Passed"
+      },
+      {
+        "fullname": "CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.Telemetry_ExportsMatchedAnnotationsWithoutChangingAuthoritativeReplay",
+        "result": "Passed"
+      },
+      {
+        "fullname": "CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.WaitingBetweenInputs_PreservesPlayerPositionAcrossLoadsAndStrictReplay",
+        "result": "Passed"
+      }
+    ]
+  },
+  "unresolvedRuntimeHardConstraintFindings": [],
+  "readiness": [
+    {
+      "item": "候选依赖完整性",
+      "status": "verified",
+      "basis": "27 closed child tickets each have a final Resolution; 28 recorded delivery/scope PR heads are ancestors of the candidate."
+    },
+    {
+      "item": "同树完整回归与真实矩阵适用性",
+      "status": "verified",
+      "basis": "Assets, Tools, Packages and ProjectSettings tree IDs equal the frozen 19d source; documentation and retained evidence changes do not change those inputs."
+    },
+    {
+      "item": "候选干净检出入口与会话回归",
+      "status": "observed_pass",
+      "basis": "The parent-run preflight binds the candidate; 12 entry/session PlayMode tests passed. This audit did not execute them."
+    },
+    {
+      "item": "当前说明与候选入口一致",
+      "status": "update_required_at_reviewed_base",
+      "basis": "The guide points to the older entry branch; milestone, PRD and README retain current-tense pre-integration statements. Add final candidate/result pointers while preserving historical records."
+    },
+    {
+      "item": "交付记录与地图收束",
+      "status": "pending_parent_delivery",
+      "basis": "Publish the final candidate commit/Draft PR and validation artifact, then record the final ticket Resolution and close the map after its last child is resolved."
+    }
+  ],
+  "limits": [
+    "Ancestry proves dependency inclusion, not behavioral correctness by itself.",
+    "Closed task and ancestor Draft head do not imply main is merged.",
+    "The checked reference is bc59; the final documentation-only descendant must receive its own immutable source/PR identity.",
+    "Known expression quality and D2 rejection limits remain disclosed under the frozen contract; no new quality gate is introduced."
+  ]
+}

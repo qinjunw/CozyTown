@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 2,
+  "decisionId": "fixture-mina-social-decision",
+  "npcId": "npc.shopkeeper_mina",
+  "displayName": "Mina",
+  "persona": "A practical and kind shopkeeper who values fair trades.",
+  "worldRunId": "fixture-world-run",
+  "revision": 2,
+  "gameTotalMinutes": 721.0,
+  "targetLocationId": "rest.shopkeeper_mina",
+  "activity": "resting",
+  "step": 1,
+  "remainingCalls": 1,
+  "maxActivityDurationGameMinutes": 1440.0,
+  "allowedOperations": [
+    "invite",
+    "wait"
+  ],
+  "allowedActivities": [],
+  "triggers": [
+    {
+      "kind": "WorldRebuilt",
+      "gameTotalMinutes": 720.0
+    },
+    {
+      "kind": "SocialOpportunity",
+      "gameTotalMinutes": 721.0
+    }
+  ],
+  "knownLocationIds": [],
+  "hasLocationDetails": false,
+  "locationDetails": {
+    "locationId": "",
+    "isReachable": false
+  },
+  "previousResultCode": "",
+  "candidateErrorCode": "",
+  "social": {
+    "resources": {
+      "sellerId": "",
+      "buyerId": "",
+      "itemId": "",
+      "deliveryResultCode": "",
+      "quantity": 0,
+      "totalPrice": 0,
+      "ownedQuantity": 0,
+      "balance": 0
+    },
+    "kind": "opportunity",
+    "planId": "mina-eli-main-road-chat",
+    "partnerId": "npc.farmer_eli",
+    "placeId": "main-road-chat",
+    "locationId": "road.coop",
+    "meetingId": "",
+    "startsAtTotalMinutes": 740.0,
+    "deadlineTotalMinutes": 745.0,
+    "maxTurns": 4,
+    "transcript": [],
+    "memories": []
+  },
+  "hasSelfAssessment": false,
+  "selfAssessment": {
+    "role": "",
+    "reasonCode": "",
+    "scope": "",
+    "canMeetKnownTerms": false,
+    "missingCoins": 0,
+    "missingQuantity": 0
+  },
+  "hasObservation": true,
+  "observation": {
+    "schemaVersion": 1,
+    "observerId": "npc.shopkeeper_mina",
+    "worldRunId": "fixture-world-run",
+    "spaceId": "outdoors",
+    "regionId": "town-north",
+    "coverageDomain": "registered_entities_same_region_within_radius",
+    "listenerId": "npc.farmer_eli",
+    "observedAtGameTotalMinutes": 721.0,
+    "x": -3.0,
+    "y": 5.5,
+    "radius": 6.0,
+    "hasRegion": true,
+    "nearbyComplete": true,
+    "nearbyEntityIds": [
+      "lamp.west_lane_south"
+    ],
+    "facts": [
+      {
+        "factId": "npc.shopkeeper_mina:region",
+        "entityId": "npc.shopkeeper_mina",
+        "predicate": "region",
+        "value": "town-north",
+        "valueType": "text",
+        "unit": "",
+        "knowledge": "observed",
+        "source": "body_region",
+        "observerId": "npc.shopkeeper_mina",
+        "scope": "sampled_body_position",
+        "speakerId": "",
+        "observedAtGameTotalMinutes": 721.0,
+        "canExpress": true
+      },
+      {
+        "factId": "npc.shopkeeper_mina:region_name",
+        "entityId": "npc.shopkeeper_mina",
+        "predicate": "region_name",
+        "value": "小镇北侧",
+        "valueType": "text",
+        "unit": "",
+        "knowledge": "observed",
+        "source": "body_region",
+        "observerId": "npc.shopkeeper_mina",
+        "scope": "sampled_body_position",
+        "speakerId": "",
+        "observedAtGameTotalMinutes": 721.0,
+        "canExpress": true
+      },
+      {
+        "factId": "plan:mina-eli-main-road-chat:decision_stage",
+        "entityId": "plan:mina-eli-main-road-chat",
+        "predicate": "decision_stage",
+        "value": "opportunity",
+        "valueType": "text",
+        "unit": "",
+        "knowledge": "observed",
+        "source": "meeting_board",
+        "observerId": "npc.shopkeeper_mina",
+        "scope": "participants",
+        "speakerId": "",
+        "observedAtGameTotalMinutes": 721.0,
+        "canExpress": true
+      },
+      {
+        "factId": "lamp.west_lane_south:name",
+        "entityId": "lamp.west_lane_south",
+        "predicate": "name",
+        "value": "路灯",
+        "valueType": "text",
+        "unit": "",
+        "knowledge": "observed",
+        "source": "semantic_catalog",
+        "observerId": "npc.shopkeeper_mina",
+        "scope": "sampled_local_entity",
+        "speakerId": "",
+        "observedAtGameTotalMinutes": 721.0,
+        "canExpress": true
+      },
+      {
+        "factId": "lamp.west_lane_south:kind",
+        "entityId": "lamp.west_lane_south",
+        "predicate": "kind",
+        "value": "decoration",
+        "valueType": "text",
+        "unit": "",
+        "knowledge": "authored",
+        "source": "semantic_catalog",
+        "observerId": "npc.shopkeeper_mina",
+        "scope": "sampled_local_entity",
+        "speakerId": "",
+        "observedAtGameTotalMinutes": 721.0,
+        "canExpress": true
+      },
+      {
+        "factId": "lamp.west_lane_south:interaction",
+        "entityId": "lamp.west_lane_south",
+        "predicate": "interaction",
+        "value": "none",
+        "valueType": "text",
+        "unit": "",
+        "knowledge": "authored",
+        "source": "semantic_catalog",
+        "observerId": "npc.shopkeeper_mina",
+        "scope": "sampled_local_entity",
+        "speakerId": "",
+        "observedAtGameTotalMinutes": 721.0,
+        "canExpress": true
+      }
+    ]
+  },
+  "expression": {
+    "schemaVersion": 1,
+    "mode": "free_text"
+  }
+}

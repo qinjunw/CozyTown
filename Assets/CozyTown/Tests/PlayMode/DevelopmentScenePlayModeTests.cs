@@ -407,7 +407,8 @@ namespace CozyTown.Tests.PlayMode
             gearButton.onClick.Invoke();
             loadButton.onClick.Invoke();
             Assert.That(saveView.Feedback, Is.EqualTo("Game loaded."));
-            gearButton.onClick.Invoke();
+            Assert.That(systemMenuView.IsVisible, Is.False);
+            Assert.That(player.GetComponent<PlayerModalInputGate2D>().IsAcquired, Is.False);
             yield return Open(TownInteractionKind.Shop);
             Assert.That(shopView.State.CharacterBalance, Is.EqualTo(300));
             Assert.That(shopView.State.ShopBalance, Is.EqualTo(10000));

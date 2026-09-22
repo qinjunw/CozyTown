@@ -136,6 +136,15 @@ namespace CozyTown.Runtime.Save
             }
         }
 
+        public static string SerializeSnapshot(GameSaveSnapshot snapshot)
+        {
+            var validation = GameSaveSnapshotValidator.Validate(snapshot);
+            if (!validation.IsSuccess) throw new ArgumentException(validation.ErrorCode, nameof(snapshot));
+            using var stream = new MemoryStream();
+            new DataContractJsonSerializer(typeof(V2SaveFileData)).WriteObject(stream, V2SaveFileData.FromSnapshot(snapshot));
+            return System.Text.Encoding.UTF8.GetString(stream.ToArray());
+        }
+
         private OperationResult<GameSaveSnapshot> ReadSnapshot(string path)
         {
             SchemaProbe probe;
@@ -176,7 +185,7 @@ namespace CozyTown.Runtime.Save
 
                 converted = data.Value.ToSnapshot(_legacyRestockPolicy);
             }
-            else if (probe.SchemaVersion.Value == 2 || probe.SchemaVersion.Value == 3)
+            else if (probe.SchemaVersion.Value >= 2 && probe.SchemaVersion.Value <= GameSaveSnapshot.CurrentSchemaVersion)
             {
                 OperationResult<V2SaveFileData> data = ReadData<V2SaveFileData>(path);
                 if (!data.IsSuccess)
@@ -208,13 +217,13 @@ namespace CozyTown.Runtime.Save
                 GameSaveSnapshot legacy = converted.Value;
                 converted = OperationResult<GameSaveSnapshot>.Success(
                     new GameSaveSnapshot(
-                        GameSaveSnapshot.CurrentSchemaVersion,
+                        GameSaveSnapshot.LegacySchemaVersion,
                         legacy.WorldSeed,
                         legacy.Clock,
                         legacy.Characters,
                         legacy.Shops,
                         legacy.Farm,
-                        legacy.Livestock));
+                        legacy.Livestock, sourceSchemaVersion: probe.SchemaVersion.Value));
             }
 
             OperationResult validation = GameSaveSnapshotValidator.Validate(converted.Value);
@@ -378,7 +387,7 @@ namespace CozyTown.Runtime.Save
             }
         }
 
-        // Schemas 2 and 3 share fields; their clock/progress rules are validated separately.
+        // Legacy fields remain optional here; schema 4 requires the complete world envelope below.
         [DataContract]
         private sealed class V2SaveFileData
         {
@@ -402,6 +411,15 @@ namespace CozyTown.Runtime.Save
 
             [DataMember(Name = "livestock", Order = 6, EmitDefaultValue = false)]
             public LivestockData Livestock { get; set; }
+
+            [DataMember(Name = "fractionalMinute", Order = 7, EmitDefaultValue = false)]
+            public double? FractionalMinute { get; set; }
+
+            [DataMember(Name = "completeWorld", Order = 8, EmitDefaultValue = false)]
+            public CompleteWorldSnapshot CompleteWorld { get; set; }
+
+            [DataMember(Name = "sourceSchemaVersion", Order = 9, EmitDefaultValue = false)]
+            public int? SourceSchemaVersion { get; set; }
 
             public static V2SaveFileData FromSnapshot(GameSaveSnapshot snapshot)
             {
@@ -427,12 +445,19 @@ namespace CozyTown.Runtime.Save
                     Characters = characterData,
                     Shops = shopData,
                     Farm = FarmData.FromSnapshot(snapshot.Farm),
-                    Livestock = LivestockData.FromSnapshot(snapshot.Livestock)
+                    Livestock = LivestockData.FromSnapshot(snapshot.Livestock),
+                    FractionalMinute = snapshot.SchemaVersion == GameSaveSnapshot.CurrentSchemaVersion ? snapshot.FractionalMinute : (double?)null,
+                    CompleteWorld = snapshot.CompleteWorld,
+                    SourceSchemaVersion = snapshot.SchemaVersion == GameSaveSnapshot.CurrentSchemaVersion ? snapshot.SourceSchemaVersion : (int?)null
                 };
             }
 
             public OperationResult<GameSaveSnapshot> ToSnapshot()
             {
+                if (SchemaVersion == GameSaveSnapshot.CurrentSchemaVersion
+                    && (!FractionalMinute.HasValue || CompleteWorld == null || !SourceSchemaVersion.HasValue
+                        || SourceSchemaVersion.Value < 1 || SourceSchemaVersion.Value > GameSaveSnapshot.CurrentSchemaVersion))
+                    return OperationResult<GameSaveSnapshot>.Failure("save.payload_invalid");
                 if (!SchemaVersion.HasValue
                     || !WorldSeed.HasValue
                     || Clock == null
@@ -484,7 +509,8 @@ namespace CozyTown.Runtime.Save
                         characters,
                         shops,
                         farm.Value,
-                        livestock.Value));
+                        livestock.Value, FractionalMinute ?? 0, CompleteWorld,
+                        SchemaVersion.Value == GameSaveSnapshot.CurrentSchemaVersion ? SourceSchemaVersion.Value : SchemaVersion.Value));
             }
         }
 

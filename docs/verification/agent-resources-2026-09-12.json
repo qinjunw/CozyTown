@@ -1,0 +1,657 @@
+{
+  "date": "2026-09-12",
+  "baseCommit": "9a3ffaf04af00df0e9bd7ec72fcbf52ed910253a",
+  "publishedCodeCommit": "65e5c82f4608244ad1ebaf2c3122e0e984ac113f",
+  "pullRequest": "https://github.com/qinjunw/CozyTown/pull/59",
+  "issue": "https://github.com/qinjunw/CozyTown/issues/54",
+  "tests": [
+    {
+      "file": "Logs/agent-resources-atomic-red.xml",
+      "purpose": "economy atomic submission RED",
+      "sha256": "cec23cb84a51833973b61ab70429a899ad605c386e9a06df0c943b96c2676e4c",
+      "result": "Failed(Child)",
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "failedTests": [
+        "CozyTown.Tests.EditMode.Application.CharacterResourceTradingTests.CommitTwoCharacters_PublishesBothCandidates"
+      ]
+    },
+    {
+      "file": "Logs/agent-resources-atomic-green.xml",
+      "purpose": "economy atomic submission GREEN",
+      "sha256": "a53ad20a287d620642681eaff7c350ee45c3e4fabaaba0aa5248dd7fdaf35339",
+      "result": "Passed",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "failedTests": []
+    },
+    {
+      "file": "Logs/agent-resources-trade-red.xml",
+      "purpose": "character exchange RED",
+      "sha256": "11db907ce5614bc323137a5b529c2ef4544c61be4a4822e4a91df34b3d32cc60",
+      "result": "Failed(Child)",
+      "total": 2,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "failedTests": [
+        "CozyTown.Tests.EditMode.Application.CharacterResourceTradingTests.Exchange_ConservesFishAndMoneyAcrossOwnedBackpacks"
+      ]
+    },
+    {
+      "file": "Logs/agent-resources-trade-green.xml",
+      "purpose": "exchange and failure invariants GREEN",
+      "sha256": "16e0c199e043a2032f20de66f9c7344a70bc7454ebbe0ee5fda98bdf4f787c2c",
+      "result": "Passed",
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "failedTests": []
+    },
+    {
+      "file": "Logs/agent-resources-meeting-red.xml",
+      "purpose": "accepted delivery RED",
+      "sha256": "8c8bf40fbc70fcc30f564a8e623bd9e375310bf4c9b8aeb4623931710cce313a",
+      "result": "Failed(Child)",
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "failedTests": [
+        "CozyTown.Tests.EditMode.NpcAgents.NpcResourceMeetingTests.AcceptedAndArrivedPair_DeliversOnceAndRecordsTheActualResult"
+      ]
+    },
+    {
+      "file": "Logs/agent-resources-meeting-green.xml",
+      "purpose": "delivery plus existing meetings GREEN",
+      "sha256": "be5784e6cc56b7366efb8aae0998413a1934aa35e7934c281498db2b9a9b47c5",
+      "result": "Passed",
+      "total": 26,
+      "passed": 26,
+      "failed": 0,
+      "skipped": 0,
+      "failedTests": []
+    },
+    {
+      "file": "Logs/agent-resources-scheduler-red.xml",
+      "purpose": "autonomous delivery RED; one fixture required resetting arrival input",
+      "sha256": "f6ed11afc76464dc255fb90379e6f44da056ca01ff602e4edaf7a68cfc1eee2c",
+      "result": "Failed(Child)",
+      "total": 11,
+      "passed": 9,
+      "failed": 2,
+      "skipped": 0,
+      "failedTests": [
+        "CozyTown.Tests.EditMode.NpcAgents.NpcResourceMeetingTests.InvitationAcceptanceAndTravel_AreInsufficientToTransfer",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcResourceMeetingTests.ResourceOpportunity_AutomaticallyInvitesAcceptsDeliversAndReturnsToSchedule"
+      ]
+    },
+    {
+      "file": "Logs/agent-resources-save-red.xml",
+      "purpose": "owned assets, recipe and old-save migration RED; scheduler GREEN",
+      "sha256": "05011706e812c6b1e36bc099f5c633bdc42520a17a1aa136417a144538e92ae5",
+      "result": "Failed(Child)",
+      "total": 14,
+      "passed": 11,
+      "failed": 3,
+      "skipped": 0,
+      "failedTests": [
+        "CozyTown.Tests.EditMode.Application.ResidentEconomySaveTests.DefaultResidents_OwnIndependentAssetsAndPersistARealTrade",
+        "CozyTown.Tests.EditMode.Application.ResidentEconomySaveTests.DeliveredFish_CooksThroughTheExistingRecipeInSorasBackpack",
+        "CozyTown.Tests.EditMode.Application.ResidentEconomySaveTests.PlayerOnlySave_UpgradesWithoutReplacingTheSavedPlayer"
+      ]
+    },
+    {
+      "file": "Logs/agent-resources-save-green.xml",
+      "purpose": "owned assets GREEN; existing rollback fixture needed all character records",
+      "sha256": "20981875eef993b3436adf5ad3a0b76143ac1611b87fe883214290d886e1cda8",
+      "result": "Failed(Child)",
+      "total": 37,
+      "passed": 36,
+      "failed": 1,
+      "skipped": 0,
+      "failedTests": [
+        "CozyTown.Tests.EditMode.Application.GameSaveCoordinatorTests.Load_WhenLastModuleMutatesThenFails_RollsBackAllFiveModules"
+      ]
+    },
+    {
+      "file": "Logs/agent-resources-codec-red.xml",
+      "purpose": "resource protocol RED; owned assets and rollback GREEN",
+      "sha256": "965af0552af9307c769383065cd2d484acfc1a5de028196995117aad5d73686b",
+      "result": "Failed(Child)",
+      "total": 34,
+      "passed": 31,
+      "failed": 3,
+      "skipped": 0,
+      "failedTests": [
+        "CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceRequest_DisclosesFixedTermsAndOnlyTheCurrentResidentsResources",
+        "CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceResponse_UsesOnlyTheMeetingIdentifier(\"deliver\",Deliver)",
+        "CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.ResourceResponse_UsesOnlyTheMeetingIdentifier(\"cancel_exchange\",CancelExchange)"
+      ]
+    },
+    {
+      "file": "Logs/agent-resources-priority-red.xml",
+      "purpose": "ordinary decision deferral RED",
+      "sha256": "7155876ae67a6e072c955411496c423da3b3154b3ebac148cf88cd0cbe941480",
+      "result": "Failed(Child)",
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "failedTests": [
+        "CozyTown.Tests.EditMode.NpcAgents.NpcResourceMeetingTests.PendingResourceContact_DefersThePartnersOrdinaryDecision"
+      ]
+    },
+    {
+      "file": "Logs/agent-resources-world-bind-red.xml",
+      "purpose": "world asset ownership and same-tick stale request RED",
+      "sha256": "3f617b700b6c8c1b0983d7b34e0ca3789ba95d331dbcf9caf1411950eac0359d",
+      "result": "Failed(Child)",
+      "total": 14,
+      "passed": 12,
+      "failed": 2,
+      "skipped": 0,
+      "failedTests": [
+        "CozyTown.Tests.EditMode.NpcAgents.NpcResourceMeetingTests.PendingResourceContact_DefersThePartnersOrdinaryDecision",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcResourceMeetingTests.RebindingAnotherWorld_UsesThatWorldsAssetsForNewAgreements"
+      ]
+    },
+    {
+      "file": "Logs/agent-resources-scene-red.xml",
+      "purpose": "scene wiring RED",
+      "sha256": "adbbe9e3f5f337ee03a9afce52414dac6232158d5833fbc8b565068a96901588",
+      "result": "Failed(Child)",
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.NpcResourcePlayModeTests.MissingFish_DrivesActualMeetingDeliveryAndScheduleRecovery"
+      ]
+    },
+    {
+      "file": "Logs/agent-resources-scene-green.xml",
+      "purpose": "actual scene route and delivery GREEN",
+      "sha256": "e2215c415461479e0920bfc3f8d75ba2d98cc57d106ef14f394620832857b0ae",
+      "result": "Passed",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "failedTests": []
+    },
+    {
+      "file": "Logs/agent-resources-edit-full-first.xml",
+      "purpose": "regression found legacy fixture setup requiring explicit NPC defaults",
+      "sha256": "d86bf68369dc773851885d7fd6638519eeb4b2edad055a843d358ebfa7557b00",
+      "result": "Failed(Child)",
+      "total": 615,
+      "passed": 599,
+      "failed": 16,
+      "skipped": 0,
+      "failedTests": [
+        "CozyTown.Tests.EditMode.Save.JsonFileSaveStorageTests.Load_LegacyV1Fixture_MigratesDeterministicallyWithoutRewritingFile",
+        "CozyTown.Tests.EditMode.Save.MorningSettlementSaveTests.Load_ClockAndCompletedDay_UsesSourceSchemaRulesWithoutChangingTheFile(2,1,60,1,True)",
+        "CozyTown.Tests.EditMode.Save.MorningSettlementSaveTests.Load_ClockAndCompletedDay_UsesSourceSchemaRulesWithoutChangingTheFile(2,2,60,2,True)",
+        "CozyTown.Tests.EditMode.Save.MorningSettlementSaveTests.Load_ClockAndCompletedDay_UsesSourceSchemaRulesWithoutChangingTheFile(2,2,420,2,True)",
+        "CozyTown.Tests.EditMode.Save.MorningSettlementSaveTests.Load_ClockAndCompletedDay_UsesSourceSchemaRulesWithoutChangingTheFile(3,1,60,1,True)",
+        "CozyTown.Tests.EditMode.Save.MorningSettlementSaveTests.Load_ClockAndCompletedDay_UsesSourceSchemaRulesWithoutChangingTheFile(3,2,0,1,True)",
+        "CozyTown.Tests.EditMode.Save.MorningSettlementSaveTests.Load_ClockAndCompletedDay_UsesSourceSchemaRulesWithoutChangingTheFile(3,2,0,2,True)",
+        "CozyTown.Tests.EditMode.Save.MorningSettlementSaveTests.Load_ClockAndCompletedDay_UsesSourceSchemaRulesWithoutChangingTheFile(3,2,299,1,True)",
+        "CozyTown.Tests.EditMode.Save.MorningSettlementSaveTests.Load_ClockAndCompletedDay_UsesSourceSchemaRulesWithoutChangingTheFile(3,2,299,2,True)",
+        "CozyTown.Tests.EditMode.Save.MorningSettlementSaveTests.Load_ClockAndCompletedDay_UsesSourceSchemaRulesWithoutChangingTheFile(3,2,300,2,True)",
+        "CozyTown.Tests.EditMode.Save.MorningSettlementSaveTests.Load_ClockAndCompletedDay_UsesSourceSchemaRulesWithoutChangingTheFile(3,2,420,2,True)",
+        "CozyTown.Tests.EditMode.Save.MorningSettlementSaveTests.Load_ClockAndCompletedDay_UsesSourceSchemaRulesWithoutChangingTheFile(3,2,1439,2,True)",
+        "CozyTown.Tests.EditMode.Save.MorningSettlementSaveTests.Load_ClockAndCompletedDay_UsesSourceSchemaRulesWithoutChangingTheFile(3,int.MaxValue,299,2147483646,True)",
+        "CozyTown.Tests.EditMode.Save.MorningSettlementSaveTests.Load_ClockAndCompletedDay_UsesSourceSchemaRulesWithoutChangingTheFile(3,int.MaxValue,300,int.MaxValue,True)",
+        "CozyTown.Tests.EditMode.Save.MorningSettlementSaveTests.Load_LegacyBeforeMorning_SkipsSettledBoundaryAndProcessesNextMorning",
+        "CozyTown.Tests.EditMode.Save.MorningSettlementSaveTests.Load_LegacyV2BeforeMorning_PreservesCompletedDayAndActualAssets"
+      ]
+    },
+    {
+      "file": "Logs/agent-resources-edit-full.xml",
+      "purpose": "shared full EditMode",
+      "sha256": "dbdc2b7e1cc4333e74bd106a8283c0a41e386e1e26b97f2e29502203f714c8e5",
+      "result": "Passed",
+      "total": 618,
+      "passed": 618,
+      "failed": 0,
+      "skipped": 0,
+      "failedTests": []
+    },
+    {
+      "file": "Logs/agent-resources-play-full.xml",
+      "purpose": "shared graphical full PlayMode",
+      "sha256": "8b99f44d63fb49889cd72cdb3d2f3545190f17553f3cc1e7007db345a47a6690",
+      "result": "Skipped:Ignored",
+      "total": 177,
+      "passed": 175,
+      "failed": 0,
+      "skipped": 2,
+      "failedTests": []
+    },
+    {
+      "file": "Logs/agent-resources-publish-edit.xml",
+      "purpose": "isolated full EditMode",
+      "sha256": "133d0e59dd240439dc9e21247c59a057bc339b7c063498e8487ed5bbdbd1a54e",
+      "result": "Passed",
+      "total": 614,
+      "passed": 614,
+      "failed": 0,
+      "skipped": 0,
+      "failedTests": []
+    },
+    {
+      "file": "Logs/agent-resources-publish-play.xml",
+      "purpose": "isolated graphical full PlayMode",
+      "sha256": "9c1eed3736e07d33f16c516c258325b54f33dc1472450590b3e0110e7b2dcdf0",
+      "result": "Skipped:Ignored",
+      "total": 175,
+      "passed": 173,
+      "failed": 0,
+      "skipped": 2,
+      "failedTests": []
+    },
+    {
+      "file": "Logs/agent-resources-live.xml",
+      "purpose": "isolated real provider scene",
+      "sha256": "20dae592936aa4dc9aa6e75605b0e8473fd17c8cd3b4579c56fb9690da98678e",
+      "result": "Passed",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "failedTests": []
+    }
+  ],
+  "providerCallLimit": 10,
+  "providerCalls": [
+    {
+      "call": 1,
+      "npcId": "npc.cook_sora",
+      "decisionId": "dddad85bb50445619eee7000b4fd22a3",
+      "step": 1,
+      "requestedModel": "deepseek-v4-flash",
+      "status": "passed",
+      "returnedModel": "deepseek-flash",
+      "promptTokens": 820,
+      "completionTokens": 23,
+      "totalTokens": 843,
+      "candidate": {
+        "schemaVersion": 3,
+        "operation": "invite",
+        "planId": "sora-ren-fish-supply"
+      },
+      "elapsedMilliseconds": 941
+    },
+    {
+      "call": 2,
+      "npcId": "npc.fisher_ren",
+      "decisionId": "3e95183ff12145d7a5898cd26dba0f2b",
+      "step": 1,
+      "requestedModel": "deepseek-v4-flash",
+      "status": "passed",
+      "returnedModel": "deepseek-flash",
+      "promptTokens": 860,
+      "completionTokens": 37,
+      "totalTokens": 897,
+      "candidate": {
+        "schemaVersion": 3,
+        "operation": "accept_invite",
+        "meetingId": "709710fd0e3e42dd991b8a4cfcfd9ecd"
+      },
+      "elapsedMilliseconds": 815
+    },
+    {
+      "call": 3,
+      "npcId": "npc.cook_sora",
+      "decisionId": "e7324f2e7d4349a599aa99ba57ee51ac",
+      "step": 1,
+      "requestedModel": "deepseek-v4-flash",
+      "status": "passed",
+      "returnedModel": "deepseek-flash",
+      "promptTokens": 943,
+      "completionTokens": 35,
+      "totalTokens": 978,
+      "candidate": {
+        "schemaVersion": 3,
+        "operation": "deliver",
+        "meetingId": "709710fd0e3e42dd991b8a4cfcfd9ecd"
+      },
+      "elapsedMilliseconds": 953
+    },
+    {
+      "call": 4,
+      "npcId": "npc.cook_sora",
+      "decisionId": "431924beb0574fdf96e89df144fe2eb2",
+      "step": 1,
+      "requestedModel": "deepseek-v4-flash",
+      "status": "passed",
+      "returnedModel": "deepseek-flash",
+      "promptTokens": 983,
+      "completionTokens": 59,
+      "totalTokens": 1042,
+      "candidate": {
+        "schemaVersion": 3,
+        "operation": "say",
+        "meetingId": "709710fd0e3e42dd991b8a4cfcfd9ecd",
+        "text": "Thanks for the carp, Ren! I'll grill it with pondside herbs tonight. See you again soon."
+      },
+      "elapsedMilliseconds": 920
+    },
+    {
+      "call": 5,
+      "npcId": "npc.fisher_ren",
+      "decisionId": "7595a6bbe14343bfb763f8a20db20f59",
+      "step": 1,
+      "requestedModel": "deepseek-v4-flash",
+      "status": "passed",
+      "returnedModel": "deepseek-flash",
+      "promptTokens": 1066,
+      "completionTokens": 59,
+      "totalTokens": 1125,
+      "candidate": {
+        "schemaVersion": 3,
+        "operation": "say",
+        "meetingId": "709710fd0e3e42dd991b8a4cfcfd9ecd",
+        "text": "The carp were restless by the reeds today. Glad it'll be put to good use, Sora."
+      },
+      "elapsedMilliseconds": 991
+    },
+    {
+      "call": 6,
+      "npcId": "npc.cook_sora",
+      "decisionId": "a552919b7e74449a9130523832c5de3b",
+      "step": 1,
+      "requestedModel": "deepseek-v4-flash",
+      "status": "passed",
+      "returnedModel": "deepseek-flash",
+      "promptTokens": 1150,
+      "completionTokens": 37,
+      "totalTokens": 1187,
+      "candidate": {
+        "schemaVersion": 3,
+        "operation": "end_conversation",
+        "meetingId": "709710fd0e3e42dd991b8a4cfcfd9ecd"
+      },
+      "elapsedMilliseconds": 993
+    }
+  ],
+  "providerTotalTokens": 6072,
+  "scene": {
+    "startedAtUtc": "2026-09-12T14:23:46.7894481Z",
+    "status": "passed",
+    "clientCalls": 6,
+    "observations": [
+      {
+        "elapsedSeconds": 3.4000000006528808e-06,
+        "gameTotalMinutes": 735.0000068,
+        "state": "None",
+        "deliveryResultCode": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renFish": -1,
+        "soraFish": -1,
+        "renCoins": -1,
+        "soraCoins": -1,
+        "renPosition": {
+          "x": -4.199993133544922,
+          "y": -3.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      {
+        "elapsedSeconds": 1.0563649000000002,
+        "gameTotalMinutes": 737.1127298,
+        "state": "Invited",
+        "deliveryResultCode": "",
+        "renRoute": "Travelling",
+        "soraRoute": "Arrived",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -3.0,
+          "y": -2.087270736694336
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      {
+        "elapsedSeconds": 1.882150000000001,
+        "gameTotalMinutes": 738.7643,
+        "state": "Scheduled",
+        "deliveryResultCode": "",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.399999976158142
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": []
+      },
+      {
+        "elapsedSeconds": 22.500283300000003,
+        "gameTotalMinutes": 780.0005666,
+        "state": "Travelling",
+        "deliveryResultCode": "",
+        "renRoute": "Arrived",
+        "soraRoute": "Travelling",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.399999976158142
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3505665957927704
+        },
+        "transcript": []
+      },
+      {
+        "elapsedSeconds": 25.525236500000002,
+        "gameTotalMinutes": 786.050473,
+        "state": "Talking",
+        "deliveryResultCode": "",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renFish": 2,
+        "soraFish": 0,
+        "renCoins": 0,
+        "soraCoins": 50,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.399999976158142
+        },
+        "soraPosition": {
+          "x": -3.0,
+          "y": 0.4000000059604645
+        },
+        "transcript": []
+      },
+      {
+        "elapsedSeconds": 26.481748,
+        "gameTotalMinutes": 787.963496,
+        "state": "Talking",
+        "deliveryResultCode": "resource.delivered",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renFish": 1,
+        "soraFish": 1,
+        "renCoins": 25,
+        "soraCoins": 25,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.399999976158142
+        },
+        "soraPosition": {
+          "x": -3.0,
+          "y": 0.4000000059604645
+        },
+        "transcript": []
+      },
+      {
+        "elapsedSeconds": 27.411358000000003,
+        "gameTotalMinutes": 789.822716,
+        "state": "Talking",
+        "deliveryResultCode": "resource.delivered",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renFish": 1,
+        "soraFish": 1,
+        "renCoins": 25,
+        "soraCoins": 25,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.399999976158142
+        },
+        "soraPosition": {
+          "x": -3.0,
+          "y": 0.4000000059604645
+        },
+        "transcript": [
+          "npc.cook_sora: Thanks for the carp, Ren! I'll grill it with pondside herbs tonight. See you again soon."
+        ]
+      },
+      {
+        "elapsedSeconds": 28.414231100000006,
+        "gameTotalMinutes": 791.8284622,
+        "state": "Talking",
+        "deliveryResultCode": "resource.delivered",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renFish": 1,
+        "soraFish": 1,
+        "renCoins": 25,
+        "soraCoins": 25,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.399999976158142
+        },
+        "soraPosition": {
+          "x": -3.0,
+          "y": 0.4000000059604645
+        },
+        "transcript": [
+          "npc.cook_sora: Thanks for the carp, Ren! I'll grill it with pondside herbs tonight. See you again soon.",
+          "npc.fisher_ren: The carp were restless by the reeds today. Glad it'll be put to good use, Sora."
+        ]
+      },
+      {
+        "elapsedSeconds": 29.416716000000005,
+        "gameTotalMinutes": 793.833432,
+        "state": "Completed",
+        "deliveryResultCode": "resource.delivered",
+        "renRoute": "Arrived",
+        "soraRoute": "Travelling",
+        "renFish": 1,
+        "soraFish": 1,
+        "renCoins": 25,
+        "soraCoins": 25,
+        "renPosition": {
+          "x": -3.0,
+          "y": -1.399999976158142
+        },
+        "soraPosition": {
+          "x": -3.0,
+          "y": 0.4000000059604645
+        },
+        "transcript": [
+          "npc.cook_sora: Thanks for the carp, Ren! I'll grill it with pondside herbs tonight. See you again soon.",
+          "npc.fisher_ren: The carp were restless by the reeds today. Glad it'll be put to good use, Sora."
+        ]
+      },
+      {
+        "elapsedSeconds": 29.434803900000002,
+        "gameTotalMinutes": 880.833432,
+        "state": "Completed",
+        "deliveryResultCode": "resource.delivered",
+        "renRoute": "Arrived",
+        "soraRoute": "Arrived",
+        "renFish": 1,
+        "soraFish": 1,
+        "renCoins": 25,
+        "soraCoins": 25,
+        "renPosition": {
+          "x": 2.9000000953674316,
+          "y": -2.0
+        },
+        "soraPosition": {
+          "x": 3.0,
+          "y": 0.3499999940395355
+        },
+        "transcript": [
+          "npc.cook_sora: Thanks for the carp, Ren! I'll grill it with pondside herbs tonight. See you again soon.",
+          "npc.fisher_ren: The carp were restless by the reeds today. Glad it'll be put to good use, Sora."
+        ]
+      }
+    ]
+  },
+  "proxy-red": {
+    "file": "Logs/agent-resources-proxy-red.log",
+    "sha256": "7210f589ec36d94759c8664e5c31cc7fd11f24b5abd1a745c7cf748ba21c10a2"
+  },
+  "proxy-green": {
+    "file": "Logs/agent-resources-proxy-green.log",
+    "sha256": "11c22a9f3d723b7e30a7aaa3fdc306274b413bf7951b4044b65b186bac1ea780"
+  },
+  "sourceEvidence": [
+    {
+      "file": "Logs/agent-resources-live-proxy.jsonl",
+      "sha256": "a768177d30bfbdcfad9fb60aa898bd7ac703221400fb7dff8b51095b571078a5"
+    },
+    {
+      "file": "Logs/agent-resources-publish-check/Logs/agent-resources-live-scene.json",
+      "sha256": "788e66a8798dc43245521257e787ece154490a408c8176a1c26381b46f638594"
+    },
+    {
+      "file": "Logs/agent-resources-proxy-final-status.json",
+      "sha256": "3101650ce0d506aba1429b1239a46ae163f5aa7985b614d71cb1cf0fe4d8b188"
+    }
+  ],
+  "proxyFinalStatus": {
+    "requestedModel": "deepseek-v4-flash",
+    "attemptedProviderCalls": 6,
+    "remainingCalls": 4,
+    "inflight": 0
+  },
+  "proxyStopped": true,
+  "isolatedSourceDirectoriesUnchanged": [
+    "Assets",
+    "Packages",
+    "Tools"
+  ],
+  "secretCheck": {
+    "codeCommitStagedFilesChecked": 50,
+    "privateCredentialAbsent": true
+  },
+  "limits": [
+    "One real model run; no measured success rate.",
+    "Unconfirmed dialogue details do not become inventory or completed production.",
+    "Meeting commitments and memories are not yet persisted."
+  ]
+}

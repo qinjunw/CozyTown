@@ -1,0 +1,241 @@
+{
+  "schemaVersion": 1,
+  "testedSourceRevision": "bc59db8de897261c3385286baf2e6cedf6b9677b",
+  "runPreflight": "tests/candidate-entry-preflight.json",
+  "testResults": "tests/manifest.json",
+  "archive": "candidate-entry-packages.zip",
+  "bytes": 371633,
+  "sha256": "f5064c81d1ec928a91877e00669499e047cd1e549b824fa2cacdc5a9813e66d3",
+  "transformation": "Package bytes unchanged. ZIP paths are relative to the packages directory.",
+  "identityNote": "Package sourceRevision fields are test fixture declarations (test-build or unknown). The external clean-run preflight binds this run to testedSourceRevision; no fixture was rewritten as a real build identity.",
+  "providerCalls": 0,
+  "packages": [
+    {
+      "directory": "3211fb8d52144825ad136a8dd64a45b8",
+      "testMethod": "RecordedExperiment_ExportsFullStateTimelineAndObservedExecution",
+      "experimentId": "108e08dc088d419ea27cf089701f986e",
+      "recordedSourceRevision": "test-build",
+      "runMode": "fixed",
+      "speechMode": "F",
+      "classification": "fixed_or_recorded_replay",
+      "useAsPositiveReplayExample": true
+    },
+    {
+      "directory": "341acffc9d504736be8818a1e9a44e8f",
+      "testMethod": "SleepInput_CrossesTheDayBoundaryAndReplaysTheSameSettledWorld",
+      "experimentId": "6f800610890e48a58edb65fceb2e65db",
+      "recordedSourceRevision": "unknown",
+      "runMode": "fixed",
+      "speechMode": "F",
+      "classification": "fixed_or_recorded_replay",
+      "useAsPositiveReplayExample": true
+    },
+    {
+      "directory": "86944a6015f04bf7b5527accaffa57fc",
+      "testMethod": "RejectedTimeAdvance_DoesNotContaminateTheCompletedReplay",
+      "experimentId": "2c19202944094e958337756e05e9990b",
+      "recordedSourceRevision": "unknown",
+      "runMode": "fixed",
+      "speechMode": "F",
+      "classification": "fixed_or_recorded_replay",
+      "useAsPositiveReplayExample": true
+    },
+    {
+      "directory": "88cebb44f31b430daf32d2db3b1d200f",
+      "testMethod": "Replay_StopsWhenCheckpointAssetsDifferFromTheRecordedSaveInput",
+      "experimentId": "974ca0d835424d4db074f9fe63e35516",
+      "recordedSourceRevision": "unknown",
+      "runMode": "fixed",
+      "speechMode": "F",
+      "classification": "intentionally_corrupted_checkpoint",
+      "useAsPositiveReplayExample": false
+    },
+    {
+      "directory": "893f2e2ee9eb46c4bc453735454e6bf5",
+      "testMethod": "WaitingBetweenInputs_PreservesPlayerPositionAcrossLoadsAndStrictReplay",
+      "experimentId": "299b8a02eb8747529ac709b2b76ea6c0",
+      "recordedSourceRevision": "unknown",
+      "runMode": "fixed",
+      "speechMode": "F",
+      "classification": "fixed_or_recorded_replay",
+      "useAsPositiveReplayExample": true
+    },
+    {
+      "directory": "a7d41a9a4bb546fead47239fc1dc0e6a",
+      "testMethod": "Telemetry_ExportsMatchedAnnotationsWithoutChangingAuthoritativeReplay",
+      "experimentId": "f68f81c6f99242daae5da05381524cdf",
+      "recordedSourceRevision": "unknown",
+      "runMode": "live",
+      "speechMode": "F",
+      "classification": "simulated_live_telemetry_no_provider",
+      "useAsPositiveReplayExample": false
+    },
+    {
+      "directory": "e5a85eec41ea4d6d86b1f26c0545bc95",
+      "testMethod": "RecordedStructuredWorld_ReplaysSavedInputsAndDeliveryInAFreshScene",
+      "experimentId": "9ea2a41c5b6a431eaefe3f81accf4e61",
+      "recordedSourceRevision": "test-build",
+      "runMode": "fixed",
+      "speechMode": "S",
+      "classification": "fixed_or_recorded_replay",
+      "useAsPositiveReplayExample": true
+    },
+    {
+      "directory": "e5a85eec41ea4d6d86b1f26c0545bc95-replay",
+      "testMethod": "RecordedStructuredWorld_ReplaysSavedInputsAndDeliveryInAFreshScene",
+      "experimentId": "8cf50f11257f407ea8fcd3896d8f96ae",
+      "recordedSourceRevision": "unknown",
+      "runMode": "replay",
+      "speechMode": "S",
+      "classification": "fixed_or_recorded_replay",
+      "useAsPositiveReplayExample": true
+    }
+  ],
+  "files": [
+    {
+      "path": "3211fb8d52144825ad136a8dd64a45b8/final.json",
+      "bytes": 40256,
+      "sha256": "2a3b90d4c8f63a4abf6d56af67f63354f1a6c09626a02ac61b3ebf36ba890ff2"
+    },
+    {
+      "path": "3211fb8d52144825ad136a8dd64a45b8/initial.json",
+      "bytes": 33940,
+      "sha256": "a06ab7bcd300fe2cf228e17bdc4fd378551e99b0819c0e12aa1c5a6ee7afeb78"
+    },
+    {
+      "path": "3211fb8d52144825ad136a8dd64a45b8/manifest.json",
+      "bytes": 700048,
+      "sha256": "2fd6d65bd074605c489d01c29b15370c6496563f0038171a765a1cd80f696c6f"
+    },
+    {
+      "path": "341acffc9d504736be8818a1e9a44e8f/final.json",
+      "bytes": 40214,
+      "sha256": "f55d261fedc8e67227d3f5f55ba9e333e5d666d3c6d8e933323d3dbd986449ac"
+    },
+    {
+      "path": "341acffc9d504736be8818a1e9a44e8f/initial.json",
+      "bytes": 33940,
+      "sha256": "a06ab7bcd300fe2cf228e17bdc4fd378551e99b0819c0e12aa1c5a6ee7afeb78"
+    },
+    {
+      "path": "341acffc9d504736be8818a1e9a44e8f/manifest.json",
+      "bytes": 608080,
+      "sha256": "a6abdeefae503fcfae9eb7e8cb8dd5c6a1cf077d0e34da3bd4b9ab63775e2aa4"
+    },
+    {
+      "path": "86944a6015f04bf7b5527accaffa57fc/final.json",
+      "bytes": 39912,
+      "sha256": "3d29326684dbd2c66b78a6e6f0348f7a328e6e9ae840302bbf14722bab01a55e"
+    },
+    {
+      "path": "86944a6015f04bf7b5527accaffa57fc/initial.json",
+      "bytes": 33940,
+      "sha256": "a06ab7bcd300fe2cf228e17bdc4fd378551e99b0819c0e12aa1c5a6ee7afeb78"
+    },
+    {
+      "path": "86944a6015f04bf7b5527accaffa57fc/manifest.json",
+      "bytes": 607426,
+      "sha256": "40b0f29cff5b63c3933d2f9b469b7b16d8f6a016ff1590313758e9d65e1eb9aa"
+    },
+    {
+      "path": "88cebb44f31b430daf32d2db3b1d200f/checkpoint-before-delivery.json",
+      "bytes": 38556,
+      "sha256": "e9df3c1a0b3f7de8ecf278bf31f98a97f52702c3aeec68e7383ba54f8f0f59f7"
+    },
+    {
+      "path": "88cebb44f31b430daf32d2db3b1d200f/final.json",
+      "bytes": 39912,
+      "sha256": "e99299e6899dd6543c5b62849ff1fdd8ece3f3cb0e630f5831b243c712ed572f"
+    },
+    {
+      "path": "88cebb44f31b430daf32d2db3b1d200f/initial.json",
+      "bytes": 33940,
+      "sha256": "a06ab7bcd300fe2cf228e17bdc4fd378551e99b0819c0e12aa1c5a6ee7afeb78"
+    },
+    {
+      "path": "88cebb44f31b430daf32d2db3b1d200f/manifest.json",
+      "bytes": 607793,
+      "sha256": "6e109dc1eacf840fa499a13a9e78a579644d8215192887cdc950104e08144c59"
+    },
+    {
+      "path": "893f2e2ee9eb46c4bc453735454e6bf5/checkpoint-after_loads.json",
+      "bytes": 33940,
+      "sha256": "a06ab7bcd300fe2cf228e17bdc4fd378551e99b0819c0e12aa1c5a6ee7afeb78"
+    },
+    {
+      "path": "893f2e2ee9eb46c4bc453735454e6bf5/checkpoint-origin.json",
+      "bytes": 33940,
+      "sha256": "a06ab7bcd300fe2cf228e17bdc4fd378551e99b0819c0e12aa1c5a6ee7afeb78"
+    },
+    {
+      "path": "893f2e2ee9eb46c4bc453735454e6bf5/final.json",
+      "bytes": 33940,
+      "sha256": "a06ab7bcd300fe2cf228e17bdc4fd378551e99b0819c0e12aa1c5a6ee7afeb78"
+    },
+    {
+      "path": "893f2e2ee9eb46c4bc453735454e6bf5/initial.json",
+      "bytes": 33940,
+      "sha256": "a06ab7bcd300fe2cf228e17bdc4fd378551e99b0819c0e12aa1c5a6ee7afeb78"
+    },
+    {
+      "path": "893f2e2ee9eb46c4bc453735454e6bf5/manifest.json",
+      "bytes": 55490,
+      "sha256": "4b9371874ed993c122fdd96121d26f8fb53122f23688de23df69f95af9de468b"
+    },
+    {
+      "path": "a7d41a9a4bb546fead47239fc1dc0e6a/final.json",
+      "bytes": 39912,
+      "sha256": "491bc0c0300ada04003e6811f2e7fb2a80ccdc4fb3677bc25c88a148ed29a7d6"
+    },
+    {
+      "path": "a7d41a9a4bb546fead47239fc1dc0e6a/initial.json",
+      "bytes": 33940,
+      "sha256": "a06ab7bcd300fe2cf228e17bdc4fd378551e99b0819c0e12aa1c5a6ee7afeb78"
+    },
+    {
+      "path": "a7d41a9a4bb546fead47239fc1dc0e6a/manifest.json",
+      "bytes": 608172,
+      "sha256": "510ccbe9d94b43423d3576168fc21d653a123b5b9e490743db66c248a8b57fac"
+    },
+    {
+      "path": "e5a85eec41ea4d6d86b1f26c0545bc95/checkpoint-before-delivery.json",
+      "bytes": 38532,
+      "sha256": "f20bfd4c840b347f7fba29ccbd4c3918140a0e256750344e9daa749a6dac1b12"
+    },
+    {
+      "path": "e5a85eec41ea4d6d86b1f26c0545bc95/final.json",
+      "bytes": 39983,
+      "sha256": "989411f5a94a291dd8d6189e9f15a8ee37745e989209c9a5b3555d238bad635f"
+    },
+    {
+      "path": "e5a85eec41ea4d6d86b1f26c0545bc95/initial.json",
+      "bytes": 33940,
+      "sha256": "3c9447745b0be3fa62b7522f2477959c4a076b3b7b3cefe04043bd1e00dbb498"
+    },
+    {
+      "path": "e5a85eec41ea4d6d86b1f26c0545bc95/manifest.json",
+      "bytes": 936993,
+      "sha256": "7497b412f67b03e955a6704b0dd4285a9097bd5312debcbad3edc0e733390aa4"
+    },
+    {
+      "path": "e5a85eec41ea4d6d86b1f26c0545bc95-replay/checkpoint-before-delivery.json",
+      "bytes": 38532,
+      "sha256": "ff8265aa3f94e5bb5ad8d41eec7eff6558d5394921d1b711348e0ce8d4ffe069"
+    },
+    {
+      "path": "e5a85eec41ea4d6d86b1f26c0545bc95-replay/final.json",
+      "bytes": 39983,
+      "sha256": "e052101d433c6711520b63644ce97728f1c72931adae5b993c17a6051197d0fd"
+    },
+    {
+      "path": "e5a85eec41ea4d6d86b1f26c0545bc95-replay/initial.json",
+      "bytes": 33940,
+      "sha256": "3c9447745b0be3fa62b7522f2477959c4a076b3b7b3cefe04043bd1e00dbb498"
+    },
+    {
+      "path": "e5a85eec41ea4d6d86b1f26c0545bc95-replay/manifest.json",
+      "bytes": 1089398,
+      "sha256": "d6bbc5a0c2596c13c93425489659a03c84db21add9bf09f2e9151775dc0d874c"
+    }
+  ]
+}

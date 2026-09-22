@@ -1,7 +1,9 @@
 using System;
+using System.Runtime.Serialization;
 
 namespace CozyTown.Runtime.NpcLife
 {
+    [DataContract]
     public sealed class NpcDailySchedule
     {
         private const int MinutesPerDay = 24 * 60;
@@ -67,18 +69,31 @@ namespace CozyTown.Runtime.NpcLife
             HomeArrivalDeadlineMinute = homeArrivalDeadlineMinute;
         }
 
+        [field: DataMember(Name = "npcId", IsRequired = true)]
         public string NpcId { get; }
+        [field: DataMember(Name = "homeId", IsRequired = true)]
         public string HomeId { get; }
+        [field: DataMember(Name = "homeOutsideLocationId", IsRequired = true)]
         public string HomeOutsideLocationId { get; }
+        [field: DataMember(Name = "homeEntranceLocationId", IsRequired = true)]
         public string HomeEntranceLocationId { get; }
+        [field: DataMember(Name = "morningWorkLocationId", IsRequired = true)]
         public string MorningWorkLocationId { get; }
+        [field: DataMember(Name = "restLocationId", IsRequired = true)]
         public string RestLocationId { get; }
+        [field: DataMember(Name = "afternoonWorkLocationId", IsRequired = true)]
         public string AfternoonWorkLocationId { get; }
+        [field: DataMember(Name = "departureMinute", IsRequired = true)]
         public int DepartureMinute { get; }
+        [field: DataMember(Name = "morningArrivalDeadlineMinute", IsRequired = true)]
         public int MorningArrivalDeadlineMinute { get; }
+        [field: DataMember(Name = "restStartMinute", IsRequired = true)]
         public int RestStartMinute { get; }
+        [field: DataMember(Name = "afternoonStartMinute", IsRequired = true)]
         public int AfternoonStartMinute { get; }
+        [field: DataMember(Name = "returnStartMinute", IsRequired = true)]
         public int ReturnStartMinute { get; }
+        [field: DataMember(Name = "homeArrivalDeadlineMinute", IsRequired = true)]
         public int HomeArrivalDeadlineMinute { get; }
 
         public NpcScheduleTarget Query(int minuteOfDay)

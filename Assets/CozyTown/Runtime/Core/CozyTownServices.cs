@@ -37,7 +37,9 @@ namespace CozyTown.Runtime.Core
             IDaytimeClock daytimeClock,
             IWorldTimeCoordinator worldTime,
             ISleepCoordinator sleep,
-            IWorldTimeFlow worldTimeFlow = null)
+            IWorldTimeFlow worldTimeFlow = null,
+            CharacterResourceTrading resourceTrading = null,
+            WorldSnapshotBinding worldSnapshots = null)
         {
             DayTransition = dayTransition ?? throw new ArgumentNullException(nameof(dayTransition));
             Time = time ?? throw new ArgumentNullException(nameof(time));
@@ -71,6 +73,8 @@ namespace CozyTown.Runtime.Core
             WorldTime = worldTime ?? throw new ArgumentNullException(nameof(worldTime));
             Sleep = sleep ?? throw new ArgumentNullException(nameof(sleep));
             WorldTimeFlow = worldTimeFlow;
+            ResourceTrading = resourceTrading;
+            WorldSnapshots = worldSnapshots ?? new WorldSnapshotBinding();
         }
 
         public IDayTransitionCoordinator DayTransition { get; }
@@ -92,6 +96,7 @@ namespace CozyTown.Runtime.Core
         public IWallet Wallet { get; }
 
         public ICharacterShopTradingCoordinator ShopTrading { get; }
+        public CharacterResourceTrading ResourceTrading { get; }
 
         public IFarmService Farm { get; }
 
@@ -116,6 +121,7 @@ namespace CozyTown.Runtime.Core
         public ISaveStorage SaveStorage { get; }
 
         public IGameSaveCoordinator GameSave { get; }
+        public WorldSnapshotBinding WorldSnapshots { get; }
 
         public IEconomyStateStore EconomyState { get; }
 

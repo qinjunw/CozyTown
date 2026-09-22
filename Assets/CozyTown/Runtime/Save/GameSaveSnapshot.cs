@@ -9,7 +9,8 @@ namespace CozyTown.Runtime.Save
     [Serializable]
     public sealed class GameSaveSnapshot
     {
-        public const int CurrentSchemaVersion = 3;
+        public const int CurrentSchemaVersion = 4;
+        public const int LegacySchemaVersion = 3;
 
         private readonly CharacterEconomySnapshot[] _characters;
         private readonly ShopEconomySnapshot[] _shops;
@@ -21,7 +22,9 @@ namespace CozyTown.Runtime.Save
             CharacterEconomySnapshot[] characters,
             ShopEconomySnapshot[] shops,
             FarmSnapshot farm,
-            LivestockSnapshot livestock)
+            LivestockSnapshot livestock,
+            double fractionalMinute = 0, CompleteWorldSnapshot completeWorld = null,
+            int sourceSchemaVersion = 0)
         {
             SchemaVersion = schemaVersion;
             WorldSeed = worldSeed;
@@ -30,6 +33,9 @@ namespace CozyTown.Runtime.Save
             _shops = Copy(shops);
             Farm = farm;
             Livestock = livestock;
+            FractionalMinute = fractionalMinute;
+            CompleteWorld = completeWorld;
+            SourceSchemaVersion = sourceSchemaVersion == 0 ? schemaVersion : sourceSchemaVersion;
         }
 
         public int SchemaVersion { get; }
@@ -45,6 +51,9 @@ namespace CozyTown.Runtime.Save
         public FarmSnapshot Farm { get; }
 
         public LivestockSnapshot Livestock { get; }
+        public double FractionalMinute { get; }
+        public CompleteWorldSnapshot CompleteWorld { get; }
+        public int SourceSchemaVersion { get; }
 
         private static CharacterEconomySnapshot[] Copy(
             CharacterEconomySnapshot[] source)

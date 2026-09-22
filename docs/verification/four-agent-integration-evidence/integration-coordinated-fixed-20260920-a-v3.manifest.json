@@ -1,0 +1,594 @@
+{
+  "schemaVersion": 1,
+  "createdAtUtc": "2026-09-19T17:41:23.634457+00:00",
+  "studyId": "aaff00b1bb5a4dc69fb3f223352abbf3",
+  "archive": "integration-coordinated-fixed-20260920-a-v3.zip",
+  "scriptSha256": "beb4e0925d8f1a10568ec12138f8ba78b2d253f2f806336cca6984f84a86e4f7",
+  "sourceRoot": "<study-root>",
+  "pathPolicy": {
+    "authoritative": "package/ and replay/ JSON/JSONL bytes are unchanged; machine paths are reported, never rewritten.",
+    "envelope": "Study-local absolute filesystem paths become <study-root>/relative paths; external paths become SHA256 markers. Unchanged files retain their bytes.",
+    "scope": "All JSON/JSONL below the study root; links and credential-like names are rejected before reading. No referenced paths are opened.",
+    "scanner": "Decoded JSON string values and embedded JSON; Windows drive/UNC, leading Unix absolute/home-relative paths, and common Unix roots embedded in text. URI endpoints and other relative paths are unchanged.",
+    "jsonPointers": "The schema-defined firstDivergence.path in pair-context.json is retained as a JSON Pointer; other path fields remain subject to filesystem-path scanning.",
+    "missingArtifacts": "Expected coordinated-study artifacts are reported even when an aborted world never produced them. Each plan pair requires one identity-matched report from its second arm; the first arm produces none."
+  },
+  "publicationReady": true,
+  "authoritativeMachinePathFindings": 0,
+  "externalEnvelopePathFindings": 0,
+  "fileCount": 18,
+  "originalBytes": 2697542,
+  "publicBytes": 2694346,
+  "completeness": {
+    "studyState": "aborted",
+    "stage": "fixed",
+    "sourceRevision": "9737054c9a0d7c84237439fe13ae36f704c0a43f",
+    "plannedWorlds": 16,
+    "missingStudyArtifacts": [],
+    "plannedPairs": 8,
+    "coveredPairs": 0,
+    "pairs": [
+      {
+        "pairId": "8b28180a697d42e59adc4d4e3ac86433",
+        "worldIds": [
+          "b0eda16037f844838a791ae344b6a5ac",
+          "bd5815ded8b54bc796ecf63f15571aa6"
+        ],
+        "issues": [
+          "The second arm has no pair-context.json report."
+        ],
+        "report": "02-bd5815ded8b54bc796ecf63f15571aa6/pair-context.json",
+        "covered": false
+      },
+      {
+        "pairId": "31fe1132ddb141e8b0fd016c47cf2bae",
+        "worldIds": [
+          "8e3d80c40dbe4d19920fd372e594c211",
+          "cedb141fd12e43a480dd7f50221cd294"
+        ],
+        "issues": [
+          "The second arm has no pair-context.json report."
+        ],
+        "report": "04-cedb141fd12e43a480dd7f50221cd294/pair-context.json",
+        "covered": false
+      },
+      {
+        "pairId": "f0bee3d3a74b4fc484a8208653f2f5cd",
+        "worldIds": [
+          "b7fda00124554384b4ea2a5484e19dd1",
+          "1d07d27f920d4ab1ab69c3bc43c8b8b1"
+        ],
+        "issues": [
+          "The second arm has no pair-context.json report."
+        ],
+        "report": "06-1d07d27f920d4ab1ab69c3bc43c8b8b1/pair-context.json",
+        "covered": false
+      },
+      {
+        "pairId": "d060b5491456428fb02af8b5dad1030a",
+        "worldIds": [
+          "127eb74b425e4f40b81fcf88eab27a27",
+          "320a2e09ad5a4d7fa0cc192c9b1f97de"
+        ],
+        "issues": [
+          "The second arm has no pair-context.json report."
+        ],
+        "report": "08-320a2e09ad5a4d7fa0cc192c9b1f97de/pair-context.json",
+        "covered": false
+      },
+      {
+        "pairId": "26baf474e8e84cbb8a3845ef0b62a64f",
+        "worldIds": [
+          "280d57fd8e8c4c9fa376f6b47215dd79",
+          "0d8a5d7a7010490bbe53959781996225"
+        ],
+        "issues": [
+          "The second arm has no pair-context.json report."
+        ],
+        "report": "10-0d8a5d7a7010490bbe53959781996225/pair-context.json",
+        "covered": false
+      },
+      {
+        "pairId": "0ad4027af08240f4bc49934160cc815e",
+        "worldIds": [
+          "62aa902d446f4f00b80da5c126f3d27a",
+          "de9f2877b3f14863bc3457e9d3f593c8"
+        ],
+        "issues": [
+          "The second arm has no pair-context.json report."
+        ],
+        "report": "12-de9f2877b3f14863bc3457e9d3f593c8/pair-context.json",
+        "covered": false
+      },
+      {
+        "pairId": "ef7288755fe24c3ebeb86a135d5c589c",
+        "worldIds": [
+          "8df1086c927b480383c72a7efcfa9b23",
+          "7504bb523e184a9e9cfc48cc284744e8"
+        ],
+        "issues": [
+          "The second arm has no pair-context.json report."
+        ],
+        "report": "14-7504bb523e184a9e9cfc48cc284744e8/pair-context.json",
+        "covered": false
+      },
+      {
+        "pairId": "3e6bcd371c9646c3b2fac5ddf85bee52",
+        "worldIds": [
+          "8b0b38a4b70848faa24c15897d50e928",
+          "eb2483e26ba14507948f096929e872a2"
+        ],
+        "issues": [
+          "The second arm has no pair-context.json report."
+        ],
+        "report": "16-eb2483e26ba14507948f096929e872a2/pair-context.json",
+        "covered": false
+      }
+    ],
+    "completedWorlds": 0,
+    "replayPassedWorlds": 0,
+    "worlds": [
+      {
+        "ordinal": 1,
+        "worldId": "b0eda16037f844838a791ae344b6a5ac",
+        "status": "host_failure",
+        "directory": "01-b0eda16037f844838a791ae344b6a5ac",
+        "missingWorldDirectory": false,
+        "missingArtifacts": [
+          "replay/manifest.json",
+          "replay/initial.json",
+          "replay/final.json"
+        ]
+      },
+      {
+        "ordinal": 2,
+        "worldId": "bd5815ded8b54bc796ecf63f15571aa6",
+        "status": "not_started",
+        "directory": "02-bd5815ded8b54bc796ecf63f15571aa6",
+        "missingWorldDirectory": true,
+        "missingArtifacts": [
+          "<world-directory>"
+        ]
+      },
+      {
+        "ordinal": 3,
+        "worldId": "8e3d80c40dbe4d19920fd372e594c211",
+        "status": "not_started",
+        "directory": "03-8e3d80c40dbe4d19920fd372e594c211",
+        "missingWorldDirectory": true,
+        "missingArtifacts": [
+          "<world-directory>"
+        ]
+      },
+      {
+        "ordinal": 4,
+        "worldId": "cedb141fd12e43a480dd7f50221cd294",
+        "status": "not_started",
+        "directory": "04-cedb141fd12e43a480dd7f50221cd294",
+        "missingWorldDirectory": true,
+        "missingArtifacts": [
+          "<world-directory>"
+        ]
+      },
+      {
+        "ordinal": 5,
+        "worldId": "b7fda00124554384b4ea2a5484e19dd1",
+        "status": "not_started",
+        "directory": "05-b7fda00124554384b4ea2a5484e19dd1",
+        "missingWorldDirectory": true,
+        "missingArtifacts": [
+          "<world-directory>"
+        ]
+      },
+      {
+        "ordinal": 6,
+        "worldId": "1d07d27f920d4ab1ab69c3bc43c8b8b1",
+        "status": "not_started",
+        "directory": "06-1d07d27f920d4ab1ab69c3bc43c8b8b1",
+        "missingWorldDirectory": true,
+        "missingArtifacts": [
+          "<world-directory>"
+        ]
+      },
+      {
+        "ordinal": 7,
+        "worldId": "127eb74b425e4f40b81fcf88eab27a27",
+        "status": "not_started",
+        "directory": "07-127eb74b425e4f40b81fcf88eab27a27",
+        "missingWorldDirectory": true,
+        "missingArtifacts": [
+          "<world-directory>"
+        ]
+      },
+      {
+        "ordinal": 8,
+        "worldId": "320a2e09ad5a4d7fa0cc192c9b1f97de",
+        "status": "not_started",
+        "directory": "08-320a2e09ad5a4d7fa0cc192c9b1f97de",
+        "missingWorldDirectory": true,
+        "missingArtifacts": [
+          "<world-directory>"
+        ]
+      },
+      {
+        "ordinal": 9,
+        "worldId": "280d57fd8e8c4c9fa376f6b47215dd79",
+        "status": "not_started",
+        "directory": "09-280d57fd8e8c4c9fa376f6b47215dd79",
+        "missingWorldDirectory": true,
+        "missingArtifacts": [
+          "<world-directory>"
+        ]
+      },
+      {
+        "ordinal": 10,
+        "worldId": "0d8a5d7a7010490bbe53959781996225",
+        "status": "not_started",
+        "directory": "10-0d8a5d7a7010490bbe53959781996225",
+        "missingWorldDirectory": true,
+        "missingArtifacts": [
+          "<world-directory>"
+        ]
+      },
+      {
+        "ordinal": 11,
+        "worldId": "62aa902d446f4f00b80da5c126f3d27a",
+        "status": "not_started",
+        "directory": "11-62aa902d446f4f00b80da5c126f3d27a",
+        "missingWorldDirectory": true,
+        "missingArtifacts": [
+          "<world-directory>"
+        ]
+      },
+      {
+        "ordinal": 12,
+        "worldId": "de9f2877b3f14863bc3457e9d3f593c8",
+        "status": "not_started",
+        "directory": "12-de9f2877b3f14863bc3457e9d3f593c8",
+        "missingWorldDirectory": true,
+        "missingArtifacts": [
+          "<world-directory>"
+        ]
+      },
+      {
+        "ordinal": 13,
+        "worldId": "8df1086c927b480383c72a7efcfa9b23",
+        "status": "not_started",
+        "directory": "13-8df1086c927b480383c72a7efcfa9b23",
+        "missingWorldDirectory": true,
+        "missingArtifacts": [
+          "<world-directory>"
+        ]
+      },
+      {
+        "ordinal": 14,
+        "worldId": "7504bb523e184a9e9cfc48cc284744e8",
+        "status": "not_started",
+        "directory": "14-7504bb523e184a9e9cfc48cc284744e8",
+        "missingWorldDirectory": true,
+        "missingArtifacts": [
+          "<world-directory>"
+        ]
+      },
+      {
+        "ordinal": 15,
+        "worldId": "8b0b38a4b70848faa24c15897d50e928",
+        "status": "not_started",
+        "directory": "15-8b0b38a4b70848faa24c15897d50e928",
+        "missingWorldDirectory": true,
+        "missingArtifacts": [
+          "<world-directory>"
+        ]
+      },
+      {
+        "ordinal": 16,
+        "worldId": "eb2483e26ba14507948f096929e872a2",
+        "status": "not_started",
+        "directory": "16-eb2483e26ba14507948f096929e872a2",
+        "missingWorldDirectory": true,
+        "missingArtifacts": [
+          "<world-directory>"
+        ]
+      }
+    ],
+    "completeForPlannedStudy": false
+  },
+  "files": [
+    {
+      "file": "01-b0eda16037f844838a791ae344b6a5ac/initial.json",
+      "authoritative": false,
+      "originalSha256": "a06ab7bcd300fe2cf228e17bdc4fd378551e99b0819c0e12aa1c5a6ee7afeb78",
+      "publicSha256": "a06ab7bcd300fe2cf228e17bdc4fd378551e99b0819c0e12aa1c5a6ee7afeb78",
+      "originalBytes": 33940,
+      "publicBytes": 33940,
+      "pathFindings": []
+    },
+    {
+      "file": "01-b0eda16037f844838a791ae344b6a5ac/initialized.json",
+      "authoritative": false,
+      "originalSha256": "9c04a24b1c0e3966ae4820c39e834dcd9677adfeed005040efbfb7426d50bf73",
+      "publicSha256": "80ce5682d4019f3e5743a678b38ca8cf6e1d39d548d5f9341c69fb8ebbdef7b1",
+      "originalBytes": 335,
+      "publicBytes": 203,
+      "pathFindings": [
+        {
+          "location": "/initialSnapshotPath",
+          "pathSha256": "279ba2aa2c0c7e5dd9f559910ddcddbceb0059cdf48a65220b684568c0d8d449",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/01-b0eda16037f844838a791ae344b6a5ac/initial.json"
+        }
+      ]
+    },
+    {
+      "file": "01-b0eda16037f844838a791ae344b6a5ac/options.json",
+      "authoritative": false,
+      "originalSha256": "69492ed9c4f4a1464034b3d7256bee94170ca7df98866dc574e3bf85df1b115d",
+      "publicSha256": "05139ee9613e79eba95b4f89ebed5b094854cac355fa2245e031949b8aa91966",
+      "originalBytes": 933,
+      "publicBytes": 786,
+      "pathFindings": [
+        {
+          "location": "/outputDirectory",
+          "pathSha256": "7a7b711f7e8f417fb2fada5069a4c33876b48cd327c74734975cb0d8ccbbaab8",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/01-b0eda16037f844838a791ae344b6a5ac"
+        }
+      ]
+    },
+    {
+      "file": "01-b0eda16037f844838a791ae344b6a5ac/package/checkpoint-origin.json",
+      "authoritative": true,
+      "originalSha256": "51dfcd8b006cb4e1a29c1c2a60ac0f049a0cd174fc2232aeb4e9c2c1bfe7ce90",
+      "publicSha256": "51dfcd8b006cb4e1a29c1c2a60ac0f049a0cd174fc2232aeb4e9c2c1bfe7ce90",
+      "originalBytes": 33961,
+      "publicBytes": 33961,
+      "pathFindings": []
+    },
+    {
+      "file": "01-b0eda16037f844838a791ae344b6a5ac/package/checkpoint-post_day1.json",
+      "authoritative": true,
+      "originalSha256": "18c6f8bd7dc33455614f66bda3d93bffeb49026b5f315ea0d8dcb0e3f0b7288d",
+      "publicSha256": "18c6f8bd7dc33455614f66bda3d93bffeb49026b5f315ea0d8dcb0e3f0b7288d",
+      "originalBytes": 39933,
+      "publicBytes": 39933,
+      "pathFindings": []
+    },
+    {
+      "file": "01-b0eda16037f844838a791ae344b6a5ac/package/final.json",
+      "authoritative": true,
+      "originalSha256": "44baa5bde8e6346762de5dffd99099f05275071e26d882d4f2efa5e49bc67033",
+      "publicSha256": "44baa5bde8e6346762de5dffd99099f05275071e26d882d4f2efa5e49bc67033",
+      "originalBytes": 40016,
+      "publicBytes": 40016,
+      "pathFindings": []
+    },
+    {
+      "file": "01-b0eda16037f844838a791ae344b6a5ac/package/initial.json",
+      "authoritative": true,
+      "originalSha256": "a06ab7bcd300fe2cf228e17bdc4fd378551e99b0819c0e12aa1c5a6ee7afeb78",
+      "publicSha256": "a06ab7bcd300fe2cf228e17bdc4fd378551e99b0819c0e12aa1c5a6ee7afeb78",
+      "originalBytes": 33940,
+      "publicBytes": 33940,
+      "pathFindings": []
+    },
+    {
+      "file": "01-b0eda16037f844838a791ae344b6a5ac/package/manifest.json",
+      "authoritative": true,
+      "originalSha256": "92ad1aa1cc75302fad585ae0dc6712788986289f60a34349e8a785617044cdbf",
+      "publicSha256": "92ad1aa1cc75302fad585ae0dc6712788986289f60a34349e8a785617044cdbf",
+      "originalBytes": 1076526,
+      "publicBytes": 1076526,
+      "pathFindings": []
+    },
+    {
+      "file": "01-b0eda16037f844838a791ae344b6a5ac/progress.json",
+      "authoritative": false,
+      "originalSha256": "8797cf8c60851b40514fd52fc2328120694ca8908c4d517633f7f380c492aa2e",
+      "publicSha256": "8797cf8c60851b40514fd52fc2328120694ca8908c4d517633f7f380c492aa2e",
+      "originalBytes": 1577,
+      "publicBytes": 1577,
+      "pathFindings": []
+    },
+    {
+      "file": "01-b0eda16037f844838a791ae344b6a5ac/result.json",
+      "authoritative": false,
+      "originalSha256": "8734ea4ae023785ea83dd26f6aaa4179718f80bfba97a41937878d97f01e4fc5",
+      "publicSha256": "04683a404952e752e1af218f87c75d2af7d58949fbad426048addb4baf115a37",
+      "originalBytes": 834,
+      "publicBytes": 676,
+      "pathFindings": [
+        {
+          "location": "/packageDirectory",
+          "pathSha256": "b97ed1e44d6370a0c980016db17249c5604824ecf2178104b65c752fe519e66b",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/01-b0eda16037f844838a791ae344b6a5ac/package"
+        }
+      ]
+    },
+    {
+      "file": "01-b0eda16037f844838a791ae344b6a5ac/speech.json",
+      "authoritative": false,
+      "originalSha256": "c1904b2d13cb63b62f97eebbcbaee1c9c0b3ddcfbb6444e10aa894624e0eec4b",
+      "publicSha256": "c1904b2d13cb63b62f97eebbcbaee1c9c0b3ddcfbb6444e10aa894624e0eec4b",
+      "originalBytes": 2128,
+      "publicBytes": 2128,
+      "pathFindings": []
+    },
+    {
+      "file": "01-b0eda16037f844838a791ae344b6a5ac/start.json",
+      "authoritative": false,
+      "originalSha256": "5d44010c4c9385fb9ac16c594791c5e14e1ba28c746c96ed4bd92f521076f203",
+      "publicSha256": "5d44010c4c9385fb9ac16c594791c5e14e1ba28c746c96ed4bd92f521076f203",
+      "originalBytes": 55,
+      "publicBytes": 55,
+      "pathFindings": []
+    },
+    {
+      "file": "01-b0eda16037f844838a791ae344b6a5ac/stop.json",
+      "authoritative": false,
+      "originalSha256": "629494a611f9801862fb020355e548f5733a3bd0c11f316e576f693674f76be1",
+      "publicSha256": "629494a611f9801862fb020355e548f5733a3bd0c11f316e576f693674f76be1",
+      "originalBytes": 104,
+      "publicBytes": 104,
+      "pathFindings": []
+    },
+    {
+      "file": "01-b0eda16037f844838a791ae344b6a5ac/timeline.jsonl",
+      "authoritative": false,
+      "originalSha256": "4ee3a0c07aa904d68a11fca13aaf0c89471f34035186b4b137c83d3261982132",
+      "publicSha256": "4ee3a0c07aa904d68a11fca13aaf0c89471f34035186b4b137c83d3261982132",
+      "originalBytes": 1410965,
+      "publicBytes": 1410965,
+      "pathFindings": []
+    },
+    {
+      "file": "active-world.json",
+      "authoritative": false,
+      "originalSha256": "83b2cec57669146ba67ba3dc7c1ae0349e45e3a7adeec7452c12d4aa9156b260",
+      "publicSha256": "1c6eda208c9967902260afb7879f3d9fc64bd90295c1917ebf917be140a46dc4",
+      "originalBytes": 274,
+      "publicBytes": 145,
+      "pathFindings": [
+        {
+          "location": "/optionsPath",
+          "pathSha256": "64f165cf1f826ab8d067aa4577ded2bcec4f8babaa12343b05c553adab16c4e7",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/01-b0eda16037f844838a791ae344b6a5ac/options.json"
+        }
+      ]
+    },
+    {
+      "file": "ledger.jsonl",
+      "authoritative": false,
+      "originalSha256": "2e1b4d6635e5ac4978a6be972ae313b9ec96171ddb762382fdb36c4cbf4e7ee8",
+      "publicSha256": "2e1b4d6635e5ac4978a6be972ae313b9ec96171ddb762382fdb36c4cbf4e7ee8",
+      "originalBytes": 641,
+      "publicBytes": 641,
+      "pathFindings": []
+    },
+    {
+      "file": "plan.json",
+      "authoritative": false,
+      "originalSha256": "3dda971da312298f76cabbfd791119b6a46f6b8d7eb81992b87991e9473026a1",
+      "publicSha256": "07bce6633183867ecfa4c8f01a65387cd6b56b17c90c8b7d82b938a3740cf647",
+      "originalBytes": 17711,
+      "publicBytes": 15328,
+      "pathFindings": [
+        {
+          "location": "/worlds/0/outputDirectory",
+          "pathSha256": "7a7b711f7e8f417fb2fada5069a4c33876b48cd327c74734975cb0d8ccbbaab8",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/01-b0eda16037f844838a791ae344b6a5ac"
+        },
+        {
+          "location": "/worlds/1/outputDirectory",
+          "pathSha256": "7594da463e3e674fff0616ed2fe0047cd91ca4437ccde12819638da23c0cfb1b",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/02-bd5815ded8b54bc796ecf63f15571aa6"
+        },
+        {
+          "location": "/worlds/2/outputDirectory",
+          "pathSha256": "600b9830e21c88e20024db5396cba9f176b6d259d0000da1ac2ca1633df447d2",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/03-8e3d80c40dbe4d19920fd372e594c211"
+        },
+        {
+          "location": "/worlds/3/outputDirectory",
+          "pathSha256": "f7ce0c63efb260af6c6a5d042eec1ff66ee014bd6a7cd481b0473682d7eb20bb",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/04-cedb141fd12e43a480dd7f50221cd294"
+        },
+        {
+          "location": "/worlds/4/outputDirectory",
+          "pathSha256": "1d24e4f2e8eec6b12a3956f714ce38ab4ebfe5d43d1fc45b3d919edb1e76ba6e",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/05-b7fda00124554384b4ea2a5484e19dd1"
+        },
+        {
+          "location": "/worlds/5/outputDirectory",
+          "pathSha256": "83a1e69b898815caad75d0efdff1860a74179f32acad608e70e3a711354d6fa2",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/06-1d07d27f920d4ab1ab69c3bc43c8b8b1"
+        },
+        {
+          "location": "/worlds/6/outputDirectory",
+          "pathSha256": "646894fb842c1a4adecadf0d23e28219e26012533bda4e63ede42251755ac236",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/07-127eb74b425e4f40b81fcf88eab27a27"
+        },
+        {
+          "location": "/worlds/7/outputDirectory",
+          "pathSha256": "32c1af6160e0a9645688bca37ba569d31e5393e1072b4d7d948a005dd70d367e",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/08-320a2e09ad5a4d7fa0cc192c9b1f97de"
+        },
+        {
+          "location": "/worlds/8/outputDirectory",
+          "pathSha256": "8d521ebe36be78cc4c1d17dd1be28c25fa3bf8a00804fe452e2c87d21c1c6270",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/09-280d57fd8e8c4c9fa376f6b47215dd79"
+        },
+        {
+          "location": "/worlds/9/outputDirectory",
+          "pathSha256": "42b378845809b7f02ab0df73befa320289738273a84808c77251d99a9a605407",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/10-0d8a5d7a7010490bbe53959781996225"
+        },
+        {
+          "location": "/worlds/10/outputDirectory",
+          "pathSha256": "46fd1ef82799c9995af5ed4d25cd4c8e43da4aaa5fa1639416655551be178e8a",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/11-62aa902d446f4f00b80da5c126f3d27a"
+        },
+        {
+          "location": "/worlds/11/outputDirectory",
+          "pathSha256": "98482adba6990c7119038f4676a5d039007dc3c43daf38f4e224d16d9668f09b",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/12-de9f2877b3f14863bc3457e9d3f593c8"
+        },
+        {
+          "location": "/worlds/12/outputDirectory",
+          "pathSha256": "5adc6ddb75b792582f9eaf62fe704da2c9d90461e7b837ecc4a1b427ef38c38b",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/13-8df1086c927b480383c72a7efcfa9b23"
+        },
+        {
+          "location": "/worlds/13/outputDirectory",
+          "pathSha256": "29c0c0b66f724ae99fa1d9c643a9ae480211e69aefc173e674c992b3182fd58e",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/14-7504bb523e184a9e9cfc48cc284744e8"
+        },
+        {
+          "location": "/worlds/14/outputDirectory",
+          "pathSha256": "f8778add5f36840831c4070275135cda414c77d922f1228a739cd9ef4c2f6e7e",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/15-8b0b38a4b70848faa24c15897d50e928"
+        },
+        {
+          "location": "/worlds/15/outputDirectory",
+          "pathSha256": "f62f77beb81ea9465319694beb0ddc0baa7b7335ece7fcf302339756ff557e47",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/16-eb2483e26ba14507948f096929e872a2"
+        }
+      ]
+    },
+    {
+      "file": "status.json",
+      "authoritative": false,
+      "originalSha256": "4b46434bc355f9acd32a3a36d84bc1b7047e611d4f13fb149fe9f1589b5b3de3",
+      "publicSha256": "3c16c2a28f3f50c2947ddea71dad7af1bf2902949387ca2c64f9c1cb16e044ff",
+      "originalBytes": 3669,
+      "publicBytes": 3422,
+      "pathFindings": [
+        {
+          "location": "/worlds/0/result/packageDirectory",
+          "pathSha256": "b97ed1e44d6370a0c980016db17249c5604824ecf2178104b65c752fe519e66b",
+          "strategy": "study_root_relative",
+          "publicValue": "<study-root>/01-b0eda16037f844838a791ae344b6a5ac/package"
+        }
+      ]
+    }
+  ],
+  "archiveBytes": 105181,
+  "archiveSha256": "6ebaa5cb384a239fecf8bc1f95c71e513cca56c78b87c22131e8659235d31c81"
+}

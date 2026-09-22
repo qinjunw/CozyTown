@@ -1,0 +1,7 @@
+{
+  "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs": "a62aa4314ec292cc293e1bc1549fc0337a1f5565d2900acb7d7a4f729598dffe",
+  "Assets/CozyTown/Runtime/NpcAgents/NpcLocalObservation.cs": "ee5cb85d106d47b1645c303d46e8130734ef9bbe5fd106a22c403a9a9c5e59df",
+  "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionOutcome.cs": "52e7cd05ee9dc095a6cfe483add13dfcb3eca08eb77f4ca5be8fd53c93bbe6ef",
+  "Assets/CozyTown/Tests/PlayMode/NpcMovingObservationPlayModeTests.cs": "ca7a069e524718b2b0133ee0d34b019b9c4ce5417769f3bd7e7e56ec40b704a7",
+  "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs": "27cc9a430b56c655f2cda5113f38d8bc6244c1abf7c346bba15a4c924ed31ff7"
+}

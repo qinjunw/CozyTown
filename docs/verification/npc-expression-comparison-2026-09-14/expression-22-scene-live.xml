@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-14 07:24:17Z" end-time="2026-09-14 07:26:17Z" duration="120.6934532">
+  <test-suite type="TestSuite" id="1258" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="195" result="Passed" start-time="2026-09-14 07:24:17Z" end-time="2026-09-14 07:26:17Z" duration="120.693453" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1251" name="CozyTown.Tests.PlayMode.dll" fullname="&lt;project-root&gt;/Logs/expression-publish-check/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="195" result="Passed" start-time="2026-09-14 07:24:17Z" end-time="2026-09-14 07:26:17Z" duration="120.685433" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="68040" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1252" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="195" result="Passed" start-time="2026-09-14 07:24:17Z" end-time="2026-09-14 07:26:17Z" duration="120.683046" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1253" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="195" result="Passed" start-time="2026-09-14 07:24:17Z" end-time="2026-09-14 07:26:17Z" duration="120.680964" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1254" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="195" result="Passed" start-time="2026-09-14 07:24:17Z" end-time="2026-09-14 07:26:17Z" duration="120.678871" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1125" name="NpcResourceScenarioPlayModeTests" fullname="CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests" classname="CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-09-14 07:24:17Z" end-time="2026-09-14 07:26:17Z" duration="120.675210" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1128" name="LiveProxy_ComparedExpressionModesAcrossFourFreshWorlds" fullname="CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_ComparedExpressionModesAcrossFourFreshWorlds" methodname="LiveProxy_ComparedExpressionModesAcrossFourFreshWorlds" classname="CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests" runstate="Runnable" seed="154955457" result="Passed" start-time="2026-09-14 07:24:17Z" end-time="2026-09-14 07:26:17Z" duration="120.662089" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Category" value="ExternalProvider" />
+                  <property name="Timeout" value="600000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: &lt;user-home&gt;/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

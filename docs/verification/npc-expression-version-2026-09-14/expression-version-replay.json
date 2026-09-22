@@ -1,0 +1,120 @@
+{
+  "realCalls": 0,
+  "unchangedFreePrompt": true,
+  "replays": [
+    {
+      "oldRequest": 2,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 3,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 6,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 11,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 15,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 17,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 21,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 25,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 28,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 29,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 32,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 34,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 35,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 38,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 39,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 42,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 43,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 46,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    },
+    {
+      "oldRequest": 47,
+      "candidateErrorCode": "candidate.schema_mismatch",
+      "attempts": 1,
+      "accepted": false
+    }
+  ]
+}

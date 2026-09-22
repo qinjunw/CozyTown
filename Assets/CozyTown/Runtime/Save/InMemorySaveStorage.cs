@@ -66,7 +66,7 @@ namespace CozyTown.Runtime.Save
                 snapshot.Characters,
                 snapshot.Shops,
                 farm,
-                livestock);
+                livestock, snapshot.FractionalMinute, snapshot.CompleteWorld, snapshot.SourceSchemaVersion);
         }
     }
 }

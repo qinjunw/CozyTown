@@ -1,0 +1,19 @@
+{
+  "mode": "production_resource_v4",
+  "startedAtUtc": "2026-09-13T08:12:23.663123+00:00",
+  "codeCommit": "1e538b84c8a0e18de50ec2a08fd1bc4515811fb2",
+  "maxCalls": 96,
+  "plannedTrials": 12,
+  "automaticRetries": 0,
+  "requestedModel": "deepseek-v4-flash",
+  "thinking": "disabled",
+  "maxOutputTokens": 512,
+  "providerTimeoutSeconds": 7,
+  "systemPromptSha256": "ac33dba894886b505ea03d5785fbc323e79a5f72a9ae1769d1d0a27a46465514",
+  "sourceSha256": {
+    "decision_proxy.py": "7692625bb4fe4e4ce31fcd0edc354efffa6927a0f8a18fed950c431ee38d7786",
+    "grounding_experiment.py": "fcbcc1727c1eeec23eb836c67fc12ef852311319d93f6fcd1aa405e187a91d48"
+  },
+  "captureRunnerSha256": "eb3eb010397a723062135ed54ed21e6cbe65bbc50c3858e0fc89dbda57605cae",
+  "instrumentation": "Default ProxyService receives the unmodified Unity request. Only the existing response-content recorder is reused; no A/B/C/D projection or filtering adapter is invoked."
+}

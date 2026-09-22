@@ -219,6 +219,19 @@ namespace CozyTown.Runtime.Economy
             return OperationResult.Success();
         }
 
+        public OperationResult CommitCharacters(CharacterEconomySnapshot first, CharacterEconomySnapshot second)
+        {
+            if (!IsValid(first) || !IsValid(second)) return OperationResult.Failure("economy.character_invalid");
+            if (first.CharacterId == second.CharacterId) return OperationResult.Failure("economy.characters_not_distinct");
+            if (!_characters.ContainsKey(first.CharacterId) || !_characters.ContainsKey(second.CharacterId))
+                return OperationResult.Failure("economy.character_unknown");
+            var firstCopy = Copy(first);
+            var secondCopy = Copy(second);
+            _characters[firstCopy.CharacterId] = firstCopy;
+            _characters[secondCopy.CharacterId] = secondCopy;
+            return OperationResult.Success();
+        }
+
         private bool IsValid(CharacterEconomySnapshot snapshot)
         {
             return snapshot != null

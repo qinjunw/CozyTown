@@ -32,16 +32,16 @@ namespace CozyTown.Unity.Lighting
             if (timeFlow == null) throw new ArgumentNullException(nameof(timeFlow));
             if (_profile == null || _ambientLight == null)
                 throw new InvalidOperationException("Lighting requires a profile and global light before binding time.");
-            if (_timeFlow != null) _timeFlow.Changed -= Apply;
+            if (_timeFlow != null) _timeFlow.PresentationChanged -= Apply;
             _timeFlow = timeFlow;
             Apply(_timeFlow.Current);
-            _timeFlow.Changed += Apply;
+            _timeFlow.PresentationChanged += Apply;
         }
 
         // Pause belongs to the shared clock. Explicit sleep/load still updates a disabled view.
         private void OnDestroy()
         {
-            if (_timeFlow != null) _timeFlow.Changed -= Apply;
+            if (_timeFlow != null) _timeFlow.PresentationChanged -= Apply;
         }
 
         private void Apply(WorldTimeProgress progress)

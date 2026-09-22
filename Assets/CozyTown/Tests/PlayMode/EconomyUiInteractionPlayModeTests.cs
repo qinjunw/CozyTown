@@ -169,7 +169,8 @@ namespace CozyTown.Tests.PlayMode
             yield return Click(ActiveButton("Gear Button"));
             yield return Click(ActiveButton("Load Button"));
             Assert.That(_hud.GetComponent<CozyTownSaveDebugView>().Feedback, Is.EqualTo("Game loaded."));
-            yield return Click(ActiveButton("Gear Button"));
+            Assert.That(_hud.GetComponent<CozyTownSystemMenuView>().IsVisible, Is.False);
+            Assert.That(_player.GetComponent<CozyTown.Unity.Player.PlayerModalInputGate2D>().IsAcquired, Is.False);
             Open(TownInteractionKind.Shop);
             Assert.That(shop.State.CharacterBalance, Is.EqualTo(coinsBeforeSale));
             Assert.That(shop.State.SaleItems.Single(item => item.ItemId == DefaultMvpIds.Items.GrilledFish).Quantity, Is.EqualTo(1));

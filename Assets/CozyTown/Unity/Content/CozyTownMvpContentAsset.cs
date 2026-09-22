@@ -25,6 +25,7 @@ namespace CozyTown.Unity.Content
         [SerializeField, TextArea] private string _fallbackDialogue =
             "It's a quiet day in town.";
         [SerializeField] private NpcRecord[] _npcs = Array.Empty<NpcRecord>();
+        [SerializeField] private NpcEconomyRecord[] _npcEconomy = Array.Empty<NpcEconomyRecord>();
         [SerializeField] private ItemRecord[] _items = Array.Empty<ItemRecord>();
         [SerializeField] private ShopOfferRecord[] _shopOffers =
             Array.Empty<ShopOfferRecord>();
@@ -55,7 +56,8 @@ namespace CozyTown.Unity.Content
                 Convert(_npcs, record => record?.ToDefinition()),
                 Convert(_shopRestockRules, record => record?.ToDefinition()),
                 defaults.StartingWorldSeed,
-                _startingShopBalance);
+                _startingShopBalance,
+                Convert(_npcEconomy, record => record?.ToSnapshot()));
             OperationResult validation = MvpContentValidator.Validate(configuration);
             if (!validation.IsSuccess)
             {
@@ -77,6 +79,7 @@ namespace CozyTown.Unity.Content
             asset._startingMinuteOfDay = configuration.StartingMinuteOfDay;
             asset._fallbackDialogue = configuration.FallbackDialogue;
             asset._npcs = configuration.Npcs.Select(NpcRecord.From).ToArray();
+            asset._npcEconomy = configuration.InitialNpcEconomy.Select(NpcEconomyRecord.From).ToArray();
             asset._items = configuration.Items.Select(ItemRecord.From).ToArray();
             asset._shopOffers = configuration.ShopOffers.Select(ShopOfferRecord.From).ToArray();
             asset._shopRestockRules = configuration.ShopRestockRules
@@ -98,6 +101,26 @@ namespace CozyTown.Unity.Content
             return source == null || source.Length == 0
                 ? Array.Empty<TDefinition>()
                 : source.Select(convert).ToArray();
+        }
+
+        [Serializable]
+        private sealed class NpcEconomyRecord
+        {
+            [SerializeField] private string _characterId = string.Empty;
+            [SerializeField, Min(0)] private int _balance;
+            [SerializeField] private OwnedItemRecord[] _items = Array.Empty<OwnedItemRecord>();
+            internal CharacterEconomySnapshot ToSnapshot() => new CharacterEconomySnapshot(_characterId,
+                new InventorySnapshot(Convert(_items, item => item == null ? default : new ItemStack(item._itemId, item._quantity))), new WalletSnapshot(_balance));
+            internal static NpcEconomyRecord From(CharacterEconomySnapshot snapshot) => new NpcEconomyRecord {
+                _characterId = snapshot.CharacterId, _balance = snapshot.Wallet.Balance,
+                _items = snapshot.Backpack.Items.Select(item => new OwnedItemRecord { _itemId = item.ItemId, _quantity = item.Quantity }).ToArray() };
+        }
+
+        [Serializable]
+        private sealed class OwnedItemRecord
+        {
+            public string _itemId;
+            public int _quantity;
         }
 
         [Serializable]

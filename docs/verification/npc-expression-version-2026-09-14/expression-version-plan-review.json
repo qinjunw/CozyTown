@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "reviewedAtUtc": "2026-09-14T08:14:01.185015+00:00",
+  "baseCommit": "900fe0ad1dc619dc289ffc443b2caba8bc1fed4c",
+  "reviewedFiles": {
+    "Tools/agent_proxy/decision_proxy.py": "6880052372f57c640f4ac144720a609ff1f34ee2846c19b58446b71472ad0d36",
+    "docs/verification/npc-expression-version-plan-2026-09-14.md": "9e039cec8fd33b3ca061ecb5c8b4b9bfbf624cf0f5bae8f1116e3abede22fd98",
+    "Tools/agent_proxy/expression_experiment.py": "7ac57ce4a305a4d236750dd58c5f4a7c94191ba812b4b0ec2b2efb108d5da304"
+  },
+  "scope": "Read-only S version guidance and fixed rerun plan audit. No tests, Unity, provider calls or credential reads.",
+  "checks": {
+    "pythonAstOutsideExpressionPromptsUnchanged": true,
+    "freeTextPromptByteContentUnchanged": true,
+    "structuredPromptContractAfterVersionGuidanceUnchanged": true,
+    "structuredPromptOldUtf8Bytes": 1995,
+    "structuredPromptNewUtf8Bytes": 2399,
+    "runtimeValidationAndBudgetAstUnchanged": true,
+    "planExplicitlyFixedOnly": true,
+    "planExplicitlyLimitsNewRunTo48": true,
+    "planAcknowledgesHistoricalNonConcurrentComparison": true,
+    "planDistinguishesVersionCorrectnessFromSemanticAcceptance": true,
+    "previousPublishedReportSupports19Of24SchemaMismatches": true
+  },
+  "blockingFindings": [],
+  "wordingNotes": [
+    {
+      "file": "docs/verification/npc-expression-version-plan-2026-09-14.md",
+      "line": 13,
+      "severity": "nonblocking",
+      "observation": "The reviewed plan says 48 new provider attempts, but the runner caps admitted decision requests at 48 before proxy validation. Pre-provider failure may yield fewer actual provider attempts.",
+      "recommendation": "State 48 preregistered samples and at most 48 new provider attempts; retain failures and report actual counts without replacement."
+    }
+  ],
+  "comparabilityLimits": [
+    "The S prompt grows by 404 UTF-8 bytes. Token usage and latency comparisons include this prompt-length change; no token count was estimated here.",
+    "New F/S contexts should match after removing expression.mode within this run. New world identities mean historical context bytes need not match.",
+    "A new F/S run without a simultaneous old-S arm cannot isolate the prompt edit as the sole cause of a measured change.",
+    "Fixed probes do not establish moving-world conversation stability or long-term zero error rates."
+  ],
+  "conclusion": "No blocking issue found in the reviewed production diff or the fixed-only experiment design. Model outcome remains unmeasured by this review."
+}

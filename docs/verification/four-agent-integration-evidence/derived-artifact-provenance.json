@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "files": [
+    {
+      "sourceFile": "live-final-summary.json",
+      "publicFile": "live-final-summary.json",
+      "originalSha256": "0b530739e7dfad50bde1caa29730cd588bc2836f777db960dd31960dba62e8cc",
+      "publicSha256": "46cf6c4b02aecb9eca0ff5a3aa94a698c3e48456f2431fd78378d0e05b4ef60c",
+      "transformation": "JSON formatting and LF newlines only; parsed values unchanged."
+    },
+    {
+      "sourceFile": "live-final-candidate-metrics.json",
+      "publicFile": "live-final-candidate-metrics.json",
+      "originalSha256": "bfb3422e637f88b268cae4a06040e99e5dd3b46a002532d9cbc0583cb6365d5b",
+      "publicSha256": "bfb3422e637f88b268cae4a06040e99e5dd3b46a002532d9cbc0583cb6365d5b",
+      "transformation": "JSON formatting and LF newlines only; parsed values unchanged."
+    },
+    {
+      "sourceFile": "live-final-speech-summary.json",
+      "publicFile": "live-final-speech-summary.json",
+      "originalSha256": "a81eeca44e1eb86154dacdab79a7c60b37810a95e247f8c8c38c844e5fd4684e",
+      "publicSha256": "a81eeca44e1eb86154dacdab79a7c60b37810a95e247f8c8c38c844e5fd4684e",
+      "transformation": "JSON formatting and LF newlines only; parsed values unchanged."
+    },
+    {
+      "sourceFile": "current-test-export/manifest.json",
+      "publicFile": "tests/current-manifest.json",
+      "originalSha256": "3b41799736cb2f2c3111e35fe6cc8393fc7d8e8492f30df29cad86f63ce6b52a",
+      "publicSha256": "640918133749894ac9764f1a6493d8682f4cd4ba6f98209fab2cb318e78321cb",
+      "transformation": "JSON formatting and LF newlines only; parsed values unchanged."
+    }
+  ]
+}

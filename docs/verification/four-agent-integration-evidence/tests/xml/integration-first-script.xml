@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='utf-8'?>
+<test-run id="2" testcasecount="4" result="Failed(Child)" total="4" passed="0" failed="4" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 16:34:20Z" end-time="2026-09-19 16:34:23Z" duration="2.6840999">
+  <test-suite type="TestSuite" id="1387" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="296" result="Failed" site="Child" start-time="2026-09-19 16:34:20Z" end-time="2026-09-19 16:34:23Z" duration="2.684100" total="4" passed="0" failed="4" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message>One or more child tests had errors</message>
+    </failure>
+    <test-suite type="Assembly" id="1380" name="CozyTown.Tests.PlayMode.dll" fullname="&lt;project-root&gt;/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="296" result="Failed" site="Child" start-time="2026-09-19 16:34:20Z" end-time="2026-09-19 16:34:23Z" duration="2.662872" total="4" passed="0" failed="4" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="114024" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message>One or more child tests had errors</message>
+      </failure>
+      <test-suite type="TestSuite" id="1381" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="296" result="Failed" site="Child" start-time="2026-09-19 16:34:20Z" end-time="2026-09-19 16:34:23Z" duration="2.655240" total="4" passed="0" failed="4" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message>One or more child tests had errors</message>
+        </failure>
+        <test-suite type="TestSuite" id="1382" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="296" result="Failed" site="Child" start-time="2026-09-19 16:34:20Z" end-time="2026-09-19 16:34:23Z" duration="2.649076" total="4" passed="0" failed="4" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message>One or more child tests had errors</message>
+          </failure>
+          <test-suite type="TestSuite" id="1383" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="296" result="Failed" site="Child" start-time="2026-09-19 16:34:20Z" end-time="2026-09-19 16:34:23Z" duration="2.643216" total="4" passed="0" failed="4" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message>One or more child tests had errors</message>
+            </failure>
+            <test-suite type="TestFixture" id="1014" name="AgentExperimentSpeechEvidencePlayModeTests" fullname="CozyTown.Tests.PlayMode.AgentExperimentSpeechEvidencePlayModeTests" classname="CozyTown.Tests.PlayMode.AgentExperimentSpeechEvidencePlayModeTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-09-19 16:34:20Z" end-time="2026-09-19 16:34:22Z" duration="1.455859" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message>One or more child tests had errors</message>
+              </failure>
+              <test-case id="1015" name="FreeTextEvidence_UsesCommittedTextAndKeepsMissingRowsAfterLoad" fullname="CozyTown.Tests.PlayMode.AgentExperimentSpeechEvidencePlayModeTests.FreeTextEvidence_UsesCommittedTextAndKeepsMissingRowsAfterLoad" methodname="FreeTextEvidence_UsesCommittedTextAndKeepsMissingRowsAfterLoad" classname="CozyTown.Tests.PlayMode.AgentExperimentSpeechEvidencePlayModeTests" runstate="Runnable" seed="1402182274" result="Failed" label="Error" start-time="2026-09-19 16:34:20Z" end-time="2026-09-19 16:34:21Z" duration="1.241438" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                  <stack-trace>  at CozyTown.Tests.PlayMode.AgentExperimentSpeechEvidencePlayModeTests+&lt;CheckCommittedEvidence&gt;d__6.MoveNext () [0x001f2] in &lt;project-root&gt;\Assets\CozyTown\Tests\PlayMode\AgentExperimentSpeechEvidencePlayModeTests.cs:62 
+  at UnityEngine.TestTools.TestEnumerator+&lt;Execute&gt;d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 </stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1016" name="StructuredEvidence_UsesCommittedTextAndKeepsMissingRowsAfterLoad" fullname="CozyTown.Tests.PlayMode.AgentExperimentSpeechEvidencePlayModeTests.StructuredEvidence_UsesCommittedTextAndKeepsMissingRowsAfterLoad" methodname="StructuredEvidence_UsesCommittedTextAndKeepsMissingRowsAfterLoad" classname="CozyTown.Tests.PlayMode.AgentExperimentSpeechEvidencePlayModeTests" runstate="Runnable" seed="688401528" result="Failed" label="Error" start-time="2026-09-19 16:34:21Z" end-time="2026-09-19 16:34:22Z" duration="0.186228" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message>System.NotImplementedException : The method or operation is not implemented.</message>
+                  <stack-trace>  at CozyTown.Tests.PlayMode.AgentExperimentSpeechEvidencePlayModeTests+&lt;CheckCommittedEvidence&gt;d__6.MoveNext () [0x001f2] in &lt;project-root&gt;\Assets\CozyTown\Tests\PlayMode\AgentExperimentSpeechEvidencePlayModeTests.cs:62 
+  at UnityEngine.TestTools.TestEnumerator+&lt;Execute&gt;d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 </stack-trace>
+                </failure>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1017" name="AgentIntegrationMatrixPlayModeTests" fullname="CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests" classname="CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-09-19 16:34:22Z" end-time="2026-09-19 16:34:22Z" duration="0.743846" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message>One or more child tests had errors</message>
+              </failure>
+              <test-case id="1018" name="FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld" fullname="CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld" methodname="FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld" classname="CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests" runstate="Runnable" seed="102396403" result="Failed" start-time="2026-09-19 16:34:22Z" end-time="2026-09-19 16:34:22Z" duration="0.740873" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message>  无法删除要被替换的文件。
+  Expected string length 9 but was 12. Strings differ at index 0.
+  Expected: "completed"
+  But was:  "host_failure"
+  -----------^
+</message>
+                  <stack-trace>at CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests+&lt;FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld&gt;d__15.MoveNext () [0x00204] in &lt;project-root&gt;\Assets\CozyTown\Tests\PlayMode\AgentIntegrationMatrixPlayModeTests.cs:110
+at UnityEngine.TestTools.TestEnumerator+&lt;Execute&gt;d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+</stack-trace>
+                </failure>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1020" name="AgentIntegrationSnapshotPlayModeTests" fullname="CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests" classname="CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-19 16:34:22Z" end-time="2026-09-19 16:34:23Z" duration="0.406223" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message>One or more child tests had errors</message>
+              </failure>
+              <test-case id="1021" name="FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay" fullname="CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay" methodname="FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay" classname="CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests" runstate="Runnable" seed="1514637604" result="Failed" start-time="2026-09-19 16:34:22Z" end-time="2026-09-19 16:34:23Z" duration="0.403711" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message>  Expected: not equal to 6f7f9bbe-2d8c-44f0-9c34-af015549e05e
+  But was:  6f7f9bbe-2d8c-44f0-9c34-af015549e05e
+</message>
+                  <stack-trace>at CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests+&lt;FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay&gt;d__6.MoveNext () [0x0032d] in &lt;project-root&gt;\Assets\CozyTown\Tests\PlayMode\AgentIntegrationSnapshotPlayModeTests.cs:80
+at UnityEngine.TestTools.TestEnumerator+&lt;Execute&gt;d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+</stack-trace>
+                </failure>
+                <output>Second-day outcomes:
+npc.farmer_eli game=2130 real=314.5-&gt;315 social= reply=Wait code=agent.observation_stale calls=1
+npc.shopkeeper_mina game=2160 real=329.5-&gt;330 social=Opportunity reply=Invite code=agent.observation_stale calls=1
+npc.fisher_ren game=2175 real=337-&gt;337.5 social= reply=Wait code=agent.observation_stale calls=1
+npc.cook_sora game=2220 real=359.5-&gt;360 social= reply=Wait code=agent.observation_stale calls=1
+Offered days: mina-eli-main-road-chat=1440,sora-ren-fish-supply=0
+Saving results to: &lt;user-home&gt;/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+</output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

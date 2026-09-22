@@ -1,0 +1,34 @@
+{
+  "sourceHashes": [
+    {
+      "path": "Assets/CozyTown/Unity/Experiments/AgentExperimentLauncher.cs",
+      "sha256": "E7FA8D9550DEC0952DBF4EA8375671393C174610E1D31FBC26B5602DF2335562"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Experiments/AgentExperimentSession.cs",
+      "sha256": "4539E5C0C5133488B59F46F19027E317A10B260B24C15C72BF92E2E188191973"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/UnityEditMode/AgentExperimentMotionTests.cs",
+      "sha256": "510182AE026A88BA87DD98E0FE5C4E451D61356D3214C40705061045645734D4"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/AgentExperimentSessionPlayModeTests.cs",
+      "sha256": "EFCD14441EDAB2A661F31EEA2C9173436214993926A2BDEF844447BF3E347E18"
+    }
+  ],
+  "platform": "EditMode",
+  "utc": "2026-09-20T11:26:54.8513034Z",
+  "filter": "CozyTown.Tests.UnityEditMode.AgentExperimentMotionTests",
+  "providerEnvironment": "COZYTOWN* cleared",
+  "status": [
+    " M Assets/CozyTown/Unity/Experiments/AgentExperimentLauncher.cs",
+    " M Assets/CozyTown/Unity/Experiments/AgentExperimentSession.cs",
+    " M ProjectSettings/ProjectSettings.asset",
+    "?? Assets/CozyTown/Tests/UnityEditMode/AgentExperimentMotionTests.cs",
+    "?? Assets/CozyTown/Tests/UnityEditMode/AgentExperimentMotionTests.cs.meta",
+    "?? ProjectSettings/SceneTemplateSettings.json",
+    "?? docs/verification/agent-motion-plan-2026-09-20.md"
+  ],
+  "head": "89dd83718fa90c9d35e90d246e2e06dfb9fe5c14"
+}

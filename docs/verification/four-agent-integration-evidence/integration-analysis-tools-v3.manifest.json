@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "archive": "integration-analysis-tools-v3.zip",
+  "archiveBytes": 50842,
+  "archiveSha256": "1becc0a3aab5293b63a2a8095b716da7c953b6acb9259eb3af3a56311f997ad2",
+  "transformation": "None; all selected files retain their exact bytes, including original line endings.",
+  "files": [
+    {
+      "file": "SPEECH_REVIEW_TOOLS.md",
+      "bytes": 5185,
+      "sha256": "8b4a3033c5b4d11dbcff7369b9133c810e42a8b963afe7794ee8e330c299ef87"
+    },
+    {
+      "file": "aggregate_speech_reviews.py",
+      "bytes": 15408,
+      "sha256": "a6ea82be62bb9ad69ece660b3f40a5709ddbe883c012a4b5e38905461e25e470"
+    },
+    {
+      "file": "archive_integration.py",
+      "bytes": 16498,
+      "sha256": "beb4e0925d8f1a10568ec12138f8ba78b2d253f2f806336cca6984f84a86e4f7"
+    },
+    {
+      "file": "audit_candidate_first8_v3.py",
+      "bytes": 5383,
+      "sha256": "2cc0832645838c1cfe2ab863618131293abb26a9b3adff924d3b772c2fb379cf"
+    },
+    {
+      "file": "build_speech_review_pack.py",
+      "bytes": 11471,
+      "sha256": "01254aeb30d0a6d366d96e78225cfc07d021b265e4ba141c98f75a50f6a18644"
+    },
+    {
+      "file": "integration-analysis-tools-freeze-v3.json",
+      "bytes": 1644,
+      "sha256": "aa6d5775b7c3afebb9a7b8b02655fa924c9b7a4546d9da10bf89d3809a36961d"
+    },
+    {
+      "file": "make_review_batch.py",
+      "bytes": 8563,
+      "sha256": "3d8415bfad4773506e6a9375c61de114d6aae73ab9358aca93e0ecddc95a3505"
+    },
+    {
+      "file": "summarize_candidate_latency.py",
+      "bytes": 32152,
+      "sha256": "1d42c640f9fe1cdacbedfad6d12a41746aa02f438b83da8dbc326ce5b1dad7be"
+    },
+    {
+      "file": "summarize_integration.py",
+      "bytes": 21754,
+      "sha256": "63f4e160977e4bae34fba2e9c90ec3f9ff5160794182434144a2dd64a5b66db7"
+    },
+    {
+      "file": "test_candidate_metric_audit.py",
+      "bytes": 18939,
+      "sha256": "64e73438ab6bcaafdce1dc4fac44250f2d6ac02da9673b6bba9735664574fc56"
+    },
+    {
+      "file": "test_npc_context_summary.py",
+      "bytes": 7043,
+      "sha256": "049de3ae1939dad13b2285c00d69bc195ae92abec806c6faa341d4809c7d8b82"
+    },
+    {
+      "file": "test_speech_review_tools.py",
+      "bytes": 15294,
+      "sha256": "530f3be9f0cd2c8d63068f2e2a72aa6fbc8229b4c8b746df6fc46efac7343fb2"
+    },
+    {
+      "file": "validate_speech_reviews.py",
+      "bytes": 13839,
+      "sha256": "4dde0d2ed1300edaef6e3f634781666ab2579998e625b45ad382280a08890447"
+    }
+  ]
+}

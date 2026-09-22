@@ -1,0 +1,36 @@
+{
+  "codec": {
+    "originalXmlSha256": "2cacf7b5b822d7bce272ffa27ba31ca2e8ae6c43ba3c040ef893c499cb9b49f8",
+    "result": "Passed",
+    "total": "64",
+    "passed": "64",
+    "failed": "0",
+    "skipped": "0",
+    "duration": "0.341744"
+  },
+  "fixedLive": {
+    "originalXmlSha256": "8e3e66cacf84b619c974db8878b823cd0d0926c51d1ad10b7fe71e161894d75f",
+    "result": "Passed",
+    "total": "1",
+    "passed": "1",
+    "failed": "0",
+    "skipped": "0",
+    "duration": "55.9097886"
+  },
+  "python": {
+    "passed": 60,
+    "failed": 0,
+    "logSha256": "a545de0322721f7cf0d75aa4912fd0f40b221ba85a794af412ee4aed11f928a9",
+    "realProviderCalls": 0,
+    "countingNote": "Call counters printed inside unit tests belong to fake transports, not real API use."
+  },
+  "historicalFailureReplay": {
+    "cases": 19,
+    "schemaMismatchRejected": 19,
+    "realProviderCalls": 0,
+    "evidence": "expression-version-replay.json"
+  },
+  "sourceCommit": "96a208dbaac4a412789c662a371580b121da778a",
+  "xmlPublicationTransform": "Machine-specific project and user-home path prefixes replaced by escaped placeholders; original hashes retained.",
+  "isolation": "Existing isolated expression checkout; 41 recorded C# source files and corpus match the previous freeze and this branch. C# unchanged this turn. Historical full EditMode/PlayMode results are not counted as new runs."
+}

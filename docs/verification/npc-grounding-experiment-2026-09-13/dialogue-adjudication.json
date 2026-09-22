@@ -1,0 +1,487 @@
+{
+  "method": "Two Codex reviewers independently annotated 40 shuffled fixed-request utterances without arm labels, then agreed on differences before aggregating by arm. This is not human validation or an infallible semantic oracle.",
+  "rubric": "Unsupported current world, resource quality/source, observation experience or completed-action claims are flagged; wishes, questions, preferences and future plans remain allowed. Ambiguous implications are reported separately. Contradictions are a subset of unsupportedFact.",
+  "adjudication": "Accept the location finding for speech-04; use conservative ambiguity for 05/12/13/18; future herb cooking in 14/35 does not assert current stock. Both original reviews are retained for sensitivity inspection.",
+  "differences": [
+    {
+      "id": "speech-04",
+      "primary": {
+        "id": "speech-04",
+        "unsupportedFact": false,
+        "contradiction": false,
+        "uncertain": false,
+        "reason": "主观赞美、问题、愿望或未来意图，不判为当前资源或已完成生产事实。"
+      },
+      "independent": {
+        "id": "speech-04",
+        "unsupportedFact": true,
+        "contradiction": false,
+        "uncertain": false,
+        "reason": "交付有据，但把west lane说成Ren已经送达的地点；目标地点不能证明实际送达位置。"
+      },
+      "adjudicated": {
+        "id": "speech-04",
+        "unsupportedFact": true,
+        "contradiction": false,
+        "uncertain": false,
+        "reason": "交付有据，但把west lane说成Ren已经送达的地点；目标地点不能证明实际送达位置。"
+      }
+    },
+    {
+      "id": "speech-05",
+      "primary": {
+        "id": "speech-05",
+        "unsupportedFact": true,
+        "contradiction": false,
+        "uncertain": false,
+        "reason": "将当前鱼称为新鲜的池鱼，未提供品质或来源记录。"
+      },
+      "independent": {
+        "id": "speech-05",
+        "unsupportedFact": false,
+        "contradiction": false,
+        "uncertain": true,
+        "reason": "Fresh pond fish暗指本次鱼的新鲜度及池塘来源，也可读作泛指理想食材；没有明确品质或捕获记录。"
+      },
+      "adjudicated": {
+        "id": "speech-05",
+        "unsupportedFact": false,
+        "contradiction": false,
+        "uncertain": true,
+        "reason": "Fresh pond fish暗指本次鱼的新鲜度及池塘来源，也可读作泛指理想食材；没有明确品质或捕获记录。"
+      }
+    },
+    {
+      "id": "speech-12",
+      "primary": {
+        "id": "speech-12",
+        "unsupportedFact": true,
+        "contradiction": false,
+        "uncertain": false,
+        "reason": "声称今天正在试验菜谱，缺少活动或生产记录。"
+      },
+      "independent": {
+        "id": "speech-12",
+        "unsupportedFact": false,
+        "contradiction": false,
+        "uncertain": true,
+        "reason": "I'm testing recipes today可指正在试菜，也可指当日计划，无法确定已发生行动；交易及配方提问本身无冲突。"
+      },
+      "adjudicated": {
+        "id": "speech-12",
+        "unsupportedFact": false,
+        "contradiction": false,
+        "uncertain": true,
+        "reason": "I'm testing recipes today可指正在试菜，也可指当日计划，无法确定已发生行动；交易及配方提问本身无冲突。"
+      }
+    },
+    {
+      "id": "speech-13",
+      "primary": {
+        "id": "speech-13",
+        "unsupportedFact": true,
+        "contradiction": false,
+        "uncertain": false,
+        "reason": "把拿到的鱼称为新鲜，品质未提供。"
+      },
+      "independent": {
+        "id": "speech-13",
+        "unsupportedFact": false,
+        "contradiction": false,
+        "uncertain": true,
+        "reason": "Fresh fish is exactly what I needed可表达食材偏好，也可能暗指刚收到的鱼很新鲜；后续料理与交流均是意图。"
+      },
+      "adjudicated": {
+        "id": "speech-13",
+        "unsupportedFact": false,
+        "contradiction": false,
+        "uncertain": true,
+        "reason": "Fresh fish is exactly what I needed可表达食材偏好，也可能暗指刚收到的鱼很新鲜；后续料理与交流均是意图。"
+      }
+    },
+    {
+      "id": "speech-14",
+      "primary": {
+        "id": "speech-14",
+        "unsupportedFact": true,
+        "contradiction": false,
+        "uncertain": false,
+        "reason": "断言到手的鱼新鲜；未来加香草的意图本身不判为已完成。"
+      },
+      "independent": {
+        "id": "speech-14",
+        "unsupportedFact": true,
+        "contradiction": false,
+        "uncertain": true,
+        "reason": "carp's arrived fresh明确断言新鲜度，缺乏记录；未来搭配local herbs另暗含食材可得性，单列不确定。"
+      },
+      "adjudicated": {
+        "id": "speech-14",
+        "unsupportedFact": true,
+        "contradiction": false,
+        "uncertain": false,
+        "reason": "明确断言本次鱼新鲜，缺乏品质记录；未来搭配草药属于料理意图，不另判为当前资源可用性断言。"
+      }
+    },
+    {
+      "id": "speech-18",
+      "primary": {
+        "id": "speech-18",
+        "unsupportedFact": true,
+        "contradiction": false,
+        "uncertain": false,
+        "reason": "比喻仍以今早池塘安静为事实。"
+      },
+      "independent": {
+        "id": "speech-18",
+        "unsupportedFact": false,
+        "contradiction": false,
+        "uncertain": true,
+        "reason": "quiet as the pond this morning是比喻，也可能暗含今早池塘安静的事实；未明确说明这是一条实际观察。"
+      },
+      "adjudicated": {
+        "id": "speech-18",
+        "unsupportedFact": false,
+        "contradiction": false,
+        "uncertain": true,
+        "reason": "quiet as the pond this morning是比喻，也可能暗含今早池塘安静的事实；未明确说明这是一条实际观察。"
+      }
+    },
+    {
+      "id": "speech-35",
+      "primary": {
+        "id": "speech-35",
+        "unsupportedFact": true,
+        "contradiction": false,
+        "uncertain": false,
+        "reason": "断言收到的是新鲜鲤鱼；未来料理意图不计为已完成。"
+      },
+      "independent": {
+        "id": "speech-35",
+        "unsupportedFact": true,
+        "contradiction": false,
+        "uncertain": true,
+        "reason": "one fresh carp received明确增加未经支持的新鲜度；未来使用local herbs另暗含可得性，列为不确定。"
+      },
+      "adjudicated": {
+        "id": "speech-35",
+        "unsupportedFact": true,
+        "contradiction": false,
+        "uncertain": false,
+        "reason": "明确断言本次鱼新鲜，缺乏品质记录；未来搭配草药属于料理意图，不另判为当前资源可用性断言。"
+      }
+    }
+  ],
+  "annotations": [
+    {
+      "id": "speech-01",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "直接声称池塘整个中午很安静；没有对应环境观察，交付本身有收据支持。"
+    },
+    {
+      "id": "speech-02",
+      "unsupportedFact": false,
+      "contradiction": false,
+      "uncertain": true,
+      "reason": "looks perfect可能只是主观赞美，也可能暗指鱼的外观品质；煮炖是未来意图，未声称已完成。"
+    },
+    {
+      "id": "speech-03",
+      "unsupportedFact": false,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "交付有据；pondside stew是未来料理意图，午餐评价与约13:08的时间没有明确冲突。"
+    },
+    {
+      "id": "speech-04",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "交付有据，但把west lane说成Ren已经送达的地点；目标地点不能证明实际送达位置。"
+    },
+    {
+      "id": "speech-05",
+      "unsupportedFact": false,
+      "contradiction": false,
+      "uncertain": true,
+      "reason": "Fresh pond fish暗指本次鱼的新鲜度及池塘来源，也可读作泛指理想食材；没有明确品质或捕获记录。"
+    },
+    {
+      "id": "speech-06",
+      "unsupportedFact": false,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "鱼与价款已交换有收据支持；在池塘料理是未来意图，未断言已经烹饪。"
+    },
+    {
+      "id": "speech-07",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "直接声称鱼新鲜、池塘今天安静；两项均没有品质或环境记录支持。"
+    },
+    {
+      "id": "speech-08",
+      "unsupportedFact": false,
+      "contradiction": false,
+      "uncertain": true,
+      "reason": "beautiful可能是主观赞美，也可能暗指外观观察；清洗和生火均为未来意图。"
+    },
+    {
+      "id": "speech-09",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "直接断言池塘今早平静，缺乏环境观察；收鱼与料理提问不构成新增事实错误。"
+    },
+    {
+      "id": "speech-10",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "交付和收款有据；池塘今天安静是无依据的环境断言。"
+    },
+    {
+      "id": "speech-11",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "直接声称今天鱼很好钓、本次鱼新鲜；缺乏鱼情观察和新鲜度记录。"
+    },
+    {
+      "id": "speech-12",
+      "unsupportedFact": false,
+      "contradiction": false,
+      "uncertain": true,
+      "reason": "I'm testing recipes today可指正在试菜，也可指当日计划，无法确定已发生行动；交易及配方提问本身无冲突。"
+    },
+    {
+      "id": "speech-13",
+      "unsupportedFact": false,
+      "contradiction": false,
+      "uncertain": true,
+      "reason": "Fresh fish is exactly what I needed可表达食材偏好，也可能暗指刚收到的鱼很新鲜；后续料理与交流均是意图。"
+    },
+    {
+      "id": "speech-14",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "明确断言本次鱼新鲜，缺乏品质记录；未来搭配草药属于料理意图，不另判为当前资源可用性断言。"
+    },
+    {
+      "id": "speech-15",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "Fresh fish like this明确把本次鱼描述为新鲜，收据不支持品质；一起料理是未来提议。"
+    },
+    {
+      "id": "speech-16",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "25金币和交付状态符合记录；池塘今天平静没有观察依据。"
+    },
+    {
+      "id": "speech-17",
+      "unsupportedFact": false,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "交付确认符合收据；询问可料理的菜品没有声称生产已经发生。"
+    },
+    {
+      "id": "speech-18",
+      "unsupportedFact": false,
+      "contradiction": false,
+      "uncertain": true,
+      "reason": "quiet as the pond this morning是比喻，也可能暗含今早池塘安静的事实；未明确说明这是一条实际观察。"
+    },
+    {
+      "id": "speech-19",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "明确说收到的鱼perfectly fresh，缺乏品质记录；炖汤构想和汤底提问属于意图与问题。"
+    },
+    {
+      "id": "speech-20",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "Pond's been calm all day直接断言全天池塘状态，没有环境观察支持。"
+    },
+    {
+      "id": "speech-21",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "直接声称黎明在芦苇旁看见涟漪，缺乏该地点对象与观察经历的依据。"
+    },
+    {
+      "id": "speech-22",
+      "unsupportedFact": false,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "交付及结算有据；craving a fresh catch表达个人愿望，后续是交流邀请。"
+    },
+    {
+      "id": "speech-23",
+      "unsupportedFact": false,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "收到鱼有据；想尝试构想中的炖菜属于个人构想与未来意图。"
+    },
+    {
+      "id": "speech-24",
+      "unsupportedFact": true,
+      "contradiction": true,
+      "uncertain": false,
+      "reason": "浅滩鱼群游动缓慢没有观察依据；把本次鱼说成稍后送达，与resource.delivered的已交付状态冲突。"
+    },
+    {
+      "id": "speech-25",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "It's fresh明确断言本次鱼的新鲜度，没有品质记录；未来再见不表示已建立预约。"
+    },
+    {
+      "id": "speech-26",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "交付收款有据；池塘今天平静是无依据断言，稍后休息属于意图。"
+    },
+    {
+      "id": "speech-27",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "交付结算有据；池塘今天平静没有观察支持，结束后返回是条件性意图。"
+    },
+    {
+      "id": "speech-28",
+      "unsupportedFact": false,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "收到鱼及支付25符合记录；将来炖菜的评价是料理设想，没有声称已完成。"
+    },
+    {
+      "id": "speech-29",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "交付和25金币符合记录；the water's been quiet today缺乏环境观察依据。"
+    },
+    {
+      "id": "speech-30",
+      "unsupportedFact": false,
+      "contradiction": false,
+      "uncertain": true,
+      "reason": "适合炖菜属于个人评价；any more fresh catches是提问，但more可能暗含本次鱼也是新鲜捕获物。"
+    },
+    {
+      "id": "speech-31",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "直接声称池塘今天平静，没有观察支持；后续需求提问不构成事实断言。"
+    },
+    {
+      "id": "speech-32",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "声称池塘今天安静并亲眼看见东岸芦苇摇动；没有环境对象或观察经历支持。"
+    },
+    {
+      "id": "speech-33",
+      "unsupportedFact": false,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "perfect for表达用途评价，fresh修饰设想的炖菜，并未明确断言当前鱼品质或已完成烹饪。"
+    },
+    {
+      "id": "speech-34",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "交付结算符合记录；池塘今天平静是无依据环境断言。"
+    },
+    {
+      "id": "speech-35",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "明确断言本次鱼新鲜，缺乏品质记录；未来搭配草药属于料理意图，不另判为当前资源可用性断言。"
+    },
+    {
+      "id": "speech-36",
+      "unsupportedFact": false,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "交付与结算有据；I'll get cooking soon仅表达未来料理意图。"
+    },
+    {
+      "id": "speech-37",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "今天鱼很好钓、鱼今早来自池塘且新鲜均无观察或捕获记录支持。"
+    },
+    {
+      "id": "speech-38",
+      "unsupportedFact": false,
+      "contradiction": false,
+      "uncertain": true,
+      "reason": "pond's small changes still reach your pot是修辞，也可能暗指鱼的池塘来源或已经入锅；收据仅证明交换，不能确定该隐含含义。"
+    },
+    {
+      "id": "speech-39",
+      "unsupportedFact": true,
+      "contradiction": true,
+      "uncertain": false,
+      "reason": "约13:10却以Morning问候，时间冲突；今天鱼很好钓没有环境记录支持。"
+    },
+    {
+      "id": "speech-40",
+      "unsupportedFact": true,
+      "contradiction": false,
+      "uncertain": false,
+      "reason": "交付有收据支持；池塘今天平静没有环境观察依据，继续留意水面是未来意图。"
+    }
+  ],
+  "perArm": {
+    "A": {
+      "utterances": 10,
+      "unsupportedFact": 5,
+      "contradiction": 2,
+      "uncertain": 4,
+      "noFlag": 1
+    },
+    "B": {
+      "utterances": 10,
+      "unsupportedFact": 5,
+      "contradiction": 0,
+      "uncertain": 0,
+      "noFlag": 5
+    },
+    "C": {
+      "utterances": 10,
+      "unsupportedFact": 7,
+      "contradiction": 0,
+      "uncertain": 3,
+      "noFlag": 0
+    },
+    "D": {
+      "utterances": 10,
+      "unsupportedFact": 7,
+      "contradiction": 0,
+      "uncertain": 1,
+      "noFlag": 2
+    }
+  }
+}

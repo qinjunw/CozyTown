@@ -2,7 +2,7 @@
 
 ## 1. 范围与当前阶段
 
-本架构采用 Unity 项目内的模块化单体。M4 已实现持久化与受约束的对话适配链路：交易与生产规则仍由确定性模块负责，应用层协调同一时点的保存与原子恢复，Runtime 文件适配器负责 JSON 槽位，Unity 层提供不含客户端密钥的 AI 代理适配并选择应用持久化路径。正式场景通过窄应用接口接入生产经济闭环、单槽位保存/读取和 4 名 NPC 对话。A1 独立美术阶段只替换 Unity 表现与资源引用，不修改这些领域和应用边界。T1 在此基础上增加扩镇与确定性居民日常；真实 Agent 接入仍受联合场景验收门禁约束。仓库当前状态和验证结果见 [`README.md`](../README.md)。
+本架构采用 Unity 项目内的模块化单体。M4 已实现持久化与受约束的对话适配链路：交易与生产规则仍由确定性模块负责，应用层协调同一时点的保存与原子恢复，Runtime 文件适配器负责 JSON 槽位，Unity 层提供不含客户端密钥的 AI 代理适配并选择应用持久化路径。正式场景通过窄应用接口接入生产经济闭环、单槽位保存/读取和 4 名 NPC 对话。A1 独立美术阶段只替换 Unity 表现与资源引用，不修改这些领域和应用边界。T1 增加扩镇与确定性居民日常；后续 Agent 迭代已接入世界事件、有界决策及两人资源会面，范围与证据见 [Agent 世界 PRD](AGENT_WORLD_PRD.md)，对象装配见第 6 节。其他仓库状态见 [`README.md`](../README.md)。
 
 产品边界见 [`PRD.md`](PRD.md)。关键决策见：
 
@@ -15,13 +15,17 @@
 - [`ADR-0010：角色与商店独立拥有资产并原子提交交易`](adr/0010-character-shop-economic-ownership-and-atomic-trade.md)
 - [`ADR-0013：确定性居民日程与派生位置`](adr/0013-deterministic-town-life-and-derived-npc-presence.md)
 - [`ADR-0014：连续世界时间与晨间结算`](adr/0014-continuous-world-time-and-morning-settlement.md)
+- [`ADR-0015：居民活动仲裁与世界代次`](adr/0015-resident-activity-arbitration-and-world-epochs.md)
+- [`ADR-0016：有界自主决策与运行对象装配`](adr/0016-bounded-autonomous-decisions.md)
+- [`ADR-0017：会面承诺与实际到达`](adr/0017-resident-meeting-commitments.md)
+- [`ADR-0018：角色资源交付`](adr/0018-resident-resource-delivery.md)
 
 ## 2. 架构目标与约束
 
 - 一个 Unity 客户端承载 MVP，不引入独立游戏服务器或微服务拆分。
 - 各业务模块通过接口协作，场景对象不直接修改模块内部状态。
 - 领域规则使用普通 C# 类型，使 EditMode 测试无需加载场景。
-- 运行时依赖由单一组合根显式创建，不使用全局静态服务定位器。
+- 默认世界服务由 Runtime 组合根显式创建；依赖场景居民的 Agent 运行对象由指定居民控制器局部装配，边界与生命周期见第 6 节。不使用全局静态服务定位器。
 - AI 对话属于可替换的外部能力；确定性游戏循环在无网络时仍可测试和运行。
 - 持久化使用稳定 ID 和版本化 DTO，不序列化 `MonoBehaviour`、`ScriptableObject` 引用或显示名称。
 
@@ -41,6 +45,8 @@ Assets/CozyTown/
 │  ├─ Fishing/
 │  ├─ Cooking/
 │  ├─ Npc/
+│  ├─ NpcLife/
+│  ├─ NpcAgents/
 │  └─ Save/
 ├─ Unity/
 │  ├─ Core/
@@ -86,6 +92,7 @@ Assets/CozyTown/
 | `Cooking` | `ICookingService` | 配方查询、食材校验和烹饪事务 | 食材生产、料理表现 |
 | `Npc` | `NpcContentCatalog`、`INpcDialogueGenerator`、`IAiNpcDialogueClient` | 校验并索引 NPC 作者内容，根据只读上下文校验 AI 候选并返回对话或固定回退 | 写入金币、物品、时间、生产或存档状态 |
 | `NpcLife` | `NpcDailySchedule.Query`、`Rebuild`、`MinutesUntilNextBoundary` | 按个人半开时段解析目标活动、下一边界及合法加载地点；支持跨午夜 | Unity 移动、碰撞、实际到达、经济生产 |
+| `NpcAgents` | `NpcAgentWorld`、`NpcMeetingBoard`、`NpcDecisionScheduler`、`INpcDecisionClient` | 管理居民活动、会面和有界候选决策；以只读观察及宿主检查连接资源用例 | 持有 Unity 身体、驱动世界时钟、让模型直接写入经济状态 |
 | `Save` | `ISaveStorage`、`JsonFileSaveStorage` | 版本化存档快照的单槽读写、JSON 校验和安全替换 | 收集或直接修改各模块状态 |
 | `Unity` | `CozyTownBootstrap`、输入门控、交互点、对话/存档及六组玩法 Presenter/View | 连接 Unity 生命周期、Input System、Physics2D、HTTP(S) 代理与窄接口 Presenter | 领域规则、全局服务解析、跨模块事务 |
 
@@ -95,7 +102,7 @@ Assets/CozyTown/
 
 `TownMap2D` 提供住宅、地点、共享道路和按距离加权的确定性路径查询；`CozyTownTownLayout` 是铺地、地标及道路装配的共同来源。`TownRouteFollower2D` 从实际位置消费距离预算并扫掠脚部碰撞，报告移动、到达或受阻；`NpcWorldResident2D` 组合个人日程与实际旅程，不以计划时刻代替到达。
 
-`DaytimeClockCoordinator` 通过 `IDaytimeClock.AdvanceElapsed` 接收有效经过时长，每 0.5 秒推进 1 游戏分钟，跨午夜不封顶。组合根的 `DaytimeClock`、`Sleep`、`DayTransition`、`GameSave` 端口引用同一适配实例，普通走时和显式睡眠都调用 `IWorldTimeCoordinator.AdvanceMinutes`。仅成功睡眠或加载清空不足一分钟的余量；保存和失败操作保留余量。余量不进入 schema v3 存档。
+`DaytimeClockCoordinator` 通过 `IDaytimeClock.AdvanceElapsed` 接收有效经过时长，每 0.5 秒推进 1 游戏分钟，跨午夜不封顶。组合根的 `DaytimeClock`、`Sleep`、`DayTransition`、`GameSave` 端口引用同一适配实例，普通走时和显式睡眠都调用 `IWorldTimeCoordinator.AdvanceMinutes`。睡眠或加载的权威状态提交后清空不足一分钟的余量，即使后续通知失败；保存及提交前失败并成功回滚的操作保留余量。余量不进入 schema v3 存档。
 
 `WorldTimeCoordinator` 隐藏结算边界、逐周期候选和提交顺序。农田、畜牧和经济模块在内部准备已校验、独立持有的状态，全部准备成功后才替换当前状态及钟面。成长和产物规则仍属于各领域，未引入公共时间基类、回调调度平台或数据库。旧 `SleepToNextDay` 端口只计算到次日 06:00 的分钟差，再走统一入口；组合根不再使用旧 `DayTransitionCoordinator` 事务。
 
@@ -126,16 +133,16 @@ CozyTownCompositionRoot 只负责创建并连接上述对象。
 
 依赖规则：
 
-1. 表现层依赖接口，不依赖具体内存实现。
+1. Presenter 与 View 依赖窄接口或只读状态，不依赖具体内存服务；第 6 节列出的组合边界可以显式创建其负责的实现。
 2. 具体实现可以依赖完成其事务所需的窄接口。例如生产模块通过默认角色的 `IWallet` 与 `IInventory` 适配器访问权威经济状态，但不能访问其内部集合。
 3. 模块不能通过 `FindObjectOfType`、静态单例或字符串路径取得其他服务。
 4. 双向依赖通过用例协调器、只读快照或领域事件解除；不得让两个模块互相持有具体实现。
 5. `Npc` 生成器没有确定性模块的写依赖。调用方只向它传递复制出的上下文数据。
 6. `Save` 适配器只读写版本化载荷。存档协调器负责向各模块导出和恢复状态。
 
-## 6. 组合根
+## 6. 组合边界
 
-`Runtime/Core/CozyTownCompositionRoot.cs` 是默认对象图的唯一构造入口。`CreateDefault()` 创建经过校验的 MVP 对象图，`Create(configuration)` 接收显式配置，带适配器的重载接收对话生成器与存储端口，`CreateEmpty()` 保留空配置测试入口。入口都返回类型化的 `CozyTownServices`；该服务集合只在组合边界使用，不向通用 `MonoBehaviour` 或交互上下文公开。
+`Runtime/Core/CozyTownCompositionRoot.cs` 是默认世界服务对象图的构造入口，包括权威时间、经济、生产、存档和 `CharacterResourceTrading`。`CreateDefault()` 创建经过校验的 MVP 对象图，`Create(configuration)` 接收显式配置，带适配器的重载接收对话生成器与存储端口，`CreateEmpty()` 保留空配置测试入口。入口都返回类型化的 `CozyTownServices`；Bootstrap 私有持有该集合，不向通用 `MonoBehaviour` 或交互上下文公开。依赖实际场景居民的 Agent 对象按第 6.1 节装配。
 
 正式场景由 `CozyTownMvpContentAsset.Load()` 把唯一的作者资产转换为 `CozyTownConfiguration`。Runtime 的 `MvpContentValidator` 统一校验经济、生产、全局对话回退和四名 NPC 的稳定 ID、显示名称、人设及专属回退；失败时 Bootstrap 不创建 NPC Catalog、固定回退生成器或 AI 适配器。通过校验后，各组合边界只把经同一工厂校验的不可变 `NpcContentCatalog` 交给消费者；对话协调器与固定回退生成器只依赖 Catalog 的查询和投影方法，不接收可变的原始 NPC 集合。Bootstrap 与 Runtime 组合根可以各自从同一不可变配置创建 Catalog，不承诺跨边界实例复用。
 
@@ -145,8 +152,36 @@ CozyTownCompositionRoot 只负责创建并连接上述对象。
 2. 私有持有对象图，并将 HUD、商店、农田、床、鸡舍、池塘、厨房、NPC 和存档所需的窄入口推送给对应 Presenter；
 3. 支持场景序列化注册和初始化后的显式晚注册；
 4. 不把 `CozyTownServices`、背包或原始生产服务交给场景 Presenter。
+5. 向居民控制器绑定同一对象图的 `WorldTimeFlow` 与 `ResourceTrading`；已配置模型客户端时，在控制器尚未启用决策的情况下安装一次。
 
 测试可以直接构造单个模块，也可以调用组合根验证默认对象图。批处理运行向组合根注入内存存档；常规 Editor Play 和构建注入应用持久化目录下的文件存储。AI 代理配置先读取 `COZYTOWN_AI_PROXY_ENDPOINT` 和 `COZYTOWN_AI_PROXY_TIMEOUT_SECONDS` 进程环境变量，未设置时使用场景序列化默认值；最终端点为空时注入固定回退，配置绝对 HTTP(S) 端点时才创建代理客户端。
+
+### 6.1 Agent 运行对象的局部装配
+
+`CozyTownTownLifeController` 是指定的场景局部组合与推进入口。它持有居民引用，由 `Bind` 创建一个 `NpcAgentWorld`，以场景回调提供可达性；由 `ConfigureDecisions` 创建一个调度器和可选会面板，以回调提供实际到场、局部观察和参与者经历。这里的“运行对象图”指这些对象及其依赖，不等于一次 NPC 会面或一个模型请求。
+
+控制器只借用 Bootstrap 注入的 `IWorldTimeFlow` 与 `CharacterResourceTrading`。它不另建经济仓库或世界钟，不取得完整服务集合。资源协调器通过默认对象图的同一 `IEconomyStateStore` 执行交换；会面板持有该窄用例，模型客户端只取得 `NpcDecisionRequest` 副本和取消令牌。Runtime 类型接受普通 C# 回调，程序集仍禁止 Unity 引用。
+
+| 操作 | 运行对象与生命周期 |
+| --- | --- |
+| 首次绑定、早注册或晚注册 | 控制器创建居民世界并订阅时钟；Bootstrap 只在未启用决策时安装配置 |
+| 同一时钟且资源引用未变的重复 `Bind` | 保留原世界、活动及调度器；不重新订阅 |
+| 成功读档 | 同一 `WorldTimeFlow` 发布重建版本；现有世界更换代次，会面与经历清空，居民重建位置；保留调度器预算，旧候选在下一次 Tick 被拒绝 |
+| 成功更换时钟或传入不同资源协调器 | 解除旧时钟订阅并创建新居民世界；会面板重新绑定资源；调度器通过 `BindWorld` 保留现实时间预算和旧在途任务 |
+| `ConfigureDecisions` 重新调用 | 实际 Task 未结束时拒绝；候选校验通过后退休旧调度器、取消旧会面并切换引用，继承累计调用、滚动窗口、单调时间和角色冷却 |
+| 控制器销毁 | 取消决策并解除时钟订阅；未完成任务只在完成后清理取消源，其候选不再应用 |
+
+`Bind` 的资源参数为 null 时保留先前资源引用；跨默认服务图重绑应像 Bootstrap 一样同时传入匹配的时间与资源。控制器停用时停止自动 `Update` 决策，但仍处理已订阅的显式睡眠／读档通知。
+
+换绑先验证居民及可选动画配置，再准备候选世界时刻并校验会面参与者、资源归属和决策角色；这些检查通过后才发布引用并切换时钟订阅。上述输入校验失败保留原世界、会面、活动、资源、预算及未完成请求资格；成功换绑继续使用原调度器。公开入口验证见[换绑失败修复](verification/npc-binding-2026-09-17.md)。此保证覆盖配置与候选依赖校验，不将任意外部回调异常视为已经支持的事务回滚；普通读档提交后通知失败按 [ADR-0020](adr/0020-post-commit-world-recovery.md)处理，公开故障注入见[恢复验证](verification/npc-load-recovery-2026-09-17.md)。
+
+`WorldTimeFlow.State` 区分 Ready、Publishing、RecoveryRequired。`Changed` 为关键同步，逐一尝试订阅者；全部成功后才发布 `PresentationChanged`，供灯光、农田及畜牧显示刷新。关键异常保留已提交数据并暂停时间协调、存档覆盖与 NPC 行为；修复后重新读取有效存档才恢复。显示异常返回明确结果但保持 Ready。通知期间同样拒绝嵌套操作、换绑与调度重配；模块返回普通失败并成功回滚则保持原状态，回滚失败或恢复抛错保守进入恢复状态。
+
+恢复中的调度器失效化逻辑请求并取消它们，保留未完成 Task 与调用预算；已完成结果只被回收，不能执行交付或活动，也不消费世界触发事件。模型客户端或观察回调返回后再次检查运行许可，避免当前 Tick 跨过故障继续派发或执行。
+
+重配使用 `NpcDecisionScheduler.CreateReplacement` 转交调用历史并退休原实例。实际任务未完成时保留原配置，待 Task 结束后可重试；超时和取消信号不能提前释放此约束。首次调用后限制只能保持或收紧，省略 settings 沿用当前值。有效的普通排队机会保留原期限，以新配置构造请求；旧决策回复与旧社交等待丢弃，已提交资产保留。校验失败保留原会面、活动、候选与预算，详见 [ADR-0016](adr/0016-bounded-autonomous-decisions.md)及[公开重配验证](verification/npc-reconfiguration-2026-09-19.md)。
+
+本局部装配范围限于一个控制器内的居民运行对象；各 NPC 仍以配置和独立状态组织。控制器的 `OnDestroy` 不等于 `CancelAll`；只销毁控制器而保留居民、热替换场景或跨场景持有对象图，尚无完整释放与恢复验收。客户端由调用方提供，`INpcDecisionClient` 不包含 Dispose；HTTP 适配器默认复用静态传输客户端，调度器销毁不代表网络传输对象销毁。初始装配核验见[生命周期审计](audits/npc-session-composition-2026-09-15.md)。
 
 ## 7. 关键数据流
 

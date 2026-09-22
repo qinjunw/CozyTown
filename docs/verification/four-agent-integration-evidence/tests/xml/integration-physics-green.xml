@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='utf-8'?>
+<test-run id="2" testcasecount="12" result="Passed" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 17:27:49Z" end-time="2026-09-19 17:27:57Z" duration="7.9637909">
+  <test-suite type="TestSuite" id="1390" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="299" result="Passed" start-time="2026-09-19 17:27:49Z" end-time="2026-09-19 17:27:57Z" duration="7.963791" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1383" name="CozyTown.Tests.PlayMode.dll" fullname="&lt;project-root&gt;/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="299" result="Passed" start-time="2026-09-19 17:27:49Z" end-time="2026-09-19 17:27:57Z" duration="7.949414" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="117468" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1384" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="299" result="Passed" start-time="2026-09-19 17:27:49Z" end-time="2026-09-19 17:27:57Z" duration="7.944498" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1385" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="299" result="Passed" start-time="2026-09-19 17:27:49Z" end-time="2026-09-19 17:27:57Z" duration="7.940286" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1386" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="299" result="Passed" start-time="2026-09-19 17:27:49Z" end-time="2026-09-19 17:27:57Z" duration="7.936185" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1001" name="AgentExperimentLauncherPlayModeTests" fullname="CozyTown.Tests.PlayMode.AgentExperimentLauncherPlayModeTests" classname="CozyTown.Tests.PlayMode.AgentExperimentLauncherPlayModeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-19 17:27:49Z" end-time="2026-09-19 17:27:49Z" duration="0.130829" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1002" name="Activation_InstallsTheExperimentBeforeBootstrapAwake" fullname="CozyTown.Tests.PlayMode.AgentExperimentLauncherPlayModeTests.Activation_InstallsTheExperimentBeforeBootstrapAwake" methodname="Activation_InstallsTheExperimentBeforeBootstrapAwake" classname="CozyTown.Tests.PlayMode.AgentExperimentLauncherPlayModeTests" runstate="Runnable" seed="1812380189" result="Passed" start-time="2026-09-19 17:27:49Z" end-time="2026-09-19 17:27:49Z" duration="0.105575" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1003" name="AgentExperimentSessionPlayModeTests" fullname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests" classname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-09-19 17:27:49Z" end-time="2026-09-19 17:27:57Z" duration="7.783663" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1005" name="FailedInitialSnapshot_StopsTheExperimentBeforeAnyDispatch" fullname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.FailedInitialSnapshot_StopsTheExperimentBeforeAnyDispatch" methodname="FailedInitialSnapshot_StopsTheExperimentBeforeAnyDispatch" classname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests" runstate="Runnable" seed="382915171" result="Passed" start-time="2026-09-19 17:27:49Z" end-time="2026-09-19 17:27:50Z" duration="0.763108" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1014" name="FixedRun_CompletesBothMeetingsAndRecordsAllFourResidents" fullname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.FixedRun_CompletesBothMeetingsAndRecordsAllFourResidents" methodname="FixedRun_CompletesBothMeetingsAndRecordsAllFourResidents" classname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests" runstate="Runnable" seed="1939748492" result="Passed" start-time="2026-09-19 17:27:50Z" end-time="2026-09-19 17:27:51Z" duration="0.412714" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1008" name="FreshScene_PreparesFourBodiesAndAssetsWithoutDispatchBeforeExplicitSelection" fullname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.FreshScene_PreparesFourBodiesAndAssetsWithoutDispatchBeforeExplicitSelection" methodname="FreshScene_PreparesFourBodiesAndAssetsWithoutDispatchBeforeExplicitSelection" classname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests" runstate="Runnable" seed="1669114380" result="Passed" start-time="2026-09-19 17:27:51Z" end-time="2026-09-19 17:27:51Z" duration="0.165618" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1012" name="RecordedExperiment_ExportsFullStateTimelineAndObservedExecution" fullname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.RecordedExperiment_ExportsFullStateTimelineAndObservedExecution" methodname="RecordedExperiment_ExportsFullStateTimelineAndObservedExecution" classname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests" runstate="Runnable" seed="685338118" result="Passed" start-time="2026-09-19 17:27:51Z" end-time="2026-09-19 17:27:52Z" duration="0.717178" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output>Experiment package: &lt;project-root&gt;\Logs\agent-platform\packages\45049c2c04424929a3c5ff31fff9a3a0
+</output>
+              </test-case>
+              <test-case id="1011" name="RecordedStructuredWorld_ReplaysSavedInputsAndDeliveryInAFreshScene" fullname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.RecordedStructuredWorld_ReplaysSavedInputsAndDeliveryInAFreshScene" methodname="RecordedStructuredWorld_ReplaysSavedInputsAndDeliveryInAFreshScene" classname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests" runstate="Runnable" seed="1994348269" result="Passed" start-time="2026-09-19 17:27:52Z" end-time="2026-09-19 17:27:53Z" duration="1.579895" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1006" name="RejectedTimeAdvance_DoesNotContaminateTheCompletedReplay" fullname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.RejectedTimeAdvance_DoesNotContaminateTheCompletedReplay" methodname="RejectedTimeAdvance_DoesNotContaminateTheCompletedReplay" classname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests" runstate="Runnable" seed="739554635" result="Passed" start-time="2026-09-19 17:27:53Z" end-time="2026-09-19 17:27:54Z" duration="0.942759" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1010" name="Replay_StopsWhenCheckpointAssetsDifferFromTheRecordedSaveInput" fullname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.Replay_StopsWhenCheckpointAssetsDifferFromTheRecordedSaveInput" methodname="Replay_StopsWhenCheckpointAssetsDifferFromTheRecordedSaveInput" classname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests" runstate="Runnable" seed="2118469861" result="Passed" start-time="2026-09-19 17:27:54Z" end-time="2026-09-19 17:27:55Z" duration="0.754531" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1013" name="SavedExperiment_RestoresEarlierWorldWithoutRefundingRequestsOrKeepingFutureReceipts" fullname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.SavedExperiment_RestoresEarlierWorldWithoutRefundingRequestsOrKeepingFutureReceipts" methodname="SavedExperiment_RestoresEarlierWorldWithoutRefundingRequestsOrKeepingFutureReceipts" classname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests" runstate="Runnable" seed="936104071" result="Passed" start-time="2026-09-19 17:27:55Z" end-time="2026-09-19 17:27:55Z" duration="0.266349" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1009" name="SleepInput_CrossesTheDayBoundaryAndReplaysTheSameSettledWorld" fullname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.SleepInput_CrossesTheDayBoundaryAndReplaysTheSameSettledWorld" methodname="SleepInput_CrossesTheDayBoundaryAndReplaysTheSameSettledWorld" classname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests" runstate="Runnable" seed="2123598681" result="Passed" start-time="2026-09-19 17:27:55Z" end-time="2026-09-19 17:27:56Z" duration="0.858882" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1007" name="Telemetry_ExportsMatchedAnnotationsWithoutChangingAuthoritativeReplay" fullname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.Telemetry_ExportsMatchedAnnotationsWithoutChangingAuthoritativeReplay" methodname="Telemetry_ExportsMatchedAnnotationsWithoutChangingAuthoritativeReplay" classname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests" runstate="Runnable" seed="1332417920" result="Passed" start-time="2026-09-19 17:27:56Z" end-time="2026-09-19 17:27:56Z" duration="0.536879" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1004" name="WaitingBetweenInputs_PreservesPlayerPositionAcrossLoadsAndStrictReplay" fullname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.WaitingBetweenInputs_PreservesPlayerPositionAcrossLoadsAndStrictReplay" methodname="WaitingBetweenInputs_PreservesPlayerPositionAcrossLoadsAndStrictReplay" classname="CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests" runstate="Runnable" seed="2051290062" result="Passed" start-time="2026-09-19 17:27:56Z" end-time="2026-09-19 17:27:57Z" duration="0.778215" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output>Saving results to: &lt;user-home&gt;/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+</output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

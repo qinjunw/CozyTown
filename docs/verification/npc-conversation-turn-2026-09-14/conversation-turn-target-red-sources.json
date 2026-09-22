@@ -1,0 +1,20 @@
+{
+  "baselineCommit": "68832af00675ecf3388085bee379d46b3fa5947d",
+  "redSourceSha256": "77b62b8368dad4b5942400c7e8f0c7667b999c6d1e9670a58fc7faf96249d5cb",
+  "production": {
+    "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs": {
+      "baselineBlobSha256": "d365e9101b4a47df08aeebace36bb0d83495e24e5cfef1da56b66eb79c66ee98",
+      "observedPreFixFileSha256": "90bbc24ebcd034bd236b7caecc56347338ddc40af8db82cacce95707f6cb6efc",
+      "mapping": "Baseline blob with Windows CRLF checkout."
+    },
+    "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionRequest.cs": {
+      "baselineBlobSha256": "bec69edf730bd19dc928b57966d3fdd69dc3580e9902bd96cc0b549d37af80f1",
+      "observedPreFixFileSha256": "bec69edf730bd19dc928b57966d3fdd69dc3580e9902bd96cc0b549d37af80f1",
+      "mapping": "Baseline blob with Windows CRLF checkout."
+    }
+  },
+  "failureFile": "conversation-turn-01-red.xml",
+  "firstGreenFile": "conversation-turn-02-green.xml",
+  "failure": "At game minute 825, expected one waiting resident but observed zero.",
+  "sourceLimit": "The retained red test snapshot predates later control additions. Production mapping verifies the pre-fix checked-out bytes."
+}

@@ -1,0 +1,22 @@
+test_cli_rejects_conflicting_standalone_options_as_usage_errors_before_startup (test_expression_experiment.ExpressionExperimentTests.test_cli_rejects_conflicting_standalone_options_as_usage_errors_before_startup) ... usage: python.exe -m unittest [-h] [--mode {serve}] --stage {fixed,scene}
+                              --corpus CORPUS --output-dir OUTPUT_DIR
+                              [--credential-file CREDENTIAL_FILE]
+                              [--fixed-evidence-dir FIXED_EVIDENCE_DIR]
+                              [--standalone-scene] [--stop-file STOP_FILE]
+                              [--base-port BASE_PORT]
+                              [--source-file SOURCE_FILE]
+python.exe -m unittest: error: --standalone-scene requires --stage scene without --fixed-evidence-dir.
+usage: python.exe -m unittest [-h] [--mode {serve}] --stage {fixed,scene}
+                              --corpus CORPUS --output-dir OUTPUT_DIR
+                              [--credential-file CREDENTIAL_FILE]
+                              [--fixed-evidence-dir FIXED_EVIDENCE_DIR]
+                              [--standalone-scene] [--stop-file STOP_FILE]
+                              [--base-port BASE_PORT]
+                              [--source-file SOURCE_FILE]
+python.exe -m unittest: error: --standalone-scene requires --stage scene without --fixed-evidence-dir.
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.009s
+
+OK

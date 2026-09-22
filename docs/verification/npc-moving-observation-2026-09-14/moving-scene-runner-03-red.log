@@ -1,0 +1,35 @@
+test_cli_starts_an_explicit_standalone_scene_and_freezes_its_own_evidence (test_expression_experiment.ExpressionExperimentTests.test_cli_starts_an_explicit_standalone_scene_and_freezes_its_own_evidence) ... usage: python.exe -m unittest [-h] [--mode {serve}] --stage {fixed,scene}
+                              --corpus CORPUS --output-dir OUTPUT_DIR
+                              [--credential-file CREDENTIAL_FILE]
+                              [--fixed-evidence-dir FIXED_EVIDENCE_DIR]
+                              [--stop-file STOP_FILE] [--base-port BASE_PORT]
+                              [--source-file SOURCE_FILE]
+python.exe -m unittest: error: unrecognized arguments: --standalone-scene
+ERROR
+
+======================================================================
+ERROR: test_cli_starts_an_explicit_standalone_scene_and_freezes_its_own_evidence (test_expression_experiment.ExpressionExperimentTests.test_cli_starts_an_explicit_standalone_scene_and_freezes_its_own_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<local-root>\Tools\agent_proxy\test_expression_experiment.py", line 39, in test_cli_starts_an_explicit_standalone_scene_and_freezes_its_own_evidence
+    main(["--stage", "scene", "--standalone-scene", "--corpus", str(corpus),
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          "--output-dir", str(root / "scene"), "--base-port", "0"], transport=response, stop_event=stop)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<local-root>\Tools\agent_proxy\expression_experiment.py", line 282, in main
+    args = parser.parse_args(argv)
+  File "<local-root>\AppData\Local\Programs\Python\Python313\Lib\argparse.py", line 1893, in parse_args
+    self.error(msg)
+    ~~~~~~~~~~^^^^^
+  File "<local-root>\AppData\Local\Programs\Python\Python313\Lib\argparse.py", line 2645, in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<local-root>\AppData\Local\Programs\Python\Python313\Lib\argparse.py", line 2632, in exit
+    _sys.exit(status)
+    ~~~~~~~~~^^^^^^^^
+SystemExit: 2
+
+----------------------------------------------------------------------
+Ran 1 test in 0.012s
+
+FAILED (errors=1)

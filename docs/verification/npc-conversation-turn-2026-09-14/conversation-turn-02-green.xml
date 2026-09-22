@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-14 13:09:33Z" end-time="2026-09-14 13:09:33Z" duration="0.1483591">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="840" result="Passed" start-time="2026-09-14 13:09:33Z" end-time="2026-09-14 13:09:33Z" duration="0.148359" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1722" name="CozyTown.Tests.EditMode.dll" fullname="&lt;isolated-project&gt;/Library/ScriptAssemblies/CozyTown.Tests.EditMode.dll" runstate="Runnable" testcasecount="601" result="Passed" start-time="2026-09-14 13:09:33Z" end-time="2026-09-14 13:09:33Z" duration="0.132257" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="69392" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1723" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="601" result="Passed" start-time="2026-09-14 13:09:33Z" end-time="2026-09-14 13:09:33Z" duration="0.119278" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1724" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="601" result="Passed" start-time="2026-09-14 13:09:33Z" end-time="2026-09-14 13:09:33Z" duration="0.113342" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1725" name="EditMode" fullname="CozyTown.Tests.EditMode" runstate="Runnable" testcasecount="601" result="Passed" start-time="2026-09-14 13:09:33Z" end-time="2026-09-14 13:09:33Z" duration="0.106138" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1729" name="NpcAgents" fullname="CozyTown.Tests.EditMode.NpcAgents" runstate="Runnable" testcasecount="254" result="Passed" start-time="2026-09-14 13:09:33Z" end-time="2026-09-14 13:09:33Z" duration="0.101122" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1173" name="NpcConversationBudgetTests" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-09-14 13:09:33Z" end-time="2026-09-14 13:09:33Z" duration="0.097616" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1174" name="QueuedConversationTurn_ResumesAfterBudgetReturnsAndCompletesBeforeMeetingDeadline" fullname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.QueuedConversationTurn_ResumesAfterBudgetReturnsAndCompletesBeforeMeetingDeadline" methodname="QueuedConversationTurn_ResumesAfterBudgetReturnsAndCompletesBeforeMeetingDeadline" classname="CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests" runstate="Runnable" seed="1086433328" result="Passed" start-time="2026-09-14 13:09:33Z" end-time="2026-09-14 13:09:33Z" duration="0.079581" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[BUDGET_REQUEST {"ordinal":1,"npcId":"ren","decisionId":"12acf216-a0d4-4ce4-8376-d7f2991d8b02","step":1,"gameMinutes":794.8,"revision":9,"phase":"Conversation","triggers":"WorldRebuilt,ActivityAccepted,MeetingChanged","previousResult":"","candidateError":""}
+BUDGET_TRACE {"point":"old-request","realSeconds":0,"gameMinutes":794.8,"renRevision":9,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"","finishedThisTick":0}
+BUDGET_TRACE {"point":"schedule-cancel","realSeconds":0.1,"gameMinutes":795,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":1,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":1}
+BUDGET_TRACE {"point":"late-reply-drained","realSeconds":0.2,"gameMinutes":795.2,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"before-opportunity-expiry","realSeconds":15,"gameMinutes":824.8,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"opportunity-expired","realSeconds":15.1,"gameMinutes":825,"renRevision":10,"soraRevision":9,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"other-participant-schedule","realSeconds":22.6,"gameMinutes":840,"renRevision":10,"soraRevision":10,"requests":1,"rolling":1,"active":0,"waiting":1,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_REQUEST {"ordinal":2,"npcId":"ren","decisionId":"4749c2a5-b5bf-45b1-b258-c30b079998e8","step":1,"gameMinutes":914.8,"revision":10,"phase":"Conversation","triggers":"ScheduleChanged","previousResult":"agent.decision_stale","candidateError":""}
+BUDGET_TRACE {"point":"rolling-budget-open","realSeconds":60,"gameMinutes":914.8,"renRevision":10,"soraRevision":10,"requests":2,"rolling":1,"active":1,"waiting":0,"meeting":"Talking","speaker":"ren","lines":3,"renOutcome":"agent.decision_stale","finishedThisTick":0}
+BUDGET_TRACE {"point":"fresh-fourth-published","realSeconds":60.1,"gameMinutes":915,"renRevision":13,"soraRevision":13,"requests":2,"rolling":1,"active":0,"waiting":0,"meeting":"Completed","speaker":"","lines":4,"renOutcome":"meeting.say","finishedThisTick":1}
+BUDGET_TRACE {"point":"meeting-deadline","realSeconds":67.6,"gameMinutes":930,"renRevision":13,"soraRevision":13,"requests":2,"rolling":1,"active":0,"waiting":0,"meeting":"Completed","speaker":"","lines":4,"renOutcome":"meeting.say","finishedThisTick":0}
+Saving results to: &lt;user-home&gt;/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

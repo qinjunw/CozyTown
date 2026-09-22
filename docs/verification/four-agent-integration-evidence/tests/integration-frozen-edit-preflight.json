@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "19dff35147fbb7f8debc3aa0f98da44a29b5b52d",
+  "recordedAtUtc": "2026-09-19T19:50:37.1147526Z",
+  "cleanCheckout": true,
+  "unityVersion": "6000.5.5f1",
+  "platform": "EditMode",
+  "liveProcessesAbsent": true,
+  "clearedEnvironmentVariableNames": [],
+  "providerCallsEnabled": false,
+  "command": "Unity -batchmode -nographics -projectPath <project-root> -runTests -testPlatform EditMode -testResults <new-results.xml> -logFile <new-log>"
+}

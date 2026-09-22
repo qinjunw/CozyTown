@@ -1,0 +1,351 @@
+{
+  "sourceCommit": "c8bf837d1a30f358970566bd06d91ebec8645a87",
+  "baseCommit": "d994e3b0ff581fe332995328212ff5aba84cc23a",
+  "modelJudgeCalls": 0,
+  "stages": {
+    "fixed": {
+      "status": {
+        "attemptedProviderCalls": 48,
+        "decisionRequests": 48,
+        "finishedDecisionRequests": 48,
+        "inflight": 0,
+        "remainingCalls": 0,
+        "requestedModel": "deepseek-v4-flash",
+        "runState": "completed",
+        "stage": "fixed",
+        "totalAttemptedProviderCalls": 48,
+        "worlds": {}
+      },
+      "returnedModels": {
+        "deepseek-flash": 48
+      },
+      "arms": {
+        "F": {
+          "calls": 24,
+          "outcomes": {
+            "passed": 24
+          },
+          "tokens": {
+            "promptTokens": {
+              "sum": 104964,
+              "available": 24
+            },
+            "completionTokens": {
+              "sum": 1647,
+              "available": 24
+            },
+            "totalTokens": {
+              "sum": 106611,
+              "available": 24
+            }
+          },
+          "latencyMs": {
+            "mean": 1212.9166666666667,
+            "median": 1171.5,
+            "minimum": 770,
+            "maximum": 2352
+          },
+          "hostStatuses": {
+            "displayed": 24
+          },
+          "displayedTexts": {
+            "count": 24,
+            "uniqueCount": 24,
+            "minCharacters": 82,
+            "maxCharacters": 150,
+            "meanCharacters": 116.25,
+            "over180Characters": 0
+          }
+        },
+        "S": {
+          "calls": 24,
+          "outcomes": {
+            "provider.candidate_invalid": 19,
+            "passed": 5
+          },
+          "tokens": {
+            "promptTokens": {
+              "sum": 113700,
+              "available": 24
+            },
+            "completionTokens": {
+              "sum": 1570,
+              "available": 24
+            },
+            "totalTokens": {
+              "sum": 115270,
+              "available": 24
+            }
+          },
+          "latencyMs": {
+            "mean": 1067.5416666666667,
+            "median": 994.5,
+            "minimum": 638,
+            "maximum": 1916
+          },
+          "hostStatuses": {
+            "proxy_rejected": 19,
+            "displayed": 5
+          },
+          "displayedTexts": {
+            "count": 5,
+            "uniqueCount": 4,
+            "minCharacters": 24,
+            "maxCharacters": 91,
+            "meanCharacters": 53.2,
+            "over180Characters": 0
+          }
+        }
+      },
+      "canonicalHashesByCase": {
+        "position_destination": "0d8700313956f337b314d2190db5fbc7e5b494a6ec3f9b4cdcee1559ddd118ec",
+        "past_statement_current_stock": "877ed63a63fe836de2cb3c2db1f92b3cb4529420e2f595825297440249cbdb08",
+        "decoration_capability": "706ee470ef9b1cad43876e812dda10fe139342720f9b16e819b2d19079323942",
+        "truncated_local_absence": "d71177179226776aacd929df7e0962ea77a8522aa6b486fbfae17de3bad7a55c",
+        "unknown_quantity": "dbb7e5fd24419f504b4d95e11d1f434cc2b8a270eaec7c0671c699112e7f756e",
+        "partner_private_assets": "6b04205b5d9d9880cd2232e40a0166db8568b255be262b59101c1a831472947a",
+        "statement_not_experience": "febbb8ad3e68a2ad0750048ce1ca73e49c272d8d2901125735ad9de213c89b2e",
+        "successful_receipt": "0c1d620cd861e2fd27b1af06df7c74b73ab00a7887e5d00e9312d21471b0251d"
+      },
+      "setupCount": 8
+    },
+    "scene": {
+      "status": {
+        "attemptedProviderCalls": 8,
+        "decisionRequests": 8,
+        "finishedDecisionRequests": 8,
+        "inflight": 0,
+        "remainingCalls": 40,
+        "requestedModel": "deepseek-v4-flash",
+        "runState": "stopped",
+        "stage": "scene",
+        "totalAttemptedProviderCalls": 56,
+        "worlds": {
+          "11adaadb197f4564afcf86c08a61cbe3": {
+            "arm": "S",
+            "decisionRequests": 2
+          },
+          "a60433701fec48599f867f9d8b02cf05": {
+            "arm": "S",
+            "decisionRequests": 2
+          },
+          "cee8d7f052fe4bbaa65820bdc821addc": {
+            "arm": "F",
+            "decisionRequests": 2
+          },
+          "fe6ebab4d03d4e28959b5d0c135e9354": {
+            "arm": "F",
+            "decisionRequests": 2
+          }
+        }
+      },
+      "returnedModels": {
+        "deepseek-flash": 8
+      },
+      "arms": {
+        "F": {
+          "calls": 4,
+          "outcomes": {
+            "passed": 4
+          },
+          "tokens": {
+            "promptTokens": {
+              "sum": 12742,
+              "available": 4
+            },
+            "completionTokens": {
+              "sum": 132,
+              "available": 4
+            },
+            "totalTokens": {
+              "sum": 12874,
+              "available": 4
+            }
+          },
+          "latencyMs": {
+            "mean": 1198.5,
+            "median": 1226.0,
+            "minimum": 804,
+            "maximum": 1538
+          }
+        },
+        "S": {
+          "calls": 4,
+          "outcomes": {
+            "passed": 4
+          },
+          "tokens": {
+            "promptTokens": {
+              "sum": 14112,
+              "available": 4
+            },
+            "completionTokens": {
+              "sum": 134,
+              "available": 4
+            },
+            "totalTokens": {
+              "sum": 14246,
+              "available": 4
+            }
+          },
+          "latencyMs": {
+            "mean": 954.5,
+            "median": 900.0,
+            "minimum": 687,
+            "maximum": 1331
+          }
+        }
+      },
+      "trials": [
+        {
+          "ordinal": 1,
+          "scenario": "available",
+          "arm": "F",
+          "worldRunId": "fe6ebab4-d03d-4e28-959b-5d0c135e9354",
+          "initialized": true,
+          "recovered": true,
+          "deliveryObserved": false,
+          "activelyEnded": false,
+          "deadlineReleased": true,
+          "terminalActivitiesReleased": true,
+          "stopReason": "meeting_expired",
+          "hostViolations": [],
+          "providerCalls": 2,
+          "terminalTranscriptCount": 0,
+          "candidateOutcomes": [
+            "meeting.invited",
+            "agent.observation_stale"
+          ],
+          "assetsUnchanged": true
+        },
+        {
+          "ordinal": 2,
+          "scenario": "available",
+          "arm": "S",
+          "worldRunId": "11adaadb-197f-4564-afcf-86c08a61cbe3",
+          "initialized": true,
+          "recovered": true,
+          "deliveryObserved": false,
+          "activelyEnded": false,
+          "deadlineReleased": true,
+          "terminalActivitiesReleased": true,
+          "stopReason": "meeting_expired",
+          "hostViolations": [],
+          "providerCalls": 2,
+          "terminalTranscriptCount": 0,
+          "candidateOutcomes": [
+            "meeting.invited",
+            "agent.observation_stale"
+          ],
+          "assetsUnchanged": true
+        },
+        {
+          "ordinal": 3,
+          "scenario": "seller_empty",
+          "arm": "S",
+          "worldRunId": "a6043370-1fec-4859-9f86-7f9d8b02cf05",
+          "initialized": true,
+          "recovered": true,
+          "deliveryObserved": false,
+          "activelyEnded": false,
+          "deadlineReleased": true,
+          "terminalActivitiesReleased": true,
+          "stopReason": "meeting_expired",
+          "hostViolations": [],
+          "providerCalls": 2,
+          "terminalTranscriptCount": 0,
+          "candidateOutcomes": [
+            "meeting.invited",
+            "agent.observation_stale"
+          ],
+          "assetsUnchanged": true
+        },
+        {
+          "ordinal": 4,
+          "scenario": "seller_empty",
+          "arm": "F",
+          "worldRunId": "cee8d7f0-52fe-4bba-a658-20bdc821addc",
+          "initialized": true,
+          "recovered": true,
+          "deliveryObserved": false,
+          "activelyEnded": false,
+          "deadlineReleased": true,
+          "terminalActivitiesReleased": true,
+          "stopReason": "meeting_expired",
+          "hostViolations": [],
+          "providerCalls": 2,
+          "terminalTranscriptCount": 0,
+          "candidateOutcomes": [
+            "meeting.invited",
+            "agent.observation_stale"
+          ],
+          "assetsUnchanged": true
+        }
+      ]
+    }
+  },
+  "totalProviderAttempts": 56,
+  "totalTokens": 249001,
+  "verification": {
+    "edit": {
+      "originalXmlSha256": "f192f13e335d69720339b76716056304e936b34ddc618307f80c22aee4efbf39",
+      "result": "Skipped:Ignored",
+      "total": "802",
+      "passed": "801",
+      "failed": "0",
+      "skipped": "1",
+      "duration": "8.972646"
+    },
+    "play": {
+      "originalXmlSha256": "04f96f1ac9a438a472d27b42f1724129b5aea0323dacd192a2d180abf66e3a55",
+      "result": "Skipped:Ignored",
+      "total": "195",
+      "passed": "190",
+      "failed": "0",
+      "skipped": "5",
+      "duration": "15.7786034"
+    },
+    "dry": {
+      "originalXmlSha256": "f9476dd689068af65ebcb84e7597d57d708e6751484ee40b7b36e814c357e0e8",
+      "result": "Passed",
+      "total": "1",
+      "passed": "1",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "2.6300645"
+    },
+    "fixedLive": {
+      "originalXmlSha256": "341977adf3ac85cbaed9353043d45f2e56e3cb4eec302f86723493d9f39a964b",
+      "result": "Passed",
+      "total": "1",
+      "passed": "1",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "56.7578385"
+    },
+    "sceneLive": {
+      "originalXmlSha256": "d67743663a0d1e01b6e0656f68bc5120fafbad27fbf21355784cb6f5ee4d97b4",
+      "result": "Passed",
+      "total": "1",
+      "passed": "1",
+      "failed": "0",
+      "skipped": "0",
+      "duration": "120.6934532"
+    },
+    "python": {
+      "passed": 60,
+      "failed": 0,
+      "logSha256": "01bcb740f3f3de4dafbbfe7d43a6105ac607ad73022988f487ca07454496cc67"
+    },
+    "dryCalibration": {
+      "samples": 48,
+      "hostOutputs": 48,
+      "freshWorlds": 8,
+      "canonicalInputChecksPassed": true,
+      "transport": "fixed-expression-test-provider",
+      "realProviderCalls": 0
+    },
+    "isolation": "Committed base d994e3b plus the exact frozen expression source files; unrelated shared scene/art edits excluded.",
+    "xmlPublicationTransform": "Machine-specific project and user-home prefixes replaced with placeholders; original XML hashes retained."
+  }
+}

@@ -1,0 +1,359 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using CozyTown.Runtime.Core;
+using CozyTown.Runtime.NpcLife;
+using CozyTown.Runtime.Time;
+
+namespace CozyTown.Runtime.NpcAgents
+{
+    public sealed class NpcAgentWorld
+    {
+        public const int MaximumActivityDurationGameMinutes = 1440;
+        private const int MaxPendingEvents = 16;
+        private readonly Dictionary<string, Resident> _residents = new Dictionary<string, Resident>(StringComparer.Ordinal);
+        private readonly Func<string, string, bool> _canVisit;
+        private WorldTimeProgress _current;
+        private bool _hasTime;
+        private Guid _worldRunId;
+
+        private sealed class Resident
+        {
+            internal NpcDailySchedule Schedule;
+            internal long Revision;
+            internal NpcActivityRequest Activity;
+            internal double ActivityStart;
+            internal bool IsMeetingActivity;
+            internal readonly List<NpcAgentEvent> Events = new List<NpcAgentEvent>();
+        }
+
+        public NpcAgentWorld(IEnumerable<NpcDailySchedule> schedules, Func<string, string, bool> canVisit = null)
+        {
+            if (schedules == null) throw new ArgumentNullException(nameof(schedules));
+            _canVisit = canVisit;
+            foreach (var schedule in schedules)
+            {
+                if (schedule == null) throw new ArgumentException("Resident schedules cannot contain null.", nameof(schedules));
+                _residents.Add(schedule.NpcId, new Resident { Schedule = schedule });
+            }
+        }
+
+        public double TotalMinutes => _current.TotalMinutes;
+
+        public NpcAgentWorldSnapshot CaptureSnapshot()
+        {
+            if (!_hasTime) throw new InvalidOperationException("Observe world time before capturing residents.");
+            return new NpcAgentWorldSnapshot(TotalMinutes, _residents.Values.Select(item => item.Schedule),
+                _residents.Select(pair => new NpcResidentStateSnapshot(pair.Key, pair.Value.Revision,
+                    pair.Value.Activity == null ? null : new NpcActivitySnapshot(pair.Value.Activity.ActivityId,
+                        pair.Value.Activity.TargetLocationId, pair.Value.Activity.Activity,
+                        pair.Value.ActivityStart, pair.Value.Activity.ExpiresAtTotalMinutes, pair.Value.IsMeetingActivity), pair.Value.Events)));
+        }
+
+        public OperationResult<NpcAgentWorld> PrepareRestore(NpcAgentWorldSnapshot snapshot,
+            WorldTimeProgress progress, Func<string, string, bool> isKnownLocation = null)
+        {
+            if (snapshot == null || !ValidTime(snapshot.TotalMinutes) || snapshot.TotalMinutes != progress.TotalMinutes
+                || progress.Clock.Day < 1 || progress.Clock.MinuteOfDay < 0 || progress.Clock.MinuteOfDay >= 1440
+                || !ValidTime(progress.FractionalMinute) || progress.FractionalMinute >= 1
+                || snapshot.Schedules == null || snapshot.Residents == null
+                || snapshot.Schedules.Count != _residents.Count || snapshot.Residents.Count != _residents.Count)
+                return OperationResult<NpcAgentWorld>.Failure("agent.snapshot_invalid");
+
+            var scheduleIds = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var schedule in snapshot.Schedules)
+                if (schedule == null || string.IsNullOrWhiteSpace(schedule.NpcId) || !scheduleIds.Add(schedule.NpcId)
+                    || !_residents.TryGetValue(schedule.NpcId, out var configured)
+                    || !SameSchedule(schedule, configured.Schedule))
+                    return OperationResult<NpcAgentWorld>.Failure("agent.snapshot_content_mismatch");
+
+            var residentIds = new HashSet<string>(StringComparer.Ordinal);
+            var activityIds = new HashSet<Guid>();
+            foreach (var saved in snapshot.Residents)
+            {
+                if (saved == null || string.IsNullOrWhiteSpace(saved.NpcId) || !residentIds.Add(saved.NpcId)
+                    || !_residents.ContainsKey(saved.NpcId) || saved.Revision < 1 || saved.Revision == long.MaxValue
+                    || saved.Events == null || saved.Events.Count > MaxPendingEvents)
+                    return OperationResult<NpcAgentWorld>.Failure("agent.snapshot_invalid");
+                var kinds = new HashSet<NpcAgentEventKind>();
+                foreach (var item in saved.Events)
+                    if (item == null || !Enum.IsDefined(typeof(NpcAgentEventKind), item.Kind) || !kinds.Add(item.Kind)
+                        || !ValidTime(item.TotalMinutes) || item.TotalMinutes > snapshot.TotalMinutes)
+                        return OperationResult<NpcAgentWorld>.Failure("agent.snapshot_events_invalid");
+                var activity = saved.Activity;
+                if (activity == null) continue;
+                if (activity.ActivityId == Guid.Empty || !activityIds.Add(activity.ActivityId)
+                    || string.IsNullOrWhiteSpace(activity.TargetLocationId)
+                    || (activity.Activity != NpcActivity.Resting && activity.Activity != NpcActivity.Working)
+                    || !ValidTime(activity.StartsAtTotalMinutes) || !ValidTime(activity.ExpiresAtTotalMinutes)
+                    || activity.StartsAtTotalMinutes >= activity.ExpiresAtTotalMinutes
+                    || (!activity.IsMeetingActivity && activity.StartsAtTotalMinutes > snapshot.TotalMinutes)
+                    || activity.ExpiresAtTotalMinutes <= snapshot.TotalMinutes
+                    || activity.ExpiresAtTotalMinutes - activity.StartsAtTotalMinutes > MaximumActivityDurationGameMinutes
+                    || !(isKnownLocation != null ? isKnownLocation(saved.NpcId, activity.TargetLocationId)
+                        : IsScheduledLocation(_residents[saved.NpcId].Schedule, activity.TargetLocationId)))
+                    return OperationResult<NpcAgentWorld>.Failure("agent.snapshot_activity_invalid");
+            }
+
+            var candidate = new NpcAgentWorld(_residents.Values.Select(item => item.Schedule), _canVisit)
+            {
+                _current = progress,
+                _hasTime = true,
+                _worldRunId = Guid.NewGuid()
+            };
+            foreach (var saved in snapshot.Residents)
+            {
+                var resident = candidate._residents[saved.NpcId];
+                resident.Revision = saved.Revision;
+                resident.Events.AddRange(saved.Events);
+                if (saved.Activity == null) continue;
+                resident.ActivityStart = saved.Activity.StartsAtTotalMinutes;
+                resident.IsMeetingActivity = saved.Activity.IsMeetingActivity;
+                resident.Activity = new NpcActivityRequest(saved.NpcId, candidate._worldRunId, saved.Revision,
+                    saved.Activity.TargetLocationId, saved.Activity.Activity, saved.Activity.ExpiresAtTotalMinutes,
+                    saved.Activity.ActivityId);
+            }
+            return OperationResult<NpcAgentWorld>.Success(candidate);
+        }
+
+        private static bool ValidTime(double value) => !double.IsNaN(value) && !double.IsInfinity(value) && value >= 0;
+
+        private static bool SameSchedule(NpcDailySchedule first, NpcDailySchedule second)
+            => first.NpcId == second.NpcId && first.HomeId == second.HomeId
+                && first.HomeOutsideLocationId == second.HomeOutsideLocationId
+                && first.HomeEntranceLocationId == second.HomeEntranceLocationId
+                && first.MorningWorkLocationId == second.MorningWorkLocationId && first.RestLocationId == second.RestLocationId
+                && first.AfternoonWorkLocationId == second.AfternoonWorkLocationId && first.DepartureMinute == second.DepartureMinute
+                && first.MorningArrivalDeadlineMinute == second.MorningArrivalDeadlineMinute
+                && first.RestStartMinute == second.RestStartMinute && first.AfternoonStartMinute == second.AfternoonStartMinute
+                && first.ReturnStartMinute == second.ReturnStartMinute && first.HomeArrivalDeadlineMinute == second.HomeArrivalDeadlineMinute;
+
+        internal void NotifyMeeting(string npcId, NpcAgentEventKind kind)
+        {
+            var resident = RequireResident(npcId);
+            resident.Revision++;
+            Queue(resident, kind, TotalMinutes);
+        }
+
+        public void Observe(WorldTimeProgress progress)
+        {
+            if (progress.Clock.Day < 1 || progress.Clock.MinuteOfDay < 0 || progress.Clock.MinuteOfDay >= 1440
+                || double.IsNaN(progress.FractionalMinute) || progress.FractionalMinute < 0 || progress.FractionalMinute >= 1)
+                throw new ArgumentOutOfRangeException(nameof(progress), "World time requires a valid day, minute and fraction.");
+            bool rebuild = !_hasTime || progress.RebuildVersion != _current.RebuildVersion;
+            if (!rebuild && progress.TotalMinutes < _current.TotalMinutes)
+                throw new ArgumentException("Time can move backwards only when the world is rebuilt.", nameof(progress));
+            if (rebuild) _worldRunId = Guid.NewGuid();
+            foreach (var resident in _residents.Values)
+            {
+                if (rebuild)
+                {
+                    resident.Events.Clear();
+                    resident.Revision = 1;
+                    resident.Activity = null;
+                    Queue(resident, NpcAgentEventKind.WorldRebuilt, progress.TotalMinutes);
+                    continue;
+                }
+
+                var before = resident.Schedule.Query(_current.Clock.MinuteOfDay);
+                var after = resident.Schedule.Query(progress.Clock.MinuteOfDay);
+                bool changed = before.TargetLocationId != after.TargetLocationId
+                    || before.ExpectedActivity != after.ExpectedActivity;
+                if (changed) Queue(resident, NpcAgentEventKind.ScheduleChanged, progress.TotalMinutes);
+                if (progress.Clock.Day != _current.Clock.Day)
+                {
+                    changed = true;
+                    Queue(resident, NpcAgentEventKind.DayChanged, progress.TotalMinutes);
+                }
+                if (resident.Activity != null && progress.TotalMinutes >= resident.Activity.ExpiresAtTotalMinutes)
+                {
+                    changed = true;
+                    Queue(resident, NpcAgentEventKind.ActivityExpired, resident.Activity.ExpiresAtTotalMinutes);
+                    resident.Activity = null;
+                }
+                if (changed) resident.Revision++;
+            }
+            _current = progress;
+            _hasTime = true;
+        }
+
+        public NpcAgentSnapshot GetState(string npcId)
+        {
+            var resident = RequireResident(npcId);
+            return new NpcAgentSnapshot(npcId, _worldRunId, resident.Revision,
+                TargetAt(resident, TotalMinutes), resident.Activity);
+        }
+
+        public IReadOnlyList<NpcAgentEvent> TakeEvents(string npcId)
+        {
+            var resident = RequireResident(npcId);
+            var events = Array.AsReadOnly(resident.Events.ToArray());
+            resident.Events.Clear();
+            return events;
+        }
+
+        public IReadOnlyList<string> GetKnownLocationIds(string npcId)
+        {
+            var schedule = RequireResident(npcId).Schedule;
+            return Array.AsReadOnly(new[] { schedule.HomeOutsideLocationId, schedule.HomeEntranceLocationId,
+                schedule.MorningWorkLocationId, schedule.RestLocationId, schedule.AfternoonWorkLocationId }.Distinct().ToArray());
+        }
+
+        internal double NextScheduleChangeAfter(string npcId, double totalMinutes)
+        {
+            RequireTime(totalMinutes);
+            var schedule = RequireResident(npcId).Schedule;
+            double dayStart = Math.Floor(totalMinutes / 1440) * 1440;
+            double next = totalMinutes + 1440;
+            foreach (int minute in new[] { schedule.DepartureMinute, schedule.RestStartMinute,
+                schedule.AfternoonStartMinute, schedule.ReturnStartMinute })
+            {
+                double boundary = dayStart + minute;
+                if (boundary <= totalMinutes) boundary += 1440;
+                next = Math.Min(next, boundary);
+            }
+            return next;
+        }
+
+        public OperationResult<NpcLocationDetails> InspectLocation(string npcId, string locationId)
+        {
+            var resident = RequireResident(npcId);
+            if (!IsScheduledLocation(resident.Schedule, locationId))
+                return OperationResult<NpcLocationDetails>.Failure("agent.location_unknown");
+            return OperationResult<NpcLocationDetails>.Success(new NpcLocationDetails(locationId,
+                _canVisit == null || _canVisit(npcId, locationId)));
+        }
+
+        public OperationResult SubmitActivity(NpcActivityRequest request)
+        {
+            var validation = ValidateActivity(request, out var resident);
+            if (!validation.IsSuccess) return validation;
+            CommitActivity(resident, request, TotalMinutes);
+            return OperationResult.Success();
+        }
+
+        internal OperationResult SubmitMeetingActivities(NpcActivityRequest first, NpcActivityRequest second, double startsAt)
+        {
+            var validation = ValidateActivity(first, out var initiator);
+            if (!validation.IsSuccess) return validation;
+            validation = ValidateActivity(second, out var partner);
+            if (!validation.IsSuccess) return validation;
+            if (first.NpcId == second.NpcId || double.IsNaN(startsAt) || startsAt < TotalMinutes
+                || startsAt >= first.ExpiresAtTotalMinutes || startsAt >= second.ExpiresAtTotalMinutes)
+                return OperationResult.Failure("meeting.start_invalid");
+            CommitActivity(initiator, first, startsAt, isMeetingActivity: true);
+            CommitActivity(partner, second, startsAt, isMeetingActivity: true);
+            return OperationResult.Success();
+        }
+
+        private OperationResult ValidateActivity(NpcActivityRequest request, out Resident resident)
+        {
+            resident = null;
+            if (request == null) return OperationResult.Failure("agent.request_invalid");
+            var validation = ValidateCommand(request.NpcId, request.WorldRunId, request.ExpectedRevision, out resident);
+            if (!validation.IsSuccess) return validation;
+            if (resident.Activity != null) return OperationResult.Failure("agent.busy");
+            if (request.Activity != NpcActivity.Working && request.Activity != NpcActivity.Resting)
+                return OperationResult.Failure("agent.activity_invalid");
+            double duration = request.ExpiresAtTotalMinutes - TotalMinutes;
+            if (double.IsNaN(duration) || duration <= 0 || duration > MaximumActivityDurationGameMinutes)
+                return OperationResult.Failure("agent.deadline_invalid");
+            if (string.IsNullOrWhiteSpace(request.TargetLocationId)
+                || !(_canVisit != null
+                    ? _canVisit(request.NpcId, request.TargetLocationId)
+                    : IsScheduledLocation(resident.Schedule, request.TargetLocationId)))
+                return OperationResult.Failure("agent.target_unavailable");
+            return OperationResult.Success();
+        }
+
+        private void CommitActivity(Resident resident, NpcActivityRequest request, double startsAt, bool isMeetingActivity = false)
+        {
+            resident.Activity = request;
+            resident.ActivityStart = startsAt;
+            resident.IsMeetingActivity = isMeetingActivity;
+            resident.Revision++;
+            Queue(resident, NpcAgentEventKind.ActivityAccepted, TotalMinutes);
+        }
+
+        public OperationResult CancelActivity(string npcId, Guid worldRunId, long expectedRevision)
+        {
+            var validation = ValidateCommand(npcId, worldRunId, expectedRevision, out var resident);
+            if (!validation.IsSuccess) return validation;
+            if (resident.Activity == null) return OperationResult.Failure("agent.no_activity");
+            resident.Activity = null;
+            resident.Revision++;
+            Queue(resident, NpcAgentEventKind.ActivityCancelled, TotalMinutes);
+            return OperationResult.Success();
+        }
+
+        public NpcScheduleTarget GetTargetAt(string npcId, double totalMinutes)
+        {
+            RequireTime(totalMinutes);
+            return TargetAt(RequireResident(npcId), totalMinutes);
+        }
+
+        public double NextBoundaryAfter(string npcId, double totalMinutes)
+        {
+            RequireTime(totalMinutes);
+            var resident = RequireResident(npcId);
+            double next = Math.Floor(totalMinutes)
+                + resident.Schedule.MinutesUntilNextBoundary((int)(Math.Floor(totalMinutes) % 1440));
+            if (resident.Activity != null)
+            {
+                if (resident.ActivityStart > totalMinutes) next = Math.Min(next, resident.ActivityStart);
+                if (resident.Activity.ExpiresAtTotalMinutes > totalMinutes)
+                    next = Math.Min(next, resident.Activity.ExpiresAtTotalMinutes);
+            }
+            return next;
+        }
+
+        private OperationResult ValidateCommand(string npcId, Guid worldRunId, long revision, out Resident resident)
+        {
+            resident = null;
+            if (!_hasTime) return OperationResult.Failure("agent.world_unbound");
+            if (!_residents.TryGetValue(npcId ?? string.Empty, out resident))
+                return OperationResult.Failure("agent.npc_unknown");
+            if (worldRunId != _worldRunId) return OperationResult.Failure("agent.world_stale");
+            return revision == resident.Revision
+                ? OperationResult.Success()
+                : OperationResult.Failure("agent.decision_stale");
+        }
+
+        private static NpcScheduleTarget TargetAt(Resident resident, double totalMinutes)
+        {
+            var activity = resident.Activity;
+            return activity != null && totalMinutes >= resident.ActivityStart && totalMinutes < activity.ExpiresAtTotalMinutes
+                ? new NpcScheduleTarget(activity.TargetLocationId, activity.Activity)
+                : resident.Schedule.Query((int)(Math.Floor(totalMinutes) % 1440));
+        }
+
+        private static bool IsScheduledLocation(NpcDailySchedule schedule, string locationId)
+        {
+            return locationId == schedule.HomeOutsideLocationId || locationId == schedule.HomeEntranceLocationId
+                || locationId == schedule.MorningWorkLocationId || locationId == schedule.RestLocationId
+                || locationId == schedule.AfternoonWorkLocationId;
+        }
+
+        private static void RequireTime(double totalMinutes)
+        {
+            if (double.IsNaN(totalMinutes) || double.IsInfinity(totalMinutes) || totalMinutes < 0)
+                throw new ArgumentOutOfRangeException(nameof(totalMinutes));
+        }
+
+        private Resident RequireResident(string npcId)
+        {
+            if (!_hasTime) throw new InvalidOperationException("Observe world time before querying residents.");
+            if (!_residents.TryGetValue(npcId ?? string.Empty, out var resident))
+                throw new ArgumentException("The NPC is not registered in this world.", nameof(npcId));
+            return resident;
+        }
+
+        private static void Queue(Resident resident, NpcAgentEventKind kind, double totalMinutes)
+        {
+            // These are decision notifications; retain the latest occurrence of each kind, not a history log.
+            resident.Events.RemoveAll(item => item.Kind == kind);
+            if (resident.Events.Count == MaxPendingEvents) resident.Events.RemoveAt(0);
+            resident.Events.Add(new NpcAgentEvent(kind, totalMinutes));
+        }
+    }
+}

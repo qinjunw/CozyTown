@@ -70,6 +70,23 @@ namespace CozyTown.Tests.PlayMode
             }
         }
 
+        [TestCase("save.loaded_rebuild_required", "Data restored; world paused. Fix the fault and load again: save.loaded_rebuild_required")]
+        [TestCase("save.loaded_presentation_failed", "Data restored; display refresh failed: save.loaded_presentation_failed")]
+        [TestCase("save.restore_exception", "Load interrupted; world state uncertain and paused: save.restore_exception")]
+        [TestCase("save.rollback_world_seed_failed", "Load could not roll back; world paused: save.rollback_world_seed_failed")]
+        public void IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore(string code, string feedback)
+        {
+            var coordinator = new StubSaveCoordinator
+            {
+                SaveResult = OperationResult.Success(),
+                LoadResult = OperationResult.Failure(code)
+            };
+            CreatePresenter(coordinator, out var view);
+            view.RequestSave();
+            view.RequestLoad();
+            Assert.That(view.Feedback, Is.EqualTo(feedback));
+        }
+
         private CozyTownSaveDebugPresenter CreatePresenter(
             IGameSaveCoordinator coordinator,
             out CozyTownSaveDebugView view)

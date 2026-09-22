@@ -1,0 +1,66 @@
+{
+  "method": "Root adjudication after both initial files were saved. Independent reviewer used only shuffled shared contexts and final texts. Both reviewers are agents, not independent human judges; sentence shapes can reveal arm. No additional API judge calls.",
+  "initialUsefulAgreement": {
+    "agreed": 43,
+    "total": 48
+  },
+  "rootInitialUseful": 40,
+  "independentInitialUseful": 35,
+  "finalAssertionGranularity": "Use the independent review 118-assertion segmentation, retaining both originals. Rates across studies have different claim denominators; output-level metrics are also provided.",
+  "usefulDisagreements": [
+    {
+      "sampleId": "E001",
+      "rootInitial": true,
+      "independentInitial": false,
+      "finalUseful": false,
+      "reason": "Withholding confirmation is not the whole answer to what evidence exists. The actual heard statement is omitted; an unrelated transfer is substituted."
+    },
+    {
+      "sampleId": "E008",
+      "rootInitial": true,
+      "independentInitial": false,
+      "finalUseful": false,
+      "reason": "Seen/heard preamble and inability to confirm do not identify the relevant participant statement. Core source answer remains incomplete."
+    },
+    {
+      "sampleId": "E024",
+      "rootInitial": true,
+      "independentInitial": false,
+      "finalUseful": false,
+      "reason": "No confirming evidence can be a reasonable reading, but the response omits the supplied statement and substitutes delivery; partial answer."
+    },
+    {
+      "sampleId": "E007",
+      "rootInitial": true,
+      "independentInitial": false,
+      "finalUseful": false,
+      "reason": "A concrete six-pace distance introduces a unit absent from the radius=6 input. Use unsupported as primary; the core coverage boundary itself is correct."
+    },
+    {
+      "sampleId": "E041",
+      "rootInitial": true,
+      "independentInitial": false,
+      "finalUseful": false,
+      "reason": "The concrete pack visibility explanation with from here is not an observed fact. Use unsupported as primary and retain an inventory-metaphor sensitivity."
+    }
+  ],
+  "otherLabelAdjudications": [
+    {
+      "sampleId": "E010",
+      "decision": "Use source_time for unrecorded dusk observation; absence from a truncated list does not prove pond invisibility."
+    },
+    {
+      "sampleId": "E017",
+      "decision": "Use source_time for inferring a past mistake from current zero stock, and for promoting past speech to an independent inventory record."
+    },
+    {
+      "sampleId": "E047",
+      "decision": "Keep spoke too soon as ambiguous subjective reflection; explicit current one carp is independently contradictory."
+    },
+    {
+      "sampleId": "E039",
+      "decision": "Both initial reviews accept just decoration as a contextual refusal. Preserve explicit-no-interaction sensitivity because a merely reported kind was partial in the prior structured study."
+    }
+  ],
+  "unchangedAmbiguities": "Retain every independent ambiguity, including figurative equipment, generic fishing location versus current fish/provenance, receipt versus current ownership, and seen/heard versus confirming evidence."
+}

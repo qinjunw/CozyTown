@@ -1,0 +1,622 @@
+{
+  "schemaVersion": 1,
+  "sourceSha256": "c652f6394fa4a6079ab727ab596eba15e9a54ccefb71af1812aa998534b32141",
+  "description": "Frozen independent model requests derived from recorded host contexts, not newly simulated worlds. Arm/case/expected metadata stays outside model input.",
+  "cases": [
+    {
+      "id": "sora_available",
+      "category": "resource",
+      "source": {
+        "file": "docs/verification/agent-resource-scenarios-2026-09-13.json",
+        "providerCallId": "1:1",
+        "scenario": "available",
+        "batch": 1,
+        "ordinal": 1
+      },
+      "fixtureEdits": [
+        "Clear social.memories for all arms; no outputs from another evaluation call are carried forward."
+      ],
+      "expected": {
+        "infeasibleOperations": [],
+        "progressOperation": "invite"
+      },
+      "context": {
+        "schemaVersion": 3,
+        "decisionId": "276b2ec1576240c389c0cae8527ddf52",
+        "npcId": "npc.cook_sora",
+        "displayName": "Sora",
+        "persona": "An energetic cook who enjoys combining local ingredients.",
+        "worldRunId": "d6dc99111f2e4e8a9dee3db119a92593",
+        "revision": 3,
+        "gameTotalMinutes": 735.0000074,
+        "targetLocationId": "work.cook_sora",
+        "activity": "working",
+        "step": 1,
+        "remainingCalls": 1,
+        "maxActivityDurationGameMinutes": 1440.0,
+        "allowedOperations": [
+          "invite",
+          "wait"
+        ],
+        "allowedActivities": [],
+        "triggers": [
+          {
+            "kind": "WorldRebuilt",
+            "gameTotalMinutes": 360.0
+          },
+          {
+            "kind": "ScheduleChanged",
+            "gameTotalMinutes": 390.0
+          },
+          {
+            "kind": "SocialOpportunity",
+            "gameTotalMinutes": 735.0000074
+          }
+        ],
+        "knownLocationIds": [],
+        "hasLocationDetails": false,
+        "locationDetails": {
+          "locationId": "",
+          "isReachable": false
+        },
+        "previousResultCode": "",
+        "social": {
+          "resources": {
+            "sellerId": "npc.fisher_ren",
+            "buyerId": "npc.cook_sora",
+            "itemId": "fish.carp",
+            "deliveryResultCode": "",
+            "quantity": 1,
+            "totalPrice": 25,
+            "ownedQuantity": 0,
+            "balance": 50
+          },
+          "kind": "opportunity",
+          "planId": "sora-ren-fish-supply",
+          "partnerId": "npc.fisher_ren",
+          "placeId": "pond-walk",
+          "locationId": "road.west_lane",
+          "meetingId": "",
+          "startsAtTotalMinutes": 780.0,
+          "deadlineTotalMinutes": 795.0,
+          "maxTurns": 4,
+          "transcript": [],
+          "memories": []
+        }
+      }
+    },
+    {
+      "id": "sora_poor",
+      "category": "resource",
+      "source": {
+        "file": "docs/verification/agent-resource-scenarios-2026-09-13.json",
+        "providerCallId": "1:9",
+        "scenario": "buyer_poor",
+        "batch": 1,
+        "ordinal": 3
+      },
+      "fixtureEdits": [
+        "Clear social.memories for all arms; no outputs from another evaluation call are carried forward."
+      ],
+      "expected": {
+        "infeasibleOperations": [
+          "invite"
+        ],
+        "progressOperation": "invite"
+      },
+      "context": {
+        "schemaVersion": 3,
+        "decisionId": "9f197d91497a439fbcc25882286a0435",
+        "npcId": "npc.cook_sora",
+        "displayName": "Sora",
+        "persona": "An energetic cook who enjoys combining local ingredients.",
+        "worldRunId": "6cacbe007ffd41b4a72be4754296d595",
+        "revision": 3,
+        "gameTotalMinutes": 735.0000012,
+        "targetLocationId": "work.cook_sora",
+        "activity": "working",
+        "step": 1,
+        "remainingCalls": 1,
+        "maxActivityDurationGameMinutes": 1440.0,
+        "allowedOperations": [
+          "invite",
+          "wait"
+        ],
+        "allowedActivities": [],
+        "triggers": [
+          {
+            "kind": "WorldRebuilt",
+            "gameTotalMinutes": 360.0
+          },
+          {
+            "kind": "ScheduleChanged",
+            "gameTotalMinutes": 390.0
+          },
+          {
+            "kind": "SocialOpportunity",
+            "gameTotalMinutes": 735.0000012
+          }
+        ],
+        "knownLocationIds": [],
+        "hasLocationDetails": false,
+        "locationDetails": {
+          "locationId": "",
+          "isReachable": false
+        },
+        "previousResultCode": "",
+        "social": {
+          "resources": {
+            "sellerId": "npc.fisher_ren",
+            "buyerId": "npc.cook_sora",
+            "itemId": "fish.carp",
+            "deliveryResultCode": "",
+            "quantity": 1,
+            "totalPrice": 25,
+            "ownedQuantity": 0,
+            "balance": 10
+          },
+          "kind": "opportunity",
+          "planId": "sora-ren-fish-supply",
+          "partnerId": "npc.fisher_ren",
+          "placeId": "pond-walk",
+          "locationId": "road.west_lane",
+          "meetingId": "",
+          "startsAtTotalMinutes": 780.0,
+          "deadlineTotalMinutes": 795.0,
+          "maxTurns": 4,
+          "transcript": [],
+          "memories": []
+        }
+      }
+    },
+    {
+      "id": "ren_available",
+      "category": "resource",
+      "source": {
+        "file": "docs/verification/agent-resource-scenarios-2026-09-13.json",
+        "providerCallId": "1:2",
+        "scenario": "available",
+        "batch": 1,
+        "ordinal": 1
+      },
+      "fixtureEdits": [
+        "Clear social.memories for all arms; no outputs from another evaluation call are carried forward."
+      ],
+      "expected": {
+        "infeasibleOperations": [],
+        "progressOperation": "accept_invite"
+      },
+      "context": {
+        "schemaVersion": 3,
+        "decisionId": "0ab48cf33a104436996b23f777dbeafb",
+        "npcId": "npc.fisher_ren",
+        "displayName": "Ren",
+        "persona": "A quiet fisher who notices small changes around the pond.",
+        "worldRunId": "d6dc99111f2e4e8a9dee3db119a92593",
+        "revision": 3,
+        "gameTotalMinutes": 737.123812,
+        "targetLocationId": "rest.fisher_ren",
+        "activity": "resting",
+        "step": 1,
+        "remainingCalls": 1,
+        "maxActivityDurationGameMinutes": 1440.0,
+        "allowedOperations": [
+          "accept_invite",
+          "decline_invite"
+        ],
+        "allowedActivities": [],
+        "triggers": [
+          {
+            "kind": "MeetingChanged",
+            "gameTotalMinutes": 737.114586
+          }
+        ],
+        "knownLocationIds": [],
+        "hasLocationDetails": false,
+        "locationDetails": {
+          "locationId": "",
+          "isReachable": false
+        },
+        "previousResultCode": "",
+        "social": {
+          "resources": {
+            "sellerId": "npc.fisher_ren",
+            "buyerId": "npc.cook_sora",
+            "itemId": "fish.carp",
+            "deliveryResultCode": "",
+            "quantity": 1,
+            "totalPrice": 25,
+            "ownedQuantity": 2,
+            "balance": 0
+          },
+          "kind": "invitation",
+          "planId": "sora-ren-fish-supply",
+          "partnerId": "npc.cook_sora",
+          "placeId": "pond-walk",
+          "locationId": "rest.fisher_ren",
+          "meetingId": "6921ed6636db4ba1bd02fda9ec38ef3e",
+          "startsAtTotalMinutes": 780.0,
+          "deadlineTotalMinutes": 795.0,
+          "maxTurns": 4,
+          "transcript": [],
+          "memories": []
+        }
+      }
+    },
+    {
+      "id": "ren_empty",
+      "category": "resource",
+      "source": {
+        "file": "docs/verification/agent-resource-scenarios-2026-09-13.json",
+        "providerCallId": "1:8",
+        "scenario": "seller_empty",
+        "batch": 1,
+        "ordinal": 2
+      },
+      "fixtureEdits": [
+        "Clear social.memories for all arms; no outputs from another evaluation call are carried forward."
+      ],
+      "expected": {
+        "infeasibleOperations": [
+          "accept_invite"
+        ],
+        "progressOperation": "accept_invite"
+      },
+      "context": {
+        "schemaVersion": 3,
+        "decisionId": "a298bb843ea54b0eb89a3e48bfe0d0a9",
+        "npcId": "npc.fisher_ren",
+        "displayName": "Ren",
+        "persona": "A quiet fisher who notices small changes around the pond.",
+        "worldRunId": "7a60e21e10c947e7a2d50f3cc02f5118",
+        "revision": 3,
+        "gameTotalMinutes": 735.8469726,
+        "targetLocationId": "rest.fisher_ren",
+        "activity": "resting",
+        "step": 1,
+        "remainingCalls": 1,
+        "maxActivityDurationGameMinutes": 1440.0,
+        "allowedOperations": [
+          "accept_invite",
+          "decline_invite"
+        ],
+        "allowedActivities": [],
+        "triggers": [
+          {
+            "kind": "MeetingChanged",
+            "gameTotalMinutes": 735.842305
+          }
+        ],
+        "knownLocationIds": [],
+        "hasLocationDetails": false,
+        "locationDetails": {
+          "locationId": "",
+          "isReachable": false
+        },
+        "previousResultCode": "",
+        "social": {
+          "resources": {
+            "sellerId": "npc.fisher_ren",
+            "buyerId": "npc.cook_sora",
+            "itemId": "fish.carp",
+            "deliveryResultCode": "",
+            "quantity": 1,
+            "totalPrice": 25,
+            "ownedQuantity": 0,
+            "balance": 0
+          },
+          "kind": "invitation",
+          "planId": "sora-ren-fish-supply",
+          "partnerId": "npc.cook_sora",
+          "placeId": "pond-walk",
+          "locationId": "rest.fisher_ren",
+          "meetingId": "5d4a7c13c3a444c9aace415920d213b8",
+          "startsAtTotalMinutes": 780.0,
+          "deadlineTotalMinutes": 795.0,
+          "maxTurns": 4,
+          "transcript": [],
+          "memories": []
+        }
+      }
+    },
+    {
+      "id": "sora_delivery_poor",
+      "category": "resource",
+      "source": {
+        "file": "docs/verification/agent-resource-scenarios-2026-09-13.json",
+        "providerCallId": "1:11",
+        "scenario": "buyer_poor",
+        "batch": 1,
+        "ordinal": 3
+      },
+      "fixtureEdits": [
+        "Clear social.memories for all arms; no outputs from another evaluation call are carried forward."
+      ],
+      "expected": {
+        "infeasibleOperations": [
+          "deliver"
+        ],
+        "progressOperation": "deliver"
+      },
+      "context": {
+        "schemaVersion": 3,
+        "decisionId": "7db72176671c437f8315b0e1a71cd311",
+        "npcId": "npc.cook_sora",
+        "displayName": "Sora",
+        "persona": "An energetic cook who enjoys combining local ingredients.",
+        "worldRunId": "6cacbe007ffd41b4a72be4754296d595",
+        "revision": 8,
+        "gameTotalMinutes": 786.0508428,
+        "targetLocationId": "road.west_lane",
+        "activity": "resting",
+        "step": 1,
+        "remainingCalls": 1,
+        "maxActivityDurationGameMinutes": 1440.0,
+        "allowedOperations": [
+          "deliver",
+          "cancel_exchange"
+        ],
+        "allowedActivities": [],
+        "triggers": [
+          {
+            "kind": "MeetingChanged",
+            "gameTotalMinutes": 786.0508428
+          }
+        ],
+        "knownLocationIds": [],
+        "hasLocationDetails": false,
+        "locationDetails": {
+          "locationId": "",
+          "isReachable": false
+        },
+        "previousResultCode": "meeting.invited",
+        "social": {
+          "resources": {
+            "sellerId": "npc.fisher_ren",
+            "buyerId": "npc.cook_sora",
+            "itemId": "fish.carp",
+            "deliveryResultCode": "",
+            "quantity": 1,
+            "totalPrice": 25,
+            "ownedQuantity": 0,
+            "balance": 10
+          },
+          "kind": "delivery",
+          "planId": "sora-ren-fish-supply",
+          "partnerId": "npc.fisher_ren",
+          "placeId": "pond-walk",
+          "locationId": "road.west_lane",
+          "meetingId": "a69d7a9fe59146cab5baf3b1bfe538f6",
+          "startsAtTotalMinutes": 780.0,
+          "deadlineTotalMinutes": 930.0,
+          "maxTurns": 4,
+          "transcript": [],
+          "memories": []
+        }
+      }
+    },
+    {
+      "id": "ren_one_fish",
+      "category": "resource",
+      "source": {
+        "file": "docs/verification/agent-resource-scenarios-2026-09-13.json",
+        "providerCallId": "1:2",
+        "scenario": "available",
+        "batch": 1,
+        "ordinal": 1
+      },
+      "fixtureEdits": [
+        "Clear social.memories for all arms; no outputs from another evaluation call are carried forward.",
+        "Counterfactual fixture: replace only the seller ownedQuantity with 1; no claim of a new Unity run."
+      ],
+      "expected": {
+        "infeasibleOperations": [],
+        "progressOperation": "accept_invite"
+      },
+      "context": {
+        "schemaVersion": 3,
+        "decisionId": "0ab48cf33a104436996b23f777dbeafb",
+        "npcId": "npc.fisher_ren",
+        "displayName": "Ren",
+        "persona": "A quiet fisher who notices small changes around the pond.",
+        "worldRunId": "d6dc99111f2e4e8a9dee3db119a92593",
+        "revision": 3,
+        "gameTotalMinutes": 737.123812,
+        "targetLocationId": "rest.fisher_ren",
+        "activity": "resting",
+        "step": 1,
+        "remainingCalls": 1,
+        "maxActivityDurationGameMinutes": 1440.0,
+        "allowedOperations": [
+          "accept_invite",
+          "decline_invite"
+        ],
+        "allowedActivities": [],
+        "triggers": [
+          {
+            "kind": "MeetingChanged",
+            "gameTotalMinutes": 737.114586
+          }
+        ],
+        "knownLocationIds": [],
+        "hasLocationDetails": false,
+        "locationDetails": {
+          "locationId": "",
+          "isReachable": false
+        },
+        "previousResultCode": "",
+        "social": {
+          "resources": {
+            "sellerId": "npc.fisher_ren",
+            "buyerId": "npc.cook_sora",
+            "itemId": "fish.carp",
+            "deliveryResultCode": "",
+            "quantity": 1,
+            "totalPrice": 25,
+            "ownedQuantity": 1,
+            "balance": 0
+          },
+          "kind": "invitation",
+          "planId": "sora-ren-fish-supply",
+          "partnerId": "npc.cook_sora",
+          "placeId": "pond-walk",
+          "locationId": "rest.fisher_ren",
+          "meetingId": "6921ed6636db4ba1bd02fda9ec38ef3e",
+          "startsAtTotalMinutes": 780.0,
+          "deadlineTotalMinutes": 795.0,
+          "maxTurns": 4,
+          "transcript": [],
+          "memories": []
+        }
+      }
+    },
+    {
+      "id": "sora_conversation",
+      "category": "dialogue",
+      "source": {
+        "file": "docs/verification/agent-resource-scenarios-2026-09-13.json",
+        "providerCallId": "1:4",
+        "scenario": "available",
+        "batch": 1,
+        "ordinal": 1
+      },
+      "fixtureEdits": [
+        "Clear social.memories for all arms; no outputs from another evaluation call are carried forward.",
+        "Isolated speech probe: clear transcript equally in every arm to remove historical generated claims."
+      ],
+      "expected": {
+        "infeasibleOperations": [],
+        "progressOperation": "say"
+      },
+      "context": {
+        "schemaVersion": 3,
+        "decisionId": "102a3c75960949278cc6301a8e350c34",
+        "npcId": "npc.cook_sora",
+        "displayName": "Sora",
+        "persona": "An energetic cook who enjoys combining local ingredients.",
+        "worldRunId": "d6dc99111f2e4e8a9dee3db119a92593",
+        "revision": 9,
+        "gameTotalMinutes": 787.918353,
+        "targetLocationId": "road.west_lane",
+        "activity": "resting",
+        "step": 1,
+        "remainingCalls": 1,
+        "maxActivityDurationGameMinutes": 1440.0,
+        "allowedOperations": [
+          "say"
+        ],
+        "allowedActivities": [],
+        "triggers": [
+          {
+            "kind": "MeetingChanged",
+            "gameTotalMinutes": 787.918353
+          }
+        ],
+        "knownLocationIds": [],
+        "hasLocationDetails": false,
+        "locationDetails": {
+          "locationId": "",
+          "isReachable": false
+        },
+        "previousResultCode": "meeting.deliver",
+        "social": {
+          "resources": {
+            "sellerId": "npc.fisher_ren",
+            "buyerId": "npc.cook_sora",
+            "itemId": "fish.carp",
+            "deliveryResultCode": "resource.delivered",
+            "quantity": 1,
+            "totalPrice": 25,
+            "ownedQuantity": 1,
+            "balance": 25
+          },
+          "kind": "conversation",
+          "planId": "sora-ren-fish-supply",
+          "partnerId": "npc.fisher_ren",
+          "placeId": "pond-walk",
+          "locationId": "road.west_lane",
+          "meetingId": "6921ed6636db4ba1bd02fda9ec38ef3e",
+          "startsAtTotalMinutes": 780.0,
+          "deadlineTotalMinutes": 930.0,
+          "maxTurns": 4,
+          "transcript": [],
+          "memories": []
+        }
+      }
+    },
+    {
+      "id": "ren_conversation",
+      "category": "dialogue",
+      "source": {
+        "file": "docs/verification/agent-resource-scenarios-2026-09-13.json",
+        "providerCallId": "1:5",
+        "scenario": "available",
+        "batch": 1,
+        "ordinal": 1
+      },
+      "fixtureEdits": [
+        "Clear social.memories for all arms; no outputs from another evaluation call are carried forward.",
+        "Isolated speech probe: clear transcript equally in every arm to remove historical generated claims."
+      ],
+      "expected": {
+        "infeasibleOperations": [],
+        "progressOperation": "say"
+      },
+      "context": {
+        "schemaVersion": 3,
+        "decisionId": "d9f4bd759fa04f42a95720cc999581c9",
+        "npcId": "npc.fisher_ren",
+        "displayName": "Ren",
+        "persona": "A quiet fisher who notices small changes around the pond.",
+        "worldRunId": "d6dc99111f2e4e8a9dee3db119a92593",
+        "revision": 8,
+        "gameTotalMinutes": 789.7021622,
+        "targetLocationId": "rest.fisher_ren",
+        "activity": "resting",
+        "step": 1,
+        "remainingCalls": 1,
+        "maxActivityDurationGameMinutes": 1440.0,
+        "allowedOperations": [
+          "say"
+        ],
+        "allowedActivities": [],
+        "triggers": [
+          {
+            "kind": "MeetingChanged",
+            "gameTotalMinutes": 789.6828226
+          }
+        ],
+        "knownLocationIds": [],
+        "hasLocationDetails": false,
+        "locationDetails": {
+          "locationId": "",
+          "isReachable": false
+        },
+        "previousResultCode": "meeting.accept_invite",
+        "social": {
+          "resources": {
+            "sellerId": "npc.fisher_ren",
+            "buyerId": "npc.cook_sora",
+            "itemId": "fish.carp",
+            "deliveryResultCode": "resource.delivered",
+            "quantity": 1,
+            "totalPrice": 25,
+            "ownedQuantity": 1,
+            "balance": 25
+          },
+          "kind": "conversation",
+          "planId": "sora-ren-fish-supply",
+          "partnerId": "npc.cook_sora",
+          "placeId": "pond-walk",
+          "locationId": "rest.fisher_ren",
+          "meetingId": "6921ed6636db4ba1bd02fda9ec38ef3e",
+          "startsAtTotalMinutes": 780.0,
+          "deadlineTotalMinutes": 930.0,
+          "maxTurns": 4,
+          "transcript": [],
+          "memories": []
+        }
+      }
+    }
+  ]
+}

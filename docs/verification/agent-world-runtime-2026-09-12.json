@@ -1,0 +1,354 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-12",
+  "referenceCommit": "207e42c4f5962154417d7315d179bde130504a12",
+  "workspace": "Shared working tree with uncommitted changes; source hashes cover this iteration, not the complete project.",
+  "unityVersion": "6000.5.5f1",
+  "testFrameworkVersion": "1.7.0",
+  "realModelCalls": 0,
+  "runs": [
+    {
+      "name": "baseline-editmode",
+      "report": "Logs/agent-world-baseline-editmode.xml",
+      "result": "Passed",
+      "total": 69,
+      "passed": 69,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "a440b719256c64e92461b4cf595aafce10a1a07e5631a6515399c3f640e1e5c8"
+    },
+    {
+      "name": "events-red",
+      "report": "Logs/agent-world-events-red.xml",
+      "result": "Failed(Child)",
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "sha256": "bb08567ebdef1b5500d03d8e6453dd41b833f2ccb6b6265d633b27097ed22336"
+    },
+    {
+      "name": "events-green",
+      "report": "Logs/agent-world-events-green.xml",
+      "result": "Passed",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "f4e058333ced0378f7914a678cf9243f33b2bf70a5180a51d76dcd78d899cc23"
+    },
+    {
+      "name": "activity-red",
+      "report": "Logs/agent-world-activity-red.xml",
+      "result": "Failed(Child)",
+      "total": 2,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "sha256": "9ebc410e75e987851036bc51eafb8b7dd8232e99327135a7420ace94f2d51dd8"
+    },
+    {
+      "name": "activity-green",
+      "report": "Logs/agent-world-activity-green.xml",
+      "result": "Passed",
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "c5274486f8f902370b9d46bcec79ab2a27f0519d52d18fa57e7554fa8e91597d"
+    },
+    {
+      "name": "movement-red",
+      "report": "Logs/agent-world-movement-red.xml",
+      "result": "Failed(Child)",
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "sha256": "09779b8132098f366638239743e4b79cabed07ed71ede2917aec3a065c46db0d"
+    },
+    {
+      "name": "movement-green",
+      "report": "Logs/agent-world-movement-green.xml",
+      "result": "Passed",
+      "total": 26,
+      "passed": 26,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "53ee294706d1c9faf25389cdd23e329ba1f214fdaab5333a34ed2fb1ec720f13"
+    },
+    {
+      "name": "fraction-red",
+      "report": "Logs/agent-world-fraction-red.xml",
+      "result": "Passed",
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "38844e79e0c3872cc9e31992ebc19081fab2066de46b75814c9854c5b393d4a1"
+    },
+    {
+      "name": "sleep-red",
+      "report": "Logs/agent-world-sleep-red.xml",
+      "result": "Failed(Child)",
+      "total": 3,
+      "passed": 2,
+      "failed": 1,
+      "skipped": 0,
+      "sha256": "cf71d787f1f32edcddd08fbb77596d2baa4467a4a68a3ca69cb3f25122bd94f2"
+    },
+    {
+      "name": "sleep-green",
+      "report": "Logs/agent-world-sleep-green.xml",
+      "result": "Passed",
+      "total": 3,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "96414f3b4c645a5eb5cad3c127daf515dcbf75d5508ad93e0adcdfbd1c6ec763"
+    },
+    {
+      "name": "isolation-red2",
+      "report": "Logs/agent-world-isolation-red2.xml",
+      "result": "Failed(Child)",
+      "total": 4,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "sha256": "d6d6819594e2c4fd2e49a13f4a8781c7cca26678df544a4052f1a01aa7d6ab0a"
+    },
+    {
+      "name": "isolation-green",
+      "report": "Logs/agent-world-isolation-green.xml",
+      "result": "Passed",
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "987ab4bf5dde1ad364153a9b2ceaf46209924b61896a013e1de51e928f832a26"
+    },
+    {
+      "name": "full-editmode",
+      "report": "Logs/agent-world-full-editmode.xml",
+      "result": "Passed",
+      "total": 514,
+      "passed": 514,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "72ccac980d75566baf4e5226b95689b7ba7e836105d44a021cb0c024e94c8b4f"
+    },
+    {
+      "name": "full-playmode",
+      "report": "Logs/agent-world-full-playmode.xml",
+      "result": "Passed",
+      "total": 164,
+      "passed": 164,
+      "failed": 0,
+      "skipped": 0,
+      "sha256": "7e1c753a8b08e4663f7925f33331358668e7640fa7c985355b97509cb04daf93"
+    }
+  ],
+  "additionalAttempts": [
+    {
+      "name": "isolation-red",
+      "result": "Compilation failed: misplaced using directive in test file (CS1529). Not behavioral RED."
+    }
+  ],
+  "diagnosticNote": "fraction-red passed; the direct time advance behavior already worked. The sleep regression failed separately.",
+  "newCases": [
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.CancelAfterScheduleChange_RestoresTheCurrentSchedule",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.DuplicateAndBusyRequests_DoNotReplaceAnAcceptedActivity",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.InvalidActivity_LeavesTheResidentUnchanged(\"missing\",\"mina.rest\",Resting,\"agent.npc_unknown\")",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.InvalidActivity_LeavesTheResidentUnchanged(\"mina\",\"missing\",Resting,\"agent.target_unavailable\")",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.InvalidActivity_LeavesTheResidentUnchanged(\"mina\",\"ren.rest\",Resting,\"agent.target_unavailable\")",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.InvalidActivity_LeavesTheResidentUnchanged(\"mina\",\"mina.rest\",Home,\"agent.activity_invalid\")",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.InvalidActivity_LeavesTheResidentUnchanged(\"mina\",\"mina.rest\",999,\"agent.activity_invalid\")",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.InvalidDeadline_LeavesTheResidentUnchanged(719)",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.InvalidDeadline_LeavesTheResidentUnchanged(700)",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.InvalidDeadline_LeavesTheResidentUnchanged(2160)",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.InvalidDeadline_LeavesTheResidentUnchanged(double.NaN)",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.InvalidDeadline_LeavesTheResidentUnchanged(double.PositiveInfinity)",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.InvalidDeadline_LeavesTheResidentUnchanged(double.NegativeInfinity)",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.LargeJump_DoesNotBackfillExpiredScheduleOpportunities",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.Rebuild_RejectsPreviousWorldEvenWhenRevisionMatches",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.TemporaryActivity_SurvivesScheduleChangesAndExpiresIntoCurrentSchedule",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.TimeCannotMoveBackwardsWithoutRebuildingTheWorld",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.UnconsumedEvents_CoalesceAcrossDaysAndKeepTheLatestTime",
+      "result": "Passed"
+    },
+    {
+      "platform": "editmode",
+      "name": "CozyTown.Tests.EditMode.NpcAgents.NpcAgentWorldTests.WorldTime_OnlyProducesRelevantResidentEventsAndKeepsSnapshotsIndependent",
+      "result": "Passed"
+    },
+    {
+      "platform": "playmode",
+      "name": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.AcceptedActivity_ChangesDestinationWithoutTeleportingAndSurvivesClockUpdates",
+      "result": "Passed"
+    },
+    {
+      "platform": "playmode",
+      "name": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.CancelAfterScheduleChange_ResumesFromTheActualPosition",
+      "result": "Passed"
+    },
+    {
+      "platform": "playmode",
+      "name": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.DifferentWorldBinding_DetachesTheOldClockAndClearsItsActivity",
+      "result": "Passed"
+    },
+    {
+      "platform": "playmode",
+      "name": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.Expiry_SplitsTheJourneyInBothLargeAndSmallAdvances(False)",
+      "result": "Passed"
+    },
+    {
+      "platform": "playmode",
+      "name": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.Expiry_SplitsTheJourneyInBothLargeAndSmallAdvances(True)",
+      "result": "Passed"
+    },
+    {
+      "platform": "playmode",
+      "name": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.ExplicitAdvanceAfterPartialMinute_UsesTheAcceptedActivityForTheWholeDuration",
+      "result": "Passed"
+    },
+    {
+      "platform": "playmode",
+      "name": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.FailedTimeAndLoad_PreserveTheActiveActivityAndFractionalProgress",
+      "result": "Passed"
+    },
+    {
+      "platform": "playmode",
+      "name": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.OneResidentsActivity_DoesNotResetAnotherResidentsWalkFrame",
+      "result": "Passed"
+    },
+    {
+      "platform": "playmode",
+      "name": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.SameClockBinding_PreservesActivityAndContinuesWhileDisabled(False)",
+      "result": "Passed"
+    },
+    {
+      "platform": "playmode",
+      "name": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.SameClockBinding_PreservesActivityAndContinuesWhileDisabled(True)",
+      "result": "Passed"
+    },
+    {
+      "platform": "playmode",
+      "name": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.SleepAfterPartialMinute_DoesNotBrieflyResumeThePrecedingSchedule",
+      "result": "Passed"
+    },
+    {
+      "platform": "playmode",
+      "name": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.SuccessfulLoad_ClearsActivityAndRejectsTheOldWorldRequest",
+      "result": "Passed"
+    },
+    {
+      "platform": "playmode",
+      "name": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.UnreachableActivity_DoesNotChangePositionTargetOrRevision",
+      "result": "Passed"
+    }
+  ],
+  "sources": [
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcAgentWorld.cs",
+      "sha256": "4e96dc39b12826802660f2fbf3fbaa8d999dde5e37909db1dbf3deaeab7dbfe8"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcAgentSnapshot.cs",
+      "sha256": "30db589c6949d42e74e58dbeb37534ec9eeee3b789cc2ddfcfadbfaae021405c"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcAgentEvent.cs",
+      "sha256": "4663a288ece68c2fbb6e363211ecb643841f0c79a3345673eb3dce26a423a308"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcActivityRequest.cs",
+      "sha256": "2a5df238bc5157b08e30b2e4392cecb484bf847bbc1fbb6e34e993637448d574"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/CozyTownTownLifeController.cs",
+      "sha256": "6fe26531cd81bd668c80e3da61d530452524ef8f1e2c585dec010e1cdae287d5"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/NpcWorldResident2D.cs",
+      "sha256": "e09f0f01b48508656da0290458b6e46c78dfe972579c43216720f4a612d39261"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcAgentWorldTests.cs",
+      "sha256": "a547db526b79f1682f2e3ea34a46deac65dd32fd9b29523c29fd9b6457028dcc"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcAgentActivityPlayModeTests.cs",
+      "sha256": "6aee79b7d33da6e9a95a72efd0b8be3b68bf5a1e1d8b77bd9d159861ef26f90f"
+    }
+  ]
+}

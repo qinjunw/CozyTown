@@ -20,7 +20,7 @@ namespace CozyTown.Tests.EditMode.Save
             var loaded = storage.Load("main");
 
             Assert.That(loaded.IsSuccess, Is.True);
-            Assert.That(loaded.Value.SchemaVersion, Is.EqualTo(GameSaveSnapshot.CurrentSchemaVersion));
+            Assert.That(loaded.Value.SchemaVersion, Is.EqualTo(GameSaveSnapshot.LegacySchemaVersion));
             Assert.That(loaded.Value.Clock.Day, Is.EqualTo(3));
             Assert.That(loaded.Value.Clock.MinuteOfDay, Is.EqualTo(7 * 60));
             Assert.That(loaded.Value.WorldSeed, Is.EqualTo(12345));
@@ -55,7 +55,7 @@ namespace CozyTown.Tests.EditMode.Save
             var sourceAnimals =
                 new[] { new AnimalSnapshot("hen-1", "chicken", fedToday: true, productReady: false) };
             var snapshot = new GameSaveSnapshot(
-                GameSaveSnapshot.CurrentSchemaVersion,
+                GameSaveSnapshot.LegacySchemaVersion,
                 worldSeed: 12345,
                 new GameClockSnapshot(3, 7 * 60),
                 new[]

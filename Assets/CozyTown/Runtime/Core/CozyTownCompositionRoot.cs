@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using CozyTown.Runtime.Application;
 using CozyTown.Runtime.Content;
 using CozyTown.Runtime.Cooking;
@@ -91,7 +92,7 @@ namespace CozyTown.Runtime.Core
             }
 
             IEconomyStateStore economyState = new InMemoryEconomyStateStore(
-                new[] { initialCharacter },
+                new[] { initialCharacter }.Concat(configuration.InitialNpcEconomy),
                 initialShops,
                 configuration.Items,
                 configuration.InventoryCapacitySlots);
@@ -148,14 +149,18 @@ namespace CozyTown.Runtime.Core
                 npcContent,
                 npcDialogue,
                 () => time.Current);
+            var worldSnapshots = new WorldSnapshotBinding();
             var gameSave = new GameSaveCoordinator(
                 worldSeed,
                 time,
                 economyState,
                 farm,
                 livestock,
-                saveStorage);
-            var daytimeClock = new DaytimeClockCoordinator(worldTime, gameSave, timeFlow);
+                saveStorage,
+                legacyNpcDefaults: configuration.InitialNpcEconomy, worldSnapshots: worldSnapshots,
+                timeFlow: timeFlow, contentConfiguration: ContentSnapshotConfiguration.Capture(configuration));
+            var daytimeClock = new DaytimeClockCoordinator(worldTime, gameSave, timeFlow,
+                () => gameSave.LoadedFractionalMinute);
 
             return new CozyTownServices(
                 daytimeClock,
@@ -180,7 +185,8 @@ namespace CozyTown.Runtime.Core
                 daytimeClock,
                 worldTime,
                 daytimeClock,
-                timeFlow);
+                timeFlow,
+                new CharacterResourceTrading(economyState, configuration.Items, configuration.InventoryCapacitySlots), worldSnapshots);
         }
 
         public static CozyTownServices CreateDefault()

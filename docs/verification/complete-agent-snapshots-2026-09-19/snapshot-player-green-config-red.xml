@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Failed(Child)" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 09:53:28Z" end-time="2026-09-19 09:53:28Z" duration="0.2271714">
+  <test-suite type="TestSuite" id="1348" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="264" result="Failed" site="Child" start-time="2026-09-19 09:53:28Z" end-time="2026-09-19 09:53:28Z" duration="0.227171" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1341" name="CozyTown.Tests.PlayMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="264" result="Failed" site="Child" start-time="2026-09-19 09:53:28Z" end-time="2026-09-19 09:53:28Z" duration="0.210331" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="123604" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1342" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="264" result="Failed" site="Child" start-time="2026-09-19 09:53:28Z" end-time="2026-09-19 09:53:28Z" duration="0.203343" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1343" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="264" result="Failed" site="Child" start-time="2026-09-19 09:53:28Z" end-time="2026-09-19 09:53:28Z" duration="0.194346" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1344" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="264" result="Failed" site="Child" start-time="2026-09-19 09:53:28Z" end-time="2026-09-19 09:53:28Z" duration="0.186231" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1010" name="BodyConfigurationPlayModeTests" fullname="CozyTown.Tests.PlayMode.BodyConfigurationPlayModeTests" classname="CozyTown.Tests.PlayMode.BodyConfigurationPlayModeTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-09-19 09:53:28Z" end-time="2026-09-19 09:53:28Z" duration="0.144185" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1012" name="MapConfiguration_IdentifiesTopologyOrderAndStaticObstacleGeometry" fullname="CozyTown.Tests.PlayMode.BodyConfigurationPlayModeTests.MapConfiguration_IdentifiesTopologyOrderAndStaticObstacleGeometry" methodname="MapConfiguration_IdentifiesTopologyOrderAndStaticObstacleGeometry" classname="CozyTown.Tests.PlayMode.BodyConfigurationPlayModeTests" runstate="Runnable" seed="1183277616" result="Failed" label="Error" start-time="2026-09-19 09:53:28Z" end-time="2026-09-19 09:53:28Z" duration="0.020206" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                  <stack-trace><![CDATA[  at CozyTown.Tests.PlayMode.BodyConfigurationPlayModeTests.MapConfiguration_IdentifiesTopologyOrderAndStaticObstacleGeometry () [0x00091] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\BodyConfigurationPlayModeTests.cs:66
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1011" name="ResidentCapture_UsesActualJourneyAndRejectsAnotherResidentsBodyBeforeMutation" fullname="CozyTown.Tests.PlayMode.BodyConfigurationPlayModeTests.ResidentCapture_UsesActualJourneyAndRejectsAnotherResidentsBodyBeforeMutation" methodname="ResidentCapture_UsesActualJourneyAndRejectsAnotherResidentsBodyBeforeMutation" classname="CozyTown.Tests.PlayMode.BodyConfigurationPlayModeTests" runstate="Runnable" seed="244701860" result="Failed" label="Error" start-time="2026-09-19 09:53:28Z" end-time="2026-09-19 09:53:28Z" duration="0.096263" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                  <stack-trace><![CDATA[  at CozyTown.Tests.PlayMode.BodyConfigurationPlayModeTests.ResidentCapture_UsesActualJourneyAndRejectsAnotherResidentsBodyBeforeMutation () [0x001cb] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\BodyConfigurationPlayModeTests.cs:40
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 ]]></stack-trace>
+                </failure>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1233" name="PlayerBodySnapshotPlayModeTests" fullname="CozyTown.Tests.PlayMode.PlayerBodySnapshotPlayModeTests" classname="CozyTown.Tests.PlayMode.PlayerBodySnapshotPlayModeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-19 09:53:28Z" end-time="2026-09-19 09:53:28Z" duration="0.027759" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1234" name="RestorePlayer_PreservesPositionAndFacingClearsVelocityAndClosesOldModal" fullname="CozyTown.Tests.PlayMode.PlayerBodySnapshotPlayModeTests.RestorePlayer_PreservesPositionAndFacingClearsVelocityAndClosesOldModal" methodname="RestorePlayer_PreservesPositionAndFacingClearsVelocityAndClosesOldModal" classname="CozyTown.Tests.PlayMode.PlayerBodySnapshotPlayModeTests" runstate="Runnable" seed="388670760" result="Passed" start-time="2026-09-19 09:53:28Z" end-time="2026-09-19 09:53:28Z" duration="0.025992" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

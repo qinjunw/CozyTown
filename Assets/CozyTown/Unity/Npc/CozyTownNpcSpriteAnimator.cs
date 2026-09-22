@@ -49,7 +49,21 @@ namespace CozyTown.Unity.Npc
             spriteRenderer.sprite = walkSprites[directionIndex * 2 + (int)_walkPhase];
         }
 
+        internal void ValidateConfiguration()
+        {
+            if (spriteRenderer == null)
+                throw new InvalidOperationException("NPC animation requires a configured SpriteRenderer.");
+            ValidateSprites(idleSprites, 4, nameof(idleSprites));
+            ValidateSprites(walkSprites, 8, nameof(walkSprites));
+        }
+
         private static Sprite[] CopySprites(Sprite[] source, int length, string parameterName)
+        {
+            ValidateSprites(source, length, parameterName);
+            return (Sprite[])source.Clone();
+        }
+
+        private static void ValidateSprites(Sprite[] source, int length, string parameterName)
         {
             if (source == null || source.Length != length)
                 throw new ArgumentException($"Expected {length} non-null Sprites.", parameterName);
@@ -58,7 +72,6 @@ namespace CozyTown.Unity.Npc
                 if (sprite == null)
                     throw new ArgumentException($"Expected {length} non-null Sprites.", parameterName);
             }
-            return (Sprite[])source.Clone();
         }
     }
 }

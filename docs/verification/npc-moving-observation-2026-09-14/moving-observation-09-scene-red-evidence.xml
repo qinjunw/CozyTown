@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Failed(Child)" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-14 10:53:45Z" end-time="2026-09-14 10:53:46Z" duration="0.602613">
+  <test-suite type="TestSuite" id="1260" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="197" result="Failed" site="Child" start-time="2026-09-14 10:53:45Z" end-time="2026-09-14 10:53:46Z" duration="0.602613" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1253" name="CozyTown.Tests.PlayMode.dll" fullname="&lt;isolated-project&gt;/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="197" result="Failed" site="Child" start-time="2026-09-14 10:53:45Z" end-time="2026-09-14 10:53:46Z" duration="0.593512" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="76652" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1254" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="197" result="Failed" site="Child" start-time="2026-09-14 10:53:45Z" end-time="2026-09-14 10:53:46Z" duration="0.591062" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1255" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="197" result="Failed" site="Child" start-time="2026-09-14 10:53:45Z" end-time="2026-09-14 10:53:46Z" duration="0.588834" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1256" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="197" result="Failed" site="Child" start-time="2026-09-14 10:53:45Z" end-time="2026-09-14 10:53:46Z" duration="0.586586" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1125" name="NpcResourceScenarioPlayModeTests" fullname="CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests" classname="CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests" runstate="Runnable" testcasecount="12" result="Failed" site="Child" start-time="2026-09-14 10:53:45Z" end-time="2026-09-14 10:53:46Z" duration="0.582809" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1126" name="MovingInvitationAccept_PreservesOriginalAndExecutionObservationsThenExpires" fullname="CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.MovingInvitationAccept_PreservesOriginalAndExecutionObservationsThenExpires" methodname="MovingInvitationAccept_PreservesOriginalAndExecutionObservationsThenExpires" classname="CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests" runstate="Runnable" seed="1564148684" result="Failed" start-time="2026-09-14 10:53:45Z" end-time="2026-09-14 10:53:46Z" duration="0.479447" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Expected: Scheduled
+  But was:  Invited
+]]></message>
+                  <stack-trace><![CDATA[at CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests+<MovingInvitationReply>d__2.MoveNext () [0x00591] in &lt;isolated-project&gt;\Assets\CozyTown\Tests\PlayMode\NpcMovingObservationPlayModeTests.cs:88
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1127" name="MovingInvitationDecline_PreservesOriginalAndExecutionObservationsAndResumesSchedule" fullname="CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.MovingInvitationDecline_PreservesOriginalAndExecutionObservationsAndResumesSchedule" methodname="MovingInvitationDecline_PreservesOriginalAndExecutionObservationsAndResumesSchedule" classname="CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests" runstate="Runnable" seed="2107006558" result="Failed" start-time="2026-09-14 10:53:46Z" end-time="2026-09-14 10:53:46Z" duration="0.089049" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Expected: Declined
+  But was:  Invited
+]]></message>
+                  <stack-trace><![CDATA[at CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests+<MovingInvitationReply>d__2.MoveNext () [0x00591] in &lt;isolated-project&gt;\Assets\CozyTown\Tests\PlayMode\NpcMovingObservationPlayModeTests.cs:88
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@1405238725ab\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[Saving results to: &lt;user-home&gt;/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

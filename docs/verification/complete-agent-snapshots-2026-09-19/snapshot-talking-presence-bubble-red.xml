@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Failed(Child)" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 10:38:30Z" end-time="2026-09-19 10:38:30Z" duration="0.5020604">
+  <test-suite type="TestSuite" id="1366" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="280" result="Failed" site="Child" start-time="2026-09-19 10:38:30Z" end-time="2026-09-19 10:38:30Z" duration="0.502060" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1359" name="CozyTown.Tests.PlayMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="280" result="Failed" site="Child" start-time="2026-09-19 10:38:30Z" end-time="2026-09-19 10:38:30Z" duration="0.482873" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="92196" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1360" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="280" result="Failed" site="Child" start-time="2026-09-19 10:38:30Z" end-time="2026-09-19 10:38:30Z" duration="0.476993" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1361" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="280" result="Failed" site="Child" start-time="2026-09-19 10:38:30Z" end-time="2026-09-19 10:38:30Z" duration="0.473107" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1362" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="280" result="Failed" site="Child" start-time="2026-09-19 10:38:30Z" end-time="2026-09-19 10:38:30Z" duration="0.468031" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1022" name="CompleteWorldSnapshotPlayModeTests" fullname="CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests" classname="CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests" runstate="Runnable" testcasecount="15" result="Failed" site="Child" start-time="2026-09-19 10:38:30Z" end-time="2026-09-19 10:38:30Z" duration="0.450169" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1024" name="ResourceConversation_LoadRestoresAcceptedBodiesAndDeliveredPendingTurnWithoutRepeatingTradeOrFutureBubble" fullname="CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.ResourceConversation_LoadRestoresAcceptedBodiesAndDeliveredPendingTurnWithoutRepeatingTradeOrFutureBubble" methodname="ResourceConversation_LoadRestoresAcceptedBodiesAndDeliveredPendingTurnWithoutRepeatingTradeOrFutureBubble" classname="CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests" runstate="Runnable" seed="1417718489" result="Failed" start-time="2026-09-19 10:38:30Z" end-time="2026-09-19 10:38:30Z" duration="0.401721" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Expected: not String containing "future statement"
+  But was:  "Ren: future statement"
+]]></message>
+                  <stack-trace><![CDATA[at CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.ResourceConversation_LoadRestoresAcceptedBodiesAndDeliveredPendingTurnWithoutRepeatingTradeOrFutureBubble () [0x00434] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\CompleteWorldConversationSnapshotPlayModeTests.cs:113
+]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1023" name="TalkingMeetingWithTravellingBodies_IsRejectedBeforeChangingLiveWorldOrModal" fullname="CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.TalkingMeetingWithTravellingBodies_IsRejectedBeforeChangingLiveWorldOrModal" methodname="TalkingMeetingWithTravellingBodies_IsRejectedBeforeChangingLiveWorldOrModal" classname="CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests" runstate="Runnable" seed="25325681" result="Failed" start-time="2026-09-19 10:38:30Z" end-time="2026-09-19 10:38:30Z" duration="0.016440" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  A conversation cannot start while its bodies are still travelling.
+  Expected: False
+  But was:  True
+]]></message>
+                  <stack-trace><![CDATA[at CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.TalkingMeetingWithTravellingBodies_IsRejectedBeforeChangingLiveWorldOrModal () [0x0035c] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\CompleteWorldConversationSnapshotPlayModeTests.cs:57
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

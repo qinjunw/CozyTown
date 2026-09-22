@@ -1,0 +1,126 @@
+{
+  "usefulRule": "Complete core response and no definite problem assertion. Ambiguities are not automatically definite errors. Protocol/host success does not imply relevance.",
+  "problemLabels": [
+    "contradiction",
+    "source_time",
+    "unauthorized",
+    "unsupported"
+  ],
+  "arms": {
+    "F": {
+      "plannedSamples": 24,
+      "hostOutputs": 24,
+      "useful": 14,
+      "assertionCounts": {
+        "ambiguous": 14,
+        "supported": 63,
+        "unsupported": 5,
+        "source_time": 3,
+        "unauthorized": 2,
+        "contradiction": 1
+      },
+      "totalAssertions": 88,
+      "definiteProblemAssertions": 11,
+      "definiteProblemOutputs": 7,
+      "definiteProblemSampleIds": [
+        "E007",
+        "E010",
+        "E017",
+        "E040",
+        "E041",
+        "E046",
+        "E047"
+      ],
+      "ambiguousOutputs": 11,
+      "ambiguousSampleIds": [
+        "E001",
+        "E008",
+        "E016",
+        "E020",
+        "E022",
+        "E024",
+        "E039",
+        "E040",
+        "E043",
+        "E045",
+        "E047"
+      ],
+      "incompleteWithoutDefiniteProblem": [
+        "E001",
+        "E008",
+        "E024"
+      ],
+      "usefulByCase": {
+        "statement_not_experience": 0,
+        "position_destination": 2,
+        "decoration_capability": 3,
+        "partner_private_assets": 2,
+        "truncated_local_absence": 1,
+        "past_statement_current_stock": 0,
+        "unknown_quantity": 3,
+        "successful_receipt": 3
+      }
+    },
+    "S": {
+      "plannedSamples": 24,
+      "hostOutputs": 24,
+      "useful": 21,
+      "assertionCounts": {
+        "supported": 30
+      },
+      "totalAssertions": 30,
+      "definiteProblemAssertions": 0,
+      "definiteProblemOutputs": 0,
+      "definiteProblemSampleIds": [],
+      "ambiguousOutputs": 0,
+      "ambiguousSampleIds": [],
+      "incompleteWithoutDefiniteProblem": [
+        "E012",
+        "E018",
+        "E028"
+      ],
+      "usefulByCase": {
+        "statement_not_experience": 2,
+        "position_destination": 3,
+        "decoration_capability": 3,
+        "partner_private_assets": 3,
+        "truncated_local_absence": 3,
+        "past_statement_current_stock": 1,
+        "unknown_quantity": 3,
+        "successful_receipt": 3
+      }
+    }
+  },
+  "sensitivity": {
+    "F": {
+      "allAmbiguousTreatedAsProblems": {
+        "useful": 8,
+        "problemOutputs": 16,
+        "problemAssertions": 25,
+        "note": "Conservative alternate reading of all ambiguous clauses; not a claim that all are established errors."
+      }
+    },
+    "S": {
+      "allAmbiguousTreatedAsProblems": {
+        "useful": 21,
+        "problemOutputs": 0,
+        "problemAssertions": 0,
+        "note": "Conservative alternate reading of all ambiguous clauses; not a claim that all are established errors."
+      }
+    },
+    "singleInterpretationChangesFromPrimary": [
+      {
+        "sampleId": "E041",
+        "assumption": "Treat pack/from here solely as inventory metaphor.",
+        "F_useful": 15,
+        "F_problemOutputs": 6
+      },
+      {
+        "sampleId": "E039",
+        "assumption": "Require explicit no-interaction statement; just decoration is only partial.",
+        "F_useful": 13,
+        "F_problemOutputs": 7
+      }
+    ]
+  }
+}

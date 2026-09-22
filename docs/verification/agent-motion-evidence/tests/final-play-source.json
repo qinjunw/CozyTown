@@ -1,0 +1,33 @@
+{
+  "platform": "PlayMode",
+  "providerEnvironment": "COZYTOWN* cleared",
+  "utc": "2026-09-20T11:51:13.5685899Z",
+  "filter": "",
+  "head": "60b1c9aeee9a2b0824f5b689873c3681ca7d7f9b",
+  "status": [
+    " M docs/AGENT_EXPERIMENT_GUIDE.md",
+    "?? docs/verification/agent-motion-continuity-2026-09-20.md"
+  ],
+  "sourceHashes": [
+    {
+      "sha256": "972F78E3F458C34AD90DACCAF801FEA91B173418D560E1813CD446153F730A1E",
+      "path": "Assets/CozyTown/Unity/Experiments/AgentExperimentLauncher.cs"
+    },
+    {
+      "sha256": "4539E5C0C5133488B59F46F19027E317A10B260B24C15C72BF92E2E188191973",
+      "path": "Assets/CozyTown/Unity/Experiments/AgentExperimentSession.cs"
+    },
+    {
+      "sha256": "2AB31DB54B12D38AF0867630032B91606024865C9953B3F521C96D3C90D45028",
+      "path": "Assets/CozyTown/Tests/UnityEditMode/AgentExperimentMotionTests.cs"
+    },
+    {
+      "sha256": "EFCD14441EDAB2A661F31EEA2C9173436214993926A2BDEF844447BF3E347E18",
+      "path": "Assets/CozyTown/Tests/PlayMode/AgentExperimentSessionPlayModeTests.cs"
+    },
+    {
+      "sha256": "52F6029FE69230C42E3BD4667AE061253CC97868FEB152642D3B9C877E9F9840",
+      "path": "Assets/CozyTown/Tests/PlayMode/AgentExperimentContinuityPlayModeTests.cs"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{"attemptedProviderCalls":0,"decisionRequests":0,"endpoints":{"F":"http://127.0.0.1:28912/decide","S":"http://127.0.0.1:28913/decide"},"finishedDecisionRequests":0,"inflight":0,"remainingCalls":48,"requestedModel":"deepseek-v4-flash","runState":"running","stage":"fixed","totalAttemptedProviderCalls":0,"worlds":{}}
+{"attemptedProviderCalls":0,"decisionRequests":0,"finishedDecisionRequests":0,"inflight":0,"remainingCalls":48,"requestedModel":"deepseek-v4-flash","runState":"stopped","stage":"fixed","totalAttemptedProviderCalls":0,"worlds":{}}
+{"attemptedProviderCalls":0,"decisionRequests":0,"endpoints":{"F":"http://127.0.0.1:54680/decide","S":"http://127.0.0.1:54681/decide"},"finishedDecisionRequests":0,"inflight":0,"remainingCalls":48,"requestedModel":"deepseek-v4-flash","runState":"running","stage":"fixed","totalAttemptedProviderCalls":0,"worlds":{}}
+{"attemptedProviderCalls":0,"decisionRequests":0,"finishedDecisionRequests":0,"inflight":0,"remainingCalls":48,"requestedModel":"deepseek-v4-flash","runState":"stopped","stage":"fixed","totalAttemptedProviderCalls":0,"worlds":{}}
+{"mode": "fixed", "plannedCalls": 160, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 0, "remainingCalls": 160, "inflight": 0}
+{"completedDecisions": 20, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 20, "remainingCalls": 140, "inflight": 0}
+{"completedDecisions": 40, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 40, "remainingCalls": 120, "inflight": 0}
+{"completedDecisions": 60, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 60, "remainingCalls": 100, "inflight": 0}
+{"completedDecisions": 80, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 80, "remainingCalls": 80, "inflight": 0}
+{"completedDecisions": 100, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 100, "remainingCalls": 60, "inflight": 0}
+{"completedDecisions": 120, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 120, "remainingCalls": 40, "inflight": 0}
+{"completedDecisions": 140, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 140, "remainingCalls": 20, "inflight": 0}
+{"completedDecisions": 160, "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 160, "remainingCalls": 0, "inflight": 0}
+{"mode": "fixed", "runState": "completed", "requestedModel": "deepseek-v4-flash", "attemptedProviderCalls": 160, "remainingCalls": 0, "inflight": 0}
+...................................................experiment.startup_or_evidence_failure
+.........
+----------------------------------------------------------------------
+Ran 60 tests in 12.860s
+
+OK

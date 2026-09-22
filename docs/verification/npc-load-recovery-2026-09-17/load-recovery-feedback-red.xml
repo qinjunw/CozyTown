@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Failed(Child)" total="6" passed="2" failed="4" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-17 14:25:39Z" end-time="2026-09-17 14:25:39Z" duration="0.0975433">
+  <test-suite type="TestSuite" id="1301" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="228" result="Failed" site="Child" start-time="2026-09-17 14:25:39Z" end-time="2026-09-17 14:25:39Z" duration="0.097543" total="6" passed="2" failed="4" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1294" name="CozyTown.Tests.PlayMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="228" result="Failed" site="Child" start-time="2026-09-17 14:25:39Z" end-time="2026-09-17 14:25:39Z" duration="0.076194" total="6" passed="2" failed="4" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="116752" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1295" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="228" result="Failed" site="Child" start-time="2026-09-17 14:25:39Z" end-time="2026-09-17 14:25:39Z" duration="0.072179" total="6" passed="2" failed="4" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1296" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="228" result="Failed" site="Child" start-time="2026-09-17 14:25:39Z" end-time="2026-09-17 14:25:39Z" duration="0.069032" total="6" passed="2" failed="4" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1297" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="228" result="Failed" site="Child" start-time="2026-09-17 14:25:39Z" end-time="2026-09-17 14:25:39Z" duration="0.065563" total="6" passed="2" failed="4" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1200" name="SaveDebugPresenterPlayModeTests" fullname="CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests" classname="CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2026-09-17 14:25:39Z" end-time="2026-09-17 14:25:39Z" duration="0.060257" total="6" passed="2" failed="4" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1202" name="DisableThenEnable_HidesViewAndKeepsSingleSubscription" fullname="CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests.DisableThenEnable_HidesViewAndKeepsSingleSubscription" methodname="DisableThenEnable_HidesViewAndKeepsSingleSubscription" classname="CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests" runstate="Runnable" seed="1866352969" result="Passed" start-time="2026-09-17 14:25:39Z" end-time="2026-09-17 14:25:39Z" duration="0.028380" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1207" name="IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore" fullname="CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests.IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore" classname="CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2026-09-17 14:25:39Z" end-time="2026-09-17 14:25:39Z" duration="0.010871" total="4" passed="0" failed="4" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1203" name="IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore(&quot;save.loaded_rebuild_required&quot;,&quot;Data restored; world paused. Fix the fault and load again: save.loaded_rebuild_required&quot;)" fullname="CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests.IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore(&quot;save.loaded_rebuild_required&quot;,&quot;Data restored; world paused. Fix the fault and load again: save.loaded_rebuild_required&quot;)" methodname="IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore" classname="CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests" runstate="Runnable" seed="559576527" result="Failed" start-time="2026-09-17 14:25:39Z" end-time="2026-09-17 14:25:39Z" duration="0.007038" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected string length 87 but was 41. Strings differ at index 0.
+  Expected: "Data restored; world paused. Fix the fault and load again: sa..."
+  But was:  "Load failed: save.loaded_rebuild_required"
+  -----------^
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests.IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore (System.String code, System.String feedback) [0x00033] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\SaveDebugPresenterPlayModeTests.cs:87
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1204" name="IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore(&quot;save.loaded_presentation_failed&quot;,&quot;Data restored; display refresh failed: save.loaded_presentation_failed&quot;)" fullname="CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests.IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore(&quot;save.loaded_presentation_failed&quot;,&quot;Data restored; display refresh failed: save.loaded_presentation_failed&quot;)" methodname="IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore" classname="CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests" runstate="Runnable" seed="326229407" result="Failed" start-time="2026-09-17 14:25:39Z" end-time="2026-09-17 14:25:39Z" duration="0.000437" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected string length 70 but was 44. Strings differ at index 0.
+  Expected: "Data restored; display refresh failed: save.loaded_presentati..."
+  But was:  "Load failed: save.loaded_presentation_failed"
+  -----------^
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests.IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore (System.String code, System.String feedback) [0x00033] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\SaveDebugPresenterPlayModeTests.cs:87
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1205" name="IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore(&quot;save.restore_exception&quot;,&quot;Load interrupted; world state uncertain and paused: save.restore_exception&quot;)" fullname="CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests.IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore(&quot;save.restore_exception&quot;,&quot;Load interrupted; world state uncertain and paused: save.restore_exception&quot;)" methodname="IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore" classname="CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests" runstate="Runnable" seed="2146306855" result="Failed" start-time="2026-09-17 14:25:39Z" end-time="2026-09-17 14:25:39Z" duration="0.000292" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected string length 74 but was 35. Strings differ at index 5.
+  Expected: "Load interrupted; world state uncertain and paused: save.rest..."
+  But was:  "Load failed: save.restore_exception"
+  ----------------^
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests.IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore (System.String code, System.String feedback) [0x00033] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\SaveDebugPresenterPlayModeTests.cs:87
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1206" name="IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore(&quot;save.rollback_world_seed_failed&quot;,&quot;Load could not roll back; world paused: save.rollback_world_seed_failed&quot;)" fullname="CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests.IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore(&quot;save.rollback_world_seed_failed&quot;,&quot;Load could not roll back; world paused: save.rollback_world_seed_failed&quot;)" methodname="IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore" classname="CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests" runstate="Runnable" seed="1969329093" result="Failed" start-time="2026-09-17 14:25:39Z" end-time="2026-09-17 14:25:39Z" duration="0.000278" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected string length 71 but was 44. Strings differ at index 5.
+  Expected: "Load could not roll back; world paused: save.rollback_world_s..."
+  But was:  "Load failed: save.rollback_world_seed_failed"
+  ----------------^
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests.IncompleteLoad_DistinguishesCommittedDataFromUncertainRestore (System.String code, System.String feedback) [0x00033] in [isolated-project]\Assets\CozyTown\Tests\PlayMode\SaveDebugPresenterPlayModeTests.cs:87
+]]></stack-trace>
+                  </failure>
+                </test-case>
+              </test-suite>
+              <test-case id="1201" name="SaveEnablesLoad_AndCommandsExposeExplicitFeedback" fullname="CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests.SaveEnablesLoad_AndCommandsExposeExplicitFeedback" methodname="SaveEnablesLoad_AndCommandsExposeExplicitFeedback" classname="CozyTown.Tests.PlayMode.SaveDebugPresenterPlayModeTests" runstate="Runnable" seed="929870959" result="Passed" start-time="2026-09-17 14:25:39Z" end-time="2026-09-17 14:25:39Z" duration="0.001811" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

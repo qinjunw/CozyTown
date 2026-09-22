@@ -1,0 +1,12 @@
+{
+  "baseCommit": "ec2082233bf64ff29d86350aaae9e0c0ac77884b",
+  "sourceSha256": {
+    "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs": "90bbc24ebcd034bd236b7caecc56347338ddc40af8db82cacce95707f6cb6efc",
+    "Assets/CozyTown/Runtime/NpcAgents/NpcAgentWorld.cs": "30d3df7443127e04ac5164f9e687467ebcc159d0a0288b08314b21b3f17f83b1",
+    "Assets/CozyTown/Runtime/NpcAgents/NpcMeetingBoard.cs": "98d22c74796559f1de36e823826c2f64fecec9cd69edc10866abee609e2fce8b",
+    "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionRequest.cs": "bec69edf730bd19dc928b57966d3fdd69dc3580e9902bd96cc0b549d37af80f1",
+    "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionSettings.cs": "d6aa7ca181388106545df0b45d1689f0c3b4d8257ad52c481f9b2328bc303714",
+    "Logs/conversation-budget-target-probe.cs": "adbee598ae3287b5757ab8761c62852a37862a94eda0c60c5c1af00ee84e5e1a"
+  },
+  "productionChanged": false
+}

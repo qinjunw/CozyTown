@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="11" result="Passed" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 06:52:04Z" end-time="2026-09-19 06:52:05Z" duration="0.1721072">
+  <test-suite type="TestSuite" id="1317" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="241" result="Passed" start-time="2026-09-19 06:52:04Z" end-time="2026-09-19 06:52:05Z" duration="0.172107" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1310" name="CozyTown.Tests.PlayMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.PlayMode.dll" runstate="Runnable" testcasecount="241" result="Passed" start-time="2026-09-19 06:52:04Z" end-time="2026-09-19 06:52:05Z" duration="0.162720" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="96540" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1311" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="241" result="Passed" start-time="2026-09-19 06:52:04Z" end-time="2026-09-19 06:52:05Z" duration="0.158486" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1312" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="241" result="Passed" start-time="2026-09-19 06:52:04Z" end-time="2026-09-19 06:52:05Z" duration="0.155868" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1313" name="PlayMode" fullname="CozyTown.Tests.PlayMode" runstate="Runnable" testcasecount="241" result="Passed" start-time="2026-09-19 06:52:04Z" end-time="2026-09-19 06:52:05Z" duration="0.153248" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1176" name="NpcReconfigurationPlayModeTests" fullname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests" classname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-09-19 06:52:05Z" end-time="2026-09-19 06:52:05Z" duration="0.149386" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1177" name="CompletedRequest_ReconfigurationKeepsTheOriginalCallWindow" fullname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.CompletedRequest_ReconfigurationKeepsTheOriginalCallWindow" methodname="CompletedRequest_ReconfigurationKeepsTheOriginalCallWindow" classname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests" runstate="Runnable" seed="754073421" result="Passed" start-time="2026-09-19 06:52:05Z" end-time="2026-09-19 06:52:05Z" duration="0.114997" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1188" name="StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient" fullname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient" classname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-09-19 06:52:05Z" end-time="2026-09-19 06:52:05Z" duration="0.015587" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1181" name="StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(&quot;rate&quot;)" fullname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(&quot;rate&quot;)" methodname="StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient" classname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests" runstate="Runnable" seed="736329121" result="Passed" start-time="2026-09-19 06:52:05Z" end-time="2026-09-19 06:52:05Z" duration="0.004569" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1182" name="StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(&quot;concurrency&quot;)" fullname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(&quot;concurrency&quot;)" methodname="StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient" classname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests" runstate="Runnable" seed="1797732299" result="Passed" start-time="2026-09-19 06:52:05Z" end-time="2026-09-19 06:52:05Z" duration="0.001270" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1183" name="StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(&quot;cooldown&quot;)" fullname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(&quot;cooldown&quot;)" methodname="StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient" classname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests" runstate="Runnable" seed="387474586" result="Passed" start-time="2026-09-19 06:52:05Z" end-time="2026-09-19 06:52:05Z" duration="0.001128" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1184" name="StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(&quot;request-timeout&quot;)" fullname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(&quot;request-timeout&quot;)" methodname="StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient" classname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests" runstate="Runnable" seed="1046671457" result="Passed" start-time="2026-09-19 06:52:05Z" end-time="2026-09-19 06:52:05Z" duration="0.001071" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1185" name="StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(&quot;decision-timeout&quot;)" fullname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(&quot;decision-timeout&quot;)" methodname="StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient" classname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests" runstate="Runnable" seed="63033519" result="Passed" start-time="2026-09-19 06:52:05Z" end-time="2026-09-19 06:52:05Z" duration="0.001382" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1186" name="StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(&quot;calls&quot;)" fullname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(&quot;calls&quot;)" methodname="StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient" classname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests" runstate="Runnable" seed="1392810809" result="Passed" start-time="2026-09-19 06:52:05Z" end-time="2026-09-19 06:52:05Z" duration="0.001949" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1187" name="StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(&quot;lifetime&quot;)" fullname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient(&quot;lifetime&quot;)" methodname="StartedSession_RejectsRelaxedLimitsWithoutReplacingTheClient" classname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests" runstate="Runnable" seed="1604234585" result="Passed" start-time="2026-09-19 06:52:05Z" end-time="2026-09-19 06:52:05Z" duration="0.000951" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1189" name="StricterReplacement_InheritsItsLimitsWhenSettingsAreOmitted" fullname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.StricterReplacement_InheritsItsLimitsWhenSettingsAreOmitted" methodname="StricterReplacement_InheritsItsLimitsWhenSettingsAreOmitted" classname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests" runstate="Runnable" seed="1119085888" result="Passed" start-time="2026-09-19 06:52:05Z" end-time="2026-09-19 06:52:05Z" duration="0.001426" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1180" name="UnfinishedRequest_RejectsReplacementUntilTheTaskEnds" fullname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.UnfinishedRequest_RejectsReplacementUntilTheTaskEnds" classname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-19 06:52:05Z" end-time="2026-09-19 06:52:05Z" duration="0.003367" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1178" name="UnfinishedRequest_RejectsReplacementUntilTheTaskEnds(False)" fullname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.UnfinishedRequest_RejectsReplacementUntilTheTaskEnds(False)" methodname="UnfinishedRequest_RejectsReplacementUntilTheTaskEnds" classname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests" runstate="Runnable" seed="962009683" result="Passed" start-time="2026-09-19 06:52:05Z" end-time="2026-09-19 06:52:05Z" duration="0.001544" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1179" name="UnfinishedRequest_RejectsReplacementUntilTheTaskEnds(True)" fullname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.UnfinishedRequest_RejectsReplacementUntilTheTaskEnds(True)" methodname="UnfinishedRequest_RejectsReplacementUntilTheTaskEnds" classname="CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests" runstate="Runnable" seed="1120170439" result="Passed" start-time="2026-09-19 06:52:05Z" end-time="2026-09-19 06:52:05Z" duration="0.000943" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

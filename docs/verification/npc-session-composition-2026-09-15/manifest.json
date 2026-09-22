@@ -1,0 +1,601 @@
+{
+  "schemaVersion": 1,
+  "ticket": "https://github.com/qinjunw/CozyTown/issues/85",
+  "sourceCommit": "6cbf604c6249f811e75a7b4202325cc1f99575fd",
+  "productionCodeChanged": false,
+  "testCodeChanged": false,
+  "newRealModelCalls": 0,
+  "unityVersion": "6000.5.5f1",
+  "runnerLocalPath": "Logs/run-expression-unity.ps1",
+  "runnerSha256": "df5acf8aa5dbfb017d6fdd5be6a25d6b5ed6769a65726ed59991b3f849d8064f",
+  "execution": "Both runs used one isolated Unity project, sequentially. PlayMode used graphics; EditMode used -nographics. Neither used -quit. No full-suite rerun.",
+  "sanitization": "XML replaces repository, isolated-project and user-home paths with XML-escaped placeholders; CRLF normalized to LF. Test-case attributes unchanged. Logs remain local and are identified by SHA-256.",
+  "inputComparison": "input-audit-comparison.json",
+  "sourceFiles": [
+    {
+      "path": "Assets/CozyTown/Runtime/Core/CozyTownCompositionRoot.cs",
+      "gitBlobSha256": "be4e0f02c0890ea9495022f97e48ed43a1ed94bf8abfa5ce8471e5ac069a02ed",
+      "worktreeSha256": "be4e0f02c0890ea9495022f97e48ed43a1ed94bf8abfa5ce8471e5ac069a02ed",
+      "isolatedSha256": "be4e0f02c0890ea9495022f97e48ed43a1ed94bf8abfa5ce8471e5ac069a02ed",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/Core/CozyTownServices.cs",
+      "gitBlobSha256": "292e131783bae3c9927a42307f7847a86f084530dc855ec3f60503f18666a806",
+      "worktreeSha256": "292e131783bae3c9927a42307f7847a86f084530dc855ec3f60503f18666a806",
+      "isolatedSha256": "292e131783bae3c9927a42307f7847a86f084530dc855ec3f60503f18666a806",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/Application/DaytimeClockCoordinator.cs",
+      "gitBlobSha256": "f88e1a24d7ec8050427f8616c10d48392f4150bd4425a38181a47302b34f3891",
+      "worktreeSha256": "f88e1a24d7ec8050427f8616c10d48392f4150bd4425a38181a47302b34f3891",
+      "isolatedSha256": "f88e1a24d7ec8050427f8616c10d48392f4150bd4425a38181a47302b34f3891",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/Application/CharacterResourceTrading.cs",
+      "gitBlobSha256": "a8cb4d9d073d8913f22974e2cb8ce7e51521fef82a96a6856e683df0f96ac874",
+      "worktreeSha256": "a8cb4d9d073d8913f22974e2cb8ce7e51521fef82a96a6856e683df0f96ac874",
+      "isolatedSha256": "a8cb4d9d073d8913f22974e2cb8ce7e51521fef82a96a6856e683df0f96ac874",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcAgentWorld.cs",
+      "gitBlobSha256": "30d3df7443127e04ac5164f9e687467ebcc159d0a0288b08314b21b3f17f83b1",
+      "worktreeSha256": "30d3df7443127e04ac5164f9e687467ebcc159d0a0288b08314b21b3f17f83b1",
+      "isolatedSha256": "30d3df7443127e04ac5164f9e687467ebcc159d0a0288b08314b21b3f17f83b1",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcMeetingBoard.cs",
+      "gitBlobSha256": "98d22c74796559f1de36e823826c2f64fecec9cd69edc10866abee609e2fce8b",
+      "worktreeSha256": "98d22c74796559f1de36e823826c2f64fecec9cd69edc10866abee609e2fce8b",
+      "isolatedSha256": "98d22c74796559f1de36e823826c2f64fecec9cd69edc10866abee609e2fce8b",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "gitBlobSha256": "c9c089d2d3275ad7b821fcf180ec714108ecc57aafe2cb6b582ee25a163831ed",
+      "worktreeSha256": "d464050bf9bebba4d3fc8ef748575b92a292b0430b885a239c1e32d8d15347a1",
+      "isolatedSha256": "d464050bf9bebba4d3fc8ef748575b92a292b0430b885a239c1e32d8d15347a1",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/INpcDecisionClient.cs",
+      "gitBlobSha256": "919ca1255cf614acf57659c6ed8fd038fe77936d4c77577e5d495b98cbbb95ac",
+      "worktreeSha256": "919ca1255cf614acf57659c6ed8fd038fe77936d4c77577e5d495b98cbbb95ac",
+      "isolatedSha256": "919ca1255cf614acf57659c6ed8fd038fe77936d4c77577e5d495b98cbbb95ac",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/CozyTown.Runtime.asmdef",
+      "gitBlobSha256": "3432bdd1df06f98cc91e33533362bc72ef8fd3299a0fdb91ebceda492fa00aaf",
+      "worktreeSha256": "3432bdd1df06f98cc91e33533362bc72ef8fd3299a0fdb91ebceda492fa00aaf",
+      "isolatedSha256": "3432bdd1df06f98cc91e33533362bc72ef8fd3299a0fdb91ebceda492fa00aaf",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Core/CozyTownBootstrap.cs",
+      "gitBlobSha256": "d56bdf340ed864644b5b4b03e15ed53c512cb853d5014445e70c955aec124ce9",
+      "worktreeSha256": "d56bdf340ed864644b5b4b03e15ed53c512cb853d5014445e70c955aec124ce9",
+      "isolatedSha256": "d56bdf340ed864644b5b4b03e15ed53c512cb853d5014445e70c955aec124ce9",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/CozyTownTownLifeController.cs",
+      "gitBlobSha256": "a562193230ca4ce15dc0c0a62dce99d8a4b8610effaa98cba5ee0facb52a267b",
+      "worktreeSha256": "a562193230ca4ce15dc0c0a62dce99d8a4b8610effaa98cba5ee0facb52a267b",
+      "isolatedSha256": "a562193230ca4ce15dc0c0a62dce99d8a4b8610effaa98cba5ee0facb52a267b",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/ProxyNpcDecisionClient.cs",
+      "gitBlobSha256": "5d3b61eb43caff92d14d4d71228064951a210fcbd6ceab60c3525ad0bf828189",
+      "worktreeSha256": "5d3b61eb43caff92d14d4d71228064951a210fcbd6ceab60c3525ad0bf828189",
+      "isolatedSha256": "5d3b61eb43caff92d14d4d71228064951a210fcbd6ceab60c3525ad0bf828189",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/NpcMeetingDialogueView.cs",
+      "gitBlobSha256": "cda513f49e1fba3034aafe6313deefc2198c55063f7734f7ba6c8ea8e4ab5482",
+      "worktreeSha256": "cda513f49e1fba3034aafe6313deefc2198c55063f7734f7ba6c8ea8e4ab5482",
+      "isolatedSha256": "cda513f49e1fba3034aafe6313deefc2198c55063f7734f7ba6c8ea8e4ab5482",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcDecisionPlayModeTests.cs",
+      "gitBlobSha256": "ada2f704f64b30ce903e8500649814b7e07a0c0bbdf155df83a8b58a4804e4bf",
+      "worktreeSha256": "ada2f704f64b30ce903e8500649814b7e07a0c0bbdf155df83a8b58a4804e4bf",
+      "isolatedSha256": "ada2f704f64b30ce903e8500649814b7e07a0c0bbdf155df83a8b58a4804e4bf",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcAgentActivityPlayModeTests.cs",
+      "gitBlobSha256": "6aee79b7d33da6e9a95a72efd0b8be3b68bf5a1e1d8b77bd9d159861ef26f90f",
+      "worktreeSha256": "6aee79b7d33da6e9a95a72efd0b8be3b68bf5a1e1d8b77bd9d159861ef26f90f",
+      "isolatedSha256": "6aee79b7d33da6e9a95a72efd0b8be3b68bf5a1e1d8b77bd9d159861ef26f90f",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcMeetingPlayModeTests.cs",
+      "gitBlobSha256": "cf87a0bf57d6d9cbd039f1fb9684840e39c7d76feb23303e0279ccce9855709d",
+      "worktreeSha256": "cf87a0bf57d6d9cbd039f1fb9684840e39c7d76feb23303e0279ccce9855709d",
+      "isolatedSha256": "cf87a0bf57d6d9cbd039f1fb9684840e39c7d76feb23303e0279ccce9855709d",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcConversationBudgetTests.cs",
+      "gitBlobSha256": "9bbb221b84bc5585a6e960d8918422c53a18388239862df9d20f37c8c9a8fa98",
+      "worktreeSha256": "9bbb221b84bc5585a6e960d8918422c53a18388239862df9d20f37c8c9a8fa98",
+      "isolatedSha256": "9bbb221b84bc5585a6e960d8918422c53a18388239862df9d20f37c8c9a8fa98",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcDecisionSchedulerTests.cs",
+      "gitBlobSha256": "67b4f5cab4e9cf03fd234c44aa54a14c58306fb6b26359030bf1753a21f9bb28",
+      "worktreeSha256": "67b4f5cab4e9cf03fd234c44aa54a14c58306fb6b26359030bf1753a21f9bb28",
+      "isolatedSha256": "67b4f5cab4e9cf03fd234c44aa54a14c58306fb6b26359030bf1753a21f9bb28",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcMeetingTests.cs",
+      "gitBlobSha256": "310dca2e78cecbd40d33cd7f582ba34a00eba1ed078b1f7ee646ba3002250661",
+      "worktreeSha256": "310dca2e78cecbd40d33cd7f582ba34a00eba1ed078b1f7ee646ba3002250661",
+      "isolatedSha256": "310dca2e78cecbd40d33cd7f582ba34a00eba1ed078b1f7ee646ba3002250661",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcResourceMeetingTests.cs",
+      "gitBlobSha256": "f2926943de00f1626cd3519ea3b58da9d9003cee1bdaa4e520d9a5fbb5217712",
+      "worktreeSha256": "f2926943de00f1626cd3519ea3b58da9d9003cee1bdaa4e520d9a5fbb5217712",
+      "isolatedSha256": "f2926943de00f1626cd3519ea3b58da9d9003cee1bdaa4e520d9a5fbb5217712",
+      "match": "Equal after CRLF-to-LF normalization; raw hashes retained."
+    }
+  ],
+  "runs": [
+    {
+      "mode": "PlayMode",
+      "filter": "NpcDecisionPlayModeTests;NpcAgentActivityPlayModeTests;ReconfiguringDecisions_ReleasesThePreviousMeetingActivities",
+      "exitCode": 0,
+      "exitCodeSource": "PowerShell runner result captured in this task; the process completed before packaging.",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "22",
+        "result": "Passed",
+        "total": "22",
+        "passed": "22",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-15 11:16:11Z",
+        "end-time": "2026-09-15 11:16:12Z",
+        "duration": "1.5270699"
+      },
+      "testCases": [
+        {
+          "id": "1076",
+          "name": "AcceptedActivity_ChangesDestinationWithoutTeleportingAndSurvivesClockUpdates",
+          "fullname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.AcceptedActivity_ChangesDestinationWithoutTeleportingAndSurvivesClockUpdates",
+          "methodname": "AcceptedActivity_ChangesDestinationWithoutTeleportingAndSurvivesClockUpdates",
+          "classname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "1775658740",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.091049",
+          "asserts": "0"
+        },
+        {
+          "id": "1083",
+          "name": "CancelAfterScheduleChange_ResumesFromTheActualPosition",
+          "fullname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.CancelAfterScheduleChange_ResumesFromTheActualPosition",
+          "methodname": "CancelAfterScheduleChange_ResumesFromTheActualPosition",
+          "classname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "1583636474",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.002347",
+          "asserts": "0"
+        },
+        {
+          "id": "1088",
+          "name": "DifferentWorldBinding_DetachesTheOldClockAndClearsItsActivity",
+          "fullname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.DifferentWorldBinding_DetachesTheOldClockAndClearsItsActivity",
+          "methodname": "DifferentWorldBinding_DetachesTheOldClockAndClearsItsActivity",
+          "classname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "1010102553",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.002362",
+          "asserts": "0"
+        },
+        {
+          "id": "1080",
+          "name": "Expiry_SplitsTheJourneyInBothLargeAndSmallAdvances(False)",
+          "fullname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.Expiry_SplitsTheJourneyInBothLargeAndSmallAdvances(False)",
+          "methodname": "Expiry_SplitsTheJourneyInBothLargeAndSmallAdvances",
+          "classname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "1786696155",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.002323",
+          "asserts": "0"
+        },
+        {
+          "id": "1081",
+          "name": "Expiry_SplitsTheJourneyInBothLargeAndSmallAdvances(True)",
+          "fullname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.Expiry_SplitsTheJourneyInBothLargeAndSmallAdvances(True)",
+          "methodname": "Expiry_SplitsTheJourneyInBothLargeAndSmallAdvances",
+          "classname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "661942778",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.001788",
+          "asserts": "0"
+        },
+        {
+          "id": "1077",
+          "name": "ExplicitAdvanceAfterPartialMinute_UsesTheAcceptedActivityForTheWholeDuration",
+          "fullname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.ExplicitAdvanceAfterPartialMinute_UsesTheAcceptedActivityForTheWholeDuration",
+          "methodname": "ExplicitAdvanceAfterPartialMinute_UsesTheAcceptedActivityForTheWholeDuration",
+          "classname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "1974662338",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.001199",
+          "asserts": "0"
+        },
+        {
+          "id": "1090",
+          "name": "FailedTimeAndLoad_PreserveTheActiveActivityAndFractionalProgress",
+          "fullname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.FailedTimeAndLoad_PreserveTheActiveActivityAndFractionalProgress",
+          "methodname": "FailedTimeAndLoad_PreserveTheActiveActivityAndFractionalProgress",
+          "classname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "1778978024",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.004237",
+          "asserts": "0"
+        },
+        {
+          "id": "1079",
+          "name": "OneResidentsActivity_DoesNotResetAnotherResidentsWalkFrame",
+          "fullname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.OneResidentsActivity_DoesNotResetAnotherResidentsWalkFrame",
+          "methodname": "OneResidentsActivity_DoesNotResetAnotherResidentsWalkFrame",
+          "classname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "1594978232",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.012961",
+          "asserts": "0"
+        },
+        {
+          "id": "1084",
+          "name": "SameClockBinding_PreservesActivityAndContinuesWhileDisabled(False)",
+          "fullname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.SameClockBinding_PreservesActivityAndContinuesWhileDisabled(False)",
+          "methodname": "SameClockBinding_PreservesActivityAndContinuesWhileDisabled",
+          "classname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "456970007",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.002455",
+          "asserts": "0"
+        },
+        {
+          "id": "1085",
+          "name": "SameClockBinding_PreservesActivityAndContinuesWhileDisabled(True)",
+          "fullname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.SameClockBinding_PreservesActivityAndContinuesWhileDisabled(True)",
+          "methodname": "SameClockBinding_PreservesActivityAndContinuesWhileDisabled",
+          "classname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "1364442768",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.001027",
+          "asserts": "0"
+        },
+        {
+          "id": "1078",
+          "name": "SleepAfterPartialMinute_DoesNotBrieflyResumeThePrecedingSchedule",
+          "fullname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.SleepAfterPartialMinute_DoesNotBrieflyResumeThePrecedingSchedule",
+          "methodname": "SleepAfterPartialMinute_DoesNotBrieflyResumeThePrecedingSchedule",
+          "classname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "892248592",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.001431",
+          "asserts": "0"
+        },
+        {
+          "id": "1087",
+          "name": "SuccessfulLoad_ClearsActivityAndRejectsTheOldWorldRequest",
+          "fullname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.SuccessfulLoad_ClearsActivityAndRejectsTheOldWorldRequest",
+          "methodname": "SuccessfulLoad_ClearsActivityAndRejectsTheOldWorldRequest",
+          "classname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "407645113",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.006005",
+          "asserts": "0"
+        },
+        {
+          "id": "1089",
+          "name": "UnreachableActivity_DoesNotChangePositionTargetOrRevision",
+          "fullname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests.UnreachableActivity_DoesNotChangePositionTargetOrRevision",
+          "methodname": "UnreachableActivity_DoesNotChangePositionTargetOrRevision",
+          "classname": "CozyTown.Tests.PlayMode.NpcAgentActivityPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "708396576",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.001358",
+          "asserts": "0"
+        },
+        {
+          "id": "1123",
+          "name": "AutomaticDecision_UsesTheExistingBodyAndMovesWithoutPlayerInput",
+          "fullname": "CozyTown.Tests.PlayMode.NpcDecisionPlayModeTests.AutomaticDecision_UsesTheExistingBodyAndMovesWithoutPlayerInput",
+          "methodname": "AutomaticDecision_UsesTheExistingBodyAndMovesWithoutPlayerInput",
+          "classname": "CozyTown.Tests.PlayMode.NpcDecisionPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "1942368518",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.019326",
+          "asserts": "0"
+        },
+        {
+          "id": "1114",
+          "name": "BatchBootstrap_DoesNotEnableBackgroundRequestsFromTheEnvironment",
+          "fullname": "CozyTown.Tests.PlayMode.NpcDecisionPlayModeTests.BatchBootstrap_DoesNotEnableBackgroundRequestsFromTheEnvironment",
+          "methodname": "BatchBootstrap_DoesNotEnableBackgroundRequestsFromTheEnvironment",
+          "classname": "CozyTown.Tests.PlayMode.NpcDecisionPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "410345625",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.012272",
+          "asserts": "0"
+        },
+        {
+          "id": "1115",
+          "name": "Bootstrap_BindsTheConfiguredClientOnceForEarlyOrLateRegistration(True)",
+          "fullname": "CozyTown.Tests.PlayMode.NpcDecisionPlayModeTests.Bootstrap_BindsTheConfiguredClientOnceForEarlyOrLateRegistration(True)",
+          "methodname": "Bootstrap_BindsTheConfiguredClientOnceForEarlyOrLateRegistration",
+          "classname": "CozyTown.Tests.PlayMode.NpcDecisionPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "491252175",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.001889",
+          "asserts": "0"
+        },
+        {
+          "id": "1116",
+          "name": "Bootstrap_BindsTheConfiguredClientOnceForEarlyOrLateRegistration(False)",
+          "fullname": "CozyTown.Tests.PlayMode.NpcDecisionPlayModeTests.Bootstrap_BindsTheConfiguredClientOnceForEarlyOrLateRegistration(False)",
+          "methodname": "Bootstrap_BindsTheConfiguredClientOnceForEarlyOrLateRegistration",
+          "classname": "CozyTown.Tests.PlayMode.NpcDecisionPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "1808581604",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.001053",
+          "asserts": "0"
+        },
+        {
+          "id": "1122",
+          "name": "DestroyingTheController_CancelsItsOutstandingDecision",
+          "fullname": "CozyTown.Tests.PlayMode.NpcDecisionPlayModeTests.DestroyingTheController_CancelsItsOutstandingDecision",
+          "methodname": "DestroyingTheController_CancelsItsOutstandingDecision",
+          "classname": "CozyTown.Tests.PlayMode.NpcDecisionPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "1389936503",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.003398",
+          "asserts": "0"
+        },
+        {
+          "id": "1119",
+          "name": "LoadOrDifferentWorldBinding_DiscardsLateMovementWithoutResettingBudget(False)",
+          "fullname": "CozyTown.Tests.PlayMode.NpcDecisionPlayModeTests.LoadOrDifferentWorldBinding_DiscardsLateMovementWithoutResettingBudget(False)",
+          "methodname": "LoadOrDifferentWorldBinding_DiscardsLateMovementWithoutResettingBudget",
+          "classname": "CozyTown.Tests.PlayMode.NpcDecisionPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "492774821",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.001987",
+          "asserts": "0"
+        },
+        {
+          "id": "1120",
+          "name": "LoadOrDifferentWorldBinding_DiscardsLateMovementWithoutResettingBudget(True)",
+          "fullname": "CozyTown.Tests.PlayMode.NpcDecisionPlayModeTests.LoadOrDifferentWorldBinding_DiscardsLateMovementWithoutResettingBudget(True)",
+          "methodname": "LoadOrDifferentWorldBinding_DiscardsLateMovementWithoutResettingBudget",
+          "classname": "CozyTown.Tests.PlayMode.NpcDecisionPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "1541739809",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.001350",
+          "asserts": "0"
+        },
+        {
+          "id": "1118",
+          "name": "UnityUpdate_DrivesDecisionsWithoutManualTicks",
+          "fullname": "CozyTown.Tests.PlayMode.NpcDecisionPlayModeTests.UnityUpdate_DrivesDecisionsWithoutManualTicks",
+          "methodname": "UnityUpdate_DrivesDecisionsWithoutManualTicks",
+          "classname": "CozyTown.Tests.PlayMode.NpcDecisionPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "2097182070",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:11Z",
+          "duration": "0.007673",
+          "asserts": "0"
+        },
+        {
+          "id": "1141",
+          "name": "ReconfiguringDecisions_ReleasesThePreviousMeetingActivities",
+          "fullname": "CozyTown.Tests.PlayMode.NpcMeetingPlayModeTests.ReconfiguringDecisions_ReleasesThePreviousMeetingActivities",
+          "methodname": "ReconfiguringDecisions_ReleasesThePreviousMeetingActivities",
+          "classname": "CozyTown.Tests.PlayMode.NpcMeetingPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "1072013974",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:16:11Z",
+          "end-time": "2026-09-15 11:16:12Z",
+          "duration": "1.298775",
+          "asserts": "0"
+        }
+      ],
+      "rawXmlPath": "Logs/session-composition-01-play-2026-09-15.xml",
+      "rawXmlSha256": "9ce63c252f90fc392ea50fcc6c09b128f9983ed718f5cc41b00a881545777820",
+      "publishedXml": "session-composition-01-play-2026-09-15.xml",
+      "publishedXmlSha256": "04ff1c6a915f8df75b36dc61013c09be419316e750a08ff8179545c3527ba90d",
+      "rawLogPath": "Logs/session-composition-01-play-2026-09-15.log",
+      "rawLogSha256": "11bd6c700dca816b80dbf24b8241378ea13e3ba52bd1b5baee2f5acb8b400829"
+    },
+    {
+      "mode": "EditMode",
+      "filter": "Load_DiscardsAPendingInvitationReplyWithoutResettingPhysicalSlotOrBudget;DisposingTheScheduler_CancelsWorkAndPreventsLaterWorldWrites;RebindingAnotherWorld_UsesThatWorldsAssetsForNewAgreements;OldWorldReply_DrainsBeforeDispatchingNewWorldWaitingTurn",
+      "exitCode": 0,
+      "exitCodeSource": "PowerShell runner result captured in this task; the process completed before packaging.",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "4",
+        "result": "Passed",
+        "total": "4",
+        "passed": "4",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-15 11:18:00Z",
+        "end-time": "2026-09-15 11:18:00Z",
+        "duration": "0.1696185"
+      },
+      "testCases": [
+        {
+          "id": "1198",
+          "name": "OldWorldReply_DrainsBeforeDispatchingNewWorldWaitingTurn",
+          "fullname": "CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.OldWorldReply_DrainsBeforeDispatchingNewWorldWaitingTurn",
+          "methodname": "OldWorldReply_DrainsBeforeDispatchingNewWorldWaitingTurn",
+          "classname": "CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests",
+          "runstate": "Runnable",
+          "seed": "404338944",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:18:00Z",
+          "end-time": "2026-09-15 11:18:00Z",
+          "duration": "0.063214",
+          "asserts": "0"
+        },
+        {
+          "id": "1211",
+          "name": "DisposingTheScheduler_CancelsWorkAndPreventsLaterWorldWrites",
+          "fullname": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSchedulerTests.DisposingTheScheduler_CancelsWorkAndPreventsLaterWorldWrites",
+          "methodname": "DisposingTheScheduler_CancelsWorkAndPreventsLaterWorldWrites",
+          "classname": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSchedulerTests",
+          "runstate": "Runnable",
+          "seed": "1284865717",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:18:00Z",
+          "end-time": "2026-09-15 11:18:00Z",
+          "duration": "0.004720",
+          "asserts": "0"
+        },
+        {
+          "id": "1315",
+          "name": "Load_DiscardsAPendingInvitationReplyWithoutResettingPhysicalSlotOrBudget",
+          "fullname": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingTests.Load_DiscardsAPendingInvitationReplyWithoutResettingPhysicalSlotOrBudget",
+          "methodname": "Load_DiscardsAPendingInvitationReplyWithoutResettingPhysicalSlotOrBudget",
+          "classname": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingTests",
+          "runstate": "Runnable",
+          "seed": "1085031828",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:18:00Z",
+          "end-time": "2026-09-15 11:18:00Z",
+          "duration": "0.002764",
+          "asserts": "0"
+        },
+        {
+          "id": "1403",
+          "name": "RebindingAnotherWorld_UsesThatWorldsAssetsForNewAgreements",
+          "fullname": "CozyTown.Tests.EditMode.NpcAgents.NpcResourceMeetingTests.RebindingAnotherWorld_UsesThatWorldsAssetsForNewAgreements",
+          "methodname": "RebindingAnotherWorld_UsesThatWorldsAssetsForNewAgreements",
+          "classname": "CozyTown.Tests.EditMode.NpcAgents.NpcResourceMeetingTests",
+          "runstate": "Runnable",
+          "seed": "356821121",
+          "result": "Passed",
+          "start-time": "2026-09-15 11:18:00Z",
+          "end-time": "2026-09-15 11:18:00Z",
+          "duration": "0.002306",
+          "asserts": "0"
+        }
+      ],
+      "rawXmlPath": "Logs/session-composition-02-edit-2026-09-15.xml",
+      "rawXmlSha256": "31e030a8becc113201056724da47c632d8ad13d76d42e5b0affa32c3f9a298a8",
+      "publishedXml": "session-composition-02-edit-2026-09-15.xml",
+      "publishedXmlSha256": "f77f2c50e411bcef7ff7c62b1513001bed981e4078c1dfa6cdaecbe02556586f",
+      "rawLogPath": "Logs/session-composition-02-edit-2026-09-15.log",
+      "rawLogSha256": "5957207986e0b134d9c719a40c8bfa522e49d8484904cb8b8e68351dcf766e9c"
+    }
+  ],
+  "historicalChecksums": [
+    {
+      "path": "docs/verification/npc-conversation-budget-2026-09-14/checksums.json",
+      "sha256": "fbfc99f9f50ff3fcdee2934273929e22ecf32fd963d0bb0fa55c54ba97840399",
+      "verifiedFiles": 19,
+      "status": "passed"
+    },
+    {
+      "path": "docs/verification/npc-conversation-turn-2026-09-14/checksums.json",
+      "sha256": "5ab5616ed0d5821990c8241ed7c092500597e945f3ab3082e5bae6b3d35578dd",
+      "verifiedFiles": 29,
+      "status": "passed"
+    }
+  ],
+  "limits": [
+    "These existing tests do not reproduce failed controller binding or asynchronous client reconfiguration.",
+    "Whole-GameObject destruction is not component-only hot-removal coverage.",
+    "Input and Bee manifest equality is not a DLL/PDB source-checksum proof."
+  ]
+}

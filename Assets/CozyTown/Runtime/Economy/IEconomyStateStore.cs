@@ -23,5 +23,7 @@ namespace CozyTown.Runtime.Economy
         OperationResult CommitShop(ShopEconomySnapshot shopCandidate);
 
         OperationResult CommitCharacter(CharacterEconomySnapshot characterCandidate);
+
+        OperationResult CommitCharacters(CharacterEconomySnapshot first, CharacterEconomySnapshot second);
     }
 }

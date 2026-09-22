@@ -1,6 +1,6 @@
 # ADR-0003：单槽位存档使用版本化数据包
 
-- 状态：已接受；版本号与顶层字段清单已由 ADR-0012 取代
+- 状态：已接受；经济字段与 v1 迁移见 ADR-0012，结算日期语义见 ADR-0014；schema v4 完整逻辑快照见 [ADR-0019](0019-complete-logical-snapshots-and-agent-continuation.md)
 - 日期：2026-08-28
 
 ## 背景
@@ -43,7 +43,7 @@ GameSaveSnapshot
 
 规则如下：
 
-- 当前骨架定义 `CurrentSchemaVersion = 1`；后续可写格式继续使用递增正整数。
+- 初始骨架定义 schema v1；后续可写格式使用递增正整数。
 - 物品、作物、鱼、配方和 NPC 使用稳定 ID；显示名称和 Unity 实例 ID 不进入身份字段。
 - 新增可选字段必须定义旧存档默认值。
 - 删除、重命名、拆分、合并字段或改变字段语义时增加版本，并提供逐版本迁移函数。
@@ -55,9 +55,11 @@ GameSaveSnapshot
 
 ## 当前实现
 
-`JsonFileSaveStorage` 当前写入独立于运行时对象的 schema v2 JSON 数据包，并按 ADR-0012 的固定规则把 schema v1 迁移为 v2 候选。写入时在目标文件同一目录生成临时文件，复读并校验后使用文件替换提交；临时写入或替换失败时，上一份有效存档保持可读。读取路径区分空槽、截断或结构损坏、未来版本和无效载荷。
+默认 Unity 游戏写入独立于运行对象的 schema v4 JSON 数据包，包含统一时刻、资源、四人身体与活动、会面、有限经历及逻辑决策进度。独立资源用例可显式使用旧格式 v3。v1/v2 保留 ADR-0012 与 [ADR-0014](0014-continuous-world-time-and-morning-settlement.md) 的原协议校验和逐版本迁移；v1–v3 缺少的人物状态按 [ADR-0019](0019-complete-logical-snapshots-and-agent-continuation.md) 初始化。
 
-`GameSaveCoordinator` 为逻辑槽位 `main` 捕获世界种子、时间、全部角色与商店经济状态、农田和畜牧快照。读取先校验载荷状态范围、稳定主体和跨模块日期，再恢复五个状态边界；任一步失败时回滚五份调用前快照。常规 Editor Play 与构建使用 `<Application.persistentDataPath>/CozyTown/main.json`，批处理测试注入 `InMemorySaveStorage`，避免接触玩家存档。
+`JsonFileSaveStorage` 在目标文件同一目录写临时文件，复读并校验后替换正式槽位；临时写入或替换失败时，上一份有效存档保持可读。读取区分空槽、截断或结构损坏、未来版本和无效载荷，迁移不重写原文件。常规 Editor Play 与构建使用 `<Application.persistentDataPath>/CozyTown/main.json`；批处理测试注入独立存储。
+
+`GameSaveCoordinator` 的完整模式先准备全部资源、身体和 Agent 候选，再提交。准备失败保留当前世界和合法请求；提交后核心恢复异常由 [ADR-0020](0020-post-commit-world-recovery.md) 暂停会话。旧资源适配路径保留原模块失败回滚和独立回滚错误。`DaytimeClockCoordinator` 在提交完成后恢复小数余量并发布重建通知；旧请求通过新运行代次失去写入权限，实际调用预算继续保留。配置、迁移与测试证据见[完整快照实现报告](../verification/complete-agent-snapshots-2026-09-19.md)。
 
 ## 后果
 

@@ -40,14 +40,14 @@ namespace CozyTown.Unity.Coop
             _coordinator = coordinator ?? throw new ArgumentNullException(nameof(coordinator));
             if (_timeFlow != null)
             {
-                _timeFlow.Changed -= RefreshWorldAfterSettlement;
+                _timeFlow.PresentationChanged -= RefreshWorldAfterSettlement;
             }
             _timeFlow = timeFlow;
             if (_timeFlow != null)
             {
                 _lastSettlementDay = SettlementDay(_timeFlow.Current);
                 _lastRebuildVersion = _timeFlow.Current.RebuildVersion;
-                _timeFlow.Changed += RefreshWorldAfterSettlement;
+                _timeFlow.PresentationChanged += RefreshWorldAfterSettlement;
             }
             _worldView?.Show(_coordinator.GetCurrentState());
             DependenciesChanged();
@@ -58,7 +58,7 @@ namespace CozyTown.Unity.Coop
         {
             if (_timeFlow != null)
             {
-                _timeFlow.Changed -= RefreshWorldAfterSettlement;
+                _timeFlow.PresentationChanged -= RefreshWorldAfterSettlement;
             }
         }
 

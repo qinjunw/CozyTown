@@ -1,0 +1,122 @@
+[
+  {
+    "ordinal": 1,
+    "scenario": "available",
+    "decisionId": "ffe9e839e72e47daa6aaebd38b2e7f78",
+    "firstProxyStatus": "provider.candidate_invalid",
+    "firstCandidateErrorCode": "candidate.plan_id_required",
+    "firstHostCode": "candidate.plan_id_required",
+    "finalDecisionOutcomeCode": "meeting.invited",
+    "correctionProxyStatus": "passed",
+    "correctionOperation": "invite",
+    "correctionStep": 2,
+    "remainingCalls": 0,
+    "changedRequestFields": [
+      "candidateErrorCode",
+      "remainingCalls",
+      "step"
+    ],
+    "rawHashVerified": true,
+    "onlyPlanIdRemoved": true
+  },
+  {
+    "ordinal": 2,
+    "scenario": "seller_empty",
+    "decisionId": "94c2f413c84d473ba0ac5886d4bf8a8e",
+    "firstProxyStatus": "provider.candidate_invalid",
+    "firstCandidateErrorCode": "candidate.plan_id_required",
+    "firstHostCode": "candidate.plan_id_required",
+    "finalDecisionOutcomeCode": "meeting.invited",
+    "correctionProxyStatus": "passed",
+    "correctionOperation": "invite",
+    "correctionStep": 2,
+    "remainingCalls": 0,
+    "changedRequestFields": [
+      "candidateErrorCode",
+      "remainingCalls",
+      "step"
+    ],
+    "rawHashVerified": true,
+    "onlyPlanIdRemoved": true
+  },
+  {
+    "ordinal": 5,
+    "scenario": "seller_empty",
+    "decisionId": "0feb7fd8c0f74e8bbe2e93856e9e01a8",
+    "firstProxyStatus": "provider.candidate_invalid",
+    "firstCandidateErrorCode": "candidate.plan_id_required",
+    "firstHostCode": "candidate.plan_id_required",
+    "finalDecisionOutcomeCode": "meeting.invited",
+    "correctionProxyStatus": "passed",
+    "correctionOperation": "invite",
+    "correctionStep": 2,
+    "remainingCalls": 0,
+    "changedRequestFields": [
+      "candidateErrorCode",
+      "remainingCalls",
+      "step"
+    ],
+    "rawHashVerified": true,
+    "onlyPlanIdRemoved": true
+  },
+  {
+    "ordinal": 8,
+    "scenario": "available",
+    "decisionId": "9e4610c7abb74431937d491b563adef6",
+    "firstProxyStatus": "provider.candidate_invalid",
+    "firstCandidateErrorCode": "candidate.plan_id_required",
+    "firstHostCode": "candidate.plan_id_required",
+    "finalDecisionOutcomeCode": "meeting.invited",
+    "correctionProxyStatus": "passed",
+    "correctionOperation": "invite",
+    "correctionStep": 2,
+    "remainingCalls": 0,
+    "changedRequestFields": [
+      "candidateErrorCode",
+      "remainingCalls",
+      "step"
+    ],
+    "rawHashVerified": true,
+    "onlyPlanIdRemoved": true
+  },
+  {
+    "ordinal": 11,
+    "scenario": "available",
+    "decisionId": "b8e6b54848f74ddfacee47ee4edd6b85",
+    "firstProxyStatus": "provider.candidate_invalid",
+    "firstCandidateErrorCode": "candidate.plan_id_required",
+    "firstHostCode": "candidate.plan_id_required",
+    "finalDecisionOutcomeCode": "meeting.invited",
+    "correctionProxyStatus": "passed",
+    "correctionOperation": "invite",
+    "correctionStep": 2,
+    "remainingCalls": 0,
+    "changedRequestFields": [
+      "candidateErrorCode",
+      "remainingCalls",
+      "step"
+    ],
+    "rawHashVerified": true,
+    "onlyPlanIdRemoved": true
+  },
+  {
+    "ordinal": 12,
+    "scenario": "seller_empty",
+    "decisionId": "10dd7c40f4ed4930b610d2f4fa0d217c",
+    "firstProxyStatus": "provider.candidate_invalid",
+    "firstCandidateErrorCode": "candidate.plan_id_required",
+    "firstHostCode": "candidate.plan_id_required",
+    "finalDecisionOutcomeCode": "meeting.invited",
+    "correctionProxyStatus": "passed",
+    "correctionOperation": "invite",
+    "correctionStep": 2,
+    "remainingCalls": 0,
+    "changedRequestFields": [
+      "candidateErrorCode",
+      "remainingCalls",
+      "step"
+    ],
+    "rawHashVerified": true,
+    "onlyPlanIdRemoved": true
+  }
+]

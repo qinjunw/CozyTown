@@ -1,0 +1,3395 @@
+{
+  "schemaVersion": 1,
+  "generatedAtUtc": "2026-09-19T17:40:49.965812Z",
+  "evidenceKind": "integration_test_xml_export",
+  "exporter": {
+    "path": "Logs/agent-platform/export_integration_test_evidence.py",
+    "sha256": "db41cc7f029456f0aae60ca62ccdb13c7eba4914ea5906b0435ae142bbc93e1a",
+    "bytes": 11715,
+    "lastModifiedAtUtc": "2026-09-19T17:40:19.815474Z"
+  },
+  "coverageMappingSource": {
+    "path": "Logs/agent-platform/fixed-integration-evidence-summary.json",
+    "sha256": "bedbc41ff2818f41e7bebf9b123fcca1e47d09191c85ada1e6dffb53be12d070",
+    "bytes": 67201,
+    "lastModifiedAtUtc": "2026-09-19T17:15:06.199342Z"
+  },
+  "selectedRuns": {
+    "fullEdit": "xml/integration-full-edit.xml",
+    "fullPlay": "xml/integration-full-play-fixed-b.xml"
+  },
+  "redaction": {
+    "rules": [
+      "Working-tree absolute prefix becomes <project-root>.",
+      "Other user-home absolute prefixes become <user-home>.",
+      "Unity installation absolute prefixes become <unity-editor>.",
+      "XML values are transformed as data and reserialized; CDATA/formatting may change.",
+      "Test results, counts and numeric values are retained; only matching path prefixes change."
+    ],
+    "rawXmlAndLogsIncluded": false
+  },
+  "runs": [
+    {
+      "rawXml": {
+        "path": "Logs/agent-platform/integration-async-clock.xml",
+        "sha256": "35d16b8895c310ebe83620e20d6e3f90825050e8c2c8cbac36c27d11fcc83fad",
+        "bytes": 7004,
+        "lastModifiedAtUtc": "2026-09-19T17:03:09.118240Z"
+      },
+      "publicXml": {
+        "path": "xml/integration-async-clock.xml",
+        "sha256": "5456d8d3cc4e24f31db025a4718d30e3b39b589283caf4d1b5f6d0ea74aeffad",
+        "bytes": 6787
+      },
+      "rawLog": {
+        "path": "Logs/agent-platform/integration-async-clock.log",
+        "sha256": "c5ff7bf6d68dcb4f1b2eb314141761acb5fff68fbc4aff890a304988bd93b302",
+        "bytes": 55960,
+        "lastModifiedAtUtc": "2026-09-19T17:03:18.071398Z"
+      },
+      "sourceIdentity": {
+        "sourceRevision": null,
+        "sourceState": "working_tree_revision_unverified",
+        "basis": "Development evidence; the exact tested source revision was not independently recorded."
+      },
+      "result": "Passed",
+      "counts": {
+        "reported": {
+          "testcasecount": 3,
+          "total": 3,
+          "passed": 3,
+          "failed": 0,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        "observedTestCases": 3,
+        "observedResults": {
+          "Passed": 3
+        }
+      },
+      "startTimeUtc": "2026-09-19 17:03:05Z",
+      "endTimeUtc": "2026-09-19 17:03:09Z",
+      "durationSeconds": "3.353589",
+      "failedTests": [],
+      "skippedTests": []
+    },
+    {
+      "rawXml": {
+        "path": "Logs/agent-platform/integration-clock-deadline.xml",
+        "sha256": "cbcd9ed94b1781353a94aba4a2f380869eb97ba153edb83a8888e2a04a3a0807",
+        "bytes": 4241,
+        "lastModifiedAtUtc": "2026-09-19T17:14:13.311102Z"
+      },
+      "publicXml": {
+        "path": "xml/integration-clock-deadline.xml",
+        "sha256": "b52d700218e9a37d5f93b7fe82bf3f08f39af03026d6ca6ec17c34435320eb9c",
+        "bytes": 4109
+      },
+      "rawLog": {
+        "path": "Logs/agent-platform/integration-clock-deadline.log",
+        "sha256": "b1bbb800ef48234682bd688554687f25d2a1fdc9137ad36955fdddc494a7f30d",
+        "bytes": 39023,
+        "lastModifiedAtUtc": "2026-09-19T17:14:26.098566Z"
+      },
+      "sourceIdentity": {
+        "sourceRevision": null,
+        "sourceState": "working_tree_revision_unverified",
+        "basis": "Development evidence; the exact tested source revision was not independently recorded."
+      },
+      "result": "Passed",
+      "counts": {
+        "reported": {
+          "testcasecount": 1,
+          "total": 1,
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        "observedTestCases": 1,
+        "observedResults": {
+          "Passed": 1
+        }
+      },
+      "startTimeUtc": "2026-09-19 17:14:11Z",
+      "endTimeUtc": "2026-09-19 17:14:13Z",
+      "durationSeconds": "1.9103379",
+      "failedTests": [],
+      "skippedTests": []
+    },
+    {
+      "rawXml": {
+        "path": "Logs/agent-platform/integration-coordinated-fixed.xml",
+        "sha256": "1eeae29e128a61e14daf068e5140e129d44e8f983bc254383cc7406d417a6250",
+        "bytes": 5724,
+        "lastModifiedAtUtc": "2026-09-19T17:17:44.537724Z"
+      },
+      "publicXml": {
+        "path": "xml/integration-coordinated-fixed.xml",
+        "sha256": "ae9849ce25fbf59c428c0b1116f02816bced24ac777328ca2a0c1880d60c38dc",
+        "bytes": 5480
+      },
+      "rawLog": {
+        "path": "Logs/agent-platform/integration-coordinated-fixed.log",
+        "sha256": "be106e08a03080c612c5270624da5b57413e1298f44eaa179360bd5543353ae2",
+        "bytes": 39761,
+        "lastModifiedAtUtc": "2026-09-19T17:17:47.441708Z"
+      },
+      "sourceIdentity": {
+        "sourceRevision": null,
+        "sourceState": "working_tree_revision_unverified",
+        "basis": "Development evidence; the exact tested source revision was not independently recorded."
+      },
+      "result": "Failed(Child)",
+      "counts": {
+        "reported": {
+          "testcasecount": 1,
+          "total": 1,
+          "passed": 0,
+          "failed": 1,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        "observedTestCases": 1,
+        "observedResults": {
+          "Failed": 1
+        }
+      },
+      "startTimeUtc": "2026-09-19 17:17:20Z",
+      "endTimeUtc": "2026-09-19 17:17:44Z",
+      "durationSeconds": "24.2163485",
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.CoordinatedMatrix_ExecutesOnlyRegisteredFreshWorlds"
+      ],
+      "skippedTests": []
+    },
+    {
+      "rawXml": {
+        "path": "Logs/agent-platform/integration-cross-day-second.xml",
+        "sha256": "cd69039397c203e534c28b165576847bb4f972ee45d371b116710290ee892f2f",
+        "bytes": 5600,
+        "lastModifiedAtUtc": "2026-09-19T16:21:45.856105Z"
+      },
+      "publicXml": {
+        "path": "xml/integration-cross-day-second.xml",
+        "sha256": "d6d6d2c0d56eab7770dd4e00749b73037090d6a32784bd03447f71a5dd8af5a3",
+        "bytes": 5359
+      },
+      "rawLog": {
+        "path": "Logs/agent-platform/integration-cross-day-second.log",
+        "sha256": "bc2fd6ada3ed6825bf3642dc80d4640fc9b6b6f69a3c80e66a869a7ff9d941fa",
+        "bytes": 58718,
+        "lastModifiedAtUtc": "2026-09-19T16:21:53.672732Z"
+      },
+      "sourceIdentity": {
+        "sourceRevision": null,
+        "sourceState": "working_tree_revision_unverified",
+        "basis": "Development evidence; the exact tested source revision was not independently recorded."
+      },
+      "result": "Failed(Child)",
+      "counts": {
+        "reported": {
+          "testcasecount": 1,
+          "total": 1,
+          "passed": 0,
+          "failed": 1,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        "observedTestCases": 1,
+        "observedResults": {
+          "Failed": 1
+        }
+      },
+      "startTimeUtc": "2026-09-19 16:21:44Z",
+      "endTimeUtc": "2026-09-19 16:21:45Z",
+      "durationSeconds": "1.4603574",
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay"
+      ],
+      "skippedTests": []
+    },
+    {
+      "rawXml": {
+        "path": "Logs/agent-platform/integration-empty-meeting-red.xml",
+        "sha256": "08ca4e8af54edeb9ea3bfb437f0d45679b7d7743e21eee0b31f87cfe71e81b70",
+        "bytes": 5300,
+        "lastModifiedAtUtc": "2026-09-19T16:48:56.227668Z"
+      },
+      "publicXml": {
+        "path": "xml/integration-empty-meeting-red.xml",
+        "sha256": "5b10433d0f6155054ebd090ba88af0e6d22fc32c226998a609dbd4992929239f",
+        "bytes": 5055
+      },
+      "rawLog": {
+        "path": "Logs/agent-platform/integration-empty-meeting-red.log",
+        "sha256": "49ee0c9b04358e8c65cc496f86f1db74e3977e50d4aa447311ab9458723e4220",
+        "bytes": 54614,
+        "lastModifiedAtUtc": "2026-09-19T16:48:58.416210Z"
+      },
+      "sourceIdentity": {
+        "sourceRevision": null,
+        "sourceState": "working_tree_revision_unverified",
+        "basis": "Development evidence; the exact tested source revision was not independently recorded."
+      },
+      "result": "Failed(Child)",
+      "counts": {
+        "reported": {
+          "testcasecount": 1,
+          "total": 1,
+          "passed": 0,
+          "failed": 1,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        "observedTestCases": 1,
+        "observedResults": {
+          "Failed": 1
+        }
+      },
+      "startTimeUtc": "2026-09-19 16:48:55Z",
+      "endTimeUtc": "2026-09-19 16:48:56Z",
+      "durationSeconds": "0.1728314",
+      "failedTests": [
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_MatchesUnassignedOpportunitiesBeforeLaterMeetings"
+      ],
+      "skippedTests": []
+    },
+    {
+      "rawXml": {
+        "path": "Logs/agent-platform/integration-first-script.xml",
+        "sha256": "4fed5a1044a26c2af45370633bcd443105b9ca296d41e77c095c45aeab5cf73e",
+        "bytes": 12339,
+        "lastModifiedAtUtc": "2026-09-19T16:34:23.285700Z"
+      },
+      "publicXml": {
+        "path": "xml/integration-first-script.xml",
+        "sha256": "9335b9824d14869a5eb93aa07cb0314a08a43576538e004f5845fb40357ebc8b",
+        "bytes": 11861
+      },
+      "rawLog": {
+        "path": "Logs/agent-platform/integration-first-script.log",
+        "sha256": "b5b7b3d2042937b6e79937bbb007c9f4ff3ca16d0a999e65264bdbf305c56700",
+        "bytes": 64793,
+        "lastModifiedAtUtc": "2026-09-19T16:34:35.864071Z"
+      },
+      "sourceIdentity": {
+        "sourceRevision": null,
+        "sourceState": "working_tree_revision_unverified",
+        "basis": "Development evidence; the exact tested source revision was not independently recorded."
+      },
+      "result": "Failed(Child)",
+      "counts": {
+        "reported": {
+          "testcasecount": 4,
+          "total": 4,
+          "passed": 0,
+          "failed": 4,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        "observedTestCases": 4,
+        "observedResults": {
+          "Failed": 4
+        }
+      },
+      "startTimeUtc": "2026-09-19 16:34:20Z",
+      "endTimeUtc": "2026-09-19 16:34:23Z",
+      "durationSeconds": "2.6840999",
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.AgentExperimentSpeechEvidencePlayModeTests.FreeTextEvidence_UsesCommittedTextAndKeepsMissingRowsAfterLoad",
+        "CozyTown.Tests.PlayMode.AgentExperimentSpeechEvidencePlayModeTests.StructuredEvidence_UsesCommittedTextAndKeepsMissingRowsAfterLoad",
+        "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+        "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay"
+      ],
+      "skippedTests": []
+    },
+    {
+      "rawXml": {
+        "path": "Logs/agent-platform/integration-full-edit.xml",
+        "sha256": "23d3067fd4b42d28d05b97301395f56f6bf07100b1d26e7d8faddf556406f5c8",
+        "bytes": 1238989,
+        "lastModifiedAtUtc": "2026-09-19T17:00:29.924731Z"
+      },
+      "publicXml": {
+        "path": "xml/integration-full-edit.xml",
+        "sha256": "2a40ace35ae62ada8623da9f81eda378ecbb6c6404855047628223d646da7d48",
+        "bytes": 1230654
+      },
+      "rawLog": {
+        "path": "Logs/agent-platform/integration-full-edit.log",
+        "sha256": "46358770ad19c8840efbb01aa14845bc6fb276202535ab5fc905642666959223",
+        "bytes": 84234,
+        "lastModifiedAtUtc": "2026-09-19T17:00:32.532081Z"
+      },
+      "sourceIdentity": {
+        "sourceRevision": null,
+        "sourceState": "working_tree_revision_unverified",
+        "basis": "Development evidence; the exact tested source revision was not independently recorded."
+      },
+      "result": "Skipped:Ignored",
+      "counts": {
+        "reported": {
+          "testcasecount": 1106,
+          "total": 1106,
+          "passed": 1105,
+          "failed": 0,
+          "skipped": 1,
+          "inconclusive": 0
+        },
+        "observedTestCases": 1106,
+        "observedResults": {
+          "Passed": 1105,
+          "Skipped": 1
+        }
+      },
+      "startTimeUtc": "2026-09-19 17:00:05Z",
+      "endTimeUtc": "2026-09-19 17:00:29Z",
+      "durationSeconds": "23.448672",
+      "failedTests": [],
+      "skippedTests": [
+        "CozyTown.Tests.UnityEditMode.NpcExpressionExperimentTests.LiveProxy_CompareEightFactCasesWithOneCallPerSample"
+      ]
+    },
+    {
+      "rawXml": {
+        "path": "Logs/agent-platform/integration-full-play-fixed-b.xml",
+        "sha256": "619d3c80cc541f1d401404d3b89fbdb261a32ac6642f967ebaaf081161be40d4",
+        "bytes": 3621109,
+        "lastModifiedAtUtc": "2026-09-19T17:39:47.920025Z"
+      },
+      "publicXml": {
+        "path": "xml/integration-full-play-fixed-b.xml",
+        "sha256": "53d7ae565b6cfa872eecc45a6f60e076ec89e8714b5c62369e62b8b6b1b30862",
+        "bytes": 3618143
+      },
+      "rawLog": {
+        "path": "Logs/agent-platform/integration-full-play-fixed-b.log",
+        "sha256": "da8e035af5abfa186562eb80249fe18849a95df01acef0d7068a8dafdd6edacf",
+        "bytes": 167032,
+        "lastModifiedAtUtc": "2026-09-19T17:39:51.807077Z"
+      },
+      "sourceIdentity": {
+        "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+        "sourceState": "committed_candidate",
+        "basis": "Run identity supplied by the central Unity operator."
+      },
+      "result": "Skipped:Ignored",
+      "counts": {
+        "reported": {
+          "testcasecount": 299,
+          "total": 299,
+          "passed": 294,
+          "failed": 0,
+          "skipped": 5,
+          "inconclusive": 0
+        },
+        "observedTestCases": 299,
+        "observedResults": {
+          "Passed": 294,
+          "Skipped": 5
+        }
+      },
+      "startTimeUtc": "2026-09-19 17:29:44Z",
+      "endTimeUtc": "2026-09-19 17:39:46Z",
+      "durationSeconds": "601.4935637",
+      "failedTests": [],
+      "skippedTests": [
+        "CozyTown.Tests.PlayMode.NpcMeetingPlayModeTests.LiveProxy_RealProviderDrivesTheSceneMeetingWithinTheConfiguredBudget",
+        "CozyTown.Tests.PlayMode.NpcResourcePlayModeTests.LiveProxy_TransfersOwnedResourcesThroughTheActualScene",
+        "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_ComparedExpressionModesAcrossFourFreshWorlds",
+        "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_ComparedGroundingArmsAcrossFreshScenarios",
+        "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_RepeatsFourFreshInitialScenarios"
+      ]
+    },
+    {
+      "rawXml": {
+        "path": "Logs/agent-platform/integration-full-play.xml",
+        "sha256": "e2241978d73e4586dfc578c84a577d3a91ba56c74fbea2624dc2f2db693691f8",
+        "bytes": 3620594,
+        "lastModifiedAtUtc": "2026-09-19T17:09:52.045894Z"
+      },
+      "publicXml": {
+        "path": "xml/integration-full-play.xml",
+        "sha256": "cb9b925411476440e270ff552436db1fe82d6f3106453746dfe42f0c5aaa956f",
+        "bytes": 3617605
+      },
+      "rawLog": {
+        "path": "Logs/agent-platform/integration-full-play.log",
+        "sha256": "4e42d69ffc6026e1487ea050486b7f00f7c8a5bdd98a6b1ad8ec1fff4aa423f3",
+        "bytes": 156141,
+        "lastModifiedAtUtc": "2026-09-19T17:09:56.570593Z"
+      },
+      "sourceIdentity": {
+        "sourceRevision": null,
+        "sourceState": "working_tree_revision_unverified",
+        "basis": "Development evidence; the exact tested source revision was not independently recorded."
+      },
+      "result": "Skipped:Ignored",
+      "counts": {
+        "reported": {
+          "testcasecount": 298,
+          "total": 298,
+          "passed": 292,
+          "failed": 0,
+          "skipped": 6,
+          "inconclusive": 0
+        },
+        "observedTestCases": 298,
+        "observedResults": {
+          "Passed": 292,
+          "Skipped": 6
+        }
+      },
+      "startTimeUtc": "2026-09-19 17:04:56Z",
+      "endTimeUtc": "2026-09-19 17:09:50Z",
+      "durationSeconds": "294.1600296",
+      "failedTests": [],
+      "skippedTests": [
+        "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.CoordinatedMatrix_ExecutesOnlyRegisteredFreshWorlds",
+        "CozyTown.Tests.PlayMode.NpcMeetingPlayModeTests.LiveProxy_RealProviderDrivesTheSceneMeetingWithinTheConfiguredBudget",
+        "CozyTown.Tests.PlayMode.NpcResourcePlayModeTests.LiveProxy_TransfersOwnedResourcesThroughTheActualScene",
+        "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_ComparedExpressionModesAcrossFourFreshWorlds",
+        "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_ComparedGroundingArmsAcrossFreshScenarios",
+        "CozyTown.Tests.PlayMode.NpcResourceScenarioPlayModeTests.LiveProxy_RepeatsFourFreshInitialScenarios"
+      ]
+    },
+    {
+      "rawXml": {
+        "path": "Logs/agent-platform/integration-pair-green.xml",
+        "sha256": "3c850eca0627a5ca58bc0a29f19e36a07033e5e9c3e6f45e83402028866f1f0c",
+        "bytes": 24689,
+        "lastModifiedAtUtc": "2026-09-19T16:28:13.975901Z"
+      },
+      "publicXml": {
+        "path": "xml/integration-pair-green.xml",
+        "sha256": "d8cf8294f328e3f9218c4501754bbfd2d242020af752d6d8f274904c74308220",
+        "bytes": 24461
+      },
+      "rawLog": {
+        "path": "Logs/agent-platform/integration-pair-green.log",
+        "sha256": "d09ca45745e853d57cec0d4068fd498b5f1369b1fbdda982448253d5da476274",
+        "bytes": 59619,
+        "lastModifiedAtUtc": "2026-09-19T16:28:16.271273Z"
+      },
+      "sourceIdentity": {
+        "sourceRevision": null,
+        "sourceState": "working_tree_revision_unverified",
+        "basis": "Development evidence; the exact tested source revision was not independently recorded."
+      },
+      "result": "Passed",
+      "counts": {
+        "reported": {
+          "testcasecount": 23,
+          "total": 23,
+          "passed": 23,
+          "failed": 0,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        "observedTestCases": 23,
+        "observedResults": {
+          "Passed": 23
+        }
+      },
+      "startTimeUtc": "2026-09-19 16:28:13Z",
+      "endTimeUtc": "2026-09-19 16:28:13Z",
+      "durationSeconds": "0.6908042",
+      "failedTests": [],
+      "skippedTests": []
+    },
+    {
+      "rawXml": {
+        "path": "Logs/agent-platform/integration-pair-red.xml",
+        "sha256": "35a88902e50036b94acd3024b6aaea8ce663622326da55fe7a95bc90da0c7b92",
+        "bytes": 49119,
+        "lastModifiedAtUtc": "2026-09-19T16:17:41.795308Z"
+      },
+      "publicXml": {
+        "path": "xml/integration-pair-red.xml",
+        "sha256": "75c958fada1ee1f5b89a2be5d4311c1679b553328b768974f44316e869294d0d",
+        "bytes": 47307
+      },
+      "rawLog": {
+        "path": "Logs/agent-platform/integration-pair-red.log",
+        "sha256": "177e2f64822608de6c2c28dc6fffec2f30f205d3d86b6aec79d586addab8fb4b",
+        "bytes": 61409,
+        "lastModifiedAtUtc": "2026-09-19T16:17:51.676449Z"
+      },
+      "sourceIdentity": {
+        "sourceRevision": null,
+        "sourceState": "working_tree_revision_unverified",
+        "basis": "Development evidence; the exact tested source revision was not independently recorded."
+      },
+      "result": "Failed(Child)",
+      "counts": {
+        "reported": {
+          "testcasecount": 23,
+          "total": 23,
+          "passed": 0,
+          "failed": 23,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        "observedTestCases": 23,
+        "observedResults": {
+          "Failed": 23
+        }
+      },
+      "startTimeUtc": "2026-09-19 16:17:41Z",
+      "endTimeUtc": "2026-09-19 16:17:41Z",
+      "durationSeconds": "0.4023549",
+      "failedTests": [
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_AllowsOnlySpeechModeAndKnownIdentitiesWithoutComparingWallClock",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(\"action-version\",\"/schemaVersion\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(\"expression-version\",\"/expression/schemaVersion\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(\"game-time\",\"/gameTotalMinutes\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(\"identity-in-fact\",\"/observation/facts/0/value\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(\"world-reference\",\"/observation/worldRunId\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(\"order\",\"/callOrdinal\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_DoesNotNormalizeProtocolFactsReferencesOrCallOrder(\"missing-call\",\"/calls/2\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.ContextComparison_ReturnsTheFirstDifferentFactAndStopsAtThatPrefix",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(\"available\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(\"seller_empty\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(\"buyer_poor\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_AcceptsIndependentFSWorldsForEachResourceCase(\"need_satisfied\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(\"wallet\",\"/characters/\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(\"clock\",\"/clock/minuteOfDay\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(\"body\",\"/completeWorld/residents/\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(\"persona\",\"/persona\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(\"budget\",\"/maxRequestsPerMinute\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(\"client\",\"/clientConfiguration\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(\"content\",\"/contentConfiguration\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(\"bodyConfiguration\",\"/bodyConfiguration\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_IdentifiesNonSpeechDifferences(\"seed\",\"/worldSeed\")",
+        "CozyTown.Tests.UnityEditMode.AgentExperimentPairComparisonTests.InitialComparison_RejectsSameModeNonzeroInitialClockAndExecutionHistory"
+      ],
+      "skippedTests": []
+    },
+    {
+      "rawXml": {
+        "path": "Logs/agent-platform/integration-physics-green.xml",
+        "sha256": "4144abe3dbe58553defaaa12688d8e73482c28c321f67d9473a06e43648e757a",
+        "bytes": 13963,
+        "lastModifiedAtUtc": "2026-09-19T17:27:57.820761Z"
+      },
+      "publicXml": {
+        "path": "xml/integration-physics-green.xml",
+        "sha256": "a6fc8b086719e577a63c282f13cda5608d957e0f1284588e205c63dab497a51c",
+        "bytes": 13738
+      },
+      "rawLog": {
+        "path": "Logs/agent-platform/integration-physics-green.log",
+        "sha256": "ceaa79f651f589cf80fb7d4a895992e9d3ba3263a7057e062864ce27c9ccfb15",
+        "bytes": 43386,
+        "lastModifiedAtUtc": "2026-09-19T17:28:04.703927Z"
+      },
+      "sourceIdentity": {
+        "sourceRevision": null,
+        "baseRevision": "9737054c9a0d7c84237439fe13ae36f704c0a43f",
+        "equivalentImplementationRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+        "sourceState": "base_plus_uncommitted_physics_fix_and_regression_test",
+        "basis": "Operator identifies the tested fix as equivalent to the candidate; this was not a run of that committed SHA."
+      },
+      "result": "Passed",
+      "counts": {
+        "reported": {
+          "testcasecount": 12,
+          "total": 12,
+          "passed": 12,
+          "failed": 0,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        "observedTestCases": 12,
+        "observedResults": {
+          "Passed": 12
+        }
+      },
+      "startTimeUtc": "2026-09-19 17:27:49Z",
+      "endTimeUtc": "2026-09-19 17:27:57Z",
+      "durationSeconds": "7.9637909",
+      "failedTests": [],
+      "skippedTests": []
+    },
+    {
+      "rawXml": {
+        "path": "Logs/agent-platform/integration-physics-red.xml",
+        "sha256": "4842adfdff15ef16452a81a8593880f09614576eff05b60dc3fe62213e7eb485",
+        "bytes": 5523,
+        "lastModifiedAtUtc": "2026-09-19T17:26:48.194722Z"
+      },
+      "publicXml": {
+        "path": "xml/integration-physics-red.xml",
+        "sha256": "db64a6169ebfa7a569cfb3906359a975b3a7f88966e9f51ba4247f97face5d1a",
+        "bytes": 5282
+      },
+      "rawLog": {
+        "path": "Logs/agent-platform/integration-physics-red.log",
+        "sha256": "4e96ea32795af5541af4023a6424a34d5917a13e4daa28d00ff7d9dcbf62a8cb",
+        "bytes": 38646,
+        "lastModifiedAtUtc": "2026-09-19T17:27:00.931910Z"
+      },
+      "sourceIdentity": {
+        "sourceRevision": null,
+        "baseRevision": "9737054c9a0d7c84237439fe13ae36f704c0a43f",
+        "sourceState": "base_plus_uncommitted_regression_test_without_fix",
+        "basis": "Operator identifies the regression run before the player physics fix."
+      },
+      "result": "Failed(Child)",
+      "counts": {
+        "reported": {
+          "testcasecount": 1,
+          "total": 1,
+          "passed": 0,
+          "failed": 1,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        "observedTestCases": 1,
+        "observedResults": {
+          "Failed": 1
+        }
+      },
+      "startTimeUtc": "2026-09-19 17:26:47Z",
+      "endTimeUtc": "2026-09-19 17:26:48Z",
+      "durationSeconds": "0.9599077",
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.AgentExperimentSessionPlayModeTests.WaitingBetweenInputs_PreservesPlayerPositionAcrossLoadsAndStrictReplay"
+      ],
+      "skippedTests": []
+    },
+    {
+      "rawXml": {
+        "path": "Logs/agent-platform/integration-second-script.xml",
+        "sha256": "164e7d65cd5b96d80d01193483679a94fb888b06d0d9c41de9737c02110a4d72",
+        "bytes": 9205,
+        "lastModifiedAtUtc": "2026-09-19T16:41:38.236214Z"
+      },
+      "publicXml": {
+        "path": "xml/integration-second-script.xml",
+        "sha256": "b80283960f26f6dcee22f82e5810329d1fb77ba21d38dc2e37b3f10fde40dee5",
+        "bytes": 8966
+      },
+      "rawLog": {
+        "path": "Logs/agent-platform/integration-second-script.log",
+        "sha256": "3781591ccda1ed4a676bb194c19ebd16448c8d426d1306f631d2d045ff877934",
+        "bytes": 43572,
+        "lastModifiedAtUtc": "2026-09-19T16:41:41.796705Z"
+      },
+      "sourceIdentity": {
+        "sourceRevision": null,
+        "sourceState": "working_tree_revision_unverified",
+        "basis": "Development evidence; the exact tested source revision was not independently recorded."
+      },
+      "result": "Failed(Child)",
+      "counts": {
+        "reported": {
+          "testcasecount": 4,
+          "total": 4,
+          "passed": 3,
+          "failed": 1,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        "observedTestCases": 4,
+        "observedResults": {
+          "Passed": 3,
+          "Failed": 1
+        }
+      },
+      "startTimeUtc": "2026-09-19 16:38:12Z",
+      "endTimeUtc": "2026-09-19 16:41:38Z",
+      "durationSeconds": "205.7592638",
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld"
+      ],
+      "skippedTests": []
+    },
+    {
+      "rawXml": {
+        "path": "Logs/agent-platform/integration-third-script.xml",
+        "sha256": "ca4e05ef86eaf9423bfe8d8a3a5a78d761463b7cec96a97e9a31faca975e6b5a",
+        "bytes": 9763,
+        "lastModifiedAtUtc": "2026-09-19T16:56:24.191181Z"
+      },
+      "publicXml": {
+        "path": "xml/integration-third-script.xml",
+        "sha256": "192619ddd49a43b20d52c9d4a593697f0c9930eaaf38e5b08888aa835f21061a",
+        "bytes": 9525
+      },
+      "rawLog": {
+        "path": "Logs/agent-platform/integration-third-script.log",
+        "sha256": "5f3f2d361ed6766ad96b8a7ea1d9df4a583f6f2851785309be252715c68aa94b",
+        "bytes": 62874,
+        "lastModifiedAtUtc": "2026-09-19T16:56:27.509777Z"
+      },
+      "sourceIdentity": {
+        "sourceRevision": null,
+        "sourceState": "working_tree_revision_unverified",
+        "basis": "Development evidence; the exact tested source revision was not independently recorded."
+      },
+      "result": "Passed",
+      "counts": {
+        "reported": {
+          "testcasecount": 5,
+          "total": 5,
+          "passed": 5,
+          "failed": 0,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        "observedTestCases": 5,
+        "observedResults": {
+          "Passed": 5
+        }
+      },
+      "startTimeUtc": "2026-09-19 16:52:02Z",
+      "endTimeUtc": "2026-09-19 16:56:24Z",
+      "durationSeconds": "261.5954729",
+      "failedTests": [],
+      "skippedTests": []
+    }
+  ],
+  "logsWithoutXml": [
+    {
+      "rawLog": {
+        "path": "Logs/agent-platform/integration-cross-day-first.log",
+        "sha256": "56a62c2affaaad5864852d7523d09e3948c65c985babc4098a4a4fc2e3004ae6",
+        "bytes": 64318,
+        "lastModifiedAtUtc": "2026-09-19T16:13:56.195147Z"
+      },
+      "xmlPresent": false,
+      "sourceIdentity": {
+        "sourceRevision": null,
+        "sourceState": "working_tree_revision_unverified",
+        "basis": "Development evidence; the exact tested source revision was not independently recorded."
+      },
+      "note": "No corresponding XML exists; no test counts or pass result are inferred."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "H01",
+      "scope": "Four resource initial states, F/S, four residents and social/resource meetings",
+      "tests": [
+        {
+          "fixture": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+          "method": "AvailableConfiguration_RegistersFourResidentsAndTwoIndependentMeetings",
+          "selectedXmlPath": "xml/integration-full-edit.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": null,
+            "sourceState": "working_tree_revision_unverified",
+            "basis": "Development evidence; the exact tested source revision was not independently recorded."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.AvailableConfiguration_RegistersFourResidentsAndTwoIndependentMeetings",
+              "method": "AvailableConfiguration_RegistersFourResidentsAndTwoIndependentMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.AvailableConfiguration_RegistersFourResidentsAndTwoIndependentMeetings",
+              "method": "AvailableConfiguration_RegistersFourResidentsAndTwoIndependentMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+          "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+          "selectedXmlPath": "xml/integration-full-edit.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": null,
+            "sourceState": "working_tree_revision_unverified",
+            "basis": "Development evidence; the exact tested source revision was not independently recorded."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings(\"available\",FreeText,\"Completed\",1,1,25,25)",
+              "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings(\"available\",StructuredFacts,\"Completed\",1,1,25,25)",
+              "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings(\"seller_empty\",FreeText,\"Declined\",0,0,0,50)",
+              "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings(\"seller_empty\",StructuredFacts,\"Declined\",0,0,0,50)",
+              "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings(\"buyer_poor\",FreeText,\"None\",2,0,0,10)",
+              "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings(\"buyer_poor\",StructuredFacts,\"None\",2,0,0,10)",
+              "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings(\"need_satisfied\",FreeText,\"None\",2,1,0,50)",
+              "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings(\"need_satisfied\",StructuredFacts,\"None\",2,1,0,50)",
+              "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings(\"available\",FreeText,\"Completed\",1,1,25,25)",
+              "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings(\"available\",StructuredFacts,\"Completed\",1,1,25,25)",
+              "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings(\"seller_empty\",FreeText,\"Declined\",0,0,0,50)",
+              "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings(\"seller_empty\",StructuredFacts,\"Declined\",0,0,0,50)",
+              "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings(\"buyer_poor\",FreeText,\"None\",2,0,0,10)",
+              "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings(\"buyer_poor\",StructuredFacts,\"None\",2,0,0,10)",
+              "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings(\"need_satisfied\",FreeText,\"None\",2,1,0,50)",
+              "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings(\"need_satisfied\",StructuredFacts,\"None\",2,1,0,50)",
+              "method": "FixedClient_DrivesAllFourResidentsThroughSocialAndResourceMeetings",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests",
+          "method": "FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "method": "FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-first-script.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "method": "FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests",
+              "result": "Failed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "method": "FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "method": "FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-second-script.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "method": "FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests",
+              "result": "Failed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-third-script.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "method": "FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        }
+      ]
+    },
+    {
+      "id": "H02",
+      "scope": "Shared eight-call rolling minute, physical concurrency, expiry and later resumption",
+      "tests": [
+        {
+          "fixture": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+          "method": "FourResidents_SharingEightRequestsPerMinute_WaitExpireAndResumeWithoutLeakingActivities",
+          "selectedXmlPath": "xml/integration-full-edit.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": null,
+            "sourceState": "working_tree_revision_unverified",
+            "basis": "Development evidence; the exact tested source revision was not independently recorded."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FourResidents_SharingEightRequestsPerMinute_WaitExpireAndResumeWithoutLeakingActivities(FreeText)",
+              "method": "FourResidents_SharingEightRequestsPerMinute_WaitExpireAndResumeWithoutLeakingActivities",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FourResidents_SharingEightRequestsPerMinute_WaitExpireAndResumeWithoutLeakingActivities(StructuredFacts)",
+              "method": "FourResidents_SharingEightRequestsPerMinute_WaitExpireAndResumeWithoutLeakingActivities",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FourResidents_SharingEightRequestsPerMinute_WaitExpireAndResumeWithoutLeakingActivities(FreeText)",
+              "method": "FourResidents_SharingEightRequestsPerMinute_WaitExpireAndResumeWithoutLeakingActivities",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests.FourResidents_SharingEightRequestsPerMinute_WaitExpireAndResumeWithoutLeakingActivities(StructuredFacts)",
+              "method": "FourResidents_SharingEightRequestsPerMinute_WaitExpireAndResumeWithoutLeakingActivities",
+              "className": "CozyTown.Tests.EditMode.Content.AgentExperimentContentTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSchedulerTests",
+          "method": "Timeout_KeepsTheActualRequestSlotUntilAnUncooperativeClientFinishes",
+          "selectedXmlPath": "xml/integration-full-edit.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": null,
+            "sourceState": "working_tree_revision_unverified",
+            "basis": "Development evidence; the exact tested source revision was not independently recorded."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSchedulerTests.Timeout_KeepsTheActualRequestSlotUntilAnUncooperativeClientFinishes",
+              "method": "Timeout_KeepsTheActualRequestSlotUntilAnUncooperativeClientFinishes",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSchedulerTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSchedulerTests.Timeout_KeepsTheActualRequestSlotUntilAnUncooperativeClientFinishes",
+              "method": "Timeout_KeepsTheActualRequestSlotUntilAnUncooperativeClientFinishes",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSchedulerTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests",
+          "method": "QueuedConversationTurn_ResumesAfterBudgetReturnsAndCompletesBeforeMeetingDeadline",
+          "selectedXmlPath": "xml/integration-full-edit.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": null,
+            "sourceState": "working_tree_revision_unverified",
+            "basis": "Development evidence; the exact tested source revision was not independently recorded."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.QueuedConversationTurn_ResumesAfterBudgetReturnsAndCompletesBeforeMeetingDeadline",
+              "method": "QueuedConversationTurn_ResumesAfterBudgetReturnsAndCompletesBeforeMeetingDeadline",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests.QueuedConversationTurn_ResumesAfterBudgetReturnsAndCompletesBeforeMeetingDeadline",
+              "method": "QueuedConversationTurn_ResumesAfterBudgetReturnsAndCompletesBeforeMeetingDeadline",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcConversationBudgetTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        }
+      ]
+    },
+    {
+      "id": "H03",
+      "scope": "Four actual scene residents across midnight, morning settlement and second-day dispatch",
+      "tests": [
+        {
+          "fixture": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+          "method": "FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+              "method": "FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-async-clock.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+              "method": "FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-cross-day-second.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+              "method": "FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Failed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-first-script.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+              "method": "FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Failed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+              "method": "FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+              "method": "FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-second-script.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+              "method": "FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-third-script.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+              "method": "FourResidents_AfterMidnightAndMorningSettlementContinueOnTheSecondDay",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests",
+          "method": "FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "method": "FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-first-script.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "method": "FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests",
+              "result": "Failed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "method": "FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "method": "FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-second-script.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "method": "FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests",
+              "result": "Failed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-third-script.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests.FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "method": "FixedScript_RunsBothArmsOfAllResourceCasesAcrossDaysAndReplaysEachWorld",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationMatrixPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        }
+      ],
+      "limitation": "Second-day requests and daily social opportunity recur; the moving initiator invitation is rejected as observation_stale, so no second-day successful meeting is claimed."
+    },
+    {
+      "id": "H04",
+      "scope": "Seven actual scene meeting checkpoints restored twice, source world data and future-branch rollback",
+      "tests": [
+        {
+          "fixture": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+          "method": "FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "method": "FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-async-clock.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "method": "FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "method": "FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "method": "FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-third-script.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "method": "FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+          "method": "SaveLoad_RestoresFourActualJourneysPlayerAndFractionalMinuteWithoutReplayingMovement",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.SaveLoad_RestoresFourActualJourneysPlayerAndFractionalMinuteWithoutReplayingMovement",
+              "method": "SaveLoad_RestoresFourActualJourneysPlayerAndFractionalMinuteWithoutReplayingMovement",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.SaveLoad_RestoresFourActualJourneysPlayerAndFractionalMinuteWithoutReplayingMovement",
+              "method": "SaveLoad_RestoresFourActualJourneysPlayerAndFractionalMinuteWithoutReplayingMovement",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.SaveLoad_RestoresFourActualJourneysPlayerAndFractionalMinuteWithoutReplayingMovement",
+              "method": "SaveLoad_RestoresFourActualJourneysPlayerAndFractionalMinuteWithoutReplayingMovement",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+          "method": "ResourceConversation_LoadRestoresAcceptedBodiesAndDeliveredPendingTurnWithoutRepeatingTradeOrFutureBubble",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.ResourceConversation_LoadRestoresAcceptedBodiesAndDeliveredPendingTurnWithoutRepeatingTradeOrFutureBubble",
+              "method": "ResourceConversation_LoadRestoresAcceptedBodiesAndDeliveredPendingTurnWithoutRepeatingTradeOrFutureBubble",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.ResourceConversation_LoadRestoresAcceptedBodiesAndDeliveredPendingTurnWithoutRepeatingTradeOrFutureBubble",
+              "method": "ResourceConversation_LoadRestoresAcceptedBodiesAndDeliveredPendingTurnWithoutRepeatingTradeOrFutureBubble",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.ResourceConversation_LoadRestoresAcceptedBodiesAndDeliveredPendingTurnWithoutRepeatingTradeOrFutureBubble",
+              "method": "ResourceConversation_LoadRestoresAcceptedBodiesAndDeliveredPendingTurnWithoutRepeatingTradeOrFutureBubble",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests",
+          "method": "MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory",
+          "selectedXmlPath": "xml/integration-full-edit.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": null,
+            "sourceState": "working_tree_revision_unverified",
+            "basis": "Development evidence; the exact tested source revision was not independently recorded."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests.MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory(Invited)",
+              "method": "MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests.MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory(Scheduled)",
+              "method": "MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests.MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory(Travelling)",
+              "method": "MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests.MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory(Talking)",
+              "method": "MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests.MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory(Invited)",
+              "method": "MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests.MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory(Scheduled)",
+              "method": "MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests.MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory(Travelling)",
+              "method": "MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests.MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory(Talking)",
+              "method": "MeetingPhases_ResumeFromSavedCommitmentAndDiscardFutureHistory",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcMeetingBoardSnapshotTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        }
+      ]
+    },
+    {
+      "id": "H05",
+      "scope": "Old response isolation, actual-call ledger, physical slots, cooldown and reconfiguration",
+      "tests": [
+        {
+          "fixture": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+          "method": "PendingCalls_AfterTimedSavesAndRepeatedLoadsRejectLateRepliesAndReplayTheCompletePackage",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.PendingCalls_AfterTimedSavesAndRepeatedLoadsRejectLateRepliesAndReplayTheCompletePackage",
+              "method": "PendingCalls_AfterTimedSavesAndRepeatedLoadsRejectLateRepliesAndReplayTheCompletePackage",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-async-clock.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.PendingCalls_AfterTimedSavesAndRepeatedLoadsRejectLateRepliesAndReplayTheCompletePackage",
+              "method": "PendingCalls_AfterTimedSavesAndRepeatedLoadsRejectLateRepliesAndReplayTheCompletePackage",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-clock-deadline.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.PendingCalls_AfterTimedSavesAndRepeatedLoadsRejectLateRepliesAndReplayTheCompletePackage",
+              "method": "PendingCalls_AfterTimedSavesAndRepeatedLoadsRejectLateRepliesAndReplayTheCompletePackage",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.PendingCalls_AfterTimedSavesAndRepeatedLoadsRejectLateRepliesAndReplayTheCompletePackage",
+              "method": "PendingCalls_AfterTimedSavesAndRepeatedLoadsRejectLateRepliesAndReplayTheCompletePackage",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.PendingCalls_AfterTimedSavesAndRepeatedLoadsRejectLateRepliesAndReplayTheCompletePackage",
+              "method": "PendingCalls_AfterTimedSavesAndRepeatedLoadsRejectLateRepliesAndReplayTheCompletePackage",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests",
+          "method": "FirstCallInFlight_RestoreConsumesItsAttemptAndRetainsTheOldPhysicalSlot",
+          "selectedXmlPath": "xml/integration-full-edit.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": null,
+            "sourceState": "working_tree_revision_unverified",
+            "basis": "Development evidence; the exact tested source revision was not independently recorded."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests.FirstCallInFlight_RestoreConsumesItsAttemptAndRetainsTheOldPhysicalSlot",
+              "method": "FirstCallInFlight_RestoreConsumesItsAttemptAndRetainsTheOldPhysicalSlot",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests.FirstCallInFlight_RestoreConsumesItsAttemptAndRetainsTheOldPhysicalSlot",
+              "method": "FirstCallInFlight_RestoreConsumesItsAttemptAndRetainsTheOldPhysicalSlot",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests",
+          "method": "EarlierSnapshot_RestoresLogicalCooldownWhilePreservingFutureActualCalls",
+          "selectedXmlPath": "xml/integration-full-edit.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": null,
+            "sourceState": "working_tree_revision_unverified",
+            "basis": "Development evidence; the exact tested source revision was not independently recorded."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests.EarlierSnapshot_RestoresLogicalCooldownWhilePreservingFutureActualCalls",
+              "method": "EarlierSnapshot_RestoresLogicalCooldownWhilePreservingFutureActualCalls",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests.EarlierSnapshot_RestoresLogicalCooldownWhilePreservingFutureActualCalls",
+              "method": "EarlierSnapshot_RestoresLogicalCooldownWhilePreservingFutureActualCalls",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests",
+          "method": "ResumedDecision_UsesOnlyItsSavedRemainingTotalTimeWithoutASecondCooldown",
+          "selectedXmlPath": "xml/integration-full-edit.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": null,
+            "sourceState": "working_tree_revision_unverified",
+            "basis": "Development evidence; the exact tested source revision was not independently recorded."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests.ResumedDecision_UsesOnlyItsSavedRemainingTotalTimeWithoutASecondCooldown",
+              "method": "ResumedDecision_UsesOnlyItsSavedRemainingTotalTimeWithoutASecondCooldown",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests.ResumedDecision_UsesOnlyItsSavedRemainingTotalTimeWithoutASecondCooldown",
+              "method": "ResumedDecision_UsesOnlyItsSavedRemainingTotalTimeWithoutASecondCooldown",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSnapshotTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.PlayMode.NpcBindingPlayModeTests",
+          "method": "RepeatedSuccessfulLoad_RebuildsBodiesAndRejectsEachPreviousTimelineReply",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcBindingPlayModeTests.RepeatedSuccessfulLoad_RebuildsBodiesAndRejectsEachPreviousTimelineReply",
+              "method": "RepeatedSuccessfulLoad_RebuildsBodiesAndRejectsEachPreviousTimelineReply",
+              "className": "CozyTown.Tests.PlayMode.NpcBindingPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcBindingPlayModeTests.RepeatedSuccessfulLoad_RebuildsBodiesAndRejectsEachPreviousTimelineReply",
+              "method": "RepeatedSuccessfulLoad_RebuildsBodiesAndRejectsEachPreviousTimelineReply",
+              "className": "CozyTown.Tests.PlayMode.NpcBindingPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcBindingPlayModeTests.RepeatedSuccessfulLoad_RebuildsBodiesAndRejectsEachPreviousTimelineReply",
+              "method": "RepeatedSuccessfulLoad_RebuildsBodiesAndRejectsEachPreviousTimelineReply",
+              "className": "CozyTown.Tests.PlayMode.NpcBindingPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests",
+          "method": "UnfinishedRequest_RejectsReplacementUntilTheTaskEnds",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.UnfinishedRequest_RejectsReplacementUntilTheTaskEnds(False)",
+              "method": "UnfinishedRequest_RejectsReplacementUntilTheTaskEnds",
+              "className": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.UnfinishedRequest_RejectsReplacementUntilTheTaskEnds(True)",
+              "method": "UnfinishedRequest_RejectsReplacementUntilTheTaskEnds",
+              "className": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.UnfinishedRequest_RejectsReplacementUntilTheTaskEnds(False)",
+              "method": "UnfinishedRequest_RejectsReplacementUntilTheTaskEnds",
+              "className": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.UnfinishedRequest_RejectsReplacementUntilTheTaskEnds(True)",
+              "method": "UnfinishedRequest_RejectsReplacementUntilTheTaskEnds",
+              "className": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.UnfinishedRequest_RejectsReplacementUntilTheTaskEnds(False)",
+              "method": "UnfinishedRequest_RejectsReplacementUntilTheTaskEnds",
+              "className": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.UnfinishedRequest_RejectsReplacementUntilTheTaskEnds(True)",
+              "method": "UnfinishedRequest_RejectsReplacementUntilTheTaskEnds",
+              "className": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests",
+          "method": "CompletedRequest_ReconfigurationKeepsTheOriginalCallWindow",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.CompletedRequest_ReconfigurationKeepsTheOriginalCallWindow",
+              "method": "CompletedRequest_ReconfigurationKeepsTheOriginalCallWindow",
+              "className": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.CompletedRequest_ReconfigurationKeepsTheOriginalCallWindow",
+              "method": "CompletedRequest_ReconfigurationKeepsTheOriginalCallWindow",
+              "className": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests.CompletedRequest_ReconfigurationKeepsTheOriginalCallWindow",
+              "method": "CompletedRequest_ReconfigurationKeepsTheOriginalCallWindow",
+              "className": "CozyTown.Tests.PlayMode.NpcReconfigurationPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.PlayMode.DaytimeClockPlayModeTests",
+          "method": "ModalAndFocusPause_RequireBothReasonsToClearBeforeClockResumes",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.DaytimeClockPlayModeTests.ModalAndFocusPause_RequireBothReasonsToClearBeforeClockResumes",
+              "method": "ModalAndFocusPause_RequireBothReasonsToClearBeforeClockResumes",
+              "className": "CozyTown.Tests.PlayMode.DaytimeClockPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.DaytimeClockPlayModeTests.ModalAndFocusPause_RequireBothReasonsToClearBeforeClockResumes",
+              "method": "ModalAndFocusPause_RequireBothReasonsToClearBeforeClockResumes",
+              "className": "CozyTown.Tests.PlayMode.DaytimeClockPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.DaytimeClockPlayModeTests.ModalAndFocusPause_RequireBothReasonsToClearBeforeClockResumes",
+              "method": "ModalAndFocusPause_RequireBothReasonsToClearBeforeClockResumes",
+              "className": "CozyTown.Tests.PlayMode.DaytimeClockPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        }
+      ]
+    },
+    {
+      "id": "H06",
+      "scope": "Legacy migration, invalid snapshots, final resident preparation failure and publication recovery",
+      "tests": [
+        {
+          "fixture": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+          "method": "LegacySnapshot_RebuildsSchedulesAndInitialPlayerThenRecordsMigrationOnNextSave",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.LegacySnapshot_RebuildsSchedulesAndInitialPlayerThenRecordsMigrationOnNextSave",
+              "method": "LegacySnapshot_RebuildsSchedulesAndInitialPlayerThenRecordsMigrationOnNextSave",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.LegacySnapshot_RebuildsSchedulesAndInitialPlayerThenRecordsMigrationOnNextSave",
+              "method": "LegacySnapshot_RebuildsSchedulesAndInitialPlayerThenRecordsMigrationOnNextSave",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.LegacySnapshot_RebuildsSchedulesAndInitialPlayerThenRecordsMigrationOnNextSave",
+              "method": "LegacySnapshot_RebuildsSchedulesAndInitialPlayerThenRecordsMigrationOnNextSave",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+          "method": "LastBodyPreparationFailure_KeepsLiveWorldAndModalUntilValidLoadCommits",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.LastBodyPreparationFailure_KeepsLiveWorldAndModalUntilValidLoadCommits",
+              "method": "LastBodyPreparationFailure_KeepsLiveWorldAndModalUntilValidLoadCommits",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.LastBodyPreparationFailure_KeepsLiveWorldAndModalUntilValidLoadCommits",
+              "method": "LastBodyPreparationFailure_KeepsLiveWorldAndModalUntilValidLoadCommits",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.LastBodyPreparationFailure_KeepsLiveWorldAndModalUntilValidLoadCommits",
+              "method": "LastBodyPreparationFailure_KeepsLiveWorldAndModalUntilValidLoadCommits",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+          "method": "FailedLastBodyPreparation_DoesNotCancelStillLegalModelRequest",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.FailedLastBodyPreparation_DoesNotCancelStillLegalModelRequest",
+              "method": "FailedLastBodyPreparation_DoesNotCancelStillLegalModelRequest",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.FailedLastBodyPreparation_DoesNotCancelStillLegalModelRequest",
+              "method": "FailedLastBodyPreparation_DoesNotCancelStillLegalModelRequest",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.FailedLastBodyPreparation_DoesNotCancelStillLegalModelRequest",
+              "method": "FailedLastBodyPreparation_DoesNotCancelStillLegalModelRequest",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+          "method": "PublicationFailure_ReportsCommittedStateAndPreservesExistingRecoveryBoundary",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.PublicationFailure_ReportsCommittedStateAndPreservesExistingRecoveryBoundary(True)",
+              "method": "PublicationFailure_ReportsCommittedStateAndPreservesExistingRecoveryBoundary",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.PublicationFailure_ReportsCommittedStateAndPreservesExistingRecoveryBoundary(False)",
+              "method": "PublicationFailure_ReportsCommittedStateAndPreservesExistingRecoveryBoundary",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.PublicationFailure_ReportsCommittedStateAndPreservesExistingRecoveryBoundary(True)",
+              "method": "PublicationFailure_ReportsCommittedStateAndPreservesExistingRecoveryBoundary",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.PublicationFailure_ReportsCommittedStateAndPreservesExistingRecoveryBoundary(False)",
+              "method": "PublicationFailure_ReportsCommittedStateAndPreservesExistingRecoveryBoundary",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.PublicationFailure_ReportsCommittedStateAndPreservesExistingRecoveryBoundary(True)",
+              "method": "PublicationFailure_ReportsCommittedStateAndPreservesExistingRecoveryBoundary",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests.PublicationFailure_ReportsCommittedStateAndPreservesExistingRecoveryBoundary(False)",
+              "method": "PublicationFailure_ReportsCommittedStateAndPreservesExistingRecoveryBoundary",
+              "className": "CozyTown.Tests.PlayMode.CompleteWorldSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+          "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+          "selectedXmlPath": "xml/integration-full-edit.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": null,
+            "sourceState": "working_tree_revision_unverified",
+            "basis": "Development evidence; the exact tested source revision was not independently recorded."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"sourceSchemaVersion\",\"\\\"sourceSchemaVersion\\\":0\")",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"fractionalMinute\",\"\\\"removedFractionalMinute\\\":0.25\")",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"sourceSchemaVersion\",\"\\\"removedSourceSchemaVersion\\\":4\")",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"completeWorld\",null)",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"contentConfiguration\",null)",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"residents\",null)",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"events\",null)",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"meetingsEnabled\",null)",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"decisionsEnabled\",null)",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"player\",null)",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"sourceSchemaVersion\",\"\\\"sourceSchemaVersion\\\":0\")",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"fractionalMinute\",\"\\\"removedFractionalMinute\\\":0.25\")",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"sourceSchemaVersion\",\"\\\"removedSourceSchemaVersion\\\":4\")",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"completeWorld\",null)",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"contentConfiguration\",null)",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"residents\",null)",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"events\",null)",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"meetingsEnabled\",null)",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"decisionsEnabled\",null)",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests.IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults(\"player\",null)",
+              "method": "IncompleteNewFormat_IsRejectedWithoutApplyingLegacyDefaults",
+              "className": "CozyTown.Tests.EditMode.Save.CompleteSnapshotStorageTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        }
+      ]
+    },
+    {
+      "id": "H07",
+      "scope": "Activity windows, one correction, authorized observation and participant histories",
+      "tests": [
+        {
+          "fixture": "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests",
+          "method": "DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection",
+          "selectedXmlPath": "xml/integration-full-edit.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": null,
+            "sourceState": "working_tree_revision_unverified",
+            "basis": "Development evidence; the exact tested source revision was not independently recorded."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection(False)",
+              "method": "DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection(True)",
+              "method": "DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection(False)",
+              "method": "DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection(True)",
+              "method": "DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests",
+          "method": "DurationCorrection_SharesTheRateBudgetAndOriginalDecisionTimeout",
+          "selectedXmlPath": "xml/integration-full-edit.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": null,
+            "sourceState": "working_tree_revision_unverified",
+            "basis": "Development evidence; the exact tested source revision was not independently recorded."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DurationCorrection_SharesTheRateBudgetAndOriginalDecisionTimeout",
+              "method": "DurationCorrection_SharesTheRateBudgetAndOriginalDecisionTimeout",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DurationCorrection_SharesTheRateBudgetAndOriginalDecisionTimeout",
+              "method": "DurationCorrection_SharesTheRateBudgetAndOriginalDecisionTimeout",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.PlayMode.NpcActivityWindowPlayModeTests",
+          "method": "DelayedVisit_ReleasesAtTheDisclosedWindowEvenWhenTheScheduleHasTheSameDestination",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcActivityWindowPlayModeTests.DelayedVisit_ReleasesAtTheDisclosedWindowEvenWhenTheScheduleHasTheSameDestination",
+              "method": "DelayedVisit_ReleasesAtTheDisclosedWindowEvenWhenTheScheduleHasTheSameDestination",
+              "className": "CozyTown.Tests.PlayMode.NpcActivityWindowPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcActivityWindowPlayModeTests.DelayedVisit_ReleasesAtTheDisclosedWindowEvenWhenTheScheduleHasTheSameDestination",
+              "method": "DelayedVisit_ReleasesAtTheDisclosedWindowEvenWhenTheScheduleHasTheSameDestination",
+              "className": "CozyTown.Tests.PlayMode.NpcActivityWindowPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcActivityWindowPlayModeTests.DelayedVisit_ReleasesAtTheDisclosedWindowEvenWhenTheScheduleHasTheSameDestination",
+              "method": "DelayedVisit_ReleasesAtTheDisclosedWindowEvenWhenTheScheduleHasTheSameDestination",
+              "className": "CozyTown.Tests.PlayMode.NpcActivityWindowPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.PlayMode.NpcActivityWindowPlayModeTests",
+          "method": "ModalPause_PreservesTheOrdinaryActivityAndItsAbsoluteDeadline",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcActivityWindowPlayModeTests.ModalPause_PreservesTheOrdinaryActivityAndItsAbsoluteDeadline",
+              "method": "ModalPause_PreservesTheOrdinaryActivityAndItsAbsoluteDeadline",
+              "className": "CozyTown.Tests.PlayMode.NpcActivityWindowPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcActivityWindowPlayModeTests.ModalPause_PreservesTheOrdinaryActivityAndItsAbsoluteDeadline",
+              "method": "ModalPause_PreservesTheOrdinaryActivityAndItsAbsoluteDeadline",
+              "className": "CozyTown.Tests.PlayMode.NpcActivityWindowPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.NpcActivityWindowPlayModeTests.ModalPause_PreservesTheOrdinaryActivityAndItsAbsoluteDeadline",
+              "method": "ModalPause_PreservesTheOrdinaryActivityAndItsAbsoluteDeadline",
+              "className": "CozyTown.Tests.PlayMode.NpcActivityWindowPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+          "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+          "selectedXmlPath": "xml/integration-full-edit.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": null,
+            "sourceState": "working_tree_revision_unverified",
+            "basis": "Development evidence; the exact tested source revision was not independently recorded."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests.FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence(\"express_wish\",\"sora:owned_quantity\",\"speech.intent_mismatch\")",
+              "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests.FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence(\"ask_about\",\"sora:owned_quantity\",\"speech.intent_mismatch\")",
+              "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests.FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence(\"report_observation\",\"water:quantity\",\"speech.intent_mismatch\")",
+              "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests.FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence(\"acknowledge_unknown\",\"sora:owned_quantity\",\"speech.information_known\")",
+              "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests.FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence(\"report_observation\",\"sora:balance\",\"speech.fact_forbidden\")",
+              "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests.FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence(\"report_receipt\",\"sora:owned_quantity\",\"speech.intent_mismatch\")",
+              "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests.FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence(\"report_observation\",\"ren:owned_quantity\",\"speech.fact_unknown\")",
+              "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests.FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence(\"report_observation\",\"unseen:name\",\"speech.fact_unknown\")",
+              "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests.FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence(\"express_wish\",\"sora:owned_quantity\",\"speech.intent_mismatch\")",
+              "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests.FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence(\"ask_about\",\"sora:owned_quantity\",\"speech.intent_mismatch\")",
+              "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests.FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence(\"report_observation\",\"water:quantity\",\"speech.intent_mismatch\")",
+              "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests.FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence(\"acknowledge_unknown\",\"sora:owned_quantity\",\"speech.information_known\")",
+              "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests.FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence(\"report_observation\",\"sora:balance\",\"speech.fact_forbidden\")",
+              "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests.FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence(\"report_receipt\",\"sora:owned_quantity\",\"speech.intent_mismatch\")",
+              "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests.FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence(\"report_observation\",\"ren:owned_quantity\",\"speech.fact_unknown\")",
+              "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests.FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence(\"report_observation\",\"unseen:name\",\"speech.fact_unknown\")",
+              "method": "FactSelection_RejectsUnsupportedMeaningPrivateValuesAndMissingEvidence",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcFactSpeechTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.EditMode.NpcAgents.NpcLocalObservationTests",
+          "method": "HeardStatements_KeepSpeakerAndTimeWithoutBecomingCurrentAssetsOrThirdPartyKnowledge",
+          "selectedXmlPath": "xml/integration-full-edit.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": null,
+            "sourceState": "working_tree_revision_unverified",
+            "basis": "Development evidence; the exact tested source revision was not independently recorded."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcLocalObservationTests.HeardStatements_KeepSpeakerAndTimeWithoutBecomingCurrentAssetsOrThirdPartyKnowledge",
+              "method": "HeardStatements_KeepSpeakerAndTimeWithoutBecomingCurrentAssetsOrThirdPartyKnowledge",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcLocalObservationTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-full-edit.xml",
+              "testName": "CozyTown.Tests.EditMode.NpcAgents.NpcLocalObservationTests.HeardStatements_KeepSpeakerAndTimeWithoutBecomingCurrentAssetsOrThirdPartyKnowledge",
+              "method": "HeardStatements_KeepSpeakerAndTimeWithoutBecomingCurrentAssetsOrThirdPartyKnowledge",
+              "className": "CozyTown.Tests.EditMode.NpcAgents.NpcLocalObservationTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        },
+        {
+          "fixture": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+          "method": "FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+          "selectedXmlPath": "xml/integration-full-play-fixed-b.xml",
+          "selectedRunIdentity": {
+            "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+            "sourceState": "committed_candidate",
+            "basis": "Run identity supplied by the central Unity operator."
+          },
+          "selectedCases": [
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "method": "FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            }
+          ],
+          "allRecordedCases": [
+            {
+              "xmlPath": "xml/integration-async-clock.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "method": "FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play-fixed-b.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "method": "FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": "7ac7240963f113b54f30229c1ef929e0bbceac5d",
+                "sourceState": "committed_candidate",
+                "basis": "Run identity supplied by the central Unity operator."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-full-play.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "method": "FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            },
+            {
+              "xmlPath": "xml/integration-third-script.xml",
+              "testName": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests.FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "method": "FourResidents_RepeatedPhaseLoadsRestoreCommitmentsAndDiscardFutureExperience",
+              "className": "CozyTown.Tests.PlayMode.AgentIntegrationSnapshotPlayModeTests",
+              "result": "Passed",
+              "label": null,
+              "sourceIdentity": {
+                "sourceRevision": null,
+                "sourceState": "working_tree_revision_unverified",
+                "basis": "Development evidence; the exact tested source revision was not independently recorded."
+              }
+            }
+          ],
+          "selectedCoverage": "passed"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "SHA metadata records supplied provenance, not retrospective proof of each historical worktree.",
+    "The selected EditMode run predates the frozen candidate; its tested source revision is unknown.",
+    "All matching XML runs, including failures, remain in the export and coverage history.",
+    "Raw logs remain in ignored local storage and are represented by hashes only."
+  ]
+}

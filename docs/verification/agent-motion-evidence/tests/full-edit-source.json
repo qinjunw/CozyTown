@@ -1,0 +1,32 @@
+{
+  "status": [
+    " M docs/AGENT_EXPERIMENT_GUIDE.md"
+  ],
+  "sourceHashes": [
+    {
+      "path": "Assets/CozyTown/Unity/Experiments/AgentExperimentLauncher.cs",
+      "sha256": "972F78E3F458C34AD90DACCAF801FEA91B173418D560E1813CD446153F730A1E"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Experiments/AgentExperimentSession.cs",
+      "sha256": "4539E5C0C5133488B59F46F19027E317A10B260B24C15C72BF92E2E188191973"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/UnityEditMode/AgentExperimentMotionTests.cs",
+      "sha256": "EF0A5FFDA5BF373FCB5DDAD70C9E0766B376D47CFE4CD290323EEF31B4618EB0"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/AgentExperimentSessionPlayModeTests.cs",
+      "sha256": "EFCD14441EDAB2A661F31EEA2C9173436214993926A2BDEF844447BF3E347E18"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/AgentExperimentContinuityPlayModeTests.cs",
+      "sha256": "52F6029FE69230C42E3BD4667AE061253CC97868FEB152642D3B9C877E9F9840"
+    }
+  ],
+  "platform": "EditMode",
+  "providerEnvironment": "COZYTOWN* cleared",
+  "head": "9149ffdbfabeac488ae5bb98efd38319b36a1b4a",
+  "utc": "2026-09-20T11:42:10.8556804Z",
+  "filter": ""
+}

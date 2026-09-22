@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using CozyTown.Runtime.Application;
 using CozyTown.Runtime.Content;
 using CozyTown.Runtime.Core;
@@ -86,7 +87,7 @@ namespace CozyTown.Tests.EditMode.Application
             GameSaveSnapshot before = SaveTestSnapshots.Capture(services);
             CharacterEconomySnapshot player = before.Characters[0];
             GameSaveSnapshot invalid = new GameSaveSnapshot(
-                GameSaveSnapshot.CurrentSchemaVersion,
+                GameSaveSnapshot.LegacySchemaVersion,
                 before.WorldSeed,
                 new GameClockSnapshot(1, 10 * 60),
                 new[]
@@ -182,7 +183,7 @@ namespace CozyTown.Tests.EditMode.Application
                 wateredToday: true,
                 status: FarmPlotStatus.Growing);
             var target = new GameSaveSnapshot(
-                GameSaveSnapshot.CurrentSchemaVersion,
+                GameSaveSnapshot.LegacySchemaVersion,
                 worldSeed: 777,
                 new GameClockSnapshot(1, 10 * 60),
                 new[]
@@ -192,7 +193,7 @@ namespace CozyTown.Tests.EditMode.Application
                         new InventorySnapshot(
                             new[] { new ItemStack(DefaultMvpIds.Items.Potato, 1) }),
                         new WalletSnapshot(1))
-                },
+                }.Concat(before.Characters.Where(character => character.CharacterId != DefaultMvpIds.Characters.Player)).ToArray(),
                 before.Shops,
                 new FarmSnapshot(1, targetPlots),
                 new LivestockSnapshot(
@@ -361,6 +362,9 @@ namespace CozyTown.Tests.EditMode.Application
 
             public OperationResult CommitShop(ShopEconomySnapshot shopCandidate) =>
                 _inner.CommitShop(shopCandidate);
+
+            public OperationResult CommitCharacters(CharacterEconomySnapshot first, CharacterEconomySnapshot second)
+                => _inner.CommitCharacters(first, second);
 
             public OperationResult CommitCharacter(
                 CharacterEconomySnapshot characterCandidate) =>

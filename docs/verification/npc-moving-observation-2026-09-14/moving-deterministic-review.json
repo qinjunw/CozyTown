@@ -1,0 +1,940 @@
+{
+  "schemaVersion": 1,
+  "reviewedAtUtc": "2026-09-14T11:10:35.166321+00:00",
+  "freezeCommit": "80ddc8ae734a818b49685f38e85ac3d635c167c6",
+  "reviewType": "deterministic_evidence_and_source_audit",
+  "verdict": "固定复现与修复回归可交付；没有发现要求修改冻结源码的阻塞。红测日志完整性与覆盖范围必须按下述限制表述。",
+  "blockers": [],
+  "scope": {
+    "modelCalls": 0,
+    "unityRuns": 0,
+    "sourceEdits": 0,
+    "output": "Logs/moving-deterministic-review.json",
+    "realModelBatchesIncluded": false,
+    "note": "父进程中的真实批次属于独立证据，本审计未读取或据此宣称真实表现。"
+  },
+  "verificationRuns": [
+    {
+      "artifact": "Logs/moving-observation-01-red.xml",
+      "result": "Failed(Child)",
+      "total": 2,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "durationSeconds": 0.1943156,
+      "failedCases": [
+        {
+          "name": "InvitationReply_SameRegionMovementPreservesTheAnswerWithoutAnotherCall(True)",
+          "message": "  Expected string length 21 but was 23. Strings differ at index 0.\n  Expected: \"meeting.accept_invite\"\n  But was:  \"agent.observation_stale\"\n  -----------^\n",
+          "output": "Dispatch: time=720, x=2, y=0, region=pond; execution: time=720, x=2.25, y=0.25, region=pond\n"
+        },
+        {
+          "name": "InvitationReply_SameRegionMovementPreservesTheAnswerWithoutAnotherCall(False)",
+          "message": "  Expected string length 22 but was 23. Strings differ at index 0.\n  Expected: \"meeting.decline_invite\"\n  But was:  \"agent.observation_stale\"\n  -----------^\n",
+          "output": "Dispatch: time=720, x=2, y=0, region=pond; execution: time=720, x=2.25, y=0.25, region=pond\nSaving results to: <user-home>/AppData/LocalLow/Kaiisa/KaiisaTown\\TestResults.xml\n"
+        }
+      ],
+      "skippedCases": []
+    },
+    {
+      "artifact": "Logs/moving-observation-02-green.xml",
+      "result": "Passed",
+      "total": 27,
+      "passed": 27,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 0.2213583,
+      "failedCases": [],
+      "skippedCases": []
+    },
+    {
+      "artifact": "Logs/moving-observation-03-evidence-red.xml",
+      "result": "Failed(Child)",
+      "total": 2,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "durationSeconds": 0.1140595,
+      "failedCases": [
+        {
+          "name": "InvitationReply_SameRegionMovementPreservesTheAnswerWithoutAnotherCall(True)",
+          "message": "  Expected: same as <CozyTown.Runtime.NpcAgents.NpcLocalObservation>\n  But was:  null\n",
+          "output": "Dispatch: time=720, x=2, y=0, region=pond; execution: time=720, x=2.25, y=0.25, region=pond\n"
+        },
+        {
+          "name": "InvitationReply_SameRegionMovementPreservesTheAnswerWithoutAnotherCall(False)",
+          "message": "  Expected: same as <CozyTown.Runtime.NpcAgents.NpcLocalObservation>\n  But was:  null\n",
+          "output": "Dispatch: time=720, x=2, y=0, region=pond; execution: time=720, x=2.25, y=0.25, region=pond\nSaving results to: <user-home>/AppData/LocalLow/Kaiisa/KaiisaTown\\TestResults.xml\n"
+        }
+      ],
+      "skippedCases": []
+    },
+    {
+      "artifact": "Logs/moving-observation-04-evidence-green.xml",
+      "result": "Passed",
+      "total": 27,
+      "passed": 27,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 0.2102634,
+      "failedCases": [],
+      "skippedCases": []
+    },
+    {
+      "artifact": "Logs/moving-observation-07-lifecycle.xml",
+      "result": "Passed",
+      "total": 52,
+      "passed": 52,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 0.1603814,
+      "failedCases": [],
+      "skippedCases": []
+    },
+    {
+      "artifact": "Logs/moving-observation-09-scene-red-evidence.xml",
+      "result": "Failed(Child)",
+      "total": 2,
+      "passed": 0,
+      "failed": 2,
+      "skipped": 0,
+      "durationSeconds": 0.602613,
+      "failedCases": [
+        {
+          "name": "MovingInvitationAccept_PreservesOriginalAndExecutionObservationsThenExpires",
+          "message": "  Expected: Scheduled\n  But was:  Invited\n",
+          "output": null
+        },
+        {
+          "name": "MovingInvitationDecline_PreservesOriginalAndExecutionObservationsAndResumesSchedule",
+          "message": "  Expected: Declined\n  But was:  Invited\n",
+          "output": "Saving results to: <user-home>/AppData/LocalLow/Kaiisa/KaiisaTown\\TestResults.xml\n"
+        }
+      ],
+      "skippedCases": []
+    },
+    {
+      "artifact": "Logs/moving-observation-10-scene-green.xml",
+      "result": "Passed",
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 0.8791466,
+      "failedCases": [],
+      "skippedCases": []
+    },
+    {
+      "artifact": "Logs/moving-observation-11-full-edit.xml",
+      "result": "Skipped:Ignored",
+      "total": 829,
+      "passed": 828,
+      "failed": 0,
+      "skipped": 1,
+      "durationSeconds": 9.288252,
+      "failedCases": [],
+      "skippedCases": [
+        {
+          "name": "LiveProxy_CompareEightFactCasesWithOneCallPerSample",
+          "reason": "Set COZYTOWN_RUN_EXPRESSION_FIXED=1 to run the registered provider comparison."
+        }
+      ]
+    },
+    {
+      "artifact": "Logs/moving-observation-12-full-play.xml",
+      "result": "Skipped:Ignored",
+      "total": 197,
+      "passed": 192,
+      "failed": 0,
+      "skipped": 5,
+      "durationSeconds": 17.2562221,
+      "failedCases": [],
+      "skippedCases": [
+        {
+          "name": "LiveProxy_RealProviderDrivesTheSceneMeetingWithinTheConfiguredBudget",
+          "reason": "Requires explicit live-meeting opt-in and a capped local proxy."
+        },
+        {
+          "name": "LiveProxy_TransfersOwnedResourcesThroughTheActualScene",
+          "reason": "Requires explicit resource-test opt-in and a capped local proxy."
+        },
+        {
+          "name": "LiveProxy_ComparedExpressionModesAcrossFourFreshWorlds",
+          "reason": "Requires expression-experiment opt-in and two loopback proxies sharing a 48-call scene budget."
+        },
+        {
+          "name": "LiveProxy_ComparedGroundingArmsAcrossFreshScenarios",
+          "reason": "Requires explicit grounding-experiment opt-in and four loopback endpoints with a shared 192-call scene budget."
+        },
+        {
+          "name": "LiveProxy_RepeatsFourFreshInitialScenarios",
+          "reason": "Requires explicit scenario-test opt-in and one proxy capped at 96 calls for the entire matrix."
+        }
+      ]
+    }
+  ],
+  "unityProcessExitCodes": {
+    "07-lifecycle": 0,
+    "09-scene-red-evidence": 2,
+    "10-scene-green": 0,
+    "11-full-edit": 0,
+    "12-full-play": 0
+  },
+  "coordinateCause": {
+    "conclusion": "Runtime 同时间复现直接隔离了坐标变量；场景旧调度器的业务失败及修复后四组合通过，与坐标门限导致邀约答复丢弃的机制一致。",
+    "runtimeDirectEvidence": {
+      "red": "Logs/moving-observation-01-red.xml",
+      "green": "Logs/moving-observation-02-green.xml",
+      "dispatch": {
+        "time": 720,
+        "x": 2,
+        "y": 0,
+        "region": "pond"
+      },
+      "execution": {
+        "time": 720,
+        "x": 2.25,
+        "y": 0.25,
+        "region": "pond"
+      },
+      "redHostCode": "agent.observation_stale",
+      "greenHostCodes": [
+        "meeting.accept_invite",
+        "meeting.decline_invite"
+      ],
+      "scope": "红绿各直接覆盖 accept/decline；时间相同，当前测试还比较完整 FactProjection 与 nearby IDs。诊断属性另有 03 红（null）→04 绿（同一重读对象）证据。"
+    },
+    "sceneRedEvidence": {
+      "artifact": "Logs/moving-observation-09-scene-red-evidence.xml",
+      "failedMethods": 2,
+      "executedModes": [
+        "FreeText"
+      ],
+      "unexecutedModes": [
+        "StructuredFacts"
+      ],
+      "failures": [
+        "Expected Scheduled, actual Invited",
+        "Expected Declined, actual Invited"
+      ],
+      "fullDispatchOrExecutionSnapshotRows": 0,
+      "note": "每个方法在 FreeText 首轮的 Meeting.State 断言失败，未进入 StructuredFacts 轮；输出语句位于该断言之后，因此此 XML 没有完整 dispatch/before-execution 快照，亦没有打印 red hostCode。",
+      "baselineSourceBinding": [
+        {
+          "file": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+          "recordedSha256": "a62aa4314ec292cc293e1bc1549fc0337a1f5565d2900acb7d7a4f729598dffe",
+          "comparison": "baseline_scheduler_content",
+          "verified": true
+        },
+        {
+          "file": "Assets/CozyTown/Runtime/NpcAgents/NpcLocalObservation.cs",
+          "recordedSha256": "ee5cb85d106d47b1645c303d46e8130734ef9bbe5fd106a22c403a9a9c5e59df",
+          "comparison": "same_as_frozen_green_compiled_file",
+          "verified": true
+        },
+        {
+          "file": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionOutcome.cs",
+          "recordedSha256": "52e7cd05ee9dc095a6cfe483add13dfcb3eca08eb77f4ca5be8fd53c93bbe6ef",
+          "comparison": "same_as_frozen_green_compiled_file",
+          "verified": true
+        },
+        {
+          "file": "Assets/CozyTown/Tests/PlayMode/NpcMovingObservationPlayModeTests.cs",
+          "recordedSha256": "ca7a069e524718b2b0133ee0d34b019b9c4ce5417769f3bd7e7e56ec40b704a7",
+          "comparison": "same_as_frozen_green_compiled_file",
+          "verified": true
+        },
+        {
+          "file": "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs",
+          "recordedSha256": "27cc9a430b56c655f2cda5113f38d8bc6244c1abf7c346bba15a4c924ed31ff7",
+          "comparison": "same_as_frozen_green_compiled_file",
+          "verified": true
+        }
+      ]
+    },
+    "sceneGreenEvidence": {
+      "artifact": "Logs/moving-observation-10-scene-green.xml",
+      "passedMethods": 2,
+      "independentWorlds": 4,
+      "combinations": [
+        {
+          "test": "MovingInvitationAccept_PreservesOriginalAndExecutionObservationsThenExpires",
+          "mode": "FreeText",
+          "accept": true,
+          "worldRunId": "133271bf5c14442cacd703c744e88620",
+          "hostCode": "meeting.accept_invite",
+          "dispatchPosition": {
+            "x": -3.1999998092651367,
+            "y": -3
+          },
+          "beforeExecutionPosition": {
+            "x": -3,
+            "y": -2.999999761581421
+          },
+          "dispatchTime": 736,
+          "beforeExecutionTime": 736.2,
+          "regionId": "pond-surroundings",
+          "spaceId": "outdoors",
+          "nearbyEntityIds": [
+            "lamp.player_home",
+            "lamp.shop_main_road",
+            "pond"
+          ],
+          "factCount": 19,
+          "comparedValueDifferences": [
+            {
+              "path": "/x",
+              "dispatch": -3.1999998092651367,
+              "beforeExecution": -3
+            },
+            {
+              "path": "/y",
+              "dispatch": -3,
+              "beforeExecution": -2.999999761581421
+            }
+          ],
+          "ignoredOrdinarySamplingTimestampDifferences": 20,
+          "allOtherFieldsEqual": true
+        },
+        {
+          "test": "MovingInvitationAccept_PreservesOriginalAndExecutionObservationsThenExpires",
+          "mode": "StructuredFacts",
+          "accept": true,
+          "worldRunId": "55f074e984db41c4b65886f0f100d7dd",
+          "hostCode": "meeting.accept_invite",
+          "dispatchPosition": {
+            "x": -3.1999998092651367,
+            "y": -3
+          },
+          "beforeExecutionPosition": {
+            "x": -3,
+            "y": -2.999999761581421
+          },
+          "dispatchTime": 736,
+          "beforeExecutionTime": 736.2,
+          "regionId": "pond-surroundings",
+          "spaceId": "outdoors",
+          "nearbyEntityIds": [
+            "lamp.player_home",
+            "lamp.shop_main_road",
+            "pond"
+          ],
+          "factCount": 19,
+          "comparedValueDifferences": [
+            {
+              "path": "/x",
+              "dispatch": -3.1999998092651367,
+              "beforeExecution": -3
+            },
+            {
+              "path": "/y",
+              "dispatch": -3,
+              "beforeExecution": -2.999999761581421
+            }
+          ],
+          "ignoredOrdinarySamplingTimestampDifferences": 20,
+          "allOtherFieldsEqual": true
+        },
+        {
+          "test": "MovingInvitationDecline_PreservesOriginalAndExecutionObservationsAndResumesSchedule",
+          "mode": "FreeText",
+          "accept": false,
+          "worldRunId": "c11b29d51b364cdfbc5a85273c8beb7a",
+          "hostCode": "meeting.decline_invite",
+          "dispatchPosition": {
+            "x": -3.1999998092651367,
+            "y": -3
+          },
+          "beforeExecutionPosition": {
+            "x": -3,
+            "y": -2.999999761581421
+          },
+          "dispatchTime": 736,
+          "beforeExecutionTime": 736.2,
+          "regionId": "pond-surroundings",
+          "spaceId": "outdoors",
+          "nearbyEntityIds": [
+            "lamp.player_home",
+            "lamp.shop_main_road",
+            "pond"
+          ],
+          "factCount": 19,
+          "comparedValueDifferences": [
+            {
+              "path": "/x",
+              "dispatch": -3.1999998092651367,
+              "beforeExecution": -3
+            },
+            {
+              "path": "/y",
+              "dispatch": -3,
+              "beforeExecution": -2.999999761581421
+            }
+          ],
+          "ignoredOrdinarySamplingTimestampDifferences": 20,
+          "allOtherFieldsEqual": true
+        },
+        {
+          "test": "MovingInvitationDecline_PreservesOriginalAndExecutionObservationsAndResumesSchedule",
+          "mode": "StructuredFacts",
+          "accept": false,
+          "worldRunId": "2623efab3bb04c13bbb229972e55eec4",
+          "hostCode": "meeting.decline_invite",
+          "dispatchPosition": {
+            "x": -3.1999998092651367,
+            "y": -3
+          },
+          "beforeExecutionPosition": {
+            "x": -3,
+            "y": -2.999999761581421
+          },
+          "dispatchTime": 736,
+          "beforeExecutionTime": 736.2,
+          "regionId": "pond-surroundings",
+          "spaceId": "outdoors",
+          "nearbyEntityIds": [
+            "lamp.player_home",
+            "lamp.shop_main_road",
+            "pond"
+          ],
+          "factCount": 19,
+          "comparedValueDifferences": [
+            {
+              "path": "/x",
+              "dispatch": -3.1999998092651367,
+              "beforeExecution": -3
+            },
+            {
+              "path": "/y",
+              "dispatch": -3,
+              "beforeExecution": -2.999999761581421
+            }
+          ],
+          "ignoredOrdinarySamplingTimestampDifferences": 20,
+          "allOtherFieldsEqual": true
+        }
+      ],
+      "snapshotMeaning": "stdout 保存 request.Observation 与测试在候选完成前通过 GetObservation 得到的 beforeExecution 完整快照，并非 stdout 直接打印 Outcome.ExecutionObservation。测试随后断言 Outcome.ExecutionObservation 的坐标、时间、听众，以及序列化后的字段数量/本人库存；Runtime 测试另外验证该属性就是 ApplyReply 重读实例。",
+      "timestampInterpretation": "每组原始 JSON 变化为 X/Y 加顶层及 19 条事实的采样时间；这些事实只有 observed/authored/unknown，HasSameFacts 忽略其采样时间，因此参与旧门限比较的变化仅 X/Y。"
+    },
+    "notEstablished": [
+      "不能把本次可控复现反推为上一批 live 四次拒绝逐次都已记录了相同字段差异。",
+      "不能宣称场景旧版 F/S 四组合均红，或红绿两边均具有完整快照。"
+    ],
+    "sourceRefs": [
+      "positionGate",
+      "coordinateOnlyRuntime",
+      "sceneBeforeExecutionAndDiagnosticOrder"
+    ]
+  },
+  "retainedGates": {
+    "operationScope": "仅 context.Social.Kind == Invitation 且回复类型为 AcceptInvitation 或 DeclineInvitation；其余行动与 continuation 继续默认严格比较坐标。",
+    "knownRegionOnly": "只有原 RegionId 非 null 可豁免 X/Y；RegionId 和 SpaceId 仍须与当前值相等。unknown→unknown 位移继续失败。",
+    "projectionFields": "ObserverId、WorldRunId、region/space、radius、NearbyComplete、ListenerId、附近 ID 顺序/数量，以及全部事实的身份、值、类型、单位、knowledge、source、scope、speaker 与 canExpress 仍比较；statement/receipt 的事件时间仍比较。",
+    "freshSampleValidity": "保留当前观察非 null、observer/world/listener 正确且采样时刻等于当前世界时刻的检查。",
+    "worldAndTime": "保留旧世界、revision、opportunity lifetime、request/decision timeout；原 context、deadline、调用预算不更新。",
+    "meetingHostChecks": "仍以原候选 meetingId 和 actor 进入 MeetingBoard，保留角色、邀请状态/期限、库存、日程、场地占用及到场条件。",
+    "observedRegression": "52/52 包含双方 accept/decline 的 region、space、nearby、capability、quantity、balance、unknown_region 负例，时间推进正例，两表达模式旧 say 拒绝，旧世界/期限/超时与预算回归。",
+    "limits": [
+      "本轮 region 负例从已知区域移到未知范围；known→不同 known 区域的拒绝由代码中的 RegionId 相等门限证明，未单列新测试。",
+      "对象位置没有进入事实字段；对象移动但可见目录和语义投影均不变，不属于本次新增失效检测。"
+    ],
+    "sourceRefs": [
+      "positionGate",
+      "operationScopeAndCapturedRead",
+      "epochDeadlineAndSampleValidity",
+      "negativeProjectionCases",
+      "timeAndSpeechCases",
+      "deadlineAndBudgetCases"
+    ]
+  },
+  "deadlineAndScheduleEvidence": {
+    "runtimeInvitationDeadline": "夹具在分钟 780 推进到邀请期限，MeetingBoard 到期更新 revision 后迟到回复得到 agent.decision_stale；这证明期限后的旧回复被取消，不是断言专门的 meeting.invitation_expired 错误码。",
+    "runtimeOpportunityDeadline": "夹具发出时间 720，默认 opportunity lifetime 30，分钟 750 仍保留 agent.opportunity_expired 门禁。",
+    "acceptedScene": "在真实场景分钟 736 发出请求，736.2 接受后 Scheduled；分钟 780 Sora Travelling，未派发交付请求，资产不变；不再 Tick 模型调度，直接推进到 931 检查 Expired、无 ActiveActivity，再到 1000 检查两人工作目标 Arrived。默认会面 780 开始、150 分钟，期限为 930。",
+    "declinedScene": "736.2 已 Declined；931 仍 Declined 且无占用，1000 回到工作目标。不能把拒绝路径描述为邀请到期。",
+    "claimsSupported": [
+      "移动后的接受/拒绝均只需 1 次 Ren 请求，并保留原输入与原候选。",
+      "场景在到场前没有派交付；四世界无资产变化、无交付、无台词。",
+      "accepted 路径会面期限后释放活动；declined 路径即时终结后保持释放。",
+      "受控时间推进到 1000 后两人恢复工作日程。"
+    ],
+    "claimsNotSupported": [
+      "没有故意向到场前会面提交 Deliver 候选；测试证明调度不派交付及资产未变，不是本用例直接验证恶意提前 Deliver 的拒绝码。",
+      "没有测准 expire 恰好发生在 930.0；断言检查点为 931，精确截止条件由源码提供。",
+      "到 931/1000 的恢复阶段停止 TickDecisions，不能据此证明模型持续参与时的交谈完成、交付或后续调度进展。",
+      "不覆盖 issue 72 交谈后续调度停滞，也不比较真实 F/S 表达效果。"
+    ],
+    "sourceRefs": [
+      "sceneTravelExpiryRecovery",
+      "defaultPlan",
+      "meetingDeadlinesAndPresence",
+      "deadlineAndBudgetCases"
+    ]
+  },
+  "diagnosticSerialization": {
+    "observationPublicProperties": [
+      "ObserverId",
+      "WorldRunId",
+      "ObservedAtTotalMinutes",
+      "X",
+      "Y",
+      "SpaceId",
+      "RegionId",
+      "NearbyEntityIds",
+      "Facts",
+      "Radius",
+      "NearbyComplete",
+      "CoverageDomain",
+      "ListenerId"
+    ],
+    "observationMapping": {
+      "ObserverId": "observerId",
+      "WorldRunId": "worldRunId",
+      "ObservedAtTotalMinutes": "observedAtTotalMinutes",
+      "X": "x",
+      "Y": "y",
+      "SpaceId": "spaceId",
+      "RegionId": "regionId",
+      "NearbyEntityIds": "nearbyEntityIds",
+      "Radius": "radius",
+      "NearbyComplete": "nearbyComplete",
+      "CoverageDomain": "coverageDomain",
+      "ListenerId": "listenerId",
+      "Facts": "facts"
+    },
+    "factPublicProperties": [
+      "FactId",
+      "EntityId",
+      "Predicate",
+      "Value",
+      "ValueType",
+      "Unit",
+      "Knowledge",
+      "Source",
+      "ObserverId",
+      "ObservedAtTotalMinutes",
+      "Scope",
+      "CanExpress",
+      "SpeakerId"
+    ],
+    "factMapping": {
+      "FactId": "factId",
+      "EntityId": "entityId",
+      "Predicate": "predicate",
+      "Value": "value",
+      "ValueType": "valueType",
+      "Unit": "unit",
+      "Knowledge": "knowledge",
+      "Source": "source",
+      "ObserverId": "observerId",
+      "ObservedAtTotalMinutes": "observedAtTotalMinutes",
+      "Scope": "scope",
+      "CanExpress": "canExpress",
+      "SpeakerId": "speakerId"
+    },
+    "allPublicPropertiesMapped": true,
+    "observationsAndFactsEachHave13Fields": true,
+    "greenSerializedSnapshotsChecked": 8,
+    "jsonFieldSetsMatchDtos": true,
+    "unknownQuantityPreserved": {
+      "factId": "pond:quantity",
+      "value": null,
+      "valueType": "unknown",
+      "knowledge": "unknown",
+      "unit": "fish.carp"
+    },
+    "nullableStringFieldsPreserved": "DataContractJsonSerializer + DataMember 默认输出 null；绿测 stdout 的 value/unit/speakerId null 均保留，不被转换成空字符串。",
+    "wholeSnapshotNull": "Call.executionObservationJson 是内嵌 JSON 字符串；缺失快照明确为字符串 \"null\"，消费者需对该字符串再次 JSON 解码，不能将其当作有内容快照。",
+    "stepOwnership": "只有 call.step == outcome.Context.Step 才记录该 outcome 的重读快照，其他 step 保持 \"null\"；原 contextJson 未改。",
+    "limitations": [
+      "ExecutionObservation 只记录宿主到达 ApplyReply 重读时获得的值；旧世界/超时等在此之前取消会保持 null。",
+      "整个诊断快照不自动表示候选已落地；必须同时读取 hostCode，stale 也可携带重读快照。",
+      "本场景 stdout 的完整快照是 beforeExecution；实际 Outcome.ExecutionObservation 的完整 JSON 在 Call 记录映射中，测试未把每个映射值全部逐一断言，但静态映射与 stdout 字段集合均已核查。"
+    ],
+    "sourceRefs": [
+      "diagnosticSerializer",
+      "stepBinding",
+      "sceneBeforeExecutionAndDiagnosticOrder"
+    ]
+  },
+  "compiledProvenance": {
+    "input": "Logs/moving-compiled-source-audit.json",
+    "independentlyRehashedFiles": 887,
+    "gitBlobAndCompiledHashRecordDisagreements": [],
+    "csharpFiles": 339,
+    "csharpContentMatchesAfterLineEndingNormalization": 339,
+    "csharpLineEndingDifferences": [
+      "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcObservationDecisionTests.cs",
+      "Assets/CozyTown/Tests/UnityEditMode/ProxyNpcDecisionJsonCodecTests.cs"
+    ],
+    "scenes": [
+      {
+        "path": "Assets/CozyTown/Scenes/CozyTown_Dev.unity",
+        "sha256": "371875a819f0f492d6da01da36882d4e4a22c37cbb451810392243a7df3b2915",
+        "byteIdentical": true
+      },
+      {
+        "path": "Assets/Scenes/SampleScene.unity",
+        "sha256": "387d8216a517be775b6ecc2ab55b97ece687c3372322da2ba027a96908014912",
+        "byteIdentical": true
+      },
+      {
+        "path": "Assets/Settings/Scenes/URP2DSceneTemplate.unity",
+        "sha256": "f6fb3e91aaa90417e2920b7f903066833b3b9aea72ddcb5e46b91afa729c2e90",
+        "byteIdentical": true
+      }
+    ],
+    "lineEndingOnlyDifferences": [
+      "Assets/CozyTown/Art/Production/Buildings/.gitkeep",
+      "Assets/CozyTown/Art/Production/Characters/.gitkeep",
+      "Assets/CozyTown/Art/Production/Environment/Tiles/.gitkeep",
+      "Assets/CozyTown/Art/Production/Items/.gitkeep",
+      "Assets/CozyTown/Art/Production/Props/.gitkeep",
+      "Assets/CozyTown/Art/Production/UI/.gitkeep",
+      "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "Assets/CozyTown/Runtime/NpcAgents/NpcSpeechMode.cs.meta",
+      "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcObservationDecisionTests.cs",
+      "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcSpeechDecisionTests.cs.meta",
+      "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs.meta",
+      "Assets/CozyTown/Tests/UnityEditMode/NpcExpressionExperimentTests.cs.meta",
+      "Assets/CozyTown/Tests/UnityEditMode/ProxyNpcDecisionJsonCodecTests.cs"
+    ],
+    "lfsVerified": [
+      {
+        "path": "Assets/CozyTown/Art/Production/Buildings/bld_npc_home_roofs_64.png",
+        "oidSha256": "54c6173924a0478c47b25436282100f886d9fdbb286f07031c28fb9a3a16aefa",
+        "size": 4716,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Buildings/bld_npc_homes_64.png",
+        "oidSha256": "63b81137179751dff62d68fc495eef986581209d36ebd5cf7d1d57b0ac2ac3fe",
+        "size": 13620,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Buildings/bld_town_functions_64.png",
+        "oidSha256": "2ef6211c75467296a8900b379f08f41f325721126d96b3fc209b5eccb9c8ee27",
+        "size": 15979,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Buildings/bld_town_roof_foregrounds_64.png",
+        "oidSha256": "40b45ed71f6bd6207e9397602c308310fa03b3e4c84caed33128a9b955ceacd2",
+        "size": 6002,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Characters/chr_player_move_24x32.png",
+        "oidSha256": "6b3fdbe287ab23372cdaebaae41cae645b9b4548ee2a2f15b175e7e9c1c13d90",
+        "size": 6998,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Characters/npc_cook_sora_move_24x32.png",
+        "oidSha256": "9570ac27bb637049bd01ceafb37d85cf051477a41687ebe9d5f49bfb33cceabe",
+        "size": 5586,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Characters/npc_farmer_eli_move_24x32.png",
+        "oidSha256": "cbd93d9f142960260de4a47fec443ccbc29f1d0cea361d7709fb1b8980b6c979",
+        "size": 5944,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Characters/npc_fisher_ren_move_24x32.png",
+        "oidSha256": "4056d3000324b3c6d9c53fac96309b8b4e9bbbb4b9821306110a4c8a1239bf66",
+        "size": 5169,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Characters/npc_portraits_48.png",
+        "oidSha256": "569894f2a6ed11870ff8b561cab0bb7571aa3688a9015a96a3d81315fcbafcae",
+        "size": 6940,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Characters/npc_shopkeeper_mina_move_24x32.png",
+        "oidSha256": "461cb20d95fe3852f7cf093da53d474c5bccbeb83d4b7c82492ac8d6d30892b2",
+        "size": 5740,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Characters/npc_townsfolk_idle_down_24x32.png",
+        "oidSha256": "75aed52828098d0449cf4598a0c1e6cf5a7186e376d5c24317933db210951221",
+        "size": 2819,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Environment/Tiles/tile_town_base_16.png",
+        "oidSha256": "861a31ed42ea4f4f7bf79843b801c51ab85e3cf8e17a7e96d17467bccb6f851b",
+        "size": 1602,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Items/item_mvp_16.png",
+        "oidSha256": "956ef71f0aab2b1ee461ffa964025f766fe88ec27a81f8ad68845d5f8c901e2e",
+        "size": 5078,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Props/prop_farm_states_16.png",
+        "oidSha256": "3d13b23490c9c872e756cf4a02d10909feeb53060794a1ad66938f769f7a012a",
+        "size": 2741,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Props/prop_hen_states_16.png",
+        "oidSha256": "430f2761df7a932dcd734abf178c950525bac66bf562fd062afc552c2da661a8",
+        "size": 1262,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Props/prop_town_decor_16x32.png",
+        "oidSha256": "8b42d158c9c5b4b8389c595491c6b951acaf6c3d516ff7dcc0006d30224de142",
+        "size": 2646,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Props/prop_town_functions_96x64.png",
+        "oidSha256": "87ca3014a699cf597cdfa76a48087cd623ecb56701e44b3b5c602dc0b4c9f2f8",
+        "size": 10015,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/Props/prop_town_lamp_16x32.png",
+        "oidSha256": "53ab31dd4073eda9676ac249656b1120d9d14953c4a31fff7b0c0902d3e9d5cd",
+        "size": 366,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/UI/ui_icon_settings.png",
+        "oidSha256": "1d577b8a4302ff7549fc0fbef945b181eded89614c40990cb162003ff09489be",
+        "size": 237,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/Production/UI/ui_mvp_16.png",
+        "oidSha256": "17d45c971eb2f755e73184464e7272440e9f21662c0daf2163e35436784742a1",
+        "size": 3002,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/References/A0/a0_characters.png",
+        "oidSha256": "59e6c785623bdd5604236ada6281351cd32cbc6178f510b1e879ad8a2f4013d2",
+        "size": 1140987,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/References/A0/a0_environment.png",
+        "oidSha256": "9201a79e70696e9db4bd877021b7778bf227e176289ebf2e46277b5acd0e4a4d",
+        "size": 1521980,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/References/A0/a0_item_crop_carrot.png",
+        "oidSha256": "216ebc737affe43e91176a737830a51a629a430810f71aef7e4db065b75c3a46",
+        "size": 284,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/References/A0/a0_palette_board.png",
+        "oidSha256": "a6dc567bd702d40d2022c0433e0061a525d1fc3f278f1d76cfb0a6cff2f472f5",
+        "size": 975189,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/References/A0/a0_style_town.png",
+        "oidSha256": "8668f3505973f49c27821fead69b41341084d5fa0f351bd274ce4b86359e33ef",
+        "size": 2199077,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      },
+      {
+        "path": "Assets/CozyTown/Art/References/A0/a0_ui_items.png",
+        "oidSha256": "07d2f9ad61e5fc64030010cd42724d3b72aec22a3a79cda4858a6f737db99e88",
+        "size": 1278750,
+        "compiledHashMatchesOid": true,
+        "compiledSizeMatches": true
+      }
+    ],
+    "otherContentDifferences": [
+      "ProjectSettings/ProjectSettings.asset"
+    ],
+    "projectSettings": {
+      "diff": "Logs/moving-isolated-project-settings.diff",
+      "diffHunksVerifiedAgainstBothFiles": 26,
+      "compiledSha256": "a0cc453d18756d18cce9dcab3677f18702669d5ed974bee7f0fea5e5c890db02",
+      "frozenGitBlobSha256": "5fa52c56948ae751f378f826390e91bc94fa36c574731d1fe8df3b6f877a1cd9",
+      "observedDifferences": [
+        "Unity serialization version 28→29 与新增/升级平台设置",
+        "allowedHttpConnections: 3"
+      ],
+      "environment": "Unity 6000.5.5f1 的隔离 Windows Editor 测试项目；这不是 ProjectSettings 与提交逐字相同的环境。",
+      "limit": "保留的完整 diff 已逐 hunk 核对。平台默认项升级的来源与现用 Unity 版本一致，但本审计没有另启旧版 Unity 验证升级过程。"
+    },
+    "statement": "887 条哈希记录可信；源码内容、场景与 freeze 一致。13 个文件仅换行不同，26 个资源按 LFS OID/size 一致，ProjectSettings 有已记录环境差异。不要写成 887 个文件全部字节相同。"
+  },
+  "pythonRunner": {
+    "reviewArtifact": "Logs/moving-scene-runner-review.json",
+    "log": "Logs/moving-scene-runner-python-green.log",
+    "verifiedLogSha256": "bf39297dcaf00c317f0c4f2c31b1d7425a50ab75e7705ae10096dab7a5daed3d",
+    "passed": 64,
+    "failed": 0,
+    "sourceHashesMatchReview": true,
+    "scope": "合成 transport 和本地测试；不是模型调用证据。两批总 96 次仍由计划/账目约束，独立进程没有共享跨批硬计数器。"
+  },
+  "limitations": [
+    "09 场景红测缺少完整快照，且仅两条 FreeText 路径到达业务失败；原件保留，不补写或替换。",
+    "固定回归里的 1 个 EditMode 和 5 个 PlayMode skipped 都是明确 opt-in 的真实模型入口；不能把跳过项计为通过。",
+    "本结论只适用于冻结的动作范围及固定夹具，不声称后续真实批次已成功。"
+  ],
+  "sourceReferences": {
+    "positionGate": {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcLocalObservation.cs",
+      "lines": [
+        34,
+        47
+      ]
+    },
+    "operationScopeAndCapturedRead": {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "lines": [
+        259,
+        310
+      ]
+    },
+    "epochDeadlineAndSampleValidity": {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "lines": [
+        348,
+        378
+      ]
+    },
+    "coordinateOnlyRuntime": {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcObservationDecisionTests.cs",
+      "lines": [
+        43,
+        78
+      ]
+    },
+    "negativeProjectionCases": {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcObservationDecisionTests.cs",
+      "lines": [
+        81,
+        135
+      ]
+    },
+    "timeAndSpeechCases": {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcObservationDecisionTests.cs",
+      "lines": [
+        137,
+        185
+      ]
+    },
+    "deadlineAndBudgetCases": {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcObservationDecisionTests.cs",
+      "lines": [
+        188,
+        249
+      ]
+    },
+    "sceneBeforeExecutionAndDiagnosticOrder": {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcMovingObservationPlayModeTests.cs",
+      "lines": [
+        68,
+        121
+      ]
+    },
+    "sceneTravelExpiryRecovery": {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcMovingObservationPlayModeTests.cs",
+      "lines": [
+        123,
+        159
+      ]
+    },
+    "diagnosticSerializer": {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcMovingObservationPlayModeTests.cs",
+      "lines": [
+        186,
+        219
+      ]
+    },
+    "stepBinding": {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs",
+      "lines": [
+        441,
+        452
+      ]
+    },
+    "actualSceneFixture": {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcResourceScenarioPlayModeTests.cs",
+      "lines": [
+        314,
+        342
+      ]
+    },
+    "meetingDeadlinesAndPresence": {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcMeetingBoard.cs",
+      "lines": [
+        297,
+        337
+      ]
+    },
+    "defaultPlan": {
+      "path": "Assets/CozyTown/Runtime/Content/DefaultNpcResourcePlans.cs",
+      "lines": [
+        8,
+        11
+      ]
+    }
+  },
+  "inputSha256": {
+    "Logs/moving-compiled-source-audit.json": "bf034005221712cf97f72010ae1de8377b71a5f0ab209b35a9a896c04e3b646a",
+    "Logs/moving-isolated-project-settings.diff": "24abc9ad4f399a64c4cad148511434a265e7fb09317b1bac9321b92741ccce9d",
+    "Logs/moving-observation-scene-red-evidence-sources.json": "98a21cc8bc83217a92fe8b5fa4bda7b9b9e691de526cf12fc6bb0dc4b72bd563",
+    "Logs/moving-scene-runner-review.json": "cd552a325720dcaf99e919e3ed0b90799e8c1e44398efb34f8cbf72c174ffcae",
+    "Logs/moving-scene-runner-python-green.log": "bf39297dcaf00c317f0c4f2c31b1d7425a50ab75e7705ae10096dab7a5daed3d",
+    "Logs/moving-observation-01-red.xml": "cdc94cc1d9ab11c7cc1e96dafc34cb3b5b3bd7c17406f6d554dee00daa9e7257",
+    "Logs/moving-observation-02-green.xml": "89cdb70a2145641f22d8d8b7a10745911b1c405b2bc3c523fa2bd50e99e9ad1b",
+    "Logs/moving-observation-03-evidence-red.xml": "64cd97da835f68c35ce1eea21cf2abed91996c81de870bebbd59f1a9c3856279",
+    "Logs/moving-observation-04-evidence-green.xml": "fd250fa932581f810a489a3bdcbf295be11bba9f3f3409a90e85ae8a368bce02",
+    "Logs/moving-observation-07-lifecycle.xml": "11d0bd9cd86484954a9ef7b82af906e7fbf176381ad93ef274c90ca9549d0c73",
+    "Logs/moving-observation-09-scene-red-evidence.xml": "7b27c9938096233519363e5679683436b6c9b0edb3ae145bea89f121fce35106",
+    "Logs/moving-observation-10-scene-green.xml": "295a26ecea53b2b654747f7edcc59c4f39b0302e2717e8783e1db1e4dc375e8f",
+    "Logs/moving-observation-11-full-edit.xml": "9ac857d3b172c6ba90841dc272ec0b86dfe3bf66b504abc1acd63d3d28df7b1d",
+    "Logs/moving-observation-12-full-play.xml": "0a01efc383a3411841be9e14638c3da70255855f283175a4f4aa69dd7983d61f",
+    "Logs/moving-observation-07-lifecycle.log": "cfd127af7ec47d86a90134e2ec45e5b30653c0a1f47fd469bfb81cedfc622b47",
+    "Logs/moving-observation-09-scene-red-evidence.log": "da0495785c80ae28cf7dbc3f7f7c02c3e08186bde768ee6222e4e9abcd590b92",
+    "Logs/moving-observation-10-scene-green.log": "e71be4e1611e282dba9976f24a1154cc0d2e4c43fab9718530cd8e8eabc28119",
+    "Logs/moving-observation-11-full-edit.log": "64d488b6a704642f221b0e3438071ff6c0b6b2efc82fb4e1b1d5ccd6e0ee4871",
+    "Logs/moving-observation-12-full-play.log": "6ab0939930e9560e6f2acd029f9cb0f1351287298a6694ca93b779af4e65f8b3"
+  }
+}

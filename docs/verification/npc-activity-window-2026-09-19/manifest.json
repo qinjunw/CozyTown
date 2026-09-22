@@ -1,0 +1,438 @@
+{
+  "baseline": "bca2a6c272cead7a1ea0f303a49cf39addc60c0c",
+  "unityVersion": "6000.5.5f1",
+  "realModelCalls": 0,
+  "runs": [
+    {
+      "exitCode": 0,
+      "mode": "PlayMode",
+      "filter": "NpcActivityWindowPlayModeTests",
+      "name": "activity-window-body-green",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "4",
+        "result": "Passed",
+        "total": "4",
+        "passed": "4",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 07:56:19Z",
+        "end-time": "2026-09-19 07:56:20Z",
+        "duration": "0.174167"
+      },
+      "rawXmlSha256": "09dd487b9afb9a8afc97739008f9d7374b599d7dec0d90e783f664dca25dc52c",
+      "xml": "activity-window-body-green.xml",
+      "publishedXmlSha256": "0bb36c514e49e8d41dbf40a9b140d0a7e5ed7164d14b9e293ad6201f43a3be12",
+      "rawLogSha256": "78b9c9cae0ebfe4997a6b061739fff8b7631ca0f17f305ca142d5633f44dbc1b",
+      "failedTests": []
+    },
+    {
+      "exitCode": 2,
+      "mode": "PlayMode",
+      "filter": "NpcActivityWindowPlayModeTests",
+      "name": "activity-window-body-red",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "4",
+        "result": "Failed(Child)",
+        "total": "4",
+        "passed": "3",
+        "failed": "1",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 07:55:17Z",
+        "end-time": "2026-09-19 07:55:17Z",
+        "duration": "0.2043575"
+      },
+      "rawXmlSha256": "3649735bdcb3e123876276d22e17f3e7fb66f8d8cc33054fdf1084ac090a13c1",
+      "xml": "activity-window-body-red.xml",
+      "publishedXmlSha256": "5766e2f513425229bf344451c46df68988c2e47b9f1dfd8b99eae75b125c0801",
+      "rawLogSha256": "9b8abeff0cc9a82d7b5619c58511b9e0b593bd7efe0c60a821cfc0081b31d5f9",
+      "failedTests": [
+        "CozyTown.Tests.PlayMode.NpcActivityWindowPlayModeTests.DelayedVisit_ReleasesAtTheDisclosedWindowEvenWhenTheScheduleHasTheSameDestination"
+      ]
+    },
+    {
+      "filter": "ProxyNpcDecisionJsonCodecTests",
+      "mode": "EditMode",
+      "exitCode": 0,
+      "name": "activity-window-codec-green",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "65",
+        "result": "Passed",
+        "total": "65",
+        "passed": "65",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 07:58:08Z",
+        "end-time": "2026-09-19 07:58:08Z",
+        "duration": "0.1854582"
+      },
+      "rawXmlSha256": "6d49ad0430b1f1e67af7adb620750bc84ccfd93e140f033e2f737f26f0cddc88",
+      "xml": "activity-window-codec-green.xml",
+      "publishedXmlSha256": "208bb2153c134317e5b5e8d1304e9f3fe9cbf8f6631f3503d3c8fbd5e7c56a03",
+      "rawLogSha256": "8c27dc05d3a5f287728105a4e2281288fe061e0b7f79d0173c969650a2f11ab3",
+      "failedTests": []
+    },
+    {
+      "mode": "EditMode",
+      "filter": "VisitResponse_RejectsDurationBeyondTheDisclosedWindow",
+      "exitCode": 2,
+      "name": "activity-window-codec-red",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "1",
+        "result": "Failed(Child)",
+        "total": "1",
+        "passed": "0",
+        "failed": "1",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 07:57:12Z",
+        "end-time": "2026-09-19 07:57:12Z",
+        "duration": "0.1673805"
+      },
+      "rawXmlSha256": "0860a75fc9c44fd836359c2a1448ee39d86a253e2968bfe2bae3a9994233efb0",
+      "xml": "activity-window-codec-red.xml",
+      "publishedXmlSha256": "3782216b1991d84151f82701f0800e9d3eea3e466a8221a5d6834761c4ca2366",
+      "rawLogSha256": "e288c9e0c5b8a5cdc7dfe251b91b4072a80810ff2a67d1a5b4cf9051de8d14ce",
+      "failedTests": [
+        "CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.VisitResponse_RejectsDurationBeyondTheDisclosedWindow"
+      ]
+    },
+    {
+      "exitCode": 2,
+      "mode": "EditMode",
+      "filter": "",
+      "name": "activity-window-final-edit",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "897",
+        "result": "Failed(Child)",
+        "total": "897",
+        "passed": "894",
+        "failed": "2",
+        "inconclusive": "0",
+        "skipped": "1",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 08:02:03Z",
+        "end-time": "2026-09-19 08:02:14Z",
+        "duration": "11.044463"
+      },
+      "rawXmlSha256": "638d5ab179ae5a693bb1b5bb69d43e87a7f6bf3a4b6f51c0a8125ab02f65d228",
+      "xml": "activity-window-final-edit.xml",
+      "publishedXmlSha256": "7186084e55afaf7cb75ef5eee0378b25d589d98556f05c20c11b8d21f0948cb7",
+      "rawLogSha256": "02fe047bb9a5fd7f2b5179349a8d5b49fbd2afc584e00382e0d4fa72cdcdbde2",
+      "failedTests": [
+        "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSchedulerTests.InvalidCandidate_CannotUseAnotherResidentsContextOrBypassActivityChecks(Visit,\"mina.work\",Resting,0,\"agent.deadline_invalid\")",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSchedulerTests.InvalidCandidate_CannotUseAnotherResidentsContextOrBypassActivityChecks(Visit,\"mina.work\",Resting,double.NaN,\"agent.deadline_invalid\")"
+      ]
+    },
+    {
+      "exitCode": 0,
+      "mode": "PlayMode",
+      "filter": "",
+      "name": "activity-window-final-play",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "255",
+        "result": "Skipped:Ignored",
+        "total": "255",
+        "passed": "250",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "5",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 08:05:05Z",
+        "end-time": "2026-09-19 08:05:24Z",
+        "duration": "18.7748019"
+      },
+      "rawXmlSha256": "c6214c7fdc09302a18ee91610a9a51c986c4bd9be336758e5fb719ec95c17d9a",
+      "xml": "activity-window-final-play.xml",
+      "publishedXmlSha256": "b03d55618de69a7a63473d8f7cdbd6eed894df85af69d443ba05625d9625cc13",
+      "rawLogSha256": "65f8761bea88242068032d534d8143bda751f92d41c070d27225129b70b35be1",
+      "failedTests": []
+    },
+    {
+      "mode": "EditMode",
+      "filter": "",
+      "exitCode": 2,
+      "name": "activity-window-final2-edit",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "897",
+        "result": "Failed(Child)",
+        "total": "897",
+        "passed": "895",
+        "failed": "1",
+        "inconclusive": "0",
+        "skipped": "1",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 08:03:13Z",
+        "end-time": "2026-09-19 08:03:23Z",
+        "duration": "9.4798522"
+      },
+      "rawXmlSha256": "12178169d450b016ad3d7878149e5502178e367724c2ec618acb852a09bc1dbb",
+      "xml": "activity-window-final2-edit.xml",
+      "publishedXmlSha256": "9735f5d500d4e9971312e63a7fd3fba0f2d48b4d82f5e9aab67f0f7c588d6b4f",
+      "rawLogSha256": "292f996bba6ccb5c127e268afa82a9dc3f6ce257d620df20cfe545d237c4b0b2",
+      "failedTests": [
+        "CozyTown.Tests.EditMode.NpcAgents.NpcDecisionSchedulerTests.InvalidCandidate_CannotUseAnotherResidentsContextOrBypassActivityChecks(InspectLocation,\"ren.work\",Resting,20,\"agent.location_unknown\")"
+      ]
+    },
+    {
+      "exitCode": 0,
+      "filter": "",
+      "mode": "EditMode",
+      "name": "activity-window-final3-edit",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "898",
+        "result": "Skipped:Ignored",
+        "total": "898",
+        "passed": "897",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "1",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 08:04:13Z",
+        "end-time": "2026-09-19 08:04:23Z",
+        "duration": "9.8567787"
+      },
+      "rawXmlSha256": "3c6aa1ce68b453ffe8a538d5732cc5f64722c72e98f7b543102bdd5119937fdc",
+      "xml": "activity-window-final3-edit.xml",
+      "publishedXmlSha256": "a5a0d7c7b4322b990b3b36c98d0c11f3821125adb9d104e7aff501e8bad90fc9",
+      "rawLogSha256": "8bb02ddbbcc8f1f2f3dcf2463528e11ae85939fcd4ffd0b781660a9b11a8c271",
+      "failedTests": []
+    },
+    {
+      "mode": "EditMode",
+      "exitCode": 0,
+      "filter": "NpcActivityWindowDecisionTests",
+      "name": "activity-window-scheduler-green",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "19",
+        "result": "Passed",
+        "total": "19",
+        "passed": "19",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 08:01:14Z",
+        "end-time": "2026-09-19 08:01:14Z",
+        "duration": "0.1226248"
+      },
+      "rawXmlSha256": "1d834d8a2e6d28ea4849b8d171e910563c929c7ddc82670b007b71fef8cd87d5",
+      "xml": "activity-window-scheduler-green.xml",
+      "publishedXmlSha256": "62b4bce0fcad15b1957c3495b3028e047fef32a3fc61c8c8935331e42cf6973c",
+      "rawLogSha256": "48f75673fc817f679306376858ddd155c697796d6fb3daaffd99dba224356146",
+      "failedTests": []
+    },
+    {
+      "mode": "EditMode",
+      "exitCode": 2,
+      "filter": "NpcActivityWindowDecisionTests",
+      "name": "activity-window-scheduler-red",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "12",
+        "result": "Failed(Child)",
+        "total": "12",
+        "passed": "4",
+        "failed": "8",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 07:59:30Z",
+        "end-time": "2026-09-19 07:59:30Z",
+        "duration": "0.1466938"
+      },
+      "rawXmlSha256": "143c210e2ee256f537bf0c67ea813d722a3b0c8d1398e47f649aa5dbeef03d1d",
+      "xml": "activity-window-scheduler-red.xml",
+      "publishedXmlSha256": "f6487c44b7c9ca1049c2e80fec3642dca5284918cb19941eed308102ebe75b9b",
+      "rawLogSha256": "f2843cd6a5b9189a383afaba12e0650ae0df678ace6efeadd109c5b444f9ca01",
+      "failedTests": [
+        "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection(False)",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DirectClient_ExceedingDisclosedDurationUsesOnlyOneCorrection(True)",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DispatchCallback_CrossingTheWindowPreventsTheClientCall(False)",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DispatchCallback_CrossingTheWindowPreventsTheClientCall(True)",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DurationCorrection_DoesNotExtendTheOriginalOpportunityLifetime",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.DurationCorrection_SharesTheRateBudgetAndOriginalDecisionTimeout",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.InspectContinuation_WaitingForBudgetDisclosesTheRemainingWindowAtDispatch",
+        "CozyTown.Tests.EditMode.NpcAgents.NpcActivityWindowDecisionTests.ReplacementPending_KeepsItsOriginalWindowAndResamplesDurationWhenDispatched"
+      ]
+    },
+    {
+      "exitCode": 0,
+      "filter": "WireRequest_IncludesBoundIdentityAndLimitsWithoutOtherResidentsPrivateContext",
+      "mode": "EditMode",
+      "name": "activity-window-wire-green",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "1",
+        "result": "Passed",
+        "total": "1",
+        "passed": "1",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 07:52:13Z",
+        "end-time": "2026-09-19 07:52:13Z",
+        "duration": "0.0975165"
+      },
+      "rawXmlSha256": "3f1878e2f0677493c50c844133d817ff65c9b4f2ff5a8c3fedb33561c01b9eab",
+      "xml": "activity-window-wire-green.xml",
+      "publishedXmlSha256": "88d9fa75cdede4715277bf60878642eef448b3fc9667aa8fa8d2a7687772ca8a",
+      "rawLogSha256": "15bb8d58850baab4ebbfcc8d340c92659cbfe4de1d102d6b3c23e7c788b482d8",
+      "failedTests": []
+    },
+    {
+      "exitCode": 2,
+      "mode": "EditMode",
+      "filter": "WireRequest_IncludesBoundIdentityAndLimitsWithoutOtherResidentsPrivateContext",
+      "name": "activity-window-wire-red",
+      "testRun": {
+        "id": "2",
+        "testcasecount": "1",
+        "result": "Failed(Child)",
+        "total": "1",
+        "passed": "0",
+        "failed": "1",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-19 07:50:39Z",
+        "end-time": "2026-09-19 07:50:39Z",
+        "duration": "0.0968808"
+      },
+      "rawXmlSha256": "013bfca333fd494098c0cdaa9cad7e1f50653b84dd1847248c63ad9b6a7a93f3",
+      "xml": "activity-window-wire-red.xml",
+      "publishedXmlSha256": "7d9cd7142bc3e8cbe1eecf5800423c492c8cb7d676c5f2c57ce5d256c8c2dfc6",
+      "rawLogSha256": "f797fc0da2670c6b7992547cc2e44728795c21abcd0eab28db4a61ceef42f1c2",
+      "failedTests": [
+        "CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.WireRequest_IncludesBoundIdentityAndLimitsWithoutOtherResidentsPrivateContext"
+      ]
+    }
+  ],
+  "inputAudit": "input-audit.json",
+  "sourceFiles": [
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcAgentWorld.cs",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "bfe3785e891e0809768e36c94ee479d5776cb3799590d6fa299ef4c3b9e6408a"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionRequest.cs",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "2b4ea7c9cb71f9d5457738b0fa00be4c136bd668e276b17a393572de47f2fc4c"
+    },
+    {
+      "path": "Assets/CozyTown/Runtime/NpcAgents/NpcDecisionScheduler.cs",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "2a164c849f8b29565bfad96aef24a47c656f8f05f5799e98f2f3f57e17217c03"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcDecisionSchedulerTests.cs",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "e5b200bda9cfdd88c3e243d7d5ff14b2a1e40c14b46fdf22b55de76e8a57a16a"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/UnityEditMode/ProxyNpcDecisionJsonCodecTests.cs",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "7e13fba335af00e1fa3875ec39cee297e96cc957b244836b9b9cdd1770289aa3"
+    },
+    {
+      "path": "Assets/CozyTown/Unity/Npc/ProxyNpcDecisionJsonCodec.cs",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "e90212f573800b6cafe8c8888cae28c952dcdbfabb74a46dfbf512f73421a611"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcActivityWindowPlayModeTests.cs",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "dea3ecc0510ed28d3d8697f2e7044185e21697b84fdccff6b47c3b31f6eb82bd"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/PlayMode/NpcActivityWindowPlayModeTests.cs.meta",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "90027c3fd21391aeac9dc0e755392e291da36675c7213e78ab8f1cbb8e06b955"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcActivityWindowDecisionTests.cs",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "5e3d54033e3cf304e99d560e27c84f86ff306959e980447ec5c3ac1e0b26d147"
+    },
+    {
+      "path": "Assets/CozyTown/Tests/EditMode/NpcAgents/NpcActivityWindowDecisionTests.cs.meta",
+      "source": "owned-overlay",
+      "status": "byte-identical",
+      "actualSha256": "b7f4d6d1517dff48797ccbfb66eb01304545292eab6cdc5da5da53c27c340e48"
+    }
+  ],
+  "redEvidence": {
+    "activity-window-wire-red": "Baseline production discloses 1440 instead of the remaining 60 minutes.",
+    "activity-window-body-red": "Initial window disclosure only: a delayed legal reply expires at 790 instead of 780.",
+    "activity-window-codec-red": "After execution deadline clipping: the codec accepts 720 despite a disclosed 45-minute limit.",
+    "activity-window-scheduler-red": "After codec validation: direct clients bypass duration limits, continuations retain stale maxima, and callbacks can dispatch after a schedule change."
+  },
+  "controlCorrections": [
+    "activity-window-final-edit: two legacy 0/NaN tests expected immediate host rejection; the adopted correction contract leaves an active continuation instead.",
+    "activity-window-final2-edit: setting a one-call budget for all invalid-candidate controls made an unrelated inspect test reach its step limit first; the one-call setting now applies only to 0/NaN duration controls."
+  ],
+  "intermediateRuns": [
+    "The scheduler green run has 19 cases; the final suite also covers an overnight rest window."
+  ],
+  "pythonRegression": {
+    "command": "python -m unittest discover -s Tools/agent_proxy -p test*.py",
+    "passed": 64,
+    "failed": 0,
+    "exitCode": 0,
+    "evidence": "Command output in the task; no standalone Python log was captured.",
+    "scope": "Local proxy unit tests with controlled provider responses; no real model calls."
+  },
+  "limits": [
+    "Final input audit identifies final suite sources; intermediate runs record ordered work-in-progress stages, not frozen binaries."
+  ]
+}

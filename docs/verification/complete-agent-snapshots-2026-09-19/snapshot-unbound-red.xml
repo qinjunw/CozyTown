@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 09:34:27Z" end-time="2026-09-19 09:34:27Z" duration="0.2070949">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="901" result="Failed" site="Child" start-time="2026-09-19 09:34:27Z" end-time="2026-09-19 09:34:27Z" duration="0.207095" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1800" name="CozyTown.Tests.EditMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.EditMode.dll" runstate="Runnable" testcasecount="661" result="Failed" site="Child" start-time="2026-09-19 09:34:27Z" end-time="2026-09-19 09:34:27Z" duration="0.174333" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="84176" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1801" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="661" result="Failed" site="Child" start-time="2026-09-19 09:34:27Z" end-time="2026-09-19 09:34:27Z" duration="0.159805" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1802" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="661" result="Failed" site="Child" start-time="2026-09-19 09:34:27Z" end-time="2026-09-19 09:34:27Z" duration="0.147166" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1803" name="EditMode" fullname="CozyTown.Tests.EditMode" runstate="Runnable" testcasecount="661" result="Failed" site="Child" start-time="2026-09-19 09:34:27Z" end-time="2026-09-19 09:34:27Z" duration="0.133630" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestSuite" id="1805" name="Save" fullname="CozyTown.Tests.EditMode.Save" runstate="Runnable" testcasecount="43" result="Failed" site="Child" start-time="2026-09-19 09:34:27Z" end-time="2026-09-19 09:34:27Z" duration="0.124628" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-suite type="TestFixture" id="1004" name="CompleteWorldSaveTests" fullname="CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests" classname="CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-09-19 09:34:27Z" end-time="2026-09-19 09:34:27Z" duration="0.121782" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1005" name="RequiredWorldWithoutAnAdapter_RejectsSaveAndKeepsThePreviousSlot" fullname="CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests.RequiredWorldWithoutAnAdapter_RejectsSaveAndKeepsThePreviousSlot" methodname="RequiredWorldWithoutAnAdapter_RejectsSaveAndKeepsThePreviousSlot" classname="CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests" runstate="Runnable" seed="39988294" result="Failed" start-time="2026-09-19 09:34:27Z" end-time="2026-09-19 09:34:27Z" duration="0.096513" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: False
+  But was:  True
+]]></message>
+                    <stack-trace><![CDATA[at CozyTown.Tests.EditMode.Save.CompleteWorldSaveTests.RequiredWorldWithoutAnAdapter_RejectsSaveAndKeepsThePreviousSlot () [0x00047] in [isolated-project]\Assets\CozyTown\Tests\EditMode\Save\CompleteWorldSaveTests.cs:18
+]]></stack-trace>
+                  </failure>
+                  <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

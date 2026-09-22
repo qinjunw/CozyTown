@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 07:50:39Z" end-time="2026-09-19 07:50:39Z" duration="0.0968808">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="877" result="Failed" site="Child" start-time="2026-09-19 07:50:39Z" end-time="2026-09-19 07:50:39Z" duration="0.096881" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="2096" name="CozyTown.Tests.UnityEditMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.UnityEditMode.dll" runstate="Runnable" testcasecount="239" result="Failed" site="Child" start-time="2026-09-19 07:50:39Z" end-time="2026-09-19 07:50:39Z" duration="0.077173" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="99108" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="2097" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="239" result="Failed" site="Child" start-time="2026-09-19 07:50:39Z" end-time="2026-09-19 07:50:39Z" duration="0.072319" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="2098" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="239" result="Failed" site="Child" start-time="2026-09-19 07:50:39Z" end-time="2026-09-19 07:50:39Z" duration="0.068228" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="2099" name="UnityEditMode" fullname="CozyTown.Tests.UnityEditMode" runstate="Runnable" testcasecount="239" result="Failed" site="Child" start-time="2026-09-19 07:50:39Z" end-time="2026-09-19 07:50:39Z" duration="0.063728" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1922" name="ProxyNpcDecisionJsonCodecTests" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="64" result="Failed" site="Child" start-time="2026-09-19 07:50:39Z" end-time="2026-09-19 07:50:39Z" duration="0.057342" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1999" name="WireRequest_IncludesBoundIdentityAndLimitsWithoutOtherResidentsPrivateContext" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.WireRequest_IncludesBoundIdentityAndLimitsWithoutOtherResidentsPrivateContext" methodname="WireRequest_IncludesBoundIdentityAndLimitsWithoutOtherResidentsPrivateContext" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1342740299" result="Failed" start-time="2026-09-19 07:50:39Z" end-time="2026-09-19 07:50:39Z" duration="0.038740" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Expected: 60
+  But was:  1440.0d
+]]></message>
+                  <stack-trace><![CDATA[at CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.WireRequest_IncludesBoundIdentityAndLimitsWithoutOtherResidentsPrivateContext () [0x00242] in [isolated-project]\Assets\CozyTown\Tests\UnityEditMode\ProxyNpcDecisionJsonCodecTests.cs:429
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

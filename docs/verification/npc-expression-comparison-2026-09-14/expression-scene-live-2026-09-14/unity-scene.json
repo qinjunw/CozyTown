@@ -1,0 +1,1755 @@
+{
+    "mode": "live_expression",
+    "status": "host_checks_passed",
+    "startedAtUtc": "2026-09-14T07:24:17.2374557Z",
+    "providerCallCap": 48,
+    "perTrialCallCap": 12,
+    "trialDeadlineSeconds": 100,
+    "initialGameMinute": 735,
+    "recoveryGameMinute": 1000,
+    "firstOrdinal": 1,
+    "registeredTrialOrder": [
+        "available:F",
+        "available:S",
+        "seller_empty:S",
+        "seller_empty:F"
+    ],
+    "trials": [
+        {
+            "scenario": "available",
+            "startedAtUtc": "2026-09-14T07:24:17.2423698Z",
+            "worldRunId": "fe6ebab4-d03d-4e28-959b-5d0c135e9354",
+            "behavior": "no_expected_resolution",
+            "arm": "F",
+            "speechMode": "free_text",
+            "stopReason": "meeting_expired",
+            "repetition": 1,
+            "ordinal": 1,
+            "renMemories": 2,
+            "soraMemories": 2,
+            "worldSeed": 12345,
+            "schedulerCalls": 2,
+            "initialized": true,
+            "recovered": true,
+            "deliveryObserved": false,
+            "activelyEnded": false,
+            "deadlineReleased": true,
+            "terminalActivitiesReleased": true,
+            "renMemoryRecords": [
+                {
+                    "meetingId": "1c952808-935a-4ef3-b023-9aff1174a319",
+                    "kind": "meeting.invited",
+                    "partnerId": "npc.cook_sora",
+                    "speakerId": "",
+                    "text": "",
+                    "totalMinutes": 736.9439492
+                },
+                {
+                    "meetingId": "1c952808-935a-4ef3-b023-9aff1174a319",
+                    "kind": "meeting.expired",
+                    "partnerId": "npc.cook_sora",
+                    "speakerId": "",
+                    "text": "",
+                    "totalMinutes": 795.000798
+                }
+            ],
+            "soraMemoryRecords": [
+                {
+                    "meetingId": "1c952808-935a-4ef3-b023-9aff1174a319",
+                    "kind": "meeting.invited",
+                    "partnerId": "npc.fisher_ren",
+                    "speakerId": "",
+                    "text": "",
+                    "totalMinutes": 736.9439492
+                },
+                {
+                    "meetingId": "1c952808-935a-4ef3-b023-9aff1174a319",
+                    "kind": "meeting.expired",
+                    "partnerId": "npc.fisher_ren",
+                    "speakerId": "",
+                    "text": "",
+                    "totalMinutes": 795.000798
+                }
+            ],
+            "initialAssets": [
+                {
+                    "id": "character.player",
+                    "coins": 300,
+                    "items": []
+                },
+                {
+                    "id": "npc.cook_sora",
+                    "coins": 50,
+                    "items": [
+                        "ingredient.salt:1"
+                    ]
+                },
+                {
+                    "id": "npc.farmer_eli",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "npc.fisher_ren",
+                    "coins": 0,
+                    "items": [
+                        "fish.carp:2"
+                    ]
+                },
+                {
+                    "id": "npc.shopkeeper_mina",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "shop.town.general",
+                    "coins": 10000,
+                    "items": [
+                        "feed.chicken:9",
+                        "ingredient.flour:6",
+                        "seed.carrot:4",
+                        "seed.tomato:3"
+                    ]
+                }
+            ],
+            "finalAssets": [
+                {
+                    "id": "character.player",
+                    "coins": 300,
+                    "items": []
+                },
+                {
+                    "id": "npc.cook_sora",
+                    "coins": 50,
+                    "items": [
+                        "ingredient.salt:1"
+                    ]
+                },
+                {
+                    "id": "npc.farmer_eli",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "npc.fisher_ren",
+                    "coins": 0,
+                    "items": [
+                        "fish.carp:2"
+                    ]
+                },
+                {
+                    "id": "npc.shopkeeper_mina",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "shop.town.general",
+                    "coins": 10000,
+                    "items": [
+                        "feed.chicken:9",
+                        "ingredient.flour:6",
+                        "seed.carrot:4",
+                        "seed.tomato:3"
+                    ]
+                }
+            ],
+            "initial": {
+                "elapsedSeconds": 0.0,
+                "gameTotalMinutes": 735.0,
+                "state": "None",
+                "receipt": "",
+                "meetingId": "",
+                "renRoute": "Travelling",
+                "soraRoute": "Arrived",
+                "renTarget": "rest.fisher_ren",
+                "soraTarget": "work.cook_sora",
+                "visibleText": "",
+                "renFish": 2,
+                "soraFish": 0,
+                "renCoins": 0,
+                "soraCoins": 50,
+                "renPosition": {
+                    "x": -4.199999809265137,
+                    "y": -3.0
+                },
+                "soraPosition": {
+                    "x": 3.0,
+                    "y": 0.3499999940395355
+                },
+                "transcript": []
+            },
+            "terminal": {
+                "elapsedSeconds": 30.002381,
+                "gameTotalMinutes": 795.000798,
+                "state": "Expired",
+                "receipt": "",
+                "meetingId": "1c952808-935a-4ef3-b023-9aff1174a319",
+                "renRoute": "Travelling",
+                "soraRoute": "Arrived",
+                "renTarget": "work.fisher_ren.afternoon",
+                "soraTarget": "rest.cook_sora",
+                "visibleText": "",
+                "renFish": 2,
+                "soraFish": 0,
+                "renCoins": 0,
+                "soraCoins": 50,
+                "renPosition": {
+                    "x": -3.0,
+                    "y": -1.3992019891738892
+                },
+                "soraPosition": {
+                    "x": 3.0,
+                    "y": 5.5
+                },
+                "transcript": []
+            },
+            "recovery": {
+                "elapsedSeconds": 30.010784799999997,
+                "gameTotalMinutes": 1000.0,
+                "state": "Expired",
+                "receipt": "",
+                "meetingId": "1c952808-935a-4ef3-b023-9aff1174a319",
+                "renRoute": "Arrived",
+                "soraRoute": "Arrived",
+                "renTarget": "work.fisher_ren.afternoon",
+                "soraTarget": "work.cook_sora",
+                "visibleText": "",
+                "renFish": 2,
+                "soraFish": 0,
+                "renCoins": 0,
+                "soraCoins": 50,
+                "renPosition": {
+                    "x": 2.9000000953674318,
+                    "y": -2.0
+                },
+                "soraPosition": {
+                    "x": 3.0,
+                    "y": 0.3499999940395355
+                },
+                "transcript": []
+            },
+            "observations": [
+                {
+                    "elapsedSeconds": 0.0000037999999999982494,
+                    "gameTotalMinutes": 735.0000076,
+                    "state": "None",
+                    "receipt": "",
+                    "meetingId": "",
+                    "renRoute": "Travelling",
+                    "soraRoute": "Arrived",
+                    "renTarget": "rest.fisher_ren",
+                    "soraTarget": "work.cook_sora",
+                    "visibleText": "",
+                    "renFish": 2,
+                    "soraFish": 0,
+                    "renCoins": 0,
+                    "soraCoins": 50,
+                    "renPosition": {
+                        "x": -4.1999921798706059,
+                        "y": -3.0
+                    },
+                    "soraPosition": {
+                        "x": 3.0,
+                        "y": 0.3499999940395355
+                    },
+                    "transcript": []
+                },
+                {
+                    "elapsedSeconds": 0.9719745999999976,
+                    "gameTotalMinutes": 736.9439492,
+                    "state": "Invited",
+                    "receipt": "",
+                    "meetingId": "1c952808-935a-4ef3-b023-9aff1174a319",
+                    "renRoute": "Travelling",
+                    "soraRoute": "Arrived",
+                    "renTarget": "rest.fisher_ren",
+                    "soraTarget": "work.cook_sora",
+                    "visibleText": "",
+                    "renFish": 2,
+                    "soraFish": 0,
+                    "renCoins": 0,
+                    "soraCoins": 50,
+                    "renPosition": {
+                        "x": -3.0,
+                        "y": -2.256049633026123
+                    },
+                    "soraPosition": {
+                        "x": 3.0,
+                        "y": 0.3499999940395355
+                    },
+                    "transcript": []
+                },
+                {
+                    "elapsedSeconds": 30.000398999999996,
+                    "gameTotalMinutes": 795.000798,
+                    "state": "Expired",
+                    "receipt": "",
+                    "meetingId": "1c952808-935a-4ef3-b023-9aff1174a319",
+                    "renRoute": "Travelling",
+                    "soraRoute": "Arrived",
+                    "renTarget": "work.fisher_ren.afternoon",
+                    "soraTarget": "rest.cook_sora",
+                    "visibleText": "",
+                    "renFish": 2,
+                    "soraFish": 0,
+                    "renCoins": 0,
+                    "soraCoins": 50,
+                    "renPosition": {
+                        "x": -3.0,
+                        "y": -1.3992019891738892
+                    },
+                    "soraPosition": {
+                        "x": 3.0,
+                        "y": 5.5
+                    },
+                    "transcript": []
+                }
+            ],
+            "calls": [
+                {
+                    "npcId": "npc.cook_sora",
+                    "decisionId": "b9d7971f-b5b6-4c6a-815e-8bb2a12f2042",
+                    "phase": "Opportunity",
+                    "contextJson": "{\"schemaVersion\":4,\"decisionId\":\"b9d7971fb5b64c6a815e8bb2a12f2042\",\"npcId\":\"npc.cook_sora\",\"displayName\":\"Sora\",\"persona\":\"An energetic cook who enjoys combining local ingredients.\",\"worldRunId\":\"fe6ebab4d03d4e28959b5d0c135e9354\",\"revision\":3,\"gameTotalMinutes\":735.0000076,\"targetLocationId\":\"work.cook_sora\",\"activity\":\"working\",\"step\":1,\"remainingCalls\":1,\"maxActivityDurationGameMinutes\":1440.0,\"allowedOperations\":[\"invite\",\"wait\"],\"allowedActivities\":[],\"triggers\":[{\"kind\":\"WorldRebuilt\",\"gameTotalMinutes\":360.0},{\"kind\":\"ScheduleChanged\",\"gameTotalMinutes\":390.0},{\"kind\":\"SocialOpportunity\",\"gameTotalMinutes\":735.0000076}],\"knownLocationIds\":[],\"hasLocationDetails\":false,\"locationDetails\":{\"locationId\":\"\",\"isReachable\":false},\"previousResultCode\":\"\",\"candidateErrorCode\":\"\",\"social\":{\"resources\":{\"sellerId\":\"npc.fisher_ren\",\"buyerId\":\"npc.cook_sora\",\"itemId\":\"fish.carp\",\"deliveryResultCode\":\"\",\"quantity\":1,\"totalPrice\":25,\"ownedQuantity\":0,\"balance\":50},\"kind\":\"opportunity\",\"planId\":\"sora-ren-fish-supply\",\"partnerId\":\"npc.fisher_ren\",\"placeId\":\"pond-walk\",\"locationId\":\"road.west_lane\",\"meetingId\":\"\",\"startsAtTotalMinutes\":780.0,\"deadlineTotalMinutes\":795.0,\"maxTurns\":4,\"transcript\":[],\"memories\":[]},\"hasSelfAssessment\":true,\"selfAssessment\":{\"role\":\"buyer\",\"reasonCode\":\"\",\"scope\":\"Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked.\",\"canMeetKnownTerms\":true,\"missingCoins\":0,\"missingQuantity\":0},\"hasObservation\":true,\"observation\":{\"schemaVersion\":1,\"observerId\":\"npc.cook_sora\",\"worldRunId\":\"fe6ebab4d03d4e28959b5d0c135e9354\",\"spaceId\":\"outdoors\",\"regionId\":\"pond-surroundings\",\"coverageDomain\":\"registered_entities_same_region_within_radius\",\"listenerId\":\"npc.fisher_ren\",\"observedAtGameTotalMinutes\":735.0000076,\"x\":3.0,\"y\":0.3499999940395355,\"radius\":6.0,\"hasRegion\":true,\"nearbyComplete\":true,\"nearbyEntityIds\":[\"pond\"],\"facts\":[{\"factId\":\"npc.cook_sora:region\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"region\",\"value\":\"pond-surroundings\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"npc.cook_sora:region_name\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"region_name\",\"value\":\"池塘周边\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"npc.cook_sora:owned_quantity\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"owned_quantity\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.cook_sora\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"npc.cook_sora:balance\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"balance\",\"value\":\"50\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.cook_sora\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":false},{\"factId\":\"plan:sora-ren-fish-supply:terms_quantity\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_quantity\",\"value\":\"1\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:terms_price\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_price\",\"value\":\"25\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:seller\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"seller\",\"value\":\"npc.fisher_ren\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:buyer\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"buyer\",\"value\":\"npc.cook_sora\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:decision_stage\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"decision_stage\",\"value\":\"opportunity\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"meeting_board\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"pond:name\",\"entityId\":\"pond\",\"predicate\":\"name\",\"value\":\"池塘\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"pond:kind\",\"entityId\":\"pond\",\"predicate\":\"kind\",\"value\":\"water\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"pond:interaction\",\"entityId\":\"pond\",\"predicate\":\"interaction\",\"value\":\"fishing\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"pond:quantity\",\"entityId\":\"pond\",\"predicate\":\"quantity\",\"value\":\"\",\"valueType\":\"unknown\",\"unit\":\"fish.carp\",\"knowledge\":\"unknown\",\"source\":\"semantic_catalog.unmodelled_quantity\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true}]},\"expression\":{\"schemaVersion\":1,\"mode\":\"free_text\"}}",
+                    "operation": "invite",
+                    "text": "",
+                    "error": "",
+                    "hostCode": "meeting.invited",
+                    "sentContextJson": "{\"schemaVersion\":4,\"decisionId\":\"b9d7971fb5b64c6a815e8bb2a12f2042\",\"npcId\":\"npc.cook_sora\",\"displayName\":\"Sora\",\"persona\":\"An energetic cook who enjoys combining local ingredients.\",\"worldRunId\":\"fe6ebab4d03d4e28959b5d0c135e9354\",\"revision\":3,\"gameTotalMinutes\":735.0000076,\"targetLocationId\":\"work.cook_sora\",\"activity\":\"working\",\"step\":1,\"remainingCalls\":1,\"maxActivityDurationGameMinutes\":1440.0,\"allowedOperations\":[\"invite\",\"wait\"],\"allowedActivities\":[],\"triggers\":[{\"kind\":\"WorldRebuilt\",\"gameTotalMinutes\":360.0},{\"kind\":\"ScheduleChanged\",\"gameTotalMinutes\":390.0},{\"kind\":\"SocialOpportunity\",\"gameTotalMinutes\":735.0000076}],\"knownLocationIds\":[],\"hasLocationDetails\":false,\"locationDetails\":{\"locationId\":\"\",\"isReachable\":false},\"previousResultCode\":\"\",\"candidateErrorCode\":\"\",\"social\":{\"resources\":{\"sellerId\":\"npc.fisher_ren\",\"buyerId\":\"npc.cook_sora\",\"itemId\":\"fish.carp\",\"deliveryResultCode\":\"\",\"quantity\":1,\"totalPrice\":25,\"ownedQuantity\":0,\"balance\":50},\"kind\":\"opportunity\",\"planId\":\"sora-ren-fish-supply\",\"partnerId\":\"npc.fisher_ren\",\"placeId\":\"pond-walk\",\"locationId\":\"road.west_lane\",\"meetingId\":\"\",\"startsAtTotalMinutes\":780.0,\"deadlineTotalMinutes\":795.0,\"maxTurns\":4,\"transcript\":[],\"memories\":[]},\"hasSelfAssessment\":true,\"selfAssessment\":{\"role\":\"buyer\",\"reasonCode\":\"\",\"scope\":\"Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked.\",\"canMeetKnownTerms\":true,\"missingCoins\":0,\"missingQuantity\":0},\"hasObservation\":true,\"observation\":{\"schemaVersion\":1,\"observerId\":\"npc.cook_sora\",\"worldRunId\":\"fe6ebab4d03d4e28959b5d0c135e9354\",\"spaceId\":\"outdoors\",\"regionId\":\"pond-surroundings\",\"coverageDomain\":\"registered_entities_same_region_within_radius\",\"listenerId\":\"npc.fisher_ren\",\"observedAtGameTotalMinutes\":735.0000076,\"x\":3.0,\"y\":0.3499999940395355,\"radius\":6.0,\"hasRegion\":true,\"nearbyComplete\":true,\"nearbyEntityIds\":[\"pond\"],\"facts\":[{\"factId\":\"npc.cook_sora:region\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"region\",\"value\":\"pond-surroundings\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"npc.cook_sora:region_name\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"region_name\",\"value\":\"池塘周边\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"npc.cook_sora:owned_quantity\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"owned_quantity\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.cook_sora\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"npc.cook_sora:balance\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"balance\",\"value\":\"50\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.cook_sora\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":false},{\"factId\":\"plan:sora-ren-fish-supply:terms_quantity\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_quantity\",\"value\":\"1\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:terms_price\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_price\",\"value\":\"25\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:seller\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"seller\",\"value\":\"npc.fisher_ren\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:buyer\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"buyer\",\"value\":\"npc.cook_sora\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:decision_stage\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"decision_stage\",\"value\":\"opportunity\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"meeting_board\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"pond:name\",\"entityId\":\"pond\",\"predicate\":\"name\",\"value\":\"池塘\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"pond:kind\",\"entityId\":\"pond\",\"predicate\":\"kind\",\"value\":\"water\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"pond:interaction\",\"entityId\":\"pond\",\"predicate\":\"interaction\",\"value\":\"fishing\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true},{\"factId\":\"pond:quantity\",\"entityId\":\"pond\",\"predicate\":\"quantity\",\"value\":\"\",\"valueType\":\"unknown\",\"unit\":\"fish.carp\",\"knowledge\":\"unknown\",\"source\":\"semantic_catalog.unmodelled_quantity\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000076,\"canExpress\":true}]},\"expression\":{\"schemaVersion\":1,\"mode\":\"free_text\"}}",
+                    "candidateErrorCode": "",
+                    "decisionOutcomeCode": "meeting.invited",
+                    "rawReplyJson": "{\"schemaVersion\": 4, \"operation\": \"invite\", \"planId\": \"sora-ren-fish-supply\"}",
+                    "speechFrame": {
+                        "speechIntent": "",
+                        "factId": "",
+                        "tone": ""
+                    },
+                    "responseStatusCode": 200,
+                    "rawReplyTruncated": false,
+                    "step": 1,
+                    "elapsedMilliseconds": 953.6069,
+                    "experimentObservation": {
+                        "worldRunId": "",
+                        "meetingPlaceId": "",
+                        "gameTotalMinutes": 0.0,
+                        "self": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "partner": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "meetingBothArrived": false
+                    },
+                    "sentObservation": {
+                        "worldRunId": "",
+                        "meetingPlaceId": "",
+                        "gameTotalMinutes": 0.0,
+                        "self": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "partner": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "meetingBothArrived": false
+                    }
+                },
+                {
+                    "npcId": "npc.fisher_ren",
+                    "decisionId": "3c8a8525-69e4-4088-ba21-ed991c8a430e",
+                    "phase": "Invitation",
+                    "contextJson": "{\"schemaVersion\":4,\"decisionId\":\"3c8a852569e44088ba21ed991c8a430e\",\"npcId\":\"npc.fisher_ren\",\"displayName\":\"Ren\",\"persona\":\"A quiet fisher who notices small changes around the pond.\",\"worldRunId\":\"fe6ebab4d03d4e28959b5d0c135e9354\",\"revision\":3,\"gameTotalMinutes\":736.9546762,\"targetLocationId\":\"rest.fisher_ren\",\"activity\":\"resting\",\"step\":1,\"remainingCalls\":1,\"maxActivityDurationGameMinutes\":1440.0,\"allowedOperations\":[\"accept_invite\",\"decline_invite\"],\"allowedActivities\":[],\"triggers\":[{\"kind\":\"MeetingChanged\",\"gameTotalMinutes\":736.9439492}],\"knownLocationIds\":[],\"hasLocationDetails\":false,\"locationDetails\":{\"locationId\":\"\",\"isReachable\":false},\"previousResultCode\":\"\",\"candidateErrorCode\":\"\",\"social\":{\"resources\":{\"sellerId\":\"npc.fisher_ren\",\"buyerId\":\"npc.cook_sora\",\"itemId\":\"fish.carp\",\"deliveryResultCode\":\"\",\"quantity\":1,\"totalPrice\":25,\"ownedQuantity\":2,\"balance\":0},\"kind\":\"invitation\",\"planId\":\"sora-ren-fish-supply\",\"partnerId\":\"npc.cook_sora\",\"placeId\":\"pond-walk\",\"locationId\":\"rest.fisher_ren\",\"meetingId\":\"1c952808935a4ef3b0239aff1174a319\",\"startsAtTotalMinutes\":780.0,\"deadlineTotalMinutes\":795.0,\"maxTurns\":4,\"transcript\":[],\"memories\":[{\"kind\":\"meeting.invited\",\"partnerId\":\"npc.cook_sora\",\"speakerId\":\"\",\"text\":\"\",\"gameTotalMinutes\":736.9439492}]},\"hasSelfAssessment\":true,\"selfAssessment\":{\"role\":\"seller\",\"reasonCode\":\"\",\"scope\":\"Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked.\",\"canMeetKnownTerms\":true,\"missingCoins\":0,\"missingQuantity\":0},\"hasObservation\":true,\"observation\":{\"schemaVersion\":1,\"observerId\":\"npc.fisher_ren\",\"worldRunId\":\"fe6ebab4d03d4e28959b5d0c135e9354\",\"spaceId\":\"outdoors\",\"regionId\":\"pond-surroundings\",\"coverageDomain\":\"registered_entities_same_region_within_radius\",\"listenerId\":\"npc.cook_sora\",\"observedAtGameTotalMinutes\":736.9546762,\"x\":-3.0,\"y\":-2.2453227043151857,\"radius\":6.0,\"hasRegion\":true,\"nearbyComplete\":true,\"nearbyEntityIds\":[\"lamp.player_home\",\"lamp.shop_main_road\",\"pond\"],\"facts\":[{\"factId\":\"npc.fisher_ren:region\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"region\",\"value\":\"pond-surroundings\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:region_name\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"region_name\",\"value\":\"池塘周边\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:owned_quantity\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"owned_quantity\",\"value\":\"2\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:balance\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"balance\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":false},{\"factId\":\"plan:sora-ren-fish-supply:terms_quantity\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_quantity\",\"value\":\"1\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:terms_price\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_price\",\"value\":\"25\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:seller\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"seller\",\"value\":\"npc.fisher_ren\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:buyer\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"buyer\",\"value\":\"npc.cook_sora\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:decision_stage\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"decision_stage\",\"value\":\"invitation\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"meeting_board\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"lamp.player_home:name\",\"entityId\":\"lamp.player_home\",\"predicate\":\"name\",\"value\":\"路灯\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"lamp.player_home:kind\",\"entityId\":\"lamp.player_home\",\"predicate\":\"kind\",\"value\":\"decoration\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"lamp.player_home:interaction\",\"entityId\":\"lamp.player_home\",\"predicate\":\"interaction\",\"value\":\"none\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:name\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"name\",\"value\":\"路灯\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:kind\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"kind\",\"value\":\"decoration\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:interaction\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"interaction\",\"value\":\"none\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"pond:name\",\"entityId\":\"pond\",\"predicate\":\"name\",\"value\":\"池塘\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"pond:kind\",\"entityId\":\"pond\",\"predicate\":\"kind\",\"value\":\"water\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"pond:interaction\",\"entityId\":\"pond\",\"predicate\":\"interaction\",\"value\":\"fishing\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"pond:quantity\",\"entityId\":\"pond\",\"predicate\":\"quantity\",\"value\":\"\",\"valueType\":\"unknown\",\"unit\":\"fish.carp\",\"knowledge\":\"unknown\",\"source\":\"semantic_catalog.unmodelled_quantity\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true}]},\"expression\":{\"schemaVersion\":1,\"mode\":\"free_text\"}}",
+                    "operation": "accept_invite",
+                    "text": "",
+                    "error": "",
+                    "hostCode": "agent.observation_stale",
+                    "sentContextJson": "{\"schemaVersion\":4,\"decisionId\":\"3c8a852569e44088ba21ed991c8a430e\",\"npcId\":\"npc.fisher_ren\",\"displayName\":\"Ren\",\"persona\":\"A quiet fisher who notices small changes around the pond.\",\"worldRunId\":\"fe6ebab4d03d4e28959b5d0c135e9354\",\"revision\":3,\"gameTotalMinutes\":736.9546762,\"targetLocationId\":\"rest.fisher_ren\",\"activity\":\"resting\",\"step\":1,\"remainingCalls\":1,\"maxActivityDurationGameMinutes\":1440.0,\"allowedOperations\":[\"accept_invite\",\"decline_invite\"],\"allowedActivities\":[],\"triggers\":[{\"kind\":\"MeetingChanged\",\"gameTotalMinutes\":736.9439492}],\"knownLocationIds\":[],\"hasLocationDetails\":false,\"locationDetails\":{\"locationId\":\"\",\"isReachable\":false},\"previousResultCode\":\"\",\"candidateErrorCode\":\"\",\"social\":{\"resources\":{\"sellerId\":\"npc.fisher_ren\",\"buyerId\":\"npc.cook_sora\",\"itemId\":\"fish.carp\",\"deliveryResultCode\":\"\",\"quantity\":1,\"totalPrice\":25,\"ownedQuantity\":2,\"balance\":0},\"kind\":\"invitation\",\"planId\":\"sora-ren-fish-supply\",\"partnerId\":\"npc.cook_sora\",\"placeId\":\"pond-walk\",\"locationId\":\"rest.fisher_ren\",\"meetingId\":\"1c952808935a4ef3b0239aff1174a319\",\"startsAtTotalMinutes\":780.0,\"deadlineTotalMinutes\":795.0,\"maxTurns\":4,\"transcript\":[],\"memories\":[{\"kind\":\"meeting.invited\",\"partnerId\":\"npc.cook_sora\",\"speakerId\":\"\",\"text\":\"\",\"gameTotalMinutes\":736.9439492}]},\"hasSelfAssessment\":true,\"selfAssessment\":{\"role\":\"seller\",\"reasonCode\":\"\",\"scope\":\"Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked.\",\"canMeetKnownTerms\":true,\"missingCoins\":0,\"missingQuantity\":0},\"hasObservation\":true,\"observation\":{\"schemaVersion\":1,\"observerId\":\"npc.fisher_ren\",\"worldRunId\":\"fe6ebab4d03d4e28959b5d0c135e9354\",\"spaceId\":\"outdoors\",\"regionId\":\"pond-surroundings\",\"coverageDomain\":\"registered_entities_same_region_within_radius\",\"listenerId\":\"npc.cook_sora\",\"observedAtGameTotalMinutes\":736.9546762,\"x\":-3.0,\"y\":-2.2453227043151857,\"radius\":6.0,\"hasRegion\":true,\"nearbyComplete\":true,\"nearbyEntityIds\":[\"lamp.player_home\",\"lamp.shop_main_road\",\"pond\"],\"facts\":[{\"factId\":\"npc.fisher_ren:region\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"region\",\"value\":\"pond-surroundings\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:region_name\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"region_name\",\"value\":\"池塘周边\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:owned_quantity\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"owned_quantity\",\"value\":\"2\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:balance\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"balance\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":false},{\"factId\":\"plan:sora-ren-fish-supply:terms_quantity\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_quantity\",\"value\":\"1\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:terms_price\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_price\",\"value\":\"25\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:seller\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"seller\",\"value\":\"npc.fisher_ren\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:buyer\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"buyer\",\"value\":\"npc.cook_sora\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:decision_stage\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"decision_stage\",\"value\":\"invitation\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"meeting_board\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"lamp.player_home:name\",\"entityId\":\"lamp.player_home\",\"predicate\":\"name\",\"value\":\"路灯\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"lamp.player_home:kind\",\"entityId\":\"lamp.player_home\",\"predicate\":\"kind\",\"value\":\"decoration\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"lamp.player_home:interaction\",\"entityId\":\"lamp.player_home\",\"predicate\":\"interaction\",\"value\":\"none\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:name\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"name\",\"value\":\"路灯\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:kind\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"kind\",\"value\":\"decoration\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:interaction\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"interaction\",\"value\":\"none\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"pond:name\",\"entityId\":\"pond\",\"predicate\":\"name\",\"value\":\"池塘\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"pond:kind\",\"entityId\":\"pond\",\"predicate\":\"kind\",\"value\":\"water\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"pond:interaction\",\"entityId\":\"pond\",\"predicate\":\"interaction\",\"value\":\"fishing\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true},{\"factId\":\"pond:quantity\",\"entityId\":\"pond\",\"predicate\":\"quantity\",\"value\":\"\",\"valueType\":\"unknown\",\"unit\":\"fish.carp\",\"knowledge\":\"unknown\",\"source\":\"semantic_catalog.unmodelled_quantity\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.9546762,\"canExpress\":true}]},\"expression\":{\"schemaVersion\":1,\"mode\":\"free_text\"}}",
+                    "candidateErrorCode": "",
+                    "decisionOutcomeCode": "agent.observation_stale",
+                    "rawReplyJson": "{\"schemaVersion\": 4, \"operation\": \"accept_invite\", \"meetingId\": \"1c952808935a4ef3b0239aff1174a319\"}",
+                    "speechFrame": {
+                        "speechIntent": "",
+                        "factId": "",
+                        "tone": ""
+                    },
+                    "responseStatusCode": 200,
+                    "rawReplyTruncated": false,
+                    "step": 1,
+                    "elapsedMilliseconds": 1545.3928,
+                    "experimentObservation": {
+                        "worldRunId": "",
+                        "meetingPlaceId": "",
+                        "gameTotalMinutes": 0.0,
+                        "self": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "partner": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "meetingBothArrived": false
+                    },
+                    "sentObservation": {
+                        "worldRunId": "",
+                        "meetingPlaceId": "",
+                        "gameTotalMinutes": 0.0,
+                        "self": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "partner": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "meetingBothArrived": false
+                    }
+                }
+            ],
+            "hostViolations": []
+        },
+        {
+            "scenario": "available",
+            "startedAtUtc": "2026-09-14T07:24:47.5555963Z",
+            "worldRunId": "11adaadb-197f-4564-afcf-86c08a61cbe3",
+            "behavior": "no_expected_resolution",
+            "arm": "S",
+            "speechMode": "structured_facts",
+            "stopReason": "meeting_expired",
+            "repetition": 1,
+            "ordinal": 2,
+            "renMemories": 2,
+            "soraMemories": 2,
+            "worldSeed": 12345,
+            "schedulerCalls": 2,
+            "initialized": true,
+            "recovered": true,
+            "deliveryObserved": false,
+            "activelyEnded": false,
+            "deadlineReleased": true,
+            "terminalActivitiesReleased": true,
+            "renMemoryRecords": [
+                {
+                    "meetingId": "397316f6-b0ce-40dd-8fa7-4cbc5d4b48d8",
+                    "kind": "meeting.invited",
+                    "partnerId": "npc.cook_sora",
+                    "speakerId": "",
+                    "text": "",
+                    "totalMinutes": 737.6792399999999
+                },
+                {
+                    "meetingId": "397316f6-b0ce-40dd-8fa7-4cbc5d4b48d8",
+                    "kind": "meeting.expired",
+                    "partnerId": "npc.cook_sora",
+                    "speakerId": "",
+                    "text": "",
+                    "totalMinutes": 795.0001199999999
+                }
+            ],
+            "soraMemoryRecords": [
+                {
+                    "meetingId": "397316f6-b0ce-40dd-8fa7-4cbc5d4b48d8",
+                    "kind": "meeting.invited",
+                    "partnerId": "npc.fisher_ren",
+                    "speakerId": "",
+                    "text": "",
+                    "totalMinutes": 737.6792399999999
+                },
+                {
+                    "meetingId": "397316f6-b0ce-40dd-8fa7-4cbc5d4b48d8",
+                    "kind": "meeting.expired",
+                    "partnerId": "npc.fisher_ren",
+                    "speakerId": "",
+                    "text": "",
+                    "totalMinutes": 795.0001199999999
+                }
+            ],
+            "initialAssets": [
+                {
+                    "id": "character.player",
+                    "coins": 300,
+                    "items": []
+                },
+                {
+                    "id": "npc.cook_sora",
+                    "coins": 50,
+                    "items": [
+                        "ingredient.salt:1"
+                    ]
+                },
+                {
+                    "id": "npc.farmer_eli",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "npc.fisher_ren",
+                    "coins": 0,
+                    "items": [
+                        "fish.carp:2"
+                    ]
+                },
+                {
+                    "id": "npc.shopkeeper_mina",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "shop.town.general",
+                    "coins": 10000,
+                    "items": [
+                        "feed.chicken:9",
+                        "ingredient.flour:6",
+                        "seed.carrot:4",
+                        "seed.tomato:3"
+                    ]
+                }
+            ],
+            "finalAssets": [
+                {
+                    "id": "character.player",
+                    "coins": 300,
+                    "items": []
+                },
+                {
+                    "id": "npc.cook_sora",
+                    "coins": 50,
+                    "items": [
+                        "ingredient.salt:1"
+                    ]
+                },
+                {
+                    "id": "npc.farmer_eli",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "npc.fisher_ren",
+                    "coins": 0,
+                    "items": [
+                        "fish.carp:2"
+                    ]
+                },
+                {
+                    "id": "npc.shopkeeper_mina",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "shop.town.general",
+                    "coins": 10000,
+                    "items": [
+                        "feed.chicken:9",
+                        "ingredient.flour:6",
+                        "seed.carrot:4",
+                        "seed.tomato:3"
+                    ]
+                }
+            ],
+            "initial": {
+                "elapsedSeconds": 0.0,
+                "gameTotalMinutes": 735.0,
+                "state": "None",
+                "receipt": "",
+                "meetingId": "",
+                "renRoute": "Travelling",
+                "soraRoute": "Arrived",
+                "renTarget": "rest.fisher_ren",
+                "soraTarget": "work.cook_sora",
+                "visibleText": "",
+                "renFish": 2,
+                "soraFish": 0,
+                "renCoins": 0,
+                "soraCoins": 50,
+                "renPosition": {
+                    "x": -4.199999809265137,
+                    "y": -3.0
+                },
+                "soraPosition": {
+                    "x": 3.0,
+                    "y": 0.3499999940395355
+                },
+                "transcript": []
+            },
+            "terminal": {
+                "elapsedSeconds": 30.0018048,
+                "gameTotalMinutes": 795.0001199999999,
+                "state": "Expired",
+                "receipt": "",
+                "meetingId": "397316f6-b0ce-40dd-8fa7-4cbc5d4b48d8",
+                "renRoute": "Travelling",
+                "soraRoute": "Arrived",
+                "renTarget": "work.fisher_ren.afternoon",
+                "soraTarget": "rest.cook_sora",
+                "visibleText": "",
+                "renFish": 2,
+                "soraFish": 0,
+                "renCoins": 0,
+                "soraCoins": 50,
+                "renPosition": {
+                    "x": -3.0,
+                    "y": -1.3998799324035645
+                },
+                "soraPosition": {
+                    "x": 3.0,
+                    "y": 5.5
+                },
+                "transcript": []
+            },
+            "recovery": {
+                "elapsedSeconds": 30.008868599999997,
+                "gameTotalMinutes": 1000.0,
+                "state": "Expired",
+                "receipt": "",
+                "meetingId": "397316f6-b0ce-40dd-8fa7-4cbc5d4b48d8",
+                "renRoute": "Arrived",
+                "soraRoute": "Arrived",
+                "renTarget": "work.fisher_ren.afternoon",
+                "soraTarget": "work.cook_sora",
+                "visibleText": "",
+                "renFish": 2,
+                "soraFish": 0,
+                "renCoins": 0,
+                "soraCoins": 50,
+                "renPosition": {
+                    "x": 2.9000000953674318,
+                    "y": -2.0
+                },
+                "soraPosition": {
+                    "x": 3.0,
+                    "y": 0.3499999940395355
+                },
+                "transcript": []
+            },
+            "observations": [
+                {
+                    "elapsedSeconds": 4.999999987376214e-7,
+                    "gameTotalMinutes": 735.000001,
+                    "state": "None",
+                    "receipt": "",
+                    "meetingId": "",
+                    "renRoute": "Travelling",
+                    "soraRoute": "Arrived",
+                    "renTarget": "rest.fisher_ren",
+                    "soraTarget": "work.cook_sora",
+                    "visibleText": "",
+                    "renFish": 2,
+                    "soraFish": 0,
+                    "renCoins": 0,
+                    "soraCoins": 50,
+                    "renPosition": {
+                        "x": -4.19999885559082,
+                        "y": -3.0
+                    },
+                    "soraPosition": {
+                        "x": 3.0,
+                        "y": 0.3499999940395355
+                    },
+                    "transcript": []
+                },
+                {
+                    "elapsedSeconds": 1.339619999999993,
+                    "gameTotalMinutes": 737.6792399999999,
+                    "state": "Invited",
+                    "receipt": "",
+                    "meetingId": "397316f6-b0ce-40dd-8fa7-4cbc5d4b48d8",
+                    "renRoute": "Travelling",
+                    "soraRoute": "Arrived",
+                    "renTarget": "rest.fisher_ren",
+                    "soraTarget": "work.cook_sora",
+                    "visibleText": "",
+                    "renFish": 2,
+                    "soraFish": 0,
+                    "renCoins": 0,
+                    "soraCoins": 50,
+                    "renPosition": {
+                        "x": -3.0,
+                        "y": -1.52076256275177
+                    },
+                    "soraPosition": {
+                        "x": 3.0,
+                        "y": 0.3499999940395355
+                    },
+                    "transcript": []
+                },
+                {
+                    "elapsedSeconds": 30.000059999999988,
+                    "gameTotalMinutes": 795.0001199999999,
+                    "state": "Expired",
+                    "receipt": "",
+                    "meetingId": "397316f6-b0ce-40dd-8fa7-4cbc5d4b48d8",
+                    "renRoute": "Travelling",
+                    "soraRoute": "Arrived",
+                    "renTarget": "work.fisher_ren.afternoon",
+                    "soraTarget": "rest.cook_sora",
+                    "visibleText": "",
+                    "renFish": 2,
+                    "soraFish": 0,
+                    "renCoins": 0,
+                    "soraCoins": 50,
+                    "renPosition": {
+                        "x": -3.0,
+                        "y": -1.3998799324035645
+                    },
+                    "soraPosition": {
+                        "x": 3.0,
+                        "y": 5.5
+                    },
+                    "transcript": []
+                }
+            ],
+            "calls": [
+                {
+                    "npcId": "npc.cook_sora",
+                    "decisionId": "fa14e78b-d4d2-47b0-9779-a1a04746064f",
+                    "phase": "Opportunity",
+                    "contextJson": "{\"schemaVersion\":4,\"decisionId\":\"fa14e78bd4d247b09779a1a04746064f\",\"npcId\":\"npc.cook_sora\",\"displayName\":\"Sora\",\"persona\":\"An energetic cook who enjoys combining local ingredients.\",\"worldRunId\":\"11adaadb197f4564afcf86c08a61cbe3\",\"revision\":3,\"gameTotalMinutes\":735.000001,\"targetLocationId\":\"work.cook_sora\",\"activity\":\"working\",\"step\":1,\"remainingCalls\":1,\"maxActivityDurationGameMinutes\":1440.0,\"allowedOperations\":[\"invite\",\"wait\"],\"allowedActivities\":[],\"triggers\":[{\"kind\":\"WorldRebuilt\",\"gameTotalMinutes\":360.0},{\"kind\":\"ScheduleChanged\",\"gameTotalMinutes\":390.0},{\"kind\":\"SocialOpportunity\",\"gameTotalMinutes\":735.000001}],\"knownLocationIds\":[],\"hasLocationDetails\":false,\"locationDetails\":{\"locationId\":\"\",\"isReachable\":false},\"previousResultCode\":\"\",\"candidateErrorCode\":\"\",\"social\":{\"resources\":{\"sellerId\":\"npc.fisher_ren\",\"buyerId\":\"npc.cook_sora\",\"itemId\":\"fish.carp\",\"deliveryResultCode\":\"\",\"quantity\":1,\"totalPrice\":25,\"ownedQuantity\":0,\"balance\":50},\"kind\":\"opportunity\",\"planId\":\"sora-ren-fish-supply\",\"partnerId\":\"npc.fisher_ren\",\"placeId\":\"pond-walk\",\"locationId\":\"road.west_lane\",\"meetingId\":\"\",\"startsAtTotalMinutes\":780.0,\"deadlineTotalMinutes\":795.0,\"maxTurns\":4,\"transcript\":[],\"memories\":[]},\"hasSelfAssessment\":true,\"selfAssessment\":{\"role\":\"buyer\",\"reasonCode\":\"\",\"scope\":\"Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked.\",\"canMeetKnownTerms\":true,\"missingCoins\":0,\"missingQuantity\":0},\"hasObservation\":true,\"observation\":{\"schemaVersion\":1,\"observerId\":\"npc.cook_sora\",\"worldRunId\":\"11adaadb197f4564afcf86c08a61cbe3\",\"spaceId\":\"outdoors\",\"regionId\":\"pond-surroundings\",\"coverageDomain\":\"registered_entities_same_region_within_radius\",\"listenerId\":\"npc.fisher_ren\",\"observedAtGameTotalMinutes\":735.000001,\"x\":3.0,\"y\":0.3499999940395355,\"radius\":6.0,\"hasRegion\":true,\"nearbyComplete\":true,\"nearbyEntityIds\":[\"pond\"],\"facts\":[{\"factId\":\"npc.cook_sora:region\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"region\",\"value\":\"pond-surroundings\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"npc.cook_sora:region_name\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"region_name\",\"value\":\"池塘周边\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"npc.cook_sora:owned_quantity\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"owned_quantity\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.cook_sora\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"npc.cook_sora:balance\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"balance\",\"value\":\"50\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.cook_sora\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":false},{\"factId\":\"plan:sora-ren-fish-supply:terms_quantity\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_quantity\",\"value\":\"1\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:terms_price\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_price\",\"value\":\"25\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:seller\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"seller\",\"value\":\"npc.fisher_ren\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:buyer\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"buyer\",\"value\":\"npc.cook_sora\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:decision_stage\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"decision_stage\",\"value\":\"opportunity\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"meeting_board\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"pond:name\",\"entityId\":\"pond\",\"predicate\":\"name\",\"value\":\"池塘\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"pond:kind\",\"entityId\":\"pond\",\"predicate\":\"kind\",\"value\":\"water\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"pond:interaction\",\"entityId\":\"pond\",\"predicate\":\"interaction\",\"value\":\"fishing\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"pond:quantity\",\"entityId\":\"pond\",\"predicate\":\"quantity\",\"value\":\"\",\"valueType\":\"unknown\",\"unit\":\"fish.carp\",\"knowledge\":\"unknown\",\"source\":\"semantic_catalog.unmodelled_quantity\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true}]},\"expression\":{\"schemaVersion\":1,\"mode\":\"structured_facts\"}}",
+                    "operation": "invite",
+                    "text": "",
+                    "error": "",
+                    "hostCode": "meeting.invited",
+                    "sentContextJson": "{\"schemaVersion\":4,\"decisionId\":\"fa14e78bd4d247b09779a1a04746064f\",\"npcId\":\"npc.cook_sora\",\"displayName\":\"Sora\",\"persona\":\"An energetic cook who enjoys combining local ingredients.\",\"worldRunId\":\"11adaadb197f4564afcf86c08a61cbe3\",\"revision\":3,\"gameTotalMinutes\":735.000001,\"targetLocationId\":\"work.cook_sora\",\"activity\":\"working\",\"step\":1,\"remainingCalls\":1,\"maxActivityDurationGameMinutes\":1440.0,\"allowedOperations\":[\"invite\",\"wait\"],\"allowedActivities\":[],\"triggers\":[{\"kind\":\"WorldRebuilt\",\"gameTotalMinutes\":360.0},{\"kind\":\"ScheduleChanged\",\"gameTotalMinutes\":390.0},{\"kind\":\"SocialOpportunity\",\"gameTotalMinutes\":735.000001}],\"knownLocationIds\":[],\"hasLocationDetails\":false,\"locationDetails\":{\"locationId\":\"\",\"isReachable\":false},\"previousResultCode\":\"\",\"candidateErrorCode\":\"\",\"social\":{\"resources\":{\"sellerId\":\"npc.fisher_ren\",\"buyerId\":\"npc.cook_sora\",\"itemId\":\"fish.carp\",\"deliveryResultCode\":\"\",\"quantity\":1,\"totalPrice\":25,\"ownedQuantity\":0,\"balance\":50},\"kind\":\"opportunity\",\"planId\":\"sora-ren-fish-supply\",\"partnerId\":\"npc.fisher_ren\",\"placeId\":\"pond-walk\",\"locationId\":\"road.west_lane\",\"meetingId\":\"\",\"startsAtTotalMinutes\":780.0,\"deadlineTotalMinutes\":795.0,\"maxTurns\":4,\"transcript\":[],\"memories\":[]},\"hasSelfAssessment\":true,\"selfAssessment\":{\"role\":\"buyer\",\"reasonCode\":\"\",\"scope\":\"Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked.\",\"canMeetKnownTerms\":true,\"missingCoins\":0,\"missingQuantity\":0},\"hasObservation\":true,\"observation\":{\"schemaVersion\":1,\"observerId\":\"npc.cook_sora\",\"worldRunId\":\"11adaadb197f4564afcf86c08a61cbe3\",\"spaceId\":\"outdoors\",\"regionId\":\"pond-surroundings\",\"coverageDomain\":\"registered_entities_same_region_within_radius\",\"listenerId\":\"npc.fisher_ren\",\"observedAtGameTotalMinutes\":735.000001,\"x\":3.0,\"y\":0.3499999940395355,\"radius\":6.0,\"hasRegion\":true,\"nearbyComplete\":true,\"nearbyEntityIds\":[\"pond\"],\"facts\":[{\"factId\":\"npc.cook_sora:region\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"region\",\"value\":\"pond-surroundings\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"npc.cook_sora:region_name\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"region_name\",\"value\":\"池塘周边\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"npc.cook_sora:owned_quantity\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"owned_quantity\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.cook_sora\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"npc.cook_sora:balance\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"balance\",\"value\":\"50\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.cook_sora\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":false},{\"factId\":\"plan:sora-ren-fish-supply:terms_quantity\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_quantity\",\"value\":\"1\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:terms_price\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_price\",\"value\":\"25\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:seller\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"seller\",\"value\":\"npc.fisher_ren\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:buyer\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"buyer\",\"value\":\"npc.cook_sora\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:decision_stage\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"decision_stage\",\"value\":\"opportunity\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"meeting_board\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"pond:name\",\"entityId\":\"pond\",\"predicate\":\"name\",\"value\":\"池塘\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"pond:kind\",\"entityId\":\"pond\",\"predicate\":\"kind\",\"value\":\"water\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"pond:interaction\",\"entityId\":\"pond\",\"predicate\":\"interaction\",\"value\":\"fishing\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"pond:quantity\",\"entityId\":\"pond\",\"predicate\":\"quantity\",\"value\":\"\",\"valueType\":\"unknown\",\"unit\":\"fish.carp\",\"knowledge\":\"unknown\",\"source\":\"semantic_catalog.unmodelled_quantity\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true}]},\"expression\":{\"schemaVersion\":1,\"mode\":\"structured_facts\"}}",
+                    "candidateErrorCode": "",
+                    "decisionOutcomeCode": "meeting.invited",
+                    "rawReplyJson": "{\"schemaVersion\": 4, \"operation\": \"invite\", \"planId\": \"sora-ren-fish-supply\"}",
+                    "speechFrame": {
+                        "speechIntent": "",
+                        "factId": "",
+                        "tone": ""
+                    },
+                    "responseStatusCode": 200,
+                    "rawReplyTruncated": false,
+                    "step": 1,
+                    "elapsedMilliseconds": 1338.9289,
+                    "experimentObservation": {
+                        "worldRunId": "",
+                        "meetingPlaceId": "",
+                        "gameTotalMinutes": 0.0,
+                        "self": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "partner": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "meetingBothArrived": false
+                    },
+                    "sentObservation": {
+                        "worldRunId": "",
+                        "meetingPlaceId": "",
+                        "gameTotalMinutes": 0.0,
+                        "self": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "partner": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "meetingBothArrived": false
+                    }
+                },
+                {
+                    "npcId": "npc.fisher_ren",
+                    "decisionId": "a1a3d323-aa37-492b-b236-1fe2d67dabf6",
+                    "phase": "Invitation",
+                    "contextJson": "{\"schemaVersion\":4,\"decisionId\":\"a1a3d323aa37492bb2361fe2d67dabf6\",\"npcId\":\"npc.fisher_ren\",\"displayName\":\"Ren\",\"persona\":\"A quiet fisher who notices small changes around the pond.\",\"worldRunId\":\"11adaadb197f4564afcf86c08a61cbe3\",\"revision\":3,\"gameTotalMinutes\":737.6832726,\"targetLocationId\":\"rest.fisher_ren\",\"activity\":\"resting\",\"step\":1,\"remainingCalls\":1,\"maxActivityDurationGameMinutes\":1440.0,\"allowedOperations\":[\"accept_invite\",\"decline_invite\"],\"allowedActivities\":[],\"triggers\":[{\"kind\":\"MeetingChanged\",\"gameTotalMinutes\":737.6792399999999}],\"knownLocationIds\":[],\"hasLocationDetails\":false,\"locationDetails\":{\"locationId\":\"\",\"isReachable\":false},\"previousResultCode\":\"\",\"candidateErrorCode\":\"\",\"social\":{\"resources\":{\"sellerId\":\"npc.fisher_ren\",\"buyerId\":\"npc.cook_sora\",\"itemId\":\"fish.carp\",\"deliveryResultCode\":\"\",\"quantity\":1,\"totalPrice\":25,\"ownedQuantity\":2,\"balance\":0},\"kind\":\"invitation\",\"planId\":\"sora-ren-fish-supply\",\"partnerId\":\"npc.cook_sora\",\"placeId\":\"pond-walk\",\"locationId\":\"rest.fisher_ren\",\"meetingId\":\"397316f6b0ce40dd8fa74cbc5d4b48d8\",\"startsAtTotalMinutes\":780.0,\"deadlineTotalMinutes\":795.0,\"maxTurns\":4,\"transcript\":[],\"memories\":[{\"kind\":\"meeting.invited\",\"partnerId\":\"npc.cook_sora\",\"speakerId\":\"\",\"text\":\"\",\"gameTotalMinutes\":737.6792399999999}]},\"hasSelfAssessment\":true,\"selfAssessment\":{\"role\":\"seller\",\"reasonCode\":\"\",\"scope\":\"Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked.\",\"canMeetKnownTerms\":true,\"missingCoins\":0,\"missingQuantity\":0},\"hasObservation\":true,\"observation\":{\"schemaVersion\":1,\"observerId\":\"npc.fisher_ren\",\"worldRunId\":\"11adaadb197f4564afcf86c08a61cbe3\",\"spaceId\":\"outdoors\",\"regionId\":\"pond-surroundings\",\"coverageDomain\":\"registered_entities_same_region_within_radius\",\"listenerId\":\"npc.cook_sora\",\"observedAtGameTotalMinutes\":737.6832726,\"x\":-3.0,\"y\":-1.5167299509048463,\"radius\":6.0,\"hasRegion\":true,\"nearbyComplete\":true,\"nearbyEntityIds\":[\"lamp.player_home\",\"lamp.shop_main_road\",\"pond\"],\"facts\":[{\"factId\":\"npc.fisher_ren:region\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"region\",\"value\":\"pond-surroundings\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:region_name\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"region_name\",\"value\":\"池塘周边\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:owned_quantity\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"owned_quantity\",\"value\":\"2\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:balance\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"balance\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":false},{\"factId\":\"plan:sora-ren-fish-supply:terms_quantity\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_quantity\",\"value\":\"1\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:terms_price\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_price\",\"value\":\"25\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:seller\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"seller\",\"value\":\"npc.fisher_ren\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:buyer\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"buyer\",\"value\":\"npc.cook_sora\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:decision_stage\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"decision_stage\",\"value\":\"invitation\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"meeting_board\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"lamp.player_home:name\",\"entityId\":\"lamp.player_home\",\"predicate\":\"name\",\"value\":\"路灯\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"lamp.player_home:kind\",\"entityId\":\"lamp.player_home\",\"predicate\":\"kind\",\"value\":\"decoration\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"lamp.player_home:interaction\",\"entityId\":\"lamp.player_home\",\"predicate\":\"interaction\",\"value\":\"none\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:name\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"name\",\"value\":\"路灯\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:kind\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"kind\",\"value\":\"decoration\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:interaction\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"interaction\",\"value\":\"none\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"pond:name\",\"entityId\":\"pond\",\"predicate\":\"name\",\"value\":\"池塘\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"pond:kind\",\"entityId\":\"pond\",\"predicate\":\"kind\",\"value\":\"water\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"pond:interaction\",\"entityId\":\"pond\",\"predicate\":\"interaction\",\"value\":\"fishing\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"pond:quantity\",\"entityId\":\"pond\",\"predicate\":\"quantity\",\"value\":\"\",\"valueType\":\"unknown\",\"unit\":\"fish.carp\",\"knowledge\":\"unknown\",\"source\":\"semantic_catalog.unmodelled_quantity\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true}]},\"expression\":{\"schemaVersion\":1,\"mode\":\"structured_facts\"}}",
+                    "operation": "accept_invite",
+                    "text": "",
+                    "error": "",
+                    "hostCode": "agent.observation_stale",
+                    "sentContextJson": "{\"schemaVersion\":4,\"decisionId\":\"a1a3d323aa37492bb2361fe2d67dabf6\",\"npcId\":\"npc.fisher_ren\",\"displayName\":\"Ren\",\"persona\":\"A quiet fisher who notices small changes around the pond.\",\"worldRunId\":\"11adaadb197f4564afcf86c08a61cbe3\",\"revision\":3,\"gameTotalMinutes\":737.6832726,\"targetLocationId\":\"rest.fisher_ren\",\"activity\":\"resting\",\"step\":1,\"remainingCalls\":1,\"maxActivityDurationGameMinutes\":1440.0,\"allowedOperations\":[\"accept_invite\",\"decline_invite\"],\"allowedActivities\":[],\"triggers\":[{\"kind\":\"MeetingChanged\",\"gameTotalMinutes\":737.6792399999999}],\"knownLocationIds\":[],\"hasLocationDetails\":false,\"locationDetails\":{\"locationId\":\"\",\"isReachable\":false},\"previousResultCode\":\"\",\"candidateErrorCode\":\"\",\"social\":{\"resources\":{\"sellerId\":\"npc.fisher_ren\",\"buyerId\":\"npc.cook_sora\",\"itemId\":\"fish.carp\",\"deliveryResultCode\":\"\",\"quantity\":1,\"totalPrice\":25,\"ownedQuantity\":2,\"balance\":0},\"kind\":\"invitation\",\"planId\":\"sora-ren-fish-supply\",\"partnerId\":\"npc.cook_sora\",\"placeId\":\"pond-walk\",\"locationId\":\"rest.fisher_ren\",\"meetingId\":\"397316f6b0ce40dd8fa74cbc5d4b48d8\",\"startsAtTotalMinutes\":780.0,\"deadlineTotalMinutes\":795.0,\"maxTurns\":4,\"transcript\":[],\"memories\":[{\"kind\":\"meeting.invited\",\"partnerId\":\"npc.cook_sora\",\"speakerId\":\"\",\"text\":\"\",\"gameTotalMinutes\":737.6792399999999}]},\"hasSelfAssessment\":true,\"selfAssessment\":{\"role\":\"seller\",\"reasonCode\":\"\",\"scope\":\"Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked.\",\"canMeetKnownTerms\":true,\"missingCoins\":0,\"missingQuantity\":0},\"hasObservation\":true,\"observation\":{\"schemaVersion\":1,\"observerId\":\"npc.fisher_ren\",\"worldRunId\":\"11adaadb197f4564afcf86c08a61cbe3\",\"spaceId\":\"outdoors\",\"regionId\":\"pond-surroundings\",\"coverageDomain\":\"registered_entities_same_region_within_radius\",\"listenerId\":\"npc.cook_sora\",\"observedAtGameTotalMinutes\":737.6832726,\"x\":-3.0,\"y\":-1.5167299509048463,\"radius\":6.0,\"hasRegion\":true,\"nearbyComplete\":true,\"nearbyEntityIds\":[\"lamp.player_home\",\"lamp.shop_main_road\",\"pond\"],\"facts\":[{\"factId\":\"npc.fisher_ren:region\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"region\",\"value\":\"pond-surroundings\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:region_name\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"region_name\",\"value\":\"池塘周边\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:owned_quantity\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"owned_quantity\",\"value\":\"2\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:balance\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"balance\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":false},{\"factId\":\"plan:sora-ren-fish-supply:terms_quantity\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_quantity\",\"value\":\"1\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:terms_price\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_price\",\"value\":\"25\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:seller\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"seller\",\"value\":\"npc.fisher_ren\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:buyer\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"buyer\",\"value\":\"npc.cook_sora\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:decision_stage\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"decision_stage\",\"value\":\"invitation\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"meeting_board\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"lamp.player_home:name\",\"entityId\":\"lamp.player_home\",\"predicate\":\"name\",\"value\":\"路灯\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"lamp.player_home:kind\",\"entityId\":\"lamp.player_home\",\"predicate\":\"kind\",\"value\":\"decoration\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"lamp.player_home:interaction\",\"entityId\":\"lamp.player_home\",\"predicate\":\"interaction\",\"value\":\"none\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:name\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"name\",\"value\":\"路灯\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:kind\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"kind\",\"value\":\"decoration\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:interaction\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"interaction\",\"value\":\"none\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"pond:name\",\"entityId\":\"pond\",\"predicate\":\"name\",\"value\":\"池塘\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"pond:kind\",\"entityId\":\"pond\",\"predicate\":\"kind\",\"value\":\"water\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"pond:interaction\",\"entityId\":\"pond\",\"predicate\":\"interaction\",\"value\":\"fishing\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true},{\"factId\":\"pond:quantity\",\"entityId\":\"pond\",\"predicate\":\"quantity\",\"value\":\"\",\"valueType\":\"unknown\",\"unit\":\"fish.carp\",\"knowledge\":\"unknown\",\"source\":\"semantic_catalog.unmodelled_quantity\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.6832726,\"canExpress\":true}]},\"expression\":{\"schemaVersion\":1,\"mode\":\"structured_facts\"}}",
+                    "candidateErrorCode": "",
+                    "decisionOutcomeCode": "agent.observation_stale",
+                    "rawReplyJson": "{\"schemaVersion\": 4, \"operation\": \"accept_invite\", \"meetingId\": \"397316f6b0ce40dd8fa74cbc5d4b48d8\"}",
+                    "speechFrame": {
+                        "speechIntent": "",
+                        "factId": "",
+                        "tone": ""
+                    },
+                    "responseStatusCode": 200,
+                    "rawReplyTruncated": false,
+                    "step": 1,
+                    "elapsedMilliseconds": 951.2135000000001,
+                    "experimentObservation": {
+                        "worldRunId": "",
+                        "meetingPlaceId": "",
+                        "gameTotalMinutes": 0.0,
+                        "self": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "partner": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "meetingBothArrived": false
+                    },
+                    "sentObservation": {
+                        "worldRunId": "",
+                        "meetingPlaceId": "",
+                        "gameTotalMinutes": 0.0,
+                        "self": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "partner": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "meetingBothArrived": false
+                    }
+                }
+            ],
+            "hostViolations": []
+        },
+        {
+            "scenario": "seller_empty",
+            "startedAtUtc": "2026-09-14T07:25:17.6647681Z",
+            "worldRunId": "a6043370-1fec-4859-9f86-7f9d8b02cf05",
+            "behavior": "no_expected_resolution",
+            "arm": "S",
+            "speechMode": "structured_facts",
+            "stopReason": "meeting_expired",
+            "repetition": 1,
+            "ordinal": 3,
+            "renMemories": 2,
+            "soraMemories": 2,
+            "worldSeed": 12345,
+            "schedulerCalls": 2,
+            "initialized": true,
+            "recovered": true,
+            "deliveryObserved": false,
+            "activelyEnded": false,
+            "deadlineReleased": true,
+            "terminalActivitiesReleased": true,
+            "renMemoryRecords": [
+                {
+                    "meetingId": "3021f204-016a-4d8c-b9ad-beaa1642c2a1",
+                    "kind": "meeting.invited",
+                    "partnerId": "npc.cook_sora",
+                    "speakerId": "",
+                    "text": "",
+                    "totalMinutes": 736.3913086
+                },
+                {
+                    "meetingId": "3021f204-016a-4d8c-b9ad-beaa1642c2a1",
+                    "kind": "meeting.expired",
+                    "partnerId": "npc.cook_sora",
+                    "speakerId": "",
+                    "text": "",
+                    "totalMinutes": 795.000375
+                }
+            ],
+            "soraMemoryRecords": [
+                {
+                    "meetingId": "3021f204-016a-4d8c-b9ad-beaa1642c2a1",
+                    "kind": "meeting.invited",
+                    "partnerId": "npc.fisher_ren",
+                    "speakerId": "",
+                    "text": "",
+                    "totalMinutes": 736.3913086
+                },
+                {
+                    "meetingId": "3021f204-016a-4d8c-b9ad-beaa1642c2a1",
+                    "kind": "meeting.expired",
+                    "partnerId": "npc.fisher_ren",
+                    "speakerId": "",
+                    "text": "",
+                    "totalMinutes": 795.000375
+                }
+            ],
+            "initialAssets": [
+                {
+                    "id": "character.player",
+                    "coins": 300,
+                    "items": []
+                },
+                {
+                    "id": "npc.cook_sora",
+                    "coins": 50,
+                    "items": [
+                        "ingredient.salt:1"
+                    ]
+                },
+                {
+                    "id": "npc.farmer_eli",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "npc.fisher_ren",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "npc.shopkeeper_mina",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "shop.town.general",
+                    "coins": 10000,
+                    "items": [
+                        "feed.chicken:9",
+                        "ingredient.flour:6",
+                        "seed.carrot:4",
+                        "seed.tomato:3"
+                    ]
+                }
+            ],
+            "finalAssets": [
+                {
+                    "id": "character.player",
+                    "coins": 300,
+                    "items": []
+                },
+                {
+                    "id": "npc.cook_sora",
+                    "coins": 50,
+                    "items": [
+                        "ingredient.salt:1"
+                    ]
+                },
+                {
+                    "id": "npc.farmer_eli",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "npc.fisher_ren",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "npc.shopkeeper_mina",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "shop.town.general",
+                    "coins": 10000,
+                    "items": [
+                        "feed.chicken:9",
+                        "ingredient.flour:6",
+                        "seed.carrot:4",
+                        "seed.tomato:3"
+                    ]
+                }
+            ],
+            "initial": {
+                "elapsedSeconds": 0.0,
+                "gameTotalMinutes": 735.0,
+                "state": "None",
+                "receipt": "",
+                "meetingId": "",
+                "renRoute": "Travelling",
+                "soraRoute": "Arrived",
+                "renTarget": "rest.fisher_ren",
+                "soraTarget": "work.cook_sora",
+                "visibleText": "",
+                "renFish": 0,
+                "soraFish": 0,
+                "renCoins": 0,
+                "soraCoins": 50,
+                "renPosition": {
+                    "x": -4.199999809265137,
+                    "y": -3.0
+                },
+                "soraPosition": {
+                    "x": 3.0,
+                    "y": 0.3499999940395355
+                },
+                "transcript": []
+            },
+            "terminal": {
+                "elapsedSeconds": 30.0024243,
+                "gameTotalMinutes": 795.000375,
+                "state": "Expired",
+                "receipt": "",
+                "meetingId": "3021f204-016a-4d8c-b9ad-beaa1642c2a1",
+                "renRoute": "Travelling",
+                "soraRoute": "Arrived",
+                "renTarget": "work.fisher_ren.afternoon",
+                "soraTarget": "rest.cook_sora",
+                "visibleText": "",
+                "renFish": 0,
+                "soraFish": 0,
+                "renCoins": 0,
+                "soraCoins": 50,
+                "renPosition": {
+                    "x": -3.0,
+                    "y": -1.3996249437332154
+                },
+                "soraPosition": {
+                    "x": 3.0,
+                    "y": 5.5
+                },
+                "transcript": []
+            },
+            "recovery": {
+                "elapsedSeconds": 30.010231399999996,
+                "gameTotalMinutes": 1000.0,
+                "state": "Expired",
+                "receipt": "",
+                "meetingId": "3021f204-016a-4d8c-b9ad-beaa1642c2a1",
+                "renRoute": "Arrived",
+                "soraRoute": "Arrived",
+                "renTarget": "work.fisher_ren.afternoon",
+                "soraTarget": "work.cook_sora",
+                "visibleText": "",
+                "renFish": 0,
+                "soraFish": 0,
+                "renCoins": 0,
+                "soraCoins": 50,
+                "renPosition": {
+                    "x": 2.9000000953674318,
+                    "y": -2.0
+                },
+                "soraPosition": {
+                    "x": 3.0,
+                    "y": 0.3499999940395355
+                },
+                "transcript": []
+            },
+            "observations": [
+                {
+                    "elapsedSeconds": 4.999999987376214e-7,
+                    "gameTotalMinutes": 735.000001,
+                    "state": "None",
+                    "receipt": "",
+                    "meetingId": "",
+                    "renRoute": "Travelling",
+                    "soraRoute": "Arrived",
+                    "renTarget": "rest.fisher_ren",
+                    "soraTarget": "work.cook_sora",
+                    "visibleText": "",
+                    "renFish": 0,
+                    "soraFish": 0,
+                    "renCoins": 0,
+                    "soraCoins": 50,
+                    "renPosition": {
+                        "x": -4.19999885559082,
+                        "y": -3.0
+                    },
+                    "soraPosition": {
+                        "x": 3.0,
+                        "y": 0.3499999940395355
+                    },
+                    "transcript": []
+                },
+                {
+                    "elapsedSeconds": 0.6956543000000011,
+                    "gameTotalMinutes": 736.3913086,
+                    "state": "Invited",
+                    "receipt": "",
+                    "meetingId": "3021f204-016a-4d8c-b9ad-beaa1642c2a1",
+                    "renRoute": "Travelling",
+                    "soraRoute": "Arrived",
+                    "renTarget": "rest.fisher_ren",
+                    "soraTarget": "work.cook_sora",
+                    "visibleText": "",
+                    "renFish": 0,
+                    "soraFish": 0,
+                    "renCoins": 0,
+                    "soraCoins": 50,
+                    "renPosition": {
+                        "x": -3.0,
+                        "y": -2.8086934089660646
+                    },
+                    "soraPosition": {
+                        "x": 3.0,
+                        "y": 0.3499999940395355
+                    },
+                    "transcript": []
+                },
+                {
+                    "elapsedSeconds": 30.000187499999997,
+                    "gameTotalMinutes": 795.000375,
+                    "state": "Expired",
+                    "receipt": "",
+                    "meetingId": "3021f204-016a-4d8c-b9ad-beaa1642c2a1",
+                    "renRoute": "Travelling",
+                    "soraRoute": "Arrived",
+                    "renTarget": "work.fisher_ren.afternoon",
+                    "soraTarget": "rest.cook_sora",
+                    "visibleText": "",
+                    "renFish": 0,
+                    "soraFish": 0,
+                    "renCoins": 0,
+                    "soraCoins": 50,
+                    "renPosition": {
+                        "x": -3.0,
+                        "y": -1.3996249437332154
+                    },
+                    "soraPosition": {
+                        "x": 3.0,
+                        "y": 5.5
+                    },
+                    "transcript": []
+                }
+            ],
+            "calls": [
+                {
+                    "npcId": "npc.cook_sora",
+                    "decisionId": "b054a95a-e95c-4291-91fd-f6428e7cd045",
+                    "phase": "Opportunity",
+                    "contextJson": "{\"schemaVersion\":4,\"decisionId\":\"b054a95ae95c429191fdf6428e7cd045\",\"npcId\":\"npc.cook_sora\",\"displayName\":\"Sora\",\"persona\":\"An energetic cook who enjoys combining local ingredients.\",\"worldRunId\":\"a60433701fec48599f867f9d8b02cf05\",\"revision\":3,\"gameTotalMinutes\":735.000001,\"targetLocationId\":\"work.cook_sora\",\"activity\":\"working\",\"step\":1,\"remainingCalls\":1,\"maxActivityDurationGameMinutes\":1440.0,\"allowedOperations\":[\"invite\",\"wait\"],\"allowedActivities\":[],\"triggers\":[{\"kind\":\"WorldRebuilt\",\"gameTotalMinutes\":360.0},{\"kind\":\"ScheduleChanged\",\"gameTotalMinutes\":390.0},{\"kind\":\"SocialOpportunity\",\"gameTotalMinutes\":735.000001}],\"knownLocationIds\":[],\"hasLocationDetails\":false,\"locationDetails\":{\"locationId\":\"\",\"isReachable\":false},\"previousResultCode\":\"\",\"candidateErrorCode\":\"\",\"social\":{\"resources\":{\"sellerId\":\"npc.fisher_ren\",\"buyerId\":\"npc.cook_sora\",\"itemId\":\"fish.carp\",\"deliveryResultCode\":\"\",\"quantity\":1,\"totalPrice\":25,\"ownedQuantity\":0,\"balance\":50},\"kind\":\"opportunity\",\"planId\":\"sora-ren-fish-supply\",\"partnerId\":\"npc.fisher_ren\",\"placeId\":\"pond-walk\",\"locationId\":\"road.west_lane\",\"meetingId\":\"\",\"startsAtTotalMinutes\":780.0,\"deadlineTotalMinutes\":795.0,\"maxTurns\":4,\"transcript\":[],\"memories\":[]},\"hasSelfAssessment\":true,\"selfAssessment\":{\"role\":\"buyer\",\"reasonCode\":\"\",\"scope\":\"Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked.\",\"canMeetKnownTerms\":true,\"missingCoins\":0,\"missingQuantity\":0},\"hasObservation\":true,\"observation\":{\"schemaVersion\":1,\"observerId\":\"npc.cook_sora\",\"worldRunId\":\"a60433701fec48599f867f9d8b02cf05\",\"spaceId\":\"outdoors\",\"regionId\":\"pond-surroundings\",\"coverageDomain\":\"registered_entities_same_region_within_radius\",\"listenerId\":\"npc.fisher_ren\",\"observedAtGameTotalMinutes\":735.000001,\"x\":3.0,\"y\":0.3499999940395355,\"radius\":6.0,\"hasRegion\":true,\"nearbyComplete\":true,\"nearbyEntityIds\":[\"pond\"],\"facts\":[{\"factId\":\"npc.cook_sora:region\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"region\",\"value\":\"pond-surroundings\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"npc.cook_sora:region_name\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"region_name\",\"value\":\"池塘周边\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"npc.cook_sora:owned_quantity\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"owned_quantity\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.cook_sora\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"npc.cook_sora:balance\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"balance\",\"value\":\"50\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.cook_sora\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":false},{\"factId\":\"plan:sora-ren-fish-supply:terms_quantity\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_quantity\",\"value\":\"1\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:terms_price\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_price\",\"value\":\"25\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:seller\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"seller\",\"value\":\"npc.fisher_ren\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:buyer\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"buyer\",\"value\":\"npc.cook_sora\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:decision_stage\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"decision_stage\",\"value\":\"opportunity\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"meeting_board\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"pond:name\",\"entityId\":\"pond\",\"predicate\":\"name\",\"value\":\"池塘\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"pond:kind\",\"entityId\":\"pond\",\"predicate\":\"kind\",\"value\":\"water\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"pond:interaction\",\"entityId\":\"pond\",\"predicate\":\"interaction\",\"value\":\"fishing\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"pond:quantity\",\"entityId\":\"pond\",\"predicate\":\"quantity\",\"value\":\"\",\"valueType\":\"unknown\",\"unit\":\"fish.carp\",\"knowledge\":\"unknown\",\"source\":\"semantic_catalog.unmodelled_quantity\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true}]},\"expression\":{\"schemaVersion\":1,\"mode\":\"structured_facts\"}}",
+                    "operation": "invite",
+                    "text": "",
+                    "error": "",
+                    "hostCode": "meeting.invited",
+                    "sentContextJson": "{\"schemaVersion\":4,\"decisionId\":\"b054a95ae95c429191fdf6428e7cd045\",\"npcId\":\"npc.cook_sora\",\"displayName\":\"Sora\",\"persona\":\"An energetic cook who enjoys combining local ingredients.\",\"worldRunId\":\"a60433701fec48599f867f9d8b02cf05\",\"revision\":3,\"gameTotalMinutes\":735.000001,\"targetLocationId\":\"work.cook_sora\",\"activity\":\"working\",\"step\":1,\"remainingCalls\":1,\"maxActivityDurationGameMinutes\":1440.0,\"allowedOperations\":[\"invite\",\"wait\"],\"allowedActivities\":[],\"triggers\":[{\"kind\":\"WorldRebuilt\",\"gameTotalMinutes\":360.0},{\"kind\":\"ScheduleChanged\",\"gameTotalMinutes\":390.0},{\"kind\":\"SocialOpportunity\",\"gameTotalMinutes\":735.000001}],\"knownLocationIds\":[],\"hasLocationDetails\":false,\"locationDetails\":{\"locationId\":\"\",\"isReachable\":false},\"previousResultCode\":\"\",\"candidateErrorCode\":\"\",\"social\":{\"resources\":{\"sellerId\":\"npc.fisher_ren\",\"buyerId\":\"npc.cook_sora\",\"itemId\":\"fish.carp\",\"deliveryResultCode\":\"\",\"quantity\":1,\"totalPrice\":25,\"ownedQuantity\":0,\"balance\":50},\"kind\":\"opportunity\",\"planId\":\"sora-ren-fish-supply\",\"partnerId\":\"npc.fisher_ren\",\"placeId\":\"pond-walk\",\"locationId\":\"road.west_lane\",\"meetingId\":\"\",\"startsAtTotalMinutes\":780.0,\"deadlineTotalMinutes\":795.0,\"maxTurns\":4,\"transcript\":[],\"memories\":[]},\"hasSelfAssessment\":true,\"selfAssessment\":{\"role\":\"buyer\",\"reasonCode\":\"\",\"scope\":\"Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked.\",\"canMeetKnownTerms\":true,\"missingCoins\":0,\"missingQuantity\":0},\"hasObservation\":true,\"observation\":{\"schemaVersion\":1,\"observerId\":\"npc.cook_sora\",\"worldRunId\":\"a60433701fec48599f867f9d8b02cf05\",\"spaceId\":\"outdoors\",\"regionId\":\"pond-surroundings\",\"coverageDomain\":\"registered_entities_same_region_within_radius\",\"listenerId\":\"npc.fisher_ren\",\"observedAtGameTotalMinutes\":735.000001,\"x\":3.0,\"y\":0.3499999940395355,\"radius\":6.0,\"hasRegion\":true,\"nearbyComplete\":true,\"nearbyEntityIds\":[\"pond\"],\"facts\":[{\"factId\":\"npc.cook_sora:region\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"region\",\"value\":\"pond-surroundings\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"npc.cook_sora:region_name\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"region_name\",\"value\":\"池塘周边\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"npc.cook_sora:owned_quantity\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"owned_quantity\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.cook_sora\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"npc.cook_sora:balance\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"balance\",\"value\":\"50\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.cook_sora\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":false},{\"factId\":\"plan:sora-ren-fish-supply:terms_quantity\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_quantity\",\"value\":\"1\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:terms_price\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_price\",\"value\":\"25\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:seller\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"seller\",\"value\":\"npc.fisher_ren\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:buyer\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"buyer\",\"value\":\"npc.cook_sora\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:decision_stage\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"decision_stage\",\"value\":\"opportunity\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"meeting_board\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"pond:name\",\"entityId\":\"pond\",\"predicate\":\"name\",\"value\":\"池塘\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"pond:kind\",\"entityId\":\"pond\",\"predicate\":\"kind\",\"value\":\"water\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"pond:interaction\",\"entityId\":\"pond\",\"predicate\":\"interaction\",\"value\":\"fishing\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true},{\"factId\":\"pond:quantity\",\"entityId\":\"pond\",\"predicate\":\"quantity\",\"value\":\"\",\"valueType\":\"unknown\",\"unit\":\"fish.carp\",\"knowledge\":\"unknown\",\"source\":\"semantic_catalog.unmodelled_quantity\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.000001,\"canExpress\":true}]},\"expression\":{\"schemaVersion\":1,\"mode\":\"structured_facts\"}}",
+                    "candidateErrorCode": "",
+                    "decisionOutcomeCode": "meeting.invited",
+                    "rawReplyJson": "{\"schemaVersion\": 4, \"operation\": \"invite\", \"planId\": \"sora-ren-fish-supply\"}",
+                    "speechFrame": {
+                        "speechIntent": "",
+                        "factId": "",
+                        "tone": ""
+                    },
+                    "responseStatusCode": 200,
+                    "rawReplyTruncated": false,
+                    "step": 1,
+                    "elapsedMilliseconds": 694.9194,
+                    "experimentObservation": {
+                        "worldRunId": "",
+                        "meetingPlaceId": "",
+                        "gameTotalMinutes": 0.0,
+                        "self": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "partner": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "meetingBothArrived": false
+                    },
+                    "sentObservation": {
+                        "worldRunId": "",
+                        "meetingPlaceId": "",
+                        "gameTotalMinutes": 0.0,
+                        "self": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "partner": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "meetingBothArrived": false
+                    }
+                },
+                {
+                    "npcId": "npc.fisher_ren",
+                    "decisionId": "100e3e1e-b5f5-4fcc-8f8a-6958ea8350f4",
+                    "phase": "Invitation",
+                    "contextJson": "{\"schemaVersion\":4,\"decisionId\":\"100e3e1eb5f54fcc8f8a6958ea8350f4\",\"npcId\":\"npc.fisher_ren\",\"displayName\":\"Ren\",\"persona\":\"A quiet fisher who notices small changes around the pond.\",\"worldRunId\":\"a60433701fec48599f867f9d8b02cf05\",\"revision\":3,\"gameTotalMinutes\":736.3956392,\"targetLocationId\":\"rest.fisher_ren\",\"activity\":\"resting\",\"step\":1,\"remainingCalls\":1,\"maxActivityDurationGameMinutes\":1440.0,\"allowedOperations\":[\"decline_invite\"],\"allowedActivities\":[],\"triggers\":[{\"kind\":\"MeetingChanged\",\"gameTotalMinutes\":736.3913086}],\"knownLocationIds\":[],\"hasLocationDetails\":false,\"locationDetails\":{\"locationId\":\"\",\"isReachable\":false},\"previousResultCode\":\"\",\"candidateErrorCode\":\"\",\"social\":{\"resources\":{\"sellerId\":\"npc.fisher_ren\",\"buyerId\":\"npc.cook_sora\",\"itemId\":\"fish.carp\",\"deliveryResultCode\":\"\",\"quantity\":1,\"totalPrice\":25,\"ownedQuantity\":0,\"balance\":0},\"kind\":\"invitation\",\"planId\":\"sora-ren-fish-supply\",\"partnerId\":\"npc.cook_sora\",\"placeId\":\"pond-walk\",\"locationId\":\"rest.fisher_ren\",\"meetingId\":\"3021f204016a4d8cb9adbeaa1642c2a1\",\"startsAtTotalMinutes\":780.0,\"deadlineTotalMinutes\":795.0,\"maxTurns\":4,\"transcript\":[],\"memories\":[{\"kind\":\"meeting.invited\",\"partnerId\":\"npc.cook_sora\",\"speakerId\":\"\",\"text\":\"\",\"gameTotalMinutes\":736.3913086}]},\"hasSelfAssessment\":true,\"selfAssessment\":{\"role\":\"seller\",\"reasonCode\":\"inventory.insufficient_quantity\",\"scope\":\"Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked.\",\"canMeetKnownTerms\":false,\"missingCoins\":0,\"missingQuantity\":1},\"hasObservation\":true,\"observation\":{\"schemaVersion\":1,\"observerId\":\"npc.fisher_ren\",\"worldRunId\":\"a60433701fec48599f867f9d8b02cf05\",\"spaceId\":\"outdoors\",\"regionId\":\"pond-surroundings\",\"coverageDomain\":\"registered_entities_same_region_within_radius\",\"listenerId\":\"npc.cook_sora\",\"observedAtGameTotalMinutes\":736.3956392,\"x\":-3.0,\"y\":-2.8043627738952638,\"radius\":6.0,\"hasRegion\":true,\"nearbyComplete\":true,\"nearbyEntityIds\":[\"lamp.player_home\",\"lamp.shop_main_road\",\"pond\"],\"facts\":[{\"factId\":\"npc.fisher_ren:region\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"region\",\"value\":\"pond-surroundings\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:region_name\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"region_name\",\"value\":\"池塘周边\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:owned_quantity\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"owned_quantity\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:balance\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"balance\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":false},{\"factId\":\"plan:sora-ren-fish-supply:terms_quantity\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_quantity\",\"value\":\"1\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:terms_price\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_price\",\"value\":\"25\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:seller\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"seller\",\"value\":\"npc.fisher_ren\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:buyer\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"buyer\",\"value\":\"npc.cook_sora\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:decision_stage\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"decision_stage\",\"value\":\"invitation\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"meeting_board\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"lamp.player_home:name\",\"entityId\":\"lamp.player_home\",\"predicate\":\"name\",\"value\":\"路灯\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"lamp.player_home:kind\",\"entityId\":\"lamp.player_home\",\"predicate\":\"kind\",\"value\":\"decoration\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"lamp.player_home:interaction\",\"entityId\":\"lamp.player_home\",\"predicate\":\"interaction\",\"value\":\"none\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:name\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"name\",\"value\":\"路灯\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:kind\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"kind\",\"value\":\"decoration\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:interaction\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"interaction\",\"value\":\"none\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"pond:name\",\"entityId\":\"pond\",\"predicate\":\"name\",\"value\":\"池塘\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"pond:kind\",\"entityId\":\"pond\",\"predicate\":\"kind\",\"value\":\"water\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"pond:interaction\",\"entityId\":\"pond\",\"predicate\":\"interaction\",\"value\":\"fishing\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"pond:quantity\",\"entityId\":\"pond\",\"predicate\":\"quantity\",\"value\":\"\",\"valueType\":\"unknown\",\"unit\":\"fish.carp\",\"knowledge\":\"unknown\",\"source\":\"semantic_catalog.unmodelled_quantity\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true}]},\"expression\":{\"schemaVersion\":1,\"mode\":\"structured_facts\"}}",
+                    "operation": "decline_invite",
+                    "text": "",
+                    "error": "",
+                    "hostCode": "agent.observation_stale",
+                    "sentContextJson": "{\"schemaVersion\":4,\"decisionId\":\"100e3e1eb5f54fcc8f8a6958ea8350f4\",\"npcId\":\"npc.fisher_ren\",\"displayName\":\"Ren\",\"persona\":\"A quiet fisher who notices small changes around the pond.\",\"worldRunId\":\"a60433701fec48599f867f9d8b02cf05\",\"revision\":3,\"gameTotalMinutes\":736.3956392,\"targetLocationId\":\"rest.fisher_ren\",\"activity\":\"resting\",\"step\":1,\"remainingCalls\":1,\"maxActivityDurationGameMinutes\":1440.0,\"allowedOperations\":[\"decline_invite\"],\"allowedActivities\":[],\"triggers\":[{\"kind\":\"MeetingChanged\",\"gameTotalMinutes\":736.3913086}],\"knownLocationIds\":[],\"hasLocationDetails\":false,\"locationDetails\":{\"locationId\":\"\",\"isReachable\":false},\"previousResultCode\":\"\",\"candidateErrorCode\":\"\",\"social\":{\"resources\":{\"sellerId\":\"npc.fisher_ren\",\"buyerId\":\"npc.cook_sora\",\"itemId\":\"fish.carp\",\"deliveryResultCode\":\"\",\"quantity\":1,\"totalPrice\":25,\"ownedQuantity\":0,\"balance\":0},\"kind\":\"invitation\",\"planId\":\"sora-ren-fish-supply\",\"partnerId\":\"npc.cook_sora\",\"placeId\":\"pond-walk\",\"locationId\":\"rest.fisher_ren\",\"meetingId\":\"3021f204016a4d8cb9adbeaa1642c2a1\",\"startsAtTotalMinutes\":780.0,\"deadlineTotalMinutes\":795.0,\"maxTurns\":4,\"transcript\":[],\"memories\":[{\"kind\":\"meeting.invited\",\"partnerId\":\"npc.cook_sora\",\"speakerId\":\"\",\"text\":\"\",\"gameTotalMinutes\":736.3913086}]},\"hasSelfAssessment\":true,\"selfAssessment\":{\"role\":\"seller\",\"reasonCode\":\"inventory.insufficient_quantity\",\"scope\":\"Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked.\",\"canMeetKnownTerms\":false,\"missingCoins\":0,\"missingQuantity\":1},\"hasObservation\":true,\"observation\":{\"schemaVersion\":1,\"observerId\":\"npc.fisher_ren\",\"worldRunId\":\"a60433701fec48599f867f9d8b02cf05\",\"spaceId\":\"outdoors\",\"regionId\":\"pond-surroundings\",\"coverageDomain\":\"registered_entities_same_region_within_radius\",\"listenerId\":\"npc.cook_sora\",\"observedAtGameTotalMinutes\":736.3956392,\"x\":-3.0,\"y\":-2.8043627738952638,\"radius\":6.0,\"hasRegion\":true,\"nearbyComplete\":true,\"nearbyEntityIds\":[\"lamp.player_home\",\"lamp.shop_main_road\",\"pond\"],\"facts\":[{\"factId\":\"npc.fisher_ren:region\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"region\",\"value\":\"pond-surroundings\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:region_name\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"region_name\",\"value\":\"池塘周边\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:owned_quantity\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"owned_quantity\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:balance\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"balance\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":false},{\"factId\":\"plan:sora-ren-fish-supply:terms_quantity\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_quantity\",\"value\":\"1\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:terms_price\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_price\",\"value\":\"25\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:seller\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"seller\",\"value\":\"npc.fisher_ren\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:buyer\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"buyer\",\"value\":\"npc.cook_sora\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:decision_stage\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"decision_stage\",\"value\":\"invitation\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"meeting_board\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"lamp.player_home:name\",\"entityId\":\"lamp.player_home\",\"predicate\":\"name\",\"value\":\"路灯\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"lamp.player_home:kind\",\"entityId\":\"lamp.player_home\",\"predicate\":\"kind\",\"value\":\"decoration\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"lamp.player_home:interaction\",\"entityId\":\"lamp.player_home\",\"predicate\":\"interaction\",\"value\":\"none\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:name\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"name\",\"value\":\"路灯\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:kind\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"kind\",\"value\":\"decoration\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:interaction\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"interaction\",\"value\":\"none\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"pond:name\",\"entityId\":\"pond\",\"predicate\":\"name\",\"value\":\"池塘\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"pond:kind\",\"entityId\":\"pond\",\"predicate\":\"kind\",\"value\":\"water\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"pond:interaction\",\"entityId\":\"pond\",\"predicate\":\"interaction\",\"value\":\"fishing\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true},{\"factId\":\"pond:quantity\",\"entityId\":\"pond\",\"predicate\":\"quantity\",\"value\":\"\",\"valueType\":\"unknown\",\"unit\":\"fish.carp\",\"knowledge\":\"unknown\",\"source\":\"semantic_catalog.unmodelled_quantity\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":736.3956392,\"canExpress\":true}]},\"expression\":{\"schemaVersion\":1,\"mode\":\"structured_facts\"}}",
+                    "candidateErrorCode": "",
+                    "decisionOutcomeCode": "agent.observation_stale",
+                    "rawReplyJson": "{\"schemaVersion\": 4, \"operation\": \"decline_invite\", \"meetingId\": \"3021f204016a4d8cb9adbeaa1642c2a1\"}",
+                    "speechFrame": {
+                        "speechIntent": "",
+                        "factId": "",
+                        "tone": ""
+                    },
+                    "responseStatusCode": 200,
+                    "rawReplyTruncated": false,
+                    "step": 1,
+                    "elapsedMilliseconds": 865.5959,
+                    "experimentObservation": {
+                        "worldRunId": "",
+                        "meetingPlaceId": "",
+                        "gameTotalMinutes": 0.0,
+                        "self": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "partner": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "meetingBothArrived": false
+                    },
+                    "sentObservation": {
+                        "worldRunId": "",
+                        "meetingPlaceId": "",
+                        "gameTotalMinutes": 0.0,
+                        "self": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "partner": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "meetingBothArrived": false
+                    }
+                }
+            ],
+            "hostViolations": []
+        },
+        {
+            "scenario": "seller_empty",
+            "startedAtUtc": "2026-09-14T07:25:47.7741161Z",
+            "worldRunId": "cee8d7f0-52fe-4bba-a658-20bdc821addc",
+            "behavior": "no_expected_resolution",
+            "arm": "F",
+            "speechMode": "free_text",
+            "stopReason": "meeting_expired",
+            "repetition": 1,
+            "ordinal": 4,
+            "renMemories": 2,
+            "soraMemories": 2,
+            "worldSeed": 12345,
+            "schedulerCalls": 2,
+            "initialized": true,
+            "recovered": true,
+            "deliveryObserved": false,
+            "activelyEnded": false,
+            "deadlineReleased": true,
+            "terminalActivitiesReleased": true,
+            "renMemoryRecords": [
+                {
+                    "meetingId": "ec762570-333a-4be6-8b5a-cfeb9650895f",
+                    "kind": "meeting.invited",
+                    "partnerId": "npc.cook_sora",
+                    "speakerId": "",
+                    "text": "",
+                    "totalMinutes": 737.3080428000001
+                },
+                {
+                    "meetingId": "ec762570-333a-4be6-8b5a-cfeb9650895f",
+                    "kind": "meeting.expired",
+                    "partnerId": "npc.cook_sora",
+                    "speakerId": "",
+                    "text": "",
+                    "totalMinutes": 795.0003002000001
+                }
+            ],
+            "soraMemoryRecords": [
+                {
+                    "meetingId": "ec762570-333a-4be6-8b5a-cfeb9650895f",
+                    "kind": "meeting.invited",
+                    "partnerId": "npc.fisher_ren",
+                    "speakerId": "",
+                    "text": "",
+                    "totalMinutes": 737.3080428000001
+                },
+                {
+                    "meetingId": "ec762570-333a-4be6-8b5a-cfeb9650895f",
+                    "kind": "meeting.expired",
+                    "partnerId": "npc.fisher_ren",
+                    "speakerId": "",
+                    "text": "",
+                    "totalMinutes": 795.0003002000001
+                }
+            ],
+            "initialAssets": [
+                {
+                    "id": "character.player",
+                    "coins": 300,
+                    "items": []
+                },
+                {
+                    "id": "npc.cook_sora",
+                    "coins": 50,
+                    "items": [
+                        "ingredient.salt:1"
+                    ]
+                },
+                {
+                    "id": "npc.farmer_eli",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "npc.fisher_ren",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "npc.shopkeeper_mina",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "shop.town.general",
+                    "coins": 10000,
+                    "items": [
+                        "feed.chicken:9",
+                        "ingredient.flour:6",
+                        "seed.carrot:4",
+                        "seed.tomato:3"
+                    ]
+                }
+            ],
+            "finalAssets": [
+                {
+                    "id": "character.player",
+                    "coins": 300,
+                    "items": []
+                },
+                {
+                    "id": "npc.cook_sora",
+                    "coins": 50,
+                    "items": [
+                        "ingredient.salt:1"
+                    ]
+                },
+                {
+                    "id": "npc.farmer_eli",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "npc.fisher_ren",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "npc.shopkeeper_mina",
+                    "coins": 0,
+                    "items": []
+                },
+                {
+                    "id": "shop.town.general",
+                    "coins": 10000,
+                    "items": [
+                        "feed.chicken:9",
+                        "ingredient.flour:6",
+                        "seed.carrot:4",
+                        "seed.tomato:3"
+                    ]
+                }
+            ],
+            "initial": {
+                "elapsedSeconds": 0.0,
+                "gameTotalMinutes": 735.0,
+                "state": "None",
+                "receipt": "",
+                "meetingId": "",
+                "renRoute": "Travelling",
+                "soraRoute": "Arrived",
+                "renTarget": "rest.fisher_ren",
+                "soraTarget": "work.cook_sora",
+                "visibleText": "",
+                "renFish": 0,
+                "soraFish": 0,
+                "renCoins": 0,
+                "soraCoins": 50,
+                "renPosition": {
+                    "x": -4.199999809265137,
+                    "y": -3.0
+                },
+                "soraPosition": {
+                    "x": 3.0,
+                    "y": 0.3499999940395355
+                },
+                "transcript": []
+            },
+            "terminal": {
+                "elapsedSeconds": 30.00272120000001,
+                "gameTotalMinutes": 795.0003002000001,
+                "state": "Expired",
+                "receipt": "",
+                "meetingId": "ec762570-333a-4be6-8b5a-cfeb9650895f",
+                "renRoute": "Travelling",
+                "soraRoute": "Arrived",
+                "renTarget": "work.fisher_ren.afternoon",
+                "soraTarget": "rest.cook_sora",
+                "visibleText": "",
+                "renFish": 0,
+                "soraFish": 0,
+                "renCoins": 0,
+                "soraCoins": 50,
+                "renPosition": {
+                    "x": -3.0,
+                    "y": -1.3996998071670533
+                },
+                "soraPosition": {
+                    "x": 3.0,
+                    "y": 5.5
+                },
+                "transcript": []
+            },
+            "recovery": {
+                "elapsedSeconds": 30.009526000000009,
+                "gameTotalMinutes": 1000.0,
+                "state": "Expired",
+                "receipt": "",
+                "meetingId": "ec762570-333a-4be6-8b5a-cfeb9650895f",
+                "renRoute": "Arrived",
+                "soraRoute": "Arrived",
+                "renTarget": "work.fisher_ren.afternoon",
+                "soraTarget": "work.cook_sora",
+                "visibleText": "",
+                "renFish": 0,
+                "soraFish": 0,
+                "renCoins": 0,
+                "soraCoins": 50,
+                "renPosition": {
+                    "x": 2.9000000953674318,
+                    "y": -2.0
+                },
+                "soraPosition": {
+                    "x": 3.0,
+                    "y": 0.3499999940395355
+                },
+                "transcript": []
+            },
+            "observations": [
+                {
+                    "elapsedSeconds": 4.0000000467443899e-7,
+                    "gameTotalMinutes": 735.0000008,
+                    "state": "None",
+                    "receipt": "",
+                    "meetingId": "",
+                    "renRoute": "Travelling",
+                    "soraRoute": "Arrived",
+                    "renTarget": "rest.fisher_ren",
+                    "soraTarget": "work.cook_sora",
+                    "visibleText": "",
+                    "renFish": 0,
+                    "soraFish": 0,
+                    "renCoins": 0,
+                    "soraCoins": 50,
+                    "renPosition": {
+                        "x": -4.19999885559082,
+                        "y": -3.0
+                    },
+                    "soraPosition": {
+                        "x": 3.0,
+                        "y": 0.3499999940395355
+                    },
+                    "transcript": []
+                },
+                {
+                    "elapsedSeconds": 1.1540214000000049,
+                    "gameTotalMinutes": 737.3080428000001,
+                    "state": "Invited",
+                    "receipt": "",
+                    "meetingId": "ec762570-333a-4be6-8b5a-cfeb9650895f",
+                    "renRoute": "Travelling",
+                    "soraRoute": "Arrived",
+                    "renTarget": "rest.fisher_ren",
+                    "soraTarget": "work.cook_sora",
+                    "visibleText": "",
+                    "renFish": 0,
+                    "soraFish": 0,
+                    "renCoins": 0,
+                    "soraCoins": 50,
+                    "renPosition": {
+                        "x": -3.0,
+                        "y": -1.8919600248336793
+                    },
+                    "soraPosition": {
+                        "x": 3.0,
+                        "y": 0.3499999940395355
+                    },
+                    "transcript": []
+                },
+                {
+                    "elapsedSeconds": 30.000150100000029,
+                    "gameTotalMinutes": 795.0003002000001,
+                    "state": "Expired",
+                    "receipt": "",
+                    "meetingId": "ec762570-333a-4be6-8b5a-cfeb9650895f",
+                    "renRoute": "Travelling",
+                    "soraRoute": "Arrived",
+                    "renTarget": "work.fisher_ren.afternoon",
+                    "soraTarget": "rest.cook_sora",
+                    "visibleText": "",
+                    "renFish": 0,
+                    "soraFish": 0,
+                    "renCoins": 0,
+                    "soraCoins": 50,
+                    "renPosition": {
+                        "x": -3.0,
+                        "y": -1.3996998071670533
+                    },
+                    "soraPosition": {
+                        "x": 3.0,
+                        "y": 5.5
+                    },
+                    "transcript": []
+                }
+            ],
+            "calls": [
+                {
+                    "npcId": "npc.cook_sora",
+                    "decisionId": "1cd0fab3-7144-41e7-a5d8-10b8c7a96a49",
+                    "phase": "Opportunity",
+                    "contextJson": "{\"schemaVersion\":4,\"decisionId\":\"1cd0fab3714441e7a5d810b8c7a96a49\",\"npcId\":\"npc.cook_sora\",\"displayName\":\"Sora\",\"persona\":\"An energetic cook who enjoys combining local ingredients.\",\"worldRunId\":\"cee8d7f052fe4bbaa65820bdc821addc\",\"revision\":3,\"gameTotalMinutes\":735.0000008,\"targetLocationId\":\"work.cook_sora\",\"activity\":\"working\",\"step\":1,\"remainingCalls\":1,\"maxActivityDurationGameMinutes\":1440.0,\"allowedOperations\":[\"invite\",\"wait\"],\"allowedActivities\":[],\"triggers\":[{\"kind\":\"WorldRebuilt\",\"gameTotalMinutes\":360.0},{\"kind\":\"ScheduleChanged\",\"gameTotalMinutes\":390.0},{\"kind\":\"SocialOpportunity\",\"gameTotalMinutes\":735.0000008}],\"knownLocationIds\":[],\"hasLocationDetails\":false,\"locationDetails\":{\"locationId\":\"\",\"isReachable\":false},\"previousResultCode\":\"\",\"candidateErrorCode\":\"\",\"social\":{\"resources\":{\"sellerId\":\"npc.fisher_ren\",\"buyerId\":\"npc.cook_sora\",\"itemId\":\"fish.carp\",\"deliveryResultCode\":\"\",\"quantity\":1,\"totalPrice\":25,\"ownedQuantity\":0,\"balance\":50},\"kind\":\"opportunity\",\"planId\":\"sora-ren-fish-supply\",\"partnerId\":\"npc.fisher_ren\",\"placeId\":\"pond-walk\",\"locationId\":\"road.west_lane\",\"meetingId\":\"\",\"startsAtTotalMinutes\":780.0,\"deadlineTotalMinutes\":795.0,\"maxTurns\":4,\"transcript\":[],\"memories\":[]},\"hasSelfAssessment\":true,\"selfAssessment\":{\"role\":\"buyer\",\"reasonCode\":\"\",\"scope\":\"Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked.\",\"canMeetKnownTerms\":true,\"missingCoins\":0,\"missingQuantity\":0},\"hasObservation\":true,\"observation\":{\"schemaVersion\":1,\"observerId\":\"npc.cook_sora\",\"worldRunId\":\"cee8d7f052fe4bbaa65820bdc821addc\",\"spaceId\":\"outdoors\",\"regionId\":\"pond-surroundings\",\"coverageDomain\":\"registered_entities_same_region_within_radius\",\"listenerId\":\"npc.fisher_ren\",\"observedAtGameTotalMinutes\":735.0000008,\"x\":3.0,\"y\":0.3499999940395355,\"radius\":6.0,\"hasRegion\":true,\"nearbyComplete\":true,\"nearbyEntityIds\":[\"pond\"],\"facts\":[{\"factId\":\"npc.cook_sora:region\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"region\",\"value\":\"pond-surroundings\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"npc.cook_sora:region_name\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"region_name\",\"value\":\"池塘周边\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"npc.cook_sora:owned_quantity\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"owned_quantity\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.cook_sora\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"npc.cook_sora:balance\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"balance\",\"value\":\"50\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.cook_sora\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":false},{\"factId\":\"plan:sora-ren-fish-supply:terms_quantity\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_quantity\",\"value\":\"1\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:terms_price\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_price\",\"value\":\"25\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:seller\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"seller\",\"value\":\"npc.fisher_ren\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:buyer\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"buyer\",\"value\":\"npc.cook_sora\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:decision_stage\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"decision_stage\",\"value\":\"opportunity\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"meeting_board\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"pond:name\",\"entityId\":\"pond\",\"predicate\":\"name\",\"value\":\"池塘\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"pond:kind\",\"entityId\":\"pond\",\"predicate\":\"kind\",\"value\":\"water\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"pond:interaction\",\"entityId\":\"pond\",\"predicate\":\"interaction\",\"value\":\"fishing\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"pond:quantity\",\"entityId\":\"pond\",\"predicate\":\"quantity\",\"value\":\"\",\"valueType\":\"unknown\",\"unit\":\"fish.carp\",\"knowledge\":\"unknown\",\"source\":\"semantic_catalog.unmodelled_quantity\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true}]},\"expression\":{\"schemaVersion\":1,\"mode\":\"free_text\"}}",
+                    "operation": "invite",
+                    "text": "",
+                    "error": "",
+                    "hostCode": "meeting.invited",
+                    "sentContextJson": "{\"schemaVersion\":4,\"decisionId\":\"1cd0fab3714441e7a5d810b8c7a96a49\",\"npcId\":\"npc.cook_sora\",\"displayName\":\"Sora\",\"persona\":\"An energetic cook who enjoys combining local ingredients.\",\"worldRunId\":\"cee8d7f052fe4bbaa65820bdc821addc\",\"revision\":3,\"gameTotalMinutes\":735.0000008,\"targetLocationId\":\"work.cook_sora\",\"activity\":\"working\",\"step\":1,\"remainingCalls\":1,\"maxActivityDurationGameMinutes\":1440.0,\"allowedOperations\":[\"invite\",\"wait\"],\"allowedActivities\":[],\"triggers\":[{\"kind\":\"WorldRebuilt\",\"gameTotalMinutes\":360.0},{\"kind\":\"ScheduleChanged\",\"gameTotalMinutes\":390.0},{\"kind\":\"SocialOpportunity\",\"gameTotalMinutes\":735.0000008}],\"knownLocationIds\":[],\"hasLocationDetails\":false,\"locationDetails\":{\"locationId\":\"\",\"isReachable\":false},\"previousResultCode\":\"\",\"candidateErrorCode\":\"\",\"social\":{\"resources\":{\"sellerId\":\"npc.fisher_ren\",\"buyerId\":\"npc.cook_sora\",\"itemId\":\"fish.carp\",\"deliveryResultCode\":\"\",\"quantity\":1,\"totalPrice\":25,\"ownedQuantity\":0,\"balance\":50},\"kind\":\"opportunity\",\"planId\":\"sora-ren-fish-supply\",\"partnerId\":\"npc.fisher_ren\",\"placeId\":\"pond-walk\",\"locationId\":\"road.west_lane\",\"meetingId\":\"\",\"startsAtTotalMinutes\":780.0,\"deadlineTotalMinutes\":795.0,\"maxTurns\":4,\"transcript\":[],\"memories\":[]},\"hasSelfAssessment\":true,\"selfAssessment\":{\"role\":\"buyer\",\"reasonCode\":\"\",\"scope\":\"Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked.\",\"canMeetKnownTerms\":true,\"missingCoins\":0,\"missingQuantity\":0},\"hasObservation\":true,\"observation\":{\"schemaVersion\":1,\"observerId\":\"npc.cook_sora\",\"worldRunId\":\"cee8d7f052fe4bbaa65820bdc821addc\",\"spaceId\":\"outdoors\",\"regionId\":\"pond-surroundings\",\"coverageDomain\":\"registered_entities_same_region_within_radius\",\"listenerId\":\"npc.fisher_ren\",\"observedAtGameTotalMinutes\":735.0000008,\"x\":3.0,\"y\":0.3499999940395355,\"radius\":6.0,\"hasRegion\":true,\"nearbyComplete\":true,\"nearbyEntityIds\":[\"pond\"],\"facts\":[{\"factId\":\"npc.cook_sora:region\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"region\",\"value\":\"pond-surroundings\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"npc.cook_sora:region_name\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"region_name\",\"value\":\"池塘周边\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"npc.cook_sora:owned_quantity\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"owned_quantity\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.cook_sora\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"npc.cook_sora:balance\",\"entityId\":\"npc.cook_sora\",\"predicate\":\"balance\",\"value\":\"50\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.cook_sora\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":false},{\"factId\":\"plan:sora-ren-fish-supply:terms_quantity\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_quantity\",\"value\":\"1\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:terms_price\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_price\",\"value\":\"25\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:seller\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"seller\",\"value\":\"npc.fisher_ren\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:buyer\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"buyer\",\"value\":\"npc.cook_sora\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:decision_stage\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"decision_stage\",\"value\":\"opportunity\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"meeting_board\",\"observerId\":\"npc.cook_sora\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"pond:name\",\"entityId\":\"pond\",\"predicate\":\"name\",\"value\":\"池塘\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"pond:kind\",\"entityId\":\"pond\",\"predicate\":\"kind\",\"value\":\"water\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"pond:interaction\",\"entityId\":\"pond\",\"predicate\":\"interaction\",\"value\":\"fishing\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true},{\"factId\":\"pond:quantity\",\"entityId\":\"pond\",\"predicate\":\"quantity\",\"value\":\"\",\"valueType\":\"unknown\",\"unit\":\"fish.carp\",\"knowledge\":\"unknown\",\"source\":\"semantic_catalog.unmodelled_quantity\",\"observerId\":\"npc.cook_sora\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":735.0000008,\"canExpress\":true}]},\"expression\":{\"schemaVersion\":1,\"mode\":\"free_text\"}}",
+                    "candidateErrorCode": "",
+                    "decisionOutcomeCode": "meeting.invited",
+                    "rawReplyJson": "{\"schemaVersion\": 4, \"operation\": \"invite\", \"planId\": \"sora-ren-fish-supply\"}",
+                    "speechFrame": {
+                        "speechIntent": "",
+                        "factId": "",
+                        "tone": ""
+                    },
+                    "responseStatusCode": 200,
+                    "rawReplyTruncated": false,
+                    "step": 1,
+                    "elapsedMilliseconds": 1152.777,
+                    "experimentObservation": {
+                        "worldRunId": "",
+                        "meetingPlaceId": "",
+                        "gameTotalMinutes": 0.0,
+                        "self": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "partner": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "meetingBothArrived": false
+                    },
+                    "sentObservation": {
+                        "worldRunId": "",
+                        "meetingPlaceId": "",
+                        "gameTotalMinutes": 0.0,
+                        "self": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "partner": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "meetingBothArrived": false
+                    }
+                },
+                {
+                    "npcId": "npc.fisher_ren",
+                    "decisionId": "34f6da3e-4f0e-4db4-992e-67efa04b8e3f",
+                    "phase": "Invitation",
+                    "contextJson": "{\"schemaVersion\":4,\"decisionId\":\"34f6da3e4f0e4db4992e67efa04b8e3f\",\"npcId\":\"npc.fisher_ren\",\"displayName\":\"Ren\",\"persona\":\"A quiet fisher who notices small changes around the pond.\",\"worldRunId\":\"cee8d7f052fe4bbaa65820bdc821addc\",\"revision\":3,\"gameTotalMinutes\":737.3166527999999,\"targetLocationId\":\"rest.fisher_ren\",\"activity\":\"resting\",\"step\":1,\"remainingCalls\":1,\"maxActivityDurationGameMinutes\":1440.0,\"allowedOperations\":[\"decline_invite\"],\"allowedActivities\":[],\"triggers\":[{\"kind\":\"MeetingChanged\",\"gameTotalMinutes\":737.3080428000001}],\"knownLocationIds\":[],\"hasLocationDetails\":false,\"locationDetails\":{\"locationId\":\"\",\"isReachable\":false},\"previousResultCode\":\"\",\"candidateErrorCode\":\"\",\"social\":{\"resources\":{\"sellerId\":\"npc.fisher_ren\",\"buyerId\":\"npc.cook_sora\",\"itemId\":\"fish.carp\",\"deliveryResultCode\":\"\",\"quantity\":1,\"totalPrice\":25,\"ownedQuantity\":0,\"balance\":0},\"kind\":\"invitation\",\"planId\":\"sora-ren-fish-supply\",\"partnerId\":\"npc.cook_sora\",\"placeId\":\"pond-walk\",\"locationId\":\"rest.fisher_ren\",\"meetingId\":\"ec762570333a4be68b5acfeb9650895f\",\"startsAtTotalMinutes\":780.0,\"deadlineTotalMinutes\":795.0,\"maxTurns\":4,\"transcript\":[],\"memories\":[{\"kind\":\"meeting.invited\",\"partnerId\":\"npc.cook_sora\",\"speakerId\":\"\",\"text\":\"\",\"gameTotalMinutes\":737.3080428000001}]},\"hasSelfAssessment\":true,\"selfAssessment\":{\"role\":\"seller\",\"reasonCode\":\"inventory.insufficient_quantity\",\"scope\":\"Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked.\",\"canMeetKnownTerms\":false,\"missingCoins\":0,\"missingQuantity\":1},\"hasObservation\":true,\"observation\":{\"schemaVersion\":1,\"observerId\":\"npc.fisher_ren\",\"worldRunId\":\"cee8d7f052fe4bbaa65820bdc821addc\",\"spaceId\":\"outdoors\",\"regionId\":\"pond-surroundings\",\"coverageDomain\":\"registered_entities_same_region_within_radius\",\"listenerId\":\"npc.cook_sora\",\"observedAtGameTotalMinutes\":737.3166527999999,\"x\":-3.0,\"y\":-1.8833500146865845,\"radius\":6.0,\"hasRegion\":true,\"nearbyComplete\":true,\"nearbyEntityIds\":[\"lamp.player_home\",\"lamp.shop_main_road\",\"pond\"],\"facts\":[{\"factId\":\"npc.fisher_ren:region\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"region\",\"value\":\"pond-surroundings\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:region_name\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"region_name\",\"value\":\"池塘周边\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:owned_quantity\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"owned_quantity\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:balance\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"balance\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":false},{\"factId\":\"plan:sora-ren-fish-supply:terms_quantity\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_quantity\",\"value\":\"1\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:terms_price\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_price\",\"value\":\"25\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:seller\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"seller\",\"value\":\"npc.fisher_ren\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:buyer\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"buyer\",\"value\":\"npc.cook_sora\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:decision_stage\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"decision_stage\",\"value\":\"invitation\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"meeting_board\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"lamp.player_home:name\",\"entityId\":\"lamp.player_home\",\"predicate\":\"name\",\"value\":\"路灯\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"lamp.player_home:kind\",\"entityId\":\"lamp.player_home\",\"predicate\":\"kind\",\"value\":\"decoration\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"lamp.player_home:interaction\",\"entityId\":\"lamp.player_home\",\"predicate\":\"interaction\",\"value\":\"none\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:name\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"name\",\"value\":\"路灯\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:kind\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"kind\",\"value\":\"decoration\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:interaction\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"interaction\",\"value\":\"none\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"pond:name\",\"entityId\":\"pond\",\"predicate\":\"name\",\"value\":\"池塘\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"pond:kind\",\"entityId\":\"pond\",\"predicate\":\"kind\",\"value\":\"water\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"pond:interaction\",\"entityId\":\"pond\",\"predicate\":\"interaction\",\"value\":\"fishing\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"pond:quantity\",\"entityId\":\"pond\",\"predicate\":\"quantity\",\"value\":\"\",\"valueType\":\"unknown\",\"unit\":\"fish.carp\",\"knowledge\":\"unknown\",\"source\":\"semantic_catalog.unmodelled_quantity\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true}]},\"expression\":{\"schemaVersion\":1,\"mode\":\"free_text\"}}",
+                    "operation": "decline_invite",
+                    "text": "",
+                    "error": "",
+                    "hostCode": "agent.observation_stale",
+                    "sentContextJson": "{\"schemaVersion\":4,\"decisionId\":\"34f6da3e4f0e4db4992e67efa04b8e3f\",\"npcId\":\"npc.fisher_ren\",\"displayName\":\"Ren\",\"persona\":\"A quiet fisher who notices small changes around the pond.\",\"worldRunId\":\"cee8d7f052fe4bbaa65820bdc821addc\",\"revision\":3,\"gameTotalMinutes\":737.3166527999999,\"targetLocationId\":\"rest.fisher_ren\",\"activity\":\"resting\",\"step\":1,\"remainingCalls\":1,\"maxActivityDurationGameMinutes\":1440.0,\"allowedOperations\":[\"decline_invite\"],\"allowedActivities\":[],\"triggers\":[{\"kind\":\"MeetingChanged\",\"gameTotalMinutes\":737.3080428000001}],\"knownLocationIds\":[],\"hasLocationDetails\":false,\"locationDetails\":{\"locationId\":\"\",\"isReachable\":false},\"previousResultCode\":\"\",\"candidateErrorCode\":\"\",\"social\":{\"resources\":{\"sellerId\":\"npc.fisher_ren\",\"buyerId\":\"npc.cook_sora\",\"itemId\":\"fish.carp\",\"deliveryResultCode\":\"\",\"quantity\":1,\"totalPrice\":25,\"ownedQuantity\":0,\"balance\":0},\"kind\":\"invitation\",\"planId\":\"sora-ren-fish-supply\",\"partnerId\":\"npc.cook_sora\",\"placeId\":\"pond-walk\",\"locationId\":\"rest.fisher_ren\",\"meetingId\":\"ec762570333a4be68b5acfeb9650895f\",\"startsAtTotalMinutes\":780.0,\"deadlineTotalMinutes\":795.0,\"maxTurns\":4,\"transcript\":[],\"memories\":[{\"kind\":\"meeting.invited\",\"partnerId\":\"npc.cook_sora\",\"speakerId\":\"\",\"text\":\"\",\"gameTotalMinutes\":737.3080428000001}]},\"hasSelfAssessment\":true,\"selfAssessment\":{\"role\":\"seller\",\"reasonCode\":\"inventory.insufficient_quantity\",\"scope\":\"Own payment or stock only; partner conditions, capacity and receipt overflow remain unchecked.\",\"canMeetKnownTerms\":false,\"missingCoins\":0,\"missingQuantity\":1},\"hasObservation\":true,\"observation\":{\"schemaVersion\":1,\"observerId\":\"npc.fisher_ren\",\"worldRunId\":\"cee8d7f052fe4bbaa65820bdc821addc\",\"spaceId\":\"outdoors\",\"regionId\":\"pond-surroundings\",\"coverageDomain\":\"registered_entities_same_region_within_radius\",\"listenerId\":\"npc.cook_sora\",\"observedAtGameTotalMinutes\":737.3166527999999,\"x\":-3.0,\"y\":-1.8833500146865845,\"radius\":6.0,\"hasRegion\":true,\"nearbyComplete\":true,\"nearbyEntityIds\":[\"lamp.player_home\",\"lamp.shop_main_road\",\"pond\"],\"facts\":[{\"factId\":\"npc.fisher_ren:region\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"region\",\"value\":\"pond-surroundings\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:region_name\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"region_name\",\"value\":\"池塘周边\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"body_region\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_body_position\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:owned_quantity\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"owned_quantity\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"npc.fisher_ren:balance\",\"entityId\":\"npc.fisher_ren\",\"predicate\":\"balance\",\"value\":\"0\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"observed\",\"source\":\"character_resources\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"own_current_assets\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":false},{\"factId\":\"plan:sora-ren-fish-supply:terms_quantity\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_quantity\",\"value\":\"1\",\"valueType\":\"number\",\"unit\":\"fish.carp\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:terms_price\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"terms_price\",\"value\":\"25\",\"valueType\":\"number\",\"unit\":\"coins\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:seller\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"seller\",\"value\":\"npc.fisher_ren\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:buyer\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"buyer\",\"value\":\"npc.cook_sora\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"meeting_terms\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"plan:sora-ren-fish-supply:decision_stage\",\"entityId\":\"plan:sora-ren-fish-supply\",\"predicate\":\"decision_stage\",\"value\":\"invitation\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"meeting_board\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"participants\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"lamp.player_home:name\",\"entityId\":\"lamp.player_home\",\"predicate\":\"name\",\"value\":\"路灯\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"lamp.player_home:kind\",\"entityId\":\"lamp.player_home\",\"predicate\":\"kind\",\"value\":\"decoration\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"lamp.player_home:interaction\",\"entityId\":\"lamp.player_home\",\"predicate\":\"interaction\",\"value\":\"none\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:name\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"name\",\"value\":\"路灯\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:kind\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"kind\",\"value\":\"decoration\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"lamp.shop_main_road:interaction\",\"entityId\":\"lamp.shop_main_road\",\"predicate\":\"interaction\",\"value\":\"none\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"pond:name\",\"entityId\":\"pond\",\"predicate\":\"name\",\"value\":\"池塘\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"observed\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"pond:kind\",\"entityId\":\"pond\",\"predicate\":\"kind\",\"value\":\"water\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"pond:interaction\",\"entityId\":\"pond\",\"predicate\":\"interaction\",\"value\":\"fishing\",\"valueType\":\"text\",\"unit\":\"\",\"knowledge\":\"authored\",\"source\":\"semantic_catalog\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true},{\"factId\":\"pond:quantity\",\"entityId\":\"pond\",\"predicate\":\"quantity\",\"value\":\"\",\"valueType\":\"unknown\",\"unit\":\"fish.carp\",\"knowledge\":\"unknown\",\"source\":\"semantic_catalog.unmodelled_quantity\",\"observerId\":\"npc.fisher_ren\",\"scope\":\"sampled_local_entity\",\"speakerId\":\"\",\"observedAtGameTotalMinutes\":737.3166527999999,\"canExpress\":true}]},\"expression\":{\"schemaVersion\":1,\"mode\":\"free_text\"}}",
+                    "candidateErrorCode": "",
+                    "decisionOutcomeCode": "agent.observation_stale",
+                    "rawReplyJson": "{\"schemaVersion\": 4, \"operation\": \"decline_invite\", \"meetingId\": \"ec762570333a4be68b5acfeb9650895f\"}",
+                    "speechFrame": {
+                        "speechIntent": "",
+                        "factId": "",
+                        "tone": ""
+                    },
+                    "responseStatusCode": 200,
+                    "rawReplyTruncated": false,
+                    "step": 1,
+                    "elapsedMilliseconds": 1319.4138,
+                    "experimentObservation": {
+                        "worldRunId": "",
+                        "meetingPlaceId": "",
+                        "gameTotalMinutes": 0.0,
+                        "self": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "partner": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "meetingBothArrived": false
+                    },
+                    "sentObservation": {
+                        "worldRunId": "",
+                        "meetingPlaceId": "",
+                        "gameTotalMinutes": 0.0,
+                        "self": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "partner": {
+                            "npcId": "",
+                            "routeStatus": "",
+                            "targetLocationId": "",
+                            "position": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        "meetingBothArrived": false
+                    }
+                }
+            ],
+            "hostViolations": []
+        }
+    ]
+}

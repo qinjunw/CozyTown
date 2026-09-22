@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 07:52:13Z" end-time="2026-09-19 07:52:13Z" duration="0.0975165">
+  <test-suite type="TestSuite" id="1000" name="KaiisaTown" fullname="KaiisaTown" runstate="Runnable" testcasecount="877" result="Passed" start-time="2026-09-19 07:52:13Z" end-time="2026-09-19 07:52:13Z" duration="0.097517" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2096" name="CozyTown.Tests.UnityEditMode.dll" fullname="[isolated-project]/Library/ScriptAssemblies/CozyTown.Tests.UnityEditMode.dll" runstate="Runnable" testcasecount="239" result="Passed" start-time="2026-09-19 07:52:13Z" end-time="2026-09-19 07:52:13Z" duration="0.078003" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="58804" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2097" name="CozyTown" fullname="CozyTown" runstate="Runnable" testcasecount="239" result="Passed" start-time="2026-09-19 07:52:13Z" end-time="2026-09-19 07:52:13Z" duration="0.074130" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2098" name="Tests" fullname="CozyTown.Tests" runstate="Runnable" testcasecount="239" result="Passed" start-time="2026-09-19 07:52:13Z" end-time="2026-09-19 07:52:13Z" duration="0.070853" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="2099" name="UnityEditMode" fullname="CozyTown.Tests.UnityEditMode" runstate="Runnable" testcasecount="239" result="Passed" start-time="2026-09-19 07:52:13Z" end-time="2026-09-19 07:52:13Z" duration="0.066223" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1922" name="ProxyNpcDecisionJsonCodecTests" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" testcasecount="64" result="Passed" start-time="2026-09-19 07:52:13Z" end-time="2026-09-19 07:52:13Z" duration="0.060931" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1999" name="WireRequest_IncludesBoundIdentityAndLimitsWithoutOtherResidentsPrivateContext" fullname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests.WireRequest_IncludesBoundIdentityAndLimitsWithoutOtherResidentsPrivateContext" methodname="WireRequest_IncludesBoundIdentityAndLimitsWithoutOtherResidentsPrivateContext" classname="CozyTown.Tests.UnityEditMode.ProxyNpcDecisionJsonCodecTests" runstate="Runnable" seed="1328248489" result="Passed" start-time="2026-09-19 07:52:13Z" end-time="2026-09-19 07:52:13Z" duration="0.040942" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: [user-home]/AppData/LocalLow/Kaiisa/KaiisaTown\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

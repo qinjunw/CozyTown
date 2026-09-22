@@ -89,6 +89,7 @@ namespace CozyTown.Tests.EditMode.Save
                 string path = Path.Combine(directory, "main.json");
                 File.WriteAllText(path, LegacyV2BeforeMorning);
                 byte[] originalBytes = File.ReadAllBytes(path);
+                Assert.That(new JsonFileSaveStorage(path).Load("main").Value.SourceSchemaVersion, Is.EqualTo(2));
                 CozyTownServices services = CozyTownCompositionRoot.CreateDefault();
                 var coordinator = CreateCoordinator(services, new JsonFileSaveStorage(path));
 
@@ -277,7 +278,8 @@ namespace CozyTown.Tests.EditMode.Save
                 services.EconomyState,
                 services.Farm,
                 services.Livestock,
-                storage);
+                storage,
+                legacyNpcDefaults: DefaultMvpContent.CreateConfiguration().InitialNpcEconomy);
         }
     }
 }
